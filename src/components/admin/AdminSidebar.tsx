@@ -1,0 +1,227 @@
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+
+// MUI imports
+import {
+  List,
+  Drawer,
+  styled,
+  Divider,
+  ListItem,
+  IconButton,
+  CssBaseline,
+  ListItemIcon,
+  ListItemText,
+  ListItemButton,
+} from "@mui/material";
+import { Theme, makeStyles } from "@material-ui/core/styles";
+// Types imports
+import { SidebarProps } from "@/models/AdminSidebar";
+// Static imports
+import { drawerWidth } from "@/static/commonVariables";
+// Icons imports
+import MenuIconOpen from "@/assets/Icons/admin/sidebar/MenuIconOpen";
+import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
+import AccountCircleIcon from "@/assets/Icons/admin/sidebar/AccountCircleIcon";
+import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
+import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
+
+const useStyles = makeStyles({
+  imageCenter: {
+    justifyContent: "center",
+    width: "100%",
+  },
+
+  textSize: {
+    fontSize: "14px",
+    fontFamily: "Poppins !important",
+  },
+
+  drawer: {
+    background: "#023963",
+    height: "100%",
+  },
+});
+
+const openedMixin = (theme: Theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme: Theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const MyDrawer = styled(Drawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }: any) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+const DrawerFooter = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  position: "absolute",
+  bottom: 0,
+}));
+
+const Sidebar = ({
+  openSidebar,
+  setOpenSidebar,
+  onRouteChange,
+}: SidebarProps) => {
+
+  const classes = useStyles();
+
+  const pathname = usePathname();
+
+  const sidebarItems = [
+    {
+      module: "Client Management",
+      link: "/admin/clientmanagement",
+      icon: pathname === "/admin/clientmanagement" ? <AccountCircleIcon fill="#FFFFFF"/> : <AccountCircleIcon fill="#D8D8D8"/>,
+    },
+  
+    {
+      module: "User Management",
+      link: "/admin/usermanagement",
+      icon: pathname === "/admin/usermanagement" ? <UserManageIcon fill="#FFFFFF" /> : <UserManageIcon fill="#D8D8D8" />,
+    },
+    {
+      module: "Settings",
+      link: "/admin/settings",
+      icon: pathname === "/admin/settings" ? <SettingsIcon fill="#FFFFFF"/> : <SettingsIcon fill="#D8D8D8"/>,
+    },
+  ];
+
+  const [isOpen, setIsopen] = useState<boolean>(
+    pathname === "/admin/setting" || pathname === "/admin/audit" ? true : false
+  );
+
+  return (
+    <>
+      <CssBaseline />
+      <MyDrawer
+        classes={{ paper: classes.drawer }}
+        className="z-0"
+        variant="permanent"
+        open={openSidebar}
+      >
+        <List>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 80,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {openSidebar ? (
+                <Image
+                  alt="logo1"
+                  src={"/PABS.png"}
+                  width={100}
+                  height={100}
+                />
+              ) : (
+                <Image
+                  alt="logo"
+                  src={"/PABS.png"}
+                  width={80}
+                  height={80}
+                />
+              )}
+            </ListItemButton>
+          </ListItem>
+        </List>
+
+        {sidebarItems.map((item, index) => (
+          <div key={index}>
+            <List
+              className={`flex items-center my-1 mx-2 p-0 ${
+                pathname === item.link ? "!bg-[#212121] !rounded-full !bg-opacity-10" : "transparent"
+              }`}
+            >
+              <Link href={item.link} passHref key={item.module}>
+                <ListItemButton
+                  onClick={() => {
+                    item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
+                  }}
+                  className={`sidebar-custom ${
+                    pathname === item.link ? "activeLabel" : "transparent"
+                  }`}
+                  sx={{
+                    height: 40,
+                    justifyContent: openSidebar ? "initial" : "center",
+                    px: 1.5,
+                    py: 2,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: openSidebar ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+
+                  <ListItemText
+                    classes={{ primary: classes.textSize }}
+                    primary={item.module}
+                    sx={{
+                      opacity: openSidebar ? 1 : 0,
+                      color:  pathname === item.link ? "#FFFFFF":"#D8D8D8",
+                    }}
+                  />
+
+                </ListItemButton>
+              </Link>
+            </List>
+
+          </div>
+        ))}
+
+        <DrawerFooter>
+          <Divider sx={{ mb: 1 }} />
+          <IconButton onClick={() => setOpenSidebar(!openSidebar)}>
+            {openSidebar ? <MenuIconOpen /> : <MenuIconClose />}
+          </IconButton>
+        </DrawerFooter>
+      </MyDrawer>
+    </>
+  );
+};
+
+export default Sidebar;
