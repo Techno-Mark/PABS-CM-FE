@@ -77,7 +77,7 @@ function Page() {
       setLoading(false);
       return;
     } else {
-      router.push("/auth/createpassword");
+      router.push("/auth/createpassword/{token}");
       setLoading(false);
       return;
     }
