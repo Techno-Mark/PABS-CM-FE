@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 // MUI imports
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Page() {
+function SetNewPassword() {
   const classes = useStyles();
   const router = useRouter();
   const initialFieldStringValues = {
@@ -64,46 +63,78 @@ function Page() {
   };
 
   const handleNewPasswordChange = (e: any) => {
-    if (e.target.value.trim().length === 0) {
-      setNewPassword({
-        ...initialFieldStringValues,
-        value: e.target.value,
-        error: true,
-        errorText: "This field is Required",
-      });
+    const newPassword = e.target.value.trim();
+    let error = false;
+    let errorText = "";
+
+    if (newPassword.length === 0) {
+      error = true;
+      errorText = "This field is required";
+    } else if (newPassword.length < 8) {
+      error = true;
+      errorText = "Password must be at least 8 characters long";
+    } else if (!/[A-Z]/.test(newPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 uppercase letter";
+    } else if (!/[a-z]/.test(newPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 lowercase letter";
+    } else if (!/\d/.test(newPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 number";
+    } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(newPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 special character";
     } else {
-      setNewPassword({
-        ...initialFieldStringValues,
-        value: e.target.value,
-        error: false,
-        errorText: "",
-      });
+      error = false;
+      errorText = "";
     }
+
+    setNewPassword({
+      ...initialFieldStringValues,
+      value: newPassword,
+      error: error,
+      errorText: errorText,
+    });
   };
 
   const handleConfirmPasswordChange = (e: any) => {
-    if (e.target.value.trim().length === 0) {
-      setConfirmPassword({
-        ...initialFieldStringValues,
-        value: e.target.value,
-        error: true,
-        errorText: "This field is Required",
-      });
-    } else if (newPassword.value !== confirmPassword.value) {
-      setConfirmPassword({
-        ...initialFieldStringValues,
-        value: e.target.value,
-        error: true,
-        errorText: "Password not match",
-      });
+    const confirmPassword = e.target.value.trim();
+    let error = false;
+    let errorText = "";
+
+    if (confirmPassword.length === 0) {
+      error = true;
+      errorText = "This field is required";
+    } else if (confirmPassword.length < 8) {
+      error = true;
+      errorText = "Password must be at least 8 characters long";
+    } else if (!/[A-Z]/.test(confirmPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 uppercase letter";
+    } else if (!/[a-z]/.test(confirmPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 lowercase letter";
+    } else if (!/\d/.test(confirmPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 number";
+    } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(confirmPassword)) {
+      error = true;
+      errorText = "Password must contain at least 1 special character";
+    } else if (newPassword.value === confirmPassword) {
+      error = true;
+      errorText = "Password not match";
     } else {
-      setConfirmPassword({
-        ...initialFieldStringValues,
-        value: e.target.value,
-        error: false,
-        errorText: "",
-      });
+      error = false;
+      errorText = "";
     }
+
+    setConfirmPassword({
+      ...initialFieldStringValues,
+      value: confirmPassword,
+      error: error,
+      errorText: errorText,
+    });
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -141,7 +172,7 @@ function Page() {
       setLoading(false);
       return;
     } else {
-      router.push("/admin/createpassword");
+      router.push("/auth/login");
       setLoading(false);
       return;
     }
@@ -246,4 +277,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default SetNewPassword;

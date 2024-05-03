@@ -48,6 +48,10 @@
   color: white !important;
 }
 
+.mainLoader{
+  color: #002641 !important;
+}
+
 .MuiInputBase-root .MuiInput-root .MuiInput-underline::before{
   color: #002641 !important;
 } 
