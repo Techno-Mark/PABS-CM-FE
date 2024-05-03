@@ -16,24 +16,47 @@ import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 import { Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-
 function Page() {
   const columns: GridColDef[] = [
-    { field: "id", headerName: "Sr.No.", width: 100 },
-    { field: "fullName", headerName: "Full Name", flex: 1 },
-    { field: "email", headerName: "Email", flex: 1 },
+    {
+      field: "id",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Sr.No.</span>
+      ),
+      width: 100,
+    },
+    {
+      field: "fullName",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Full Name</span>
+      ),
+      flex: 1,
+    },
+    {
+      field: "email",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Email</span>
+      ),
+      flex: 1,
+    },
     {
       field: "role",
-      headerName: "Role",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Role</span>
+      ),
       flex: 1,
     },
     {
       field: "actions",
-      headerName: "Actions",
-      flex: 1,
+      renderHeader: () => (
+        <span className="font-semibold text-[13px] flex justify-end items-end">
+          Actions
+        </span>
+      ),
+      width: 120,
       renderCell: (params) => {
         return (
-          <div className="flex gap-9 justify-center h-full items-center">
+          <div className="flex gap-9 justify-start h-full items-center">
             <Tooltip title="Edit" placement="top" arrow>
               <span
                 className="cursor-pointer"
@@ -68,9 +91,11 @@ function Page() {
             <span className="m-3 flex items-center">
               <SearchIcon />
             </span>
-            <span className="text-[#A2A3A4] p-2 flex items-center text-[13px]">
-              Search
-            </span>
+            <input
+              type="text"
+              placeholder="Search"
+              className="p-2 flex items-center text-[13px] outline-none"
+            />
           </div>
           <div className="flex gap-5">
             <Tooltip title="Filter" placement="top" arrow>

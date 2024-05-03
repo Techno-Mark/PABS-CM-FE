@@ -17,7 +17,11 @@ import { Theme, makeStyles } from "@material-ui/core/styles";
 // Types imports
 import { DrawerProps } from "@/models/UserManage";
 // Static data imports
-import { businessTypeOption, userRoles } from "@/static/usermanage";
+import {
+  businessTypeOption,
+  statusOption,
+  userRoles,
+} from "@/static/usermanage";
 import { formDrawerWidth } from "@/static/commonVariables";
 // Icons imports
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
@@ -116,16 +120,31 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
     ...initialFieldStringValues,
     value: "-1",
   });
+  const [status, setStatus] = useState<StringFieldType>({
+    ...initialFieldStringValues,
+    value: "-1",
+  });
+
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const handleUserFullNameChange = (e: { target: { value: string } }) => {
+    const specialCharsRegex = /[^\w\s-]/;
     if (e.target.value.trim().length === 0) {
       setUserFullName({
         ...initialFieldStringValues,
         value: e.target.value,
         error: true,
         errorText: "This field is Required",
+      });
+    } else if (e.target.value.trim().length > 50) {
+      return;
+    } else if (specialCharsRegex.test(e.target.value)) {
+      setUserFullName({
+        ...initialFieldStringValues,
+        value: e.target.value,
+        error: true,
+        errorText: "Special characters are not allowed",
       });
     } else {
       setUserFullName({
@@ -145,6 +164,8 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
         error: true,
         errorText: "This field is required",
       });
+    } else if (e.target.value.trim().length > 254) {
+      return;
     } else if (
       !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(e.target.value.trim())
     ) {
@@ -199,6 +220,24 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
     }
   };
 
+  const handleStatusChange = (e: { target: { value: string } }) => {
+    if (e.target.value.trim().length === 0 || e.target.value === "-1") {
+      setStatus({
+        ...initialFieldStringValues,
+        value: "-1",
+        error: true,
+        errorText: "This field is Required",
+      });
+    } else {
+      setStatus({
+        ...initialFieldStringValues,
+        value: e.target.value,
+        error: false,
+        errorText: "",
+      });
+    }
+  };
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
@@ -207,7 +246,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
       if (value.trim().length === 0 || value === "-1") {
         field({
           ...initialFieldStringValues,
-          value:value === "-1" ? "-1" : value,
+          value: value === "-1" ? "-1" : value,
           error: true,
           errorText: "This field is required",
         });
@@ -222,16 +261,30 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
       setBusinessType,
       businessType.value
     );
+    const statusError = validateAndSetField(setStatus, status.value);
     const userFullNameError = validateAndSetField(
       setUserFullName,
       userFullName.value
     );
 
-    if (emailError || userFullNameError || roleError || businessTypeError) {
-      setLoading(false);
+    if (canEdit) {
+      if (userFullNameError || statusError) {
+        setLoading(false);
+      } else {
+        setTimeout(() => {
+          console.log("success");
+          setLoading(false);
+        }, 2000);
+      }
     } else {
-      console.log("success");
-      setLoading(true);
+      if (emailError || userFullNameError || roleError || businessTypeError) {
+        setLoading(false);
+      } else {
+        setTimeout(() => {
+          console.log("success");
+          setLoading(false);
+        }, 2000);
+      }
     }
   };
 
@@ -246,7 +299,10 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
         open={openDrawer}
       >
         <div className="p-5 top-0 flex justify-between">
-          <span className="font-bold text-[18px]"> {canEdit ? "Edit":"Add"} User</span>
+          <span className="font-bold text-[18px]">
+            {" "}
+            {canEdit ? "Edit" : "Add"} User
+          </span>
           <Tooltip title="Close" placement="bottom" arrow>
             <span
               className="flex items-center cursor-pointer"
@@ -288,14 +344,15 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
               size="small"
               placeholder="Please Enter Email"
               value={email.value}
-              error={email.error}
-              helperText={email.errorText}
+              error={email.error && !canEdit}
+              helperText={email.errorText && !canEdit ? email.errorText : ""}
               onChange={handleEmailChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
                 },
               }}
+              disabled={canEdit}
             />
           </div>
           <div className="text-[12px] flex flex-col pb-5">
@@ -312,8 +369,9 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                     : "!text-[14px]"
                 }`}
                 value={role.value}
-                error={role.error}
+                error={role.error && !canEdit}
                 onChange={handleRoleChange}
+                disabled={canEdit}
               >
                 {userRoles.map((role) => (
                   <MenuItem
@@ -325,11 +383,45 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                   </MenuItem>
                 ))}
               </Select>
-              {role.error && (
+              {role.error && !canEdit && (
                 <span className="text-[#d32f2f]">{role.errorText}</span>
               )}
             </FormControl>
           </div>
+          {canEdit && (
+            <div className="text-[12px] flex flex-col pb-5">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Select Status<span className="text-[#DC3545]">*</span>
+              </label>
+              <FormControl variant="standard">
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  className={`${
+                    status.value === "-1"
+                      ? "!text-[12px] text-[#6E6D7A]"
+                      : "!text-[14px]"
+                  }`}
+                  value={status.value}
+                  error={status.error}
+                  onChange={handleStatusChange}
+                >
+                  {statusOption.map((type) => (
+                    <MenuItem
+                      key={type.value}
+                      value={type.value}
+                      disabled={type.value === "-1"}
+                    >
+                      {type.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {status.error && (
+                  <span className="text-[#d32f2f]">{status.errorText}</span>
+                )}
+              </FormControl>
+            </div>
+          )}
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
               Select Business Type<span className="text-[#DC3545]">*</span>
@@ -344,8 +436,9 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                     : "!text-[14px]"
                 }`}
                 value={businessType.value}
-                error={businessType.error}
+                error={businessType.error && !canEdit}
                 onChange={handleBusinessTypeChange}
+                disabled={canEdit}
               >
                 {businessTypeOption.map((type) => (
                   <MenuItem
@@ -357,7 +450,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                   </MenuItem>
                 ))}
               </Select>
-              {businessType.error && (
+              {businessType.error && !canEdit && (
                 <span className="text-[#d32f2f]">{businessType.errorText}</span>
               )}
             </FormControl>
