@@ -148,14 +148,14 @@ const Sidebar = ({
             >
               {openSidebar ? (
                 <Image
-                  alt="logo1"
+                  alt="openSidebar_PABS_Logo"
                   src={"/PABS.png"}
                   width={100}
                   height={100}
                 />
               ) : (
                 <Image
-                  alt="logo"
+                  alt="closeSidebar_PABS_Logo"
                   src={"/PABS.png"}
                   width={80}
                   height={80}
