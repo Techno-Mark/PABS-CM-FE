@@ -16,7 +16,6 @@ import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 import { Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-
 function Page() {
   const columns: GridColDef[] = [
     { field: "id", headerName: "Sr.No.", width: 100 },

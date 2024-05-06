@@ -18,6 +18,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
+import { login } from "@/api/auth/auth";
 
 const useStyles = makeStyles((theme) => ({
   underline: {
@@ -78,7 +79,7 @@ function Page() {
     const password = e.target.value.trim();
     let error = false;
     let errorText = "";
-  
+
     if (password.length === 0) {
       error = true;
       errorText = "This field is required";
@@ -97,11 +98,11 @@ function Page() {
     } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(password)) {
       error = true;
       errorText = "Password must contain at least 1 special character";
-    }else{
+    } else {
       error = false;
       errorText = "";
     }
-  
+
     setPassword({
       ...initialFieldStringValues,
       value: password,
@@ -133,6 +134,12 @@ function Page() {
       setLoading(false);
       return;
     } else {
+      // const result = await login(username.value, password.value);
+      // if (result.message == "success") {
+      //   console.log("Login successful. Received data:", result);
+      // } else {
+      //    console.log("Please try again. Received data:", result);
+      // }
       setTimeout(() => {
         router.push("/admin/usermanagement");
         setLoading(false);

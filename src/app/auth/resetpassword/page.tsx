@@ -8,6 +8,7 @@ import { Button, CircularProgress, TextField } from "@mui/material";
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
 import BackIcon from "@/assets/Icons/BackIcon";
+import { resetPassword } from "@/api/auth/auth";
 
 const useStyles = makeStyles((theme) => ({
   underline: {
@@ -77,6 +78,12 @@ function Page() {
       setLoading(false);
       return;
     } else {
+      // const result = await resetPassword(email.value);
+      // if (result.message == "success") {
+      //   console.log("Email sent successful. Received data:", result);
+      // } else {
+      //    console.log("Please try again. Received data:", result);
+      // }
       router.push("/auth/login");
       setLoading(false);
       return;
