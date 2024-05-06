@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // MUI Imports
 import {
   Drawer,
@@ -18,13 +18,15 @@ import { Theme, makeStyles } from "@material-ui/core/styles";
 import { DrawerProps } from "@/models/UserManage";
 // Static data imports
 import {
-  businessTypeOption,
-  statusOption,
-  userRoles,
+  businessTypeOptionDrawer,
+  statusOptionDrawer,
+  userRolesDrawer,
 } from "@/static/usermanage";
 import { formDrawerWidth } from "@/static/commonVariables";
 // Icons imports
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
+import { StringFieldType } from "@/models/common";
+import InActivePopover from "@/app/admin/usermanagement/components/InActivePopover";
 
 const useStyles = makeStyles({
   imageCenter: {
@@ -127,6 +129,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
 
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isInactive, setInactive] = useState<boolean>(false);
 
   const handleUserFullNameChange = (e: { target: { value: string } }) => {
     const specialCharsRegex = /[^\w\s-]/;
@@ -150,8 +153,6 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
       setUserFullName({
         ...initialFieldStringValues,
         value: e.target.value,
-        error: false,
-        errorText: "",
       });
     }
   };
@@ -178,8 +179,6 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
       setEmail({
         ...initialFieldStringValues,
         value: e.target.value,
-        error: false,
-        errorText: "",
       });
     }
   };
@@ -196,8 +195,6 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
       setRole({
         ...initialFieldStringValues,
         value: e.target.value,
-        error: false,
-        errorText: "",
       });
     }
   };
@@ -214,8 +211,6 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
       setBusinessType({
         ...initialFieldStringValues,
         value: e.target.value,
-        error: false,
-        errorText: "",
       });
     }
   };
@@ -228,12 +223,12 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
         error: true,
         errorText: "This field is Required",
       });
+    } else if (e.target.value === "2") {
+      setInactive(true);
     } else {
       setStatus({
         ...initialFieldStringValues,
         value: e.target.value,
-        error: false,
-        errorText: "",
       });
     }
   };
@@ -288,6 +283,14 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
     }
   };
 
+  const handleApplyChange = () => {
+    setStatus({
+      ...initialFieldStringValues,
+      value: "2",
+    });
+    setInactive(false)
+  };
+
   return (
     <>
       <CssBaseline />
@@ -322,7 +325,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter Client Full Name"
+              placeholder="Please Enter User Full Name"
               value={userFullName.value}
               error={userFullName.error}
               helperText={userFullName.errorText}
@@ -373,7 +376,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                 onChange={handleRoleChange}
                 disabled={canEdit}
               >
-                {userRoles.map((role) => (
+                {userRolesDrawer.map((role) => (
                   <MenuItem
                     key={role.value}
                     value={role.value}
@@ -406,7 +409,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                   error={status.error}
                   onChange={handleStatusChange}
                 >
-                  {statusOption.map((type) => (
+                  {statusOptionDrawer.map((type) => (
                     <MenuItem
                       key={type.value}
                       value={type.value}
@@ -440,7 +443,7 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
                 onChange={handleBusinessTypeChange}
                 disabled={canEdit}
               >
-                {businessTypeOption.map((type) => (
+                {businessTypeOptionDrawer.map((type) => (
                   <MenuItem
                     key={type.value}
                     value={type.value}
@@ -482,6 +485,14 @@ const UserDrawer = ({ openDrawer, setOpenDrawer, canEdit }: DrawerProps) => {
           </div>
         </DrawerFooter>
       </MyDrawer>
+
+      {isInactive && (
+        <InActivePopover
+          isOpen={isInactive}
+          handleApply={handleApplyChange}
+          setIsOpen={(value) => setInactive(value)}
+        />
+      )}
     </>
   );
 };

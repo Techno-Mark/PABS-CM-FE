@@ -15,6 +15,7 @@ import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
 import { Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import DeletePopover from "./components/DeletePopover";
 
 function Page() {
   const columns: GridColDef[] = [
@@ -69,7 +70,10 @@ function Page() {
               </span>
             </Tooltip>
             <Tooltip title="Delete" placement="top" arrow>
-              <span>
+              <span
+                className="cursor-pointer"
+                onClick={() => setOpenDelete(true)}
+              >
                 <DeleteIcon />
               </span>
             </Tooltip>
@@ -81,6 +85,7 @@ function Page() {
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [openEdit, setEdit] = useState<boolean>(false);
 
   return (
@@ -146,6 +151,13 @@ function Page() {
           <FilterPopover
             isOpen={openFilter}
             setIsOpen={(value) => setOpenFilter(value)}
+          />
+        )}
+
+        {openDelete && (
+          <DeletePopover
+            isOpen={openDelete}
+            setIsOpen={(value) => setOpenDelete(value)}
           />
         )}
         <DrawerOverlay isOpen={openDrawer} />

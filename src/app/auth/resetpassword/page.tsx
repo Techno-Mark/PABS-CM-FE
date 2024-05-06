@@ -8,6 +8,7 @@ import { Button, CircularProgress, TextField } from "@mui/material";
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
 import BackIcon from "@/assets/Icons/BackIcon";
+import { StringFieldType } from "@/models/common";
 
 const useStyles = makeStyles((theme) => ({
   underline: {

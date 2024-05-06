@@ -28,7 +28,7 @@ function UserIcon() {
         height="29.5"
         rx="14.75"
         stroke="black"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <defs>
         <clipPath id="clip0_158_10649">

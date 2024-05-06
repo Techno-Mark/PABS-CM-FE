@@ -15,6 +15,7 @@ import { makeStyles } from "@mui/styles";
 // Icons imports
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
+import { StringFieldType } from "@/models/common";
 
 const useStyles = makeStyles((theme) => ({
   underline: {
