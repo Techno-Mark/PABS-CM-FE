@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 // MUI imports
 import {
+  Autocomplete,
   Box,
   Button,
+  Checkbox,
   CircularProgress,
   Divider,
-  FormControl,
-  MenuItem,
   Modal,
-  Select,
+  TextField,
   Tooltip,
 } from "@mui/material";
 // Types imports
-import { FilterProps } from "@/models/UserManage";
+import { ModalProps, Option } from "@/models/UserManage";
 // Icons imports
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 // Static data imports
 import {
   businessTypeOption,
@@ -33,24 +35,27 @@ const style = {
   boxShadow: 24,
 };
 
-function FilterPopover({ isOpen, setIsOpen }: FilterProps) {
+function FilterPopover({ isOpen, setIsOpen }: ModalProps) {
   const handleClose = () => setIsOpen(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>("-1");
-  const [businessType, setBusinessType] = useState<string>("-1");
-  const [status, setStatus] = useState<string>("-1");
+  const [role, setRole] = useState<Option[]>([]);
+  const [businessType, setBusinessType] = useState<Option[]>([]);
+  const [status, setStatus] = useState<Option[]>([]);
 
-  const handleRoleChange = (e: { target: { value: string } }) => {
-    setRole(e.target.value);
+  const handleRoleChange = (event: React.ChangeEvent<{}>, newValues: Option[]) => {
+    setRole(newValues);
   };
 
-  const handleBusinessTypeChange = (e: { target: { value: string } }) => {
-    setBusinessType(e.target.value);
+ const handleBusinessTypeChange = (event: React.ChangeEvent<{}>, newValues: Option[]) => {
+    setBusinessType(newValues);
   };
 
-  const handleStatusChange = (e: { target: { value: string } }) => {
-    setStatus(e.target.value);
+  const handleStatusChange = (event: React.ChangeEvent<{}>, newValues: Option[]) => {
+    setStatus(newValues);
   };
+
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   return (
     <Modal
@@ -73,86 +78,96 @@ function FilterPopover({ isOpen, setIsOpen }: FilterProps) {
         <Divider />
         <div className="p-5 h-[calc(100%-143px)]">
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">
-              Select Role<span className="text-[#DC3545]">*</span>
-            </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  role === "-1" ? "!text-[12px] text-[#6E6D7A]" : "!text-[14px]"
-                }`}
-                value={role}
-                onChange={handleRoleChange}
-              >
-                {userRoles.map((role) => (
-                  <MenuItem
-                    key={role.value}
-                    value={role.value}
-                    disabled={role.value === "-1"}
-                  >
-                    {role.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <label className="text-[#6E6D7A] text-[12px]">Select Role</label>
+            <Autocomplete
+              multiple
+              id="checkboxes-tags-demo"
+              options={userRoles}
+              value={role}
+              disableCloseOnSelect
+              onChange={handleRoleChange}
+              getOptionLabel={(option) => option.label}
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.label}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  placeholder="Please Select"
+                />
+              )}
+            />
           </div>
           <div className="text-[12px] flex flex-col py-5">
-            <label className="text-[#6E6D7A] text-[12px]">
-              Select Status<span className="text-[#DC3545]">*</span>
-            </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  status === "-1"
-                    ? "!text-[12px] text-[#6E6D7A]"
-                    : "!text-[14px]"
-                }`}
-                value={status}
-                onChange={handleStatusChange}
-              >
-                {statusOption.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === "-1"}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <label className="text-[#6E6D7A] text-[12px]">Select Status</label>
+            <Autocomplete
+              multiple
+              id="checkboxes-tags-demo"
+              options={statusOption}
+              value={status}
+              onChange={handleStatusChange}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option.label}
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.label}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  placeholder="Please Select"
+                />
+              )}
+            />
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Select Business Type<span className="text-[#DC3545]">*</span>
+              Select Business Type
             </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  businessType === "-1"
-                    ? "!text-[12px] text-[#6E6D7A]"
-                    : "!text-[14px]"
-                }`}
-                value={businessType}
-                onChange={handleBusinessTypeChange}
-              >
-                {businessTypeOption.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === "-1"}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <Autocomplete
+              multiple
+              id="checkboxes-tags-demo"
+              options={businessTypeOption}
+              value={businessType}
+              onChange={handleBusinessTypeChange}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option.label}
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.label}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  placeholder="Please Select"
+                />
+              )}
+            />
           </div>
         </div>
         <Divider />

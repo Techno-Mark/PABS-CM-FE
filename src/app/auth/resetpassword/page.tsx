@@ -9,6 +9,7 @@ import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
 import BackIcon from "@/assets/Icons/BackIcon";
 import { resetPassword } from "@/api/auth/auth";
+import { StringFieldType } from "@/models/common";
 
 const useStyles = makeStyles((theme) => ({
   underline: {
