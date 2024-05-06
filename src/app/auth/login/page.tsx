@@ -18,6 +18,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
+// common imports
+import { StringFieldType } from "@/models/common";
 
 const useStyles = makeStyles((theme) => ({
   underline: {
