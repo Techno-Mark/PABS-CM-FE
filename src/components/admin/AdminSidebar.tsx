@@ -16,7 +16,7 @@ import {
   ListItemText,
   ListItemButton,
 } from "@mui/material";
-import { Theme, makeStyles } from "@material-ui/core/styles";
+import { Theme } from "@material-ui/core/styles";
 // Types imports
 import { SidebarProps } from "@/models/AdminSidebar";
 // Static imports
@@ -27,23 +27,8 @@ import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
 import AccountCircleIcon from "@/assets/Icons/admin/sidebar/AccountCircleIcon";
 import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
-
-const useStyles = makeStyles({
-  imageCenter: {
-    justifyContent: "center",
-    width: "100%",
-  },
-
-  textSize: {
-    fontSize: "14px",
-    fontFamily: "Poppins !important",
-  },
-
-  drawer: {
-    background: "#023963",
-    height: "100%",
-  },
-});
+// utlis imports
+import { useStyles } from "@/utils/useStyles";
 
 const openedMixin = (theme: Theme) => ({
   width: drawerWidth,
@@ -100,27 +85,35 @@ const Sidebar = ({
   setOpenSidebar,
   onRouteChange,
 }: SidebarProps) => {
-
   const classes = useStyles();
 
   const pathname = usePathname();
+
+  const getIcon = (
+    pathname: string,
+    activePath: string,
+    IconComponent: React.ComponentType<{ fill: string }>
+  ) => {
+    const isActive = pathname === activePath;
+    const fillColor = isActive ? "#FFFFFF" : "#D8D8D8";
+    return <IconComponent fill={fillColor} />;
+  };
 
   const sidebarItems = [
     {
       module: "Client Management",
       link: "/admin/clientmanagement",
-      icon: pathname === "/admin/clientmanagement" ? <AccountCircleIcon fill="#FFFFFF"/> : <AccountCircleIcon fill="#D8D8D8"/>,
+      icon: getIcon(pathname, "/admin/clientmanagement", AccountCircleIcon),
     },
-  
     {
       module: "User Management",
       link: "/admin/usermanagement",
-      icon: pathname === "/admin/usermanagement" ? <UserManageIcon fill="#FFFFFF" /> : <UserManageIcon fill="#D8D8D8" />,
+      icon: getIcon(pathname, "/admin/usermanagement", UserManageIcon),
     },
     {
       module: "Settings",
       link: "/admin/settings",
-      icon: pathname === "/admin/settings" ? <SettingsIcon fill="#FFFFFF"/> : <SettingsIcon fill="#D8D8D8"/>,
+      icon: getIcon(pathname, "/admin/settings", SettingsIcon),
     },
   ];
 
@@ -146,21 +139,12 @@ const Sidebar = ({
                 justifyContent: "center",
               }}
             >
-              {openSidebar ? (
-                <Image
-                  alt="logo1"
-                  src={"/PABS.png"}
-                  width={100}
-                  height={100}
-                />
-              ) : (
-                <Image
-                  alt="logo"
-                  src={"/PABS.png"}
-                  width={80}
-                  height={80}
-                />
-              )}
+              <Image
+                alt="PABS_Logo"
+                src={"/PABS.png"}
+                width={openSidebar ? 100 : 80}
+                height={openSidebar ? 100 : 80}
+              />
             </ListItemButton>
           </ListItem>
         </List>
@@ -169,7 +153,9 @@ const Sidebar = ({
           <div key={index}>
             <List
               className={`flex items-center my-1 mx-2 p-0 ${
-                pathname === item.link ? "!bg-[#212121] !rounded-full !bg-opacity-10" : "transparent"
+                pathname === item.link
+                  ? "!bg-[#212121] !rounded-full !bg-opacity-10"
+                  : "transparent"
               }`}
             >
               <Link href={item.link} passHref key={item.module}>
@@ -198,21 +184,18 @@ const Sidebar = ({
                   </ListItemIcon>
 
                   <ListItemText
-                    classes={{ primary: classes.textSize }}
+                   classes={{ primary: classes.textSize }}
                     primary={item.module}
                     sx={{
                       opacity: openSidebar ? 1 : 0,
-                      color:  pathname === item.link ? "#FFFFFF":"#D8D8D8",
+                      color: pathname === item.link ? "#FFFFFF" : "#D8D8D8",
                     }}
                   />
-
                 </ListItemButton>
               </Link>
             </List>
-
           </div>
         ))}
-
         <DrawerFooter>
           <Divider sx={{ mb: 1 }} />
           <IconButton onClick={() => setOpenSidebar(!openSidebar)}>

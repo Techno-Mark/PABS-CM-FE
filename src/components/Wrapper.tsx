@@ -13,7 +13,6 @@ type WrapperPropsType = {
 
 const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
   const [openSidebar, setOpenSidebar] = useState(true);
-  const [loading, setLoading] = useState<boolean>(false);
 
     return (
       <>

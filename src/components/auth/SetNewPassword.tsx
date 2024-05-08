@@ -10,22 +10,15 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 // Icons imports
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
 import { StringFieldType } from "@/models/common";
-
-const useStyles = makeStyles((theme) => ({
-  underline: {
-    "&:after": {
-      borderBottom: "0.5px solid #023963",
-    },
-    "& .MuiInputBase-input": {
-      borderColor: "#023963",
-    },
-  },
-}));
+// utlis imports
+import { useStyles } from "@/utils/useStyles";
+import { passwordChange } from "@/api/auth/auth";
+import { showToast } from "../ToastContainer";
+import { ToastType } from "@/static/toastType";
 
 function SetNewPassword() {
   const classes = useStyles();
@@ -47,6 +40,9 @@ function SetNewPassword() {
     useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;?/>,.<]).{8,}$/;
+
   const handleClickShowNewPassword = () => setShowNewPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
@@ -63,32 +59,18 @@ function SetNewPassword() {
     event.preventDefault();
   };
 
-  const handleNewPasswordChange = (e: any) => {
+  const handleNewPasswordChange = (e: { target: { value: string } }) => {
     const newPassword = e.target.value.trim();
     let error = false;
     let errorText = "";
 
     if (newPassword.length === 0) {
       error = true;
-      errorText = "This field is required";
-    } else if (newPassword.length < 8) {
+      errorText = "Confirm Password is required";
+    } else if (!passwordRegex.test(newPassword)) {
       error = true;
-      errorText = "Password must be at least 8 characters long";
-    } else if (!/[A-Z]/.test(newPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 uppercase letter";
-    } else if (!/[a-z]/.test(newPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 lowercase letter";
-    } else if (!/\d/.test(newPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 number";
-    } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(newPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 special character";
-    } else {
-      error = false;
-      errorText = "";
+      errorText =
+        "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
     }
 
     setNewPassword({
@@ -99,35 +81,18 @@ function SetNewPassword() {
     });
   };
 
-  const handleConfirmPasswordChange = (e: any) => {
+  const handleConfirmPasswordChange = (e: { target: { value: string } }) => {
     const confirmPassword = e.target.value.trim();
     let error = false;
     let errorText = "";
 
     if (confirmPassword.length === 0) {
       error = true;
-      errorText = "This field is required";
-    } else if (confirmPassword.length < 8) {
+      errorText = "Confirm Password is required";
+    } else if (!passwordRegex.test(confirmPassword)) {
       error = true;
-      errorText = "Password must be at least 8 characters long";
-    } else if (!/[A-Z]/.test(confirmPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 uppercase letter";
-    } else if (!/[a-z]/.test(confirmPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 lowercase letter";
-    } else if (!/\d/.test(confirmPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 number";
-    } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(confirmPassword)) {
-      error = true;
-      errorText = "Password must contain at least 1 special character";
-    } else if (newPassword.value === confirmPassword) {
-      error = true;
-      errorText = "Password not match";
-    } else {
-      error = false;
-      errorText = "";
+      errorText =
+        "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
     }
 
     setConfirmPassword({
@@ -162,7 +127,7 @@ function SetNewPassword() {
       hasError = true;
     } else if (newPassword.value !== confirmPassword.value) {
       setConfirmPassword({
-        ...initialFieldStringValues,
+        value:confirmPassword.value,
         error: true,
         errorText: "Password not match",
       });
@@ -173,6 +138,14 @@ function SetNewPassword() {
       setLoading(false);
       return;
     } else {
+      // const result = await passwordChange(newPassword.value, confirmPassword.value);
+      // if (result.message == "success") {
+      //   showToast("Password Changed successfuly", ToastType.Success);
+      //   console.log("Login successful. Received data:", result);
+      // } else {
+      //   showToast("Please try again", ToastType.Error);
+      //   console.log("Please try again. Received data:", result);
+      // }
       router.push("/auth/login");
       setLoading(false);
       return;

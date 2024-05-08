@@ -34,3 +34,21 @@ export const resetPassword = async (email:string) => {
     console.log(error)
   }
 };
+
+export const passwordChange = async (newpassword:string,confirmPassword:string) => {
+  try {
+    const response = await axios.post(`${process.env.API_URL}/newPassword`, {
+        newPassword: newpassword,
+        confirmPassword: confirmPassword
+      }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+        return response.data;
+    }
+  } catch (error) {
+    console.log(error)
+  }
+};

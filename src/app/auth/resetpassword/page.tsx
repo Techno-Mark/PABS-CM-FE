@@ -2,25 +2,15 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 // MUI imports
-import { makeStyles } from "@mui/styles";
 import { Button, CircularProgress, TextField } from "@mui/material";
 // Icons imports
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
 import BackIcon from "@/assets/Icons/BackIcon";
-import { resetPassword } from "@/api/auth/auth";
 import { StringFieldType } from "@/models/common";
-
-const useStyles = makeStyles((theme) => ({
-  underline: {
-    "&:after": {
-      borderBottom: "0.5px solid #023963",
-    },
-    "& .MuiInputBase-input": {
-      borderColor: "#023963",
-    },
-  },
-}));
+import { ToastContainer, showToast } from "@/components/ToastContainer";
+// utlis imports
+import { useStyles } from "@/utils/useStyles";
 
 function Page() {
   const classes = useStyles();
@@ -81,8 +71,10 @@ function Page() {
     } else {
       // const result = await resetPassword(email.value);
       // if (result.message == "success") {
+      // showToast("Email sent successfuly", ToastType.Success);
       //   console.log("Email sent successful. Received data:", result);
       // } else {
+      //   showToast("Please try again")
       //    console.log("Please try again. Received data:", result);
       // }
       router.push("/auth/login");
@@ -93,6 +85,7 @@ function Page() {
 
   return (
     <div className="flex justify-center items-center w-full h-screen bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
+      <ToastContainer />
       <div className="relative flex h-[80%] w-[70%]">
         <div className="w-[50%] flex justify-center items-center borderClass bg-[#002641]">
           <span className="flex absolute">

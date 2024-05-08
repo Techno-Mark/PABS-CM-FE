@@ -12,26 +12,17 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 // Icons imports
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
 import PABSIcon from "@/assets/Icons/PABSIcon";
-import { login } from "@/api/auth/auth";
 // common imports
 import { StringFieldType } from "@/models/common";
-
-const useStyles = makeStyles((theme) => ({
-  underline: {
-    "&:after": {
-      borderBottom: "0.5px solid #023963",
-    },
-    "& .MuiInputBase-input": {
-      borderColor: "#023963",
-    },
-  },
-}));
+import { ToastContainer, showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+// utlis imports
+import { useStyles } from "@/utils/useStyles";
 
 function Page() {
   const classes = useStyles();
@@ -77,32 +68,19 @@ function Page() {
     }
   };
 
-  const handlePasswordChange = (e: any) => {
+  const handlePasswordChange = (e: { target: { value: string } }) => {
     const password = e.target.value.trim();
     let error = false;
     let errorText = "";
 
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;?/>,.<]).{8,}$/;
+
     if (password.length === 0) {
-      error = true;
-      errorText = "This field is required";
-    } else if (password.length < 8) {
-      error = true;
-      errorText = "Password must be at least 8 characters long";
-    } else if (!/[A-Z]/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 uppercase letter";
-    } else if (!/[a-z]/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 lowercase letter";
-    } else if (!/\d/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 number";
-    } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 special character";
-    } else {
-      error = false;
-      errorText = "";
+        error = true;
+        errorText = "Password is required";
+    } else if (!passwordRegex.test(password)) {
+        error = true;
+        errorText = "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
     }
 
     setPassword({
@@ -117,7 +95,7 @@ function Page() {
     e.preventDefault();
     setLoading(true);
 
-    const validateAndSetField = (field: any, value: string) => {
+    const validateAndSetField = (field: React.Dispatch<React.SetStateAction<StringFieldType>>, value: string) => {
       if (value.trim().length === 0) {
         field({
           ...initialFieldStringValues,
@@ -138,8 +116,10 @@ function Page() {
     } else {
       // const result = await login(username.value, password.value);
       // if (result.message == "success") {
+      // showToast("Login successfuly", ToastType.Success)
       //   console.log("Login successful. Received data:", result);
       // } else {
+      //  showToast("Please try again", ToastType.Error)
       //    console.log("Please try again. Received data:", result);
       // }
       setTimeout(() => {
@@ -152,6 +132,7 @@ function Page() {
 
   return (
     <div className="flex justify-center items-center w-full h-screen bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
+      <ToastContainer />
       <div className="relative flex h-[80%] w-[70%]">
         <div className="w-[50%] flex justify-center items-center borderClass bg-[#002641]">
           <span className="flex absolute">
