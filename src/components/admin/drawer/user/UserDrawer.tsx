@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // MUI Imports
 import {
   Drawer,
@@ -26,7 +26,7 @@ import { formDrawerWidth } from "@/static/commonVariables";
 // Icons imports
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 import { StringFieldType } from "@/models/common";
-import InActivePopover from "@/app/admin/usermanagement/components/InActivePopover";
+import InActivePopover from "@/components/admin/models/user/InActivePopover";
 
 const useStyles = makeStyles({
   imageCenter: {
