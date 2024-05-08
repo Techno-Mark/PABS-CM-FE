@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import Wrapper from "@/components/Wrapper";
 import UserDrawer from "@/components/admin/drawer/user/UserDrawer";
 import DrawerOverlay from "@/components/DrawerOverlay";
-import FilterPopover from "@/components/admin/models/user/FilterPopover";
-import DeletePopover from "@/components/admin/models/DeletePopover";
+import FilterPopover from "@/components/admin/modals/user/FilterPopover";
+import DeletePopover from "@/components/admin/modals/DeletePopover";
 // Static imports
 import { UserRows } from "@/static/usermanage";
 // Icons imports

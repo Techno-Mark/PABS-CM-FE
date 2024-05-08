@@ -26,7 +26,7 @@ import { formDrawerWidth } from "@/static/commonVariables";
 // Icons imports
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 import { StringFieldType } from "@/models/common";
-import InActivePopover from "@/components/admin/models/user/InActivePopover";
+import InActivePopover from "@/components/admin/modals/user/InActivePopover";
 
 const useStyles = makeStyles({
   imageCenter: {
