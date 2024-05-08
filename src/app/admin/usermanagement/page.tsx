@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import Wrapper from "@/components/Wrapper";
 import UserDrawer from "@/components/admin/drawer/user/UserDrawer";
 import DrawerOverlay from "@/components/DrawerOverlay";
-import FilterPopover from "./components/FilterPopover";
+import FilterPopover from "@/components/admin/modals/user/FilterPopover";
+import DeletePopover from "@/components/admin/modals/DeletePopover";
 // Static imports
 import { UserRows } from "@/static/usermanage";
 // Icons imports
@@ -15,7 +16,6 @@ import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
 import { Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import DeletePopover from "./components/DeletePopover";
 
 function Page() {
   const columns: GridColDef[] = [

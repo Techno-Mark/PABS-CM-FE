@@ -4,13 +4,8 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   styled,
   Toolbar,
-  IconButton,
   AppBar as MuiAppBar,
 } from "@mui/material";
-import {
-  Menu as MenuIcon,
-  PowerSettingsNew as PowerSettingsNewIcon,
-} from "@mui/icons-material";
 // Static data imports
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
@@ -69,20 +64,12 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
         boxShadow: "none !important",
         height: "50px !important",
         width: {
-          sm: openSidebar ? `calc(100% - 200px)` : `calc(100% - 65px)`,
+          sm: openSidebar ? `calc(100% - 224px)` : `calc(100% - 65px)`,
         },
-        ml: { sm: openSidebar ? `200px` : `65px` },
+        ml: { sm: openSidebar ? drawerWidth : `65px` },
       }}
     >
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
-          <MenuIcon />
-        </IconButton>
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
             <span className="!font-bold text-[15px]">
