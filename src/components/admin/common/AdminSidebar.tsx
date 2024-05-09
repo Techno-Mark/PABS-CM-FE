@@ -1,8 +1,7 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
-
 // MUI imports
 import {
   List,
@@ -17,9 +16,9 @@ import {
   ListItemButton,
 } from "@mui/material";
 import { Theme } from "@material-ui/core/styles";
-// Types imports
-import { SidebarProps } from "@/models/AdminSidebar";
-// Static imports
+// Types import
+import { SidebarProps } from "@/models/adminSidebar";
+// Static import
 import { drawerWidth } from "@/static/commonVariables";
 // Icons imports
 import MenuIconOpen from "@/assets/Icons/admin/sidebar/MenuIconOpen";
@@ -27,7 +26,7 @@ import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
 import AccountCircleIcon from "@/assets/Icons/admin/sidebar/AccountCircleIcon";
 import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
-// utlis imports
+// Utlis import
 import { useStyles } from "@/utils/useStyles";
 
 const openedMixin = (theme: Theme) => ({
@@ -125,7 +124,7 @@ const Sidebar = ({
     <>
       <CssBaseline />
       <MyDrawer
-        classes={{ paper: classes.drawer }}
+        classes={{ paper: classes.sidebarDrawer }}
         className="z-0"
         variant="permanent"
         open={openSidebar}
@@ -150,9 +149,9 @@ const Sidebar = ({
         </List>
 
         {sidebarItems.map((item, index) => (
-          <div key={index}>
+          <div key={index} >
             <List
-              className={`flex items-center my-1 mx-2 p-0 ${
+              className={`flex items-center my-1 mx-2 p-0  ${
                 pathname === item.link
                   ? "!bg-[#212121] !rounded-full !bg-opacity-10"
                   : "transparent"
@@ -171,6 +170,10 @@ const Sidebar = ({
                     justifyContent: openSidebar ? "initial" : "center",
                     px: 1.5,
                     py: 2,
+                    "&:hover": {
+                      textDecoration: "none",
+                      backgroundColor: "transparent",
+                    },
                   }}
                 >
                   <ListItemIcon

@@ -12,6 +12,10 @@ export const useStyles = makeStyles({
     background: "#FFFFFF",
     height: "100%",
   },
+  sidebarDrawer: {
+    background: "#023963",
+    height: "100%",
+  },
   underline: {
     "&:after": {
       borderBottom: "0.5px solid #023963",

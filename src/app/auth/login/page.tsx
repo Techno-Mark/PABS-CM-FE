@@ -15,14 +15,14 @@ import {
 // Icons imports
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
-import PABSIcon from "@/assets/Icons/PABSIcon";
-// common imports
+// Types import
 import { StringFieldType } from "@/models/common";
-import { ToastContainer, showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-// utlis imports
+// Utlis import
 import { useStyles } from "@/utils/useStyles";
+// Common import
+import AuthWapper from "@/components/auth/AuthWapper";
+// Api import
+import { loginAPI } from "@/api/auth";
 
 function Page() {
   const classes = useStyles();
@@ -33,7 +33,7 @@ function Page() {
     errorText: "",
   };
 
-  const [username, setUserName] = useState<StringFieldType>(
+  const [email, setEmail] = useState<StringFieldType>(
     initialFieldStringValues
   );
   const [password, setPassword] = useState<StringFieldType>(
@@ -50,41 +50,48 @@ function Page() {
     event.preventDefault();
   };
 
-  const handleUserNameChange = (e: { target: { value: string } }) => {
+  const handleEmailChange = (e: { target: { value: string } }) => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     if (e.target.value.trim().length === 0) {
-      setUserName({
-        ...initialFieldStringValues,
+      setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is Required",
+        errorText: "This field is required",
+      });
+    } else if (
+      !emailRegex.test(e.target.value.trim())
+    ) {
+      setEmail({
+        value: e.target.value,
+        error: true,
+        errorText: "Email is not valid!",
       });
     } else {
-      setUserName({
+      setEmail({
         ...initialFieldStringValues,
-        value: e.target.value,
-        error: false,
-        errorText: "",
+        value: e.target.value
       });
     }
   };
 
   const handlePasswordChange = (e: { target: { value: string } }) => {
-    const password = e.target.value.trim();
+    let password = e.target.value.trim();
     let error = false;
     let errorText = "";
 
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;?/>,.<]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;?/>,.<]).{8,}$/;
 
     if (password.length === 0) {
-        error = true;
-        errorText = "Password is required";
+      error = true;
+      errorText = "Password is required";
     } else if (!passwordRegex.test(password)) {
-        error = true;
-        errorText = "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
+      error = true;
+      errorText =
+        "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
     }
 
     setPassword({
-      ...initialFieldStringValues,
       value: password,
       error: error,
       errorText: errorText,
@@ -95,7 +102,10 @@ function Page() {
     e.preventDefault();
     setLoading(true);
 
-    const validateAndSetField = (field: React.Dispatch<React.SetStateAction<StringFieldType>>, value: string) => {
+    const validateAndSetField = (
+      field: React.Dispatch<React.SetStateAction<StringFieldType>>,
+      value: string
+    ) => {
       if (value.trim().length === 0) {
         field({
           ...initialFieldStringValues,
@@ -107,21 +117,14 @@ function Page() {
       return false;
     };
 
-    const usernameError = validateAndSetField(setUserName, username.value);
+    const usernameError = validateAndSetField(setEmail, email.value);
     const passwordError = validateAndSetField(setPassword, password.value);
 
-    if (usernameError || passwordError) {
+    if (usernameError || passwordError || password.error || email.error) {
       setLoading(false);
       return;
     } else {
-      // const result = await login(username.value, password.value);
-      // if (result.message == "success") {
-      // showToast("Login successfuly", ToastType.Success)
-      //   console.log("Login successful. Received data:", result);
-      // } else {
-      //  showToast("Please try again", ToastType.Error)
-      //    console.log("Please try again. Received data:", result);
-      // }
+    //  const response = loginAPI(email.value,password.value)
       setTimeout(() => {
         router.push("/admin/usermanagement");
         setLoading(false);
@@ -131,96 +134,79 @@ function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
-      <ToastContainer />
-      <div className="relative flex h-[80%] w-[70%]">
-        <div className="w-[50%] flex justify-center items-center borderClass bg-[#002641]">
-          <span className="flex absolute">
-            <PABSIcon />
-          </span>
-          <span className="absolute bottom-[6px] left-[9px] z-1 blur-[5px]">
-            <PABSHalfIcon />
-          </span>
-        </div>
-        <div className="w-[50%] flex flex-col bg-white px-14">
-          <span className="text-[32px] !font-light font-sans pt-24">
-            Welcome
-          </span>
-          <div className="text-[12px] flex flex-col pt-14">
-            <label className="text-[#6E6D7A] text-[14px]">
-              Username<span className="text-[#DC3545]">*</span>
-            </label>
-            <TextField
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Username"
-              value={username.value}
-              error={username.error}
-              helperText={username.errorText}
-              onChange={handleUserNameChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-            />
-          </div>
-          <div className="text-[12px] flex flex-col pt-8">
-            <label className="text-[#6E6D7A] text-[14px]">
-              Password<span className="text-[#DC3545]">*</span>
-            </label>
-            <FormControl variant="standard">
-              <Input
-                classes={{ underline: classes.underline }}
-                id="outlined-adornment-password"
-                placeholder="Password"
-                type={showPassword ? "text" : "password"}
-                onChange={handlePasswordChange}
-                error={password.error}
-                value={password.value}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <span className="text-[#d32f2f]">{password.errorText}</span>
-            </FormControl>
-          </div>
-          <Button
-            onClick={handleSubmit}
-            className={`!bg-[#023963] ${
-              password.error || username.error ? "mt-10" : "mt-14"
-            } text-white !h-[38px] !rounded-md w-full`}
-            variant="contained"
-            disabled={isLoading ? true : false}
-          >
-            {isLoading ? (
-              <CircularProgress size={20} />
-            ) : (
-              <span className="normal-case font-semibold text-[16px]">
-                Log In
-              </span>
-            )}
-          </Button>
-
-          <span
-            className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"
-            onClick={() => router.push("/auth/resetpassword")}
-          >
-            Forget Password ?
-          </span>
-        </div>
+    <AuthWapper>
+      <span className="text-[32px] !font-light font-sans pt-24">Welcome</span>
+      <div className="text-[12px] flex flex-col pt-14">
+        <label className="text-[#6E6D7A] text-[14px]">
+          Email<span className="text-[#DC3545]">*</span>
+        </label>
+        <TextField
+          id="outlined-basic"
+          variant="standard"
+          size="small"
+          placeholder="Please Enter Email Address"
+          value={email.value}
+          error={email.error}
+          helperText={email.errorText}
+          onChange={handleEmailChange}
+          InputProps={{
+            classes: {
+              underline: classes.underline,
+            },
+          }}
+        />
       </div>
-    </div>
+      <div className="text-[12px] flex flex-col pt-8">
+        <label className="text-[#6E6D7A] text-[14px]">
+          Password<span className="text-[#DC3545]">*</span>
+        </label>
+        <FormControl variant="standard">
+          <Input
+            classes={{ underline: classes.underline }}
+            id="outlined-adornment-password"
+            placeholder="Please Enter Password"
+            type={showPassword ? "text" : "password"}
+            onChange={handlePasswordChange}
+            error={password.error}
+            value={password.value}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <span className="text-[#d32f2f]">{password.errorText}</span>
+        </FormControl>
+      </div>
+      <Button
+        onClick={handleSubmit}
+        className={`!bg-[#023963] ${
+          password.error || email.error ? "mt-8" : "mt-14"
+        } text-white !h-[38px] !rounded-md w-full`}
+        variant="contained"
+        disabled={isLoading ? true : false}
+      >
+        {isLoading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <span className="normal-case font-semibold text-[16px]">Log In</span>
+        )}
+      </Button>
+
+      <span
+        className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"
+        onClick={() => router.push("/auth/resetpassword")}
+      >
+        Forget Password?
+      </span>
+    </AuthWapper>
   );
 }
 export default Page;

@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 // Components imports
 import Wrapper from "@/components/Wrapper";
-import UserDrawer from "@/components/admin/drawer/user/UserDrawer";
-import DrawerOverlay from "@/components/DrawerOverlay";
-import FilterPopover from "@/components/admin/modals/user/FilterPopover";
-import DeletePopover from "@/components/admin/modals/DeletePopover";
+import UserDrawer from "@/components/admin/drawer/UserDrawer";
+import UserFilter from "@/components/admin/modals/UserFilter";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
+import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 // Static imports
 import { UserRows } from "@/static/usermanage";
 // Icons imports
@@ -14,7 +14,7 @@ import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
-import { Button, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 function Page() {
@@ -86,82 +86,92 @@ function Page() {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openEdit, setEdit] = useState<boolean>(false);
+
+  const handleDelete = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setOpenDelete(false);
+    }, 2000);
+  };
 
   return (
     <Wrapper>
-      <div className="bg-[#F9FBFF]">
-        <div className="flex justify-between w-full mt-12">
-          <div className="w-[50%] flex h-[36px] border border-[#D8D8D8] rounded-md">
-            <span className="m-3 flex items-center">
-              <SearchIcon />
-            </span>
-            <input
-              type="text"
-              placeholder="Search"
-              className="p-2 flex items-center text-[13px] outline-none"
-            />
-          </div>
-          <div className="flex gap-5">
-            <Tooltip title="Filter" placement="top" arrow>
-              <span
-                className="border-[#023963] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
-                onClick={() => setOpenFilter(true)}
-              >
-                <FilterIcon />
-              </span>
-            </Tooltip>
-            <Button
-              onClick={() => {
-                setOpenDrawer(true);
-                setEdit(false);
-              }}
-              className={`!border-[#023963] text-[#023963] !h-[36px] !rounded-md`}
-              variant="outlined"
+      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
+        <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+          <span className="m-3 flex items-center">
+            <SearchIcon />
+          </span>
+          <input
+            type="text"
+            placeholder="Search"
+            className="p-2 flex items-center text-[13px] outline-none w-full"
+          />
+        </div>
+        <div className="flex gap-5">
+          <Tooltip title="Filter" placement="top" arrow>
+            <span
+              className="border-[#023963] !bg-[#FFFFFF] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
+              onClick={() => setOpenFilter(true)}
             >
-              <span className="normal-case !text-[16px] text-[#023963]">
-                Add User
-              </span>
-            </Button>
-          </div>
-        </div>
-
-        <div className="w-full h-[78vh] mt-5">
-          <DataGrid
-            rows={UserRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
+              <FilterIcon />
+            </span>
+          </Tooltip>
+          <button
+            onClick={() => {
+              setOpenDrawer(true);
+              setEdit(false);
             }}
-            pageSizeOptions={[5, 10]}
-          />
+            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+          >
+            Add User
+          </button>
         </div>
-
-        {openDrawer && (
-          <UserDrawer
-            canEdit={openEdit}
-            openDrawer={openDrawer}
-            setOpenDrawer={(value) => setOpenDrawer(value)}
-          />
-        )}
-
-        {openFilter && (
-          <FilterPopover
-            isOpen={openFilter}
-            setIsOpen={(value) => setOpenFilter(value)}
-          />
-        )}
-
-        {openDelete && (
-          <DeletePopover
-            isOpen={openDelete}
-            setIsOpen={(value) => setOpenDelete(value)}
-          />
-        )}
-        <DrawerOverlay isOpen={openDrawer} />
       </div>
+
+      <div className="w-full h-[78vh] mt-5">
+        <DataGrid
+          rows={UserRows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10]}
+        />
+      </div>
+
+      {openDrawer && (
+        <UserDrawer
+          type="User"
+          canEdit={openEdit}
+          openDrawer={openDrawer}
+          setOpenDrawer={(value) => setOpenDrawer(value)}
+        />
+      )}
+
+      {openFilter && (
+        <UserFilter
+          isOpen={openFilter}
+          setIsOpen={(value) => setOpenFilter(value)}
+        />
+      )}
+
+      {openDelete && (
+        <ConfirmModal
+          title="Delete"
+          isLoading={isLoading}
+          isOpen={openDelete}
+          message="Are you sure you want to delete this user ?"
+          handleModalSubmit={handleDelete}
+          handleClose={() => setOpenDelete(false)}
+          setIsOpen={(value) => setOpenDelete(value)}
+        />
+      )}
+      <DrawerOverlay isOpen={openDrawer} />
     </Wrapper>
   );
 }

@@ -6,11 +6,11 @@ import {
   Toolbar,
   AppBar as MuiAppBar,
 } from "@mui/material";
-// Static data imports
+// Static data import
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
-import { AppBarProps, HeaderPropsType, Option } from "@/models/AdminHeader";
-// Icons
+import { AppBarProps, HeaderPropsType, Option } from "@/models/adminHeader";
+// Icons import
 import UserIcon from "@/assets/Icons/admin/header/UserIcon";
 
 const AppBar = styled(MuiAppBar, {
@@ -90,15 +90,14 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
                 style={{
                   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
                   width: dropDownRef.current?.clientWidth,
-                  position: "absolute",
                   top: 32,
                   right: -5,
                 }}
-                className={`absolute mt-[5px] bg-[#f9f9f9] z-10 ${
+                className={`absolute mt-[5px] bg-[#FFFFFF] ${
                   isOpen ? "block" : "hidden"
                 }`}
               >
-                <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8] overflow-auto">
+                <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
                   {options.map((option) => (
                     <li
                       key={option.id}

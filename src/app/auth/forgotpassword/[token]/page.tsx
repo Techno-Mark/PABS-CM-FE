@@ -1,13 +1,12 @@
 "use client";
 import React from 'react'
-// component imports
-import SetNewPassword from "@/components/auth/SetNewPassword";
 import { useParams } from 'next/navigation';
+// Component import
+import SetNewPassword from "@/components/auth/SetNewPassword";
 
 function Page() {
   const { token } = useParams();
-  // console.log("token : ",token)
-  return <SetNewPassword />
+  return <SetNewPassword token={token}/>
 }
 
 export default Page
