@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
-import { useSearchParams } from "next/navigation";
 // Component import
 import SetNewPassword from "@/components/auth/SetNewPassword";
 
 function Page() {
-  const getToken  = useSearchParams();
-  const tokenData = getToken.get('token')
-  return <SetNewPassword token={tokenData} passwordType="Create"/>
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <SetNewPassword passwordType="Create" />
+    </React.Suspense>
+  );
 }
 
 export default Page;

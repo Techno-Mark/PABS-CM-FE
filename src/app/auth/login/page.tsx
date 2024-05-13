@@ -155,71 +155,82 @@ function Page() {
     }
   };
 
-
   return (
     <AuthWapper>
       <span className="text-[32px] !font-light font-sans pt-24">Welcome</span>
-      <div className={`text-[12px] flex flex-col ${email.error ? "pt-8" : "pt-14"}`}>
-        <label className="text-[#6E6D7A] text-[14px]">
-          Email<span className="text-[#DC3545]">*</span>
-        </label>
-        <TextField
-          id="outlined-basic"
-          variant="standard"
-          size="small"
-          placeholder="Please Enter Email Address"
-          value={email.value}
-          error={email.error}
-          helperText={email.errorText}
-          onChange={handleEmailChange}
-          InputProps={{
-            classes: {
-              underline: classes.underline,
-            },
-          }}
-        />
-      </div>
-      <div className={`text-[12px] flex flex-col ${email.error ? "pt-4" : "pt-8"}`}>
-        <label className="text-[#6E6D7A] text-[14px]">
-          Password<span className="text-[#DC3545]">*</span>
-        </label>
-        <FormControl variant="standard">
-          <Input
-            classes={{ underline: classes.underline }}
-            id="outlined-adornment-password"
-            placeholder="Please Enter Password"
-            type={showPassword ? "text" : "password"}
-            onChange={handlePasswordChange}
-            error={password.error}
-            value={password.value}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
+      <form onSubmit={handleSubmit}>
+        <div
+          className={`text-[12px] flex flex-col ${
+            email.error ? "pt-8" : "pt-14"
+          }`}
+        >
+          <label className="text-[#6E6D7A] text-[14px]">
+            Email<span className="text-[#DC3545]">*</span>
+          </label>
+          <TextField
+            id="outlined-basic"
+            variant="standard"
+            size="small"
+            placeholder="Please Enter Email Address"
+            value={email.value}
+            error={email.error}
+            helperText={email.errorText}
+            onChange={handleEmailChange}
+            InputProps={{
+              classes: {
+                underline: classes.underline,
+              },
+            }}
           />
-          <span className="text-[#d32f2f]">{password.errorText}</span>
-        </FormControl>
-      </div>
-      <Button
-        onClick={handleSubmit}
-        className="!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full"
-        variant="contained"
-        disabled={isLoading ? true : false}
-      >
-        {isLoading ? (
-          <CircularProgress size={20} />
-        ) : (
-          <span className="normal-case font-semibold text-[16px]">Log In</span>
-        )}
-      </Button>
+        </div>
+        <div
+          className={`text-[12px] flex flex-col ${
+            email.error ? "pt-4" : "pt-8"
+          }`}
+        >
+          <label className="text-[#6E6D7A] text-[14px]">
+            Password<span className="text-[#DC3545]">*</span>
+          </label>
+          <FormControl variant="standard">
+            <Input
+              classes={{ underline: classes.underline }}
+              id="outlined-adornment-password"
+              placeholder="Please Enter Password"
+              type={showPassword ? "text" : "password"}
+              onChange={handlePasswordChange}
+              error={password.error}
+              value={password.value}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <span className="text-[#d32f2f]">{password.errorText}</span>
+          </FormControl>
+        </div>
+        <Button
+          type="submit"
+          className="!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full"
+          variant="contained"
+          disabled={isLoading ? true : false}
+        >
+          {isLoading ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="normal-case font-semibold text-[16px]">
+              Log In
+            </span>
+          )}
+        </Button>
+      </form>
 
       <span
         className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"

@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React from "react";
-import { useSearchParams } from "next/navigation";
 // Component import
 import SetNewPassword from "@/components/auth/SetNewPassword";
 
-function Page() {
-  const getToken  = useSearchParams();
-  const tokenData = getToken.get('token')
-  return <SetNewPassword token={tokenData} passwordType="Reset"/>
-}
+const page = () => {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <SetNewPassword passwordType="Reset" />
+    </React.Suspense>
+  );
+};
 
-export default Page;
+export default page;

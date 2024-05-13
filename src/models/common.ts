@@ -7,7 +7,7 @@ export interface StringFieldType {
 }
 
 export interface AuthType {
-  token: string | null;
+  // token: string | null;
   passwordType: "Reset" | "Create"
 }
 
