@@ -1,24 +1,24 @@
 import axios from "axios";
-// react toastify
-import { toast } from "react-toastify";
 // cookies function imports
 import { getToken, removeCookies } from "@/utils/authFunctions";
- 
+import { signoutAPIUrl } from "@/static/apiUrl";
+// Cookie import
+import Cookies from "js-cookie";
+
 export const callAPIwithoutHeaders = async (
   pathName: string,
   method: "get" | "post",
   successCallback: (
-    status: number,
-    message: string,
-    data: any,
-    headers: any
+    ResponseStatus: string,
+    Message: string,
+    ResponseData: any
   ) => void,
   params: Object
 ) => {
   let response;
   const url = new URL(process.env.apidev_url!);
   url.pathname = pathName;
- 
+
   try {
     if (method === "get") {
       response = await axios.get(url.toString());
@@ -29,49 +29,60 @@ export const callAPIwithoutHeaders = async (
         "Unsupported HTTP method. Only GET and POST are supported."
       );
     }
- 
-    const { status, data, message } = response.data;
-    successCallback(status, message, data, response.headers);
+    const { ResponseStatus, ResponseData, Message } = response.data;
+    successCallback(ResponseStatus, Message, ResponseData);
   } catch (error: any) {
+    if (response?.status === 401) {
+      const token = Cookies.get("token");
+      const userId = Cookies.get("userId");
+      response = await axios.post(`${url}${signoutAPIUrl}`, {
+        userId: Number(userId),
+      });
+      if (response.data.ResponseStatus === "success") {
+        removeCookies();
+        window.location.href = "/auth/login";
+      }
+    }
     successCallback(
-      400,
-      `Something went wrong, please refer console for more details.`,
-      undefined,
+      "failure",
+      "Something went wrong, please refer console for more details.",
       undefined
     );
     console.error(error.message);
   }
 };
- 
+
 export const callAPIwithHeaders = async (
   pathName: string,
   method: "get" | "post",
   successCallback: (
-    status: number,
-    message: string,
-    data: any,
-    headers: any
+    ResponseStatus: string,
+    Message: string,
+    ResponseData: any,
   ) => void,
   params: Object,
-  headerIfAny?: any
+  // headerIfAny?: any
 ) => {
   let response;
   const url = new URL(process.env.apidev_url!);
   url.pathname = pathName;
+  console.log({
+    Authorization: `Bearer ${getToken()}`,
+  })
  
   try {
     if (method === "get") {
       response = await axios.get(url.toString(), {
         headers: {
           Authorization: `Bearer ${getToken()}`,
-          ...headerIfAny,
+          // ...headerIfAny,
         },
       });
     } else if (method === "post") {
       response = await axios.post(url.toString(), params, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
-          ...headerIfAny,
+          // ...headerIfAny,
         },
       });
     } else {
@@ -80,16 +91,14 @@ export const callAPIwithHeaders = async (
       );
     }
  
-    const { status, data, message } = response.data;
-    successCallback(status, message, data, response.headers);
+    const { ResponseStatus, ResponseData, Message } = response.data;
+    successCallback(ResponseStatus, ResponseData, Message);
   } catch (error: any) {
     if (!!error.response) {
       switch (error.response.status) {
         case 400:
-          toast.error("Bad Request, please check your payload.");
           return;
         case 401:
-          toast.error("Invalid or Expired Token.");
           removeCookies();
           window.location.href = "/auth/login";
           return;
@@ -97,9 +106,8 @@ export const callAPIwithHeaders = async (
     }
  
     successCallback(
-      400,
+      "failure",
       `Something went wrong, please refer console for more details.`,
-      undefined,
       undefined
     );
     console.error(error.message);

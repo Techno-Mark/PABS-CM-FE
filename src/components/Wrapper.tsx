@@ -1,11 +1,16 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 //mui components
 import { Box, CssBaseline } from "@mui/material";
 //custom components
-import Header from "./admin/common/AdminHeader";
-import Sidebar from "./admin/common/AdminSidebar";
+import Header from "@/components/admin/common/AdminHeader";
+import Sidebar from "@/components/admin/common/AdminSidebar";
+// Static import
 import { drawerWidth } from "@/static/commonVariables";
-import { ToastContainer } from "./ToastContainer";
+// Toast import
+import { ToastContainer } from "@/components/ToastContainer";
+// Cookie import
+import Cookies from "js-cookie";
 
 type WrapperPropsType = {
   isScrollable?: boolean;
@@ -14,7 +19,13 @@ type WrapperPropsType = {
 
 const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
   const [openSidebar, setOpenSidebar] = useState(true);
-
+  const router = useRouter()
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      router.push("/auth/login");
+    }
+  }, []);
   return (
     <>
       <div className="max-h-screen flex flex-col overflow-hidden">

@@ -7,7 +7,8 @@ export interface StringFieldType {
 }
 
 export interface AuthType {
-  token: string | string[];
+  token: string | null;
+  passwordType: "Reset" | "Create"
 }
 
 export interface childPropsType {

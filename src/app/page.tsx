@@ -6,9 +6,11 @@ import { CircularProgress } from "@mui/material";
 
 export default function Home() {
   const router = useRouter();
+  
   useEffect(() => {
     router.push("/auth/login");
   }, []);
+  
   return (
     <div className="flex min-h-screen items-center justify-center">
       <CircularProgress className="mainLoader" size={50} />

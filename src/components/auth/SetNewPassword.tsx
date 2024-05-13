@@ -16,8 +16,12 @@ import { StringFieldType, AuthType } from "@/models/common";
 import { useStyles } from "@/utils/useStyles";
 // component import
 import AuthWapper from "@/components/auth/AuthWapper";
+import { callAPIwithoutHeaders } from "@/api/commonFunction";
+import { resetPasswordAPIUrl } from "@/static/apiUrl";
+import { showToast } from "../ToastContainer";
+import { ToastType } from "@/static/toastType";
 
-function SetNewPassword({ token }: AuthType) {
+function SetNewPassword({ token, passwordType }: AuthType) {
   const classes = useStyles();
   const router = useRouter();
   const initialFieldStringValues = {
@@ -44,13 +48,7 @@ function SetNewPassword({ token }: AuthType) {
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
 
-  const handleMouseDownNewPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const handleMouseDownConfirmPassword = (
+  const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
@@ -66,8 +64,7 @@ function SetNewPassword({ token }: AuthType) {
       errorText = "This field is required";
     } else if (!passwordRegex.test(newPassword)) {
       error = true;
-      errorText =
-        "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
+      errorText = "Entered password does not match the required conditions.";
     }
 
     setNewPassword({
@@ -87,8 +84,7 @@ function SetNewPassword({ token }: AuthType) {
       errorText = "This field is required";
     } else if (!passwordRegex.test(confirmPassword)) {
       error = true;
-      errorText =
-        "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
+      errorText = "Entered password does not match the required conditions.";
     }
 
     setConfirmPassword({
@@ -123,27 +119,46 @@ function SetNewPassword({ token }: AuthType) {
       setConfirmPassword({
         value: confirmPassword.value,
         error: true,
-        errorText: "Password not match",
+        errorText: "New Password and Confirm Password values are different.",
       });
       hasError = true;
     }
+
+    const callback = (
+      ResponseStatus: string,
+      Message: string
+      // ResponseData: userResetPasswordData
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setLoading(false);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          router.push("/auth/login");
+          setLoading(false);
+          return;
+      }
+    };
 
     if (hasError || newPassword.error || confirmPassword.error) {
       setLoading(false);
       return;
     } else {
-      setTimeout(() => {
-        router.push("/auth/login");
-        setLoading(false);
-        return;
-      },2000)
+      await callAPIwithoutHeaders(resetPasswordAPIUrl, "post", callback, {
+        token: token,
+        requestType: passwordType === "Reset" ? "forgotpassword" : "signup",
+        newPassword: newPassword.value,
+        confirmPassword: confirmPassword.value,
+      });
     }
   };
 
   return (
     <AuthWapper>
       <span className="text-[32px] !font-light font-sans pt-24">
-        Create Password
+        {passwordType} Password
       </span>
       <div className="text-[12px] flex flex-col pt-14">
         <label className="text-[#6E6D7A] text-[14px]">
@@ -163,7 +178,7 @@ function SetNewPassword({ token }: AuthType) {
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowNewPassword}
-                  onMouseDown={handleMouseDownNewPassword}
+                  onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
                   {showNewPassword ? <Visibility /> : <VisibilityOff />}
@@ -193,7 +208,7 @@ function SetNewPassword({ token }: AuthType) {
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowConfirmPassword}
-                  onMouseDown={handleMouseDownConfirmPassword}
+                  onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
                   {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
@@ -207,9 +222,7 @@ function SetNewPassword({ token }: AuthType) {
 
       <Button
         onClick={handleSubmit}
-        className={`!bg-[#023963] ${
-          newPassword.error || confirmPassword.error ? "mt-8" : "mt-14"
-        } text-white !h-[38px] !rounded-md w-full`}
+        className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
         variant="contained"
         disabled={isLoading ? true : false}
       >
@@ -217,7 +230,7 @@ function SetNewPassword({ token }: AuthType) {
           <CircularProgress size={20} />
         ) : (
           <span className="normal-case font-semibold text-[16px]">
-            Create Password
+            {passwordType} Password
           </span>
         )}
       </Button>

@@ -1,17 +1,21 @@
 import { useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 // MUI imports
-import {
-  styled,
-  Toolbar,
-  AppBar as MuiAppBar,
-} from "@mui/material";
+import { styled, Toolbar, AppBar as MuiAppBar } from "@mui/material";
 // Static data import
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
 import { AppBarProps, HeaderPropsType, Option } from "@/models/adminHeader";
 // Icons import
 import UserIcon from "@/assets/Icons/admin/header/UserIcon";
+import { callAPIwithHeaders, callAPIwithoutHeaders } from "@/api/commonFunction";
+import { signoutAPIUrl } from "@/static/apiUrl";
+// Toast import
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+// Cookie import
+import Cookies from "js-cookie";
+import { removeCookies } from "@/utils/authFunctions";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -21,14 +25,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+  marginLeft: open ? drawerWidth : 0,
+  width: `calc(100% - ${open ? drawerWidth : 0}px)`,
 }));
 
 const Header = ({ openSidebar }: HeaderPropsType) => {
@@ -37,6 +35,9 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
   const url = query.split("/");
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setOpen] = useState(false);
+  const userId = Cookies.get("userId");
+  const token = Cookies.get("token");
+  const userName = Cookies.get("userName");
 
   const options: Option[] = [
     {
@@ -49,9 +50,22 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
     setOpen(!isOpen);
   };
 
-  const handleSubmit = () => {
-    localStorage.clear();
-    router.push("/");
+  const handleSubmit = async () => {
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          removeCookies();
+          router.push("/auth/login");
+          return;
+        }
+      };
+      await callAPIwithHeaders(signoutAPIUrl, "post", callback, {
+        userId: Number(userId)
+      });
   };
 
   return (
@@ -82,7 +96,7 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
           </div>
           <div className="relative flex">
             <div
-              className="cursor-pointer relative flex gap-2.5 items-center"
+              className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
               onClick={handleToggle}
             >
               <UserIcon />

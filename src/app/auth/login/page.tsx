@@ -17,12 +17,20 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // Types import
 import { StringFieldType } from "@/models/common";
+import { userLoginData } from "@/models/userAuth";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
 // Common import
 import AuthWapper from "@/components/auth/AuthWapper";
-// Api import
-import { loginAPI } from "@/api/auth";
+// Common import
+import { callAPIwithoutHeaders } from "@/api/commonFunction";
+// Toast import
+import { showToast } from "@/components/ToastContainer";
+// Static import
+import { ToastType } from "@/static/toastType";
+import { loginAPIUrl } from "@/static/apiUrl";
+// Cookie import
+import Cookies from "js-cookie";
 
 function Page() {
   const classes = useStyles();
@@ -33,9 +41,7 @@ function Page() {
     errorText: "",
   };
 
-  const [email, setEmail] = useState<StringFieldType>(
-    initialFieldStringValues
-  );
+  const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [password, setPassword] = useState<StringFieldType>(
     initialFieldStringValues
   );
@@ -51,25 +57,23 @@ function Page() {
   };
 
   const handleEmailChange = (e: { target: { value: string } }) => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
       setEmail({
         value: e.target.value,
         error: true,
         errorText: "This field is required",
       });
-    } else if (
-      !emailRegex.test(e.target.value.trim())
-    ) {
+    } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "Email is not valid!",
+        errorText: "Please provide a valid email address!",
       });
     } else {
       setEmail({
         ...initialFieldStringValues,
-        value: e.target.value
+        value: e.target.value,
       });
     }
   };
@@ -87,8 +91,7 @@ function Page() {
       errorText = "Password is required";
     } else if (!passwordRegex.test(password)) {
       error = true;
-      errorText =
-        "Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
+      errorText = "Entered password does not match the required conditions.";
     }
 
     setPassword({
@@ -98,40 +101,60 @@ function Page() {
     });
   };
 
+  const validateAndSetField = (
+    field: React.Dispatch<React.SetStateAction<StringFieldType>>,
+    value: string
+  ) => {
+    if (value.trim().length === 0) {
+      field({
+        ...initialFieldStringValues,
+        error: true,
+        errorText: "This field is required",
+      });
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
 
-    const validateAndSetField = (
-      field: React.Dispatch<React.SetStateAction<StringFieldType>>,
-      value: string
-    ) => {
-      if (value.trim().length === 0) {
-        field({
-          ...initialFieldStringValues,
-          error: true,
-          errorText: "This field is required",
-        });
-        return true;
-      }
-      return false;
-    };
-
     const usernameError = validateAndSetField(setEmail, email.value);
     const passwordError = validateAndSetField(setPassword, password.value);
+
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: userLoginData
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setLoading(false);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          router.push("/admin/usermanagement");
+          setLoading(false);
+          Cookies.set("token", ResponseData?.Token);
+          Cookies.set("userId", ResponseData?.UserId.toString());
+          Cookies.set("userName", ResponseData?.Username);
+          return;
+      }
+    };
 
     if (usernameError || passwordError || password.error || email.error) {
       setLoading(false);
       return;
     } else {
-    //  const response = loginAPI(email.value,password.value)
-      setTimeout(() => {
-        router.push("/admin/usermanagement");
-        setLoading(false);
-      }, 2000);
-      return;
+      await callAPIwithoutHeaders(loginAPIUrl, "post", callback, {
+        email: email.value,
+        password: password.value,
+      });
     }
   };
+
 
   return (
     <AuthWapper>
@@ -187,9 +210,7 @@ function Page() {
       </div>
       <Button
         onClick={handleSubmit}
-        className={`!bg-[#023963] ${
-          password.error || email.error ? "mt-8" : "mt-14"
-        } text-white !h-[38px] !rounded-md w-full`}
+        className="!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full"
         variant="contained"
         disabled={isLoading ? true : false}
       >
@@ -202,7 +223,7 @@ function Page() {
 
       <span
         className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"
-        onClick={() => router.push("/auth/resetpassword")}
+        onClick={() => router.push("/auth/forgotpassword")}
       >
         Forget Password?
       </span>

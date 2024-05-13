@@ -20,6 +20,7 @@ export const ToastContainer = () => {
       draggable
       pauseOnHover
       theme="light"
+      toastStyle={{ width: "300px"}}
     />
   );
 };

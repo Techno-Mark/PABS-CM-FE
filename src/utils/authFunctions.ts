@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
  
 export const getToken = () => {
-  return JSON.parse(Cookies.get("token")!);
+  return Cookies.get("token");
 };
  
 export const removeCookies = () => {
-
+  Cookies.remove("token")
+  Cookies.remove("userId")
+  Cookies.remove("userName")
 };
