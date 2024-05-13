@@ -1,16 +1,12 @@
+// toastify imports
 import {
   ToastContainer as OriginalToastContainer,
   toast,
 } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// Static imports
+import { ToastType } from "@/static/toastType";
 
-enum ToastType {
-  Success = "success",
-  Error = "error",
-  Warning = "warning",
-  Info = "info",
-  Default = "default",
-}
 export const ToastContainer = () => {
   return (
     <OriginalToastContainer
@@ -24,6 +20,7 @@ export const ToastContainer = () => {
       draggable
       pauseOnHover
       theme="light"
+      toastStyle={{ width: "300px"}}
     />
   );
 };

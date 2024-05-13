@@ -1,10 +1,16 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 //mui components
 import { Box, CssBaseline } from "@mui/material";
 //custom components
-import Header from "./admin/AdminHeader";
-import Sidebar from "./admin/AdminSidebar";
+import Header from "@/components/admin/common/AdminHeader";
+import Sidebar from "@/components/admin/common/AdminSidebar";
+// Static import
 import { drawerWidth } from "@/static/commonVariables";
+// Toast import
+import { ToastContainer } from "@/components/ToastContainer";
+// Cookie import
+import Cookies from "js-cookie";
 
 type WrapperPropsType = {
   isScrollable?: boolean;
@@ -13,39 +19,46 @@ type WrapperPropsType = {
 
 const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
   const [openSidebar, setOpenSidebar] = useState(true);
-  const [loading, setLoading] = useState<boolean>(false);
-
-    return (
-      <>
-        <div className="max-h-screen flex flex-col overflow-hidden">
+  const router = useRouter()
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      router.push("/auth/login");
+    }
+  }, []);
+  return (
+    <>
+      <div className="max-h-screen flex flex-col overflow-hidden">
+        <Box
+          sx={{
+            height: "100vh",
+            display: "flex",
+            overflow: isScrollable ? "scroll" : "hidden",
+          }}
+        >
+          <ToastContainer />
+          <CssBaseline />
+          <Header openSidebar={openSidebar} />
+          <Sidebar
+            openSidebar={openSidebar}
+            setOpenSidebar={setOpenSidebar}
+            onRouteChange={() => {}}
+          />
           <Box
+            component="main"
             sx={{
-              height: "100vh",
-              display: "flex",
-              overflow: isScrollable ? "scroll" : "hidden",
+              flexGrow: 1,
+              p: 3,
+              backgroundColor: "#F9FBFF",
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
-            <CssBaseline />
-            <Header openSidebar={openSidebar} />
-            <Sidebar
-              openSidebar={openSidebar}
-              setOpenSidebar={setOpenSidebar}
-              onRouteChange={() => {}}
-            />
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                p: 3,
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-              }}
-            >
-              {children}
-            </Box>
+            {children}
           </Box>
-        </div>
-      </>
-    );
+        </Box>
+      </div>
+    </>
+  );
 };
 
 export default Wrapper;

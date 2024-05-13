@@ -1,8 +1,7 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
-
 // MUI imports
 import {
   List,
@@ -16,10 +15,10 @@ import {
   ListItemText,
   ListItemButton,
 } from "@mui/material";
-import { Theme, makeStyles } from "@material-ui/core/styles";
-// Types imports
-import { SidebarProps } from "@/models/AdminSidebar";
-// Static imports
+import { Theme } from "@material-ui/core/styles";
+// Types import
+import { SidebarProps } from "@/models/adminSidebar";
+// Static import
 import { drawerWidth } from "@/static/commonVariables";
 // Icons imports
 import MenuIconOpen from "@/assets/Icons/admin/sidebar/MenuIconOpen";
@@ -27,20 +26,8 @@ import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
 import AccountCircleIcon from "@/assets/Icons/admin/sidebar/AccountCircleIcon";
 import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
-
-const useStyles = makeStyles({
-  imageCenter: {
-    justifyContent: "center",
-    width: "100%",
-  },
-  textSize: {
-    fontSize: "14px",
-  },
-  drawer: {
-    background: "#023963",
-    height: "100%",
-  },
-});
+// Utlis import
+import { useStyles } from "@/utils/useStyles";
 
 const openedMixin = (theme: Theme) => ({
   width: drawerWidth,
@@ -137,7 +124,7 @@ const Sidebar = ({
     <>
       <CssBaseline />
       <MyDrawer
-        classes={{ paper: classes.drawer }}
+        classes={{ paper: classes.sidebarDrawer }}
         className="z-0"
         variant="permanent"
         open={openSidebar}
@@ -163,14 +150,17 @@ const Sidebar = ({
 
         {sidebarItems.map((item, index) => (
           <div key={index}>
-            <List
-              className={`flex items-center my-1 mx-2 p-0 ${
-                pathname === item.link
-                  ? "!bg-[#212121] !rounded-full !bg-opacity-10"
-                  : "transparent"
-              }`}
-            >
-              <Link href={item.link} passHref key={item.module}>
+            <List className="flex items-center w-[100%] my-1 p-0">
+              <Link
+                href={item.link}
+                passHref
+                key={item.module}
+                className={`flex items-center w-[90%] mx-2 p-0  ${
+                  pathname === item.link
+                    ? "!bg-[#212121] !rounded-full !bg-opacity-10"
+                    : "transparent"
+                }`}
+              >
                 <ListItemButton
                   onClick={() => {
                     item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
@@ -183,6 +173,10 @@ const Sidebar = ({
                     justifyContent: openSidebar ? "initial" : "center",
                     px: 1.5,
                     py: 2,
+                    "&:hover": {
+                      textDecoration: "none",
+                      backgroundColor: "transparent",
+                    },
                   }}
                 >
                   <ListItemIcon
@@ -196,7 +190,7 @@ const Sidebar = ({
                   </ListItemIcon>
 
                   <ListItemText
-                   classes={{ primary: classes.textSize }}
+                    classes={{ primary: classes.textSize }}
                     primary={item.module}
                     sx={{
                       opacity: openSidebar ? 1 : 0,

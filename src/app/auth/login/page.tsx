@@ -12,25 +12,25 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 // Icons imports
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import PABSHalfIcon from "@/assets/Icons/PABSHalfIcon";
-import PABSIcon from "@/assets/Icons/PABSIcon";
-// common imports
+// Types import
 import { StringFieldType } from "@/models/common";
-
-const useStyles = makeStyles((theme) => ({
-  underline: {
-    "&:after": {
-      borderBottom: "0.5px solid #023963",
-    },
-    "& .MuiInputBase-input": {
-      borderColor: "#023963",
-    },
-  },
-}));
+import { userLoginData } from "@/models/userAuth";
+// Utlis import
+import { useStyles } from "@/utils/useStyles";
+// Common import
+import AuthWapper from "@/components/auth/AuthWapper";
+// Common import
+import { callAPIwithoutHeaders } from "@/api/commonFunction";
+// Toast import
+import { showToast } from "@/components/ToastContainer";
+// Static import
+import { ToastType } from "@/static/toastType";
+import { loginAPIUrl } from "@/static/apiUrl";
+// Cookie import
+import Cookies from "js-cookie";
 
 function Page() {
   const classes = useStyles();
@@ -41,9 +41,7 @@ function Page() {
     errorText: "",
   };
 
-  const [username, setUserName] = useState<StringFieldType>(
-    initialFieldStringValues
-  );
+  const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [password, setPassword] = useState<StringFieldType>(
     initialFieldStringValues
   );
@@ -58,181 +56,178 @@ function Page() {
     event.preventDefault();
   };
 
-  const handleUserNameChange = (e: { target: { value: string } }) => {
+  const handleEmailChange = (e: { target: { value: string } }) => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
-      setUserName({
-        ...initialFieldStringValues,
+      setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is Required",
+        errorText: "Email is required",
+      });
+    } else if (!emailRegex.test(e.target.value.trim())) {
+      setEmail({
+        value: e.target.value,
+        error: true,
+        errorText: "Please provide a valid email address!",
       });
     } else {
-      setUserName({
+      setEmail({
         ...initialFieldStringValues,
         value: e.target.value,
-        error: false,
-        errorText: "",
       });
     }
   };
 
-  const handlePasswordChange = (e: any) => {
-    const password = e.target.value.trim();
+  const handlePasswordChange = (e: { target: { value: string } }) => {
+    let password = e.target.value.trim();
     let error = false;
     let errorText = "";
-  
+
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;?/>,.<]).{8,}$/;
+
     if (password.length === 0) {
       error = true;
-      errorText = "This field is required";
-    } else if (password.length < 8) {
+      errorText = "Password is required";
+    } else if (!passwordRegex.test(password)) {
       error = true;
-      errorText = "Password must be at least 8 characters long";
-    } else if (!/[A-Z]/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 uppercase letter";
-    } else if (!/[a-z]/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 lowercase letter";
-    } else if (!/\d/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 number";
-    } else if (!/[!@#$%^&*()_+}{":;?/>,.<]/.test(password)) {
-      error = true;
-      errorText = "Password must contain at least 1 special character";
-    }else{
-      error = false;
-      errorText = "";
+      errorText = "Entered password does not match the required conditions.";
     }
-  
+
     setPassword({
-      ...initialFieldStringValues,
       value: password,
       error: error,
       errorText: errorText,
     });
   };
 
+  const validateAndSetField = (
+    field: React.Dispatch<React.SetStateAction<StringFieldType>>,
+    value: string
+  ) => {
+    if (value.trim().length === 0) {
+      field({
+        ...initialFieldStringValues,
+        error: true,
+        errorText: "This field is required",
+      });
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
 
-    const validateAndSetField = (field: any, value: string) => {
-      if (value.trim().length === 0) {
-        field({
-          ...initialFieldStringValues,
-          error: true,
-          errorText: "This field is required",
-        });
-        return true;
-      }
-      return false;
-    };
-
-    const usernameError = validateAndSetField(setUserName, username.value);
+    const usernameError = validateAndSetField(setEmail, email.value);
     const passwordError = validateAndSetField(setPassword, password.value);
 
-    if (usernameError || passwordError) {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: userLoginData
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setLoading(false);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          router.push("/admin/usermanagement");
+          setLoading(false);
+          Cookies.set("token", ResponseData?.Token);
+          Cookies.set("userId", ResponseData?.UserId.toString());
+          Cookies.set("userName", ResponseData?.Username);
+          return;
+      }
+    };
+
+    if (usernameError || passwordError || password.error || email.error) {
       setLoading(false);
       return;
     } else {
-      setTimeout(() => {
-        router.push("/admin/usermanagement");
-        setLoading(false);
-      }, 2000);
-      return;
+      await callAPIwithoutHeaders(loginAPIUrl, "post", callback, {
+        email: email.value,
+        password: password.value,
+      });
     }
   };
 
-  return (
-    <div className="flex justify-center items-center w-full h-screen bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
-      <div className="relative flex h-[80%] w-[70%]">
-        <div className="w-[50%] flex justify-center items-center borderClass bg-[#002641]">
-          <span className="flex absolute">
-            <PABSIcon />
-          </span>
-          <span className="absolute bottom-[6px] left-[9px] z-1 blur-[5px]">
-            <PABSHalfIcon />
-          </span>
-        </div>
-        <div className="w-[50%] flex flex-col bg-white px-14">
-          <span className="text-[32px] !font-light font-sans pt-24">
-            Welcome
-          </span>
-          <div className="text-[12px] flex flex-col pt-14">
-            <label className="text-[#6E6D7A] text-[14px]">
-              Username<span className="text-[#DC3545]">*</span>
-            </label>
-            <TextField
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Username"
-              value={username.value}
-              error={username.error}
-              helperText={username.errorText}
-              onChange={handleUserNameChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-            />
-          </div>
-          <div className="text-[12px] flex flex-col pt-8">
-            <label className="text-[#6E6D7A] text-[14px]">
-              Password<span className="text-[#DC3545]">*</span>
-            </label>
-            <FormControl variant="standard">
-              <Input
-                classes={{ underline: classes.underline }}
-                id="outlined-adornment-password"
-                placeholder="Password"
-                type={showPassword ? "text" : "password"}
-                onChange={handlePasswordChange}
-                error={password.error}
-                value={password.value}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <span className="text-[#d32f2f]">{password.errorText}</span>
-            </FormControl>
-          </div>
-          <Button
-            onClick={handleSubmit}
-            className={`!bg-[#023963] ${
-              password.error || username.error ? "mt-10" : "mt-14"
-            } text-white !h-[38px] !rounded-md w-full`}
-            variant="contained"
-            disabled={isLoading ? true : false}
-          >
-            {isLoading ? (
-              <CircularProgress size={20} />
-            ) : (
-              <span className="normal-case font-semibold text-[16px]">
-                Log In
-              </span>
-            )}
-          </Button>
 
-          <span
-            className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"
-            onClick={() => router.push("/auth/resetpassword")}
-          >
-            Forget Password ?
-          </span>
-        </div>
+  return (
+    <AuthWapper>
+      <span className="text-[32px] !font-light font-sans pt-24">Welcome</span>
+      <div className={`text-[12px] flex flex-col ${email.error ? "pt-8" : "pt-14"}`}>
+        <label className="text-[#6E6D7A] text-[14px]">
+          Email<span className="text-[#DC3545]">*</span>
+        </label>
+        <TextField
+          id="outlined-basic"
+          variant="standard"
+          size="small"
+          placeholder="Please Enter Email Address"
+          value={email.value}
+          error={email.error}
+          helperText={email.errorText}
+          onChange={handleEmailChange}
+          InputProps={{
+            classes: {
+              underline: classes.underline,
+            },
+          }}
+        />
       </div>
-    </div>
+      <div className={`text-[12px] flex flex-col ${email.error ? "pt-4" : "pt-8"}`}>
+        <label className="text-[#6E6D7A] text-[14px]">
+          Password<span className="text-[#DC3545]">*</span>
+        </label>
+        <FormControl variant="standard">
+          <Input
+            classes={{ underline: classes.underline }}
+            id="outlined-adornment-password"
+            placeholder="Please Enter Password"
+            type={showPassword ? "text" : "password"}
+            onChange={handlePasswordChange}
+            error={password.error}
+            value={password.value}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <span className="text-[#d32f2f]">{password.errorText}</span>
+        </FormControl>
+      </div>
+      <Button
+        onClick={handleSubmit}
+        className="!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full"
+        variant="contained"
+        disabled={isLoading ? true : false}
+      >
+        {isLoading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <span className="normal-case font-semibold text-[16px]">Log In</span>
+        )}
+      </Button>
+
+      <span
+        className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"
+        onClick={() => router.push("/auth/forgotpassword")}
+      >
+        Forget Password?
+      </span>
+    </AuthWapper>
   );
 }
 export default Page;
