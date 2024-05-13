@@ -30,16 +30,14 @@ function Page() {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const handleEmailChange = (e: { target: { value: string } }) => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
       setEmail({
         value: e.target.value,
         error: true,
         errorText: "This field is required",
       });
-    } else if (
-      !emailRegex.test(e.target.value.trim())
-    ) {
+    } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
         value: e.target.value,
         error: true,
@@ -48,7 +46,7 @@ function Page() {
     } else {
       setEmail({
         ...initialFieldStringValues,
-        value: e.target.value
+        value: e.target.value,
       });
     }
   };
@@ -59,10 +57,7 @@ function Page() {
 
     let hasError = false;
 
-    const callback = (
-      ResponseStatus: string,
-      Message: string,
-    ) => {
+    const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
           showToast(Message, ToastType.Error);
@@ -89,7 +84,7 @@ function Page() {
       return;
     } else {
       await callAPIwithoutHeaders(forgotPasswordAPIUrl, "post", callback, {
-        email:email.value,
+        email: email.value,
       });
     }
   };
@@ -97,7 +92,7 @@ function Page() {
   return (
     <AuthWapper>
       <span
-        className="flex items-center gap-2 text-[14px] font-medium font-sans pt-14 cursor-pointer"
+        className="flex items-center w-fit gap-2 text-[14px] font-medium font-sans pt-14 cursor-pointer"
         onClick={() => router.push("/")}
       >
         <BackIcon /> Back
@@ -105,41 +100,43 @@ function Page() {
       <span className="text-[32px] !font-light font-sans pt-14">
         Forgot password
       </span>
-      <div className="text-[12px] flex flex-col pt-14">
-        <label className="text-[#6E6D7A] text-[14px]">
-          Email Address<span className="text-[#DC3545]">*</span>
-        </label>
-        <TextField
-          id="outlined-basic"
-          variant="standard"
-          size="small"
-          placeholder="Please Enter Email Address"
-          value={email.value}
-          error={email.error}
-          helperText={email.errorText}
-          onChange={handleEmailChange}
-          InputProps={{
-            classes: {
-              underline: classes.underline,
-            },
-          }}
-        />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="text-[12px] flex flex-col pt-14">
+          <label className="text-[#6E6D7A] text-[14px]">
+            Email Address<span className="text-[#DC3545]">*</span>
+          </label>
+          <TextField
+            id="outlined-basic"
+            variant="standard"
+            size="small"
+            placeholder="Please Enter Email Address"
+            value={email.value}
+            error={email.error}
+            helperText={email.errorText}
+            onChange={handleEmailChange}
+            InputProps={{
+              classes: {
+                underline: classes.underline,
+              },
+            }}
+          />
+        </div>
 
-      <Button
-        onClick={handleSubmit}
-        className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
-        variant="contained"
-        disabled={isLoading ? true : false}
-      >
-        {isLoading ? (
-          <CircularProgress size={20} />
-        ) : (
-          <span className="normal-case font-semibold text-[16px]">
-            Send Email
-          </span>
-        )}
-      </Button>
+        <Button
+          type="submit"
+          className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
+          variant="contained"
+          disabled={isLoading ? true : false}
+        >
+          {isLoading ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="normal-case font-semibold text-[16px]">
+              Send Email
+            </span>
+          )}
+        </Button>
+      </form>
     </AuthWapper>
   );
 }

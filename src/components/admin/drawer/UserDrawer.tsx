@@ -193,7 +193,6 @@ const UserDrawer = ({
         ToastType.Success
       );
       setTimeout(() => {
-        console.log("success");
         setOpenDrawer(false);
         setLoading(false);
       }, 2000);

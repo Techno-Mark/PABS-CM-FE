@@ -66,9 +66,6 @@ export const callAPIwithHeaders = async (
   let response;
   const url = new URL(process.env.APIDEV_URL!);
   url.pathname = pathName;
-  console.log({
-    Authorization: `Bearer ${getToken()}`,
-  });
 
   try {
     if (method === "get") {

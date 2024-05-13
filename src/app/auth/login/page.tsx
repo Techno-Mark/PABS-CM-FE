@@ -232,12 +232,14 @@ function Page() {
         </Button>
       </form>
 
-      <span
-        className="pt-4 text-[#023963] text-[14px] font-sans flex justify-end items-end cursor-pointer"
-        onClick={() => router.push("/auth/forgotpassword")}
-      >
-        Forget Password?
-      </span>
+      <div className="flex items-center justify-end">
+        <span
+          className="pt-4 text-[#023963] w-fit text-[14px] font-sans flex justify-end items-end cursor-pointer"
+          onClick={() => router.push("/auth/forgotpassword")}
+        >
+          Forget Password?
+        </span>
+      </div>
     </AuthWapper>
   );
 }
