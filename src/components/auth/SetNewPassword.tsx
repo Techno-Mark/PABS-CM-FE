@@ -20,8 +20,11 @@ import { callAPIwithoutHeaders } from "@/api/commonFunction";
 import { resetPasswordAPIUrl } from "@/static/apiUrl";
 import { showToast } from "../ToastContainer";
 import { ToastType } from "@/static/toastType";
+import { useSearchParams } from "next/navigation";
 
-function SetNewPassword({ token, passwordType }: AuthType) {
+const SetNewPassword = ({ passwordType }: AuthType) => {
+  const getToken = useSearchParams();
+  const token = getToken.get("token");
   const classes = useStyles();
   const router = useRouter();
   const initialFieldStringValues = {
@@ -160,82 +163,84 @@ function SetNewPassword({ token, passwordType }: AuthType) {
       <span className="text-[32px] !font-light font-sans pt-24">
         {passwordType} Password
       </span>
-      <div className="text-[12px] flex flex-col pt-14">
-        <label className="text-[#6E6D7A] text-[14px]">
-          New Password<span className="text-[#DC3545]">*</span>
-        </label>
-        <FormControl variant="standard">
-          <Input
-            classes={{ underline: classes.underline }}
-            id="outlined-adornment-password"
-            placeholder="New Password"
-            type={showNewPassword ? "text" : "password"}
-            onChange={handleNewPasswordChange}
-            error={newPassword.error}
-            value={newPassword.value}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowNewPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showNewPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <span className="text-[#d32f2f]">{newPassword.errorText}</span>
-        </FormControl>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="text-[12px] flex flex-col pt-14">
+          <label className="text-[#6E6D7A] text-[14px]">
+            New Password<span className="text-[#DC3545]">*</span>
+          </label>
+          <FormControl variant="standard">
+            <Input
+              classes={{ underline: classes.underline }}
+              id="outlined-adornment-password"
+              placeholder="New Password"
+              type={showNewPassword ? "text" : "password"}
+              onChange={handleNewPasswordChange}
+              error={newPassword.error}
+              value={newPassword.value}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowNewPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showNewPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <span className="text-[#d32f2f]">{newPassword.errorText}</span>
+          </FormControl>
+        </div>
 
-      <div className="text-[12px] flex flex-col pt-8">
-        <label className="text-[#6E6D7A] text-[14px]">
-          Confirm Password<span className="text-[#DC3545]">*</span>
-        </label>
-        <FormControl variant="standard">
-          <Input
-            classes={{ underline: classes.underline }}
-            id="outlined-adornment-password"
-            placeholder="Confirm Password"
-            type={showConfirmPassword ? "text" : "password"}
-            onChange={handleConfirmPasswordChange}
-            error={confirmPassword.error}
-            value={confirmPassword.value}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowConfirmPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <span className="text-[#d32f2f]">{confirmPassword.errorText}</span>
-        </FormControl>
-      </div>
+        <div className="text-[12px] flex flex-col pt-8">
+          <label className="text-[#6E6D7A] text-[14px]">
+            Confirm Password<span className="text-[#DC3545]">*</span>
+          </label>
+          <FormControl variant="standard">
+            <Input
+              classes={{ underline: classes.underline }}
+              id="outlined-adornment-password"
+              placeholder="Confirm Password"
+              type={showConfirmPassword ? "text" : "password"}
+              onChange={handleConfirmPasswordChange}
+              error={confirmPassword.error}
+              value={confirmPassword.value}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirmPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <span className="text-[#d32f2f]">{confirmPassword.errorText}</span>
+          </FormControl>
+        </div>
 
-      <Button
-        onClick={handleSubmit}
-        className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
-        variant="contained"
-        disabled={isLoading ? true : false}
-      >
-        {isLoading ? (
-          <CircularProgress size={20} />
-        ) : (
-          <span className="normal-case font-semibold text-[16px]">
-            {passwordType} Password
-          </span>
-        )}
-      </Button>
+        <Button
+          type="submit"
+          className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
+          variant="contained"
+          disabled={isLoading ? true : false}
+        >
+          {isLoading ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="normal-case font-semibold text-[16px]">
+              {passwordType} Password
+            </span>
+          )}
+        </Button>
+      </form>
     </AuthWapper>
   );
-}
+};
 
 export default SetNewPassword;
