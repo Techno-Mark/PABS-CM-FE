@@ -35,7 +35,7 @@ function Page() {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
     } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
@@ -74,7 +74,7 @@ function Page() {
       setEmail({
         ...initialFieldStringValues,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
       hasError = true;
     }

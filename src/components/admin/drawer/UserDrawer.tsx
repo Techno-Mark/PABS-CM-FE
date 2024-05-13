@@ -57,7 +57,7 @@ const UserDrawer = ({
       setUserFullName({
         value: e.target.value,
         error: true,
-        errorText: "This field is Required",
+        errorText: "Name is Required",
       });
     } else if (e.target.value.trim().length > 50) {
       return;
@@ -76,18 +76,16 @@ const UserDrawer = ({
   };
 
   const handleEmailChange = (e: { target: { value: string } }) => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
     } else if (e.target.value.trim().length > 254) {
       return;
-    } else if (
-      !emailRegex.test(e.target.value.trim())
-    ) {
+    } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
         value: e.target.value,
         error: true,
@@ -106,7 +104,7 @@ const UserDrawer = ({
       setRole({
         value: "-1",
         error: true,
-        errorText: "This field is Required",
+        errorText: "Role is Required",
       });
     } else {
       setRole({
@@ -121,7 +119,7 @@ const UserDrawer = ({
       setBusinessType({
         value: "-1",
         error: true,
-        errorText: "This field is Required",
+        errorText: "Business Type is Required",
       });
     } else {
       setBusinessType({
@@ -136,7 +134,7 @@ const UserDrawer = ({
       setStatus({
         value: "-1",
         error: true,
-        errorText: "This field is Required",
+        errorText: "Status is Required",
       });
     } else if (e.target.value === "2") {
       setInactive(true);
@@ -154,36 +152,41 @@ const UserDrawer = ({
 
     const validateAndSetField = (
       field: React.Dispatch<React.SetStateAction<StringFieldType>>,
-      value: string
+      value: string,
+      message: string
     ) => {
       if (value.trim().length === 0 || value === "-1") {
         field({
           value: value,
           error: true,
-          errorText: "This field is required",
+          errorText: `${message} is required`,
         });
         return true;
       }
       return false;
     };
 
-    const emailError = validateAndSetField(setEmail, email.value);
-    const roleError = validateAndSetField(setRole, role.value);
+    const emailError = validateAndSetField(setEmail, email.value, "Email");
+    const roleError = validateAndSetField(setRole, role.value, "Role");
     const businessTypeError = validateAndSetField(
       setBusinessType,
-      businessType.value
+      businessType.value,
+      "Business Type"
     );
-    const statusError = validateAndSetField(setStatus, status.value);
+    const statusError = validateAndSetField(setStatus, status.value, "Status");
     const userFullNameError = validateAndSetField(
       setUserFullName,
-      userFullName.value
+      userFullName.value,
+      "Name"
     );
 
     if (
       emailError ||
       userFullNameError ||
       roleError ||
-      businessTypeError || email.error || userFullName.error || 
+      businessTypeError ||
+      email.error ||
+      userFullName.error ||
       (canEdit && statusError)
     ) {
       setLoading(false);

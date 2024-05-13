@@ -103,13 +103,14 @@ function Page() {
 
   const validateAndSetField = (
     field: React.Dispatch<React.SetStateAction<StringFieldType>>,
-    value: string
+    value: string,
+    message: string
   ) => {
     if (value.trim().length === 0) {
       field({
         ...initialFieldStringValues,
         error: true,
-        errorText: "This field is required",
+        errorText: `${message} is required`,
       });
       return true;
     }
@@ -120,8 +121,12 @@ function Page() {
     e.preventDefault();
     setLoading(true);
 
-    const usernameError = validateAndSetField(setEmail, email.value);
-    const passwordError = validateAndSetField(setPassword, password.value);
+    const usernameError = validateAndSetField(setEmail, email.value, "Email");
+    const passwordError = validateAndSetField(
+      setPassword,
+      password.value,
+      "Password"
+    );
 
     const callback = (
       ResponseStatus: string,
