@@ -16,7 +16,7 @@ export const callAPIwithoutHeaders = async (
   params: Object
 ) => {
   let response;
-  const url = new URL(process.env.NEXT_PUBLIC_APIDEV_URL!);
+  const url = new URL(process.env.APIDEV_URL!);
   url.pathname = pathName;
 
   try {
@@ -64,7 +64,7 @@ export const callAPIwithHeaders = async (
   // headerIfAny?: any
 ) => {
   let response;
-  const url = new URL(process.env.NEXT_PUBLIC_APIDEV_URL!);
+  const url = new URL(process.env.APIDEV_URL!);
   url.pathname = pathName;
   console.log({
     Authorization: `Bearer ${getToken()}`,
