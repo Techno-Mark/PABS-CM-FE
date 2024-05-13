@@ -6,8 +6,8 @@ const { withSentryConfig } = require("@sentry/nextjs");
 
 // your existing module.exports or default export
 const nextConfig = {
-  env:{
-    apidev_url:process.env.apidev_url
+  env: {
+    APIDEV_URL: process.env.APIDEV_URL,
   },
 
   // Optional build-time configuration options

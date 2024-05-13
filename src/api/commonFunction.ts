@@ -16,7 +16,7 @@ export const callAPIwithoutHeaders = async (
   params: Object
 ) => {
   let response;
-  const url = new URL(process.env.apidev_url!);
+  const url = new URL(process.env.APIDEV_URL!);
   url.pathname = pathName;
 
   try {
@@ -58,18 +58,18 @@ export const callAPIwithHeaders = async (
   successCallback: (
     ResponseStatus: string,
     Message: string,
-    ResponseData: any,
+    ResponseData: any
   ) => void,
-  params: Object,
+  params: Object
   // headerIfAny?: any
 ) => {
   let response;
-  const url = new URL(process.env.apidev_url!);
+  const url = new URL(process.env.APIDEV_URL!);
   url.pathname = pathName;
   console.log({
     Authorization: `Bearer ${getToken()}`,
-  })
- 
+  });
+
   try {
     if (method === "get") {
       response = await axios.get(url.toString(), {
@@ -90,7 +90,7 @@ export const callAPIwithHeaders = async (
         "Unsupported HTTP method. Only GET and POST are supported."
       );
     }
- 
+
     const { ResponseStatus, ResponseData, Message } = response.data;
     successCallback(ResponseStatus, ResponseData, Message);
   } catch (error: any) {
@@ -104,7 +104,7 @@ export const callAPIwithHeaders = async (
           return;
       }
     }
- 
+
     successCallback(
       "failure",
       `Something went wrong, please refer console for more details.`,

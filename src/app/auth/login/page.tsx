@@ -62,7 +62,7 @@ function Page() {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
     } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
@@ -159,7 +159,7 @@ function Page() {
   return (
     <AuthWapper>
       <span className="text-[32px] !font-light font-sans pt-24">Welcome</span>
-      <div className="text-[12px] flex flex-col pt-14">
+      <div className={`text-[12px] flex flex-col ${email.error ? "pt-8" : "pt-14"}`}>
         <label className="text-[#6E6D7A] text-[14px]">
           Email<span className="text-[#DC3545]">*</span>
         </label>
@@ -179,7 +179,7 @@ function Page() {
           }}
         />
       </div>
-      <div className="text-[12px] flex flex-col pt-8">
+      <div className={`text-[12px] flex flex-col ${email.error ? "pt-4" : "pt-8"}`}>
         <label className="text-[#6E6D7A] text-[14px]">
           Password<span className="text-[#DC3545]">*</span>
         </label>

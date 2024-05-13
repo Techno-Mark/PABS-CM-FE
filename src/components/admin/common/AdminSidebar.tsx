@@ -149,15 +149,18 @@ const Sidebar = ({
         </List>
 
         {sidebarItems.map((item, index) => (
-          <div key={index} >
-            <List
-              className={`flex items-center my-1 mx-2 p-0  ${
-                pathname === item.link
-                  ? "!bg-[#212121] !rounded-full !bg-opacity-10"
-                  : "transparent"
-              }`}
-            >
-              <Link href={item.link} passHref key={item.module}>
+          <div key={index}>
+            <List className="flex items-center w-[100%] my-1 p-0">
+              <Link
+                href={item.link}
+                passHref
+                key={item.module}
+                className={`flex items-center w-[90%] mx-2 p-0  ${
+                  pathname === item.link
+                    ? "!bg-[#212121] !rounded-full !bg-opacity-10"
+                    : "transparent"
+                }`}
+              >
                 <ListItemButton
                   onClick={() => {
                     item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
@@ -187,7 +190,7 @@ const Sidebar = ({
                   </ListItemIcon>
 
                   <ListItemText
-                   classes={{ primary: classes.textSize }}
+                    classes={{ primary: classes.textSize }}
                     primary={item.module}
                     sx={{
                       opacity: openSidebar ? 1 : 0,
