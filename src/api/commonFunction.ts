@@ -21,9 +21,17 @@ export const callAPIwithoutHeaders = async (
 
   try {
     if (method === "get") {
-      response = await axios.get(url.toString());
+      response = await axios.get(url.toString(), {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
     } else if (method === "post") {
-      response = await axios.post(url.toString(), params);
+      response = await axios.post(url.toString(), params, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
     } else {
       throw new Error(
         "Unsupported HTTP method. Only GET and POST are supported."
@@ -72,6 +80,8 @@ export const callAPIwithHeaders = async (
       response = await axios.get(url.toString(), {
         headers: {
           Authorization: `Bearer ${getToken()}`,
+          "Access-Control-Allow-Origin": "*",
+
           // ...headerIfAny,
         },
       });
@@ -79,6 +89,7 @@ export const callAPIwithHeaders = async (
       response = await axios.post(url.toString(), params, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
+          "Access-Control-Allow-Origin": "*",
           // ...headerIfAny,
         },
       });
@@ -89,7 +100,7 @@ export const callAPIwithHeaders = async (
     }
 
     const { ResponseStatus, ResponseData, Message } = response.data;
-    successCallback(ResponseStatus, ResponseData, Message);
+    successCallback(ResponseStatus, Message, ResponseData);
   } catch (error: any) {
     if (!!error.response) {
       switch (error.response.status) {

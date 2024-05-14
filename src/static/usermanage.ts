@@ -1,21 +1,21 @@
 export const UserRows = [
   {
     id: 1,
-    fullName: "Devesh Sheth",
-    email: "devesh.sheth@technomark.io",
-    role: "Master Admin user",
+    Username: "Devesh Sheth",
+    Email: "devesh.sheth@technomark.io",
+    RoleName: "Master Admin user",
   },
   {
     id: 2,
-    fullName: "Sandeep Yadav",
-    email: "sandeep.yadav@technomark.io",
-    role: "Admin user",
+    Username: "Sandeep Yadav",
+    Email: "sandeep.yadav@technomark.io",
+    RoleName: "Admin user",
   },
   {
     id: 3,
-    fullName: "Harsh Dhaduk",
-    email: "harsh.dhaduk@technomark.io",
-    role: "Standard user",
+    Username: "Harsh Dhaduk",
+    Email: "harsh.dhaduk@technomark.io",
+    RoleName: "Standard user",
   },
 ];
 
@@ -32,8 +32,8 @@ export const businessTypeOption = [
 ];
 
 export const statusOption = [
-  { value: "1", label: "Active" },
-  { value: "2", label: "Inactive" },
+  { value: 1, label: "Active" },
+  { value: 2, label: "Inactive" },
 ];
 
 export const userRolesDrawer = [
@@ -51,7 +51,7 @@ export const businessTypeOptionDrawer = [
 ];
 
 export const statusOptionDrawer = [
-  { value: "-1", label: "Please Select" },
-  { value: "1", label: "Active" },
-  { value: "2", label: "Inactive" },
+  { value: -1, label: "Please Select" },
+  { value: 1, label: "Active" },
+  { value: 2, label: "Inactive" },
 ];

@@ -7,8 +7,6 @@ import Header from "@/components/admin/common/AdminHeader";
 import Sidebar from "@/components/admin/common/AdminSidebar";
 // Static import
 import { drawerWidth } from "@/static/commonVariables";
-// Toast import
-import { ToastContainer } from "@/components/ToastContainer";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -19,7 +17,7 @@ type WrapperPropsType = {
 
 const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
   const [openSidebar, setOpenSidebar] = useState(true);
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
@@ -36,7 +34,6 @@ const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
             overflow: isScrollable ? "scroll" : "hidden",
           }}
         >
-          <ToastContainer />
           <CssBaseline />
           <Header openSidebar={openSidebar} />
           <Sidebar

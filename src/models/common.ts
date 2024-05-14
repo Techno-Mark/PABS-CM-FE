@@ -6,9 +6,15 @@ export interface StringFieldType {
   errorText: string;
 }
 
+export interface NumberFieldType {
+  value: number;
+  error: boolean;
+  errorText: string;
+}
+
 export interface AuthType {
   // token: string | null;
-  passwordType: "Reset" | "Create"
+  passwordType: "Reset" | "Create";
 }
 
 export interface childPropsType {
@@ -23,6 +29,7 @@ export interface DrawerPropsType {
   canEdit: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: (e: { preventDefault: () => void }) => void;
+  setUserId: () => void;
 }
 
 export interface FilterProps {

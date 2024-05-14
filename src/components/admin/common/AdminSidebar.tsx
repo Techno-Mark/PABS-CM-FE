@@ -162,6 +162,7 @@ const Sidebar = ({
                 }`}
               >
                 <ListItemButton
+                  disableRipple
                   onClick={() => {
                     item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
                   }}

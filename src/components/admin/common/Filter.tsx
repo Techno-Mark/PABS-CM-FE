@@ -28,10 +28,10 @@ function Filter({
     <Modal
       open={isOpen}
       onClose={handleClose}
-      className="h-[100vh] flex justify-center"
+      className="h-[100vh] flex justify-center outline-none"
     >
       <Box sx={style}>
-        <div className="p-5 top-0 flex justify-between">
+        <div className="p-5 top-0 flex justify-between outline-none">
           <span className="font-bold text-[18px]"> Filter</span>
           <Tooltip title="Close" placement="bottom" arrow>
             <span

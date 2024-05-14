@@ -64,7 +64,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
     if (newPassword.length === 0) {
       error = true;
-      errorText = "This field is required";
+      errorText = "Password is required";
     } else if (!passwordRegex.test(newPassword)) {
       error = true;
       errorText = "Entered password does not match the required conditions.";
@@ -84,7 +84,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
     if (confirmPassword.length === 0) {
       error = true;
-      errorText = "This field is required";
+      errorText = "Confirm Password is required";
     } else if (!passwordRegex.test(confirmPassword)) {
       error = true;
       errorText = "Entered password does not match the required conditions.";
@@ -106,7 +106,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
       setNewPassword({
         ...initialFieldStringValues,
         error: true,
-        errorText: "This field is required",
+        errorText: "Password is required",
       });
       hasError = true;
     }
@@ -115,7 +115,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
       setConfirmPassword({
         ...initialFieldStringValues,
         error: true,
-        errorText: "This field is required",
+        errorText: "Confirm Password is required",
       });
       hasError = true;
     } else if (newPassword.value !== confirmPassword.value) {
@@ -226,7 +226,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
         <Button
           type="submit"
-          className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
+          className={`!bg-[#023963] !my-14 text-white !h-[38px] !rounded-md w-full`}
           variant="contained"
           disabled={isLoading ? true : false}
         >

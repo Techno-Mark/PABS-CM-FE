@@ -24,7 +24,7 @@ const openedMixin = (theme: Theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-
+  overflowY: "hidden",
   overflowX: "hidden",
 });
 
@@ -33,6 +33,7 @@ const closedMixin = (theme: Theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  overflowY: "hidden",
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
@@ -58,17 +59,6 @@ const MyDrawer = styled(Drawer, {
   }),
 }));
 
-const DrawerFooter = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "end",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  position: "absolute",
-  bottom: 0,
-  right: 0,
-}));
-
 const DrawerPanel = ({
   children,
   openDrawer,
@@ -76,7 +66,8 @@ const DrawerPanel = ({
   canEdit,
   type,
   setOpenDrawer,
-  handleSubmit
+  handleSubmit,
+  setUserId,
 }: DrawerPropsType) => {
   const classes = useStyles();
   return (
@@ -85,50 +76,53 @@ const DrawerPanel = ({
       <MyDrawer
         anchor={"right"}
         classes={{ paper: classes.drawer }}
-        className="z-0"
+        className="z-0 h-screen overflow-none"
         variant="permanent"
         open={openDrawer}
       >
-        <div className="p-5 top-0 flex justify-between">
+        <div className="p-5 top-0 !h-[9%] flex items-center justify-between border-b">
           <span className="font-bold text-[18px]">
             {canEdit ? "Edit" : "Add"} {type}
           </span>
           <Tooltip title="Close" placement="bottom" arrow>
             <span
               className="flex items-center cursor-pointer"
-              onClick={() => setOpenDrawer(false)}
+              onClick={() => {
+                setOpenDrawer(false);
+                setUserId();
+              }}
             >
               <CloseIcon />
             </span>
           </Tooltip>
         </div>
-        <Divider />
-        <div className="p-5 h-[calc(100%-143px)]">{children}</div>
-        <Divider />
-        <DrawerFooter>
-          <div className="flex py-5 px-4 gap-5 w-full">
-            <Button
-              onClick={() => setOpenDrawer(false)}
-              className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-[90px] font-semibold text-[16px]`}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              className={`!bg-[#023963] text-white !h-[36px] !rounded-full !w-[71px]`}
-              variant="contained"
-            >
-              {isLoading ? (
-                <CircularProgress size={20} />
-              ) : (
-                <span className="uppercase font-semibold text-[16px]">
-                  Save
-                </span>
-              )}
-            </Button>
-          </div>
-        </DrawerFooter>
+        <div className="p-5 top-0 flex flex-col justify-start overflow-y-auto !h-[82%]">
+          {children}
+        </div>
+        {/* <Divider /> */}
+        <div className="!h-[9%] !bg-[#FFFFFF] flex items-center justify-end border-t pr-6 gap-5 w-[100%]">
+          <Button
+            onClick={() => {
+              setOpenDrawer(false);
+              setUserId();
+            }}
+            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[16px]`}
+            variant="outlined"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            className={`!bg-[#023963] text-white !rounded-full !w-[71px]`}
+            variant="contained"
+          >
+            {isLoading ? (
+              <CircularProgress size={20} />
+            ) : (
+              <span className="uppercase font-semibold text-[16px]">Save</span>
+            )}
+          </Button>
+        </div>
       </MyDrawer>
     </>
   );

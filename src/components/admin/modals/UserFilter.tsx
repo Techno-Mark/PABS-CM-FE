@@ -2,36 +2,43 @@ import React, { useState } from "react";
 // MUI imports
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
 // Types import
-import { ModalProps, Option } from "@/models/userManage";
+import {
+  BusinessList,
+  UserModalProps,
+  Option,
+  RoleList,
+} from "@/models/userManage";
 // Icons imports
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 // Static imports
-import {
-  businessTypeOption,
-  statusOption,
-  userRoles,
-} from "@/static/usermanage";
+import { statusOption } from "@/static/usermanage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
 
-function UserFilter({ isOpen, setIsOpen }: ModalProps) {
+function UserFilter({
+  isOpen,
+  setIsOpen,
+  roleList,
+  businessList,
+  sendFilterData,
+}: UserModalProps) {
   const handleClose = () => setIsOpen(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<Option[]>([]);
-  const [businessType, setBusinessType] = useState<Option[]>([]);
+  const [role, setRole] = useState<RoleList[]>([]);
+  const [businessType, setBusinessType] = useState<BusinessList[]>([]);
   const [status, setStatus] = useState<Option[]>([]);
 
   const handleRoleChange = (
     event: React.ChangeEvent<{}>,
-    newValues: Option[]
+    newValues: RoleList[]
   ) => {
     setRole(newValues);
   };
 
   const handleBusinessTypeChange = (
     event: React.ChangeEvent<{}>,
-    newValues: Option[]
+    newValues: BusinessList[]
   ) => {
     setBusinessType(newValues);
   };
@@ -47,16 +54,22 @@ function UserFilter({ isOpen, setIsOpen }: ModalProps) {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setIsOpen(false);
-      
-      setLoading(false);
-    }, 2000);
+    const roleId = role.length > 0 ? role.map((r: RoleList) => r.RoleId) : [];
+    const statusId =
+      status.length > 0 ? status.map((s: Option) => s.value) : [];
+    const businessId =
+      businessType.length > 0
+        ? businessType.map((b: BusinessList) => b.BusinessId)
+        : [];
+    sendFilterData(roleId, statusId, businessId);
+    handleClose();
   };
 
   const handleResetSubmit = () => {
-
+    setLoading(false);
+    setRole([]);
+    setStatus([]);
+    setBusinessType([]);
   };
 
   return (
@@ -74,11 +87,11 @@ function UserFilter({ isOpen, setIsOpen }: ModalProps) {
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
-            options={userRoles}
+            options={roleList}
             value={role}
             disableCloseOnSelect
             onChange={handleRoleChange}
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option) => option.RoleName}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox
@@ -87,7 +100,7 @@ function UserFilter({ isOpen, setIsOpen }: ModalProps) {
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />
-                {option.label}
+                {option.RoleName}
               </li>
             )}
             renderInput={(params) => (
@@ -136,11 +149,11 @@ function UserFilter({ isOpen, setIsOpen }: ModalProps) {
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
-            options={businessTypeOption}
+            options={businessList}
             value={businessType}
             onChange={handleBusinessTypeChange}
             disableCloseOnSelect
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option) => option.BussinessName}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox
@@ -149,7 +162,7 @@ function UserFilter({ isOpen, setIsOpen }: ModalProps) {
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />
-                {option.label}
+                {option.BussinessName}
               </li>
             )}
             renderInput={(params) => (

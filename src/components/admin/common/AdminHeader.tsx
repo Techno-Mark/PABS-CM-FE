@@ -8,7 +8,7 @@ import { drawerWidth } from "@/static/commonVariables";
 import { AppBarProps, HeaderPropsType, Option } from "@/models/adminHeader";
 // Icons import
 import UserIcon from "@/assets/Icons/admin/header/UserIcon";
-import { callAPIwithHeaders, callAPIwithoutHeaders } from "@/api/commonFunction";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 import { signoutAPIUrl } from "@/static/apiUrl";
 // Toast import
 import { showToast } from "@/components/ToastContainer";
@@ -76,7 +76,7 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
         backgroundColor: "white !important",
         borderBottom: "0.5px solid lightgrey !important",
         boxShadow: "none !important",
-        height: "50px !important",
+        height: "50.5px !important",
         width: {
           sm: openSidebar ? `calc(100% - 224px)` : `calc(100% - 65px)`,
         },

@@ -23,7 +23,9 @@ function ConfirmModal({
   setIsOpen,
   handleClose,
   handleModalSubmit,
+  setUserId,
 }: ConfirmModalProps) {
+  const safeSetUserId = setUserId || (() => {});
   return (
     <Modal
       open={isOpen}
@@ -36,7 +38,10 @@ function ConfirmModal({
           <Tooltip title="Close" placement="bottom" arrow>
             <span
               className="flex items-center cursor-pointer"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                safeSetUserId();
+              }}
             >
               <CloseIcon />
             </span>
@@ -47,7 +52,10 @@ function ConfirmModal({
         <Divider />
         <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0">
           <Button
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              safeSetUserId();
+            }}
             className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-[60px] font-semibold text-[16px]`}
             variant="outlined"
           >

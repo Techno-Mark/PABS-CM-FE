@@ -8,7 +8,7 @@ import BackIcon from "@/assets/Icons/BackIcon";
 // Types imports
 import { StringFieldType } from "@/models/common";
 // Toast imports
-import { ToastContainer, showToast } from "@/components/ToastContainer";
+import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 // utlis imports
 import { useStyles } from "@/utils/useStyles";
@@ -35,7 +35,7 @@ function Page() {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
     } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
@@ -74,7 +74,7 @@ function Page() {
       setEmail({
         ...initialFieldStringValues,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
       hasError = true;
     }
@@ -124,7 +124,7 @@ function Page() {
 
         <Button
           type="submit"
-          className={`!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full`}
+          className={`!bg-[#023963] !mt-16 mb-20 text-white !h-[38px] !rounded-md w-full`}
           variant="contained"
           disabled={isLoading ? true : false}
         >

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Components imports
 import Wrapper from "@/components/Wrapper";
 import UserDrawer from "@/components/admin/drawer/UserDrawer";
@@ -14,46 +14,68 @@ import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
-import { Tooltip } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { CircularProgress, TablePagination, Tooltip } from "@mui/material";
+import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import {
+  businessListUrl,
+  deleteUserUrl,
+  getUserListUrl,
+  roleListUrl,
+} from "@/static/apiUrl";
+import {
+  BusinessList,
+  BusinessListResponse,
+  GetUserListResponse,
+  RoleList,
+  RoleListResponse,
+  UserList,
+} from "@/models/userManage";
 
 function Page() {
   const columns: GridColDef[] = [
     {
-      field: "id",
+      field: "UserId",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Sr.No.</span>
+        <span className="font-semibold text-[13px]">Sr No.</span>
       ),
       width: 100,
+      sortable: false,
     },
     {
-      field: "fullName",
+      field: "Username",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Full Name</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
-      field: "email",
+      field: "Email",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Email</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
-      field: "role",
+      field: "RoleName",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Role</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
-      field: "actions",
+      field: "action",
       renderHeader: () => (
         <span className="font-semibold text-[13px] flex justify-end items-end">
           Actions
         </span>
       ),
+      sortable: false,
       width: 120,
       renderCell: (params) => {
         return (
@@ -64,6 +86,7 @@ function Page() {
                 onClick={() => {
                   setOpenDrawer(true);
                   setEdit(true);
+                  setUserId(params.row.UserId);
                 }}
               >
                 <EditIcon />
@@ -72,7 +95,10 @@ function Page() {
             <Tooltip title="Delete" placement="top" arrow>
               <span
                 className="cursor-pointer"
-                onClick={() => setOpenDelete(true)}
+                onClick={() => {
+                  setOpenDelete(true);
+                  setUserId(params.row.UserId);
+                }}
               >
                 <DeleteIcon />
               </span>
@@ -88,13 +114,177 @@ function Page() {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openEdit, setEdit] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserList[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [userId, setUserId] = useState<number>(0);
+  const [roleList, setRoleList] = useState<RoleList[]>([]);
+  const [businessList, setBusinessList] = useState<BusinessList[]>([]);
+  const [search, setSearch] = useState("");
+  const [pageNo, setPageNo] = useState<number>(0);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [userListParams, setUserListParams] = useState<{
+    page: number;
+    limit: number;
+    search: string;
+    roleId: number[];
+    businessTypeId: number[];
+    userStatus: number[];
+  }>({
+    page: 1,
+    limit: rowsPerPage,
+    search: "",
+    roleId: [],
+    businessTypeId: [],
+    userStatus: [],
+  });
 
-  const handleDelete = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOpenDelete(false);
-    }, 2000);
+  useEffect(() => {
+    const getRoleList = async () => {
+      const callback = (
+        ResponseStatus: string,
+        Message: string,
+        ResponseData: RoleListResponse
+      ) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            setRoleList(ResponseData.roles);
+            return;
+        }
+      };
+      await callAPIwithHeaders(roleListUrl, "post", callback, {
+        page: 0,
+        limit: 0,
+        search: "",
+      });
+    };
+
+    const getBusinessList = async () => {
+      const callback = (
+        ResponseStatus: string,
+        Message: string,
+        ResponseData: BusinessListResponse
+      ) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            setBusinessList(ResponseData.BusinessTypes);
+            return;
+        }
+      };
+      await callAPIwithHeaders(businessListUrl, "get", callback, {});
+    };
+
+    roleList.length <= 0 && getRoleList();
+    businessList.length <= 0 && getBusinessList();
+  }, []);
+
+  const getFilterData = (
+    roleId: number[],
+    statusId: number[],
+    businessId: number[]
+  ) => {
+    setUserListParams({
+      ...userListParams,
+      roleId: roleId,
+      userStatus: statusId,
+      businessTypeId: businessId,
+    });
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageNo(0);
+      setUserListParams({
+        ...userListParams,
+        search: search.trim(),
+        page: 0 + 1,
+        limit: rowsPerPage,
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search]);
+
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    pageNo: number
+  ) => {
+    setPageNo(pageNo);
+    setUserListParams({
+      ...userListParams,
+      page: pageNo + 1,
+    });
+  };
+  console.log(userListParams);
+
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPageNo(0);
+    setRowsPerPage(parseInt(event.target.value));
+    setUserListParams({
+      ...userListParams,
+      page: 1,
+      limit: parseInt(event.target.value),
+    });
+  };
+
+  const getUserList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: GetUserListResponse
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setLoading(false);
+          return;
+        case "success":
+          setUserData(ResponseData.users);
+          setTotalCount(ResponseData.totalUsers);
+          setLoading(false);
+          return;
+      }
+    };
+    await callAPIwithHeaders(getUserListUrl, "post", callback, userListParams);
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, [userListParams]);
+
+  const handleDelete = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: null
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setIsLoading(false);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          setIsLoading(false);
+          setUserId(0);
+          setOpenDelete(false);
+          setSearch("");
+          return;
+      }
+    };
+    await callAPIwithHeaders(deleteUserUrl, "post", callback, {
+      userId: userId,
+    });
   };
 
   return (
@@ -107,7 +297,9 @@ function Page() {
           <input
             type="text"
             placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-full"
+            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className="flex gap-5">
@@ -132,24 +324,66 @@ function Page() {
       </div>
 
       <div className="w-full h-[78vh] mt-5">
-        <DataGrid
-          rows={UserRows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
+        {loading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <DataGrid
+            disableColumnMenu
+            rows={userData}
+            columns={columns}
+            getRowId={(i: any) => i.UserId}
+            slots={{
+              footer: () => (
+                <div className="flex justify-end">
+                  <TablePagination
+                    count={totalCount}
+                    page={pageNo}
+                    onPageChange={handlePageChange}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleRowsPerPageChange}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                  />
+                </div>
+              ),
+            }}
+            sx={{
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+          />
+        )}
       </div>
 
       {openDrawer && (
         <UserDrawer
           type="User"
           canEdit={openEdit}
+          userId={userId}
+          setUserId={() => setUserId(0)}
           openDrawer={openDrawer}
           setOpenDrawer={(value) => setOpenDrawer(value)}
+          getUserList={getUserList}
+          roleList={[
+            {
+              RoleId: -1,
+              RoleName: "Please Select",
+              RoleStatus: true,
+            },
+            ...roleList,
+          ]}
+          businessList={[
+            {
+              BusinessId: -1,
+              BussinessName: "Please Select",
+            },
+            ...businessList,
+          ]}
         />
       )}
 
@@ -157,6 +391,9 @@ function Page() {
         <UserFilter
           isOpen={openFilter}
           setIsOpen={(value) => setOpenFilter(value)}
+          roleList={roleList}
+          businessList={businessList}
+          sendFilterData={getFilterData}
         />
       )}
 
@@ -169,6 +406,7 @@ function Page() {
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => setOpenDelete(value)}
+          setUserId={() => setUserId(0)}
         />
       )}
       <DrawerOverlay isOpen={openDrawer} />

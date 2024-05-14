@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // MUI Imports
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
-import { DrawerProps } from "@/models/userManage";
-import { StringFieldType } from "@/models/common";
+import { DrawerProps, GetUserByIdResponse } from "@/models/userManage";
+import { NumberFieldType, StringFieldType } from "@/models/common";
 // Static imports
-import {
-  businessTypeOptionDrawer,
-  statusOptionDrawer,
-  userRolesDrawer,
-} from "@/static/usermanage";
+import { statusOptionDrawer } from "@/static/usermanage";
 import { ToastType } from "@/static/toastType";
 // Modal import
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
@@ -18,12 +14,19 @@ import { useStyles } from "@/utils/useStyles";
 // Drawer import
 import DrawerPanel from "@/components/admin/common/DrawerPanel";
 import { showToast } from "@/components/ToastContainer";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import { saveUserUrl, getUserDetailsByIdUrl } from "@/static/apiUrl";
 
 const UserDrawer = ({
   openDrawer,
   setOpenDrawer,
+  userId,
+  setUserId,
   canEdit,
   type,
+  getUserList,
+  roleList,
+  businessList,
 }: DrawerProps) => {
   const initialFieldStringValues = {
     value: "",
@@ -34,22 +37,74 @@ const UserDrawer = ({
   const [userFullName, setUserFullName] = useState<StringFieldType>(
     initialFieldStringValues
   );
-  const [role, setRole] = useState<StringFieldType>({
+  const [role, setRole] = useState<NumberFieldType>({
     ...initialFieldStringValues,
-    value: "-1",
+    value: -1,
   });
-  const [businessType, setBusinessType] = useState<StringFieldType>({
+  const [businessType, setBusinessType] = useState<NumberFieldType>({
     ...initialFieldStringValues,
-    value: "-1",
+    value: -1,
   });
-  const [status, setStatus] = useState<StringFieldType>({
+  const [status, setStatus] = useState<NumberFieldType>({
     ...initialFieldStringValues,
-    value: "-1",
+    value: -1,
   });
 
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isInactive, setInactive] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getById = async () => {
+      const callback = (
+        ResponseStatus: string,
+        Message: string,
+        ResponseData: GetUserByIdResponse
+      ) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            setUserFullName({
+              value: ResponseData.Username,
+              error: false,
+              errorText: "",
+            });
+            setEmail({
+              value: ResponseData.Email,
+              error: false,
+              errorText: "",
+            });
+            setRole({
+              value: ResponseData.RoleId,
+              error: false,
+              errorText: "",
+            });
+            setBusinessType({
+              value: ResponseData.BusinessTypeId,
+              error: false,
+              errorText: "",
+            });
+            setStatus({
+              value:
+                ResponseData.Status === 0
+                  ? 2
+                  : ResponseData.Status === 1
+                  ? 1
+                  : -1,
+              error: false,
+              errorText: "",
+            });
+            return;
+        }
+      };
+      await callAPIwithHeaders(getUserDetailsByIdUrl, "post", callback, {
+        userId: userId,
+      });
+    };
+    userId > 0 && getById();
+  }, [userId]);
 
   const handleUserFullNameChange = (e: { target: { value: string } }) => {
     const specialCharsRegex = /[^\w\s-]/;
@@ -57,7 +112,7 @@ const UserDrawer = ({
       setUserFullName({
         value: e.target.value,
         error: true,
-        errorText: "This field is Required",
+        errorText: "Name is Required",
       });
     } else if (e.target.value.trim().length > 50) {
       return;
@@ -76,18 +131,16 @@ const UserDrawer = ({
   };
 
   const handleEmailChange = (e: { target: { value: string } }) => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "This field is required",
+        errorText: "Email is required",
       });
     } else if (e.target.value.trim().length > 254) {
       return;
-    } else if (
-      !emailRegex.test(e.target.value.trim())
-    ) {
+    } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
         value: e.target.value,
         error: true,
@@ -101,49 +154,60 @@ const UserDrawer = ({
     }
   };
 
-  const handleRoleChange = (e: { target: { value: string } }) => {
-    if (e.target.value.trim().length === 0 || e.target.value === "-1") {
+  const handleRoleChange = (e: { target: { value: number | string } }) => {
+    if (
+      e.target.value.toString().trim().length === 0 ||
+      Number(e.target.value) === -1
+    ) {
       setRole({
-        value: "-1",
+        value: -1,
         error: true,
-        errorText: "This field is Required",
+        errorText: "Role is Required",
       });
     } else {
       setRole({
         ...initialFieldStringValues,
-        value: e.target.value,
+        value: Number(e.target.value),
       });
     }
   };
 
-  const handleBusinessTypeChange = (e: { target: { value: string } }) => {
-    if (e.target.value.trim().length === 0 || e.target.value === "-1") {
+  const handleBusinessTypeChange = (e: {
+    target: { value: number | string };
+  }) => {
+    if (
+      e.target.value.toString().trim().length === 0 ||
+      Number(e.target.value) === -1
+    ) {
       setBusinessType({
-        value: "-1",
+        value: -1,
         error: true,
-        errorText: "This field is Required",
+        errorText: "Business Type is Required",
       });
     } else {
       setBusinessType({
         ...initialFieldStringValues,
-        value: e.target.value,
+        value: Number(e.target.value),
       });
     }
   };
 
-  const handleStatusChange = (e: { target: { value: string } }) => {
-    if (e.target.value.trim().length === 0 || e.target.value === "-1") {
+  const handleStatusChange = (e: { target: { value: number | string } }) => {
+    if (
+      e.target.value.toString().trim().length === 0 ||
+      Number(e.target.value) === -1
+    ) {
       setStatus({
-        value: "-1",
+        value: -1,
         error: true,
-        errorText: "This field is Required",
+        errorText: "Status is Required",
       });
-    } else if (e.target.value === "2") {
+    } else if (Number(e.target.value) === 2) {
       setInactive(true);
     } else {
       setStatus({
         ...initialFieldStringValues,
-        value: e.target.value,
+        value: Number(e.target.value),
       });
     }
   };
@@ -154,55 +218,102 @@ const UserDrawer = ({
 
     const validateAndSetField = (
       field: React.Dispatch<React.SetStateAction<StringFieldType>>,
-      value: string
+      value: string,
+      message: string
     ) => {
-      if (value.trim().length === 0 || value === "-1") {
+      if (value.toString().trim().length === 0 || value === "-1") {
         field({
           value: value,
           error: true,
-          errorText: "This field is required",
+          errorText: `${message} is required`,
         });
         return true;
       }
       return false;
     };
 
-    const emailError = validateAndSetField(setEmail, email.value);
-    const roleError = validateAndSetField(setRole, role.value);
-    const businessTypeError = validateAndSetField(
+    const validateAndSetFieldNumber = (
+      field: React.Dispatch<React.SetStateAction<NumberFieldType>>,
+      value: number,
+      message: string
+    ) => {
+      if (value.toString().trim().length === 0 || value === -1) {
+        field({
+          value: value,
+          error: true,
+          errorText: `${message} is required`,
+        });
+        return true;
+      }
+      return false;
+    };
+
+    const emailError = validateAndSetField(setEmail, email.value, "Email");
+    const roleError = validateAndSetFieldNumber(setRole, role.value, "Role");
+    const businessTypeError = validateAndSetFieldNumber(
       setBusinessType,
-      businessType.value
+      businessType.value,
+      "Business Type"
     );
-    const statusError = validateAndSetField(setStatus, status.value);
+    const statusError = validateAndSetFieldNumber(
+      setStatus,
+      status.value,
+      "Status"
+    );
     const userFullNameError = validateAndSetField(
       setUserFullName,
-      userFullName.value
+      userFullName.value,
+      "Name"
     );
+
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: null
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setLoading(false);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          setLoading(false);
+          setOpenDrawer(false);
+          setUserId();
+          getUserList();
+          return;
+      }
+    };
 
     if (
       emailError ||
       userFullNameError ||
       roleError ||
-      businessTypeError || email.error || userFullName.error || 
+      businessTypeError ||
+      email.error ||
+      userFullName.error ||
       (canEdit && statusError)
     ) {
       setLoading(false);
     } else {
-      showToast(
-        "User profile has been created successfully",
-        ToastType.Success
-      );
-      setTimeout(() => {
-        setOpenDrawer(false);
-        setLoading(false);
-      }, 2000);
+      const statusBool =
+        status.value === 1 ? true : status.value === 2 ? false : true;
+      await callAPIwithHeaders(saveUserUrl, "post", callback, {
+        userId: userId,
+        fullName: userFullName.value,
+        email: email.value,
+        roleId: role.value,
+        businessTypeId: businessType.value,
+        userStatus: userId > 0 ? statusBool : true,
+      });
     }
   };
 
   const handleApplyChange = () => {
     setStatus({
       ...initialFieldStringValues,
-      value: "2",
+      value: 2,
     });
     setInactive(false);
   };
@@ -216,6 +327,7 @@ const UserDrawer = ({
         isLoading={isLoading}
         setOpenDrawer={(value) => setOpenDrawer(value)}
         handleSubmit={handleSubmit}
+        setUserId={setUserId}
       >
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
@@ -234,6 +346,9 @@ const UserDrawer = ({
               classes: {
                 underline: classes.underline,
               },
+            }}
+            inputProps={{
+              className: classes.textSize,
             }}
           />
         </div>
@@ -255,6 +370,9 @@ const UserDrawer = ({
                 underline: classes.underline,
               },
             }}
+            inputProps={{
+              className: classes.textSize,
+            }}
           />
         </div>
         <div className="text-[12px] flex flex-col pb-5">
@@ -266,7 +384,7 @@ const UserDrawer = ({
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               className={`${
-                role.value === "-1"
+                role.value === -1
                   ? "!text-[12px] text-[#6E6D7A]"
                   : "!text-[14px]"
               }`}
@@ -274,13 +392,13 @@ const UserDrawer = ({
               error={role.error}
               onChange={handleRoleChange}
             >
-              {userRolesDrawer.map((role) => (
+              {roleList.map((role) => (
                 <MenuItem
-                  key={role.value}
-                  value={role.value}
-                  disabled={role.value === "-1"}
+                  key={role.RoleId}
+                  value={role.RoleId}
+                  disabled={role.RoleId === -1}
                 >
-                  {role.label}
+                  {role.RoleName}
                 </MenuItem>
               ))}
             </Select>
@@ -299,7 +417,7 @@ const UserDrawer = ({
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
                 className={`${
-                  status.value === "-1"
+                  status.value === -1
                     ? "!text-[12px] text-[#6E6D7A]"
                     : "!text-[14px]"
                 }`}
@@ -311,7 +429,7 @@ const UserDrawer = ({
                   <MenuItem
                     key={type.value}
                     value={type.value}
-                    disabled={type.value === "-1"}
+                    disabled={type.value === -1}
                   >
                     {type.label}
                   </MenuItem>
@@ -332,7 +450,7 @@ const UserDrawer = ({
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               className={`${
-                businessType.value === "-1"
+                businessType.value === -1
                   ? "!text-[12px] text-[#6E6D7A]"
                   : "!text-[14px]"
               }`}
@@ -340,13 +458,13 @@ const UserDrawer = ({
               error={businessType.error}
               onChange={handleBusinessTypeChange}
             >
-              {businessTypeOptionDrawer.map((type) => (
+              {businessList.map((type) => (
                 <MenuItem
-                  key={type.value}
-                  value={type.value}
-                  disabled={type.value === "-1"}
+                  key={type.BusinessId}
+                  value={type.BusinessId}
+                  disabled={type.BusinessId === -1}
                 >
-                  {type.label}
+                  {type.BussinessName}
                 </MenuItem>
               ))}
             </Select>

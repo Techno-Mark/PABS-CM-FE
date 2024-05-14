@@ -103,13 +103,14 @@ function Page() {
 
   const validateAndSetField = (
     field: React.Dispatch<React.SetStateAction<StringFieldType>>,
-    value: string
+    value: string,
+    message: string
   ) => {
     if (value.trim().length === 0) {
       field({
         ...initialFieldStringValues,
         error: true,
-        errorText: "This field is required",
+        errorText: `${message} is required`,
       });
       return true;
     }
@@ -120,8 +121,12 @@ function Page() {
     e.preventDefault();
     setLoading(true);
 
-    const usernameError = validateAndSetField(setEmail, email.value);
-    const passwordError = validateAndSetField(setPassword, password.value);
+    const usernameError = validateAndSetField(setEmail, email.value, "Email");
+    const passwordError = validateAndSetField(
+      setPassword,
+      password.value,
+      "Password"
+    );
 
     const callback = (
       ResponseStatus: string,
@@ -157,7 +162,7 @@ function Page() {
 
   return (
     <AuthWapper>
-      <span className="text-[32px] !font-light font-sans pt-24">Welcome</span>
+      <span className="text-[32px] !font-light font-sans pt-20">Welcome</span>
       <form onSubmit={handleSubmit}>
         <div
           className={`text-[12px] flex flex-col ${
@@ -232,7 +237,7 @@ function Page() {
         </Button>
       </form>
 
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end mb-6">
         <span
           className="pt-4 text-[#023963] w-fit text-[14px] font-sans flex justify-end items-end cursor-pointer"
           onClick={() => router.push("/auth/forgotpassword")}
