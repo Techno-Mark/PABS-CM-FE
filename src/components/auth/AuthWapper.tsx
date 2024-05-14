@@ -19,18 +19,18 @@ const router = useRouter()
     }
   }, []);
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
+    <div className="flex justify-center items-center w-full min-h-[100vh] py-8 bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
       <ToastContainer />
-      <div className="relative flex h-[80%] w-[70%]">
+      <div className="relative flex w-[70%]">
         <div className="w-[50%] flex justify-center items-center borderClass bg-[#002641]">
           <span className="flex absolute">
             <PABSIcon />
           </span>
-          <span className="absolute bottom-[2px] left-[2px]  blur-sm">
+          <span className="absolute bottom-[2px] left-[2px] blur-sm">
             <PABSHalfIcon />
           </span>
         </div>
-        <div className="w-[50%] flex flex-col bg-white px-14">{children}</div>
+        <div className="w-[50%] flex flex-col bg-white px-14 h-fit">{children}</div>
       </div>
     </div>
   );
