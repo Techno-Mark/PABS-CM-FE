@@ -279,6 +279,13 @@ function Page() {
           setUserId(0);
           setOpenDelete(false);
           setSearch("");
+          setPageNo(0);
+          setUserListParams({
+            ...userListParams,
+            search: "",
+            page: 0 + 1,
+            limit: rowsPerPage,
+          });
           return;
       }
     };

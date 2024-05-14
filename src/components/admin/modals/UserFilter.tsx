@@ -70,6 +70,7 @@ function UserFilter({
     setRole([]);
     setStatus([]);
     setBusinessType([]);
+    sendFilterData([], [], []);
   };
 
   return (
