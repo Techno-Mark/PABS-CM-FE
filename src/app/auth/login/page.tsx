@@ -140,7 +140,7 @@ function Page() {
           return;
         case "success":
           showToast(Message, ToastType.Success);
-          router.push("/admin/usermanagement");
+          router.push("/admin/clientmanagement");
           setLoading(false);
           Cookies.set("token", ResponseData?.Token);
           Cookies.set("userId", ResponseData?.UserId.toString());
@@ -162,7 +162,7 @@ function Page() {
 
   return (
     <AuthWapper>
-      <span className="text-[32px] !font-light font-sans pt-20">Welcome</span>
+      <span className="text-[32px] !font-light pt-20">Welcome</span>
       <form onSubmit={handleSubmit}>
         <div
           className={`text-[12px] flex flex-col ${
@@ -212,6 +212,7 @@ function Page() {
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
+                    tabIndex={-1}
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
@@ -223,7 +224,7 @@ function Page() {
         </div>
         <Button
           type="submit"
-          className="!bg-[#023963] !mt-14 text-white !h-[38px] !rounded-md w-full"
+          className="!bg-[#023963] !mt-12 text-white !h-[38px] !rounded-md w-full"
           variant="contained"
           disabled={isLoading ? true : false}
         >
@@ -237,9 +238,9 @@ function Page() {
         </Button>
       </form>
 
-      <div className="flex items-center justify-end mb-6">
+      <div className="flex items-center justify-end !pb-20">
         <span
-          className="pt-4 text-[#023963] w-fit text-[14px] font-sans flex justify-end items-end cursor-pointer"
+          className="pt-4 text-[#023963] w-fit text-[14px] flex justify-end items-end cursor-pointer"
           onClick={() => router.push("/auth/forgotpassword")}
         >
           Forget Password?

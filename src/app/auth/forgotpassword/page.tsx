@@ -35,7 +35,7 @@ function Page() {
       setEmail({
         value: e.target.value,
         error: true,
-        errorText: "Email is required",
+        errorText: "Email Address is required",
       });
     } else if (!emailRegex.test(e.target.value.trim())) {
       setEmail({
@@ -66,6 +66,7 @@ function Page() {
         case "success":
           showToast(Message, ToastType.Success);
           setLoading(false);
+          router.push("/auth/login");
           return;
       }
     };
@@ -74,7 +75,7 @@ function Page() {
       setEmail({
         ...initialFieldStringValues,
         error: true,
-        errorText: "Email is required",
+        errorText: "Email Address is required",
       });
       hasError = true;
     }
@@ -92,13 +93,13 @@ function Page() {
   return (
     <AuthWapper>
       <span
-        className="flex items-center w-fit gap-2 text-[14px] font-medium font-sans pt-14 cursor-pointer"
+        className="flex items-center w-fit gap-2 text-[14px] font-medium  pt-14 cursor-pointer"
         onClick={() => router.push("/")}
       >
         <BackIcon /> Back
       </span>
-      <span className="text-[32px] !font-light font-sans pt-14">
-        Forgot password
+      <span className="text-[32px] !font-light  pt-14">
+        Reset your password
       </span>
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-14">
@@ -124,7 +125,7 @@ function Page() {
 
         <Button
           type="submit"
-          className={`!bg-[#023963] !mt-16 mb-20 text-white !h-[38px] !rounded-md w-full`}
+          className={`!bg-[#023963] !mt-16 mb-24 text-white !h-[38px] !rounded-md w-full`}
           variant="contained"
           disabled={isLoading ? true : false}
         >
@@ -132,7 +133,7 @@ function Page() {
             <CircularProgress size={20} />
           ) : (
             <span className="normal-case font-semibold text-[16px]">
-              Send Email
+              Reset Password
             </span>
           )}
         </Button>

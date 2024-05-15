@@ -8,7 +8,8 @@ export interface StringFieldType {
 
 export interface AuthType {
   // token: string | null;
-  passwordType: "Reset" | "Create"
+  passwordType: "Reset" | "Create";
+  checkForToken: boolean;
 }
 
 export interface childPropsType {
