@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 // MUI imports
 import { styled, Toolbar, AppBar as MuiAppBar } from "@mui/material";
@@ -38,6 +38,24 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
   const userId = Cookies.get("userId");
   const token = Cookies.get("token");
   const userName = Cookies.get("userName");
+  const selectRefNavbar = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: any) => {
+      if (
+        selectRefNavbar.current &&
+        !selectRefNavbar.current.contains(event.target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   const options: Option[] = [
     {
@@ -52,6 +70,11 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
 
   const handleSubmit = async () => {
     const callback = (ResponseStatus: string, Message: string) => {
+      if (ResponseStatus === "failure" && Message === "Token not found") {
+        removeCookies();
+        router.push("/auth/login");
+        return;
+      }
       switch (ResponseStatus) {
         case "failure":
           showToast(Message, ToastType.Error);
@@ -61,11 +84,11 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
           removeCookies();
           router.push("/auth/login");
           return;
-        }
-      };
-      await callAPIwithHeaders(signoutAPIUrl, "post", callback, {
-        userId: Number(userId)
-      });
+      }
+    };
+    await callAPIwithHeaders(signoutAPIUrl, "post", callback, {
+      userId: Number(userId),
+    });
   };
 
   return (
@@ -98,7 +121,9 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
             <div
               className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
               onClick={handleToggle}
+              ref={selectRefNavbar}
             >
+              {userName}
               <UserIcon />
               <div
                 style={{

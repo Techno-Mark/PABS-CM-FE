@@ -12,3 +12,4 @@ export const getUserListUrl = "api/users/list";
 export const saveUserUrl = "api/users/save";
 export const getUserDetailsByIdUrl = "api/users/getbyid";
 export const deleteUserUrl = "api/users/delete";
+export const tokenVerificationAPIUrl = "api/auth/token-verification";

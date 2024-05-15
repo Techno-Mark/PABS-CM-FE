@@ -49,6 +49,12 @@ export const callAPIwithoutHeaders = async (
       if (response.data.ResponseStatus === "success") {
         removeCookies();
         window.location.href = "/auth/login";
+      } else if (
+        response.data.ResponseStatus === "failure" &&
+        response.data.Message === "Token not found"
+      ) {
+        removeCookies();
+        window.location.href = "/auth/login";
       }
     }
     successCallback(

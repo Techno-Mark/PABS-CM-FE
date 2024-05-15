@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 // MUI imports
 import {
@@ -17,12 +17,12 @@ import { useStyles } from "@/utils/useStyles";
 // component import
 import AuthWapper from "@/components/auth/AuthWapper";
 import { callAPIwithoutHeaders } from "@/api/commonFunction";
-import { resetPasswordAPIUrl } from "@/static/apiUrl";
+import { resetPasswordAPIUrl, tokenVerificationAPIUrl } from "@/static/apiUrl";
 import { showToast } from "../ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { useSearchParams } from "next/navigation";
 
-const SetNewPassword = ({ passwordType }: AuthType) => {
+const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
   const getToken = useSearchParams();
   const token = getToken.get("token");
   const classes = useStyles();
@@ -46,6 +46,39 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
   const passwordRegex =
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;?/>,.<]).{8,}$/;
+
+  const verifyToken = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: undefined | null
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          router.push("/auth/login");
+          setLoading(false);
+          return;
+        case "success":
+          setLoading(false);
+          return;
+      }
+    };
+
+    await callAPIwithoutHeaders(tokenVerificationAPIUrl, "post", callback, {
+      token: token,
+    });
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      checkForToken && verifyToken();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [checkForToken]);
 
   const handleClickShowNewPassword = () => setShowNewPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -129,8 +162,8 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
     const callback = (
       ResponseStatus: string,
-      Message: string
-      // ResponseData: userResetPasswordData
+      Message: string,
+      ResponseData: undefined | null
     ) => {
       switch (ResponseStatus) {
         case "failure":
@@ -160,7 +193,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
   return (
     <AuthWapper>
-      <span className="text-[32px] !font-light font-sans pt-24">
+      <span className="text-[32px] !font-light pt-24">
         {passwordType} Password
       </span>
       <form onSubmit={handleSubmit}>
@@ -184,6 +217,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
                     onClick={handleClickShowNewPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
+                    tabIndex={-1}
                   >
                     {showNewPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
@@ -214,6 +248,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
                     onClick={handleClickShowConfirmPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
+                    tabIndex={-1}
                   >
                     {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
@@ -226,7 +261,7 @@ const SetNewPassword = ({ passwordType }: AuthType) => {
 
         <Button
           type="submit"
-          className={`!bg-[#023963] !my-14 text-white !h-[38px] !rounded-md w-full`}
+          className={`!bg-[#023963] !mt-14 !mb-20 text-white !h-[38px] !rounded-md w-full`}
           variant="contained"
           disabled={isLoading ? true : false}
         >

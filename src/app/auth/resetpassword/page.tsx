@@ -3,11 +3,18 @@
 import React from "react";
 // Component import
 import SetNewPassword from "@/components/auth/SetNewPassword";
+import { CircularProgress } from "@mui/material";
 
 const page = () => {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <SetNewPassword passwordType="Reset" />
+    <React.Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <CircularProgress className="mainLoader" size={50} />
+        </div>
+      }
+    >
+      <SetNewPassword passwordType="Reset" checkForToken={true} />
     </React.Suspense>
   );
 };

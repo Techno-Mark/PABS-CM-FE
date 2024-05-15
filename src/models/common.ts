@@ -15,6 +15,7 @@ export interface NumberFieldType {
 export interface AuthType {
   // token: string | null;
   passwordType: "Reset" | "Create";
+  checkForToken: boolean;
 }
 
 export interface childPropsType {
