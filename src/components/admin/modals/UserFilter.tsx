@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // MUI imports
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
 // Types import
@@ -22,12 +22,37 @@ function UserFilter({
   roleList,
   businessList,
   sendFilterData,
+  userListParams,
 }: UserModalProps) {
   const handleClose = () => setIsOpen(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [role, setRole] = useState<RoleList[]>([]);
   const [businessType, setBusinessType] = useState<BusinessList[]>([]);
   const [status, setStatus] = useState<Option[]>([]);
+
+  useEffect(() => {
+    const selectedRoles =
+      userListParams.roleId.length > 0
+        ? roleList.filter((r: RoleList) =>
+            userListParams.roleId.includes(r.RoleId)
+          )
+        : [];
+    setRole(selectedRoles);
+    const selectedBusinesses =
+      userListParams.roleId.length > 0
+        ? businessList.filter((b: BusinessList) =>
+            userListParams.businessTypeId.includes(b.BusinessId)
+          )
+        : [];
+    setBusinessType(selectedBusinesses);
+    const selectedStatuses =
+      userListParams.roleId.length > 0
+        ? statusOption.filter((s: Option) =>
+            userListParams.userStatus.includes(s.value)
+          )
+        : [];
+    setStatus(selectedStatuses);
+  }, [userListParams, roleList, businessList]);
 
   const handleRoleChange = (
     event: React.ChangeEvent<{}>,

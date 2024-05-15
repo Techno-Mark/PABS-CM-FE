@@ -88,9 +88,9 @@ const UserDrawer = ({
             });
             setStatus({
               value:
-                ResponseData.Status === 0
+                ResponseData.Status === false
                   ? 2
-                  : ResponseData.Status === 1
+                  : ResponseData.Status === true
                   ? 1
                   : -1,
               error: false,

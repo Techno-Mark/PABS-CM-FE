@@ -223,7 +223,6 @@ function Page() {
       page: pageNo + 1,
     });
   };
-  console.log(userListParams);
 
   const handleRowsPerPageChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -401,6 +400,7 @@ function Page() {
           roleList={roleList}
           businessList={businessList}
           sendFilterData={getFilterData}
+          userListParams={userListParams}
         />
       )}
 

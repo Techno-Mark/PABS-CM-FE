@@ -20,6 +20,7 @@ export interface UserModalProps {
     statusId: number[],
     businessId: number[]
   ) => void;
+  userListParams: any;
 }
 
 export interface InActiveProps {
@@ -98,5 +99,5 @@ export interface GetUserByIdResponse {
   RoleName: string;
   BusinessTypeId: number;
   BusinessTypeName: string;
-  Status: number;
+  Status: boolean;
 }
