@@ -8,6 +8,7 @@ import {
   IconButton,
   Input,
   InputAdornment,
+  Tooltip,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 // Icons import
@@ -21,6 +22,7 @@ import { resetPasswordAPIUrl, tokenVerificationAPIUrl } from "@/static/apiUrl";
 import { showToast } from "../ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { useSearchParams } from "next/navigation";
+import InfoIcon from "@/assets/Icons/InfoIcon";
 
 const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
   const getToken = useSearchParams();
@@ -198,8 +200,9 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
       </span>
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-14">
-          <label className="text-[#6E6D7A] text-[14px]">
-            New Password<span className="text-[#DC3545]">*</span>
+          <label className="text-[#6E6D7A] text-[14px] flex items-center">
+            New Password<span className="text-[#DC3545]">*</span>&nbsp;
+            <InfoIcon />
           </label>
           <FormControl variant="standard">
             <Input
@@ -229,8 +232,9 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
         </div>
 
         <div className="text-[12px] flex flex-col pt-8">
-          <label className="text-[#6E6D7A] text-[14px]">
-            Confirm Password<span className="text-[#DC3545]">*</span>
+          <label className="text-[#6E6D7A] text-[14px] flex items-center">
+            Confirm Password<span className="text-[#DC3545]">*</span>&nbsp;
+            <InfoIcon />
           </label>
           <FormControl variant="standard">
             <Input
