@@ -21,7 +21,7 @@ const UserDrawer = ({
   openDrawer,
   setOpenDrawer,
   userId,
-  setUserId,
+  setId,
   canEdit,
   type,
   getUserList,
@@ -291,7 +291,7 @@ const UserDrawer = ({
           showToast(Message, ToastType.Success);
           setLoading(false);
           setOpenDrawer(false);
-          setUserId();
+          setId();
           getUserList();
           return;
       }
@@ -338,7 +338,7 @@ const UserDrawer = ({
         isLoading={isLoading}
         setOpenDrawer={(value) => setOpenDrawer(value)}
         handleSubmit={handleSubmit}
-        setUserId={setUserId}
+        setId={setId}
       >
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">

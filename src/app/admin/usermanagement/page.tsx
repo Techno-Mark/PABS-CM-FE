@@ -386,7 +386,7 @@ function Page() {
           type="User"
           canEdit={openEdit}
           userId={userId}
-          setUserId={() => setUserId(0)}
+          setId={() => setUserId(0)}
           openDrawer={openDrawer}
           setOpenDrawer={(value) => setOpenDrawer(value)}
           getUserList={getUserList}
@@ -428,7 +428,7 @@ function Page() {
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => setOpenDelete(value)}
-          setUserId={() => setUserId(0)}
+          setId={() => setUserId(0)}
         />
       )}
       <DrawerOverlay isOpen={openDrawer} />

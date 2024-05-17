@@ -2,7 +2,7 @@ export interface DrawerProps {
   openDrawer: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   userId: number;
-  setUserId: () => void;
+  setId: () => void;
   canEdit: boolean;
   type: string;
   getUserList: () => void;
@@ -52,7 +52,7 @@ export interface ConfirmModalProps {
   handleModalSubmit: () => void;
   isLoading?: boolean;
   handleClose: () => void;
-  setUserId?: () => void;
+  setId?: () => void;
 }
 
 export interface RoleList {
