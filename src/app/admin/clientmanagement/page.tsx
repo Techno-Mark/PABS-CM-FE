@@ -43,6 +43,8 @@ import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
 import { ClientList, GetClientListResponse } from "@/models/clientManage";
 import Loader from "@/components/admin/common/Loader";
 import { useStyles } from "@/utils/useStyles";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 
 function Page() {
@@ -214,6 +216,7 @@ function Page() {
     },
   ];
 
+  const router = useRouter();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
@@ -244,6 +247,20 @@ function Page() {
   });
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [invitaionLoading, setInvitaionLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const roleId = Cookies.get("roleId");
+    if (roleId == "1" || roleId == "2" || roleId == "3") {
+      if (
+        (checkPermission("Client Management", "view") ||
+          checkPermission("Client Management", "create")) === false
+      ) {
+        router.push("/");
+      }
+    } else {
+      router.push("/");
+    }
+  }, [router]);
 
   const getAssignUserList = async () => {
     const callback = (
