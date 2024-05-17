@@ -13,7 +13,7 @@ export const useStyles = makeStyles({
     height: "100%",
   },
   sidebarDrawer: {
-    background: "#023963",
+    background: "#023963 !important",
     height: "100%",
   },
   underline: {

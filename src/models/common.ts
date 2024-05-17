@@ -41,4 +41,5 @@ export interface FilterProps {
   handleResetSubmit: () => void;
   handleClose: () => void;
   handleSubmit: () => void;
+  isDisabled: boolean;
 }

@@ -82,6 +82,7 @@ export interface UserList {
   Username: string;
   Email: string;
   RoleName: string;
+  Status: string;
 }
 
 export interface GetUserListResponse {

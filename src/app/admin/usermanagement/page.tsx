@@ -6,15 +6,13 @@ import UserDrawer from "@/components/admin/drawer/UserDrawer";
 import UserFilter from "@/components/admin/modals/UserFilter";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
-// Static imports
-import { UserRows } from "@/static/usermanage";
 // Icons imports
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
-import { CircularProgress, TablePagination, Tooltip } from "@mui/material";
+import { TablePagination, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
@@ -33,6 +31,8 @@ import {
   RoleListResponse,
   UserList,
 } from "@/models/userManage";
+import Loader from "@/components/admin/common/Loader";
+import Cookies from "js-cookie";
 
 function Page() {
   const columns: GridColDef[] = [
@@ -69,6 +69,14 @@ function Page() {
       sortable: false,
     },
     {
+      field: "Status",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Status</span>
+      ),
+      flex: 1,
+      sortable: false,
+    },
+    {
       field: "action",
       renderHeader: () => (
         <span className="font-semibold text-[13px] flex justify-end items-end">
@@ -78,32 +86,39 @@ function Page() {
       sortable: false,
       width: 120,
       renderCell: (params) => {
+        const userId = Cookies.get("userId");
         return (
-          <div className="flex gap-9 justify-start h-full items-center">
-            <Tooltip title="Edit" placement="top" arrow>
-              <span
-                className="cursor-pointer"
-                onClick={() => {
-                  setOpenDrawer(true);
-                  setEdit(true);
-                  setUserId(params.row.UserId);
-                }}
-              >
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip title="Delete" placement="top" arrow>
-              <span
-                className="cursor-pointer"
-                onClick={() => {
-                  setOpenDelete(true);
-                  setUserId(params.row.UserId);
-                }}
-              >
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
+          <>
+            {userId == params.row.UserId ? (
+              ""
+            ) : (
+              <div className="flex gap-9 justify-start h-full items-center">
+                <Tooltip title="Edit" placement="top" arrow>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setOpenDrawer(true);
+                      setEdit(true);
+                      setUserId(params.row.UserId);
+                    }}
+                  >
+                    <EditIcon />
+                  </span>
+                </Tooltip>
+                <Tooltip title="Delete" placement="top" arrow>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setOpenDelete(true);
+                      setUserId(params.row.UserId);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </span>
+                </Tooltip>
+              </div>
+            )}
+          </>
         );
       },
     },
@@ -331,7 +346,7 @@ function Page() {
 
       <div className="w-full h-[78vh] mt-5">
         {loading ? (
-          <CircularProgress size={20} />
+          <Loader />
         ) : (
           <DataGrid
             disableColumnMenu

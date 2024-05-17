@@ -39,14 +39,14 @@ function UserFilter({
         : [];
     setRole(selectedRoles);
     const selectedBusinesses =
-      userListParams.roleId.length > 0
+      userListParams.businessTypeId.length > 0
         ? businessList.filter((b: BusinessList) =>
             userListParams.businessTypeId.includes(b.BusinessId)
           )
         : [];
     setBusinessType(selectedBusinesses);
     const selectedStatuses =
-      userListParams.roleId.length > 0
+      userListParams.userStatus.length > 0
         ? statusOption.filter((s: Option) =>
             userListParams.userStatus.includes(s.value)
           )
@@ -106,6 +106,9 @@ function UserFilter({
       setIsOpenModal={(value) => setIsOpen(value)}
       handleSubmit={handleSubmit}
       handleResetSubmit={handleResetSubmit}
+      isDisabled={
+        !(role.length > 0 || businessType.length > 0 || status.length > 0)
+      }
     >
       <div className="p-5 h-[calc(100%-143px)]">
         <div className="text-[12px] flex flex-col">
@@ -133,7 +136,7 @@ function UserFilter({
               <TextField
                 {...params}
                 variant="standard"
-                placeholder="Please Select"
+                placeholder={role.length <= 0 ? "Please Select" : ""}
               />
             )}
           />
@@ -163,7 +166,7 @@ function UserFilter({
               <TextField
                 {...params}
                 variant="standard"
-                placeholder="Please Select"
+                placeholder={status.length <= 0 ? "Please Select" : ""}
               />
             )}
           />
@@ -195,7 +198,7 @@ function UserFilter({
               <TextField
                 {...params}
                 variant="standard"
-                placeholder="Please Select"
+                placeholder={businessType.length <= 0 ? "Please Select" : ""}
               />
             )}
           />

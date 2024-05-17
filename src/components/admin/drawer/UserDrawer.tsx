@@ -34,7 +34,7 @@ const UserDrawer = ({
     errorText: "",
   };
   const classes = useStyles();
-  const [userFullName, setUserFullName] = useState<StringFieldType>(
+  const [fullName, setFullName] = useState<StringFieldType>(
     initialFieldStringValues
   );
   const [role, setRole] = useState<NumberFieldType>({
@@ -66,7 +66,7 @@ const UserDrawer = ({
             showToast(Message, ToastType.Error);
             return;
           case "success":
-            setUserFullName({
+            setFullName({
               value: ResponseData.Username,
               error: false,
               errorText: "",
@@ -106,24 +106,35 @@ const UserDrawer = ({
     userId > 0 && getById();
   }, [userId]);
 
-  const handleUserFullNameChange = (e: { target: { value: string } }) => {
+  const handleFullNameChange = (e: { target: { value: string } }) => {
+    const numbersRegex = /\d/;
     const specialCharsRegex = /[^\w\s-]/;
     if (e.target.value.trim().length === 0) {
-      setUserFullName({
+      setFullName({
         value: e.target.value,
         error: true,
-        errorText: "Name is Required",
+        errorText: "Full Name is Required",
       });
-    } else if (e.target.value.trim().length > 50) {
-      return;
+    } else if (numbersRegex.test(e.target.value)) {
+      setFullName({
+        value: e.target.value,
+        error: true,
+        errorText: "Numbers are not allowed",
+      });
     } else if (specialCharsRegex.test(e.target.value)) {
-      setUserFullName({
+      setFullName({
         value: e.target.value,
         error: true,
         errorText: "Special characters are not allowed",
       });
+    } else if (e.target.value.trim().length > 50) {
+      setFullName({
+        value: e.target.value,
+        error: true,
+        errorText: "Maximum 50 characters allowed",
+      });
     } else {
-      setUserFullName({
+      setFullName({
         ...initialFieldStringValues,
         value: e.target.value,
       });
@@ -260,10 +271,10 @@ const UserDrawer = ({
       status.value,
       "Status"
     );
-    const userFullNameError = validateAndSetField(
-      setUserFullName,
-      userFullName.value,
-      "Name"
+    const fullNameError = validateAndSetField(
+      setFullName,
+      fullName.value,
+      "Full Name"
     );
 
     const callback = (
@@ -288,11 +299,11 @@ const UserDrawer = ({
 
     if (
       emailError ||
-      userFullNameError ||
+      fullNameError ||
       roleError ||
       businessTypeError ||
       email.error ||
-      userFullName.error ||
+      fullName.error ||
       (canEdit && statusError)
     ) {
       setLoading(false);
@@ -301,7 +312,7 @@ const UserDrawer = ({
         status.value === 1 ? true : status.value === 2 ? false : true;
       await callAPIwithHeaders(saveUserUrl, "post", callback, {
         userId: userId,
-        fullName: userFullName.value,
+        fullName: fullName.value,
         email: email.value,
         roleId: role.value,
         businessTypeId: businessType.value,
@@ -331,17 +342,17 @@ const UserDrawer = ({
       >
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
-            User Full Name<span className="text-[#DC3545]">*</span>
+            Full Name<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
             id="outlined-basic"
             variant="standard"
             size="small"
-            placeholder="Please Enter User Full Name"
-            value={userFullName.value}
-            error={userFullName.error}
-            helperText={userFullName.errorText}
-            onChange={handleUserFullNameChange}
+            placeholder="Please Enter Full Name"
+            value={fullName.value}
+            error={fullName.error}
+            helperText={fullName.errorText}
+            onChange={handleFullNameChange}
             InputProps={{
               classes: {
                 underline: classes.underline,
@@ -443,7 +454,7 @@ const UserDrawer = ({
         )}
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
-            Select Business Type<span className="text-[#DC3545]">*</span>
+            Business Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
             <Select
