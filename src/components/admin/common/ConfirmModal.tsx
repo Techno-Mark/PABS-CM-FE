@@ -23,9 +23,9 @@ function ConfirmModal({
   setIsOpen,
   handleClose,
   handleModalSubmit,
-  setUserId,
+  setId,
 }: ConfirmModalProps) {
-  const safeSetUserId = setUserId || (() => {});
+  const safeSetUserId = setId || (() => {});
   return (
     <Modal
       open={isOpen}

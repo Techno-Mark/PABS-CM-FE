@@ -52,7 +52,7 @@ export interface ConfirmModalProps {
   handleModalSubmit: () => void;
   isLoading?: boolean;
   handleClose: () => void;
-  setUserId?: () => void;
+  setId?: () => void;
 }
 
 export interface RoleList {
