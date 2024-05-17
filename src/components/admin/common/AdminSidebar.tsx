@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -28,6 +28,9 @@ import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
+// Cookie import
+import Cookies from "js-cookie";
+import { checkPermission } from "@/utils/permissionCheckFunction";
 
 const openedMixin = (theme: Theme) => ({
   width: drawerWidth,
@@ -85,8 +88,15 @@ const Sidebar = ({
   onRouteChange,
 }: SidebarProps) => {
   const classes = useStyles();
-
   const pathname = usePathname();
+  const permissions: any = Cookies.get("permission");
+  const [sidebarItems, setSidebarItems] = useState<
+    {
+      module: string;
+      link: string;
+      icon: any;
+    }[]
+  >([]);
 
   const getIcon = (
     pathname: string,
@@ -98,23 +108,31 @@ const Sidebar = ({
     return <IconComponent fill={fillColor} />;
   };
 
-  const sidebarItems = [
-    {
-      module: "Client Management",
-      link: "/admin/clientmanagement",
-      icon: getIcon(pathname, "/admin/clientmanagement", AccountCircleIcon),
-    },
-    {
-      module: "User Management",
-      link: "/admin/usermanagement",
-      icon: getIcon(pathname, "/admin/usermanagement", UserManageIcon),
-    },
-    {
-      module: "Settings",
-      link: "/admin/settings",
-      icon: getIcon(pathname, "/admin/settings", SettingsIcon),
-    },
-  ];
+  useEffect(() => {
+    if (permissions.length > 0) {
+      const items = [
+        (checkPermission("Client Management", "view") ||
+          checkPermission("Client Management", "create")) && {
+          module: "Client Management",
+          link: "/admin/clientmanagement",
+          icon: getIcon(pathname, "/admin/clientmanagement", AccountCircleIcon),
+        },
+        (checkPermission("User Management", "view") ||
+          checkPermission("User Management", "create")) && {
+          module: "User Management",
+          link: "/admin/usermanagement",
+          icon: getIcon(pathname, "/admin/usermanagement", UserManageIcon),
+        },
+        (checkPermission("Settings", "view") ||
+          checkPermission("Settings", "create")) && {
+          module: "Settings",
+          link: "/admin/settings",
+          icon: getIcon(pathname, "/admin/settings", SettingsIcon),
+        },
+      ].filter(Boolean);
+      setSidebarItems(items as { module: string; link: string; icon: any }[]);
+    }
+  }, [permissions, pathname]);
 
   const [isOpen, setIsopen] = useState<boolean>(
     pathname === "/admin/setting" || pathname === "/admin/audit" ? true : false

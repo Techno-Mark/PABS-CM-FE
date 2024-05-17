@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // MUI Imports
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
-import { DrawerProps, GetUserByIdResponse } from "@/models/userManage";
+import { GetUserByIdResponse, UserDrawerProps } from "@/models/userManage";
 import { NumberFieldType, StringFieldType } from "@/models/common";
 // Static imports
 import { statusOptionDrawer } from "@/static/usermanage";
@@ -21,13 +21,13 @@ const UserDrawer = ({
   openDrawer,
   setOpenDrawer,
   userId,
-  setUserId,
+  setId,
   canEdit,
   type,
   getUserList,
   roleList,
   businessList,
-}: DrawerProps) => {
+}: UserDrawerProps) => {
   const initialFieldStringValues = {
     value: "",
     error: false,
@@ -291,7 +291,7 @@ const UserDrawer = ({
           showToast(Message, ToastType.Success);
           setLoading(false);
           setOpenDrawer(false);
-          setUserId();
+          setId();
           getUserList();
           return;
       }
@@ -338,7 +338,7 @@ const UserDrawer = ({
         isLoading={isLoading}
         setOpenDrawer={(value) => setOpenDrawer(value)}
         handleSubmit={handleSubmit}
-        setUserId={setUserId}
+        setId={setId}
       >
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">

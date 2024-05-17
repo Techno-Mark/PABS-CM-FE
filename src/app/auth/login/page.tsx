@@ -140,11 +140,13 @@ function Page() {
           return;
         case "success":
           showToast(Message, ToastType.Success);
-          router.push("/admin/clientmanagement");
+          router.push("/");
           setLoading(false);
           Cookies.set("token", ResponseData?.Token);
           Cookies.set("userId", ResponseData?.UserId.toString());
           Cookies.set("userName", ResponseData?.Username);
+          Cookies.set("roleName", ResponseData?.RoleName);
+          Cookies.set("permission", JSON.stringify(ResponseData?.Permissions));
           return;
       }
     };

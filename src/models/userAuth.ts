@@ -1,3 +1,5 @@
+import { RolePermission } from "./roleManage";
+
 export interface userLoginData {
   UserId: number;
   Username: string;
@@ -5,6 +7,8 @@ export interface userLoginData {
   RefreshToken: string;
   TokenExpiry: string;
   RefreshTokenExpiry: string;
+  RoleName: string;
+  Permissions: RolePermission[];
 }
 
 export interface userResetpasswordData {
