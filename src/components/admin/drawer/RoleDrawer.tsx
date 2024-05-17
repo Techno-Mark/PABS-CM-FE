@@ -251,7 +251,7 @@ const RoleDrawer = ({
       isLoading={isLoading}
       setOpenDrawer={(value) => setOpenDrawer(value)}
       handleSubmit={handleSubmit}
-      setUserId={setRoleId}
+      setId={setRoleId}
     >
       <div className="text-[12px] flex flex-col mb-5">
         <label className="text-[#6E6D7A] text-[12px]">
