@@ -7,6 +7,7 @@ export interface userLoginData {
   RefreshToken: string;
   TokenExpiry: string;
   RefreshTokenExpiry: string;
+  RoleId: number;
   RoleName: string;
   Permissions: RolePermission[];
 }

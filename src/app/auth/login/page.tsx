@@ -146,6 +146,7 @@ function Page() {
           Cookies.set("userId", ResponseData?.UserId.toString());
           Cookies.set("userName", ResponseData?.Username);
           Cookies.set("roleName", ResponseData?.RoleName);
+          Cookies.set("roleId", ResponseData?.RoleId.toString());
           Cookies.set("permission", JSON.stringify(ResponseData?.Permissions));
           return;
       }

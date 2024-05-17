@@ -33,6 +33,9 @@ import {
 } from "@/models/userManage";
 import Loader from "@/components/admin/common/Loader";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { checkPermission } from "@/utils/permissionCheckFunction";
+import { renderCellFunction } from "@/utils/renderData";
 
 function Page() {
   const columns: GridColDef[] = [
@@ -43,6 +46,7 @@ function Page() {
       ),
       width: 100,
       sortable: false,
+      renderCell: (params) => renderCellFunction(params.value),
     },
     {
       field: "Username",
@@ -51,6 +55,7 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => renderCellFunction(params.value),
     },
     {
       field: "Email",
@@ -59,6 +64,7 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => renderCellFunction(params.value),
     },
     {
       field: "RoleName",
@@ -67,6 +73,7 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => renderCellFunction(params.value),
     },
     {
       field: "Status",
@@ -75,6 +82,7 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => renderCellFunction(params.value),
     },
     {
       field: "action",
@@ -89,41 +97,47 @@ function Page() {
         const userId = Cookies.get("userId");
         return (
           <>
-            {userId == params.row.UserId ? (
-              ""
-            ) : (
-              <div className="flex gap-9 justify-start h-full items-center">
-                <Tooltip title="Edit" placement="top" arrow>
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setOpenDrawer(true);
-                      setEdit(true);
-                      setUserId(params.row.UserId);
-                    }}
-                  >
-                    <EditIcon />
-                  </span>
-                </Tooltip>
-                <Tooltip title="Delete" placement="top" arrow>
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setOpenDelete(true);
-                      setUserId(params.row.UserId);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </span>
-                </Tooltip>
-              </div>
-            )}
+            {userId == params.row.UserId
+              ? ""
+              : (checkPermission("User Management", "edit") ||
+                  checkPermission("User Management", "delete")) && (
+                  <div className="flex gap-9 justify-start h-full items-center">
+                    {checkPermission("User Management", "edit") && (
+                      <Tooltip title="Edit" placement="top" arrow>
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setOpenDrawer(true);
+                            setEdit(true);
+                            setUserId(params.row.UserId);
+                          }}
+                        >
+                          <EditIcon />
+                        </span>
+                      </Tooltip>
+                    )}
+                    {checkPermission("User Management", "delete") && (
+                      <Tooltip title="Delete" placement="top" arrow>
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setOpenDelete(true);
+                            setUserId(params.row.UserId);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </span>
+                      </Tooltip>
+                    )}
+                  </div>
+                )}
           </>
         );
       },
     },
   ];
 
+  const router = useRouter();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
@@ -153,6 +167,20 @@ function Page() {
     businessTypeId: [],
     userStatus: [],
   });
+
+  useEffect(() => {
+    const roleId = Cookies.get("roleId");
+    if (roleId == "1" || roleId == "2" || roleId == "3") {
+      if (
+        (checkPermission("User Management", "view") ||
+          checkPermission("User Management", "create")) === false
+      ) {
+        router.push("/");
+      }
+    } else {
+      router.push("/");
+    }
+  }, [router]);
 
   useEffect(() => {
     const getRoleList = async () => {
@@ -311,75 +339,85 @@ function Page() {
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
-        <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
-          <span className="m-3 flex items-center">
-            <SearchIcon />
-          </span>
-          <input
-            type="text"
-            placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        <div className="flex gap-5">
-          <Tooltip title="Filter" placement="top" arrow>
-            <span
-              className="border-[#023963] !bg-[#FFFFFF] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
-              onClick={() => setOpenFilter(true)}
-            >
-              <FilterIcon />
+        {checkPermission("User Management", "view") ? (
+          <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <span className="m-3 flex items-center">
+              <SearchIcon />
             </span>
-          </Tooltip>
-          <button
-            onClick={() => {
-              setOpenDrawer(true);
-              setEdit(false);
-            }}
-            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-          >
-            Add User
-          </button>
+            <input
+              type="text"
+              placeholder="Search"
+              className="p-2 flex items-center text-[13px] outline-none w-[90%]"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        ) : (
+          <div>&nbsp;</div>
+        )}
+        <div className="flex gap-5">
+          {checkPermission("User Management", "view") && (
+            <Tooltip title="Filter" placement="top" arrow>
+              <span
+                className="border-[#023963] !bg-[#FFFFFF] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
+                onClick={() => setOpenFilter(true)}
+              >
+                <FilterIcon />
+              </span>
+            </Tooltip>
+          )}
+          {checkPermission("User Management", "create") && (
+            <button
+              onClick={() => {
+                setOpenDrawer(true);
+                setEdit(false);
+              }}
+              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+            >
+              Add User
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="w-full h-[78vh] mt-5">
-        {loading ? (
-          <Loader />
-        ) : (
-          <DataGrid
-            disableColumnMenu
-            rows={userData}
-            columns={columns}
-            getRowId={(i: any) => i.UserId}
-            slots={{
-              footer: () => (
-                <div className="flex justify-end">
-                  <TablePagination
-                    count={totalCount}
-                    page={pageNo}
-                    onPageChange={handlePageChange}
-                    rowsPerPage={rowsPerPage}
-                    onRowsPerPageChange={handleRowsPerPageChange}
-                    rowsPerPageOptions={[10, 25, 50, 100]}
-                  />
-                </div>
-              ),
-            }}
-            sx={{
-              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                {
-                  outline: "none",
-                },
-              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                {
-                  outline: "none",
-                },
-            }}
-          />
-        )}
-      </div>
+      {checkPermission("User Management", "view") && (
+        <div className="w-full h-[78vh] mt-5">
+          {loading ? (
+            <Loader />
+          ) : (
+            <DataGrid
+              disableColumnMenu
+              rows={userData}
+              columns={columns}
+              getRowId={(i: any) => i.UserId}
+              slots={{
+                footer: () => (
+                  <div className="flex justify-end">
+                    <TablePagination
+                      count={totalCount}
+                      page={pageNo}
+                      onPageChange={handlePageChange}
+                      rowsPerPage={rowsPerPage}
+                      onRowsPerPageChange={handleRowsPerPageChange}
+                      rowsPerPageOptions={[10, 25, 50, 100]}
+                    />
+                  </div>
+                ),
+              }}
+              sx={{
+                [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                  {
+                    outline: "none",
+                  },
+                [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                  {
+                    outline: "none",
+                  },
+              }}
+            />
+          )}
+        </div>
+      )}
 
       {openDrawer && (
         <UserDrawer

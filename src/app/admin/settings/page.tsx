@@ -21,6 +21,9 @@ import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import RoleDrawer from "@/components/admin/drawer/RoleDrawer";
 import { RoleListResponse } from "@/models/userManage";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { checkPermission } from "@/utils/permissionCheckFunction";
 
 function Page() {
   const columns: GridColDef[] = [
@@ -75,36 +78,46 @@ function Page() {
       width: 120,
       renderCell: (params) => {
         return (
-          <div className="flex gap-9 justify-start h-full items-center">
-            <Tooltip title="Edit" placement="top" arrow>
-              <span
-                className="cursor-pointer"
-                onClick={() => {
-                  setOpenDrawer(true);
-                  setEdit(true);
-                  setRoleId(params.row.RoleId);
-                }}
-              >
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip title="Delete" placement="top" arrow>
-              <span
-                className="cursor-pointer"
-                onClick={() => {
-                  setOpenDelete(true);
-                  setRoleId(params.row.RoleId);
-                }}
-              >
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
+          (checkPermission("Settings", "edit") ||
+            checkPermission("Settings", "delete")) && (
+            <>
+              <div className="flex gap-9 justify-start h-full items-center">
+                {checkPermission("Settings", "edit") && (
+                  <Tooltip title="Edit" placement="top" arrow>
+                    <span
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setOpenDrawer(true);
+                        setEdit(true);
+                        setRoleId(params.row.RoleId);
+                      }}
+                    >
+                      <EditIcon />
+                    </span>
+                  </Tooltip>
+                )}
+                {checkPermission("Settings", "delete") && (
+                  <Tooltip title="Delete" placement="top" arrow>
+                    <span
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setOpenDelete(true);
+                        setRoleId(params.row.RoleId);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </span>
+                  </Tooltip>
+                )}
+              </div>
+            </>
+          )
         );
       },
     },
   ];
 
+  const router = useRouter();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -135,6 +148,20 @@ function Page() {
     isChecked: null,
     roleId: 0,
   });
+
+  useEffect(() => {
+    const roleId = Cookies.get("roleId");
+    if (roleId == "1" || roleId == "2" || roleId == "3") {
+      if (
+        (checkPermission("Settings", "view") ||
+          checkPermission("Settings", "create")) === false
+      ) {
+        router.push("/");
+      }
+    } else {
+      router.push("/");
+    }
+  }, [router]);
 
   useEffect(() => {
     const getRoleList = async () => {
@@ -287,67 +314,75 @@ function Page() {
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
-        <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
-          <span className="m-3 flex items-center">
-            <SearchIcon />
-          </span>
-          <input
-            type="text"
-            placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        <div className="flex gap-5">
-          <button
-            onClick={() => {
-              setOpenDrawer(true);
-              setEdit(false);
-            }}
-            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-          >
-            Add Role
-          </button>
-        </div>
-      </div>
-
-      <div className="w-full h-[78vh] mt-5">
-        {loading ? (
-          <CircularProgress size={20} />
+        {checkPermission("Settings", "view") ? (
+          <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <span className="m-3 flex items-center">
+              <SearchIcon />
+            </span>
+            <input
+              type="text"
+              placeholder="Search"
+              className="p-2 flex items-center text-[13px] outline-none w-[90%]"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         ) : (
-          <DataGrid
-            disableColumnMenu
-            rows={roleData}
-            columns={columns}
-            getRowId={(i: any) => i.RoleId}
-            slots={{
-              footer: () => (
-                <div className="flex justify-end">
-                  <TablePagination
-                    count={totalCount}
-                    page={pageNo}
-                    onPageChange={handlePageChange}
-                    rowsPerPage={rowsPerPage}
-                    onRowsPerPageChange={handleRowsPerPageChange}
-                    rowsPerPageOptions={[10, 25, 50, 100]}
-                  />
-                </div>
-              ),
-            }}
-            sx={{
-              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                {
-                  outline: "none",
-                },
-              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                {
-                  outline: "none",
-                },
-            }}
-          />
+          <div>&nbsp;</div>
+        )}
+        {checkPermission("Settings", "create") && (
+          <div className="flex gap-5">
+            <button
+              onClick={() => {
+                setOpenDrawer(true);
+                setEdit(false);
+              }}
+              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+            >
+              Add Role
+            </button>
+          </div>
         )}
       </div>
+
+      {checkPermission("Settings", "view") && (
+        <div className="w-full h-[78vh] mt-5">
+          {loading ? (
+            <CircularProgress size={20} />
+          ) : (
+            <DataGrid
+              disableColumnMenu
+              rows={roleData}
+              columns={columns}
+              getRowId={(i: any) => i.RoleId}
+              slots={{
+                footer: () => (
+                  <div className="flex justify-end">
+                    <TablePagination
+                      count={totalCount}
+                      page={pageNo}
+                      onPageChange={handlePageChange}
+                      rowsPerPage={rowsPerPage}
+                      onRowsPerPageChange={handleRowsPerPageChange}
+                      rowsPerPageOptions={[10, 25, 50, 100]}
+                    />
+                  </div>
+                ),
+              }}
+              sx={{
+                [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                  {
+                    outline: "none",
+                  },
+                [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                  {
+                    outline: "none",
+                  },
+              }}
+            />
+          )}
+        </div>
+      )}
 
       {openDrawer && (
         <RoleDrawer

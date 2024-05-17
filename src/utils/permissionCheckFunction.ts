@@ -7,7 +7,7 @@ export const checkPermission = (
   permissionType: PermissionType
 ): boolean => {
   const permission: any = Cookies.get("permission");
-  const permissions = JSON.parse(permission);
+  const permissions = permission?.length > 0 ? JSON.parse(permission) : [];
   const modulePermission = permissions.find(
     (perm: any) => perm.moduleName === moduleName
   );
