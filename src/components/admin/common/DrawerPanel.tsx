@@ -67,7 +67,7 @@ const DrawerPanel = ({
   type,
   setOpenDrawer,
   handleSubmit,
-  setUserId,
+  setId,
 }: DrawerPropsType) => {
   const classes = useStyles();
   return (
@@ -89,7 +89,7 @@ const DrawerPanel = ({
               className="flex items-center cursor-pointer"
               onClick={() => {
                 setOpenDrawer(false);
-                setUserId();
+                setId();
               }}
             >
               <CloseIcon />
@@ -104,7 +104,7 @@ const DrawerPanel = ({
           <Button
             onClick={() => {
               setOpenDrawer(false);
-              setUserId();
+              setId();
             }}
             className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[16px]`}
             variant="outlined"

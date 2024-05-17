@@ -30,7 +30,7 @@ export interface DrawerPropsType {
   canEdit: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: (e: { preventDefault: () => void }) => void;
-  setUserId: () => void;
+  setId: () => void;
 }
 
 export interface FilterProps {

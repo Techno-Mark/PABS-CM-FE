@@ -1,8 +1,8 @@
-export interface DrawerProps {
+export interface UserDrawerProps {
   openDrawer: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   userId: number;
-  setUserId: () => void;
+  setId: () => void;
   canEdit: boolean;
   type: string;
   getUserList: () => void;

@@ -8,8 +8,16 @@ export const refreshTokenAPIUrl = "api/auth/refresh-token";
 // UserManagement url
 export const roleListUrl = "api/roles/list";
 export const businessListUrl = "api/businesstypes/list";
+export const assigneUserListUrl = "api/users/assignuser";
 export const getUserListUrl = "api/users/list";
 export const saveUserUrl = "api/users/save";
 export const getUserDetailsByIdUrl = "api/users/getbyid";
 export const deleteUserUrl = "api/users/delete";
 export const tokenVerificationAPIUrl = "api/auth/token-verification";
+
+// ClientManagement url
+export const getClientListUrl = "api/clients/list";
+export const saveClientUrl = "api/clients/save";
+export const getClientDetailsByIdUrl = "api/clients/getbyid";
+export const deleteClientUrl = "api/clients/delete";
+export const InvitaionMailClientUrl = "api/clients/invite-mail";

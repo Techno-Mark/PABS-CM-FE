@@ -36,6 +36,11 @@ export const statusOption = [
   { value: 2, label: "Inactive" },
 ];
 
+export const checklistStatusOption = [
+  { value: 0, label: "Pending" },
+  { value: 1, label: "Complete" },
+];
+
 export const userRolesDrawer = [
   { value: "-1", label: "Please Select" },
   { value: "1", label: "Master Admin User" },

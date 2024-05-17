@@ -2,45 +2,52 @@ import { useEffect, useState } from "react";
 // MUI Imports
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
-import { GetUserByIdResponse, UserDrawerProps } from "@/models/userManage";
 import { NumberFieldType, StringFieldType } from "@/models/common";
-// Static imports
-import { statusOptionDrawer } from "@/static/usermanage";
-import { ToastType } from "@/static/toastType";
 // Modal import
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
 // Drawer import
 import DrawerPanel from "@/components/admin/common/DrawerPanel";
+import Dropzone from "react-dropzone";
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { statusOptionDrawer } from "@/static/usermanage";
+import { ToastType } from "@/static/toastType";
 import { showToast } from "@/components/ToastContainer";
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import { saveUserUrl, getUserDetailsByIdUrl } from "@/static/apiUrl";
+import { getClientDetailsByIdUrl, saveClientUrl } from "@/static/apiUrl";
+import {
+  ClientDrawerProps,
+  GetClientByIdResponse,
+} from "@/models/clientManage";
+import { convertFileToBase64 } from "@/utils/convertFileToBase64";
 
-const UserDrawer = ({
+const ClientDrawer = ({
   openDrawer,
   setOpenDrawer,
-  userId,
-  setId,
+  clientId,
+  setClientId,
   canEdit,
   type,
-  getUserList,
-  roleList,
+  getClientList,
   businessList,
-}: UserDrawerProps) => {
+  handleClear,
+}: ClientDrawerProps) => {
+  const FileErrType = {};
   const initialFieldStringValues = {
     value: "",
     error: false,
     errorText: "",
   };
   const classes = useStyles();
-  const [fullName, setFullName] = useState<StringFieldType>(
+  const [imagePreview, setImagePreview] = useState<any>(null);
+  const [file, setFile] = useState<any>(null);
+  // const [fileErrType, setFileErrType] = useState<0 | 1 | 2>(0);
+  const [sFID, setSFID] = useState<StringFieldType>(initialFieldStringValues);
+  const [clientFullName, setClientFullName] = useState<StringFieldType>(
     initialFieldStringValues
   );
-  const [role, setRole] = useState<NumberFieldType>({
-    ...initialFieldStringValues,
-    value: -1,
-  });
   const [businessType, setBusinessType] = useState<NumberFieldType>({
     ...initialFieldStringValues,
     value: -1,
@@ -59,25 +66,25 @@ const UserDrawer = ({
       const callback = (
         ResponseStatus: string,
         Message: string,
-        ResponseData: GetUserByIdResponse
+        ResponseData: GetClientByIdResponse
       ) => {
         switch (ResponseStatus) {
           case "failure":
             showToast(Message, ToastType.Error);
             return;
           case "success":
-            setFullName({
-              value: ResponseData.Username,
+            setSFID({
+              value: ResponseData.SFID,
+              error: false,
+              errorText: "",
+            });
+            setClientFullName({
+              value: ResponseData.Clientname,
               error: false,
               errorText: "",
             });
             setEmail({
               value: ResponseData.Email,
-              error: false,
-              errorText: "",
-            });
-            setRole({
-              value: ResponseData.RoleId,
               error: false,
               errorText: "",
             });
@@ -88,53 +95,88 @@ const UserDrawer = ({
             });
             setStatus({
               value:
-                ResponseData.Status === false
-                  ? 2
-                  : ResponseData.Status === true
+                ResponseData.Status === true
                   ? 1
+                  : ResponseData.Status === false
+                  ? 2
                   : -1,
               error: false,
               errorText: "",
             });
+            setFile(
+              ResponseData.ClientLogo.trim().length > 0
+                ? ResponseData.ClientLogo
+                : null
+            );
+            setImagePreview(
+              ResponseData.ClientLogo.trim().length > 0
+                ? `data:image;base64,${ResponseData.ClientLogo}`
+                : null
+            );
             return;
         }
       };
-      await callAPIwithHeaders(getUserDetailsByIdUrl, "post", callback, {
-        userId: userId,
+      await callAPIwithHeaders(getClientDetailsByIdUrl, "post", callback, {
+        clientId: clientId,
       });
     };
-    userId > 0 && getById();
-  }, [userId]);
+    clientId > 0 && getById();
+  }, [clientId]);
 
-  const handleFullNameChange = (e: { target: { value: string } }) => {
-    const numbersRegex = /\d/;
+  const handleSFIDChange = (e: { target: { value: string } }) => {
     const specialCharsRegex = /[^\w\s-]/;
     if (e.target.value.trim().length === 0) {
-      setFullName({
+      setSFID({
+        value: e.target.value,
+        error: true,
+        errorText: "SFID is Required",
+      });
+    } else if (e.target.value.trim().length > 50) {
+      return;
+    } else if (specialCharsRegex.test(e.target.value)) {
+      setSFID({
+        value: e.target.value,
+        error: true,
+        errorText: "Special characters are not allowed",
+      });
+    } else {
+      setSFID({
+        ...initialFieldStringValues,
+        value: e.target.value,
+      });
+    }
+  };
+
+  const handleClientFullNameChange = (e: { target: { value: string } }) => {
+    const numbersRegex = /\d/;
+    const specialCharsRegex = /[^\w\s.-]/;
+
+    if (e.target.value.trim().length === 0) {
+      setClientFullName({
         value: e.target.value,
         error: true,
         errorText: "Full Name is Required",
       });
     } else if (numbersRegex.test(e.target.value)) {
-      setFullName({
+      setClientFullName({
         value: e.target.value,
         error: true,
         errorText: "Numbers are not allowed",
       });
     } else if (specialCharsRegex.test(e.target.value)) {
-      setFullName({
+      setClientFullName({
         value: e.target.value,
         error: true,
         errorText: "Special characters are not allowed",
       });
     } else if (e.target.value.trim().length > 50) {
-      setFullName({
+      setClientFullName({
         value: e.target.value,
         error: true,
         errorText: "Maximum 50 characters allowed",
       });
     } else {
-      setFullName({
+      setClientFullName({
         ...initialFieldStringValues,
         value: e.target.value,
       });
@@ -161,24 +203,6 @@ const UserDrawer = ({
       setEmail({
         ...initialFieldStringValues,
         value: e.target.value,
-      });
-    }
-  };
-
-  const handleRoleChange = (e: { target: { value: number | string } }) => {
-    if (
-      e.target.value.toString().trim().length === 0 ||
-      Number(e.target.value) === -1
-    ) {
-      setRole({
-        value: -1,
-        error: true,
-        errorText: "Role is Required",
-      });
-    } else {
-      setRole({
-        ...initialFieldStringValues,
-        value: Number(e.target.value),
       });
     }
   };
@@ -259,8 +283,13 @@ const UserDrawer = ({
       return false;
     };
 
+    const sFIDError = validateAndSetField(setSFID, sFID.value, "SFID");
+    const clientFullNameError = validateAndSetField(
+      setClientFullName,
+      clientFullName.value,
+      "Full Name"
+    );
     const emailError = validateAndSetField(setEmail, email.value, "Email");
-    const roleError = validateAndSetFieldNumber(setRole, role.value, "Role");
     const businessTypeError = validateAndSetFieldNumber(
       setBusinessType,
       businessType.value,
@@ -270,11 +299,6 @@ const UserDrawer = ({
       setStatus,
       status.value,
       "Status"
-    );
-    const fullNameError = validateAndSetField(
-      setFullName,
-      fullName.value,
-      "Full Name"
     );
 
     const callback = (
@@ -291,32 +315,36 @@ const UserDrawer = ({
           showToast(Message, ToastType.Success);
           setLoading(false);
           setOpenDrawer(false);
-          setId();
-          getUserList();
+          handleClear(false);
+          setClientId();
+          getClientList();
           return;
       }
     };
 
     if (
       emailError ||
-      fullNameError ||
-      roleError ||
+      sFIDError ||
+      clientFullNameError ||
       businessTypeError ||
       email.error ||
-      fullName.error ||
+      sFID.error ||
+      clientFullName.error ||
       (canEdit && statusError)
     ) {
       setLoading(false);
     } else {
       const statusBool =
         status.value === 1 ? true : status.value === 2 ? false : true;
-      await callAPIwithHeaders(saveUserUrl, "post", callback, {
-        userId: userId,
-        fullName: fullName.value,
+      await callAPIwithHeaders(saveClientUrl, "post", callback, {
+        clientId: clientId,
+        sfId: sFID.value,
+        fullName: clientFullName.value,
         email: email.value,
-        roleId: role.value,
         businessTypeId: businessType.value,
-        userStatus: userId > 0 ? statusBool : true,
+        status: clientId > 0 ? statusBool : true,
+        checkListStatus: 1,
+        clientLogoUrl: imagePreview !== null ? file : "",
       });
     }
   };
@@ -336,46 +364,26 @@ const UserDrawer = ({
         canEdit={canEdit}
         openDrawer={openDrawer}
         isLoading={isLoading}
-        setOpenDrawer={(value) => setOpenDrawer(value)}
+        setOpenDrawer={(value) => {
+          setOpenDrawer(value);
+          handleClear(value);
+        }}
         handleSubmit={handleSubmit}
-        setId={setId}
+        setId={setClientId}
       >
-        <div className="text-[12px] flex flex-col">
+        <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Full Name<span className="text-[#DC3545]">*</span>
+            SF ID<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
             id="outlined-basic"
             variant="standard"
             size="small"
-            placeholder="Please Enter Full Name"
-            value={fullName.value}
-            error={fullName.error}
-            helperText={fullName.errorText}
-            onChange={handleFullNameChange}
-            InputProps={{
-              classes: {
-                underline: classes.underline,
-              },
-            }}
-            inputProps={{
-              className: classes.textSize,
-            }}
-          />
-        </div>
-        <div className="text-[12px] flex flex-col py-5">
-          <label className="text-[#6E6D7A] text-[12px]">
-            Email<span className="text-[#DC3545]">*</span>
-          </label>
-          <TextField
-            id="outlined-basic"
-            variant="standard"
-            size="small"
-            placeholder="Please Enter Email"
-            value={email.value}
-            error={email.error}
-            helperText={email.errorText}
-            onChange={handleEmailChange}
+            placeholder="Please Enter SF ID"
+            value={sFID.value}
+            error={sFID.error}
+            helperText={sFID.errorText}
+            onChange={handleSFIDChange}
             InputProps={{
               classes: {
                 underline: classes.underline,
@@ -388,35 +396,26 @@ const UserDrawer = ({
         </div>
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Role<span className="text-[#DC3545]">*</span>
+            Full Name<span className="text-[#DC3545]">*</span>
           </label>
-          <FormControl variant="standard">
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              className={`${
-                role.value === -1
-                  ? "!text-[12px] text-[#6E6D7A]"
-                  : "!text-[14px]"
-              }`}
-              value={role.value}
-              error={role.error}
-              onChange={handleRoleChange}
-            >
-              {roleList.map((role) => (
-                <MenuItem
-                  key={role.RoleId}
-                  value={role.RoleId}
-                  disabled={role.RoleId === -1}
-                >
-                  {role.RoleName}
-                </MenuItem>
-              ))}
-            </Select>
-            {role.error && (
-              <span className="text-[#d32f2f]">{role.errorText}</span>
-            )}
-          </FormControl>
+          <TextField
+            id="outlined-basic"
+            variant="standard"
+            size="small"
+            placeholder="Please Enter Full Name"
+            value={clientFullName.value}
+            error={clientFullName.error}
+            helperText={clientFullName.errorText}
+            onChange={handleClientFullNameChange}
+            InputProps={{
+              classes: {
+                underline: classes.underline,
+              },
+            }}
+            inputProps={{
+              className: classes.textSize,
+            }}
+          />
         </div>
         {canEdit && (
           <div className="text-[12px] flex flex-col pb-5">
@@ -452,9 +451,9 @@ const UserDrawer = ({
             </FormControl>
           </div>
         )}
-        <div className="text-[12px] flex flex-col">
+        <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Business Type<span className="text-[#DC3545]">*</span>
+            Select Business Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
             <Select
@@ -484,6 +483,127 @@ const UserDrawer = ({
             )}
           </FormControl>
         </div>
+        <div className="text-[12px] flex flex-col pb-5">
+          <label className="text-[#6E6D7A] text-[12px]">
+            Email<span className="text-[#DC3545]">*</span>
+          </label>
+          <TextField
+            id="outlined-basic"
+            variant="standard"
+            size="small"
+            placeholder="Please Enter Email"
+            value={email.value}
+            error={email.error}
+            helperText={email.errorText}
+            onChange={handleEmailChange}
+            InputProps={{
+              classes: {
+                underline: classes.underline,
+              },
+            }}
+            inputProps={{
+              className: classes.textSize,
+            }}
+          />
+        </div>
+        <label className="text-[#6E6D7A] font-semibold text-base pb-2">
+          Upload Logo
+        </label>
+        {imagePreview && (
+          <div className="flex flex-col pb-5">
+            <div className="p-4 border border-[#6e6d7aad] rounded-md flex gap-2 items-center justify-between">
+              <img className="w-40 h-14" src={imagePreview} alt="Preview" />
+              <span
+                className="cursor-pointer"
+                onClick={() => setImagePreview(null)}
+              >
+                <CloseOutlinedIcon />
+              </span>
+            </div>
+          </div>
+        )}
+        <div className="text-[12px] flex flex-col">
+          <div
+            // ${
+            //   fileErrType ? "border-red-500" : "border-gray-300"
+            // }
+            className={`py-1 border-2 border-dotted bg-gray-100 rounded-full w-full overflow-hidden flex justify-center items-center`}
+          >
+            <Dropzone
+              multiple={false}
+              onDrop={(e: any) => {
+                const file = e[0];
+                const fileType = `${file.name}`;
+                const fileTypeParts = fileType.split(".");
+                const fileTypeExtension =
+                  fileTypeParts[fileTypeParts.length - 1];
+                if (
+                  [
+                    "apng",
+                    "avif",
+                    "gif",
+                    "jpeg",
+                    "png",
+                    "svg",
+                    "webp",
+                    "jpg",
+                  ].includes(fileTypeExtension.toLowerCase())
+                ) {
+                  if (file) {
+                    if (Math.round(file.size / 1024 / 1024) < 1) {
+                      // setFileErrType(0);
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setImagePreview(reader.result);
+                        convertFileToBase64(file)
+                          .then((data) => setFile(data))
+                          .catch((err) => console.error(err));
+                      };
+                      reader.readAsDataURL(file);
+                    } else {
+                      showToast(
+                        "File size should be less than 1 MB",
+                        ToastType.Warning
+                      );
+                      // setFileErrType(2);
+                      // setFile(null);
+                      // setImagePreview(null);
+                      return;
+                    }
+                  }
+                } else {
+                  showToast("File type is not valid", ToastType.Warning);
+                  // setFileErrType(1);
+                  // setFile(null);
+                  // setImagePreview(null);
+                  return;
+                }
+              }}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <section className="p-1">
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+
+                    <span className="select-none cursor-pointer justify-center items-center text-center text-xs font-normal text-[#333] p-2">
+                      <FileUploadOutlinedIcon className="text-[#6e6d7aad] mr-2" />
+                      Drag and drop or&nbsp;
+                      <span className="text-[#223E99]">browse</span>
+                      &nbsp;to upload
+                    </span>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
+          {/* <span className="ml-2 my-1 w-full flex justify-start text-red-500">
+            {fileErrType === 1
+              ? "File type is not valid"
+              : fileErrType === 2
+              ? "File size should be less than 1 MB"
+              : ""}
+          </span> */}
+        </div>
       </DrawerPanel>
 
       {isInactive && (
@@ -500,4 +620,4 @@ const UserDrawer = ({
   );
 };
 
-export default UserDrawer;
+export default ClientDrawer;
