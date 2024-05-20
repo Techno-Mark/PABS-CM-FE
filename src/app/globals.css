@@ -56,3 +56,33 @@
 .MuiInputBase-root .MuiInput-root .MuiInput-underline::before {
   color: #002641 !important;
 }
+
+.makeStyles-drawer-3 {
+  animation: drawerAnimation;
+  animation-duration: 0.3s;
+  animation-direction: normal;
+}
+
+.openDrawer .makeStyles-drawer-3 {
+  animation: drawerAnimationClose;
+  animation-duration: 0.3s;
+  animation-direction: normal;
+}
+
+@keyframes drawerAnimation {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes drawerAnimationClose {
+  from {
+    right: 0;
+  }
+  to {
+    right: -100%;
+  }
+}

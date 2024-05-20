@@ -34,8 +34,12 @@ export default function Home() {
       } else {
         showToast("You dont have required permission.", ToastType.Warning);
         removeCookies();
-        router.push("/login");
+        router.push("/auth/login");
       }
+    } else if (roleId == "4") {
+      showToast("Currently client has no permission.", ToastType.Warning);
+      removeCookies();
+      router.push("/auth/login");
     }
   }, [router]);
 

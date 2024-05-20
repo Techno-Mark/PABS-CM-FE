@@ -6,7 +6,7 @@ export const hasToken = (router: any) => {
     router.push("/");
   } else {
     removeCookies();
-    router.push("/login");
+    router.push("/auth/login");
   }
 };
 
@@ -14,6 +14,6 @@ export const hasNoToken = (router: any) => {
   const token = getToken();
   if (!token) {
     removeCookies();
-    router.push("/login");
+    router.push("/auth/login");
   }
 };
