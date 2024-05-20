@@ -56,7 +56,3 @@
 .MuiInputBase-root .MuiInput-root .MuiInput-underline::before {
   color: #002641 !important;
 }
-
-.placeholder::placeholder {
-  color: red;
-}

@@ -186,7 +186,7 @@ function Page() {
             onChange={handleEmailChange}
             InputProps={{
               classes: {
-                underline: classes.underline,
+                underline: classes.underlineWithPlaceholderColor,
               },
             }}
           />
@@ -201,7 +201,7 @@ function Page() {
           </label>
           <FormControl variant="standard">
             <Input
-              classes={{ underline: classes.underline }}
+              classes={{ underline: classes.underlineWithPlaceholderColor }}
               id="outlined-adornment-password"
               placeholder="Please Enter Password"
               type={showPassword ? "text" : "password"}

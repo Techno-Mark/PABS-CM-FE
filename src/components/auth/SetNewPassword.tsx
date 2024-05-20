@@ -206,7 +206,7 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
           </label>
           <FormControl variant="standard">
             <Input
-              classes={{ underline: classes.underline }}
+              classes={{ underline: classes.underlineWithPlaceholderColor }}
               id="outlined-adornment-password"
               placeholder="New Password"
               type={showNewPassword ? "text" : "password"}
@@ -238,7 +238,7 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
           </label>
           <FormControl variant="standard">
             <Input
-              classes={{ underline: classes.underline }}
+              classes={{ underline: classes.underlineWithPlaceholderColor }}
               id="outlined-adornment-password"
               placeholder="Confirm Password"
               type={showConfirmPassword ? "text" : "password"}
