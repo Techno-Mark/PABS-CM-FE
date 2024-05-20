@@ -15,7 +15,11 @@ export default function Home() {
   useEffect(() => {
     hasToken(router);
     const roleId = Cookies.get("roleId");
-    if (roleId == "1" || roleId == "2" || roleId == "3") {
+    if (roleId == "4") {
+      showToast("Currently client has no permission.", ToastType.Warning);
+      removeCookies();
+      router.push("/auth/login");
+    } else {
       if (
         checkPermission("Client Management", "view") ||
         checkPermission("Client Management", "create")
@@ -36,10 +40,6 @@ export default function Home() {
         removeCookies();
         router.push("/auth/login");
       }
-    } else if (roleId == "4") {
-      showToast("Currently client has no permission.", ToastType.Warning);
-      removeCookies();
-      router.push("/auth/login");
     }
   }, [router]);
 

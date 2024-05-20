@@ -139,14 +139,14 @@ function Page() {
             }
             renderInput={(param) => (
               <TextField
-                className="h-12 flex justify-end items-center"
+                className="h-12 flex items-center justify-end"
                 variant="standard"
                 {...param}
                 InputProps={{
                   ...param.InputProps,
                   startAdornment: param.inputProps.value && (
                     <InputAdornment position="start">
-                      <Avatar className="mb-2 !h-8 !w-8 bg-red-400">
+                      <Avatar className="flex items-center justify-center !h-8 !w-8 bg-red-400">
                         {assignUserList
                           .filter((item) => item.value === params.value)[0]
                           ?.label.charAt(0)}
