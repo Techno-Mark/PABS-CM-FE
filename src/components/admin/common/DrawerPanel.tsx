@@ -17,6 +17,7 @@ import { DrawerPropsType } from "@/models/common";
 import { useStyles } from "@/utils/useStyles";
 // Icons import
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
+import { useEffect, useState } from "react";
 
 const openedMixin = (theme: Theme) => ({
   width: formDrawerWidth,
@@ -70,13 +71,30 @@ const DrawerPanel = ({
   setId,
 }: DrawerPropsType) => {
   const classes = useStyles();
+  const [closeDrawer, setCloseDrawer] = useState<Boolean>(false);
+
+  const closeDrawerPanel = () => {
+    setCloseDrawer(true);
+    setTimeout(() => {
+      setCloseDrawer(false);
+      setOpenDrawer(false);
+      setId();
+    }, 100);
+  };
+
+  useEffect(() => {
+    openDrawer === false && closeDrawerPanel();
+  }, [openDrawer]);
+
   return (
     <>
       <CssBaseline />
       <MyDrawer
         anchor={"right"}
         classes={{ paper: classes.drawer }}
-        className="z-0 h-screen overflow-none"
+        className={`z-0 h-screen overflow-none ${
+          closeDrawer ? "openDrawer" : ""
+        }`}
         variant="permanent"
         open={openDrawer}
       >
@@ -87,10 +105,7 @@ const DrawerPanel = ({
           <Tooltip title="Close" placement="bottom" arrow>
             <span
               className="flex items-center cursor-pointer"
-              onClick={() => {
-                setOpenDrawer(false);
-                setId();
-              }}
+              onClick={() => closeDrawerPanel()}
             >
               <CloseIcon />
             </span>
