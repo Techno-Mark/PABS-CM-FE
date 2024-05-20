@@ -246,7 +246,7 @@ function Page() {
           className="pt-4 text-[#023963] w-fit text-[14px] flex justify-end items-end cursor-pointer"
           onClick={() => router.push("/auth/forgotpassword")}
         >
-          Forget Password?
+          Forgot Password?
         </span>
       </div>
     </AuthWapper>

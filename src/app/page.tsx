@@ -34,7 +34,7 @@ export default function Home() {
       } else {
         showToast("You dont have required permission.", ToastType.Warning);
         removeCookies();
-        router.push("/login");
+        router.push("/auth/login");
       }
     }
   }, [router]);
