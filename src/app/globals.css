@@ -26,8 +26,8 @@
     #002641 60%,
     #002641 95%
   );
-  border-right: none; 
-  border-bottom: none; 
+  border-right: none;
+  border-bottom: none;
   border: solid 1px transparent;
   border-top-left-radius: 8px;
   --gradient-border: conic-gradient(
@@ -37,21 +37,22 @@
     #e4e4e4 88%,
     transparent
   );
-  background: var(--main-bg) padding-box, var(--gradient-border) border-box, var(--main-bg) border-box;
+  background: var(--main-bg) padding-box, var(--gradient-border) border-box,
+    var(--main-bg) border-box;
 }
 
 .MuiInputBase-input[type="password"] {
-  color:#023963 !important;
+  color: #023963 !important;
 }
 
-.MuiCircularProgress-root{
+.MuiCircularProgress-root {
   color: white !important;
 }
 
-.mainLoader{
+.mainLoader {
   color: #002641 !important;
 }
 
-.MuiInputBase-root .MuiInput-root .MuiInput-underline::before{
+.MuiInputBase-root .MuiInput-root .MuiInput-underline::before {
   color: #002641 !important;
-} 
+}

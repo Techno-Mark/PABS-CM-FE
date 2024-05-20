@@ -117,7 +117,7 @@ function Page() {
             onChange={handleEmailChange}
             InputProps={{
               classes: {
-                underline: classes.underline,
+                underline: classes.underlineWithPlaceholderColor,
               },
             }}
           />

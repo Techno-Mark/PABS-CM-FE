@@ -183,7 +183,7 @@ function Page() {
             onChange={handleEmailChange}
             InputProps={{
               classes: {
-                underline: classes.underline,
+                underline: classes.underlineWithPlaceholderColor,
               },
             }}
           />
@@ -198,7 +198,7 @@ function Page() {
           </label>
           <FormControl variant="standard">
             <Input
-              classes={{ underline: classes.underline }}
+              classes={{ underline: classes.underlineWithPlaceholderColor }}
               id="outlined-adornment-password"
               placeholder="Please Enter Password"
               type={showPassword ? "text" : "password"}
@@ -243,7 +243,7 @@ function Page() {
           className="pt-4 text-[#023963] w-fit text-[14px] flex justify-end items-end cursor-pointer"
           onClick={() => router.push("/auth/forgotpassword")}
         >
-          Forget Password?
+          Forgot Password?
         </span>
       </div>
     </AuthWapper>

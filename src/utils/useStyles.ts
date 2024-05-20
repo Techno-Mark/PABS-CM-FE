@@ -16,6 +16,18 @@ export const useStyles = makeStyles({
     background: "#023963",
     height: "100%",
   },
+  underlineWithPlaceholderColor: {
+    "&:after": {
+      borderBottom: "0.5px solid #023963",
+    },
+    "& .MuiInputBase-input": {
+      borderColor: "#023963",
+    },
+    "& .MuiInputBase-input::placeholder": {
+      "--tw-placeholder-opacity": 1,
+      color: "#6E7487",
+    },
+  },
   underline: {
     "&:after": {
       borderBottom: "0.5px solid #023963",
