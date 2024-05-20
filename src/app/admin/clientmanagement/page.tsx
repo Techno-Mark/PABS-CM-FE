@@ -57,6 +57,7 @@ function Page() {
         <span className="font-semibold text-[13px]">Sr.No.</span>
       ),
       width: 70,
+      sortable: false,
     },
     {
       field: "SfId",
@@ -64,6 +65,7 @@ function Page() {
         <span className="font-semibold text-[13px]">SF ID</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
       field: "Clientname",
@@ -71,6 +73,7 @@ function Page() {
         <span className="font-semibold text-[13px]">Client Name</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
       field: "BusinessType",
@@ -78,6 +81,7 @@ function Page() {
         <span className="font-semibold text-[13px]">Business Type</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
       field: "Status",
@@ -85,6 +89,7 @@ function Page() {
         <span className="font-semibold text-[13px]">Status</span>
       ),
       flex: 1,
+      sortable: false,
     },
     {
       field: "AssignUserId",
@@ -92,13 +97,17 @@ function Page() {
         <span className="font-semibold text-[13px]">Assigning User</span>
       ),
       width: 200,
+      sortable: false,
       renderCell: (params) => {
         return (
           <Autocomplete
             className={classes.underlineDropdown}
             options={assignUserList}
             renderOption={(props: any, item: any) => (
-              <ListItem {...props} className="flex gap-2 text-ellipsis">
+              <ListItem
+                {...props}
+                className="flex gap-2 text-ellipsis cursor-pointer"
+              >
                 <Avatar className="!h-8 !w-8" alt={item.label}>
                   {item.label.charAt(0)}
                 </Avatar>
@@ -160,6 +169,7 @@ function Page() {
         return <div>{params.value === "1" ? "Completed" : "Pending"}</div>;
       },
       flex: 1,
+      sortable: false,
     },
     {
       field: "actions",
@@ -169,6 +179,7 @@ function Page() {
         </span>
       ),
       width: 160,
+      sortable: false,
       renderCell: (params) => {
         return (
           <div className="flex gap-9 justify-start h-full items-center">
@@ -201,13 +212,18 @@ function Page() {
             )}
             <Tooltip title="Form Type" placement="top" arrow>
               <span className="cursor-pointer">
-                <DescriptionOutlinedIcon
-                  fontSize="small"
-                  sx={{
-                    fill: "black",
-                    opacity: "0.54",
-                  }}
-                />
+                <svg
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-19up1ds-MuiSvgIcon-root"
+                  focusable="false"
+                  aria-hidden="true"
+                  height={20}
+                  viewBox="0 0 24 24"
+                  data-testid="DescriptionOutlinedIcon"
+                  fill="black"
+                  opacity="0.54"
+                >
+                  <path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8zm4 18H6V4h7v5h5z"></path>
+                </svg>
               </span>
             </Tooltip>
           </div>
@@ -237,6 +253,7 @@ function Page() {
     businessTypeId: number[];
     status: number[];
     checkListStatus: string[];
+    saveClicked: boolean;
   }>({
     page: 1,
     limit: rowsPerPage,
@@ -244,6 +261,7 @@ function Page() {
     businessTypeId: [],
     status: [],
     checkListStatus: [],
+    saveClicked: false,
   });
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [invitaionLoading, setInvitaionLoading] = useState<boolean>(false);
@@ -311,13 +329,15 @@ function Page() {
   const getFilterData = (
     businessId: number[],
     statusId: number[],
-    checkListStatusId: string[]
+    checkListStatusId: string[],
+    saveClicked: boolean
   ) => {
     setClientListParams({
       ...clientListParams,
       businessTypeId: businessId,
       status: statusId,
       checkListStatus: checkListStatusId,
+      saveClicked: saveClicked,
     });
   };
 
@@ -596,6 +616,7 @@ function Page() {
           title="Delete"
           isLoading={isLoading}
           isOpen={openDelete}
+          setId={() => setClientId(0)}
           message="Are you sure you want to delete this client ?"
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}

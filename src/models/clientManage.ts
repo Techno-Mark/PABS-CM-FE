@@ -19,7 +19,8 @@ export interface ClientModalProps {
   sendFilterData: (
     businessId: number[],
     statusId: number[],
-    checkListStatusId: string[]
+    checkListStatusId: string[],
+    saveClicked: boolean
   ) => void;
   clientListParams: any;
 }

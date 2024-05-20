@@ -86,7 +86,7 @@ function ClientFilter({
       checklistStatus.length > 0
         ? checklistStatus.map((c: Option) => c.value.toString())
         : [];
-    sendFilterData(businessId, statusId, checklistStatusId);
+    sendFilterData(businessId, statusId, checklistStatusId, true);
     handleClose();
   };
 
@@ -95,7 +95,8 @@ function ClientFilter({
     setChecklistStatus([]);
     setStatus([]);
     setBusinessType([]);
-    sendFilterData([], [], []);
+    sendFilterData([], [], [], false);
+    handleClose();
   };
 
   return (
@@ -106,13 +107,14 @@ function ClientFilter({
       setIsOpenModal={(value) => setIsOpen(value)}
       handleSubmit={handleSubmit}
       handleResetSubmit={handleResetSubmit}
-      isDisabled={
+      isSaveDisabled={
         !(
-          checklistStatus.length > 0 ||
-          businessType.length > 0 ||
-          status.length > 0
+          checklistStatus.length !== clientListParams.checkListStatus.length ||
+          businessType.length !== clientListParams.businessTypeId.length ||
+          status.length !== clientListParams.status.length
         )
       }
+      isResetDisabled={!clientListParams.saveClicked}
     >
       <div className="p-5 h-[calc(100%-143px)]">
         <div className="text-[12px] flex flex-col">

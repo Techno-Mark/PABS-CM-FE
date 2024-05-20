@@ -18,7 +18,8 @@ export interface UserModalProps {
   sendFilterData: (
     roleId: number[],
     statusId: number[],
-    businessId: number[]
+    businessId: number[],
+    saveClicked: boolean
   ) => void;
   userListParams: any;
 }

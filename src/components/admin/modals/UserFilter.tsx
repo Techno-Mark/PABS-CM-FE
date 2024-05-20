@@ -86,7 +86,7 @@ function UserFilter({
       businessType.length > 0
         ? businessType.map((b: BusinessList) => b.BusinessId)
         : [];
-    sendFilterData(roleId, statusId, businessId);
+    sendFilterData(roleId, statusId, businessId, true);
     handleClose();
   };
 
@@ -95,7 +95,8 @@ function UserFilter({
     setRole([]);
     setStatus([]);
     setBusinessType([]);
-    sendFilterData([], [], []);
+    sendFilterData([], [], [], false);
+    handleClose();
   };
 
   return (
@@ -106,9 +107,14 @@ function UserFilter({
       setIsOpenModal={(value) => setIsOpen(value)}
       handleSubmit={handleSubmit}
       handleResetSubmit={handleResetSubmit}
-      isDisabled={
-        !(role.length > 0 || businessType.length > 0 || status.length > 0)
+      isSaveDisabled={
+        !(
+          role.length !== userListParams.roleId.length ||
+          businessType.length !== userListParams.businessTypeId.length ||
+          status.length !== userListParams.userStatus.length
+        )
       }
+      isResetDisabled={!userListParams.saveClicked}
     >
       <div className="p-5 h-[calc(100%-143px)]">
         <div className="text-[12px] flex flex-col">

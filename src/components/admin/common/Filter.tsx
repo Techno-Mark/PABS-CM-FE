@@ -23,7 +23,8 @@ function Filter({
   handleClose,
   handleSubmit,
   handleResetSubmit,
-  isDisabled,
+  isSaveDisabled,
+  isResetDisabled,
 }: FilterProps) {
   return (
     <Modal
@@ -54,20 +55,20 @@ function Filter({
             Cancel
           </Button>
           <Button
-            disabled={isDisabled}
+            disabled={isResetDisabled}
             onClick={handleResetSubmit}
             className={`${
-              !isDisabled && "!bg-[#023963]"
+              !isResetDisabled && "!bg-[#023963]"
             } text-white !h-[36px] !rounded-full !w-[90px]`}
             variant="contained"
           >
             <span className="uppercase font-semibold text-[16px]">Reset</span>
           </Button>
           <Button
-            disabled={isDisabled}
+            disabled={isSaveDisabled}
             onClick={handleSubmit}
             className={`${
-              !isDisabled && "!bg-[#023963]"
+              !isSaveDisabled && "!bg-[#023963]"
             } text-white !h-[36px] !rounded-full !w-[71px]`}
             variant="contained"
           >

@@ -453,7 +453,7 @@ const ClientDrawer = ({
         )}
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Select Business Type<span className="text-[#DC3545]">*</span>
+            Business Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
             <Select

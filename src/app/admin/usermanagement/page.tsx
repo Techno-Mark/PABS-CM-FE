@@ -159,6 +159,7 @@ function Page() {
     roleId: number[];
     businessTypeId: number[];
     userStatus: number[];
+    saveClicked: boolean;
   }>({
     page: 1,
     limit: rowsPerPage,
@@ -166,6 +167,7 @@ function Page() {
     roleId: [],
     businessTypeId: [],
     userStatus: [],
+    saveClicked: false,
   });
 
   useEffect(() => {
@@ -230,13 +232,16 @@ function Page() {
   const getFilterData = (
     roleId: number[],
     statusId: number[],
-    businessId: number[]
+    businessId: number[],
+    saveClicked: boolean
   ) => {
+    console.log(saveClicked)
     setUserListParams({
       ...userListParams,
       roleId: roleId,
       userStatus: statusId,
       businessTypeId: businessId,
+      saveClicked: saveClicked,
     });
   };
 
