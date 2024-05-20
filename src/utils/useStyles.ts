@@ -16,9 +16,16 @@ export const useStyles = makeStyles({
     background: "#023963 !important",
     height: "100%",
   },
-  underlineDropdown: {
-    "& .css-953pxc-MuiInputBase-root-MuiInput-root::before": {
-      borderBottom: "none !important",
+  underlineWithPlaceholderColor: {
+    "&:after": {
+      borderBottom: "0.5px solid #023963",
+    },
+    "& .MuiInputBase-input": {
+      borderColor: "#023963",
+    },
+    "& .MuiInputBase-input::placeholder": {
+      "--tw-placeholder-opacity": 1,
+      color: "#6E7487",
     },
   },
   underline: {
