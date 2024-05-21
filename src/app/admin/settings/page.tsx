@@ -52,7 +52,7 @@ function Page() {
       sortable: false,
       renderCell: (params) => {
         return (
-          <div className="flex justify-start h-full items-center">
+          <div className="flex justify-start h-full items-center -ml-3">
             <Switch
               checked={params.row.RoleStatus}
               onChange={(e) =>

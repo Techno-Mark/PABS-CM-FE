@@ -8,7 +8,6 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  Tooltip,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 // Icons import
@@ -99,7 +98,9 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
 
     if (newPassword.length === 0) {
       error = true;
-      errorText = "Password is required";
+      errorText = checkForToken
+        ? "New Password is required"
+        : "Password is required";
     } else if (!passwordRegex.test(newPassword)) {
       error = true;
       errorText = "Entered password does not match the required conditions.";
@@ -141,7 +142,9 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
       setNewPassword({
         ...initialFieldStringValues,
         error: true,
-        errorText: "Password is required",
+        errorText: checkForToken
+          ? "New Password is required"
+          : "Password is required",
       });
       hasError = true;
     }
@@ -201,14 +204,15 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-14">
           <label className="text-[#6E6D7A] text-[14px] flex items-center">
-            New Password<span className="text-[#DC3545]">*</span>&nbsp;
+            {checkForToken ? "New Password" : "Password"}
+            <span className="text-[#DC3545]">*</span>&nbsp;
             <InfoIcon />
           </label>
           <FormControl variant="standard">
             <Input
               classes={{ underline: classes.underlineWithPlaceholderColor }}
               id="outlined-adornment-password"
-              placeholder="New Password"
+              placeholder={checkForToken ? "New Password" : "Password"}
               type={showNewPassword ? "text" : "password"}
               onChange={handleNewPasswordChange}
               error={newPassword.error}
