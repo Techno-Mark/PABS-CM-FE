@@ -7,7 +7,7 @@ import Loader from "@/components/admin/common/Loader";
 function Page() {
   return (
     <React.Suspense fallback={<Loader />}>
-      <SetNewPassword passwordType="Create" checkForToken={false} />
+      <SetNewPassword passwordType="Create" isReset={false} />
     </React.Suspense>
   );
 }

@@ -36,8 +36,14 @@ export const useStyles = makeStyles({
       borderColor: "#023963",
     },
   },
+  // underlineDropdown: {
+  //   "& .css-953pxc-MuiInputBase-root-MuiInput-root::before": {
+  //     borderBottom: "none !important",
+  //   },
+  // },
+
   underlineDropdown: {
-    "& .css-953pxc-MuiInputBase-root-MuiInput-root::before": {
+    "& div::before": {
       borderBottom: "none !important",
     },
   },

@@ -29,10 +29,13 @@ export interface ClientList {
   ClientId: number;
   SfId: string;
   Clientname: string;
+  BusinessTypeId: number;
   BusinessType: string;
   Status: string;
+  AssignUserId: null | number;
   AssignUser: string;
   checkListStatus: number;
+  IsPasswordSet: boolean;
 }
 
 export interface GetClientListResponse {

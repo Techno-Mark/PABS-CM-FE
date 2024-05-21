@@ -9,7 +9,6 @@ import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 // MUI imports
 import {
   Autocomplete,
@@ -58,7 +57,7 @@ function Page() {
     {
       field: "ClientId",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Sr.No.</span>
+        <span className="font-semibold text-[13px]">Sr No.</span>
       ),
       width: 70,
       sortable: false,
@@ -597,6 +596,7 @@ function Page() {
               disableRowSelectionOnClick
               disableColumnMenu
               checkboxSelection
+              isRowSelectable={(params: any) => !params.row.IsPasswordSet}
               rows={clientData}
               columns={columns}
               getRowId={(i: any) => i.ClientId}

@@ -23,7 +23,7 @@ import { ToastType } from "@/static/toastType";
 import { useSearchParams } from "next/navigation";
 import InfoIcon from "@/assets/Icons/InfoIcon";
 
-const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
+const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
   const getToken = useSearchParams();
   const token = getToken.get("token");
   const classes = useStyles();
@@ -73,13 +73,13 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      checkForToken && verifyToken();
+      verifyToken();
     }, 500);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [checkForToken]);
+  }, []);
 
   const handleClickShowNewPassword = () => setShowNewPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -98,9 +98,7 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
 
     if (newPassword.length === 0) {
       error = true;
-      errorText = checkForToken
-        ? "New Password is required"
-        : "Password is required";
+      errorText = isReset ? "New Password is required" : "Password is required";
     } else if (!passwordRegex.test(newPassword)) {
       error = true;
       errorText = "Entered password does not match the required conditions.";
@@ -142,7 +140,7 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
       setNewPassword({
         ...initialFieldStringValues,
         error: true,
-        errorText: checkForToken
+        errorText: isReset
           ? "New Password is required"
           : "Password is required",
       });
@@ -204,7 +202,7 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-14">
           <label className="text-[#6E6D7A] text-[14px] flex items-center">
-            {checkForToken ? "New Password" : "Password"}
+            {isReset ? "New Password" : "Password"}
             <span className="text-[#DC3545]">*</span>&nbsp;
             <InfoIcon />
           </label>
@@ -212,7 +210,7 @@ const SetNewPassword = ({ passwordType, checkForToken }: AuthType) => {
             <Input
               classes={{ underline: classes.underlineWithPlaceholderColor }}
               id="outlined-adornment-password"
-              placeholder={checkForToken ? "New Password" : "Password"}
+              placeholder={isReset ? "New Password" : "Password"}
               type={showNewPassword ? "text" : "password"}
               onChange={handleNewPasswordChange}
               error={newPassword.error}

@@ -14,7 +14,7 @@ const page = () => {
         </div>
       }
     >
-      <SetNewPassword passwordType="Reset" checkForToken={true} />
+      <SetNewPassword passwordType="Reset" isReset={true} />
     </React.Suspense>
   );
 };

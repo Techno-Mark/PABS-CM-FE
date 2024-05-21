@@ -36,7 +36,6 @@ export default function Home() {
       ) {
         router.push("/admin/settings");
       } else {
-        showToast("You dont have required permission.", ToastType.Warning);
         removeCookies();
         router.push("/auth/login");
       }
