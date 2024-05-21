@@ -11,6 +11,7 @@ import { checklistStatusOption, statusOption } from "@/static/usermanage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
 import { ClientModalProps } from "@/models/clientManage";
+import { hasMatchingValue } from "@/utils/commonFunction";
 
 function ClientFilter({
   isOpen,
@@ -84,7 +85,7 @@ function ClientFilter({
       status.length > 0 ? status.map((s: Option) => s.value) : [];
     const checklistStatusId =
       checklistStatus.length > 0
-        ? checklistStatus.map((c: Option) => c.value.toString())
+        ? checklistStatus.map((c: Option) => c.value)
         : [];
     sendFilterData(businessId, statusId, checklistStatusId, true);
     handleClose();
@@ -111,7 +112,16 @@ function ClientFilter({
         !(
           checklistStatus.length !== clientListParams.checkListStatus.length ||
           businessType.length !== clientListParams.businessTypeId.length ||
-          status.length !== clientListParams.status.length
+          status.length !== clientListParams.status.length ||
+          hasMatchingValue(clientListParams.checkListStatus, checklistStatus) ||
+          hasMatchingValue(
+            clientListParams.businessTypeId,
+            businessType.map((b: BusinessList) => ({
+              label: b.BussinessName,
+              value: b.BusinessId,
+            }))
+          ) ||
+          hasMatchingValue(clientListParams.status, status)
         )
       }
       isResetDisabled={!clientListParams.saveClicked}

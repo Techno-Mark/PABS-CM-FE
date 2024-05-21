@@ -15,6 +15,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { statusOption } from "@/static/usermanage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
+import { hasMatchingValue } from "@/utils/commonFunction";
 
 function UserFilter({
   isOpen,
@@ -111,7 +112,22 @@ function UserFilter({
         !(
           role.length !== userListParams.roleId.length ||
           businessType.length !== userListParams.businessTypeId.length ||
-          status.length !== userListParams.userStatus.length
+          status.length !== userListParams.userStatus.length ||
+          hasMatchingValue(
+            userListParams.roleId,
+            role.map((r: RoleList) => ({
+              label: r.RoleName,
+              value: r.RoleId,
+            }))
+          ) ||
+          hasMatchingValue(
+            userListParams.businessTypeId,
+            businessType.map((b: BusinessList) => ({
+              label: b.BussinessName,
+              value: b.BusinessId,
+            }))
+          ) ||
+          hasMatchingValue(userListParams.userStatus, status)
         )
       }
       isResetDisabled={!userListParams.saveClicked}

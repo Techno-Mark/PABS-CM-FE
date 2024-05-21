@@ -1,3 +1,4 @@
+import { Option } from "@/models/userManage";
 import { getToken, removeCookies } from "./authFunctions";
 
 export const hasToken = (router: any) => {
@@ -16,4 +17,8 @@ export const hasNoToken = (router: any) => {
     removeCookies();
     router.push("/auth/login");
   }
+};
+
+export const hasMatchingValue = (arr1: number[], arr2: Option[]): any => {
+  return arr2.map((item: any) => arr1.includes(item.value)).includes(false);
 };

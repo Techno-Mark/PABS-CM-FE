@@ -38,6 +38,7 @@ import {
   businessListUrl,
   deleteClientUrl,
   getClientListUrl,
+  saveAssignee,
 } from "@/static/apiUrl";
 import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
 import { ClientList, GetClientListResponse } from "@/models/clientManage";
@@ -46,10 +47,13 @@ import { useStyles } from "@/utils/useStyles";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { checkPermission } from "@/utils/permissionCheckFunction";
+import { AlphabetColor } from "@/utils/commonData";
 
 function Page() {
   const classes = useStyles();
-  const [assignUserList, setAssignUserList] = useState<Option[]>([]);
+  const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
+  const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
+  const [assignUserList3, setAssignUserList3] = useState<Option[]>([]);
   const columns: GridColDef[] = [
     {
       field: "ClientId",
@@ -102,14 +106,22 @@ function Page() {
         return (
           <Autocomplete
             className={classes.underlineDropdown}
-            options={assignUserList}
+            options={
+              params.row.BusinessTypeId === 1
+                ? assignUserList1
+                : params.row.BusinessTypeId === 2
+                ? assignUserList2
+                : assignUserList3
+            }
             renderOption={(props: any, item: any) => (
               <ListItem
                 {...props}
                 className="flex gap-2 text-ellipsis cursor-pointer"
               >
                 <Avatar className="!h-8 !w-8" alt={item.label}>
-                  {item.label.charAt(0)}
+                  <AlphabetColor
+                    alphabet={item.label.charAt(0).toUpperCase()}
+                  />
                 </Avatar>
                 <ListItemText>{item.label}</ListItemText>
               </ListItem>
@@ -128,28 +140,41 @@ function Page() {
                 }
               };
 
-              callAPIwithHeaders("/api/users/assignuser", "post", callBack, {
+              callAPIwithHeaders(saveAssignee, "post", callBack, {
                 userId: !!record ? record.value : -1,
                 // userId: record.value,
                 clientId: params.row.ClientId,
               });
             }}
             value={
-              assignUserList.filter((item) => item.value === params.value)[0]
+              (params.row.BusinessTypeId === 1
+                ? assignUserList1
+                : params.row.BusinessTypeId === 2
+                ? assignUserList2
+                : assignUserList3
+              ).filter((item) => item.value === params.value)[0]
             }
             renderInput={(param) => (
               <TextField
-                className="h-12 flex items-center justify-end"
+                className="h-12 flex items-center justify-center"
                 variant="standard"
                 {...param}
                 InputProps={{
                   ...param.InputProps,
                   startAdornment: param.inputProps.value && (
                     <InputAdornment position="start">
-                      <Avatar className="flex items-center justify-center !h-8 !w-8 bg-red-400">
-                        {assignUserList
-                          .filter((item) => item.value === params.value)[0]
-                          ?.label.charAt(0)}
+                      <Avatar className="!h-8 !w-8">
+                        <AlphabetColor
+                          alphabet={(params.row.BusinessTypeId === 1
+                            ? assignUserList1
+                            : params.row.BusinessTypeId === 2
+                            ? assignUserList2
+                            : assignUserList3
+                          )
+                            .filter((item) => item.value === params.value)[0]
+                            ?.label.charAt(0)
+                            .toUpperCase()}
+                        />
                       </Avatar>
                     </InputAdornment>
                   ),
@@ -252,7 +277,7 @@ function Page() {
     search: string;
     businessTypeId: number[];
     status: number[];
-    checkListStatus: string[];
+    checkListStatus: number[];
     saveClicked: boolean;
   }>({
     page: 1,
@@ -280,27 +305,37 @@ function Page() {
     }
   }, [router]);
 
-  const getAssignUserList = async () => {
-    const callback = (
-      ResponseStatus: string,
-      Message: string,
-      ResponseData: any
-    ) => {
-      switch (ResponseStatus) {
-        case "failure":
-          showToast(Message, ToastType.Error);
-          return;
-        case "success":
-          setAssignUserList(
-            ResponseData.Users.map((item: any) => ({
-              label: item.UserName,
-              value: item.UserId,
-            }))
-          );
-          return;
-      }
-    };
-    await callAPIwithHeaders(assigneUserListUrl, "get", callback, {});
+  const getAssignUser = async (
+    id: number
+  ): Promise<{ label: string; value: number }[]> => {
+    return new Promise((resolve, reject) => {
+      const callback = (
+        ResponseStatus: string,
+        Message: string,
+        ResponseData: any
+      ) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            reject(new Error(Message));
+            break;
+          case "success":
+            resolve(
+              ResponseData.Users.map((item: any) => ({
+                label: item.UserName,
+                value: item.UserId,
+              }))
+            );
+            break;
+          default:
+            reject(new Error("Unexpected response status"));
+        }
+      };
+
+      callAPIwithHeaders(assigneUserListUrl, "post", callback, {
+        businessTypeId: id,
+      });
+    });
   };
 
   useEffect(() => {
@@ -322,14 +357,29 @@ function Page() {
       await callAPIwithHeaders(businessListUrl, "get", callback, {});
     };
 
+    const getAssignUserList = async (id: number) => {
+      try {
+        const users = await getAssignUser(id);
+        id === 1
+          ? setAssignUserList1(users)
+          : id === 2
+          ? setAssignUserList2(users)
+          : setAssignUserList3(users);
+      } catch (error) {
+        console.error("Failed to get assigned user list", error);
+      }
+    };
+
     businessList.length <= 0 && getBusinessList();
-    assignUserList.length <= 0 && getAssignUserList();
+    assignUserList1.length <= 0 && getAssignUserList(1);
+    assignUserList2.length <= 0 && getAssignUserList(2);
+    assignUserList3.length <= 0 && getAssignUserList(3);
   }, []);
 
   const getFilterData = (
     businessId: number[],
     statusId: number[],
-    checkListStatusId: string[],
+    checkListStatusId: number[],
     saveClicked: boolean
   ) => {
     setClientListParams({

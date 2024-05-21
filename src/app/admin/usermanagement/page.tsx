@@ -35,7 +35,7 @@ import Loader from "@/components/admin/common/Loader";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { checkPermission } from "@/utils/permissionCheckFunction";
-import { renderCellFunction } from "@/utils/renderData";
+import { renderCellFunction } from "@/utils/commonData";
 
 function Page() {
   const columns: GridColDef[] = [
@@ -235,7 +235,7 @@ function Page() {
     businessId: number[],
     saveClicked: boolean
   ) => {
-    console.log(saveClicked)
+    console.log(saveClicked);
     setUserListParams({
       ...userListParams,
       roleId: roleId,
