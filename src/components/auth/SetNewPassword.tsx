@@ -68,6 +68,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
 
     await callAPIwithoutHeaders(tokenVerificationAPIUrl, "post", callback, {
       token: token,
+      requestType: isReset ? "forgotpassword" : "signup",
     });
   };
 
