@@ -360,6 +360,7 @@ const ClientDrawer = ({
   return (
     <>
       <DrawerPanel
+        isSaveEnabled={false}
         type={type}
         canEdit={canEdit}
         openDrawer={openDrawer}

@@ -65,6 +65,7 @@ const DrawerPanel = ({
   openDrawer,
   isLoading,
   canEdit,
+  isSaveEnabled,
   type,
   setOpenDrawer,
   handleSubmit,
@@ -128,8 +129,9 @@ const DrawerPanel = ({
           </Button>
           <Button
             onClick={handleSubmit}
-            className={`!bg-[#023963] text-white !rounded-full !w-[71px]`}
+            className={`${isSaveEnabled && '!bg-[#023963]'} text-white !rounded-full !w-[71px]`}
             variant="contained"
+            disabled={!isSaveEnabled}
           >
             {isLoading ? (
               <CircularProgress size={20} />

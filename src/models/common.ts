@@ -6,6 +6,18 @@ export interface StringFieldType {
   errorText: string;
 }
 
+export interface NumberFieldType extends Omit<StringFieldType, 'value'> {
+  value: number;
+}
+
+export interface FormFieldType {
+  fullName: StringFieldType;
+  role: NumberFieldType;
+  businessType: NumberFieldType;
+  status: NumberFieldType;
+  email: StringFieldType;
+}
+
 export interface NumberFieldType {
   value: number;
   error: boolean;
@@ -26,6 +38,7 @@ export interface DrawerPropsType {
   children: ReactNode;
   openDrawer: boolean;
   isLoading: boolean;
+  isSaveEnabled: boolean;
   type: string;
   canEdit: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
