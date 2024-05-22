@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // MUI Imports
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
 import { GetUserByIdResponse, UserDrawerProps } from "@/models/userManage";
-import { NumberFieldType, StringFieldType } from "@/models/common";
+import { FormFieldType, NumberFieldType, StringFieldType } from "@/models/common";
 // Static imports
 import { statusOptionDrawer } from "@/static/usermanage";
 import { ToastType } from "@/static/toastType";
@@ -33,10 +33,12 @@ const UserDrawer = ({
     error: false,
     errorText: "",
   };
+  const initialFieldNumberValues = {
+    ...initialFieldStringValues,
+    value: -1,
+  };
   const classes = useStyles();
-  const [fullName, setFullName] = useState<StringFieldType>(
-    initialFieldStringValues
-  );
+  const [fullName, setFullName] = useState<StringFieldType>(initialFieldStringValues);
   const [role, setRole] = useState<NumberFieldType>({
     ...initialFieldStringValues,
     value: -1,
@@ -53,6 +55,16 @@ const UserDrawer = ({
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isInactive, setInactive] = useState<boolean>(false);
+  const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
+
+  const [initialValues, setInitialValues] = useState<FormFieldType>({
+    fullName: initialFieldStringValues,
+    role: initialFieldNumberValues,
+    businessType: initialFieldNumberValues,
+    status: initialFieldNumberValues,
+    email: initialFieldStringValues,
+  });
+
 
   useEffect(() => {
     const getById = async () => {
@@ -66,36 +78,19 @@ const UserDrawer = ({
             showToast(Message, ToastType.Error);
             return;
           case "success":
-            setFullName({
-              value: ResponseData.Username,
-              error: false,
-              errorText: "",
-            });
-            setEmail({
-              value: ResponseData.Email,
-              error: false,
-              errorText: "",
-            });
-            setRole({
-              value: ResponseData.RoleId,
-              error: false,
-              errorText: "",
-            });
-            setBusinessType({
-              value: ResponseData.BusinessTypeId,
-              error: false,
-              errorText: "",
-            });
-            setStatus({
-              value:
-                ResponseData.Status === false
-                  ? 2
-                  : ResponseData.Status === true
-                  ? 1
-                  : -1,
-              error: false,
-              errorText: "",
-            });
+            const newInitialValues = {
+              fullName: { value: ResponseData.Username, error: false, errorText: "" },
+              role: { value: ResponseData.RoleId, error: false, errorText: "" },
+              businessType: { value: ResponseData.BusinessTypeId, error: false, errorText: "" },
+              status: { value: ResponseData.Status ? 1 : 2, error: false, errorText: "" },
+              email: { value: ResponseData.Email, error: false, errorText: "" }
+            };
+            setFullName(newInitialValues.fullName);
+            setRole(newInitialValues.role);
+            setBusinessType(newInitialValues.businessType);
+            setStatus(newInitialValues.status);
+            setEmail(newInitialValues.email);
+            setInitialValues(newInitialValues);
             return;
         }
       };
@@ -329,10 +324,25 @@ const UserDrawer = ({
     setInactive(false);
   };
 
+  const compareValues = useCallback(() => {
+    const currentValues:FormFieldType = { fullName, role, businessType, status, email };
+    for (const key in currentValues) {
+      if (currentValues[key as keyof FormFieldType].value !== initialValues[key as keyof FormFieldType].value) {
+        return true;
+      }
+    }
+    return false;
+  }, [fullName, role, businessType, status, email, initialValues]);
+
+  useEffect(() => {
+    setIsSaveButtonEnabled(compareValues());
+  }, [fullName, role, businessType, status, email, compareValues]);
+
   return (
     <>
       <DrawerPanel
         type={type}
+        isSaveEnabled={isSaveButtonEnabled}
         canEdit={canEdit}
         openDrawer={openDrawer}
         isLoading={isLoading}
