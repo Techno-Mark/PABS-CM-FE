@@ -3,7 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
 import { GetUserByIdResponse, UserDrawerProps } from "@/models/userManage";
-import { FormFieldType, NumberFieldType, StringFieldType } from "@/models/common";
+import {
+  FormFieldType,
+  NumberFieldType,
+  StringFieldType,
+} from "@/models/common";
 // Static imports
 import { statusOptionDrawer } from "@/static/usermanage";
 import { ToastType } from "@/static/toastType";
@@ -16,6 +20,7 @@ import DrawerPanel from "@/components/admin/common/DrawerPanel";
 import { showToast } from "@/components/ToastContainer";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { saveUserUrl, getUserDetailsByIdUrl } from "@/static/apiUrl";
+import Cookies from "js-cookie";
 
 const UserDrawer = ({
   openDrawer,
@@ -28,6 +33,8 @@ const UserDrawer = ({
   roleList,
   businessList,
 }: UserDrawerProps) => {
+  const roleId = Cookies.get("roleId");
+  const classes = useStyles();
   const initialFieldStringValues = {
     value: "",
     error: false,
@@ -37,8 +44,9 @@ const UserDrawer = ({
     ...initialFieldStringValues,
     value: -1,
   };
-  const classes = useStyles();
-  const [fullName, setFullName] = useState<StringFieldType>(initialFieldStringValues);
+  const [fullName, setFullName] = useState<StringFieldType>(
+    initialFieldStringValues
+  );
   const [role, setRole] = useState<NumberFieldType>({
     ...initialFieldStringValues,
     value: -1,
@@ -65,7 +73,6 @@ const UserDrawer = ({
     email: initialFieldStringValues,
   });
 
-
   useEffect(() => {
     const getById = async () => {
       const callback = (
@@ -79,11 +86,23 @@ const UserDrawer = ({
             return;
           case "success":
             const newInitialValues = {
-              fullName: { value: ResponseData.Username, error: false, errorText: "" },
+              fullName: {
+                value: ResponseData.Username,
+                error: false,
+                errorText: "",
+              },
               role: { value: ResponseData.RoleId, error: false, errorText: "" },
-              businessType: { value: ResponseData.BusinessTypeId, error: false, errorText: "" },
-              status: { value: ResponseData.Status ? 1 : 2, error: false, errorText: "" },
-              email: { value: ResponseData.Email, error: false, errorText: "" }
+              businessType: {
+                value: ResponseData.BusinessTypeId,
+                error: false,
+                errorText: "",
+              },
+              status: {
+                value: ResponseData.Status ? 1 : 2,
+                error: false,
+                errorText: "",
+              },
+              email: { value: ResponseData.Email, error: false, errorText: "" },
             };
             setFullName(newInitialValues.fullName);
             setRole(newInitialValues.role);
@@ -325,9 +344,18 @@ const UserDrawer = ({
   };
 
   const compareValues = useCallback(() => {
-    const currentValues:FormFieldType = { fullName, role, businessType, status, email };
+    const currentValues: FormFieldType = {
+      fullName,
+      role,
+      businessType,
+      status,
+      email,
+    };
     for (const key in currentValues) {
-      if (currentValues[key as keyof FormFieldType].value !== initialValues[key as keyof FormFieldType].value) {
+      if (
+        currentValues[key as keyof FormFieldType].value !==
+        initialValues[key as keyof FormFieldType].value
+      ) {
         return true;
       }
     }
@@ -360,8 +388,8 @@ const UserDrawer = ({
             size="small"
             placeholder="Please Enter Full Name"
             value={fullName.value}
-            error={fullName.error}
-            helperText={fullName.errorText}
+            error={Number(roleId) !== 1 && canEdit ? false : fullName.error}
+            helperText={Number(roleId) !== 1 && canEdit ? '' : fullName.errorText}
             onChange={handleFullNameChange}
             InputProps={{
               classes: {
@@ -371,6 +399,7 @@ const UserDrawer = ({
             inputProps={{
               className: classes.textSize,
             }}
+            disabled={Number(roleId) !== 1 && canEdit ? true : false}
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
@@ -383,8 +412,8 @@ const UserDrawer = ({
             size="small"
             placeholder="Please Enter Email"
             value={email.value}
-            error={email.error}
-            helperText={email.errorText}
+            error={Number(roleId) !== 1 && canEdit ? false : email.error}
+            helperText={Number(roleId) !== 1 && canEdit ? '' : email.errorText}
             onChange={handleEmailChange}
             InputProps={{
               classes: {
@@ -394,6 +423,7 @@ const UserDrawer = ({
             inputProps={{
               className: classes.textSize,
             }}
+            disabled={Number(roleId) !== 1 && canEdit ? true : false}
           />
         </div>
         <div className="text-[12px] flex flex-col pb-5">
@@ -428,40 +458,7 @@ const UserDrawer = ({
             )}
           </FormControl>
         </div>
-        {canEdit && (
-          <div className="text-[12px] flex flex-col pb-5">
-            <label className="text-[#6E6D7A] text-[12px]">
-              Select Status<span className="text-[#DC3545]">*</span>
-            </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  status.value === -1
-                    ? "!text-[12px] text-[#6E6D7A]"
-                    : "!text-[14px]"
-                }`}
-                value={status.value}
-                error={status.error}
-                onChange={handleStatusChange}
-              >
-                {statusOptionDrawer.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === -1}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              {status.error && (
-                <span className="text-[#d32f2f]">{status.errorText}</span>
-              )}
-            </FormControl>
-          </div>
-        )}
+
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
             Business Type<span className="text-[#DC3545]">*</span>
@@ -494,6 +491,40 @@ const UserDrawer = ({
             )}
           </FormControl>
         </div>
+        {canEdit && (
+          <div className="text-[12px] flex flex-col pt-5">
+            <label className="text-[#6E6D7A] text-[12px]">
+              Select Status<span className="text-[#DC3545]">*</span>
+            </label>
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                className={`${
+                  status.value === -1
+                    ? "!text-[12px] text-[#6E6D7A]"
+                    : "!text-[14px]"
+                }`}
+                value={status.value}
+                error={status.error}
+                onChange={handleStatusChange}
+              >
+                {statusOptionDrawer.map((type) => (
+                  <MenuItem
+                    key={type.value}
+                    value={type.value}
+                    disabled={type.value === -1}
+                  >
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+              {status.error && (
+                <span className="text-[#d32f2f]">{status.errorText}</span>
+              )}
+            </FormControl>
+          </div>
+        )}
       </DrawerPanel>
 
       {isInactive && (
