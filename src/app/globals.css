@@ -11,6 +11,11 @@
   border-top-left-radius: 10px;
 }
 
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 .borderClass::before {
   content: "";
   position: absolute;
