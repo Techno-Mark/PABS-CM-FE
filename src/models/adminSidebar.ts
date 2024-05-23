@@ -3,3 +3,9 @@ export interface SidebarProps {
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   onRouteChange: () => void;
 }
+
+export interface SidebarItemsType {
+  module: string;
+  link: string;
+  icon: any;
+}

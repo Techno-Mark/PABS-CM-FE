@@ -35,6 +35,7 @@ const RoleDrawer = ({
   getRoleList,
 }: RoleDrawerProps) => {
   const classes = useStyles();
+  const headers = ["Module", "All", "View", "Create", "Edit", "Delete"];
   const initialFieldStringValues = {
     value: "",
     error: false,
@@ -291,6 +292,7 @@ const RoleDrawer = ({
             value={role.value}
             error={role.error}
             onChange={handleRoleChange}
+            disabled={roleId === 1}
           >
             {statusOptionDrawer.map((role) => (
               <MenuItem
@@ -311,42 +313,15 @@ const RoleDrawer = ({
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th
-                scope="col"
-                className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
-              >
-                Module
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
-              >
-                All
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
-              >
-                View
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
-              >
-                Create
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
-              >
-                Edit
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
-              >
-                Delete
-              </th>
+              {headers.map((header) => (
+                <th
+                  key={header}
+                  scope="col"
+                  className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
+                >
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="bg-white">
@@ -375,6 +350,7 @@ const RoleDrawer = ({
                         delete: e.target.checked,
                       })
                     }
+                    disabled={roleId === 1}
                   />
                 </td>
                 <td className="pr-2">
@@ -386,6 +362,7 @@ const RoleDrawer = ({
                         view: e.target.checked,
                       })
                     }
+                    disabled={roleId === 1}
                   />
                 </td>
                 <td className="pr-2">
@@ -397,6 +374,7 @@ const RoleDrawer = ({
                         create: e.target.checked,
                       })
                     }
+                    disabled={roleId === 1}
                   />
                 </td>
                 <td className="pr-2">
@@ -408,6 +386,7 @@ const RoleDrawer = ({
                         edit: e.target.checked,
                       })
                     }
+                    disabled={roleId === 1}
                   />
                 </td>
                 <td className="pr-2">
@@ -419,6 +398,7 @@ const RoleDrawer = ({
                         delete: e.target.checked,
                       })
                     }
+                    disabled={roleId === 1}
                   />
                 </td>
               </tr>
