@@ -204,6 +204,7 @@ function Page() {
         page: 0,
         limit: 0,
         search: "",
+        dropdown:true
       });
     };
 
@@ -319,6 +320,7 @@ function Page() {
         case "failure":
           showToast(Message, ToastType.Error);
           setIsLoading(false);
+          setOpenDelete(false);
           return;
         case "success":
           showToast(Message, ToastType.Success);
@@ -339,6 +341,10 @@ function Page() {
     await callAPIwithHeaders(deleteUserUrl, "post", callback, {
       userId: userId,
     });
+  };
+
+  const localeText: {noRowsLabel:string} = {
+    noRowsLabel: 'No record found',
   };
 
   return (
@@ -395,6 +401,7 @@ function Page() {
               rows={userData}
               columns={columns}
               getRowId={(i: any) => i.UserId}
+              localeText={localeText}
               slots={{
                 footer: () => (
                   <div className="flex justify-end">

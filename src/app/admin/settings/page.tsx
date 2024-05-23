@@ -125,7 +125,6 @@ function Page() {
   const [roleData, setRoleData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [roleId, setRoleId] = useState<number>(0);
-  const [roleList, setRoleList] = useState<RoleList[]>([]);
   const [search, setSearch] = useState("");
   const [pageNo, setPageNo] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -134,10 +133,12 @@ function Page() {
     page: number;
     limit: number;
     search: string;
+    dropdown:boolean
   }>({
     page: 0,
     limit: 0,
     search: "",
+    dropdown:false
   });
   const [switchPopup, setSwitchPopup] = useState<{
     isOpen: boolean;
@@ -162,32 +163,6 @@ function Page() {
       router.push("/");
     }
   }, [router]);
-
-  useEffect(() => {
-    const getRoleList = async () => {
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: RoleListResponse
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            return;
-          case "success":
-            setRoleList(ResponseData.roles);
-            return;
-        }
-      };
-      await callAPIwithHeaders(roleListUrl, "post", callback, {
-        page: 0,
-        limit: 0,
-        search: "",
-      });
-    };
-
-    roleList.length <= 0 && getRoleList();
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
