@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { Theme } from "@material-ui/core/styles";
 // Types import
-import { SidebarProps } from "@/models/adminSidebar";
+import { SidebarItemsType, SidebarProps } from "@/models/adminSidebar";
 // Static import
 import { drawerWidth } from "@/static/commonVariables";
 // Icons imports
@@ -90,13 +90,7 @@ const Sidebar = ({
   const classes = useStyles();
   const pathname = usePathname();
   const permissions: any = Cookies.get("permission");
-  const [sidebarItems, setSidebarItems] = useState<
-    {
-      module: string;
-      link: string;
-      icon: any;
-    }[]
-  >([]);
+  const [sidebarItems, setSidebarItems] = useState<SidebarItemsType[]>([]);
 
   const getIcon = (
     pathname: string,

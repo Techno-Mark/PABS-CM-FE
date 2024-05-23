@@ -24,6 +24,7 @@ import { RoleListResponse } from "@/models/userManage";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { checkPermission } from "@/utils/permissionCheckFunction";
+import { RoleListType, SwitchPopupType } from "@/models/settings";
 
 function Page() {
   const columns: GridColDef[] = [
@@ -62,6 +63,7 @@ function Page() {
                   roleId: params.row.RoleId,
                 })
               }
+              disabled={params.row.RoleId === 1}
             />
           </div>
         );
@@ -96,18 +98,22 @@ function Page() {
                     </span>
                   </Tooltip>
                 )}
-                {checkPermission("Settings", "delete") && (
-                  <Tooltip title="Delete" placement="top" arrow>
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setOpenDelete(true);
-                        setRoleId(params.row.RoleId);
-                      }}
-                    >
-                      <DeleteIcon />
-                    </span>
-                  </Tooltip>
+                {params.row.RoleId !== 1 && (
+                  <>
+                    {checkPermission("Settings", "delete") && (
+                      <Tooltip title="Delete" placement="top" arrow>
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setOpenDelete(true);
+                            setRoleId(params.row.RoleId);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </span>
+                      </Tooltip>
+                    )}
+                  </>
                 )}
               </div>
             </>
@@ -129,22 +135,13 @@ function Page() {
   const [pageNo, setPageNo] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
-  const [roleListParams, setRoleListParams] = useState<{
-    page: number;
-    limit: number;
-    search: string;
-    dropdown:boolean
-  }>({
+  const [roleListParams, setRoleListParams] = useState<RoleListType>({
     page: 0,
     limit: 0,
     search: "",
-    dropdown:false
+    dropdown: false,
   });
-  const [switchPopup, setSwitchPopup] = useState<{
-    isOpen: boolean;
-    isChecked: null | boolean;
-    roleId: number;
-  }>({
+  const [switchPopup, setSwitchPopup] = useState<SwitchPopupType>({
     isOpen: false,
     isChecked: null,
     roleId: 0,
