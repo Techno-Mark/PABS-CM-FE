@@ -195,7 +195,7 @@ function UserFilter({
         </div>
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
-            Select Business Type
+            Select Department Type
           </label>
           <Autocomplete
             multiple
