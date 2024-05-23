@@ -36,6 +36,10 @@ export interface Option {
   label: string;
 }
 
+export interface StringOption extends Omit<Option, 'value'> {
+  value: string;
+}
+
 export interface DeleteModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
