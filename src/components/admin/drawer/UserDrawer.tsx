@@ -207,7 +207,7 @@ const UserDrawer = ({
       setBusinessType({
         value: -1,
         error: true,
-        errorText: "Business Type is Required",
+        errorText: "Department Type is Required",
       });
     } else {
       setBusinessType({
@@ -278,7 +278,7 @@ const UserDrawer = ({
     const businessTypeError = validateAndSetFieldNumber(
       setBusinessType,
       businessType.value,
-      "Business Type"
+      "Department Type"
     );
     const statusError = validateAndSetFieldNumber(
       setStatus,
@@ -461,7 +461,7 @@ const UserDrawer = ({
 
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
-            Business Type<span className="text-[#DC3545]">*</span>
+          Department Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
             <Select
