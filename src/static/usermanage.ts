@@ -37,8 +37,8 @@ export const statusOption = [
 ];
 
 export const checklistStatusOption = [
-  { value: 0, label: "Pending" },
-  { value: 1, label: "Complete" },
+  { value: "Pending", label: "Pending" },
+  { value: "Complete(78%)", label: "Complete" },
 ];
 
 export const userRolesDrawer = [
