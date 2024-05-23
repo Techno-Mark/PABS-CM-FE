@@ -4,9 +4,9 @@ import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
 import { GetUserByIdResponse, UserDrawerProps } from "@/models/userManage";
 import {
-  FormFieldType,
   NumberFieldType,
   StringFieldType,
+  UserFormFieldType,
 } from "@/models/common";
 // Static imports
 import { statusOptionDrawer } from "@/static/usermanage";
@@ -65,7 +65,7 @@ const UserDrawer = ({
   const [isInactive, setInactive] = useState<boolean>(false);
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
 
-  const [initialValues, setInitialValues] = useState<FormFieldType>({
+  const [initialValues, setInitialValues] = useState<UserFormFieldType>({
     fullName: initialFieldStringValues,
     role: initialFieldNumberValues,
     businessType: initialFieldNumberValues,
@@ -344,7 +344,7 @@ const UserDrawer = ({
   };
 
   const compareValues = useCallback(() => {
-    const currentValues: FormFieldType = {
+    const currentValues: UserFormFieldType = {
       fullName,
       role,
       businessType,
@@ -353,8 +353,8 @@ const UserDrawer = ({
     };
     for (const key in currentValues) {
       if (
-        currentValues[key as keyof FormFieldType].value !==
-        initialValues[key as keyof FormFieldType].value
+        currentValues[key as keyof UserFormFieldType].value !==
+        initialValues[key as keyof UserFormFieldType].value
       ) {
         return true;
       }

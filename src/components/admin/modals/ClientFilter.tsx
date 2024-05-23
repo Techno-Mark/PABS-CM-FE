@@ -129,7 +129,7 @@ function ClientFilter({
       <div className="p-5 h-[calc(100%-143px)]">
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
-            Select Business Type
+            Select Department Type
           </label>
           <Autocomplete
             multiple

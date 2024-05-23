@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // MUI Imports
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
 // Types imports
-import { NumberFieldType, StringFieldType } from "@/models/common";
+import {
+  ClientFormFieldType,
+  NumberFieldType,
+  StringFieldType,
+} from "@/models/common";
 // Modal import
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 // Utlis import
@@ -22,6 +26,7 @@ import {
   GetClientByIdResponse,
 } from "@/models/clientManage";
 import { convertFileToBase64 } from "@/utils/convertFileToBase64";
+import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
 
 const ClientDrawer = ({
   openDrawer,
@@ -39,6 +44,10 @@ const ClientDrawer = ({
     value: "",
     error: false,
     errorText: "",
+  };
+  const initialFieldNumberValues = {
+    ...initialFieldStringValues,
+    value: -1,
   };
   const classes = useStyles();
   const [imagePreview, setImagePreview] = useState<any>(null);
@@ -60,6 +69,16 @@ const ClientDrawer = ({
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isInactive, setInactive] = useState<boolean>(false);
+  const [isFileError, setFileError] = useState<boolean>(false);
+  const [fileErrorText, setFileErrorText] = useState<string>("");
+  const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
+  const [initialValues, setInitialValues] = useState<ClientFormFieldType>({
+    sFID: initialFieldStringValues,
+    clientFullName: initialFieldStringValues,
+    businessType: initialFieldNumberValues,
+    status: initialFieldNumberValues,
+    email: initialFieldStringValues,
+  });
 
   useEffect(() => {
     const getById = async () => {
@@ -73,36 +92,39 @@ const ClientDrawer = ({
             showToast(Message, ToastType.Error);
             return;
           case "success":
-            setSFID({
-              value: ResponseData.SFID,
-              error: false,
-              errorText: "",
-            });
-            setClientFullName({
-              value: ResponseData.Clientname,
-              error: false,
-              errorText: "",
-            });
-            setEmail({
-              value: ResponseData.Email,
-              error: false,
-              errorText: "",
-            });
-            setBusinessType({
-              value: ResponseData.BusinessTypeId,
-              error: false,
-              errorText: "",
-            });
-            setStatus({
-              value:
-                ResponseData.Status === true
-                  ? 1
-                  : ResponseData.Status === false
-                  ? 2
-                  : -1,
-              error: false,
-              errorText: "",
-            });
+            const newInitialValues = {
+              sFID: {
+                value: ResponseData.SFID,
+                error: false,
+                errorText: "",
+              },
+              clientFullName: {
+                value: ResponseData.Clientname,
+                error: false,
+                errorText: "",
+              },
+              email: {
+                value: ResponseData.Email,
+                error: false,
+                errorText: "",
+              },
+              status: {
+                value: ResponseData.Status ? 1 : 2,
+                error: false,
+                errorText: "",
+              },
+              businessType: {
+                value: ResponseData.BusinessTypeId,
+                error: false,
+                errorText: "",
+              },
+            };
+            setSFID(newInitialValues.sFID);
+            setClientFullName(newInitialValues.clientFullName);
+            setEmail(newInitialValues.email);
+            setBusinessType(newInitialValues.businessType);
+            setStatus(newInitialValues.status);
+            setInitialValues(newInitialValues);
             setFile(
               ResponseData.ClientLogo.trim().length > 0
                 ? ResponseData.ClientLogo
@@ -217,7 +239,7 @@ const ClientDrawer = ({
       setBusinessType({
         value: -1,
         error: true,
-        errorText: "Business Type is Required",
+        errorText: "Department Type is Required",
       });
     } else {
       setBusinessType({
@@ -293,7 +315,7 @@ const ClientDrawer = ({
     const businessTypeError = validateAndSetFieldNumber(
       setBusinessType,
       businessType.value,
-      "Business Type"
+      "Department Type"
     );
     const statusError = validateAndSetFieldNumber(
       setStatus,
@@ -357,10 +379,33 @@ const ClientDrawer = ({
     setInactive(false);
   };
 
+  const compareValues = useCallback(() => {
+    const currentValues: ClientFormFieldType = {
+      sFID,
+      clientFullName,
+      businessType,
+      status,
+      email,
+    };
+    for (const key in currentValues) {
+      if (
+        currentValues[key as keyof ClientFormFieldType].value !==
+        initialValues[key as keyof ClientFormFieldType].value
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }, [sFID, clientFullName, businessType, status, email, initialValues]);
+
+  useEffect(() => {
+    setIsSaveButtonEnabled(compareValues());
+  }, [sFID, clientFullName, businessType, status, email, compareValues]);
+
   return (
     <>
       <DrawerPanel
-        isSaveEnabled={true}
+        isSaveEnabled={isSaveButtonEnabled}
         type={type}
         canEdit={canEdit}
         openDrawer={openDrawer}
@@ -418,6 +463,39 @@ const ClientDrawer = ({
             }}
           />
         </div>
+
+        <div className="text-[12px] flex flex-col pb-5">
+          <label className="text-[#6E6D7A] text-[12px]">
+            Department Type<span className="text-[#DC3545]">*</span>
+          </label>
+          <FormControl variant="standard">
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              className={`${
+                businessType.value === -1
+                  ? "!text-[12px] text-[#6E6D7A]"
+                  : "!text-[14px]"
+              }`}
+              value={businessType.value}
+              error={businessType.error}
+              onChange={handleBusinessTypeChange}
+            >
+              {businessList.map((type) => (
+                <MenuItem
+                  key={type.BusinessId}
+                  value={type.BusinessId}
+                  disabled={type.BusinessId === -1}
+                >
+                  {type.BussinessName}
+                </MenuItem>
+              ))}
+            </Select>
+            {businessType.error && (
+              <span className="text-[#d32f2f]">{businessType.errorText}</span>
+            )}
+          </FormControl>
+        </div>
         {canEdit && (
           <div className="text-[12px] flex flex-col pb-5">
             <label className="text-[#6E6D7A] text-[12px]">
@@ -454,38 +532,6 @@ const ClientDrawer = ({
         )}
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Business Type<span className="text-[#DC3545]">*</span>
-          </label>
-          <FormControl variant="standard">
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              className={`${
-                businessType.value === -1
-                  ? "!text-[12px] text-[#6E6D7A]"
-                  : "!text-[14px]"
-              }`}
-              value={businessType.value}
-              error={businessType.error}
-              onChange={handleBusinessTypeChange}
-            >
-              {businessList.map((type) => (
-                <MenuItem
-                  key={type.BusinessId}
-                  value={type.BusinessId}
-                  disabled={type.BusinessId === -1}
-                >
-                  {type.BussinessName}
-                </MenuItem>
-              ))}
-            </Select>
-            {businessType.error && (
-              <span className="text-[#d32f2f]">{businessType.errorText}</span>
-            )}
-          </FormControl>
-        </div>
-        <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
             Email<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -507,8 +553,9 @@ const ClientDrawer = ({
             }}
           />
         </div>
-        <label className="text-[#6E6D7A] font-semibold text-base pb-2">
+        <label className="text-[#6E6D7A] flex items-center gap-2 font-semibold text-base pb-2">
           Upload Logo
+          <ImgInfoIcon />
         </label>
         {imagePreview && (
           <div className="flex flex-col pb-5">
@@ -525,10 +572,9 @@ const ClientDrawer = ({
         )}
         <div className="text-[12px] flex flex-col">
           <div
-            // ${
-            //   fileErrType ? "border-red-500" : "border-gray-300"
-            // }
-            className={`py-1 border-2 border-dotted bg-gray-100 rounded-full w-full overflow-hidden flex justify-center items-center`}
+            className={`py-1 border-2 border-dotted ${
+              isFileError ? "border-red-600" : "border-gray-400"
+            } bg-gray-100 rounded-full w-full overflow-hidden flex justify-center items-center`}
           >
             <Dropzone
               multiple={false}
@@ -539,44 +585,43 @@ const ClientDrawer = ({
                 const fileTypeExtension =
                   fileTypeParts[fileTypeParts.length - 1];
                 if (
-                  [
-                    "apng",
-                    "avif",
-                    "gif",
-                    "jpeg",
-                    "png",
-                    "svg",
-                    "webp",
-                    "jpg",
-                  ].includes(fileTypeExtension.toLowerCase())
+                  ["tif", "tiff", "gif", "jpeg", "svg", "png", "jpg"].includes(
+                    fileTypeExtension.toLowerCase()
+                  )
                 ) {
                   if (file) {
-                    if (Math.round(file.size / 1024 / 1024) < 1) {
-                      // setFileErrType(0);
+                    setFileError(false);
+                    if (Math.round(file.size / 1024) < 500) {
+                      setFileError(false);
                       const reader = new FileReader();
                       reader.onloadend = () => {
-                        setImagePreview(reader.result);
-                        convertFileToBase64(file)
-                          .then((data) => setFile(data))
-                          .catch((err) => console.error(err));
+                        const image: any = new Image();
+                        image.onload = () => {
+                          if (image.width < 100 && image.height < 35) {
+                            setFileError(false);
+                            setImagePreview(reader.result);
+                            convertFileToBase64(file)
+                              .then((data) => setFile(data))
+                              .catch((err) => console.error(err));
+                          } else {
+                            setFileErrorText(
+                              "Image dimensions should less than 100x35 pixels"
+                            );
+                            setFileError(true);
+                          }
+                        };
+                        image.src = reader.result;
                       };
                       reader.readAsDataURL(file);
                     } else {
-                      showToast(
-                        "File size should be less than 1 MB",
-                        ToastType.Warning
-                      );
-                      // setFileErrType(2);
-                      // setFile(null);
-                      // setImagePreview(null);
+                      setFileErrorText("File size should be less than 500 KB");
+                      setFileError(true);
                       return;
                     }
                   }
                 } else {
-                  showToast("File type is not valid", ToastType.Warning);
-                  // setFileErrType(1);
-                  // setFile(null);
-                  // setImagePreview(null);
+                  setFileErrorText("File type is not valid");
+                  setFileError(true);
                   return;
                 }
               }}
@@ -597,13 +642,11 @@ const ClientDrawer = ({
               )}
             </Dropzone>
           </div>
-          {/* <span className="ml-2 my-1 w-full flex justify-start text-red-500">
-            {fileErrType === 1
-              ? "File type is not valid"
-              : fileErrType === 2
-              ? "File size should be less than 1 MB"
-              : ""}
-          </span> */}
+          {isFileError && (
+            <span className="text-red-500 text-[12px] pl-5">
+              {fileErrorText}
+            </span>
+          )}
         </div>
       </DrawerPanel>
 
