@@ -91,9 +91,6 @@ function Page() {
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Checklist Status</span>
       ),
-      renderCell: (params) => {
-        return <div>{params.value === "1" ? "Completed" : "Pending"}</div>;
-      },
       flex: 1,
       sortable: false,
     },
@@ -284,7 +281,7 @@ function Page() {
     search: string;
     businessTypeId: number[];
     status: number[];
-    checkListStatus: number[];
+    checkListStatus: string[];
     saveClicked: boolean;
   }>({
     page: 1,
@@ -386,7 +383,7 @@ function Page() {
   const getFilterData = (
     businessId: number[],
     statusId: number[],
-    checkListStatusId: number[],
+    checkListStatusId: string[],
     saveClicked: boolean
   ) => {
     setClientListParams({

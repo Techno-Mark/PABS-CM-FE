@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // MUI imports
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
 // Types import
-import { BusinessList, Option } from "@/models/userManage";
+import { BusinessList, Option, StringOption } from "@/models/userManage";
 // Icons imports
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -11,7 +11,7 @@ import { checklistStatusOption, statusOption } from "@/static/usermanage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
 import { ClientModalProps } from "@/models/clientManage";
-import { hasMatchingValue } from "@/utils/commonFunction";
+import { hasMatchingStringValue, hasMatchingValue } from "@/utils/commonFunction";
 
 function ClientFilter({
   isOpen,
@@ -24,7 +24,7 @@ function ClientFilter({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [businessType, setBusinessType] = useState<BusinessList[]>([]);
   const [status, setStatus] = useState<Option[]>([]);
-  const [checklistStatus, setChecklistStatus] = useState<Option[]>([]);
+  const [checklistStatus, setChecklistStatus] = useState<StringOption[]>([]);
 
   useEffect(() => {
     const selectedBusinesses =
@@ -43,10 +43,8 @@ function ClientFilter({
     setStatus(selectedStatuses);
     const selectedChecklistStatus =
       clientListParams.checkListStatus.length > 0
-        ? checklistStatusOption.filter((c: Option) =>
-            clientListParams.checkListStatus
-              .map((str: string) => parseInt(str, 10))
-              .includes(c.value)
+        ? checklistStatusOption.filter((c: StringOption) =>
+            clientListParams.checkListStatus.includes(c.value)
           )
         : [];
     setChecklistStatus(selectedChecklistStatus);
@@ -68,7 +66,7 @@ function ClientFilter({
 
   const handleChecklistStatusChange = (
     event: React.ChangeEvent<{}>,
-    newValues: Option[]
+    newValues: StringOption[]
   ) => {
     setChecklistStatus(newValues);
   };
@@ -85,7 +83,7 @@ function ClientFilter({
       status.length > 0 ? status.map((s: Option) => s.value) : [];
     const checklistStatusId =
       checklistStatus.length > 0
-        ? checklistStatus.map((c: Option) => c.value)
+        ? checklistStatus.map((c: StringOption) => c.value)
         : [];
     sendFilterData(businessId, statusId, checklistStatusId, true);
     handleClose();
@@ -113,7 +111,7 @@ function ClientFilter({
           checklistStatus.length !== clientListParams.checkListStatus.length ||
           businessType.length !== clientListParams.businessTypeId.length ||
           status.length !== clientListParams.status.length ||
-          hasMatchingValue(clientListParams.checkListStatus, checklistStatus) ||
+          hasMatchingStringValue(clientListParams.checkListStatus, checklistStatus) ||
           hasMatchingValue(
             clientListParams.businessTypeId,
             businessType.map((b: BusinessList) => ({
