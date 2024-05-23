@@ -5,6 +5,10 @@ export const useStyles = makeStyles({
     justifyContent: "center",
     width: "100%",
   },
+  avatarStyle: {
+    height: '24px',
+    width: '24px',
+  },
   textSize: {
     fontSize: "14px",
   },
@@ -36,12 +40,6 @@ export const useStyles = makeStyles({
       borderColor: "#023963",
     },
   },
-  // underlineDropdown: {
-  //   "& .css-953pxc-MuiInputBase-root-MuiInput-root::before": {
-  //     borderBottom: "none !important",
-  //   },
-  // },
-
   underlineDropdown: {
     "& div::before": {
       borderBottom: "none !important",

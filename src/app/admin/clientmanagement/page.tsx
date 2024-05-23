@@ -81,16 +81,19 @@ function Page() {
     {
       field: "BusinessType",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Business Type</span>
+        <span className="font-semibold text-[13px]">Department Type</span>
       ),
       flex: 1,
       sortable: false,
     },
     {
-      field: "Status",
+      field: "checkListStatus",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Status</span>
+        <span className="font-semibold text-[13px]">Checklist Status</span>
       ),
+      renderCell: (params) => {
+        return <div>{params.value === "1" ? "Completed" : "Pending"}</div>;
+      },
       flex: 1,
       sortable: false,
     },
@@ -117,12 +120,16 @@ function Page() {
                 {...props}
                 className="flex gap-2 text-ellipsis cursor-pointer"
               >
-                <Avatar className="!h-8 !w-8" alt={item.label}>
+                <Avatar className={classes.avatarStyle} alt={item.label}>
                   <AlphabetColor
                     alphabet={item.label.charAt(0).toUpperCase()}
                   />
                 </Avatar>
-                <ListItemText>{item.label}</ListItemText>
+                <ListItemText
+                  primaryTypographyProps={{ sx: { fontSize: "14px" } }}
+                >
+                  {item.label}
+                </ListItemText>
               </ListItem>
             )}
             getOptionLabel={(item) => item.label}
@@ -155,14 +162,18 @@ function Page() {
             }
             renderInput={(param) => (
               <TextField
+                placeholder="Assign User"
                 className="h-12 flex items-center justify-center"
                 variant="standard"
                 {...param}
                 InputProps={{
                   ...param.InputProps,
+                  style: {
+                    fontSize: "14px",
+                  },
                   startAdornment: param.inputProps.value && (
                     <InputAdornment position="start">
-                      <Avatar className="!h-8 !w-8">
+                      <Avatar className={classes.avatarStyle}>
                         <AlphabetColor
                           alphabet={(params.row.BusinessTypeId === 1
                             ? assignUserList1
@@ -185,13 +196,10 @@ function Page() {
       },
     },
     {
-      field: "checkListStatus",
+      field: "Status",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Checklist Status</span>
+        <span className="font-semibold text-[13px]">Status</span>
       ),
-      renderCell: (params) => {
-        return <div>{params.value === "1" ? "Completed" : "Pending"}</div>;
-      },
       flex: 1,
       sortable: false,
     },
@@ -469,6 +477,7 @@ function Page() {
         case "failure":
           showToast(Message, ToastType.Error);
           setIsLoading(false);
+          setOpenDelete(false)
           return;
         case "success":
           showToast(Message, ToastType.Success);
@@ -520,6 +529,10 @@ function Page() {
     await callAPIwithHeaders(InvitaionMailClientUrl, "post", callback, {
       clientIds: selectedIds,
     });
+  };
+
+  const localeText: { noRowsLabel: string } = {
+    noRowsLabel: "No record found",
   };
 
   return (
@@ -602,6 +615,7 @@ function Page() {
               getRowId={(i: any) => i.ClientId}
               onRowSelectionModelChange={handleSelectionModelChange}
               rowSelectionModel={selectedIds}
+              localeText={localeText}
               slots={{
                 footer: () => (
                   <div className="flex justify-end">
@@ -667,7 +681,7 @@ function Page() {
           isLoading={isLoading}
           isOpen={openDelete}
           setId={() => setClientId(0)}
-          message="Are you sure you want to delete this client ?"
+          message="Are you sure you want to delete this client profile?"
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => {

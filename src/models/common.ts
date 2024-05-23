@@ -10,7 +10,7 @@ export interface NumberFieldType extends Omit<StringFieldType, 'value'> {
   value: number;
 }
 
-export interface FormFieldType {
+export interface UserFormFieldType {
   fullName: StringFieldType;
   role: NumberFieldType;
   businessType: NumberFieldType;
@@ -18,10 +18,12 @@ export interface FormFieldType {
   email: StringFieldType;
 }
 
-export interface NumberFieldType {
-  value: number;
-  error: boolean;
-  errorText: string;
+export interface ClientFormFieldType {
+  clientFullName: StringFieldType;
+  sFID: StringFieldType;
+  businessType: NumberFieldType;
+  status: NumberFieldType;
+  email: StringFieldType;
 }
 
 export interface AuthType {
