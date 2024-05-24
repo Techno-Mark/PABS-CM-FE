@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 // Style import
 import { style } from "@/utils/modalStyle";
-// Common import
+// Type import
 import { FilterProps } from "@/models/common";
 // Icons import
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";

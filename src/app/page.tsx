@@ -6,8 +6,7 @@ import { hasToken } from "@/utils/commonFunction";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
-import { ToastType } from "@/static/toastType";
-import { showToast } from "@/components/ToastContainer";
+// import { removeCookies } from "@/utils/authFunctions";
 
 export default function Home() {
   const router = useRouter();
@@ -16,14 +15,12 @@ export default function Home() {
     hasToken(router);
     const roleId = Cookies.get("roleId");
     if (roleId == "4") {
-      showToast("Currently client has no permission.", ToastType.Warning);
-      removeCookies();
-      router.push("/auth/login");
+      router.push("/client/onboarding");
     } else {
       if (
         checkPermission("Client Management", "view") ||
         checkPermission("Client Management", "create")
-      ) {
+        ) {
         router.push("/admin/clientmanagement");
       } else if (
         checkPermission("User Management", "view") ||

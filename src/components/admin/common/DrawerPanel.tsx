@@ -2,7 +2,6 @@
 import {
   Drawer,
   styled,
-  Divider,
   CssBaseline,
   Button,
   CircularProgress,
@@ -115,7 +114,6 @@ const DrawerPanel = ({
         <div className="p-5 top-0 flex flex-col justify-start overflow-y-auto !h-[82%]">
           {children}
         </div>
-        {/* <Divider /> */}
         <div className="!h-[9%] !bg-[#FFFFFF] flex items-center justify-end border-t pr-6 gap-5 w-[100%]">
           <Button
             onClick={() => {

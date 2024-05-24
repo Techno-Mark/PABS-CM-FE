@@ -1,31 +1,34 @@
 import { useCallback, useEffect, useState } from "react";
 // MUI Imports
 import { TextField, Select, FormControl, MenuItem } from "@mui/material";
-// Types imports
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+// Types import
 import {
   ClientFormFieldType,
   NumberFieldType,
   StringFieldType,
 } from "@/models/common";
-// Modal import
-import ConfirmModal from "@/components/admin/common/ConfirmModal";
-// Utlis import
-import { useStyles } from "@/utils/useStyles";
-// Drawer import
-import DrawerPanel from "@/components/admin/common/DrawerPanel";
-import Dropzone from "react-dropzone";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { statusOptionDrawer } from "@/static/usermanage";
-import { ToastType } from "@/static/toastType";
-import { showToast } from "@/components/ToastContainer";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { getClientDetailsByIdUrl, saveClientUrl } from "@/static/apiUrl";
 import {
   ClientDrawerProps,
   GetClientByIdResponse,
 } from "@/models/clientManage";
+// Modal import
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
+// Utlis import
+import { useStyles } from "@/utils/useStyles";
+// Component import
+import DrawerPanel from "@/components/admin/common/DrawerPanel";
+import { showToast } from "@/components/ToastContainer";
+import Dropzone from "react-dropzone";
+// Static import
+import { statusOptionDrawer } from "@/static/usermanage";
+import { ToastType } from "@/static/toastType";
+import { getClientDetailsByIdUrl, saveClientUrl } from "@/static/apiUrl";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+// Utils import
 import { convertFileToBase64 } from "@/utils/convertFileToBase64";
+// Icons import
 import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
 
 const ClientDrawer = ({
@@ -78,6 +81,7 @@ const ClientDrawer = ({
     businessType: initialFieldNumberValues,
     status: initialFieldNumberValues,
     email: initialFieldStringValues,
+    file: file,
   });
 
   useEffect(() => {
@@ -118,18 +122,18 @@ const ClientDrawer = ({
                 error: false,
                 errorText: "",
               },
+              file:
+                ResponseData.ClientLogo.trim().length > 0
+                  ? ResponseData.ClientLogo
+                  : null,
             };
             setSFID(newInitialValues.sFID);
             setClientFullName(newInitialValues.clientFullName);
             setEmail(newInitialValues.email);
             setBusinessType(newInitialValues.businessType);
             setStatus(newInitialValues.status);
+            setFile(newInitialValues.file);
             setInitialValues(newInitialValues);
-            setFile(
-              ResponseData.ClientLogo.trim().length > 0
-                ? ResponseData.ClientLogo
-                : null
-            );
             setImagePreview(
               ResponseData.ClientLogo.trim().length > 0
                 ? `data:image;base64,${ResponseData.ClientLogo}`
@@ -153,7 +157,7 @@ const ClientDrawer = ({
         error: true,
         errorText: "SFID is Required",
       });
-    } else if (e.target.value.trim().length > 50) {
+    } else if (e.target.value.trim().length > 16) {
       return;
     } else if (specialCharsRegex.test(e.target.value)) {
       setSFID({
@@ -269,41 +273,41 @@ const ClientDrawer = ({
     }
   };
 
+  const validateAndSetField = (
+    field: React.Dispatch<React.SetStateAction<StringFieldType>>,
+    value: string,
+    message: string
+  ) => {
+    if (value.toString().trim().length === 0 || value === "-1") {
+      field({
+        value: value,
+        error: true,
+        errorText: `${message} is required`,
+      });
+      return true;
+    }
+    return false;
+  };
+
+  const validateAndSetFieldNumber = (
+    field: React.Dispatch<React.SetStateAction<NumberFieldType>>,
+    value: number,
+    message: string
+  ) => {
+    if (value.toString().trim().length === 0 || value === -1) {
+      field({
+        value: value,
+        error: true,
+        errorText: `${message} is required`,
+      });
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
-
-    const validateAndSetField = (
-      field: React.Dispatch<React.SetStateAction<StringFieldType>>,
-      value: string,
-      message: string
-    ) => {
-      if (value.toString().trim().length === 0 || value === "-1") {
-        field({
-          value: value,
-          error: true,
-          errorText: `${message} is required`,
-        });
-        return true;
-      }
-      return false;
-    };
-
-    const validateAndSetFieldNumber = (
-      field: React.Dispatch<React.SetStateAction<NumberFieldType>>,
-      value: number,
-      message: string
-    ) => {
-      if (value.toString().trim().length === 0 || value === -1) {
-        field({
-          value: value,
-          error: true,
-          errorText: `${message} is required`,
-        });
-        return true;
-      }
-      return false;
-    };
 
     const sFIDError = validateAndSetField(setSFID, sFID.value, "SFID");
     const clientFullNameError = validateAndSetField(
@@ -386,21 +390,30 @@ const ClientDrawer = ({
       businessType,
       status,
       email,
+      file
     };
     for (const key in currentValues) {
-      if (
-        currentValues[key as keyof ClientFormFieldType].value !==
-        initialValues[key as keyof ClientFormFieldType].value
-      ) {
-        return true;
+      if(key === "file"){
+        if(currentValues[key as keyof ClientFormFieldType] !==
+          initialValues[key as keyof ClientFormFieldType]){
+            return true
+          }
+      } else 
+      {
+        if (
+          currentValues[key as keyof ClientFormFieldType].value !==
+          initialValues[key as keyof ClientFormFieldType].value
+        ) {
+          return true;
+        }
       }
     }
     return false;
-  }, [sFID, clientFullName, businessType, status, email, initialValues]);
+  }, [sFID, clientFullName, businessType, status, email, file, initialValues]);
 
   useEffect(() => {
     setIsSaveButtonEnabled(compareValues());
-  }, [sFID, clientFullName, businessType, status, email, compareValues]);
+  }, [sFID, clientFullName, businessType, status, email, file, compareValues]);
 
   return (
     <>
@@ -563,7 +576,7 @@ const ClientDrawer = ({
               <img className="w-40 h-14" src={imagePreview} alt="Preview" />
               <span
                 className="cursor-pointer"
-                onClick={() => setImagePreview(null)}
+                onClick={() => {setImagePreview(null); setFile(null)}}
               >
                 <CloseOutlinedIcon />
               </span>
@@ -573,7 +586,7 @@ const ClientDrawer = ({
         <div className="text-[12px] flex flex-col">
           <div
             className={`py-1 border-2 border-dotted ${
-              isFileError ? "border-red-600" : "border-gray-400"
+              isFileError ? "border-[#DC3545]" : "border-gray-400"
             } bg-gray-100 rounded-full w-full overflow-hidden flex justify-center items-center`}
           >
             <Dropzone
@@ -585,7 +598,7 @@ const ClientDrawer = ({
                 const fileTypeExtension =
                   fileTypeParts[fileTypeParts.length - 1];
                 if (
-                  ["tif", "tiff", "gif", "jpeg", "svg", "png", "jpg"].includes(
+                  ["tif", "tiff", "gif", "jpeg", "png", "jpg"].includes(
                     fileTypeExtension.toLowerCase()
                   )
                 ) {
@@ -643,7 +656,7 @@ const ClientDrawer = ({
             </Dropzone>
           </div>
           {isFileError && (
-            <span className="text-red-500 text-[12px] pl-5">
+            <span className="text-[#DC3545] text-[12px] pl-5">
               {fileErrorText}
             </span>
           )}

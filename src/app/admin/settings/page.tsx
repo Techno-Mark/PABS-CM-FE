@@ -1,30 +1,37 @@
 "use client";
 import React, { useEffect, useState } from "react";
-// common components
+import { useRouter } from "next/navigation";
+// Component import
 import Wrapper from "@/components/Wrapper";
-import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
+// MUI import
 import {
   CircularProgress,
   Switch,
   TablePagination,
   Tooltip,
 } from "@mui/material";
-import EditIcon from "@/assets/Icons/admin/EditIcon";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import { ToastType } from "@/static/toastType";
-import { showToast } from "@/components/ToastContainer";
-import { GetRoleListResponse, RoleList } from "@/models/roleManage";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { deleteRoleUrl, roleListUrl, toggleRoleUrl } from "@/static/apiUrl";
+//Icons import
+import EditIcon from "@/assets/Icons/admin/EditIcon";
+import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
+// static import
+import { ToastType } from "@/static/toastType";
+import { deleteRoleUrl, roleListUrl, toggleRoleUrl } from "@/static/apiUrl";
+// Components import
+import { showToast } from "@/components/ToastContainer";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import RoleDrawer from "@/components/admin/drawer/RoleDrawer";
-import { RoleListResponse } from "@/models/userManage";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-import { checkPermission } from "@/utils/permissionCheckFunction";
+// Type import
+import { GetRoleListResponse } from "@/models/roleManage";
 import { RoleListType, SwitchPopupType } from "@/models/settings";
+// API import
+import { callAPIwithHeaders } from "@/api/commonFunction";
+// Utils import
+import { checkPermission } from "@/utils/permissionCheckFunction";
+// Cookie import
+import Cookies from "js-cookie";
 
 function Page() {
   const columns: GridColDef[] = [

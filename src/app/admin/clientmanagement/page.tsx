@@ -1,9 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 // Components imports
 import Wrapper from "@/components/Wrapper";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import ClientFilter from "@/components/admin/modals/ClientFilter";
+import { showToast } from "@/components/ToastContainer";
+import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
+import Loader from "@/components/admin/common/Loader";
 // Icons imports
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
@@ -22,15 +27,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import ClientFilter from "@/components/admin/modals/ClientFilter";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { showToast } from "@/components/ToastContainer";
+// static imports
 import { ToastType } from "@/static/toastType";
-import {
-  BusinessList,
-  BusinessListResponse,
-  Option,
-} from "@/models/userManage";
 import {
   InvitaionMailClientUrl,
   assigneUserListUrl,
@@ -39,14 +37,21 @@ import {
   getClientListUrl,
   saveAssignee,
 } from "@/static/apiUrl";
-import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
+// Types imports
+import {
+  BusinessList,
+  BusinessListResponse,
+  Option,
+} from "@/models/userManage";
 import { ClientList, GetClientListResponse } from "@/models/clientManage";
-import Loader from "@/components/admin/common/Loader";
+// API imports
+import { callAPIwithHeaders } from "@/api/commonFunction";
+// Utlis imports
 import { useStyles } from "@/utils/useStyles";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { AlphabetColor } from "@/utils/commonData";
+// Cookie imports
+import Cookies from "js-cookie";
 
 function Page() {
   const classes = useStyles();
@@ -87,7 +92,7 @@ function Page() {
       sortable: false,
     },
     {
-      field: "checkListStatus",
+      field: "CheckListStatus",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Checklist Status</span>
       ),
@@ -145,7 +150,6 @@ function Page() {
 
               callAPIwithHeaders(saveAssignee, "post", callBack, {
                 userId: !!record ? record.value : -1,
-                // userId: record.value,
                 clientId: params.row.ClientId,
               });
             }}

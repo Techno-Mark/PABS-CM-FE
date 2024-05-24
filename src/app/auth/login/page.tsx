@@ -20,12 +20,11 @@ import { StringFieldType } from "@/models/common";
 import { userLoginData } from "@/models/userAuth";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
-// Common import
+// Component import
 import AuthWapper from "@/components/auth/AuthWapper";
-// Common import
-import { callAPIwithoutHeaders } from "@/api/commonFunction";
-// Toast import
 import { showToast } from "@/components/ToastContainer";
+// API import
+import { callAPIwithoutHeaders } from "@/api/commonFunction";
 // Static import
 import { ToastType } from "@/static/toastType";
 import { loginAPIUrl } from "@/static/apiUrl";
