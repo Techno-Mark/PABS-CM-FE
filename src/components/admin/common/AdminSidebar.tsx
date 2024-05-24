@@ -28,9 +28,9 @@ import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
+import { checkPermission } from "@/utils/permissionCheckFunction";
 // Cookie import
 import Cookies from "js-cookie";
-import { checkPermission } from "@/utils/permissionCheckFunction";
 
 const openedMixin = (theme: Theme) => ({
   width: drawerWidth,

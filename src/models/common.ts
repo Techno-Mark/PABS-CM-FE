@@ -24,6 +24,7 @@ export interface ClientFormFieldType {
   businessType: NumberFieldType;
   status: NumberFieldType;
   email: StringFieldType;
+  file:any
 }
 
 export interface AuthType {

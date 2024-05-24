@@ -8,6 +8,7 @@ export const useStyles = makeStyles({
   avatarStyle: {
     height: '24px',
     width: '24px',
+    fontSize: "12px",
   },
   textSize: {
     fontSize: "14px",

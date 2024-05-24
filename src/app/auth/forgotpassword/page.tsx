@@ -8,13 +8,15 @@ import BackIcon from "@/assets/Icons/BackIcon";
 // Types imports
 import { StringFieldType } from "@/models/common";
 // Toast imports
-import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 // utlis imports
 import { useStyles } from "@/utils/useStyles";
 // common components
 import AuthWapper from "@/components/auth/AuthWapper";
+import { showToast } from "@/components/ToastContainer";
+// API imports
 import { callAPIwithoutHeaders } from "@/api/commonFunction";
+// Static import
 import { forgotPasswordAPIUrl } from "@/static/apiUrl";
 
 function Page() {

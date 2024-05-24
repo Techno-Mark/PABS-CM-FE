@@ -9,10 +9,9 @@ import { AppBarProps, HeaderPropsType, Option } from "@/models/adminHeader";
 // Icons import
 import UserIcon from "@/assets/Icons/admin/header/UserIcon";
 import { callAPIwithHeaders } from "@/api/commonFunction";
-// Component import
-import { showToast } from "@/components/ToastContainer";
-// Static import
 import { signoutAPIUrl } from "@/static/apiUrl";
+// Toast import
+import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";
@@ -30,7 +29,7 @@ const AppBar = styled(MuiAppBar, {
   width: `calc(100% - ${open ? drawerWidth : 0}px)`,
 }));
 
-const Header = ({ openSidebar }: HeaderPropsType) => {
+const ClientHeader = () => {
   const router = useRouter();
   const query = usePathname();
   const url = query.split("/");
@@ -102,21 +101,15 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
         boxShadow: "none !important",
         height: "50.5px !important",
         width: {
-          sm: openSidebar ? `calc(100% - 224px)` : `calc(100% - 65px)`,
+          sm: `calc(100% - 224px)`,
         },
-        ml: { sm: openSidebar ? drawerWidth : `65px` },
+        ml: { sm: `65px` },
       }}
     >
       <Toolbar>
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
-            <span className="!font-bold text-[15px]">
-              {url.includes("usermanagement")
-                ? "User Management"
-                : url.includes("clientmanagement")
-                ? "Client Management"
-                : "Settings"}
-            </span>
+            <span className="!font-semibold text-[15px]">SF00123 &nbsp;&nbsp;|&nbsp;&nbsp; Bosch Pvt Ltd. &nbsp;&nbsp;|&nbsp;&nbsp; White Label</span>
           </div>
           <div className="relative flex">
             <div
@@ -164,4 +157,4 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
   );
 };
 
-export default Header;
+export default ClientHeader;

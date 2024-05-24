@@ -22,7 +22,6 @@ import {
 } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { showToast } from "@/components/ToastContainer";
-import { GridColDef } from "@mui/x-data-grid";
 import { statusOptionDrawer } from "@/static/usermanage";
 
 const RoleDrawer = ({

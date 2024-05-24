@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 // Components imports
 import Wrapper from "@/components/Wrapper";
 import UserDrawer from "@/components/admin/drawer/UserDrawer";
 import UserFilter from "@/components/admin/modals/UserFilter";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import { showToast } from "@/components/ToastContainer";
+import Loader from "@/components/admin/common/Loader";
 // Icons imports
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
@@ -14,15 +17,17 @@ import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
 import { TablePagination, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import { showToast } from "@/components/ToastContainer";
+// static import
 import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
 import {
   businessListUrl,
   deleteUserUrl,
   getUserListUrl,
   roleListUrl,
 } from "@/static/apiUrl";
+// API import
+import { callAPIwithHeaders } from "@/api/commonFunction";
+// Type import
 import {
   BusinessList,
   BusinessListResponse,
@@ -31,11 +36,11 @@ import {
   RoleListResponse,
   UserList,
 } from "@/models/userManage";
-import Loader from "@/components/admin/common/Loader";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+// Utils import
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { renderCellFunction } from "@/utils/commonData";
+// Cookie import
+import Cookies from "js-cookie";
 
 function Page() {
   const columns: GridColDef[] = [
