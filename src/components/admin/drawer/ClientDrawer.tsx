@@ -155,7 +155,7 @@ const ClientDrawer = ({
       setSFID({
         value: e.target.value,
         error: true,
-        errorText: "SFID is Required",
+        errorText: "SF ID is Required",
       });
     } else if (e.target.value.trim().length > 16) {
       return;
@@ -309,7 +309,7 @@ const ClientDrawer = ({
     e.preventDefault();
     setLoading(true);
 
-    const sFIDError = validateAndSetField(setSFID, sFID.value, "SFID");
+    const sFIDError = validateAndSetField(setSFID, sFID.value, "SF ID");
     const clientFullNameError = validateAndSetField(
       setClientFullName,
       clientFullName.value,
