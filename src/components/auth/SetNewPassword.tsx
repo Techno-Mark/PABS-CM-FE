@@ -159,7 +159,9 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
       setConfirmPassword({
         value: confirmPassword.value,
         error: true,
-        errorText: "New Password and Confirm Password values are different.",
+        errorText: `${
+          isReset ? "New Password" : "Password"
+        } and Confirm Password values are different.`,
       });
       hasError = true;
     }

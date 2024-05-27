@@ -388,8 +388,8 @@ const UserDrawer = ({
             size="small"
             placeholder="Please Enter Full Name"
             value={fullName.value}
-            error={Number(roleId) !== 1 && canEdit ? false : fullName.error}
-            helperText={Number(roleId) !== 1 && canEdit ? '' : fullName.errorText}
+            error={ fullName.error}
+            helperText={fullName.errorText}
             onChange={handleFullNameChange}
             InputProps={{
               classes: {
@@ -399,7 +399,6 @@ const UserDrawer = ({
             inputProps={{
               className: classes.textSize,
             }}
-            disabled={Number(roleId) !== 1 && canEdit ? true : false}
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
@@ -440,8 +439,9 @@ const UserDrawer = ({
                   : "!text-[14px]"
               }`}
               value={role.value}
-              error={role.error}
+              error={Number(roleId) !== 1 && canEdit ? false : role.error}
               onChange={handleRoleChange}
+              disabled={Number(roleId) !== 1 && canEdit ? true : false}
             >
               {roleList.map((role) => (
                 <MenuItem

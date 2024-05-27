@@ -694,7 +694,7 @@ function Page() {
           isLoading={isLoading}
           isOpen={openDelete}
           setId={() => setClientId(0)}
-          message="Are you sure you want to delete this client profile?"
+          message="Are you sure you want to delete the client profile?"
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => {

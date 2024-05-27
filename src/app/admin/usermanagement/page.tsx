@@ -479,7 +479,7 @@ function Page() {
           title="Delete"
           isLoading={isLoading}
           isOpen={openDelete}
-          message="Are you sure you want to delete this user profile?"
+          message="Are you sure you want to delete the user profile?"
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => setOpenDelete(value)}
