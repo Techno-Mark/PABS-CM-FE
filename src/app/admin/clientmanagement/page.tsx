@@ -58,6 +58,7 @@ function Page() {
   const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
   const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
   const [assignUserList3, setAssignUserList3] = useState<Option[]>([]);
+  const roleId = Cookies.get("roleId");
   const columns: GridColDef[] = [
     {
       field: "ClientId",
@@ -107,93 +108,104 @@ function Page() {
       width: 200,
       sortable: false,
       renderCell: (params) => {
-        return (
-          <Autocomplete
-            className={classes.underlineDropdown}
-            options={
-              params.row.BusinessTypeId === 1
-                ? assignUserList1
-                : params.row.BusinessTypeId === 2
-                ? assignUserList2
-                : assignUserList3
-            }
-            renderOption={(props: any, item: any) => (
-              <ListItem
-                {...props}
-                className="flex gap-2 text-ellipsis cursor-pointer"
-              >
-                <Avatar className={classes.avatarStyle} alt={item.label}>
-                  <AlphabetColor
-                    alphabet={item.label.charAt(0).toUpperCase()}
-                  />
-                </Avatar>
-                <ListItemText
-                  primaryTypographyProps={{ sx: { fontSize: "14px" } }}
+        if (roleId !== "3") {
+          return (
+            <Autocomplete
+              className={classes.underlineDropdown}
+              options={
+                params.row.BusinessTypeId === 1
+                  ? assignUserList1
+                  : params.row.BusinessTypeId === 2
+                  ? assignUserList2
+                  : assignUserList3
+              }
+              renderOption={(props: any, item: any) => (
+                <ListItem
+                  {...props}
+                  className="flex gap-2 text-ellipsis cursor-pointer"
                 >
-                  {item.label}
-                </ListItemText>
-              </ListItem>
-            )}
-            getOptionLabel={(item) => item.label}
-            onChange={(e, record) => {
-              const callBack = (ResponseStatus: string, Message: string) => {
-                switch (ResponseStatus) {
-                  case "failure":
-                    showToast(Message, ToastType.Error);
-                    return;
-                  case "success":
-                    showToast(Message, ToastType.Success);
-                    getClientList();
-                    return;
-                }
-              };
+                  <Avatar className={classes.avatarStyle} alt={item.label}>
+                    <AlphabetColor
+                      alphabet={item.label.charAt(0).toUpperCase()}
+                    />
+                  </Avatar>
+                  <ListItemText
+                    primaryTypographyProps={{ sx: { fontSize: "14px" } }}
+                  >
+                    {item.label}
+                  </ListItemText>
+                </ListItem>
+              )}
+              getOptionLabel={(item) => item.label}
+              onChange={(e, record) => {
+                const callBack = (ResponseStatus: string, Message: string) => {
+                  switch (ResponseStatus) {
+                    case "failure":
+                      showToast(Message, ToastType.Error);
+                      return;
+                    case "success":
+                      showToast(Message, ToastType.Success);
+                      getClientList();
+                      return;
+                  }
+                };
 
-              callAPIwithHeaders(saveAssignee, "post", callBack, {
-                userId: !!record ? record.value : -1,
-                clientId: params.row.ClientId,
-              });
-            }}
-            value={
-              (params.row.BusinessTypeId === 1
-                ? assignUserList1
-                : params.row.BusinessTypeId === 2
-                ? assignUserList2
-                : assignUserList3
-              ).filter((item) => item.value === params.value)[0]
-            }
-            renderInput={(param) => (
-              <TextField
-                placeholder="Assign User"
-                className="h-12 flex items-center justify-center"
-                variant="standard"
-                {...param}
-                InputProps={{
-                  ...param.InputProps,
-                  style: {
-                    fontSize: "14px",
-                  },
-                  startAdornment: param.inputProps.value && (
-                    <InputAdornment position="start">
-                      <Avatar className={classes.avatarStyle}>
-                        <AlphabetColor
-                          alphabet={(params.row.BusinessTypeId === 1
-                            ? assignUserList1
-                            : params.row.BusinessTypeId === 2
-                            ? assignUserList2
-                            : assignUserList3
-                          )
-                            .filter((item) => item.value === params.value)[0]
-                            ?.label.charAt(0)
-                            .toUpperCase()}
-                        />
-                      </Avatar>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            )}
-          />
-        );
+                callAPIwithHeaders(saveAssignee, "post", callBack, {
+                  userId: !!record ? record.value : -1,
+                  clientId: params.row.ClientId,
+                });
+              }}
+              value={
+                (params.row.BusinessTypeId === 1
+                  ? assignUserList1
+                  : params.row.BusinessTypeId === 2
+                  ? assignUserList2
+                  : assignUserList3
+                ).filter((item) => item.value === params.value)[0]
+              }
+              renderInput={(param) => (
+                <TextField
+                  placeholder="Assign User"
+                  className="h-12 flex items-center justify-center"
+                  variant="standard"
+                  {...param}
+                  InputProps={{
+                    ...param.InputProps,
+                    style: {
+                      fontSize: "14px",
+                    },
+                    startAdornment: param.inputProps.value && (
+                      <InputAdornment position="start">
+                        <Avatar className={classes.avatarStyle}>
+                          <AlphabetColor
+                            alphabet={(params.row.BusinessTypeId === 1
+                              ? assignUserList1
+                              : params.row.BusinessTypeId === 2
+                              ? assignUserList2
+                              : assignUserList3
+                            )
+                              .filter((item) => item.value === params.value)[0]
+                              ?.label.charAt(0)
+                              .toUpperCase()}
+                          />
+                        </Avatar>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            />
+          );
+        } else {
+          return (
+            <div className="flex justify-start items-center text-[14px] gap-2">
+              <Avatar className={classes.avatarStyle} alt={params.row.AssignUser}>
+                <AlphabetColor alphabet={params.row.AssignUser.charAt(0).toUpperCase()} />
+              </Avatar>
+              <span>{params.row.AssignUser}</span>
+            </div>
+          );
+        }
       },
     },
     {
@@ -478,7 +490,7 @@ function Page() {
         case "failure":
           showToast(Message, ToastType.Error);
           setIsLoading(false);
-          setOpenDelete(false)
+          setOpenDelete(false);
           return;
         case "success":
           showToast(Message, ToastType.Success);
