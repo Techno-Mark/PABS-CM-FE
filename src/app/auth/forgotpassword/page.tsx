@@ -132,7 +132,7 @@ function Page() {
           disabled={isLoading ? true : false}
         >
           {isLoading ? (
-            <CircularProgress size={20} />
+            <CircularProgress size={20} sx={{color: "white !important"}}/>
           ) : (
             <span className="normal-case font-semibold text-[16px]">
               Reset Password

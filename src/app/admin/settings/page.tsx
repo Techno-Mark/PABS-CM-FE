@@ -30,6 +30,7 @@ import { RoleListType, SwitchPopupType } from "@/models/settings";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 // Utils import
 import { checkPermission } from "@/utils/permissionCheckFunction";
+import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -136,7 +137,7 @@ function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openEdit, setEdit] = useState<boolean>(false);
   const [roleData, setRoleData] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [roleId, setRoleId] = useState<number>(0);
   const [search, setSearch] = useState("");
   const [pageNo, setPageNo] = useState<number>(0);
@@ -229,7 +230,16 @@ function Page() {
   };
 
   useEffect(() => {
-    getRoleList();
+    const timer = setTimeout(() => {
+      if (checkPermission("Settings", "view")) {
+        getRoleList();
+      } else {
+        setLoading(false);
+        showToast("You do not have view permission", ToastType.Error);
+      }
+    }, 550);
+
+    return () => clearTimeout(timer);
   }, [roleListParams]);
 
   const handleToggleRole = async () => {
@@ -295,7 +305,7 @@ function Page() {
   const localeText: { noRowsLabel: string } = {
     noRowsLabel: "No record found",
   };
-  
+
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
@@ -332,41 +342,39 @@ function Page() {
 
       {checkPermission("Settings", "view") && (
         <div className="w-full h-[78vh] mt-5">
-          {loading ? (
-            <CircularProgress size={20} />
-          ) : (
-            <DataGrid
-              disableColumnMenu
-              rows={roleData}
-              columns={columns}
-              getRowId={(i: any) => i.RoleId}
-              localeText={localeText}
-              slots={{
-                footer: () => (
-                  <div className="flex justify-end">
-                    <TablePagination
-                      count={totalCount}
-                      page={pageNo}
-                      onPageChange={handlePageChange}
-                      rowsPerPage={rowsPerPage}
-                      onRowsPerPageChange={handleRowsPerPageChange}
-                      rowsPerPageOptions={[10, 25, 50, 100]}
-                    />
-                  </div>
-                ),
-              }}
-              sx={{
-                [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-                [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-              }}
-            />
-          )}
+          <DataGrid
+            disableColumnMenu
+            rows={roleData}
+            columns={columns}
+            getRowId={(i: any) => i.RoleId}
+            localeText={localeText}
+            loading={loading}
+            slots={{
+              loadingOverlay: CustomLoadingOverlay,
+              footer: () => (
+                <div className="flex justify-end">
+                  <TablePagination
+                    count={totalCount}
+                    page={pageNo}
+                    onPageChange={handlePageChange}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleRowsPerPageChange}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                  />
+                </div>
+              ),
+            }}
+            sx={{
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+          />
         </div>
       )}
 

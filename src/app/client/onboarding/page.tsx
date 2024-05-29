@@ -41,7 +41,7 @@ function Page() {
         variant="contained"
       >
         {isLoading ? (
-          <CircularProgress size={20} />
+          <CircularProgress size={20} sx={{color: "white !important"}}/>
         ) : (
           <span className="uppercase font-semibold text-[16px] whitespace-nowrap">
             Next: Check List

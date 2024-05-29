@@ -430,6 +430,7 @@ const RoleDrawer = ({
                           delete: e.target.checked,
                         })
                       }
+                      disabled={roleId === 1}
                     />
                   </td>
                   <td className="pr-2">
@@ -441,6 +442,7 @@ const RoleDrawer = ({
                           view: e.target.checked,
                         })
                       }
+                      disabled={roleId === 1}
                     />
                   </td>
                   <td className="pr-2">
@@ -452,6 +454,7 @@ const RoleDrawer = ({
                           create: e.target.checked,
                         })
                       }
+                      disabled={roleId === 1}
                     />
                   </td>
                   <td className="pr-2">
@@ -463,6 +466,7 @@ const RoleDrawer = ({
                           edit: e.target.checked,
                         })
                       }
+                      disabled={roleId === 1}
                     />
                   </td>
                   <td className="pr-2">
@@ -474,6 +478,7 @@ const RoleDrawer = ({
                           delete: e.target.checked,
                         })
                       }
+                      disabled={roleId === 1}
                     />
                   </td>
                 </tr>
