@@ -8,7 +8,6 @@ import UserFilter from "@/components/admin/modals/UserFilter";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import { showToast } from "@/components/ToastContainer";
-import Loader from "@/components/admin/common/Loader";
 // Icons imports
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
@@ -39,10 +38,13 @@ import {
 // Utils import
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { renderCellFunction } from "@/utils/commonData";
+import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie import
 import Cookies from "js-cookie";
 
 function Page() {
+  const router = useRouter();
+
   const columns: GridColDef[] = [
     {
       field: "UserId",
@@ -51,7 +53,9 @@ function Page() {
       ),
       width: 100,
       sortable: false,
-      renderCell: (params) => renderCellFunction(params.value),
+      renderCell: (params) => (
+        <span className="font-semibold">{params.value}</span>
+      ),
     },
     {
       field: "Username",
@@ -89,7 +93,13 @@ function Page() {
       sortable: false,
       renderCell: (params) => renderCellFunction(params.value),
     },
-    {
+  ];
+
+  if (
+    checkPermission("User Management", "edit") ||
+    checkPermission("User Management", "delete")
+  ) {
+    columns.push({
       field: "action",
       renderHeader: () => (
         <span className="font-semibold text-[13px] flex justify-end items-end">
@@ -126,6 +136,7 @@ function Page() {
                         <span
                           className="cursor-pointer"
                           onClick={() => {
+                            setIsLoading(false);
                             setOpenDelete(true);
                             setUserId(params.row.UserId);
                           }}
@@ -139,17 +150,16 @@ function Page() {
           </>
         );
       },
-    },
-  ];
+    });
+  }
 
-  const router = useRouter();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openEdit, setEdit] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserList[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [userId, setUserId] = useState<number>(0);
   const [roleList, setRoleList] = useState<RoleList[]>([]);
   const [businessList, setBusinessList] = useState<BusinessList[]>([]);
@@ -189,51 +199,53 @@ function Page() {
     }
   }, [router]);
 
+  const getRoleList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: RoleListResponse
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setRoleList(ResponseData.roles);
+          return;
+      }
+    };
+    await callAPIwithHeaders(roleListUrl, "post", callback, {
+      page: 0,
+      limit: 0,
+      search: "",
+      dropdown: true,
+    });
+  };
+
+  const getBusinessList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: BusinessListResponse
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setBusinessList(ResponseData.BusinessTypes);
+          return;
+      }
+    };
+    await callAPIwithHeaders(businessListUrl, "get", callback, {});
+  };
+
   useEffect(() => {
-    const getRoleList = async () => {
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: RoleListResponse
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            return;
-          case "success":
-            setRoleList(ResponseData.roles);
-            return;
-        }
-      };
-      await callAPIwithHeaders(roleListUrl, "post", callback, {
-        page: 0,
-        limit: 0,
-        search: "",
-        dropdown:true
-      });
-    };
-
-    const getBusinessList = async () => {
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: BusinessListResponse
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            return;
-          case "success":
-            setBusinessList(ResponseData.BusinessTypes);
-            return;
-        }
-      };
-      await callAPIwithHeaders(businessListUrl, "get", callback, {});
-    };
-
-    roleList.length <= 0 && getRoleList();
-    businessList.length <= 0 && getBusinessList();
-  }, []);
+    if (openDrawer) {
+      roleList.length <= 0 && getRoleList();
+      businessList.length <= 0 && getBusinessList();
+    }
+  }, [openDrawer]);
 
   const getFilterData = (
     roleId: number[],
@@ -241,7 +253,6 @@ function Page() {
     businessId: number[],
     saveClicked: boolean
   ) => {
-    console.log(saveClicked);
     setUserListParams({
       ...userListParams,
       roleId: roleId,
@@ -312,10 +323,20 @@ function Page() {
   };
 
   useEffect(() => {
-    getUserList();
+    const timer = setTimeout(() => {
+      if (checkPermission("User Management", "view")) {
+        getUserList();
+      } else {
+        setLoading(false);
+        showToast("You do not have view permission", ToastType.Error);
+      }
+    }, 550);
+
+    return () => clearTimeout(timer);
   }, [userListParams]);
 
   const handleDelete = async () => {
+    setIsLoading(true);
     const callback = (
       ResponseStatus: string,
       Message: string,
@@ -348,8 +369,8 @@ function Page() {
     });
   };
 
-  const localeText: {noRowsLabel:string} = {
-    noRowsLabel: 'No record found',
+  const localeText: { noRowsLabel: string } = {
+    noRowsLabel: "No record found",
   };
 
   return (
@@ -398,41 +419,39 @@ function Page() {
 
       {checkPermission("User Management", "view") && (
         <div className="w-full h-[78vh] mt-5">
-          {loading ? (
-            <Loader />
-          ) : (
-            <DataGrid
-              disableColumnMenu
-              rows={userData}
-              columns={columns}
-              getRowId={(i: any) => i.UserId}
-              localeText={localeText}
-              slots={{
-                footer: () => (
-                  <div className="flex justify-end">
-                    <TablePagination
-                      count={totalCount}
-                      page={pageNo}
-                      onPageChange={handlePageChange}
-                      rowsPerPage={rowsPerPage}
-                      onRowsPerPageChange={handleRowsPerPageChange}
-                      rowsPerPageOptions={[10, 25, 50, 100]}
-                    />
-                  </div>
-                ),
-              }}
-              sx={{
-                [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-                [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-              }}
-            />
-          )}
+          <DataGrid
+            disableColumnMenu
+            rows={userData}
+            columns={columns}
+            getRowId={(i: any) => i.UserId}
+            localeText={localeText}
+            loading={loading}
+            slots={{
+              loadingOverlay: CustomLoadingOverlay,
+              footer: () => (
+                <div className="flex justify-end">
+                  <TablePagination
+                    count={totalCount}
+                    page={pageNo}
+                    onPageChange={handlePageChange}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleRowsPerPageChange}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                  />
+                </div>
+              ),
+            }}
+            sx={{
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+          />
         </div>
       )}
 

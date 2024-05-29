@@ -1,3 +1,5 @@
+import { NumberFieldType, StringFieldType } from "@/models/common";
+
 export interface RoleList {
   RoleId: number;
   RoleName: string;
@@ -35,4 +37,10 @@ export interface GetRoleByIdResponse {
   roleName: string;
   status: number;
   permissions: RolePermission[];
+}
+
+export interface RoleFormFieldType {
+  roleName: StringFieldType;
+  role: NumberFieldType;
+  permission: any;
 }
