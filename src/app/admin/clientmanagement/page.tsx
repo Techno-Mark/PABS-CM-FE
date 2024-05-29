@@ -8,7 +8,6 @@ import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import ClientFilter from "@/components/admin/modals/ClientFilter";
 import { showToast } from "@/components/ToastContainer";
 import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
-import Loader from "@/components/admin/common/Loader";
 // Icons imports
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
@@ -54,11 +53,10 @@ import { AlphabetColor } from "@/utils/commonData";
 import Cookies from "js-cookie";
 
 function Page() {
+  const router = useRouter();
   const classes = useStyles();
-  const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
-  const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
-  const [assignUserList3, setAssignUserList3] = useState<Option[]>([]);
   const roleId = Cookies.get("roleId");
+
   const columns: GridColDef[] = [
     {
       field: "ClientId",
@@ -67,6 +65,9 @@ function Page() {
       ),
       width: 70,
       sortable: false,
+      renderCell: (params) => (
+        <span className="font-semibold">{params.value}</span>
+      ),
     },
     {
       field: "SfId",
@@ -199,8 +200,13 @@ function Page() {
         } else {
           return (
             <div className="flex justify-start items-center text-[14px] gap-2">
-              <Avatar className={classes.avatarStyle} alt={params.row.AssignUser}>
-                <AlphabetColor alphabet={params.row.AssignUser.charAt(0).toUpperCase()} />
+              <Avatar
+                className={classes.avatarStyle}
+                alt={params.row.AssignUser}
+              >
+                <AlphabetColor
+                  alphabet={params.row.AssignUser.charAt(0).toUpperCase()}
+                />
               </Avatar>
               <span>{params.row.AssignUser}</span>
             </div>
@@ -247,6 +253,7 @@ function Page() {
                 <span
                   className="cursor-pointer"
                   onClick={() => {
+                    setIsLoading(false);
                     setOpenDelete(true);
                     setClientId(params.row.ClientId);
                   }}
@@ -277,14 +284,16 @@ function Page() {
     },
   ];
 
-  const router = useRouter();
+  const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
+  const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
+  const [assignUserList3, setAssignUserList3] = useState<Option[]>([]);
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openEdit, setEdit] = useState<boolean>(false);
   const [clientData, setClientData] = useState<ClientList[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [clientId, setClientId] = useState<number>(0);
   const [businessList, setBusinessList] = useState<BusinessList[]>([]);
   const [search, setSearch] = useState("");
@@ -358,43 +367,42 @@ function Page() {
     });
   };
 
-  useEffect(() => {
-    const getBusinessList = async () => {
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: BusinessListResponse
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            return;
-          case "success":
-            setBusinessList(ResponseData.BusinessTypes);
-            return;
-        }
-      };
-      await callAPIwithHeaders(businessListUrl, "get", callback, {});
-    };
+  const getAssignUserList = async (id: number) => {
+    try {
+      const users = await getAssignUser(id);
+      id === 1
+        ? setAssignUserList1(users)
+        : id === 2
+        ? setAssignUserList2(users)
+        : setAssignUserList3(users);
+    } catch (error) {
+      console.error("Failed to get assigned user list", error);
+    }
+  };
 
-    const getAssignUserList = async (id: number) => {
-      try {
-        const users = await getAssignUser(id);
-        id === 1
-          ? setAssignUserList1(users)
-          : id === 2
-          ? setAssignUserList2(users)
-          : setAssignUserList3(users);
-      } catch (error) {
-        console.error("Failed to get assigned user list", error);
+  const getBusinessList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: BusinessListResponse
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setBusinessList(ResponseData.BusinessTypes);
+          return;
       }
     };
+    await callAPIwithHeaders(businessListUrl, "get", callback, {});
+  };
 
-    businessList.length <= 0 && getBusinessList();
-    assignUserList1.length <= 0 && getAssignUserList(1);
-    assignUserList2.length <= 0 && getAssignUserList(2);
-    assignUserList3.length <= 0 && getAssignUserList(3);
-  }, []);
+  useEffect(() => {
+    if (openDrawer) {
+      businessList.length <= 0 && getBusinessList();
+    }
+  }, [openDrawer]);
 
   const getFilterData = (
     businessId: number[],
@@ -451,6 +459,9 @@ function Page() {
   };
 
   const getClientList = async () => {
+    assignUserList1.length <= 0 && getAssignUserList(1);
+    assignUserList2.length <= 0 && getAssignUserList(2);
+    assignUserList3.length <= 0 && getAssignUserList(3);
     const callback = (
       ResponseStatus: string,
       Message: string,
@@ -477,10 +488,20 @@ function Page() {
   };
 
   useEffect(() => {
-    getClientList();
+    const timer = setTimeout(() => {
+      if (checkPermission("Client Management", "view")) {
+        getClientList();
+      } else {
+        setLoading(false);
+        showToast("You do not have view permission", ToastType.Error);
+      }
+    }, 550);
+
+    return () => clearTimeout(timer);
   }, [clientListParams]);
 
   const handleDelete = async () => {
+    setIsLoading(true);
     const callback = (
       ResponseStatus: string,
       Message: string,
@@ -520,6 +541,7 @@ function Page() {
 
   const SendInvitation = async () => {
     setInvitaionLoading(true);
+
     const callback = (
       ResponseStatus: string,
       Message: string,
@@ -593,7 +615,10 @@ function Page() {
               } !h-[36px] !rounded-md`}
             >
               {invitaionLoading ? (
-                <CircularProgress size={20} />
+                <CircularProgress
+                  size={20}
+                  sx={{ color: "white !important" }}
+                />
               ) : (
                 "Send Invite"
               )}
@@ -616,7 +641,12 @@ function Page() {
       {checkPermission("Client Management", "view") && (
         <div className="w-full h-[78vh] mt-5">
           {loading ? (
-            <Loader />
+            <span className="flex h-[60vh] items-center justify-center">
+              <CircularProgress
+                size={30}
+                sx={{ color: "#002641 !important" }}
+              />
+            </span>
           ) : (
             <DataGrid
               disableRowSelectionOnClick

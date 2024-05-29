@@ -25,9 +25,11 @@ import Dropzone from "react-dropzone";
 import { statusOptionDrawer } from "@/static/usermanage";
 import { ToastType } from "@/static/toastType";
 import { getClientDetailsByIdUrl, saveClientUrl } from "@/static/apiUrl";
+// API import
 import { callAPIwithHeaders } from "@/api/commonFunction";
 // Utils import
 import { convertFileToBase64 } from "@/utils/convertFileToBase64";
+import { checkPermission } from "@/utils/permissionCheckFunction";
 // Icons import
 import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
 
@@ -42,7 +44,6 @@ const ClientDrawer = ({
   businessList,
   handleClear,
 }: ClientDrawerProps) => {
-  const FileErrType = {};
   const initialFieldStringValues = {
     value: "",
     error: false,
@@ -157,7 +158,7 @@ const ClientDrawer = ({
         error: true,
         errorText: "SF ID is Required",
       });
-    } else if (e.target.value.trim().length > 16) {
+    } else if (e.target.value.trim().length > 50) {
       return;
     } else if (specialCharsRegex.test(e.target.value)) {
       setSFID({
@@ -183,6 +184,8 @@ const ClientDrawer = ({
         error: true,
         errorText: "Full Name is Required",
       });
+    } else if (e.target.value.length > 50) {
+      return;
     } else if (numbersRegex.test(e.target.value)) {
       setClientFullName({
         value: e.target.value,
@@ -343,7 +346,7 @@ const ClientDrawer = ({
           setOpenDrawer(false);
           handleClear(false);
           setClientId();
-          getClientList();
+          checkPermission("Client Management", "view") && getClientList();
           return;
       }
     };
@@ -390,16 +393,17 @@ const ClientDrawer = ({
       businessType,
       status,
       email,
-      file
+      file,
     };
     for (const key in currentValues) {
-      if(key === "file"){
-        if(currentValues[key as keyof ClientFormFieldType] !==
-          initialValues[key as keyof ClientFormFieldType]){
-            return true
-          }
-      } else 
-      {
+      if (key === "file") {
+        if (
+          currentValues[key as keyof ClientFormFieldType] !==
+          initialValues[key as keyof ClientFormFieldType]
+        ) {
+          return true;
+        }
+      } else {
         if (
           currentValues[key as keyof ClientFormFieldType].value !==
           initialValues[key as keyof ClientFormFieldType].value
@@ -576,7 +580,10 @@ const ClientDrawer = ({
               <img className="w-40 h-14" src={imagePreview} alt="Preview" />
               <span
                 className="cursor-pointer"
-                onClick={() => {setImagePreview(null); setFile(null)}}
+                onClick={() => {
+                  setImagePreview(null);
+                  setFile(null);
+                }}
               >
                 <CloseOutlinedIcon />
               </span>
@@ -610,7 +617,7 @@ const ClientDrawer = ({
                       reader.onloadend = () => {
                         const image: any = new Image();
                         image.onload = () => {
-                          if (image.width < 100 && image.height < 35) {
+                          if (image.width <= 100 && image.height <= 35) {
                             setFileError(false);
                             setImagePreview(reader.result);
                             convertFileToBase64(file)

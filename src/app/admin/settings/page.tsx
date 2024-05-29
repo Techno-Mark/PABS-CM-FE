@@ -54,7 +54,7 @@ function Page() {
     {
       field: "RoleStatus",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Active</span>
+        <span className="font-semibold text-[13px]">Status</span>
       ),
       flex: 1,
       sortable: false,
@@ -269,6 +269,7 @@ function Page() {
         case "failure":
           showToast(Message, ToastType.Error);
           setIsLoading(false);
+          setOpenDelete(false);
           return;
         case "success":
           showToast(Message, ToastType.Success);
@@ -290,6 +291,11 @@ function Page() {
       roleId: roleId,
     });
   };
+
+  const localeText: { noRowsLabel: string } = {
+    noRowsLabel: "No record found",
+  };
+  
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
@@ -334,6 +340,7 @@ function Page() {
               rows={roleData}
               columns={columns}
               getRowId={(i: any) => i.RoleId}
+              localeText={localeText}
               slots={{
                 footer: () => (
                   <div className="flex justify-end">
@@ -382,7 +389,7 @@ function Page() {
           isOpen={switchPopup.isOpen}
           message={`Are you sure you want to ${
             switchPopup.isChecked === true ? "active" : "inactive"
-          } this role?`}
+          } the role?`}
           handleModalSubmit={handleToggleRole}
           handleClose={() =>
             setSwitchPopup({ isOpen: false, isChecked: null, roleId: 0 })
@@ -400,7 +407,7 @@ function Page() {
           title="Delete"
           isLoading={isLoading}
           isOpen={openDelete}
-          message="Are you sure you want to delete this role?"
+          message="Are you sure you want to delete the role?"
           handleModalSubmit={handleDelete}
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => setOpenDelete(value)}

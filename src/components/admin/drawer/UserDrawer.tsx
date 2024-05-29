@@ -11,15 +11,18 @@ import {
 // Static imports
 import { statusOptionDrawer } from "@/static/usermanage";
 import { ToastType } from "@/static/toastType";
+import { saveUserUrl, getUserDetailsByIdUrl } from "@/static/apiUrl";
 // Modal import
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
-// Drawer import
+import { checkPermission } from "@/utils/permissionCheckFunction";
+// Component import
 import DrawerPanel from "@/components/admin/common/DrawerPanel";
 import { showToast } from "@/components/ToastContainer";
+// API import
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import { saveUserUrl, getUserDetailsByIdUrl } from "@/static/apiUrl";
+// Cookie import
 import Cookies from "js-cookie";
 
 const UserDrawer = ({
@@ -135,6 +138,8 @@ const UserDrawer = ({
         error: true,
         errorText: "Numbers are not allowed",
       });
+    } else if (e.target.value.length > 50) {
+      return;
     } else if (specialCharsRegex.test(e.target.value)) {
       setFullName({
         value: e.target.value,
@@ -306,7 +311,7 @@ const UserDrawer = ({
           setLoading(false);
           setOpenDrawer(false);
           setId();
-          getUserList();
+          checkPermission("User Management", "view") && getUserList();
           return;
       }
     };
@@ -388,7 +393,7 @@ const UserDrawer = ({
             size="small"
             placeholder="Please Enter Full Name"
             value={fullName.value}
-            error={ fullName.error}
+            error={fullName.error}
             helperText={fullName.errorText}
             onChange={handleFullNameChange}
             InputProps={{
@@ -412,7 +417,7 @@ const UserDrawer = ({
             placeholder="Please Enter Email"
             value={email.value}
             error={Number(roleId) !== 1 && canEdit ? false : email.error}
-            helperText={Number(roleId) !== 1 && canEdit ? '' : email.errorText}
+            helperText={Number(roleId) !== 1 && canEdit ? "" : email.errorText}
             onChange={handleEmailChange}
             InputProps={{
               classes: {
@@ -461,7 +466,7 @@ const UserDrawer = ({
 
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">
-          Department Type<span className="text-[#DC3545]">*</span>
+            Department Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
             <Select

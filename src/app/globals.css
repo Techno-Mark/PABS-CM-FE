@@ -50,10 +50,6 @@ input::-ms-clear {
   color: #023963 !important;
 }
 
-.MuiCircularProgress-root {
-  color: white !important;
-}
-
 .mainLoader {
   color: #002641 !important;
 }

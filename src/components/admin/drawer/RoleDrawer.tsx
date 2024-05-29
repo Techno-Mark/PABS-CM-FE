@@ -1,7 +1,10 @@
+import React, { useCallback, useEffect, useState } from "react";
+//Types imports
 import { NumberFieldType, StringFieldType } from "@/models/common";
 import {
   GetRoleByIdResponse,
   RoleDrawerProps,
+  RoleFormFieldType,
   RolePermission,
 } from "@/models/roleManage";
 import { useStyles } from "@/utils/useStyles";
@@ -12,17 +15,20 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import DrawerPanel from "../common/DrawerPanel";
+// API import
 import { callAPIwithHeaders } from "@/api/commonFunction";
+// Static imports
 import {
   getRoleDetailsByIdUrl,
   getRolePermission,
   saveRoleUrl,
 } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
-import { showToast } from "@/components/ToastContainer";
 import { statusOptionDrawer } from "@/static/usermanage";
+// Component import
+import { showToast } from "@/components/ToastContainer";
+import DrawerPanel from "@/components/admin/common/DrawerPanel";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
 
 const RoleDrawer = ({
   openDrawer,
@@ -49,12 +55,19 @@ const RoleDrawer = ({
   const [roleName, setRoleName] = useState<StringFieldType>(
     initialFieldStringValues
   );
+  const [isInactive, setInactive] = useState<boolean>(false);
   const [role, setRole] = useState<NumberFieldType>({
     ...initialFieldNumberValues,
     value: -1,
   });
   const [permission, setPermission] = useState<RolePermission[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
+  const [initialValues, setInitialValues] = useState<RoleFormFieldType>({
+    roleName: initialFieldStringValues,
+    role: initialFieldNumberValues,
+    permission: permission,
+  });
 
   useEffect(() => {
     const getById = async () => {
@@ -68,22 +81,23 @@ const RoleDrawer = ({
             showToast(Message, ToastType.Error);
             return;
           case "success":
-            setRoleName({
-              value: ResponseData.roleName,
-              error: false,
-              errorText: "",
-            });
-            setRole({
-              value:
-                ResponseData.status === 0
-                  ? 2
-                  : ResponseData.status === 1
-                  ? 1
-                  : -1,
-              error: false,
-              errorText: "",
-            });
-            setPermission(ResponseData.permissions);
+            const newInitialValues = {
+              roleName: {
+                value: ResponseData.roleName,
+                error: false,
+                errorText: "",
+              },
+              role: {
+                value: ResponseData.status ? 1 : 2,
+                error: false,
+                errorText: "",
+              },
+              permission: ResponseData.permissions,
+            };
+            setRoleName(newInitialValues.roleName);
+            setRole(newInitialValues.role);
+            setPermission(newInitialValues.permission);
+            setInitialValues(newInitialValues);
             return;
         }
       };
@@ -122,7 +136,7 @@ const RoleDrawer = ({
         error: true,
         errorText: "Role Name is Required",
       });
-    } else if (e.target.value.trim().length > 50) {
+    } else if (e.target.value.trim().length > 60) {
       return;
     } else if (specialCharsRegex.test(e.target.value)) {
       setRoleName({
@@ -146,8 +160,10 @@ const RoleDrawer = ({
       setRole({
         value: -1,
         error: true,
-        errorText: "Role Status is Required",
+        errorText: "Status is Required",
       });
+    } else if (canEdit && Number(e.target.value) === 2) {
+      setInactive(true);
     } else {
       setRole({
         ...initialFieldStringValues,
@@ -192,11 +208,7 @@ const RoleDrawer = ({
       return false;
     };
 
-    const roleError = validateAndSetFieldNumber(
-      setRole,
-      role.value,
-      "Role Status"
-    );
+    const roleError = validateAndSetFieldNumber(setRole, role.value, "Status");
     const roleNameError = validateAndSetField(
       setRoleName,
       roleName.value,
@@ -243,169 +255,245 @@ const RoleDrawer = ({
     );
   };
 
+  const handleApplyChange = () => {
+    setRole({
+      ...initialFieldStringValues,
+      value: 2,
+    });
+    setInactive(false);
+  };
+
+  const comparePermissions = (
+    currentPermissions: RolePermission[],
+    initialPermissions: RolePermission[]
+  ) => {
+    if (currentPermissions.length !== initialPermissions.length) {
+      return true;
+    }
+  
+    for (let i = 0; i < currentPermissions.length; i++) {
+      const current = currentPermissions[i];
+      const initial = initialPermissions[i];
+      if (
+        current.view !== initial.view ||
+        current.create !== initial.create ||
+        current.edit !== initial.edit ||
+        current.delete !== initial.delete
+      ) {
+        return true;
+      }
+    }
+  
+    return false;
+  };
+
+  const compareValues = useCallback(() => {
+    const currentValues: RoleFormFieldType = {
+      roleName,
+      role,
+      permission,
+    };
+  
+    for (const key in currentValues) {
+      if (key === "permission") {
+        if (
+          comparePermissions(
+            currentValues.permission,
+            initialValues.permission
+          )
+        ) {
+          return true;
+        }
+      } else {
+        if (
+          currentValues[key as keyof RoleFormFieldType].value !==
+          initialValues[key as keyof RoleFormFieldType].value
+        ) {
+          return true;
+        }
+      }
+    }
+  
+    return false;
+  }, [roleName, role, permission, initialValues]);
+  
+  useEffect(() => {
+    setIsSaveButtonEnabled(compareValues());
+  }, [roleName, role, permission, compareValues]);
+
   return (
-    <DrawerPanel
-      isSaveEnabled={true}
-      type={type}
-      canEdit={canEdit}
-      openDrawer={openDrawer}
-      isLoading={isLoading}
-      setOpenDrawer={(value) => setOpenDrawer(value)}
-      handleSubmit={handleSubmit}
-      setId={setRoleId}
-    >
-      <div className="text-[12px] flex flex-col mb-5">
-        <label className="text-[#6E6D7A] text-[12px]">
-          Role Name<span className="text-[#DC3545]">*</span>
-        </label>
-        <TextField
-          id="outlined-basic"
-          variant="standard"
-          size="small"
-          placeholder="Please Enter Role Name"
-          value={roleName.value}
-          error={roleName.error}
-          helperText={roleName.errorText}
-          onChange={handleRoleNameChange}
-          InputProps={{
-            classes: {
-              underline: classes.underline,
-            },
-          }}
-          inputProps={{
-            className: classes.textSize,
-          }}
-        />
-      </div>
-      <div className="text-[12px] flex flex-col pb-5">
-        <label className="text-[#6E6D7A] text-[12px]">
-          Role Status<span className="text-[#DC3545]">*</span>
-        </label>
-        <FormControl variant="standard">
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            className={`${
-              role.value === -1 ? "!text-[12px] text-[#6E6D7A]" : "!text-[14px]"
-            }`}
-            value={role.value}
-            error={role.error}
-            onChange={handleRoleChange}
-            disabled={roleId === 1}
-          >
-            {statusOptionDrawer.map((role) => (
-              <MenuItem
-                key={role.value}
-                value={role.value}
-                disabled={role.value === -1}
-              >
-                {role.label}
-              </MenuItem>
-            ))}
-          </Select>
-          {role.error && (
-            <span className="text-[#d32f2f]">{role.errorText}</span>
-          )}
-        </FormControl>
-      </div>
-      <div className="text-[12px] flex flex-col pb-5 -ml-2">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
-            <tr>
-              {headers.map((header) => (
-                <th
-                  key={header}
-                  scope="col"
-                  className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
+    <>
+      <DrawerPanel
+        isSaveEnabled={isSaveButtonEnabled}
+        type={type}
+        canEdit={canEdit}
+        openDrawer={openDrawer}
+        isLoading={isLoading}
+        setOpenDrawer={(value) => setOpenDrawer(value)}
+        handleSubmit={handleSubmit}
+        setId={setRoleId}
+      >
+        <div className="text-[12px] flex flex-col mb-5">
+          <label className="text-[#6E6D7A] text-[12px]">
+            Role Name<span className="text-[#DC3545]">*</span>
+          </label>
+          <TextField
+            id="outlined-basic"
+            variant="standard"
+            size="small"
+            placeholder="Please Enter Role Name"
+            value={roleName.value}
+            error={roleName.error}
+            helperText={roleName.errorText}
+            onChange={handleRoleNameChange}
+            InputProps={{
+              classes: {
+                underline: classes.underline,
+              },
+            }}
+            inputProps={{
+              className: classes.textSize,
+            }}
+          />
+        </div>
+        <div className="text-[12px] flex flex-col pb-5">
+          <label className="text-[#6E6D7A] text-[12px]">
+            Status<span className="text-[#DC3545]">*</span>
+          </label>
+          <FormControl variant="standard">
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              className={`${
+                role.value === -1
+                  ? "!text-[12px] text-[#6E6D7A]"
+                  : "!text-[14px]"
+              }`}
+              value={role.value}
+              error={role.error}
+              onChange={handleRoleChange}
+              disabled={roleId === 1}
+            >
+              {statusOptionDrawer.map((role) => (
+                <MenuItem
+                  key={role.value}
+                  value={role.value}
+                  disabled={role.value === -1}
                 >
-                  {header}
-                </th>
+                  {role.label}
+                </MenuItem>
               ))}
-            </tr>
-          </thead>
-          <tbody className="bg-white">
-            {permission.map((item) => (
-              <tr key={item.moduleId}>
-                <td className="whitespace-nowrap w-1/4">
-                  <div className="flex items-start">
-                    <div className="ml-2">
-                      <div className="text-[13px] font-medium text-gray-900">
-                        {item.moduleName}
+            </Select>
+            {role.error && (
+              <span className="text-[#d32f2f]">{role.errorText}</span>
+            )}
+          </FormControl>
+        </div>
+        <div className="text-[12px] flex flex-col pb-5 -ml-2">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                {headers.map((header) => (
+                  <th
+                    key={header}
+                    scope="col"
+                    className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {permission.map((item) => (
+                <tr key={item.moduleId}>
+                  <td className="whitespace-nowrap w-1/4">
+                    <div className="flex items-start">
+                      <div className="ml-2">
+                        <div className="text-[13px] font-medium text-gray-900">
+                          {item.moduleName}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-                <td className="pr-2">
-                  <Checkbox
-                    checked={
-                      item.view && item.create && item.edit && item.delete
-                    }
-                    onChange={(e) =>
-                      handleChangePermission({
-                        ...item,
-                        view: e.target.checked,
-                        create: e.target.checked,
-                        edit: e.target.checked,
-                        delete: e.target.checked,
-                      })
-                    }
-                    disabled={roleId === 1}
-                  />
-                </td>
-                <td className="pr-2">
-                  <Checkbox
-                    checked={item.view}
-                    onChange={(e) =>
-                      handleChangePermission({
-                        ...item,
-                        view: e.target.checked,
-                      })
-                    }
-                    disabled={roleId === 1}
-                  />
-                </td>
-                <td className="pr-2">
-                  <Checkbox
-                    checked={item.create}
-                    onChange={(e) =>
-                      handleChangePermission({
-                        ...item,
-                        create: e.target.checked,
-                      })
-                    }
-                    disabled={roleId === 1}
-                  />
-                </td>
-                <td className="pr-2">
-                  <Checkbox
-                    checked={item.edit}
-                    onChange={(e) =>
-                      handleChangePermission({
-                        ...item,
-                        edit: e.target.checked,
-                      })
-                    }
-                    disabled={roleId === 1}
-                  />
-                </td>
-                <td className="pr-2">
-                  <Checkbox
-                    checked={item.delete}
-                    onChange={(e) =>
-                      handleChangePermission({
-                        ...item,
-                        delete: e.target.checked,
-                      })
-                    }
-                    disabled={roleId === 1}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </DrawerPanel>
+                  </td>
+                  <td className="pr-2">
+                    <Checkbox
+                      checked={
+                        item.view && item.create && item.edit && item.delete
+                      }
+                      onChange={(e) =>
+                        handleChangePermission({
+                          ...item,
+                          view: e.target.checked,
+                          create: e.target.checked,
+                          edit: e.target.checked,
+                          delete: e.target.checked,
+                        })
+                      }
+                    />
+                  </td>
+                  <td className="pr-2">
+                    <Checkbox
+                      checked={item.view}
+                      onChange={(e) =>
+                        handleChangePermission({
+                          ...item,
+                          view: e.target.checked,
+                        })
+                      }
+                    />
+                  </td>
+                  <td className="pr-2">
+                    <Checkbox
+                      checked={item.create}
+                      onChange={(e) =>
+                        handleChangePermission({
+                          ...item,
+                          create: e.target.checked,
+                        })
+                      }
+                    />
+                  </td>
+                  <td className="pr-2">
+                    <Checkbox
+                      checked={item.edit}
+                      onChange={(e) =>
+                        handleChangePermission({
+                          ...item,
+                          edit: e.target.checked,
+                        })
+                      }
+                    />
+                  </td>
+                  <td className="pr-2">
+                    <Checkbox
+                      checked={item.delete}
+                      onChange={(e) =>
+                        handleChangePermission({
+                          ...item,
+                          delete: e.target.checked,
+                        })
+                      }
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </DrawerPanel>
+
+      {isInactive && (
+        <ConfirmModal
+          title="Inactive"
+          isOpen={isInactive}
+          message="Are you sure you want to inactive the role?"
+          handleModalSubmit={handleApplyChange}
+          handleClose={() => setInactive(false)}
+          setIsOpen={(value) => setInactive(value)}
+        />
+      )}
+    </>
   );
 };
 
