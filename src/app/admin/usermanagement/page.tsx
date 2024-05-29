@@ -14,7 +14,7 @@ import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
-import { CircularProgress, TablePagination, Tooltip } from "@mui/material";
+import { TablePagination, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 // static import
 import { ToastType } from "@/static/toastType";
@@ -38,6 +38,7 @@ import {
 // Utils import
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { renderCellFunction } from "@/utils/commonData";
+import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -91,10 +92,13 @@ function Page() {
       flex: 1,
       sortable: false,
       renderCell: (params) => renderCellFunction(params.value),
-    },   
+    },
   ];
 
-  if (checkPermission("User Management", "edit") || checkPermission("User Management", "delete")) {
+  if (
+    checkPermission("User Management", "edit") ||
+    checkPermission("User Management", "delete")
+  ) {
     columns.push({
       field: "action",
       renderHeader: () => (
@@ -195,46 +199,46 @@ function Page() {
     }
   }, [router]);
 
- const getRoleList = async () => {
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: RoleListResponse
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            return;
-          case "success":
-            setRoleList(ResponseData.roles);
-            return;
-        }
-      };
-      await callAPIwithHeaders(roleListUrl, "post", callback, {
-        page: 0,
-        limit: 0,
-        search: "",
-        dropdown: true,
-      });
+  const getRoleList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: RoleListResponse
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setRoleList(ResponseData.roles);
+          return;
+      }
     };
+    await callAPIwithHeaders(roleListUrl, "post", callback, {
+      page: 0,
+      limit: 0,
+      search: "",
+      dropdown: true,
+    });
+  };
 
-    const getBusinessList = async () => {
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: BusinessListResponse
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            return;
-          case "success":
-            setBusinessList(ResponseData.BusinessTypes);
-            return;
-        }
-      };
-      await callAPIwithHeaders(businessListUrl, "get", callback, {});
+  const getBusinessList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: BusinessListResponse
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setBusinessList(ResponseData.BusinessTypes);
+          return;
+      }
     };
+    await callAPIwithHeaders(businessListUrl, "get", callback, {});
+  };
 
   useEffect(() => {
     if (openDrawer) {
@@ -327,7 +331,7 @@ function Page() {
         showToast("You do not have view permission", ToastType.Error);
       }
     }, 550);
-  
+
     return () => clearTimeout(timer);
   }, [userListParams]);
 
@@ -415,41 +419,39 @@ function Page() {
 
       {checkPermission("User Management", "view") && (
         <div className="w-full h-[78vh] mt-5">
-          {loading ? (
-            <span className="flex h-[60vh] items-center justify-center"><CircularProgress size={30} sx={{color: "#002641 !important"}}/></span>
-          ) : (
-            <DataGrid
-              disableColumnMenu
-              rows={userData}
-              columns={columns}
-              getRowId={(i: any) => i.UserId}
-              localeText={localeText}
-              slots={{
-                footer: () => (
-                  <div className="flex justify-end">
-                    <TablePagination
-                      count={totalCount}
-                      page={pageNo}
-                      onPageChange={handlePageChange}
-                      rowsPerPage={rowsPerPage}
-                      onRowsPerPageChange={handleRowsPerPageChange}
-                      rowsPerPageOptions={[10, 25, 50, 100]}
-                    />
-                  </div>
-                ),
-              }}
-              sx={{
-                [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-                [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-              }}
-            />
-          )}
+          <DataGrid
+            disableColumnMenu
+            rows={userData}
+            columns={columns}
+            getRowId={(i: any) => i.UserId}
+            localeText={localeText}
+            loading={loading}
+            slots={{
+              loadingOverlay: CustomLoadingOverlay,
+              footer: () => (
+                <div className="flex justify-end">
+                  <TablePagination
+                    count={totalCount}
+                    page={pageNo}
+                    onPageChange={handlePageChange}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleRowsPerPageChange}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                  />
+                </div>
+              ),
+            }}
+            sx={{
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+          />
         </div>
       )}
 

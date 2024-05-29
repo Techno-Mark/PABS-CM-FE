@@ -49,6 +49,7 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 import { useStyles } from "@/utils/useStyles";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { AlphabetColor } from "@/utils/commonData";
+import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie imports
 import Cookies from "js-cookie";
 
@@ -640,51 +641,44 @@ function Page() {
 
       {checkPermission("Client Management", "view") && (
         <div className="w-full h-[78vh] mt-5">
-          {loading ? (
-            <span className="flex h-[60vh] items-center justify-center">
-              <CircularProgress
-                size={30}
-                sx={{ color: "#002641 !important" }}
-              />
-            </span>
-          ) : (
-            <DataGrid
-              disableRowSelectionOnClick
-              disableColumnMenu
-              checkboxSelection
-              isRowSelectable={(params: any) => !params.row.IsPasswordSet}
-              rows={clientData}
-              columns={columns}
-              getRowId={(i: any) => i.ClientId}
-              onRowSelectionModelChange={handleSelectionModelChange}
-              rowSelectionModel={selectedIds}
-              localeText={localeText}
-              slots={{
-                footer: () => (
-                  <div className="flex justify-end">
-                    <TablePagination
-                      count={totalCount}
-                      page={pageNo}
-                      onPageChange={handlePageChange}
-                      rowsPerPage={rowsPerPage}
-                      onRowsPerPageChange={handleRowsPerPageChange}
-                      rowsPerPageOptions={[10, 25, 50, 100]}
-                    />
-                  </div>
-                ),
-              }}
-              sx={{
-                [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-                [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                  {
-                    outline: "none",
-                  },
-              }}
-            />
-          )}
+          <DataGrid
+            disableRowSelectionOnClick
+            disableColumnMenu
+            checkboxSelection
+            isRowSelectable={(params: any) => !params.row.IsPasswordSet}
+            rows={clientData}
+            columns={columns}
+            loading={loading}
+            getRowId={(i: any) => i.ClientId}
+            onRowSelectionModelChange={handleSelectionModelChange}
+            rowSelectionModel={selectedIds}
+            localeText={localeText}
+            slots={{
+              loadingOverlay: CustomLoadingOverlay,
+              footer: () => (
+                <div className="flex justify-end">
+                  <TablePagination
+                    count={totalCount}
+                    page={pageNo}
+                    onPageChange={handlePageChange}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleRowsPerPageChange}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                  />
+                </div>
+              ),
+            }}
+            sx={{
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+          />
         </div>
       )}
 
