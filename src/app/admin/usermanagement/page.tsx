@@ -241,11 +241,9 @@ function Page() {
   };
 
   useEffect(() => {
-    if (openDrawer) {
-      roleList.length <= 0 && getRoleList();
-      businessList.length <= 0 && getBusinessList();
-    }
-  }, [openDrawer]);
+    roleList.length <= 0 && getRoleList();
+    businessList.length <= 0 && getBusinessList();
+  }, []);
 
   const getFilterData = (
     roleId: number[],
