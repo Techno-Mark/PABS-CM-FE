@@ -7,6 +7,7 @@ import {
   UserModalProps,
   Option,
   RoleList,
+  StatusOption,
 } from "@/models/userManage";
 // Icons imports
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -15,7 +16,8 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { statusOption } from "@/static/usermanage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
-import { hasMatchingValue } from "@/utils/commonFunction";
+// Utlis import
+import { hasMatchingBooleanValue, hasMatchingValue } from "@/utils/commonFunction";
 
 function UserFilter({
   isOpen,
@@ -29,7 +31,7 @@ function UserFilter({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [role, setRole] = useState<RoleList[]>([]);
   const [businessType, setBusinessType] = useState<BusinessList[]>([]);
-  const [status, setStatus] = useState<Option[]>([]);
+  const [status, setStatus] = useState<StatusOption[]>([]);
 
   useEffect(() => {
     const selectedRoles =
@@ -48,7 +50,7 @@ function UserFilter({
     setBusinessType(selectedBusinesses);
     const selectedStatuses =
       userListParams.userStatus.length > 0
-        ? statusOption.filter((s: Option) =>
+        ? statusOption.filter((s: StatusOption) =>
             userListParams.userStatus.includes(s.value)
           )
         : [];
@@ -71,7 +73,7 @@ function UserFilter({
 
   const handleStatusChange = (
     event: React.ChangeEvent<{}>,
-    newValues: Option[]
+    newValues: StatusOption[]
   ) => {
     setStatus(newValues);
   };
@@ -82,7 +84,7 @@ function UserFilter({
   const handleSubmit = () => {
     const roleId = role.length > 0 ? role.map((r: RoleList) => r.RoleId) : [];
     const statusId =
-      status.length > 0 ? status.map((s: Option) => s.value) : [];
+      status.length > 0 ? status.map((s: StatusOption) => s.value) : [];
     const businessId =
       businessType.length > 0
         ? businessType.map((b: BusinessList) => b.BusinessId)
@@ -127,7 +129,7 @@ function UserFilter({
               value: b.BusinessId,
             }))
           ) ||
-          hasMatchingValue(userListParams.userStatus, status)
+          hasMatchingBooleanValue(userListParams.userStatus, status)
         )
       }
       isResetDisabled={!userListParams.saveClicked}

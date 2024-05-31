@@ -306,7 +306,7 @@ function Page() {
     limit: number;
     search: string;
     businessTypeId: number[];
-    status: number[];
+    status: boolean[];
     checkListStatus: string[];
     saveClicked: boolean;
   }>({
@@ -405,7 +405,7 @@ function Page() {
 
   const getFilterData = (
     businessId: number[],
-    statusId: number[],
+    statusId: boolean[],
     checkListStatusId: string[],
     saveClicked: boolean
   ) => {
