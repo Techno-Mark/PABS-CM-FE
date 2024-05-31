@@ -31,13 +31,10 @@ const AppBar = styled(MuiAppBar, {
 
 const ClientHeader = () => {
   const router = useRouter();
-  const query = usePathname();
-  const url = query.split("/");
-  const dropDownRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setOpen] = useState(false);
   const userId = Cookies.get("userId");
-  const token = Cookies.get("token");
   const userName = Cookies.get("userName");
+  const [isOpen, setOpen] = useState(false);
+  const dropDownRef = useRef<HTMLDivElement>(null);
   const selectRefNavbar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -95,13 +92,13 @@ const ClientHeader = () => {
     <AppBar
       position="fixed"
       sx={{
-        zIndex: 0,
+        zIndex: 1,
         backgroundColor: "white !important",
         borderBottom: "0.5px solid lightgrey !important",
         boxShadow: "none !important",
         height: "50.5px !important",
         width: {
-          sm: `calc(100% - 224px)`,
+          sm: `calc(100% - 281px)`,
         },
         ml: { sm: `65px` },
       }}

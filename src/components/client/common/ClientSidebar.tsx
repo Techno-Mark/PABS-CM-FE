@@ -12,13 +12,14 @@ import {
 } from "@mui/material";
 import { Theme } from "@material-ui/core/styles";
 // Static import
-import { drawerWidth } from "@/static/commonVariables";
+import { clientDrawerWidth } from "@/static/commonVariables";
 // Utlis import
-import { useStyles } from "@/utils/useStyles";
 import CallIcon from "@/assets/Icons/client/sidebar/CallIcon";
+import { useEffect, useState } from "react";
+import { ClientSidebarItemsType, SidebarItemsType } from "@/models/adminSidebar";
 
 const openedMixin = (theme: Theme) => ({
-  width: drawerWidth,
+  width: clientDrawerWidth,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -42,7 +43,7 @@ const closedMixin = (theme: Theme) => ({
 const MyDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }: any) => ({
-  width: drawerWidth,
+  width: clientDrawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
@@ -65,27 +66,39 @@ const DrawerFooter = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
   position: "absolute",
   bottom: 0,
+  width: "100%",
 }));
 
-const SidebarData = [
-  { label: "Basic Details", value: 27 },
-  { label: "Amount Details", value: 0 },
-  { label: "Taxation Workflow", value: 100 },
-];
-
 const ClientSidebar = () => {
-  const classes = useStyles();
   const pathname = usePathname();
+
+  const items: ClientSidebarItemsType[] = [
+    {
+      module: "Basic Details",
+      link: "/client/onboarding/basicdetails",
+      value: 27,
+    },
+    {
+      module: "Checklist",
+      link: "/client/onboarding/checklist",
+      value: 45,
+    },
+    {
+      module: "Account Details",
+      link: "/client/onboarding/accountdetails",
+      value: 15,
+    }
+  ];
 
   return (
     <>
       <CssBaseline />
       <MyDrawer className="z-0 h-screen" variant="permanent" open={true}>
-        <List className="m-0 p-0 min-h-[80px] !bg-[#023963]">
+        <List className="m-0 p-0 min-h-[80px] !bg-[#091D36]">
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
               sx={{
-                minHeight: 80,
+                height: 108,
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "#023963",
@@ -94,21 +107,30 @@ const ClientSidebar = () => {
               <Image
                 alt="PABS_Logo"
                 src={"/PABS.png"}
-                width={150}
-                height={150}
+                width={160}
+                height={160}
               />
             </ListItemButton>
           </ListItem>
         </List>
         <div className="mt-8">
-          {SidebarData.map(
-            (data: { label: string; value: number }, index: number) => (
+          {items.map(
+            (
+              data: { module: string; link: string; value: number },
+              index: number
+            ) => (
               <div
                 key={index}
                 className="flex items-center justify-between mb-5 mx-2"
               >
-                <span className="mr-2 w-[100px] text-md">{data.label}</span>
-                <div className="relative flex items-center w-[60px] h-4 rounded-full bg-[#F6F6F6]">
+                <span
+                  className={` ${
+                    pathname === data.link && "font-semibold"
+                  } mr-2 text-[#333333] text-[16px] cursor-default`}
+                >
+                  {data.module}
+                </span>
+                <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${
                       data.value < 93
@@ -116,13 +138,16 @@ const ClientSidebar = () => {
                         : "rounded-l-full rounded-r-full"
                     }`}
                     style={{
-                      width: `${Math.max((data.value / 100) * 60, 6)}px`, // Adjust width and ensure a minimum width of 8px
+                      width: `${Math.max(
+                        (data.value / 100) * 100,
+                        data.value > 0 && data.value < 7 ? 6 : 0
+                      )}px`,
                       backgroundColor: "#022946",
                     }}
                   ></div>
                   <span
                     className={`relative z-10 ml-auto mr-1 text-[8px] ${
-                      data.value > 63 ? "text-white" : "text-[#023963]"
+                      data.value > 85 ? "text-white" : "text-[#023963]"
                     }`}
                   >
                     {data.value}%
@@ -132,13 +157,6 @@ const ClientSidebar = () => {
             )
           )}
         </div>
-        <DrawerFooter>
-          <Divider sx={{ mb: 1 }} />
-          <div className="text-[#333333] flex items-center justify-center gap-2 border border-[#6E6D7A] bg-[#0229460D] py-2 pl-4 pr-16 mx-1 cursor-pointer rounded-md">
-            <CallIcon />
-            Contact us
-          </div>
-        </DrawerFooter>
       </MyDrawer>
     </>
   );

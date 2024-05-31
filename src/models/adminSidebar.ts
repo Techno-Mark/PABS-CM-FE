@@ -7,5 +7,11 @@ export interface SidebarProps {
 export interface SidebarItemsType {
   module: string;
   link: string;
-  icon: any;
+  icon: any
+}
+
+export interface ClientSidebarItemsType {
+  module: string;
+  link: string;
+  value: number
 }

@@ -5,26 +5,18 @@ interface FormBoxProps {
   title: string;
   checked: boolean;
   children: any;
+  className?: string;
 }
 
-const FormBox = ({ title, checked, children }: FormBoxProps) => {
+const FormBox = ({ title, checked, children, className }: FormBoxProps) => {
   return (
-    <Box
-      sx={{
-        height: "fit-content",
-        width: "100%",
-        backgroundColor: "#FFFFFF",
-        boxShadow: 3,
-        borderRadius: 2,
-        borderTop: "4px solid #022946",
-      }}
-    >
+    <div className={`${className} bg-white shadow-lg rounded-md border-t-4 border-[#022946] w-full`}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-[#D8D8D8]">
-        <span>{title}</span>
-        <Switch checked={checked} />
+        <span className="text-[#333333] text-[24px] font-medium">{title}</span>
+        <span className="!z-0"><Switch checked={checked}/></span>
       </div>
-      <div className="py-2 px-4 gap-5 h-[300px]">{children}</div>
-    </Box>
+      <div className="py-2 px-4 gap-5 min-h-[100px]">{children}</div>
+    </div>
   );
 };
 

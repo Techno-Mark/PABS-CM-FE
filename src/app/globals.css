@@ -58,6 +58,11 @@ input::-ms-clear {
   color: #002641 !important;
 }
 
+
+.MuiSvgIcon-root {
+  height: 18px !important;
+}
+
 .makeStyles-drawer-3 {
   animation: drawerAnimation;
   animation-duration: 0.3s;
