@@ -400,10 +400,8 @@ function Page() {
   };
 
   useEffect(() => {
-    if (openDrawer) {
-      businessList.length <= 0 && getBusinessList();
-    }
-  }, [openDrawer]);
+    businessList.length <= 0 && getBusinessList();
+  }, []);
 
   const getFilterData = (
     businessId: number[],
