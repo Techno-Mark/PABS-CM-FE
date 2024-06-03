@@ -46,6 +46,7 @@ function Filter({
         </div>
         <Divider />
         {children}
+        <Divider />
         <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0">
           <Button
             onClick={() => setIsOpenModal(false)}

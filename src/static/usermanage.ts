@@ -32,8 +32,8 @@ export const businessTypeOption = [
 ];
 
 export const statusOption = [
-  { value: 1, label: "Active" },
-  { value: 2, label: "Inactive" },
+  { value: true, label: "Active" },
+  { value: false, label: "Inactive" },
 ];
 
 export const checklistStatusOption = [

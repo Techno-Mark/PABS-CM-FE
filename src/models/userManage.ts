@@ -17,7 +17,7 @@ export interface UserModalProps {
   businessList: BusinessList[];
   sendFilterData: (
     roleId: number[],
-    statusId: number[],
+    statusId: boolean[],
     businessId: number[],
     saveClicked: boolean
   ) => void;
@@ -33,6 +33,11 @@ export interface InActiveProps {
 
 export interface Option {
   value: number;
+  label: string;
+}
+
+export interface StatusOption {
+  value: boolean;
   label: string;
 }
 
