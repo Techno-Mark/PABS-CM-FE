@@ -323,15 +323,15 @@ function Page() {
 
   useEffect(() => {
     const roleId = Cookies.get("roleId");
-    if (roleId == "1" || roleId == "2" || roleId == "3") {
+    if (roleId == "4") {
+      router.push("/");
+    } else {
       if (
         (checkPermission("Client Management", "view") ||
           checkPermission("Client Management", "create")) === false
       ) {
         router.push("/");
       }
-    } else {
-      router.push("/");
     }
   }, [router]);
 

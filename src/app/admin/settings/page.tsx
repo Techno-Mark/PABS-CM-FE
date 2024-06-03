@@ -157,15 +157,15 @@ function Page() {
 
   useEffect(() => {
     const roleId = Cookies.get("roleId");
-    if (roleId == "1" || roleId == "2" || roleId == "3") {
+    if (roleId == "4") {
+      router.push("/");
+    } else {
       if (
         (checkPermission("Settings", "view") ||
           checkPermission("Settings", "create")) === false
       ) {
         router.push("/");
       }
-    } else {
-      router.push("/");
     }
   }, [router]);
 
@@ -315,7 +315,7 @@ function Page() {
               <SearchIcon />
             </span>
             <input
-              type="text"
+              type="search"
               placeholder="Search"
               className="p-2 flex items-center text-[13px] outline-none w-[90%]"
               value={search}

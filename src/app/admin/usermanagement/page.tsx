@@ -187,15 +187,15 @@ function Page() {
 
   useEffect(() => {
     const roleId = Cookies.get("roleId");
-    if (roleId == "1" || roleId == "2" || roleId == "3") {
+    if (roleId == "4") {
+      router.push("/");
+    } else {
       if (
         (checkPermission("User Management", "view") ||
           checkPermission("User Management", "create")) === false
       ) {
         router.push("/");
       }
-    } else {
-      router.push("/");
     }
   }, [router]);
 
@@ -381,7 +381,7 @@ function Page() {
             </span>
             <input
               type="search"
-              id='default-search'
+              id="default-search"
               placeholder="Search"
               className="p-2 flex items-center text-[13px] outline-none w-[90%]"
               value={search}
