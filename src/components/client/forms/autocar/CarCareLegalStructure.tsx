@@ -3,16 +3,29 @@ import FormBox from "@/components/client/common/FormBox";
 import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function CarCareLegalStructure({
   className,
-  legalStructure,
-  setLegalStructure,
-  errors,
+  carCarelegalStructure,
+  setCarCareLegalStructure,
+  carCareLegalStructureErrors,
 }: any) {
   const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCarCareLegalStructure({ ...carCarelegalStructure, [name]: value });
+  };
+
+  const handleDateChange = (date: Dayjs | null) => {
+    setCarCareLegalStructure({ ...carCarelegalStructure, agreementDate: date });
+  };
+
+  const handleProbableDateChange = (date: Dayjs | null) => {
+    setCarCareLegalStructure({ ...carCarelegalStructure, probableAcquitionDate: date });
+  }
 
   return (
     <div className={`${className}`}>
@@ -23,13 +36,15 @@ function CarCareLegalStructure({
               No.of Entities<span className="text-[#DC3545]">*</span>
             </label>
             <TextField
-              name="noOfEntities"
+              name="no_of_Entities"
               id="outlined-basic"
               variant="standard"
               size="small"
               placeholder="Please Enter No.of Entities"
-              value={legalStructure?.noOfEntities}
-              // onChange={handleChange}
+              value={carCarelegalStructure?.no_of_Entities}
+              error={!!carCareLegalStructureErrors.no_of_Entities}
+              helperText={carCareLegalStructureErrors.no_of_Entities}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -45,13 +60,15 @@ function CarCareLegalStructure({
               No.of Shops<span className="text-[#DC3545]">*</span>
             </label>
             <TextField
-              name="noOfShops"
+              name="no_of_Shops"
               id="outlined-basic"
               variant="standard"
               size="small"
               placeholder="Please Enter No.of Shops"
-              value={legalStructure?.noOfShops}
-              // onChange={handleChange}
+              value={carCarelegalStructure?.no_of_Shops}
+              error={!!carCareLegalStructureErrors.no_of_Shops}
+              helperText={carCareLegalStructureErrors.no_of_Shops}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -73,8 +90,8 @@ function CarCareLegalStructure({
               variant="standard"
               size="small"
               placeholder="Please Enter Sales Rep(PABS)"
-              value={legalStructure?.salesRep}
-              // onChange={handleChange}
+              value={carCarelegalStructure?.salesRep}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -98,6 +115,8 @@ function CarCareLegalStructure({
                 }}
                 minDate={dayjs(new Date())}
                 disablePast
+                value={carCarelegalStructure?.agreementDate}
+                onChange={handleDateChange}
                 slotProps={{
                   textField: {
                     variant: "standard",
@@ -127,6 +146,8 @@ function CarCareLegalStructure({
                 }}
                 minDate={dayjs(new Date())}
                 disablePast
+                value={carCarelegalStructure?.probableAcquitionDate}
+                onChange={handleProbableDateChange}
                 slotProps={{
                   textField: {
                     variant: "standard",
@@ -149,8 +170,8 @@ function CarCareLegalStructure({
               variant="standard"
               size="small"
               placeholder="Please Enter DBA"
-              value={legalStructure?.dba}
-              // onChange={handleChange}
+              value={carCarelegalStructure?.dba}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,

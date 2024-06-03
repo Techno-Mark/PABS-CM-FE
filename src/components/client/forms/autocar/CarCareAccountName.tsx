@@ -5,15 +5,15 @@ import { TextField } from "@mui/material";
 
 function CarCareAccountName({
   className,
-  accountName,
-  setAccountName,
-  errors,
+  carCareAccountName,
+  setCarCareAccountName,
+  carCareAccountNameErrors,
 }: any) {
   const classes = useStyles();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAccountName({ ...accountName, [name]: value });
+    setCarCareAccountName({ ...carCareAccountName, [name]: value });
   };
 
   return (
@@ -31,7 +31,7 @@ function CarCareAccountName({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Business Type"
-                value={accountName?.businessType}
+                value={carCareAccountName?.businessType}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -51,7 +51,7 @@ function CarCareAccountName({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Service"
-                value={accountName?.service}
+                value={carCareAccountName?.service}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -77,9 +77,9 @@ function CarCareAccountName({
                 rows={4}
                 variant="standard"
                 placeholder="Please Enter Corporate Address"
-                value={accountName?.corporateAddress}
-                error={!!errors.corporateAddress}
-                helperText={errors.corporateAddress}
+                value={carCareAccountName?.corporateAddress}
+                error={!!carCareAccountNameErrors.corporateAddress}
+                helperText={carCareAccountNameErrors.corporateAddress}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -102,9 +102,9 @@ function CarCareAccountName({
                   variant="standard"
                   size="small"
                   placeholder="Please Enter No.of Locations"
-                  value={accountName?.no_of_Locations}
-                  error={!!errors.no_of_Locations}
-                  helperText={errors.no_of_Locations}
+                  value={carCareAccountName?.no_of_Locations}
+                  error={!!carCareAccountNameErrors.no_of_Locations}
+                  helperText={carCareAccountNameErrors.no_of_Locations}
                   onChange={handleChange}
                   InputProps={{
                     classes: {
@@ -126,9 +126,9 @@ function CarCareAccountName({
                   variant="standard"
                   size="small"
                   placeholder="Please Enter Locations name"
-                  value={accountName?.locationName}
-                  error={!!errors.locationName}
-                  helperText={errors.locationName}
+                  value={carCareAccountName?.locationName}
+                  error={!!carCareAccountNameErrors.locationName}
+                  helperText={carCareAccountNameErrors.locationName}
                   onChange={handleChange}
                   InputProps={{
                     classes: {
@@ -154,9 +154,9 @@ function CarCareAccountName({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Owner Contact"
-                value={accountName?.ownerContact}
-                error={!!errors.ownerContact}
-                helperText={errors.ownerContact}
+                value={carCareAccountName?.ownerContact}
+                error={!!carCareAccountNameErrors.ownerContact}
+                helperText={carCareAccountNameErrors.ownerContact}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -178,9 +178,9 @@ function CarCareAccountName({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Owner Email"
-                value={accountName?.ownerEmail}
-                error={!!errors.ownerEmail}
-                helperText={errors.ownerEmail}
+                value={carCareAccountName?.ownerEmail}
+                error={!!carCareAccountNameErrors.ownerEmail}
+                helperText={carCareAccountNameErrors.ownerEmail}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -202,9 +202,9 @@ function CarCareAccountName({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Owner Phone"
-                value={accountName?.ownerPhone}
-                error={!!errors.ownerPhone}
-                helperText={errors.ownerPhone}
+                value={carCareAccountName?.ownerPhone}
+                error={!!carCareAccountNameErrors.ownerPhone}
+                helperText={carCareAccountNameErrors.ownerPhone}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

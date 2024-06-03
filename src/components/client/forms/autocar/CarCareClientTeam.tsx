@@ -5,11 +5,17 @@ import { TextField } from "@mui/material";
 
 function CarCareClientTeam({
   className,
-  clientTeamForm,
-  setClientTeamForm,
-  errors,
+  carCareClientTeam,
+  setCarCareClientTeam,
+  carCareClientTeamErrors,
 }: any) {
   const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCarCareClientTeam({ ...carCareClientTeam, [name]: value });
+  };
+
   return (
     <div className={`${className}`}>
       <FormBox title="Client Team" checked={true}>
@@ -24,8 +30,10 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Shop Manager"
-              value={clientTeamForm?.shopManager}
-              // onChange={handleChange}
+              value={carCareClientTeam?.shopManager}
+              error={!!carCareClientTeamErrors.shopManager}
+              helperText={carCareClientTeamErrors.shopManager}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -46,8 +54,10 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter POC1"
-              value={clientTeamForm?.poc1}
-              // onChange={handleChange}
+              value={carCareClientTeam?.poc1}
+              error={!!carCareClientTeamErrors.poc1}
+              helperText={carCareClientTeamErrors.poc1}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -68,9 +78,11 @@ function CarCareClientTeam({
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter Sales Rep(PABS)"
-              value={clientTeamForm?.email}
-              // onChange={handleChange}
+              placeholder="Please Enter Email-ID"
+              value={carCareClientTeam?.email}
+              error={!!carCareClientTeamErrors.email}
+              helperText={carCareClientTeamErrors.email}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -90,8 +102,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter CPA"
-              value={clientTeamForm?.cpa}
-              // onChange={handleChange}
+              value={carCareClientTeam?.cpa}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -113,8 +125,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Prior Bookkeeper"
-              value={clientTeamForm?.priorBookkeeper}
-              // onChange={handleChange}
+              value={carCareClientTeam?.priorBookkeeper}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -133,8 +145,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter IT Support"
-              value={clientTeamForm?.itSupport}
-              // onChange={handleChange}
+              value={carCareClientTeam?.itSupport}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -153,8 +165,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Time Zone"
-              value={clientTeamForm?.timeZone}
-              // onChange={handleChange}
+              value={carCareClientTeam?.timeZone}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -173,8 +185,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter State"
-              value={clientTeamForm?.state}
-              // onChange={handleChange}
+              value={carCareClientTeam?.state}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -193,8 +205,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Weekly Calls"
-              value={clientTeamForm?.weeklyCalls}
-              // onChange={handleChange}
+              value={carCareClientTeam?.weeklyCalls}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -213,8 +225,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Weekly Call Time"
-              value={clientTeamForm?.weeklyCallTime}
-              // onChange={handleChange}
+              value={carCareClientTeam?.weeklyCallTime}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
@@ -233,8 +245,8 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter IST Time"
-              value={clientTeamForm?.istTime}
-              // onChange={handleChange}
+              value={carCareClientTeam?.istTime}
+              onChange={handleChange}
               InputProps={{
                 classes: {
                   underline: classes.underline,
