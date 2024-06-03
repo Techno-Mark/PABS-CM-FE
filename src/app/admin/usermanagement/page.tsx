@@ -173,7 +173,7 @@ function Page() {
     search: string;
     roleId: number[];
     businessTypeId: number[];
-    userStatus: number[];
+    userStatus: boolean[];
     saveClicked: boolean;
   }>({
     page: 1,
@@ -187,15 +187,15 @@ function Page() {
 
   useEffect(() => {
     const roleId = Cookies.get("roleId");
-    if (roleId == "1" || roleId == "2" || roleId == "3") {
+    if (roleId == "4") {
+      router.push("/");
+    } else {
       if (
         (checkPermission("User Management", "view") ||
           checkPermission("User Management", "create")) === false
       ) {
         router.push("/");
       }
-    } else {
-      router.push("/");
     }
   }, [router]);
 
@@ -247,7 +247,7 @@ function Page() {
 
   const getFilterData = (
     roleId: number[],
-    statusId: number[],
+    statusId: boolean[],
     businessId: number[],
     saveClicked: boolean
   ) => {
@@ -380,7 +380,8 @@ function Page() {
               <SearchIcon />
             </span>
             <input
-              type="text"
+              type="search"
+              id="default-search"
               placeholder="Search"
               className="p-2 flex items-center text-[13px] outline-none w-[90%]"
               value={search}

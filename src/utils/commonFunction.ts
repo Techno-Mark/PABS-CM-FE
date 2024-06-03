@@ -1,4 +1,4 @@
-import { Option, StringOption } from "@/models/userManage";
+import { Option, StatusOption, StringOption } from "@/models/userManage";
 import { getToken, removeCookies } from "./authFunctions";
 
 export const hasToken = (router: any) => {
@@ -20,6 +20,10 @@ export const hasNoToken = (router: any) => {
 };
 
 export const hasMatchingValue = (arr1: number[], arr2: Option[]): boolean => {
+  return arr2.map((item: any) => arr1.includes(item.value)).includes(false);
+};
+
+export const hasMatchingBooleanValue = (arr1: boolean[], arr2: StatusOption[]): boolean => {
   return arr2.map((item: any) => arr1.includes(item.value)).includes(false);
 };
 

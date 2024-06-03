@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 // MUI imports
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
 // Types import
-import { BusinessList, Option, StringOption } from "@/models/userManage";
+import { BusinessList, StatusOption, StringOption } from "@/models/userManage";
+import { ClientModalProps } from "@/models/clientManage";
 // Icons imports
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -10,8 +11,8 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { checklistStatusOption, statusOption } from "@/static/usermanage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
-import { ClientModalProps } from "@/models/clientManage";
-import { hasMatchingStringValue, hasMatchingValue } from "@/utils/commonFunction";
+// Utlis imports
+import { hasMatchingBooleanValue, hasMatchingStringValue, hasMatchingValue } from "@/utils/commonFunction";
 
 function ClientFilter({
   isOpen,
@@ -23,7 +24,7 @@ function ClientFilter({
   const handleClose = () => setIsOpen(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [businessType, setBusinessType] = useState<BusinessList[]>([]);
-  const [status, setStatus] = useState<Option[]>([]);
+  const [status, setStatus] = useState<StatusOption[]>([]);
   const [checklistStatus, setChecklistStatus] = useState<StringOption[]>([]);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function ClientFilter({
     setBusinessType(selectedBusinesses);
     const selectedStatuses =
       clientListParams.status.length > 0
-        ? statusOption.filter((s: Option) =>
+        ? statusOption.filter((s: StatusOption) =>
             clientListParams.status.includes(s.value)
           )
         : [];
@@ -59,7 +60,7 @@ function ClientFilter({
 
   const handleStatusChange = (
     event: React.ChangeEvent<{}>,
-    newValues: Option[]
+    newValues: StatusOption[]
   ) => {
     setStatus(newValues);
   };
@@ -80,7 +81,7 @@ function ClientFilter({
         ? businessType.map((b: BusinessList) => b.BusinessId)
         : [];
     const statusId =
-      status.length > 0 ? status.map((s: Option) => s.value) : [];
+      status.length > 0 ? status.map((s: StatusOption) => s.value) : [];
     const checklistStatusId =
       checklistStatus.length > 0
         ? checklistStatus.map((c: StringOption) => c.value)
@@ -119,7 +120,7 @@ function ClientFilter({
               value: b.BusinessId,
             }))
           ) ||
-          hasMatchingValue(clientListParams.status, status)
+          hasMatchingBooleanValue(clientListParams.status, status)
         )
       }
       isResetDisabled={!clientListParams.saveClicked}
