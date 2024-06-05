@@ -156,7 +156,7 @@ const ClientDrawer = ({
       setSFID({
         value: e.target.value,
         error: true,
-        errorText: "SF ID is Required",
+        errorText: "SF ID is required",
       });
     } else if (e.target.value.trim().length > 50) {
       return;
@@ -175,28 +175,21 @@ const ClientDrawer = ({
   };
 
   const handleClientFullNameChange = (e: { target: { value: string } }) => {
-    const numbersRegex = /\d/;
-    const specialCharsRegex = /[^\w\s.-]/;
+    const numbers_specialCharacter_Regex = /(\d|[^\w\s-])/;
 
     if (e.target.value.trim().length === 0) {
       setClientFullName({
         value: e.target.value,
         error: true,
-        errorText: "Full Name is Required",
+        errorText: "Client Full Name is required",
       });
     } else if (e.target.value.length > 50) {
       return;
-    } else if (numbersRegex.test(e.target.value)) {
+    } else if (numbers_specialCharacter_Regex.test(e.target.value)) {
       setClientFullName({
         value: e.target.value,
         error: true,
-        errorText: "Numbers are not allowed",
-      });
-    } else if (specialCharsRegex.test(e.target.value)) {
-      setClientFullName({
-        value: e.target.value,
-        error: true,
-        errorText: "Special characters are not allowed",
+        errorText: "Numbers and Special characters are not allowed",
       });
     } else if (e.target.value.trim().length > 50) {
       setClientFullName({
@@ -246,7 +239,7 @@ const ClientDrawer = ({
       setBusinessType({
         value: -1,
         error: true,
-        errorText: "Department Type is Required",
+        errorText: "Department Type is required",
       });
     } else {
       setBusinessType({
@@ -264,7 +257,7 @@ const ClientDrawer = ({
       setStatus({
         value: -1,
         error: true,
-        errorText: "Status is Required",
+        errorText: "Status is required",
       });
     } else if (Number(e.target.value) === 2) {
       setInactive(true);
@@ -316,7 +309,7 @@ const ClientDrawer = ({
     const clientFullNameError = validateAndSetField(
       setClientFullName,
       clientFullName.value,
-      "Full Name"
+      "Client Full Name"
     );
     const emailError = validateAndSetField(setEmail, email.value, "Email");
     const businessTypeError = validateAndSetFieldNumber(
@@ -459,13 +452,13 @@ const ClientDrawer = ({
         </div>
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Full Name<span className="text-[#DC3545]">*</span>
+          Client Full Name<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
             id="outlined-basic"
             variant="standard"
             size="small"
-            placeholder="Please Enter Full Name"
+            placeholder="Please Enter Client Full Name"
             value={clientFullName.value}
             error={clientFullName.error}
             helperText={clientFullName.errorText}
