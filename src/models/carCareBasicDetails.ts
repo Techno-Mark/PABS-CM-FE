@@ -1,11 +1,13 @@
+import { Dayjs } from "dayjs";
+
 export interface LegalStructureFormTypes {
   no_of_Entities: string;
   no_of_Shops: string;
   salesRep: string;
-  agreementDate: Date | null;
-  probableAcquitionDate: Date | null;
+  agreementDate: Dayjs | null | string;
+  probableAcquitionDate: Dayjs | null | string;
   dba: string;
-  [key: string]: string | Date | null;
+  [key: string]: string | Dayjs | null;
 }
 
 export interface LegalStructureFormErrors extends Partial<LegalStructureFormTypes> {}
@@ -53,3 +55,29 @@ export interface PabsAccountingTeamFormTypes {
 }
 
 export interface PabsAccountingTeamFormErrors extends Partial<PabsAccountingTeamFormTypes> {}
+export interface AccountNameTypes {
+  className?:string,
+  autoCareAccountName:AccountNameFormTypes,
+  setAutoCareAccountName:React.Dispatch<React.SetStateAction<AccountNameFormTypes>>,
+  autoCareAccountNameErrors:AccountNameFormErrors,
+}
+
+export interface LegalStructureTypes {
+  className?:string,
+  autoCareLegalStructure:LegalStructureFormTypes,
+  setAutoCareLegalStructure:React.Dispatch<React.SetStateAction<LegalStructureFormTypes>>,
+  autoCareLegalStructureErrors:LegalStructureFormErrors,
+}
+
+export interface ClientTeamTypes {
+  className?:string,
+  autoCareClientTeam:ClientTeamFormTypes,
+  setAutoCareClientTeam:React.Dispatch<React.SetStateAction<ClientTeamFormTypes>>,
+  autoCareClientTeamErrors:ClientTeamFormErrors,
+}
+
+export interface PabsAccountingTeamTypes {
+  className?:string,
+  autoCarePabsAccountingTeam:PabsAccountingTeamFormTypes,
+  setAutoCarePabsAccountingTeam:React.Dispatch<React.SetStateAction<PabsAccountingTeamFormTypes>>,
+}

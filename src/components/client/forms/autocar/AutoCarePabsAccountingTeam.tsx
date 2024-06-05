@@ -2,17 +2,21 @@ import React from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
+import { PabsAccountingTeamTypes } from "@/models/carCareBasicDetails";
 
-function CarCarePabsAccountingTeam({
+function AutoCarePabsAccountingTeam({
   className,
-  carCarePabsAccountingTeam,
-  setCarCarePabsAccountingTeam,
-}: any) {
+  autoCarePabsAccountingTeam,
+  setAutoCarePabsAccountingTeam,
+}: PabsAccountingTeamTypes) {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCarCarePabsAccountingTeam({ ...carCarePabsAccountingTeam, [name]: value });
+    setAutoCarePabsAccountingTeam({
+      ...autoCarePabsAccountingTeam,
+      [name]: value,
+    });
   };
 
   return (
@@ -29,7 +33,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Implementation Manager"
-              value={carCarePabsAccountingTeam?.implementationManager}
+              value={autoCarePabsAccountingTeam?.implementationManager}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -51,7 +55,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Implementation Analyst"
-              value={carCarePabsAccountingTeam?.implementationAnalyst}
+              value={autoCarePabsAccountingTeam?.implementationAnalyst}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -73,7 +77,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Operations Head"
-              value={carCarePabsAccountingTeam?.operationsHead}
+              value={autoCarePabsAccountingTeam?.operationsHead}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -95,7 +99,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Operations Manager"
-              value={carCarePabsAccountingTeam?.operationsManager}
+              value={autoCarePabsAccountingTeam?.operationsManager}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -118,7 +122,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Operations Account Handler"
-              value={carCarePabsAccountingTeam?.operationsAccountHolder}
+              value={autoCarePabsAccountingTeam?.operationsAccountHolder}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -140,7 +144,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter PABS Group Email"
-              value={carCarePabsAccountingTeam?.pabsGroupEmail}
+              value={autoCarePabsAccountingTeam?.pabsGroupEmail}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -160,7 +164,7 @@ function CarCarePabsAccountingTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter PABS Phone"
-              value={carCarePabsAccountingTeam?.pabsPhone}
+              value={autoCarePabsAccountingTeam?.pabsPhone}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -178,4 +182,4 @@ function CarCarePabsAccountingTeam({
   );
 }
 
-export default CarCarePabsAccountingTeam;
+export default AutoCarePabsAccountingTeam;

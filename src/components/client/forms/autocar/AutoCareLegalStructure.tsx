@@ -1,31 +1,67 @@
 import React from "react";
+// Component import
 import FormBox from "@/components/client/common/FormBox";
-import { TextField } from "@mui/material";
+// Utlis import
 import { useStyles } from "@/utils/useStyles";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { validateNumber } from "@/utils/validate";
+// Date import
 import dayjs, { Dayjs } from "dayjs";
+// MUI import
+import { TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import {
+  LegalStructureFormTypes,
+  LegalStructureTypes,
+} from "@/models/carCareBasicDetails";
 
-function CarCareLegalStructure({
+function AutoCareLegalStructure({
   className,
-  carCarelegalStructure,
-  setCarCareLegalStructure,
-  carCareLegalStructureErrors,
-}: any) {
+  autoCareLegalStructure,
+  setAutoCareLegalStructure,
+  autoCareLegalStructureErrors,
+}: LegalStructureTypes) {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCarCareLegalStructure({ ...carCarelegalStructure, [name]: value });
+    switch (name) {
+      case "no_of_Entities":
+      case "no_of_Shops":
+        if (validateNumber(value)) {
+          setAutoCareLegalStructure({
+            ...autoCareLegalStructure,
+            [name]: value,
+          });
+        } else {
+          const validValue = value.replace(/[^0-9]/g, "");
+          setAutoCareLegalStructure((prev: LegalStructureFormTypes) => ({
+            ...prev,
+            [name]: validValue,
+          }));
+        }
+        break;
+      default:
+        setAutoCareLegalStructure({ ...autoCareLegalStructure, [name]: value });
+        break;
+    }
   };
 
   const handleDateChange = (date: Dayjs | null) => {
-    setCarCareLegalStructure({ ...carCarelegalStructure, agreementDate: date });
+    const formattedDate = date ? date.format("MM/DD/YYYY") : null;
+    setAutoCareLegalStructure({
+      ...autoCareLegalStructure,
+      agreementDate: formattedDate,
+    });
   };
 
   const handleProbableDateChange = (date: Dayjs | null) => {
-    setCarCareLegalStructure({ ...carCarelegalStructure, probableAcquitionDate: date });
-  }
+    const formattedDate = date ? date.format("MM/DD/YYYY") : null;
+    setAutoCareLegalStructure({
+      ...autoCareLegalStructure,
+      probableAcquitionDate: formattedDate,
+    });
+  };
 
   return (
     <div className={`${className}`}>
@@ -41,9 +77,9 @@ function CarCareLegalStructure({
               variant="standard"
               size="small"
               placeholder="Please Enter No.of Entities"
-              value={carCarelegalStructure?.no_of_Entities}
-              error={!!carCareLegalStructureErrors.no_of_Entities}
-              helperText={carCareLegalStructureErrors.no_of_Entities}
+              value={autoCareLegalStructure?.no_of_Entities}
+              error={!!autoCareLegalStructureErrors.no_of_Entities}
+              helperText={autoCareLegalStructureErrors.no_of_Entities}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -65,9 +101,9 @@ function CarCareLegalStructure({
               variant="standard"
               size="small"
               placeholder="Please Enter No.of Shops"
-              value={carCarelegalStructure?.no_of_Shops}
-              error={!!carCareLegalStructureErrors.no_of_Shops}
-              helperText={carCareLegalStructureErrors.no_of_Shops}
+              value={autoCareLegalStructure?.no_of_Shops}
+              error={!!autoCareLegalStructureErrors.no_of_Shops}
+              helperText={autoCareLegalStructureErrors.no_of_Shops}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -82,7 +118,7 @@ function CarCareLegalStructure({
 
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Sales Rep(PABS)
+              Sales Rep (PABS)
             </label>
             <TextField
               name="salesRep"
@@ -90,7 +126,7 @@ function CarCareLegalStructure({
               variant="standard"
               size="small"
               placeholder="Please Enter Sales Rep(PABS)"
-              value={carCarelegalStructure?.salesRep}
+              value={autoCareLegalStructure?.salesRep}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -115,7 +151,11 @@ function CarCareLegalStructure({
                 }}
                 minDate={dayjs(new Date())}
                 disablePast
-                value={carCarelegalStructure?.agreementDate}
+                value={
+                  autoCareLegalStructure?.agreementDate
+                    ? dayjs(autoCareLegalStructure.agreementDate, "MM/DD/YYYY")
+                    : null
+                }
                 onChange={handleDateChange}
                 slotProps={{
                   textField: {
@@ -146,7 +186,14 @@ function CarCareLegalStructure({
                 }}
                 minDate={dayjs(new Date())}
                 disablePast
-                value={carCarelegalStructure?.probableAcquitionDate}
+                value={
+                  autoCareLegalStructure?.probableAcquitionDate
+                    ? dayjs(
+                        autoCareLegalStructure.probableAcquitionDate,
+                        "MM/DD/YYYY"
+                      )
+                    : null
+                }
                 onChange={handleProbableDateChange}
                 slotProps={{
                   textField: {
@@ -170,7 +217,7 @@ function CarCareLegalStructure({
               variant="standard"
               size="small"
               placeholder="Please Enter DBA"
-              value={carCarelegalStructure?.dba}
+              value={autoCareLegalStructure?.dba}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -188,4 +235,4 @@ function CarCareLegalStructure({
   );
 }
 
-export default CarCareLegalStructure;
+export default AutoCareLegalStructure;

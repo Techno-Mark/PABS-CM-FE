@@ -1,19 +1,50 @@
 import { useStyles } from "@/utils/useStyles";
 import React from "react";
 import FormBox from "@/components/client/common/FormBox";
-import { TextField } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
+import { ClientTeamTypes } from "@/models/carCareBasicDetails";
+import {
+  StateList,
+  TimeZoneList,
+  WeeklyCallTimeList,
+  WeeklyCallsList,
+} from "@/static/carCareBasicDetail";
 
-function CarCareClientTeam({
+function AutoCareClientTeam({
   className,
-  carCareClientTeam,
-  setCarCareClientTeam,
-  carCareClientTeamErrors,
-}: any) {
+  autoCareClientTeam,
+  setAutoCareClientTeam,
+  autoCareClientTeamErrors,
+}: ClientTeamTypes) {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCarCareClientTeam({ ...carCareClientTeam, [name]: value });
+    setAutoCareClientTeam({ ...autoCareClientTeam, [name]: value });
+  };
+
+  const handleDropdownChange = (
+    e: SelectChangeEvent<string>,
+    dropdownType: string
+  ) => {
+    const { value } = e.target;
+    switch (dropdownType) {
+      case "timeZone":
+        setAutoCareClientTeam((prev) => ({ ...prev, timeZone: value }));
+        break;
+      case "state":
+        setAutoCareClientTeam((prev) => ({ ...prev, state: value }));
+        break;
+      case "weeklyCalls":
+        setAutoCareClientTeam((prev) => ({ ...prev, weeklyCalls: value }));
+        break;
+    }
   };
 
   return (
@@ -30,9 +61,9 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Shop Manager"
-              value={carCareClientTeam?.shopManager}
-              error={!!carCareClientTeamErrors.shopManager}
-              helperText={carCareClientTeamErrors.shopManager}
+              value={autoCareClientTeam?.shopManager}
+              error={!!autoCareClientTeamErrors.shopManager}
+              helperText={autoCareClientTeamErrors.shopManager}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -54,9 +85,9 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter POC1"
-              value={carCareClientTeam?.poc1}
-              error={!!carCareClientTeamErrors.poc1}
-              helperText={carCareClientTeamErrors.poc1}
+              value={autoCareClientTeam?.poc1}
+              error={!!autoCareClientTeamErrors.poc1}
+              helperText={autoCareClientTeamErrors.poc1}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -79,9 +110,9 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Email-ID"
-              value={carCareClientTeam?.email}
-              error={!!carCareClientTeamErrors.email}
-              helperText={carCareClientTeamErrors.email}
+              value={autoCareClientTeam?.email}
+              error={!!autoCareClientTeamErrors.email}
+              helperText={autoCareClientTeamErrors.email}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -102,7 +133,7 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter CPA"
-              value={carCareClientTeam?.cpa}
+              value={autoCareClientTeam?.cpa}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -125,7 +156,7 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter Prior Bookkeeper"
-              value={carCareClientTeam?.priorBookkeeper}
+              value={autoCareClientTeam?.priorBookkeeper}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -145,7 +176,7 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter IT Support"
-              value={carCareClientTeam?.itSupport}
+              value={autoCareClientTeam?.itSupport}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -159,83 +190,109 @@ function CarCareClientTeam({
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">Time Zone</label>
-            <TextField
-              name="timeZone"
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Please Enter Time Zone"
-              value={carCareClientTeam?.timeZone}
-              onChange={handleChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-              inputProps={{
-                className: classes.textSize,
-              }}
-            />
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                className={`${
+                  autoCareClientTeam?.timeZone === "-1"
+                    ? "!text-[12px] text-[#6E6D7A]"
+                    : "!text-[14px]"
+                }`}
+                value={autoCareClientTeam?.timeZone}
+                onChange={(e) => handleDropdownChange(e, "timeZone")}
+              >
+                {TimeZoneList.map((type) => (
+                  <MenuItem
+                    key={type.value}
+                    value={type.value}
+                    disabled={type.value === "-1"}
+                  >
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">State</label>
-            <TextField
-              name="state"
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Please Enter State"
-              value={carCareClientTeam?.state}
-              onChange={handleChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-              inputProps={{
-                className: classes.textSize,
-              }}
-            />
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                className={`${
+                  autoCareClientTeam?.state === "-1"
+                    ? "!text-[12px] text-[#6E6D7A]"
+                    : "!text-[14px]"
+                }`}
+                value={autoCareClientTeam?.state}
+                onChange={(e) => handleDropdownChange(e, "state")}
+              >
+                {StateList.map((type) => (
+                  <MenuItem
+                    key={type.value}
+                    value={type.value}
+                    disabled={type.value === "-1"}
+                  >
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">Weekly Calls</label>
-            <TextField
-              name="weeklyCalls"
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Please Enter Weekly Calls"
-              value={carCareClientTeam?.weeklyCalls}
-              onChange={handleChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-              inputProps={{
-                className: classes.textSize,
-              }}
-            />
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                className={`${
+                  autoCareClientTeam?.weeklyCalls === "-1"
+                    ? "!text-[12px] text-[#6E6D7A]"
+                    : "!text-[14px]"
+                }`}
+                value={autoCareClientTeam?.weeklyCalls}
+                onChange={(e) => handleDropdownChange(e, "weeklyCalls")}
+              >
+                {WeeklyCallsList.map((type) => (
+                  <MenuItem
+                    key={type.value}
+                    value={type.value}
+                    disabled={type.value === "-1"}
+                  >
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">Weekly Call Time</label>
-            <TextField
-              name="weeklyCallTime"
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Please Enter Weekly Call Time"
-              value={carCareClientTeam?.weeklyCallTime}
-              onChange={handleChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-              inputProps={{
-                className: classes.textSize,
-              }}
-            />
+            <label className="text-[#6E6D7A] text-[12px]">
+              Weekly Call Time
+            </label>
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                className={`${
+                  autoCareClientTeam?.weeklyCallTime === "-1"
+                    ? "!text-[12px] text-[#6E6D7A]"
+                    : "!text-[14px]"
+                }`}
+                value={autoCareClientTeam?.weeklyCallTime}
+                onChange={(e) => handleDropdownChange(e, "weeklyCallTime")}
+              >
+                {WeeklyCallTimeList.map((type) => (
+                  <MenuItem
+                    key={type.value}
+                    value={type.value}
+                    disabled={type.value === "-1"}
+                  >
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">IST Time</label>
@@ -245,7 +302,7 @@ function CarCareClientTeam({
               variant="standard"
               size="small"
               placeholder="Please Enter IST Time"
-              value={carCareClientTeam?.istTime}
+              value={autoCareClientTeam?.istTime}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -263,4 +320,4 @@ function CarCareClientTeam({
   );
 }
 
-export default CarCareClientTeam;
+export default AutoCareClientTeam;

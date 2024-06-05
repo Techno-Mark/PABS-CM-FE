@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 // MUI imports
-import { styled, Toolbar, AppBar as MuiAppBar } from "@mui/material";
+import { styled, Toolbar, AppBar as MuiAppBar, Tooltip } from "@mui/material";
 // Static data import
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
-import { AppBarProps, HeaderPropsType, Option } from "@/models/adminHeader";
+import { AppBarProps, Option } from "@/models/adminHeader";
 // Icons import
 import UserIcon from "@/assets/Icons/admin/header/UserIcon";
 import { callAPIwithHeaders } from "@/api/commonFunction";
@@ -16,6 +16,7 @@ import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
+import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -32,6 +33,7 @@ const AppBar = styled(MuiAppBar, {
 const ClientHeader = () => {
   const router = useRouter();
   const userId = Cookies.get("userId");
+  const roleId = Cookies.get("roleId");
   const userName = Cookies.get("userName");
   const [isOpen, setOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
@@ -106,7 +108,9 @@ const ClientHeader = () => {
       <Toolbar>
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
-            <span className="!font-semibold text-[15px]">SF00123 &nbsp;&nbsp;|&nbsp;&nbsp; Bosch Pvt Ltd. &nbsp;&nbsp;|&nbsp;&nbsp; White Label</span>
+            <span className="!font-semibold text-[15px]">
+              SF00123 &nbsp;|&nbsp; {userName} &nbsp;|&nbsp; Auto Car
+            </span>
           </div>
           <div className="relative flex">
             <div

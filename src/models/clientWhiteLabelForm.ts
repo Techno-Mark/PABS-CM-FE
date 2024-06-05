@@ -1,9 +1,3 @@
-// export interface AccountFormTypes {
-//     className?: string
-//     accountDetails: AccountDetailsType,
-//     setAccountDetails: (value:any) => void,
-//     errors,
-// }
 
 export interface FormErrors extends Partial<AccountDetailsType> {}
 
