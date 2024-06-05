@@ -1,5 +1,12 @@
 import { Dayjs } from "dayjs";
+import { ReactNode } from "react";
 
+export interface FormBoxProps {
+  title: string;
+  checked: boolean;
+  children: ReactNode;
+  className?: string;
+}
 export interface LegalStructureFormTypes {
   no_of_Entities: string;
   no_of_Shops: string;
@@ -60,6 +67,7 @@ export interface AccountNameTypes {
   autoCareAccountName:AccountNameFormTypes,
   setAutoCareAccountName:React.Dispatch<React.SetStateAction<AccountNameFormTypes>>,
   autoCareAccountNameErrors:AccountNameFormErrors,
+  setAutoCareAccountNameErrors:React.Dispatch<React.SetStateAction<AccountNameFormErrors>>,
 }
 
 export interface LegalStructureTypes {
@@ -67,6 +75,7 @@ export interface LegalStructureTypes {
   autoCareLegalStructure:LegalStructureFormTypes,
   setAutoCareLegalStructure:React.Dispatch<React.SetStateAction<LegalStructureFormTypes>>,
   autoCareLegalStructureErrors:LegalStructureFormErrors,
+  setAutoCareLegalStructureErrors:React.Dispatch<React.SetStateAction<LegalStructureFormErrors>>,
 }
 
 export interface ClientTeamTypes {
@@ -74,10 +83,21 @@ export interface ClientTeamTypes {
   autoCareClientTeam:ClientTeamFormTypes,
   setAutoCareClientTeam:React.Dispatch<React.SetStateAction<ClientTeamFormTypes>>,
   autoCareClientTeamErrors:ClientTeamFormErrors,
+  setAutoCareClientTeamErrors:React.Dispatch<React.SetStateAction<ClientTeamFormErrors>>,
 }
 
 export interface PabsAccountingTeamTypes {
   className?:string,
   autoCarePabsAccountingTeam:PabsAccountingTeamFormTypes,
   setAutoCarePabsAccountingTeam:React.Dispatch<React.SetStateAction<PabsAccountingTeamFormTypes>>,
+}
+
+export interface BasicDetailAutoCareType {
+  setBasicDetailCount:(value:number) => void,
+  setBasicDetailsFormSubmit:(value:number) => void,
+}
+
+export interface ChecklistAutoCareType {
+  setChecklistCount:(value:number) => void,
+  setChecklistFormSubmit:(value:number) => void,
 }

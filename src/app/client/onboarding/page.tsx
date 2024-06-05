@@ -5,12 +5,15 @@ import ClientWrapper from "@/components/ClientWapper";
 // Cookie import
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
 
 function Page() {
   const router = useRouter();
   const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
   const [basicDetailsFormSubmit, setBasicDetailsFormSubmit] =
     useState<number>(1);
+
+  console.log("basicDetailsFormSubmit : ", basicDetailsFormSubmit);
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
@@ -22,14 +25,26 @@ function Page() {
       basicDetailCount={basicDetailsCount}
       basicDetailsFormSubmit={basicDetailsFormSubmit}
     >
-      {/* <div className="h-[95vh]"> */}
+      {basicDetailsFormSubmit === 1 ? (
         <BasicDetailsAutoCare
           setBasicDetailsFormSubmit={(value: number) =>
             setBasicDetailsFormSubmit(value)
           }
           setBasicDetailCount={(value: number) => setBasicDetailCount(value)}
         />
-      {/* </div> */}
+      ) : basicDetailsFormSubmit === 2 ? (
+        <ChecklistAutoCare
+          setChecklistFormSubmit={(value: number) => {}}
+          setChecklistCount={(value: number) => setBasicDetailCount(value)}
+        />
+      ) : (
+        <BasicDetailsAutoCare
+          setBasicDetailsFormSubmit={(value: number) =>
+            setBasicDetailsFormSubmit(value)
+          }
+          setBasicDetailCount={(value: number) => setBasicDetailCount(value)}
+        />
+      )}
     </ClientWrapper>
   );
 }

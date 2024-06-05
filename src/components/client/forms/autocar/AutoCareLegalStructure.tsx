@@ -20,6 +20,7 @@ function AutoCareLegalStructure({
   autoCareLegalStructure,
   setAutoCareLegalStructure,
   autoCareLegalStructureErrors,
+  setAutoCareLegalStructureErrors
 }: LegalStructureTypes) {
   const classes = useStyles();
 
@@ -33,6 +34,7 @@ function AutoCareLegalStructure({
             ...autoCareLegalStructure,
             [name]: value,
           });
+          setAutoCareLegalStructureErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
         } else {
           const validValue = value.replace(/[^0-9]/g, "");
           setAutoCareLegalStructure((prev: LegalStructureFormTypes) => ({

@@ -8,25 +8,60 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { ClientTeamTypes } from "@/models/carCareBasicDetails";
+import {
+  ClientTeamFormTypes,
+  ClientTeamTypes,
+} from "@/models/carCareBasicDetails";
 import {
   StateList,
   TimeZoneList,
   WeeklyCallTimeList,
   WeeklyCallsList,
 } from "@/static/carCareBasicDetail";
+import { validateEmail } from "@/utils/validate";
 
 function AutoCareClientTeam({
   className,
   autoCareClientTeam,
   setAutoCareClientTeam,
   autoCareClientTeamErrors,
+  setAutoCareClientTeamErrors,
 }: ClientTeamTypes) {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAutoCareClientTeam({ ...autoCareClientTeam, [name]: value });
+
+    switch (name) {
+      case "email":
+        if (!validateEmail(value)) {
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Please provide a valid email address.",
+          }));
+          setAutoCareClientTeam((prev: ClientTeamFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+        } else {
+          setAutoCareClientTeam((prev: ClientTeamFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+        break;
+      default:
+        setAutoCareClientTeamErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "",
+        }));
+        setAutoCareClientTeam({ ...autoCareClientTeam, [name]: value });
+        break;
+    }
   };
 
   const handleDropdownChange = (
@@ -196,7 +231,7 @@ function AutoCareClientTeam({
                 id="demo-simple-select-standard"
                 className={`${
                   autoCareClientTeam?.timeZone === "-1"
-                    ? "!text-[12px] text-[#6E6D7A]"
+                    ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
                 }`}
                 value={autoCareClientTeam?.timeZone}
@@ -222,7 +257,7 @@ function AutoCareClientTeam({
                 id="demo-simple-select-standard"
                 className={`${
                   autoCareClientTeam?.state === "-1"
-                    ? "!text-[12px] text-[#6E6D7A]"
+                    ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
                 }`}
                 value={autoCareClientTeam?.state}
@@ -248,7 +283,7 @@ function AutoCareClientTeam({
                 id="demo-simple-select-standard"
                 className={`${
                   autoCareClientTeam?.weeklyCalls === "-1"
-                    ? "!text-[12px] text-[#6E6D7A]"
+                    ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
                 }`}
                 value={autoCareClientTeam?.weeklyCalls}
@@ -276,7 +311,7 @@ function AutoCareClientTeam({
                 id="demo-simple-select-standard"
                 className={`${
                   autoCareClientTeam?.weeklyCallTime === "-1"
-                    ? "!text-[12px] text-[#6E6D7A]"
+                    ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
                 }`}
                 value={autoCareClientTeam?.weeklyCallTime}

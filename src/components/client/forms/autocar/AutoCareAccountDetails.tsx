@@ -2,14 +2,18 @@ import React from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { useStyles } from "@/utils/useStyles";
 import { TextField } from "@mui/material";
-import { AccountNameFormTypes, AccountNameTypes } from "@/models/carCareBasicDetails";
-import { validateNumber } from "@/utils/validate";
+import {
+  AccountNameFormTypes,
+  AccountNameTypes,
+} from "@/models/carCareBasicDetails";
+import { validateEmail, validateNumber } from "@/utils/validate";
 
 function AutoCareAccountName({
   className,
   autoCareAccountName,
   setAutoCareAccountName,
   autoCareAccountNameErrors,
+  setAutoCareAccountNameErrors,
 }: AccountNameTypes) {
   const classes = useStyles();
 
@@ -22,7 +26,33 @@ function AutoCareAccountName({
       case "ownerPhone":
       case "ownerContact":
         if (isValidLength(value) && validateNumber(value)) {
-          setAutoCareAccountName((prev: AccountNameFormTypes) => ({ ...prev, [name]: value }));
+          setAutoCareAccountName((prev: AccountNameFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+          setAutoCareAccountNameErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        } else {
+          const validValue = value.replace(/[^0-9]/g, "");
+          setAutoCareAccountName((prev: AccountNameFormTypes) => ({
+            ...prev,
+            [name]: validValue,
+          }));
+        }
+
+        break;
+      case "no_of_Locations":
+        if (validateNumber(value)) {
+          setAutoCareAccountName((prev: AccountNameFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+          setAutoCareAccountNameErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
         } else {
           const validValue = value.replace(/[^0-9]/g, "");
           setAutoCareAccountName((prev: AccountNameFormTypes) => ({
@@ -31,19 +61,36 @@ function AutoCareAccountName({
           }));
         }
         break;
-      case "no_of_Locations":
-        if (validateNumber(value)) {
-          setAutoCareAccountName((prev: AccountNameFormTypes) => ({ ...prev, [name]: value }));
-        } else {
-          const validValue = value.replace(/[^0-9]/g, "");
+      case "ownerEmail":
+        if (!validateEmail(value)) {
+          setAutoCareAccountNameErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Please provide a valid email address.",
+          }));
           setAutoCareAccountName((prev: AccountNameFormTypes) => ({
             ...prev,
-            [name]: validValue,
+            [name]: value,
+          }));
+        } else {
+          setAutoCareAccountName((prev: AccountNameFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+          setAutoCareAccountNameErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
           }));
         }
         break;
       default:
-        setAutoCareAccountName((prev: AccountNameFormTypes) => ({ ...prev, [name]: value }));
+        setAutoCareAccountNameErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "",
+        }));
+        setAutoCareAccountName((prev: AccountNameFormTypes) => ({
+          ...prev,
+          [name]: value,
+        }));
         break;
     }
   };
@@ -54,9 +101,7 @@ function AutoCareAccountName({
         <div className="py-3 px-2 flex flex-col gap-4">
           <div className="flex grid-cols-2 gap-5">
             <div className="text-[12px] flex flex-col w-[70%]">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Account Name
-              </label>
+              <label className="text-[#6E6D7A] text-[12px]">Account Name</label>
               <TextField
                 name="accountName"
                 id="outlined-basic"

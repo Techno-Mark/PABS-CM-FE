@@ -7,6 +7,7 @@ import CarCareAccountName from "@/components/client/forms/autocar/AutoCareAccoun
 import {
   AccountNameFormErrors,
   AccountNameFormTypes,
+  BasicDetailAutoCareType,
   ClientTeamFormErrors,
   ClientTeamFormTypes,
   LegalStructureFormErrors,
@@ -39,7 +40,7 @@ import { validateEmail } from "@/utils/validate";
 function BasicDetailsAutoCare({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
-}: any) {
+}: BasicDetailAutoCareType) {
   const roleId = Cookies.get("roleId");
   const initialAutoCareAccountNameErrors: AccountNameFormErrors = {};
   const initialAutoCareLegalStructureErrors: LegalStructureFormErrors = {};
@@ -97,14 +98,11 @@ function BasicDetailsAutoCare({
     const newErrors: { [key: string]: string } = {};
 
     validateAutoCarAccountName.forEach((field) => {
-      if (!autoCareAccountName[field]) {
-        newErrors[field] = `${fieldDisplayNames[field]} is required`;
-      } else if (field === 'ownerEmail' && !validateEmail(autoCareAccountName[field])) {
-        newErrors[field] = 'Please provide a valid email address!';
-      }
-      else {
-        newErrors[field] = '';
-      }
+        if (!autoCareAccountName[field]) {
+          newErrors[field] = `${fieldDisplayNames[field]} is required`;
+        } else {
+          newErrors[field] = '';
+        }
     });
 
     const hasErrors = Object.values(newErrors).some((error) => !!error);
@@ -170,7 +168,41 @@ function BasicDetailsAutoCare({
   };
 
   const handleSubmit = (type: number) => {
-
+    const formData = {
+      businessType: autoCareAccountName.businessType,
+      service: autoCareAccountName.service,
+      corporateAddress: autoCareAccountName.corporateAddress,
+      no_of_Locations: autoCareAccountName.no_of_Locations,
+      locationName: autoCareAccountName.locationName,
+      ownerContact: autoCareAccountName.ownerContact,
+      ownerEmail: autoCareAccountName.ownerEmail,
+      ownerPhone: autoCareAccountName.ownerPhone,
+      no_of_Entities: autoCareLegalStructure.no_of_Entities,
+      no_of_Shops: autoCareLegalStructure.no_of_Shops,
+      salesRep: autoCareLegalStructure.salesRep,
+      agreementDate: autoCareLegalStructure.agreementDate,
+      probableAcquitionDate: autoCareLegalStructure.probableAcquitionDate,
+      dba: autoCareLegalStructure.dba,
+      shopManager: autoCareClientTeam.shopManager,
+      poc1: autoCareClientTeam.poc1,
+      email: autoCareClientTeam.email,
+      cpa: autoCareClientTeam.cpa,
+      priorBookkeeper: autoCareClientTeam.priorBookkeeper,
+      itSupport: autoCareClientTeam.itSupport,
+      timeZone: autoCareClientTeam.timeZone,
+      state: autoCareClientTeam.state,
+      weeklyCalls: autoCareClientTeam.weeklyCalls,
+      weeklyCallTime: autoCareClientTeam.weeklyCallTime,
+      istTime: autoCareClientTeam.istTime,
+      implementationManager: autoCarePabsAccountingTeam.implementationManager,
+      implementationAnalyst: autoCarePabsAccountingTeam.implementationAnalyst,
+      operationsHead: autoCarePabsAccountingTeam.operationsHead,
+      operationsManager: autoCarePabsAccountingTeam.operationsManager,
+      operationsAccountHolder:
+        autoCarePabsAccountingTeam.operationsAccountHolder,
+      pabsGroupEmail: autoCarePabsAccountingTeam.pabsGroupEmail,
+      pabsPhone: autoCarePabsAccountingTeam.pabsPhone,
+    };
     if (type === 1) {
       validateCarCareAccountName();
       validateCarCareLegalStructure();
@@ -185,6 +217,8 @@ function BasicDetailsAutoCare({
         setBasicDetailsFormSubmit(2);
         setBasicDetailCount(filledFieldsCount);
         // callAPIwithHeaders(autoCarFormUrl, "post", callback, formData);
+      }else{
+        setBasicDetailCount(filledFieldsCount);
       } 
     } else if (type === 2) {
       const filledFieldsCount = basicDetailStatus();
@@ -206,23 +240,26 @@ function BasicDetailsAutoCare({
 
   return (
     <>
-      <div className={`flex flex-col ${roleId !== '4' && 'h-[95vh]'} pt-12`}>
+      <div className={`flex flex-col ${roleId !== '4' ? 'h-[95vh]' : 'h-full'} pt-12`}>
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
             <CarCareAccountName
               autoCareAccountName={autoCareAccountName}
               setAutoCareAccountName={setAutoCareAccountName}
               autoCareAccountNameErrors={autoCareAccountNameErrors}
+              setAutoCareAccountNameErrors={setAutoCareAccountNameErrors}
             />
             <AutoCareLegalStructure
               autoCareLegalStructure={autoCareLegalStructure}
               setAutoCareLegalStructure={setAutoCareLegalStructure}
               autoCareLegalStructureErrors={autoCareLegalStructureErrors}
+              setAutoCareLegalStructureErrors={setAutoCareLegalStructureErrors}
             />
             <AutoCareClientTeam
               autoCareClientTeam={autoCareClientTeam}
               setAutoCareClientTeam={setAutoCareClientTeam}
               autoCareClientTeamErrors={autoCareClientTeamErrors}
+              setAutoCareClientTeamErrors={setAutoCareClientTeamErrors}
             />
             <AutoCarePabsAccountingTeam
               autoCarePabsAccountingTeam={autoCarePabsAccountingTeam}
