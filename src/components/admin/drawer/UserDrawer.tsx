@@ -124,28 +124,21 @@ const UserDrawer = ({
   }, [userId]);
 
   const handleFullNameChange = (e: { target: { value: string } }) => {
-    const numbersRegex = /\d/;
-    const specialCharsRegex = /[^\w\s-]/;
+    const numbers_specialCharacter_Regex = /(\d|[^\w\s-])/;
     if (e.target.value.trim().length === 0) {
       setFullName({
         value: e.target.value,
         error: true,
-        errorText: "Full Name is Required",
+        errorText: "Full Name is required",
       });
-    } else if (numbersRegex.test(e.target.value)) {
+    } else if (numbers_specialCharacter_Regex.test(e.target.value)) {
       setFullName({
         value: e.target.value,
         error: true,
-        errorText: "Numbers are not allowed",
+        errorText: "Numbers and Special characters are not allowed",
       });
     } else if (e.target.value.length > 50) {
       return;
-    } else if (specialCharsRegex.test(e.target.value)) {
-      setFullName({
-        value: e.target.value,
-        error: true,
-        errorText: "Special characters are not allowed",
-      });
     } else if (e.target.value.trim().length > 50) {
       setFullName({
         value: e.target.value,
@@ -192,7 +185,7 @@ const UserDrawer = ({
       setRole({
         value: -1,
         error: true,
-        errorText: "Role is Required",
+        errorText: "Role is required",
       });
     } else {
       setRole({
@@ -212,7 +205,7 @@ const UserDrawer = ({
       setBusinessType({
         value: -1,
         error: true,
-        errorText: "Department Type is Required",
+        errorText: "Department Type is required",
       });
     } else {
       setBusinessType({
@@ -230,7 +223,7 @@ const UserDrawer = ({
       setStatus({
         value: -1,
         error: true,
-        errorText: "Status is Required",
+        errorText: "Status is required",
       });
     } else if (Number(e.target.value) === 2) {
       setInactive(true);
