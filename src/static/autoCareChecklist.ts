@@ -1,9 +1,25 @@
 export const initialAutoCareGroupEmailEstablished = {
-  status: "",
-  comments: "",
-  details: "",
-  actionName: "",
-  actionItems: "",
+  groupEmailEstablishStatus: "",
+  groupEmailEstablishComments: "",
+  groupEmailEstablishDetails: "",
+  groupEmailEstablishActionName: "",
+  groupEmailEstablishActionItems: "",
+};
+
+export const initialAutoCarePreKickOff = {
+  preKickOffStatus: "",
+  preKickOffComments: "",
+  preKickOffDetails: "",
+  preKickOffActionName: "",
+  preKickOffActionItems: "",
+};
+
+export const initialAutoCareKickOff = {
+  kickOffStatus: "",
+  kickOffComments: "",
+  kickOffDetails: "",
+  kickOffActionName: "",
+  kickOffActionItems: "",
 };
 
 export const initialAutoCareAccessComputerMethod = {
@@ -36,6 +52,22 @@ export const initialAutoCareAccountingSoftware= {
   accountingSoftwareDetails: "",
   accountingSoftwareActionName: "",
   accountingSoftwareActionItems: "",
+};
+
+export const initialAutoCareCloudDocumentManagement= {
+  cloudDocumentManagementStatus: "",
+  cloudDocumentManagementComments: "",
+  cloudDocumentManagementDetails: "",
+  cloudDocumentManagementActionName: "",
+  cloudDocumentManagementActionItems: ""
+};
+
+export const initialAutoCareScanner= {
+  scannerStatus: "",
+  scannerComments: "",
+  scannerDetails: "",
+  scannerActionName: "",
+  scannerActionItems: ""
 };
 
 export const AccordianExpand = {

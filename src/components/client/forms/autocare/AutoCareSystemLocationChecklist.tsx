@@ -4,16 +4,22 @@ import {
   AccessComputerMethodTypes,
   AccountingSoftwareFormTypes,
   AccountingSoftwareTypes,
+  CloudDocumentManagementFormTypes,
+  CloudDocumentManagementTypes,
   ITStructureReviewFormTypes,
   ITStructureReviewTypes,
   PosSystemFormTypes,
   PosSystemTypes,
+  ScannerFormTypes,
+  ScannerTypes,
 } from "@/models/autoCarChecklist";
 import {
   initialAutoCareAccessComputerMethod,
   initialAutoCareAccountingSoftware,
+  initialAutoCareCloudDocumentManagement,
   initialAutoCareITStructureReview,
   initialAutoCarePosSystem,
+  initialAutoCareScanner,
 } from "@/static/autoCareChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -28,6 +34,15 @@ function AutoCareSystemLocationChecklist({ className }: any) {
     useState<PosSystemFormTypes>(initialAutoCarePosSystem);
   const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] =
     useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
+  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] =
+    useState<CloudDocumentManagementFormTypes>(
+      initialAutoCareCloudDocumentManagement
+    );
+    const [autoCareScanner, setAutoCareScanner] =
+    useState<ScannerFormTypes>(
+      initialAutoCareScanner
+    );
+
   return (
     <div className={`${className}`}>
       <ITStructureReview
@@ -47,12 +62,12 @@ function AutoCareSystemLocationChecklist({ className }: any) {
         setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
       />
       <CloudDocumentManagement
-        autoCareAccountingSoftware={autoCareAccountingSoftware}
-        setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
+        autoCareCloudDocumentManagement={autoCareCloudDocumentManagement}
+        setAutoCareCloudDocumentManagement={setAutoCareCloudDocumentManagement}
       />
       <Scanner
-        autoCareAccountingSoftware={autoCareAccountingSoftware}
-        setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
+        autoCareScanner={autoCareScanner}
+        setAutoCareScanner={setAutoCareScanner}
       />
     </div>
   );
@@ -627,18 +642,20 @@ const AccountingSoftware = ({
 };
 
 const CloudDocumentManagement = ({
-  autoCareAccountingSoftware,
-  setAutoCareAccountingSoftware,
-}: AccountingSoftwareTypes) => {
+  autoCareCloudDocumentManagement,
+  setAutoCareCloudDocumentManagement,
+}: CloudDocumentManagementTypes) => {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCareAccountingSoftware((prev: AccountingSoftwareFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setAutoCareCloudDocumentManagement(
+      (prev: CloudDocumentManagementFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
   };
   return (
     <>
@@ -651,12 +668,14 @@ const CloudDocumentManagement = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="accountingSoftwareComments"
+                name="cloudDocumentManagementComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={autoCareAccountingSoftware?.accountingSoftwareComments}
+                value={
+                  autoCareCloudDocumentManagement?.cloudDocumentManagementComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -673,12 +692,14 @@ const CloudDocumentManagement = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="accountingSoftwareStatus"
+                name="cloudDocumentManagementStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={autoCareAccountingSoftware?.accountingSoftwareStatus}
+                value={
+                  autoCareCloudDocumentManagement?.cloudDocumentManagementStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -695,12 +716,14 @@ const CloudDocumentManagement = ({
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="accountingSoftwareDetails"
+                name="cloudDocumentManagementDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={autoCareAccountingSoftware?.accountingSoftwareDetails}
+                value={
+                  autoCareCloudDocumentManagement?.cloudDocumentManagementDetails
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -719,12 +742,14 @@ const CloudDocumentManagement = ({
                 Action Name - PABS
               </label>
               <TextField
-                name="accountingSoftwareActionName"
+                name="cloudDocumentManagementActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
-                value={autoCareAccountingSoftware?.accountingSoftwareActionName}
+                value={
+                  autoCareCloudDocumentManagement?.cloudDocumentManagementActionName
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -743,13 +768,13 @@ const CloudDocumentManagement = ({
                 Action Items - Client
               </label>
               <TextField
-                name="accountingSoftwareActionItems"
+                name="cloudDocumentManagementActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={
-                  autoCareAccountingSoftware?.accountingSoftwareActionItems
+                  autoCareCloudDocumentManagement?.cloudDocumentManagementActionItems
                 }
                 onChange={handleChange}
                 InputProps={{
@@ -769,16 +794,13 @@ const CloudDocumentManagement = ({
   );
 };
 
-const Scanner = ({
-  autoCareAccountingSoftware,
-  setAutoCareAccountingSoftware,
-}: AccountingSoftwareTypes) => {
+const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCareAccountingSoftware((prev: AccountingSoftwareFormTypes) => ({
+    setAutoCareScanner((prev: ScannerFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -794,12 +816,12 @@ const Scanner = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="accountingSoftwareComments"
+                name="scannerComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={autoCareAccountingSoftware?.accountingSoftwareComments}
+                value={autoCareScanner?.scannerComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -816,12 +838,12 @@ const Scanner = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="accountingSoftwareStatus"
+                name="scannerStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={autoCareAccountingSoftware?.accountingSoftwareStatus}
+                value={autoCareScanner?.scannerStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -838,12 +860,12 @@ const Scanner = ({
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="accountingSoftwareDetails"
+                name="scannerDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={autoCareAccountingSoftware?.accountingSoftwareDetails}
+                value={autoCareScanner?.scannerDetails}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -862,12 +884,12 @@ const Scanner = ({
                 Action Name - PABS
               </label>
               <TextField
-                name="accountingSoftwareActionName"
+                name="scannerActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
-                value={autoCareAccountingSoftware?.accountingSoftwareActionName}
+                value={autoCareScanner?.scannerActionName}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -886,14 +908,12 @@ const Scanner = ({
                 Action Items - Client
               </label>
               <TextField
-                name="accountingSoftwareActionItems"
+                name="scannerActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={
-                  autoCareAccountingSoftware?.accountingSoftwareActionItems
-                }
+                value={autoCareScanner?.scannerActionItems}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

@@ -224,6 +224,7 @@ function BasicDetailsAutoCare({
       pabsPhone: autoCarePabsAccountingTeam.pabsPhone,
     };
     if (type === 1) {
+      setBasicDetailsFormSubmit(2); // temporary basic change it afterwards
       validateCarCareAccountDetails();
       validateCarCareLegalStructure();
       validateCarCareClientTeam();
@@ -257,8 +258,6 @@ function BasicDetailsAutoCare({
       setAutoCareClientTeamErrors({});
     }
   };
-
-  console.log('autoCareClientTeamErrors : ',autoCareClientTeamErrors)
 
   return (
     <>

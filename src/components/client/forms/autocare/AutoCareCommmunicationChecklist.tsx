@@ -1,16 +1,47 @@
-
+import {
+  GroupEmailEstablishedFormTypes,
+  GroupEmailEstablishedTypes,
+  KickOffFormTypes,
+  PreKickOffFormTypes,
+  PreKickOffTypes
+} from "@/models/autoCarChecklist";
+import {
+  initialAutoCareGroupEmailEstablished,
+  initialAutoCareKickOff,
+  initialAutoCarePreKickOff,
+} from "@/static/autoCareChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 function AutoCareCommmunicationChecklist({ className }: any) {
+  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
+    useState<GroupEmailEstablishedFormTypes>(
+      initialAutoCareGroupEmailEstablished
+    );
+  const [autoCarePreKickOff, setAutoCarePreKickOff] =
+    useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
+
+  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(
+    initialAutoCareKickOff
+  );
+
+  console.log("autoCareKickOff : ",autoCareKickOff)
+  console.log('autoCarePreKickOff : ',autoCarePreKickOff)
+  console.log("autoCareGroupEmailEstablished : ",autoCareGroupEmailEstablished)
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished
+        autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
+        setAutoCareGroupEmailEstablished={setAutoCareGroupEmailEstablished}
       />
       <PreKickOff
+        autoCarePreKickOff={autoCarePreKickOff}
+        setAutoCarePreKickOff={setAutoCarePreKickOff}
       />
       <KickOff
+        autoCareKickOff={autoCareKickOff}
+        setAutoCareKickOff={setAutoCareKickOff}
       />
     </div>
   );
@@ -21,32 +52,36 @@ export default AutoCareCommmunicationChecklist;
 const GroupEmailEstablished = ({
   autoCareGroupEmailEstablished,
   setAutoCareGroupEmailEstablished,
-}: any) => {
+}: GroupEmailEstablishedTypes) => {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCareGroupEmailEstablished((prev: any) => ({
+    setAutoCareGroupEmailEstablished((prev: GroupEmailEstablishedFormTypes) => ({
       ...prev,
       [name]: value,
     }));
   };
   return (
     <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">Group Email Established</div>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Group Email Established
+      </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="groupEmailComments"
+                name="groupEmailEstablishComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={autoCareGroupEmailEstablished?.groupEmailComments}
+                value={
+                  autoCareGroupEmailEstablished?.groupEmailEstablishComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -63,12 +98,12 @@ const GroupEmailEstablished = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="groupEmailStatus"
+                name="groupEmailEstablishStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={autoCareGroupEmailEstablished?.groupEmailStatus}
+                value={autoCareGroupEmailEstablished?.groupEmailEstablishStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -85,12 +120,14 @@ const GroupEmailEstablished = ({
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="groupEmailDetails"
+                name="groupEmailEstablishDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={autoCareGroupEmailEstablished?.groupEmailDetails}
+                value={
+                  autoCareGroupEmailEstablished?.groupEmailEstablishDetails
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -109,12 +146,14 @@ const GroupEmailEstablished = ({
                 Action Name - PABS
               </label>
               <TextField
-                name="groupEmailActionName"
+                name="groupEmailEstablishActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
-                value={autoCareGroupEmailEstablished?.groupEmailActionName}
+                value={
+                  autoCareGroupEmailEstablished?.groupEmailEstablishActionName
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -133,12 +172,14 @@ const GroupEmailEstablished = ({
                 Action Items - Client
               </label>
               <TextField
-                name="groupEmailActionItems"
+                name="groupEmailEstablishActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={autoCareGroupEmailEstablished?.groupEmailActionItems}
+                value={
+                  autoCareGroupEmailEstablished?.groupEmailEstablishActionItems
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -158,22 +199,24 @@ const GroupEmailEstablished = ({
 };
 
 const PreKickOff = ({
-  autoCarePreKickOffEstablished,
-  setAutoCarePreKickOffEstablished,
-}: any) => {
+  autoCarePreKickOff,
+  setAutoCarePreKickOff,
+}: PreKickOffTypes) => {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCarePreKickOffEstablished((prev: any) => ({
+    setAutoCarePreKickOff((prev: PreKickOffFormTypes) => ({
       ...prev,
       [name]: value,
     }));
   };
   return (
     <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">Pre Kick Off</div>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Pre Kick Off
+      </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
@@ -185,7 +228,7 @@ const PreKickOff = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={autoCarePreKickOffEstablished?.preKickOffComments}
+                value={autoCarePreKickOff?.preKickOffComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -207,7 +250,7 @@ const PreKickOff = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={autoCarePreKickOffEstablished?.preKickOffStatus}
+                value={autoCarePreKickOff?.preKickOffStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -229,7 +272,7 @@ const PreKickOff = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={autoCarePreKickOffEstablished?.preKickOffDetails}
+                value={autoCarePreKickOff?.preKickOffDetails}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -253,7 +296,7 @@ const PreKickOff = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
-                value={autoCarePreKickOffEstablished?.preKickOffActionName}
+                value={autoCarePreKickOff?.preKickOffActionName}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -277,7 +320,7 @@ const PreKickOff = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={autoCarePreKickOffEstablished?.preKickOffActionItems}
+                value={autoCarePreKickOff?.preKickOffActionItems}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -302,14 +345,16 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: any) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCareKickOff((prev: any) => ({
+    setAutoCareKickOff((prev: KickOffFormTypes) => ({
       ...prev,
       [name]: value,
     }));
   };
   return (
     <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">Kick Off</div>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Kick Off
+      </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
@@ -338,7 +383,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: any) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="groupEmailStatus"
+                name="kickOffStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
@@ -360,7 +405,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: any) => {
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="groupEmailDetails"
+                name="kickOffDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
