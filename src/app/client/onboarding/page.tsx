@@ -10,10 +10,8 @@ import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
 function Page() {
   const router = useRouter();
   const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
-  const [basicDetailsFormSubmit, setBasicDetailsFormSubmit] =
-    useState<number>(1);
+  const [formSubmit, setFormSubmit] = useState<number>(1);
 
-  console.log("basicDetailsFormSubmit : ", basicDetailsFormSubmit);
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
@@ -23,25 +21,21 @@ function Page() {
   return (
     <ClientWrapper
       basicDetailCount={basicDetailsCount}
-      basicDetailsFormSubmit={basicDetailsFormSubmit}
+      basicDetailsFormSubmit={formSubmit}
     >
-      {basicDetailsFormSubmit === 1 ? (
+      {formSubmit === 1 ? (
         <BasicDetailsAutoCare
-          setBasicDetailsFormSubmit={(value: number) =>
-            setBasicDetailsFormSubmit(value)
-          }
+          setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setBasicDetailCount={(value: number) => setBasicDetailCount(value)}
         />
-      ) : basicDetailsFormSubmit === 2 ? (
+      ) : formSubmit === 2 ? (
         <ChecklistAutoCare
-          setChecklistFormSubmit={(value: number) => {}}
+          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
       ) : (
         <BasicDetailsAutoCare
-          setBasicDetailsFormSubmit={(value: number) =>
-            setBasicDetailsFormSubmit(value)
-          }
+          setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setBasicDetailCount={(value: number) => setBasicDetailCount(value)}
         />
       )}

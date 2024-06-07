@@ -120,7 +120,7 @@ const ClientSidebar = ({
                   }}
                 ></div>
                 <span
-                  className={`relative z-10 ml-auto mr-1 text-[8px] ${
+                  className={`relative z-10 ml-auto mr-1 text-[8px] items-center ${
                     data.value > 85 ? "text-white" : "text-[#023963]"
                   }`}
                 >

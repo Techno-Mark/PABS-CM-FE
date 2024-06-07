@@ -1,5 +1,5 @@
 import { useStyles } from "@/utils/useStyles";
-import React from "react";
+import React, { useState } from "react";
 import FormBox from "@/components/client/common/FormBox";
 import {
   FormControl,
@@ -19,6 +19,15 @@ import {
   WeeklyCallsList,
 } from "@/static/carCareBasicDetail";
 import { validateEmail } from "@/utils/validate";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs, { Dayjs } from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 function AutoCareClientTeam({
   className,
@@ -64,6 +73,50 @@ function AutoCareClientTeam({
     }
   };
 
+  const handleTimeChange = (time: any, name: string) => {
+    const formattedTime = time ? time.format("hh:mm A") : null;
+
+    switch (name) {
+      case "weeklyCallTime":
+        setAutoCareClientTeam({
+          ...autoCareClientTeam,
+          weeklyCallTime: formattedTime,
+        });
+        setAutoCareClientTeamErrors((prevErrors) => ({
+          ...prevErrors,
+          weeklyCallTime: "",
+        }));
+        if (
+          formattedTime &&
+          autoCareClientTeam.timeZone !== "-1"
+        ) {
+          const convertedTime = convertToIST(time, autoCareClientTeam.timeZone);
+          setAutoCareClientTeam({
+            ...autoCareClientTeam,
+            istTime: convertedTime.format("hh:mm A"),
+          });
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            istTime: "",
+          }));
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }))
+        }
+        break;
+      case "istTime":
+        setAutoCareClientTeam({
+          ...autoCareClientTeam,
+          istTime: formattedTime,
+        });
+        setAutoCareClientTeamErrors((prevErrors) => ({
+          ...prevErrors,
+          istTime: "",
+        }));
+    }
+  };
+
   const handleDropdownChange = (
     e: SelectChangeEvent<string>,
     dropdownType: string
@@ -78,8 +131,30 @@ function AutoCareClientTeam({
         break;
       case "weeklyCalls":
         setAutoCareClientTeam((prev) => ({ ...prev, weeklyCalls: value }));
+        setAutoCareClientTeamErrors((prevErrors) => ({
+          ...prevErrors,
+          weeklyCalls: "",
+        }));
         break;
     }
+  };
+
+  const timeZoneMap: { [key: string]: string } = {
+    "1": "Asia/Kolkata", // IST
+    "2": "America/Los_Angeles", // PST
+    "3": "America/Halifax", // Atlantic
+    "4": "America/Chicago", // CST
+    "5": "America/New_York", // EST
+    "6": "Europe/London", // GMT
+  };
+
+  const convertToIST = (time: Dayjs, timeZone: string): Dayjs => {
+    const selectedTimeZone = timeZoneMap[timeZone];
+    if (!selectedTimeZone) return time;
+
+    // Convert the time to UTC first, then to IST
+    const utcTime = time.tz(selectedTimeZone).utc();
+    return utcTime.tz("Asia/Kolkata");
   };
 
   return (
@@ -137,14 +212,14 @@ function AutoCareClientTeam({
 
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Email-ID<span className="text-[#DC3545]">*</span>
+              Email<span className="text-[#DC3545]">*</span>
             </label>
             <TextField
               name="email"
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter Email-ID"
+              placeholder="Please Enter Email"
               value={autoCareClientTeam?.email}
               error={!!autoCareClientTeamErrors.email}
               helperText={autoCareClientTeamErrors.email}
@@ -276,7 +351,9 @@ function AutoCareClientTeam({
             </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">Weekly Calls</label>
+            <label className="text-[#6E6D7A] text-[12px]">
+              Weekly Calls<span className="text-[#DC3545]">*</span>
+            </label>
             <FormControl variant="standard">
               <Select
                 labelId="demo-simple-select-standard-label"
@@ -287,6 +364,7 @@ function AutoCareClientTeam({
                     : "!text-[14px]"
                 }`}
                 value={autoCareClientTeam?.weeklyCalls}
+                error={!!autoCareClientTeamErrors?.weeklyCalls}
                 onChange={(e) => handleDropdownChange(e, "weeklyCalls")}
               >
                 {WeeklyCallsList.map((type) => (
@@ -299,55 +377,106 @@ function AutoCareClientTeam({
                   </MenuItem>
                 ))}
               </Select>
+              {autoCareClientTeamErrors?.weeklyCalls && (
+                <span className="text-[#d32f2f]">
+                  {autoCareClientTeamErrors?.weeklyCalls}
+                </span>
+              )}
             </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Weekly Call Time
+              Weekly Call Time<span className="text-[#DC3545]">*</span>
             </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.weeklyCallTime === "-1"
-                    ? "!text-[12px] !text-[#a1a1a1]"
-                    : "!text-[14px]"
-                }`}
-                value={autoCareClientTeam?.weeklyCallTime}
-                onChange={(e) => handleDropdownChange(e, "weeklyCallTime")}
-              >
-                {WeeklyCallTimeList.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === "-1"}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                timezone={autoCareClientTeam?.timeZone ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"}
+                name="weeklyCallTime"
+                sx={{
+                  height: "22px !important",
+                  marginTop: "4px",
+                  flexDirection: "unset",
+                  fontSize: "12px !important",
+                  fontFamily: "'Poppins !important',sans serif",
+                }}
+                value={
+                  autoCareClientTeam?.weeklyCallTime
+                    ? dayjs.tz(autoCareClientTeam?.weeklyCallTime, "hh:mm A", autoCareClientTeam?.timeZone ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata")
+                    : null
+                }
+                onChange={(e) => handleTimeChange(e, "weeklyCallTime")}
+                onError={(error) =>
+                  setAutoCareClientTeamErrors((prevErrors) => ({
+                    ...prevErrors,
+                    weeklyCallTime: error,
+                  }))
+                }
+                disabled={autoCareClientTeam?.timeZone !== '-1' ? false : true}
+                slotProps={{
+                  textField: {
+                    variant: "standard",
+                    InputProps: {
+                      sx: {
+                        fontSize: "12px !important",
+                        width: "100%",
+                      },
+                    },
+                    error: !!autoCareClientTeamErrors.weeklyCallTime,
+                  },
+                }}
+              />
+              {autoCareClientTeamErrors?.weeklyCallTime && (
+                <span className="text-[#d32f2f]">
+                  {autoCareClientTeamErrors.weeklyCallTime.toString()}
+                </span>
+              )}
+            </LocalizationProvider>
           </div>
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">IST Time</label>
-            <TextField
-              name="istTime"
-              id="outlined-basic"
-              variant="standard"
-              size="small"
-              placeholder="Please Enter IST Time"
-              value={autoCareClientTeam?.istTime}
-              onChange={handleChange}
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                },
-              }}
-              inputProps={{
-                className: classes.textSize,
-              }}
-            />
+            <label className="text-[#6E6D7A] text-[12px]">
+              IST Time<span className="text-[#DC3545]">*</span>
+            </label>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                name="istTime"
+                sx={{
+                  height: "22px !important",
+                  marginTop: "4px",
+                  flexDirection: "unset",
+                  fontSize: "12px !important",
+                  fontFamily: "'Poppins !important',sans serif",
+                }}
+                value={
+                  autoCareClientTeam?.istTime
+                    ? dayjs(autoCareClientTeam.istTime, "hh:mm A")
+                    : null
+                }
+                onChange={(e) => handleTimeChange(e, "istTime")}
+                onError={(error) =>
+                  setAutoCareClientTeamErrors((prevErrors) => ({
+                    ...prevErrors,
+                    istTime: error,
+                  }))
+                }
+                slotProps={{
+                  textField: {
+                    variant: "standard",
+                    InputProps: {
+                      sx: {
+                        fontSize: "12px !important",
+                        width: "100%",
+                      },
+                    },
+                    error: !!autoCareClientTeamErrors.istTime,
+                  },
+                }}
+              />
+              {autoCareClientTeamErrors?.istTime && (
+                <span className="text-[#d32f2f]">
+                  {autoCareClientTeamErrors.istTime.toString()}
+                </span>
+              )}
+            </LocalizationProvider>
           </div>
         </div>
       </FormBox>

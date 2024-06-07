@@ -29,8 +29,8 @@ export const initialAutoCareClientTeam = {
   timeZone: "-1",
   state: "-1",
   weeklyCalls: "-1",
-  weeklyCallTime: "-1",
-  istTime: "",
+  weeklyCallTime: null,
+  istTime: null,
 };
 
 export const initialAutoCarePabsAccountingTeam = {
@@ -44,6 +44,7 @@ export const initialAutoCarePabsAccountingTeam = {
 };
 
 export const validateFields = [
+  "accountName",
   "corporateAddress",
   "no_of_Locations",
   "locationName",
@@ -55,9 +56,13 @@ export const validateFields = [
   "shopManager",
   "poc1",
   "email",
+  "weeklyCalls",
+  "weeklyCallTime", 
+  "istTime"
 ];
 
-export const validateAutoCarAccountName = [
+export const validateAutoCarAccountDetails = [
+  "accountName",
   "corporateAddress",
   "no_of_Locations",
   "locationName",
@@ -68,7 +73,7 @@ export const validateAutoCarAccountName = [
 
 export const validateAutoCarLegalStructure = ["no_of_Entities", "no_of_Shops"];
 
-export const validateAutoCarClientTeam = ["shopManager", "poc1", "email"];
+export const validateAutoCarClientTeam = ["shopManager", "poc1", "email", "weeklyCalls","weeklyCallTime", "istTime"];
 
 export const TimeZoneList = [
   { value: '-1', label: "Please Select Time Zone" },
@@ -82,10 +87,20 @@ export const TimeZoneList = [
 
 export const StateList = [
   { value: '-1', label: "Please Select State" },
+  { value: '1', label: "California" },
+  { value: '2', label: "Texas" },
+  { value: '3', label: "New York" },
+  { value: '4', label: "Florida" },
+  { value: '5', label: "Illinois" },
 ];
 
 export const WeeklyCallsList = [
   { value: '-1', label: "Please Select Weekly Calls" },
+  { value: '1', label: "Monday" },
+  { value: '2', label: "Tuesday" },
+  { value: '3', label: "Wednesday" },
+  { value: '4', label: "Thrusday" },
+  { value: '5', label: "Friday" },
 ];
 
 export const WeeklyCallTimeList = [

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 // MUI import
 import { Button } from "@mui/material";
 // Component import
-import CarCareAccountName from "@/components/client/forms/autocar/AutoCareAccountDetails";
+import CarCareAccountName from "@/components/client/forms/autocare/AutoCareAccountDetails";
 // Models import
 import {
-  AccountNameFormErrors,
-  AccountNameFormTypes,
+  AccountDetailsFormErrors,
+  AccountDetailsFormTypes,
   BasicDetailAutoCareType,
   ClientTeamFormErrors,
   ClientTeamFormTypes,
@@ -20,7 +20,7 @@ import {
   initialAutoCareClientTeam,
   initialAutoCareLegalStructure,
   initialAutoCarePabsAccountingTeam,
-  validateAutoCarAccountName,
+  validateAutoCarAccountDetails,
   validateAutoCarClientTeam,
   validateAutoCarLegalStructure,
   validateFields,
@@ -28,32 +28,33 @@ import {
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { autoCarFormUrl } from "@/static/apiUrl";
 import { showToast } from "@/components/ToastContainer";
-import AutoCareLegalStructure from "@/components/client/forms/autocar/AutoCareLegalStructure";
-import AutoCareClientTeam from "@/components/client/forms/autocar/AutoCareClientTeam";
-import AutoCarePabsAccountingTeam from "@/components/client/forms/autocar/AutoCarePabsAccountingTeam";
+import AutoCareLegalStructure from "@/components/client/forms/autocare/AutoCareLegalStructure";
+import AutoCareClientTeam from "@/components/client/forms/autocare/AutoCareClientTeam";
+import AutoCarePabsAccountingTeam from "@/components/client/forms/autocare/AutoCarePabsAccountingTeam";
 import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";
 // Utlis Import
 import { validateEmail } from "@/utils/validate";
+import AutoCareAccountDetails from "@/components/client/forms/autocare/AutoCareAccountDetails";
 
 function BasicDetailsAutoCare({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
 }: BasicDetailAutoCareType) {
   const roleId = Cookies.get("roleId");
-  const initialAutoCareAccountNameErrors: AccountNameFormErrors = {};
+  const initialAutoCareAccountDetailsErrors: AccountDetailsFormErrors = {};
   const initialAutoCareLegalStructureErrors: LegalStructureFormErrors = {};
   const initialAutoCareClientTeamErrors: ClientTeamFormErrors = {};
 
-  const [autoCareAccountNameErrors, setAutoCareAccountNameErrors] =
-    useState<AccountNameFormErrors>(initialAutoCareAccountNameErrors);
+  const [autoCareAccountDetailsErrors, setAutoCareAccountDetailsErrors] =
+    useState<AccountDetailsFormErrors>(initialAutoCareAccountDetailsErrors);
   const [autoCareLegalStructureErrors, setAutoCareLegalStructureErrors] =
     useState<LegalStructureFormErrors>(initialAutoCareLegalStructureErrors);
   const [autoCareClientTeamErrors, setAutoCareClientTeamErrors] =
     useState<ClientTeamFormErrors>(initialAutoCareClientTeamErrors);
-  const [autoCareAccountName, setAutoCareAccountName] =
-    useState<AccountNameFormTypes>(initialAutoCareAccountName);
+  const [autoCareAccountDetails, setAutoCareAccountDetails] =
+    useState<AccountDetailsFormTypes>(initialAutoCareAccountName);
 
   const [autoCareLegalStructure, setAutoCareLegalStructure] =
     useState<LegalStructureFormTypes>(initialAutoCareLegalStructure);
@@ -85,8 +86,9 @@ function BasicDetailsAutoCare({
     getAutoCareList();
   }, []);
 
-  const validateCarCareAccountName = () => {
+  const validateCarCareAccountDetails = () => {
     const fieldDisplayNames: { [key: string]: string } = {
+      accountName: "Account Name",
       corporateAddress: "Corporate Address",
       no_of_Locations: "Number of Locations",
       locationName: "Location Name",
@@ -97,16 +99,21 @@ function BasicDetailsAutoCare({
 
     const newErrors: { [key: string]: string } = {};
 
-    validateAutoCarAccountName.forEach((field) => {
-        if (!autoCareAccountName[field]) {
-          newErrors[field] = `${fieldDisplayNames[field]} is required`;
-        } else {
-          newErrors[field] = '';
-        }
+    validateAutoCarAccountDetails.forEach((field) => {
+      if (!autoCareAccountDetails[field]) {
+        newErrors[field] = `${fieldDisplayNames[field]} is required`;
+      } else if (
+        field === "ownerEmail" &&
+        !!autoCareAccountDetailsErrors[field]
+      ) {
+        newErrors[field] = `${autoCareAccountDetailsErrors[field]}`;
+      }  else {
+        newErrors[field] = "";
+      }
     });
 
     const hasErrors = Object.values(newErrors).some((error) => !!error);
-    setAutoCareAccountNameErrors(newErrors);
+    setAutoCareAccountDetailsErrors(newErrors);
     return hasErrors;
   };
 
@@ -132,9 +139,12 @@ function BasicDetailsAutoCare({
 
   const validateCarCareClientTeam = () => {
     const fieldDisplayNames: { [key: string]: string } = {
+      istTime: "IST Time",
       shopManager: "Shop Manager",
       poc1: "Poc1",
       email: "Email",
+      weeklyCalls: "Weekly Calls",
+      weeklyCallTime: "Weekly Call Time",
     };
 
     const newErrors: { [key: string]: string } = {};
@@ -142,6 +152,16 @@ function BasicDetailsAutoCare({
     validateAutoCarClientTeam.forEach((field) => {
       if (!autoCareClientTeam[field]) {
         newErrors[field] = `${fieldDisplayNames[field]} is required`;
+      } else if (
+        field === "weeklyCalls" &&
+        autoCareClientTeam[field] === "-1"
+      ) {
+        newErrors[field] = `${fieldDisplayNames[field]} is required`;
+      } else if (
+        (field === "weeklyCallTime" || field === "istTime") &&
+        !!autoCareClientTeamErrors[field]
+      ) {
+        newErrors[field] = `${autoCareClientTeamErrors[field]}`;
       } else {
         newErrors[field] = "";
       }
@@ -157,26 +177,26 @@ function BasicDetailsAutoCare({
     validateFields.forEach((field) => {
       if (
         !!autoCareLegalStructure[field] ||
-        !!autoCareAccountName[field] ||
+        !!autoCareAccountDetails[field] ||
         !!autoCareClientTeam[field]
       ) {
         count++;
       }
     });
-    let calc = (count / 11) * 100;
+    let calc = (count / 15) * 100;
     return Math.floor(calc);
   };
 
   const handleSubmit = (type: number) => {
     const formData = {
-      businessType: autoCareAccountName.businessType,
-      service: autoCareAccountName.service,
-      corporateAddress: autoCareAccountName.corporateAddress,
-      no_of_Locations: autoCareAccountName.no_of_Locations,
-      locationName: autoCareAccountName.locationName,
-      ownerContact: autoCareAccountName.ownerContact,
-      ownerEmail: autoCareAccountName.ownerEmail,
-      ownerPhone: autoCareAccountName.ownerPhone,
+      businessType: autoCareAccountDetails.businessType,
+      service: autoCareAccountDetails.service,
+      corporateAddress: autoCareAccountDetails.corporateAddress,
+      no_of_Locations: autoCareAccountDetails.no_of_Locations,
+      locationName: autoCareAccountDetails.locationName,
+      ownerContact: autoCareAccountDetails.ownerContact,
+      ownerEmail: autoCareAccountDetails.ownerEmail,
+      ownerPhone: autoCareAccountDetails.ownerPhone,
       no_of_Entities: autoCareLegalStructure.no_of_Entities,
       no_of_Shops: autoCareLegalStructure.no_of_Shops,
       salesRep: autoCareLegalStructure.salesRep,
@@ -204,11 +224,11 @@ function BasicDetailsAutoCare({
       pabsPhone: autoCarePabsAccountingTeam.pabsPhone,
     };
     if (type === 1) {
-      validateCarCareAccountName();
+      validateCarCareAccountDetails();
       validateCarCareLegalStructure();
       validateCarCareClientTeam();
       const isValid =
-        !validateCarCareAccountName() &&
+        !validateCarCareAccountDetails() &&
         !validateCarCareLegalStructure() &&
         !validateCarCareClientTeam();
 
@@ -217,37 +237,43 @@ function BasicDetailsAutoCare({
         setBasicDetailsFormSubmit(2);
         setBasicDetailCount(filledFieldsCount);
         // callAPIwithHeaders(autoCarFormUrl, "post", callback, formData);
-      }else{
+      } else {
         setBasicDetailCount(filledFieldsCount);
-      } 
+      }
     } else if (type === 2) {
       const filledFieldsCount = basicDetailStatus();
       setBasicDetailCount(filledFieldsCount);
-      setAutoCareAccountNameErrors({});
+      setAutoCareAccountDetailsErrors({});
       setAutoCareLegalStructureErrors({});
       setAutoCareClientTeamErrors({});
       // callAPIwithHeaders(autoCarFormUrl, "post", callback, formData);
     } else {
-      setAutoCareAccountName(initialAutoCareAccountName);
+      setAutoCareAccountDetails(initialAutoCareAccountName);
       setAutoCareLegalStructure(initialAutoCareLegalStructure);
       setAutoCareClientTeam(initialAutoCareClientTeam);
       setAutoCarePabsAccountingTeam(initialAutoCarePabsAccountingTeam);
-      setAutoCareAccountNameErrors({});
+      setAutoCareAccountDetailsErrors({});
       setAutoCareLegalStructureErrors({});
       setAutoCareClientTeamErrors({});
     }
   };
 
+  console.log('autoCareClientTeamErrors : ',autoCareClientTeamErrors)
+
   return (
     <>
-      <div className={`flex flex-col ${roleId !== '4' ? 'h-[95vh]' : 'h-full'} pt-12`}>
+      <div
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
+      >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
-            <CarCareAccountName
-              autoCareAccountName={autoCareAccountName}
-              setAutoCareAccountName={setAutoCareAccountName}
-              autoCareAccountNameErrors={autoCareAccountNameErrors}
-              setAutoCareAccountNameErrors={setAutoCareAccountNameErrors}
+            <AutoCareAccountDetails
+              autoCareAccountDetails={autoCareAccountDetails}
+              setAutoCareAccountDetails={setAutoCareAccountDetails}
+              autoCareAccountDetailsErrors={autoCareAccountDetailsErrors}
+              setAutoCareAccountDetailsErrors={setAutoCareAccountDetailsErrors}
             />
             <AutoCareLegalStructure
               autoCareLegalStructure={autoCareLegalStructure}

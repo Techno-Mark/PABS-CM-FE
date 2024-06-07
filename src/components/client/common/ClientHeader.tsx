@@ -109,7 +109,7 @@ const ClientHeader = () => {
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
             <span className="!font-semibold text-[15px]">
-              SF00123 &nbsp;|&nbsp; {userName} &nbsp;|&nbsp; Auto Car
+              SF00123 &nbsp;|&nbsp; {userName} &nbsp;|&nbsp; Auto Care
             </span>
           </div>
           <div className="relative flex">

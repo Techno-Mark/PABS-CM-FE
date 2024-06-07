@@ -19,7 +19,7 @@ export interface LegalStructureFormTypes {
 
 export interface LegalStructureFormErrors extends Partial<LegalStructureFormTypes> {}
 
-export interface AccountNameFormTypes {
+export interface AccountDetailsFormTypes {
   businessType: string;
   service: string;
   corporateAddress: string;
@@ -31,7 +31,7 @@ export interface AccountNameFormTypes {
   [key: string]: string | null;
 }
 
-export interface AccountNameFormErrors extends Partial<AccountNameFormTypes> {}
+export interface AccountDetailsFormErrors extends Partial<AccountDetailsFormTypes> {}
 
 export interface ClientTeamFormTypes {
   shopManager: string;
@@ -43,9 +43,9 @@ export interface ClientTeamFormTypes {
   timeZone: string;
   state: string;
   weeklyCalls: string;
-  weeklyCallTime: string;
-  istTime: string;
-  [key: string]: string | Date | null;
+  weeklyCallTime: Dayjs | null | string;
+  istTime: Dayjs | null | string;
+  [key: string]: string | Dayjs | null;
 }
 
 export interface ClientTeamFormErrors extends Partial<ClientTeamFormTypes> {}
@@ -62,12 +62,12 @@ export interface PabsAccountingTeamFormTypes {
 }
 
 export interface PabsAccountingTeamFormErrors extends Partial<PabsAccountingTeamFormTypes> {}
-export interface AccountNameTypes {
+export interface AccountDetailsTypes {
   className?:string,
-  autoCareAccountName:AccountNameFormTypes,
-  setAutoCareAccountName:React.Dispatch<React.SetStateAction<AccountNameFormTypes>>,
-  autoCareAccountNameErrors:AccountNameFormErrors,
-  setAutoCareAccountNameErrors:React.Dispatch<React.SetStateAction<AccountNameFormErrors>>,
+  autoCareAccountDetails:AccountDetailsFormTypes,
+  setAutoCareAccountDetails:React.Dispatch<React.SetStateAction<AccountDetailsFormTypes>>,
+  autoCareAccountDetailsErrors:AccountDetailsFormErrors,
+  setAutoCareAccountDetailsErrors:React.Dispatch<React.SetStateAction<AccountDetailsFormErrors>>,
 }
 
 export interface LegalStructureTypes {
