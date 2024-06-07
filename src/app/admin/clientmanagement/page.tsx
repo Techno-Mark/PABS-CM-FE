@@ -573,7 +573,7 @@ function Page() {
               <SearchIcon />
             </span>
             <input
-              type="text"
+              type="search"
               placeholder="Search"
               className="p-2 flex items-center text-[13px] outline-none w-[90%]"
               value={search}
