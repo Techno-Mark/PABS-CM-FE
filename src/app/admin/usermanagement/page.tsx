@@ -45,6 +45,18 @@ import Cookies from "js-cookie";
 function Page() {
   const router = useRouter();
 
+  const renderCellFunction = (value:string) => {
+    if (typeof value === 'string') {
+      return value.split(' ').map((word, index) => (
+        <>
+          {word}
+          {index < value.split(' ').length - 1 && <>&nbsp;</>}
+        </>
+      ));
+    }
+    return value;
+  };
+
   const columns: GridColDef[] = [
     {
       field: "UserId",
