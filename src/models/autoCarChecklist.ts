@@ -48,12 +48,13 @@ export interface AccessComputerFormTypes {
   accessComputerActionItems: string;
 }
 
-export interface PosSystemFormTypes {
-  posSystemStatus: string;
-  posSystemComments: string;
-  posSystemDetails: string;
-  posSystemActionName: string;
-  posSystemActionItems: string;
+export interface PosSoftwareFormTypes {
+  posSoftwareStatus: string;
+  posSoftwareComments: string;
+  posSoftwareDetails: string;
+  posSoftwareActionName: string;
+  posSoftwareActionItems: string;
+  [key: string]: string | null;
 }
 
 export interface AccountingSoftwareFormTypes {
@@ -62,6 +63,15 @@ export interface AccountingSoftwareFormTypes {
   accountingSoftwareDetails: string;
   accountingSoftwareActionName: string;
   accountingSoftwareActionItems: string;
+  [key: string]: string | null;
+}
+
+export interface EstimatingSoftwareFormTypes {
+  estimatingSoftwareStatus: string;
+  estimatingSoftwareComments: string;
+  estimatingSoftwareDetails: string;
+  estimatingSoftwareActionName: string;
+  estimatingSoftwareActionItems: string;
 }
 
 export interface CloudDocumentManagementFormTypes {
@@ -265,22 +275,31 @@ export interface AccessComputerMethodTypes {
   >;
 }
 
-export interface PosSystemTypes {
-  autoCarePosSystem: PosSystemFormTypes;
-  setAutoCarePosSystem: React.Dispatch<
-    React.SetStateAction<PosSystemFormTypes>
+export interface PosSoftwareTypes {
+  autoCarePosSoftware: PosSoftwareFormTypes;
+  setAutoCarePosSoftware: React.Dispatch<
+    React.SetStateAction<PosSoftwareFormTypes>
   >;
-  posErrors:PosFormErrors
+  posErrors: PosFormErrors;
 }
 
-export interface PosFormErrors extends Partial<PosSystemFormTypes> {}
+export interface PosFormErrors extends Partial<PosSoftwareFormTypes> {}
 
+export interface EstimatingSoftwareTypes {
+  autoCareEstimatingSoftware: EstimatingSoftwareFormTypes;
+  setAutoCareEstimatingSoftware: React.Dispatch<
+    React.SetStateAction<EstimatingSoftwareFormTypes>
+  >;
+}
 export interface AccountingSoftwareTypes {
   autoCareAccountingSoftware: AccountingSoftwareFormTypes;
   setAutoCareAccountingSoftware: React.Dispatch<
     React.SetStateAction<AccountingSoftwareFormTypes>
   >;
+  accountingSoftwareErrors: AccountingSoftwareFormErrors;
 }
+
+export interface AccountingSoftwareFormErrors extends Partial<AccountingSoftwareFormTypes> {}
 
 export interface CloudDocumentManagementTypes {
   autoCareCloudDocumentManagement: CloudDocumentManagementFormTypes;

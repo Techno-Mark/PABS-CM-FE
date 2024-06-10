@@ -38,12 +38,20 @@ export const initialAutoCareITStructureReview = {
   itStructureActionItems: "",
 };
 
-export const initialAutoCarePosSystem = {
-  posSystemStatus: "",
-  posSystemComments: "",
-  posSystemDetails: "",
-  posSystemActionName: "",
-  posSystemActionItems: "",
+export const initialAutoCarePosSoftware = {
+  posSoftwareStatus: "",
+  posSoftwareComments: "",
+  posSoftwareDetails: "",
+  posSoftwareActionName: "",
+  posSoftwareActionItems: "",
+};
+
+export const initialAutoCareEstimatingSoftware = {
+  estimatingSoftwareStatus: "",
+  estimatingSoftwareComments: "",
+  estimatingSoftwareDetails: "",
+  estimatingSoftwareActionName: "",
+  estimatingSoftwareActionItems: "",
 };
 
 export const initialAutoCareAccountingSoftware = {
@@ -221,6 +229,19 @@ export const initialAutoCareGP_GMNP_NM = {
   gpGmnpNmActionName: "",
   gpGmnpNmActionItems: "",
 };
+
+export const validateAutoCareSystemSoftwareLocationField = [
+  "posSystemStatus",
+  "posSystemComments",
+  "posSystemDetails",
+  "posSystemActionName",
+  "posSystemActionItems",
+  "accountingSoftwareStatus",
+  "accountingSoftwareComments",
+  "accountingSoftwareDetails",
+  "accountingSoftwareActionName",
+  "accountingSoftwareActionItems"
+];
 
 export const AccordianExpand = {
   COMMUNICATION: 1,

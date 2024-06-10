@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 // MUI import
 import { Button } from "@mui/material";
 // Component import
-import CarCareAccountName from "@/components/client/forms/autocare/AutoCareAccountDetails";
+import { showToast } from "@/components/ToastContainer";
+import AutoCareLegalStructure from "@/components/client/forms/autocare/AutoCareLegalStructure";
+import AutoCareClientTeam from "@/components/client/forms/autocare/AutoCareClientTeam";
+import AutoCarePabsAccountingTeam from "@/components/client/forms/autocare/AutoCarePabsAccountingTeam";
 // Models import
 import {
   AccountDetailsFormErrors,
@@ -27,10 +30,7 @@ import {
 } from "@/static/carCareBasicDetail";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { autoCarFormUrl } from "@/static/apiUrl";
-import { showToast } from "@/components/ToastContainer";
-import AutoCareLegalStructure from "@/components/client/forms/autocare/AutoCareLegalStructure";
-import AutoCareClientTeam from "@/components/client/forms/autocare/AutoCareClientTeam";
-import AutoCarePabsAccountingTeam from "@/components/client/forms/autocare/AutoCarePabsAccountingTeam";
+
 import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";

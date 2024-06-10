@@ -1,4 +1,3 @@
-import FormBox from "@/components/client/common/FormBox";
 import {
   AccessComputerFormTypes,
   AccessComputerMethodTypes,
@@ -6,46 +5,37 @@ import {
   AccountingSoftwareTypes,
   CloudDocumentManagementFormTypes,
   CloudDocumentManagementTypes,
+  EstimatingSoftwareFormTypes,
+  EstimatingSoftwareTypes,
   ITStructureReviewFormTypes,
   ITStructureReviewTypes,
-  PosSystemFormTypes,
-  PosSystemTypes,
+  PosSoftwareFormTypes,
+  PosSoftwareTypes,
   ScannerFormTypes,
   ScannerTypes,
 } from "@/models/autoCarChecklist";
-import {
-  initialAutoCareAccessComputerMethod,
-  initialAutoCareAccountingSoftware,
-  initialAutoCareCloudDocumentManagement,
-  initialAutoCareITStructureReview,
-  initialAutoCarePosSystem,
-  initialAutoCareScanner,
-} from "@/static/autoCareChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
 function AutoCareSystemLocationChecklist({
   className,
   systemSoftwareLocationErrors,
+  autoCareITStructureReview,
+  setAutoCareITStructureReview,
+  autoCareAccessComputerMethod,
+  setAutoCareAccessComputerMethod,
+  autoCarePosSoftware,
+  setAutoCarePosSoftware,
+  autoCareEstimatingSoftware,
+  setAutoCareEstimatingSoftware,
+  autoCareAccountingSoftware,
+  setAutoCareAccountingSoftware,
+  autoCareCloudDocumentManagement,
+  setAutoCareCloudDocumentManagement,
+  autoCareScanner,
+  setAutoCareScanner,
 }: any) {
-  const [autoCareITStructureReview, setAutoCareITStructureReview] =
-    useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
-  const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] =
-    useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
-  const [autoCarePosSystem, setAutoCarePosSystem] =
-    useState<PosSystemFormTypes>(initialAutoCarePosSystem);
-  const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] =
-    useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
-  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] =
-    useState<CloudDocumentManagementFormTypes>(
-      initialAutoCareCloudDocumentManagement
-    );
-  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(
-    initialAutoCareScanner
-  );
-
-
   return (
     <div className={`${className}`}>
       <ITStructureReview
@@ -56,14 +46,19 @@ function AutoCareSystemLocationChecklist({
         autoCareAccessComputerMethod={autoCareAccessComputerMethod}
         setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
       />
-      <POSSystem
-        autoCarePosSystem={autoCarePosSystem}
-        setAutoCarePosSystem={setAutoCarePosSystem}
+      <POSSoftware
+        autoCarePosSoftware={autoCarePosSoftware}
+        setAutoCarePosSoftware={setAutoCarePosSoftware}
         posErrors={systemSoftwareLocationErrors}
+      />
+      <EstimatingSoftware
+        autoCareEstimatingSoftware={autoCareEstimatingSoftware}
+        setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
       />
       <AccountingSoftware
         autoCareAccountingSoftware={autoCareAccountingSoftware}
         setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
+        accountingSoftwareErrors={systemSoftwareLocationErrors}
       />
       <CloudDocumentManagement
         autoCareCloudDocumentManagement={autoCareCloudDocumentManagement}
@@ -365,17 +360,17 @@ const AccessComputerMethod = ({
   );
 };
 
-const POSSystem = ({
-  autoCarePosSystem,
-  setAutoCarePosSystem,
+const POSSoftware = ({
+  autoCarePosSoftware,
+  setAutoCarePosSoftware,
   posErrors
-}: PosSystemTypes) => {
+}: PosSoftwareTypes) => {
   const classes = useStyles();
 
-  const handlePosSystemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePosSoftwareChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCarePosSystem((prev: PosSystemFormTypes) => ({
+    setAutoCarePosSoftware((prev: PosSoftwareFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -383,7 +378,7 @@ const POSSystem = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        POS System<span className="text-[#DC3545]">*</span>
+        POS Software<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -391,15 +386,15 @@ const POSSystem = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="posSystemComments"
+                name="posSoftwareComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={autoCarePosSystem?.posSystemComments}
-                error={!!posErrors?.posSystemComments}
-                helperText={posErrors?.posSystemComments}
-                onChange={handlePosSystemChange}
+                value={autoCarePosSoftware?.posSoftwareComments}
+                error={!!posErrors?.posSoftwareComments}
+                helperText={posErrors?.posSoftwareComments}
+                onChange={handlePosSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -415,13 +410,15 @@ const POSSystem = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="posSystemStatus"
+                name="posSoftwareStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={autoCarePosSystem?.posSystemStatus}
-                onChange={handlePosSystemChange}
+                value={autoCarePosSoftware?.posSoftwareStatus}
+                error={!!posErrors?.posSoftwareStatus}
+                helperText={posErrors?.posSoftwareStatus}
+                onChange={handlePosSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -437,13 +434,15 @@ const POSSystem = ({
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="posSystemDetails"
+                name="posSoftwareDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={autoCarePosSystem?.posSystemDetails}
-                onChange={handlePosSystemChange}
+                value={autoCarePosSoftware?.posSoftwareDetails}
+                error={!!posErrors?.posSoftwareDetails}
+                helperText={posErrors?.posSoftwareDetails}
+                onChange={handlePosSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -461,13 +460,158 @@ const POSSystem = ({
                 Action Name - PABS
               </label>
               <TextField
-                name="posSystemActionName"
+                name="posSoftwareActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
-                value={autoCarePosSystem?.posSystemActionName}
-                onChange={handlePosSystemChange}
+                value={autoCarePosSoftware?.posSoftwareActionName}
+                error={!!posErrors?.posSoftwareActionName}
+                helperText={posErrors?.posSoftwareActionName}
+                onChange={handlePosSoftwareChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - Client
+              </label>
+              <TextField
+                name="posSoftwareActionItems"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={autoCarePosSoftware?.posSoftwareActionItems}
+                error={!!posErrors?.posSoftwareActionItems}
+                helperText={posErrors?.posSoftwareActionItems}
+                onChange={handlePosSoftwareChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+const EstimatingSoftware = ({
+  autoCareEstimatingSoftware,
+  setAutoCareEstimatingSoftware,
+}: EstimatingSoftwareTypes) => {
+  const classes = useStyles();
+
+  const handleEstimatingSoftwareChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setAutoCareEstimatingSoftware((prev: EstimatingSoftwareFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Estimating Software<span className="text-[#DC3545]">*</span>
+      </div>
+      <div className="py-3 px-2 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Comments</label>
+              <TextField
+                name="estimatingSoftwareComments"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Comments"
+                value={autoCareEstimatingSoftware?.estimatingSoftwareComments}
+                onChange={handleEstimatingSoftwareChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="estimatingSoftwareStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={autoCareEstimatingSoftware?.estimatingSoftwareStatus}
+                onChange={handleEstimatingSoftwareChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <TextField
+                name="estimatingSoftwareDetails"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Details"
+                value={autoCareEstimatingSoftware?.estimatingSoftwareDetails}
+                onChange={handleEstimatingSoftwareChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Name - PABS
+              </label>
+              <TextField
+                name="estimatingSoftwareActionName"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Name"
+                value={autoCareEstimatingSoftware?.estimatingSoftwareActionName}
+                onChange={handleEstimatingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -490,8 +634,8 @@ const POSSystem = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={autoCarePosSystem?.posSystemActionItems}
-                onChange={handlePosSystemChange}
+                value={autoCareEstimatingSoftware?.estimatingSoftwareActionName}
+                onChange={handleEstimatingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -512,6 +656,7 @@ const POSSystem = ({
 const AccountingSoftware = ({
   autoCareAccountingSoftware,
   setAutoCareAccountingSoftware,
+  accountingSoftwareErrors
 }: AccountingSoftwareTypes) => {
   const classes = useStyles();
 
@@ -542,6 +687,8 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareAccountingSoftware?.accountingSoftwareComments}
+                error={!!accountingSoftwareErrors?.accountingSoftwareComments}
+                helperText={accountingSoftwareErrors?.accountingSoftwareComments}
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -564,6 +711,8 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareAccountingSoftware?.accountingSoftwareStatus}
+                error={!!accountingSoftwareErrors?.accountingSoftwareStatus}
+                helperText={accountingSoftwareErrors?.accountingSoftwareStatus}
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -586,6 +735,8 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareAccountingSoftware?.accountingSoftwareDetails}
+                error={!!accountingSoftwareErrors?.accountingSoftwareDetails}
+                helperText={accountingSoftwareErrors?.accountingSoftwareDetails}
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -610,6 +761,8 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareAccountingSoftware?.accountingSoftwareActionName}
+                error={!!accountingSoftwareErrors?.accountingSoftwareActionName}
+                helperText={accountingSoftwareErrors?.accountingSoftwareActionName}
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -636,6 +789,8 @@ const AccountingSoftware = ({
                 value={
                   autoCareAccountingSoftware?.accountingSoftwareActionItems
                 }
+                error={!!accountingSoftwareErrors?.accountingSoftwareActionItems}
+                helperText={accountingSoftwareErrors?.accountingSoftwareActionItems}
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {

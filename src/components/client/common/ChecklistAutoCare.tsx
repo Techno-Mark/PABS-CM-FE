@@ -6,26 +6,106 @@ import Cookies from "js-cookie";
 import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
 import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
-import { AccordianExpand } from "@/static/autoCareChecklist";
+import {
+  AccordianExpand,
+  initialAutoCareAccessComputerMethod,
+  initialAutoCareAccountingSoftware,
+  initialAutoCareCloudDocumentManagement,
+  initialAutoCareEstimatingSoftware,
+  initialAutoCareGroupEmailEstablished,
+  initialAutoCareITStructureReview,
+  initialAutoCareKickOff,
+  initialAutoCarePosSoftware,
+  initialAutoCarePreKickOff,
+  initialAutoCareScanner,
+  validateAutoCareSystemSoftwareLocationField,
+} from "@/static/autoCareChecklist";
 import AutoCareSystemLocationChecklist from "../forms/autocare/AutoCareSystemLocationChecklist";
 import AutoCareCashBankLoans from "../forms/autocare/AutoCareCashBankLoans";
 import AutoCarePayrollSystem from "../forms/autocare/AutoCarePayrollSystem";
 import AutoCareCompliances from "../forms/autocare/AutoCareCompliances";
 import AutoCarePayableCashPayAccess from "../forms/autocare/AutoCarePayableCashPayAccess";
 import AutoCareStatusCondition from "../forms/autocare/AutoCareStatusCondition";
+import {
+  AccessComputerFormTypes,
+  AccountingSoftwareFormTypes,
+  CloudDocumentManagementFormTypes,
+  EstimatingSoftwareFormTypes,
+  GroupEmailEstablishedFormTypes,
+  ITStructureReviewFormTypes,
+  KickOffFormTypes,
+  PosSoftwareFormTypes,
+  PreKickOffFormTypes,
+  ScannerFormTypes,
+} from "@/models/autoCarChecklist";
 
 function ChecklistAutoCare({
   setChecklistCount,
   setChecklistFormSubmit,
 }: ChecklistAutoCareType) {
   const roleId = Cookies.get("roleId");
+  const initialAutoCareSystemSoftwareLocationErrors: any = {};
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
+
+  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] = useState<GroupEmailEstablishedFormTypes>(initialAutoCareGroupEmailEstablished);
+  const [autoCarePreKickOff, setAutoCarePreKickOff] = useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
+  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(initialAutoCareKickOff);
+
+  const [autoCareITStructureReview, setAutoCareITStructureReview] = useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
+  const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] = useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
+  const [autoCarePosSystem, setAutoCarePosSystem] = useState<PosSoftwareFormTypes>(initialAutoCarePosSoftware);
+  const [autoCareEstimatingSoftware, setAutoCareEstimatingSoftware] = useState<EstimatingSoftwareFormTypes>(initialAutoCareEstimatingSoftware);
+  const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] = useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
+  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] = useState<CloudDocumentManagementFormTypes>(initialAutoCareCloudDocumentManagement);
+  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(initialAutoCareScanner);
+  
+  const [autoCareSystemSoftwareLocationErrors,setAutoCareSystemSoftwareLocationErrors] = useState<any>(initialAutoCareSystemSoftwareLocationErrors);
+
   const handleAccordianChange =
-    (arg1: number) => (e: any, isExpanded: boolean) => {
-      setExpandedAccordian(isExpanded ? arg1 : -1);
+  (arg1: number) => (e: any, isExpanded: boolean) => {
+    setExpandedAccordian(isExpanded ? arg1 : -1);
+  };
+
+
+  const validateAutoCareSystemSoftwareLocation = () => {
+    const fieldDisplayNames: { [key: string]: string } = {
+      posSystemStatus: "Status is required",
+      posSystemComments: "Commments is required",
+      posSystemDetails: "Details is reuired",
+      posSystemActionName: "Action Name is required",
+      posSystemActionItems: "Action Items is required",
+      accountingSoftwareStatus: "Status is required",
+      accountingSoftwareComments: "Commments is required",
+      accountingSoftwareDetails: "Details is reuired",
+      accountingSoftwareActionName: "Action Name is required",
+      accountingSoftwareActionItems: "Action Items is required",
     };
 
+    const newErrors: { [key: string]: string } = {};
+
+    validateAutoCareSystemSoftwareLocationField.forEach((field) => {
+      if (!autoCarePosSystem[field] && !autoCareAccountingSoftware[field]) {
+        newErrors[field] = `${fieldDisplayNames[field]} is required`;
+      } else {
+        newErrors[field] = "";
+      }
+    });
+
+    const hasErrors = Object.values(newErrors).some((error) => !!error);
+    setAutoCareSystemSoftwareLocationErrors(newErrors);
+    return hasErrors;
+  };
+
+  const handleSubmit = (type: number) => {
+    if (type === 1) {
+      validateAutoCareSystemSoftwareLocation();
+      const isValid = !validateAutoCareSystemSoftwareLocation();
+      if (isValid) {
+        console.log("completed..");
+      }
+    }
+  };
   return (
     <>
       <div
@@ -36,15 +116,20 @@ function ChecklistAutoCare({
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.COMMUNICATION
-              }
+              expandedAccordian={expandedAccordian === AccordianExpand.COMMUNICATION}
               handleChange={handleAccordianChange(
                 AccordianExpand.COMMUNICATION
               )}
               title="Phase 1: Communication"
             >
-              <AutoCareCommmunicationChecklist />
+              <AutoCareCommmunicationChecklist
+                autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
+                setAutoCareGroupEmailEstablished={setAutoCareGroupEmailEstablished}
+                autoCarePreKickOff={autoCarePreKickOff}
+                setAutoCarePreKickOff={setAutoCarePreKickOff}
+                autoCareKickOff={autoCareKickOff}
+                setAutoCareKickOff={setAutoCareKickOff}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -56,8 +141,27 @@ function ChecklistAutoCare({
               )}
               title="Phase 2: System, Software Locations"
             >
-                <AutoCareSystemLocationChecklist />
-
+              <AutoCareSystemLocationChecklist
+                systemSoftwareLocationErrors={autoCareSystemSoftwareLocationErrors}
+                autoCareITStructureReview={autoCareITStructureReview}
+                setAutoCareITStructureReview={setAutoCareITStructureReview}
+                autoCareAccessComputerMethod={autoCareAccessComputerMethod}
+                setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
+                autoCarePosSystem={autoCarePosSystem}
+                setAutoCarePosSystem={setAutoCarePosSystem}
+                autoCareEstimatingSoftware={autoCareEstimatingSoftware}
+                setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
+                autoCareAccountingSoftware={autoCareAccountingSoftware}
+                setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
+                autoCareCloudDocumentManagement={
+                  autoCareCloudDocumentManagement
+                }
+                setAutoCareCloudDocumentManagement={
+                  setAutoCareCloudDocumentManagement
+                }
+                autoCareScanner={autoCareScanner}
+                setAutoCareScanner={setAutoCareScanner}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -80,7 +184,7 @@ function ChecklistAutoCare({
               )}
               title="Phase 4: Payroll System"
             >
-             <AutoCarePayrollSystem />
+              <AutoCarePayrollSystem />
             </ChecklistAccordian>
             <ChecklistAccordian
               expandedAccordian={
@@ -89,14 +193,14 @@ function ChecklistAutoCare({
               handleChange={handleAccordianChange(AccordianExpand.COMPLIANCES)}
               title="Phase 5: Compliances"
             >
-             <AutoCareCompliances />
+              <AutoCareCompliances />
             </ChecklistAccordian>
             <ChecklistAccordian
               expandedAccordian={expandedAccordian === AccordianExpand.AP}
               handleChange={handleAccordianChange(AccordianExpand.AP)}
               title="Phase 6: AP - Payable Cash Payment Access"
             >
-            <AutoCarePayableCashPayAccess />
+              <AutoCarePayableCashPayAccess />
             </ChecklistAccordian>
             <ChecklistAccordian
               expandedAccordian={
@@ -108,7 +212,7 @@ function ChecklistAutoCare({
               )}
               title="Phase 7: Status and Condition of Existing Financials"
             >
-             <AutoCareStatusCondition />
+              <AutoCareStatusCondition />
             </ChecklistAccordian>
           </div>
         </div>
@@ -123,21 +227,21 @@ function ChecklistAutoCare({
           </Button>
           <div className="flex gap-5">
             <Button
-              onClick={() => {}}
+              onClick={() => handleSubmit(3)}
               className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
               variant="outlined"
             >
               Cancel
             </Button>
             <Button
-              onClick={() => {}}
+              onClick={() => handleSubmit(2)}
               className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
               variant="outlined"
             >
               Save as Draft
             </Button>
             <Button
-              onClick={() => {}}
+              onClick={() => handleSubmit(1)}
               className={`!bg-[#022946] text-white !rounded-lg`}
               variant="contained"
             >

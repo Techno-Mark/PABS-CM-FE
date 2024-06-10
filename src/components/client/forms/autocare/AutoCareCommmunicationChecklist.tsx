@@ -3,7 +3,7 @@ import {
   GroupEmailEstablishedTypes,
   KickOffFormTypes,
   PreKickOffFormTypes,
-  PreKickOffTypes
+  PreKickOffTypes,
 } from "@/models/autoCarChecklist";
 import {
   initialAutoCareGroupEmailEstablished,
@@ -14,18 +14,15 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-function AutoCareCommmunicationChecklist({ className }: any) {
-  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
-    useState<GroupEmailEstablishedFormTypes>(
-      initialAutoCareGroupEmailEstablished
-    );
-  const [autoCarePreKickOff, setAutoCarePreKickOff] =
-    useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
-
-  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(
-    initialAutoCareKickOff
-  );
-
+function AutoCareCommmunicationChecklist({
+  className,
+  autoCareGroupEmailEstablished,
+  setAutoCareGroupEmailEstablished,
+  autoCarePreKickOff,
+  setAutoCarePreKickOff,
+  autoCareKickOff,
+  setAutoCareKickOff,
+}: any) {
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished
@@ -55,10 +52,12 @@ const GroupEmailEstablished = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setAutoCareGroupEmailEstablished((prev: GroupEmailEstablishedFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setAutoCareGroupEmailEstablished(
+      (prev: GroupEmailEstablishedFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
   };
   return (
     <>
