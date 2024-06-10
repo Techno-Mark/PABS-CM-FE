@@ -37,25 +37,13 @@ import {
 } from "@/models/userManage";
 // Utils import
 import { checkPermission } from "@/utils/permissionCheckFunction";
-import { renderCellFunction } from "@/utils/commonData";
+import { noRecordText, renderCellFunction } from "@/utils/commonData";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie import
 import Cookies from "js-cookie";
 
 function Page() {
   const router = useRouter();
-
-  const renderCellFunction = (value:string) => {
-    if (typeof value === 'string') {
-      return value.split(' ').map((word, index) => (
-        <>
-          {word}
-          {index < value.split(' ').length - 1 && <>&nbsp;</>}
-        </>
-      ));
-    }
-    return value;
-  };
 
   const columns: GridColDef[] = [
     {
@@ -379,10 +367,6 @@ function Page() {
     });
   };
 
-  const localeText: { noRowsLabel: string } = {
-    noRowsLabel: "No record found",
-  };
-
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
@@ -435,7 +419,7 @@ function Page() {
             rows={userData}
             columns={columns}
             getRowId={(i: any) => i.UserId}
-            localeText={localeText}
+            localeText={noRecordText}
             loading={loading}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
