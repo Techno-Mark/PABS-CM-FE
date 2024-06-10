@@ -324,7 +324,7 @@ const UserDrawer = ({
         status.value === 1 ? true : status.value === 2 ? false : true;
       await callAPIwithHeaders(saveUserUrl, "post", callback, {
         userId: userId,
-        fullName: fullName.value,
+        fullName: fullName.value.trimEnd(),
         email: email.value,
         roleId: role.value,
         businessTypeId: businessType.value,
