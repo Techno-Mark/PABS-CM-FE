@@ -23,8 +23,8 @@ export interface AccountDetailsFormTypes {
   businessType: string;
   service: string;
   corporateAddress: string;
-  no_of_Locations: string;
-  locationName: string;
+  noOfLocations: string;
+  nameOfLocations: string;
   ownerContact: string;
   ownerEmail: string;
   ownerPhone: string;

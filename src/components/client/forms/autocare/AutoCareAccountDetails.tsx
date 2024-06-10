@@ -47,7 +47,7 @@ function AutoCareAccountDetails({
           }));
         }
         break;
-      case "no_of_Locations":
+      case "noOfLocations":
         if (validateNumber(value)) {
           setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
             ...prev,
@@ -243,14 +243,14 @@ function AutoCareAccountDetails({
                   No.of Locations<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField
-                  name="no_of_Locations"
+                  name="noOfLocations"
                   id="outlined-basic"
                   variant="standard"
                   size="small"
                   placeholder="Please Enter No.of Locations"
-                  value={autoCareAccountDetails?.no_of_Locations}
-                  error={!!autoCareAccountDetailsErrors.no_of_Locations}
-                  helperText={autoCareAccountDetailsErrors.no_of_Locations}
+                  value={autoCareAccountDetails?.noOfLocations}
+                  error={!!autoCareAccountDetailsErrors.noOfLocations}
+                  helperText={autoCareAccountDetailsErrors.noOfLocations}
                   onChange={handleChange}
                   InputProps={{
                     classes: {
@@ -269,14 +269,14 @@ function AutoCareAccountDetails({
                   Locations Name<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField
-                  name="locationName"
+                  name="nameOfLocations"
                   id="outlined-basic"
                   variant="standard"
                   size="small"
                   placeholder="Please Enter Locations name"
-                  value={autoCareAccountDetails?.locationName}
-                  error={!!autoCareAccountDetailsErrors.locationName}
-                  helperText={autoCareAccountDetailsErrors.locationName}
+                  value={autoCareAccountDetails?.nameOfLocations}
+                  error={!!autoCareAccountDetailsErrors.nameOfLocations}
+                  helperText={autoCareAccountDetailsErrors.nameOfLocations}
                   onChange={handleChange}
                   InputProps={{
                     classes: {

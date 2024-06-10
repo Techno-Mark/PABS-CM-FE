@@ -38,7 +38,7 @@ export const initialAutoCareITStructureReview = {
   itStructureActionItems: "",
 };
 
-export const initialAutoCarePosSystem= {
+export const initialAutoCarePosSystem = {
   posSystemStatus: "",
   posSystemComments: "",
   posSystemDetails: "",
@@ -46,7 +46,7 @@ export const initialAutoCarePosSystem= {
   posSystemActionItems: "",
 };
 
-export const initialAutoCareAccountingSoftware= {
+export const initialAutoCareAccountingSoftware = {
   accountingSoftwareStatus: "",
   accountingSoftwareComments: "",
   accountingSoftwareDetails: "",
@@ -54,20 +54,172 @@ export const initialAutoCareAccountingSoftware= {
   accountingSoftwareActionItems: "",
 };
 
-export const initialAutoCareCloudDocumentManagement= {
+export const initialAutoCareCloudDocumentManagement = {
   cloudDocumentManagementStatus: "",
   cloudDocumentManagementComments: "",
   cloudDocumentManagementDetails: "",
   cloudDocumentManagementActionName: "",
-  cloudDocumentManagementActionItems: ""
+  cloudDocumentManagementActionItems: "",
 };
 
-export const initialAutoCareScanner= {
+export const initialAutoCareScanner = {
   scannerStatus: "",
   scannerComments: "",
   scannerDetails: "",
   scannerActionName: "",
-  scannerActionItems: ""
+  scannerActionItems: "",
+};
+
+export const initialAutoCareOperatingCheckingAccount = {
+  operatingCheckingAccountStatus: "",
+  operatingCheckingAccountComments: "",
+  operatingCheckingAccountDetails: "",
+  operatingCheckingAccountActionName: "",
+  operatingCheckingAccountActionItems: "",
+};
+
+export const initialAutoCareSavingsAccount = {
+  savingsAccountStatus: "",
+  savingsAccountComments: "",
+  savingsAccountDetails: "",
+  savingsAccountActionName: "",
+  savingsAccountActionItems: "",
+};
+
+export const initialAutoCareCreditCard = {
+  creditCardStatus: "",
+  creditCardComments: "",
+  creditCardDetails: "",
+  creditCardActionName: "",
+  creditCardActionItems: "",
+};
+
+export const initialAutoCareBusinessLoans = {
+  businessLoansStatus: "",
+  businessLoansComments: "",
+  businessLoansDetails: "",
+  businessLoansActionName: "",
+  businessLoansActionItems: "",
+};
+
+export const initialAutoCarePropertyLoans = {
+  propertyLoansStatus: "",
+  propertyLoansComments: "",
+  propertyLoansDetails: "",
+  propertyLoansActionName: "",
+  propertyLoansActionItems: "",
+};
+
+export const initialAutoCarePayrollServiceProvider = {
+  payrollServiceProviderStatus: "",
+  payrollServiceProviderComments: "",
+  payrollServiceProviderDetails: "",
+  payrollServiceProviderActionName: "",
+  payrollServiceProviderActionItems: "",
+};
+
+export const initialAutoCareFrequency = {
+  frequencyStatus: "",
+  frequencyComments: "",
+  frequencyDetails: "",
+  frequencyActionName: "",
+  frequencyActionItems: "",
+};
+
+export const initialAutoCareNoOfEmployee = {
+  noOfEmployeeStatus: "",
+  noOfEmployeeComments: "",
+  noOfEmployeeDetails: "",
+  noOfEmployeeActionName: "",
+  noOfEmployeeActionItems: "",
+};
+
+export const initialAutoCareSalesTaxAccessWorkPaper = {
+  salesTaxAccessWorkPaperStatus: "",
+  salesTaxAccessWorkPaperComments: "",
+  salesTaxAccessWorkPaperDetails: "",
+  salesTaxAccessWorkPaperActionName: "",
+  salesTaxAccessWorkPaperActionItems: "",
+};
+
+export const initialAutoCareUseTax = {
+  useTaxStatus: "",
+  useTaxComments: "",
+  useTaxDetails: "",
+  useTaxActionName: "",
+  useTaxActionItems: "",
+};
+
+export const initialAutoCareTireTax = {
+  tireTaxStatus: "",
+  tireTaxComments: "",
+  tireTaxDetails: "",
+  tireTaxActionName: "",
+  tireTaxActionItems: "",
+};
+
+export const initialAutoCareLastTaxReturnFiledYear = {
+  lastTaxReturnFiledYearStatus: "",
+  lastTaxReturnFiledYearComments: "",
+  lastTaxReturnFiledYearDetails: "",
+  lastTaxReturnFiledYearActionName: "",
+  lastTaxReturnFiledYearActionItems: "",
+};
+
+export const initialAutoCareVendorPortalAccess = {
+  vendorPortalAccessStatus: "",
+  vendorPortalAccessComments: "",
+  vendorPortalAccessDetails: "",
+  vendorPortalAccessActionName: "",
+  vendorPortalAccessActionItems: "",
+};
+
+export const initialAutoCareTradeAccount = {
+  tradeAccountStatus: "",
+  tradeAccountComments: "",
+  tradeAccountDetails: "",
+  tradeAccountActionName: "",
+  tradeAccountActionItems: "",
+};
+
+export const initialAutoCareBillPayAccess = {
+  billPayAccessStatus: "",
+  billPayAccessComments: "",
+  billPayAccessDetails: "",
+  billPayAccessActionName: "",
+  billPayAccessActionItems: "",
+};
+
+export const initialAutoCareApThresholdLimit = {
+  apThresholdLimitStatus: "",
+  apThresholdLimitComments: "",
+  apThresholdLimitDetails: "",
+  apThresholdLimitActionName: "",
+  apThresholdLimitActionItems: "",
+};
+
+export const initialAutoCareLastClosedPeriod = {
+  lastClosedPeriodStatus: "",
+  lastClosedPeriodComments: "",
+  lastClosedPeriodDetails: "",
+  lastClosedPeriodActionName: "",
+  lastClosedPeriodActionItems: "",
+};
+
+export const initialAutoCareSharingFinancials = {
+  sharingFinancialsStatus: "",
+  sharingFinancialsComments: "",
+  sharingFinancialsDetails: "",
+  sharingFinancialsActionName: "",
+  sharingFinancialsActionItems: "",
+};
+
+export const initialAutoCareGP_GMNP_NM = {
+  gpGmnpNmStatus: "",
+  gpGmnpNmComments: "",
+  gpGmnpNmDetails: "",
+  gpGmnpNmActionName: "",
+  gpGmnpNmActionItems: "",
 };
 
 export const AccordianExpand = {

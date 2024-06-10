@@ -25,7 +25,10 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-function AutoCareSystemLocationChecklist({ className }: any) {
+function AutoCareSystemLocationChecklist({
+  className,
+  systemSoftwareLocationErrors,
+}: any) {
   const [autoCareITStructureReview, setAutoCareITStructureReview] =
     useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
   const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] =
@@ -38,10 +41,10 @@ function AutoCareSystemLocationChecklist({ className }: any) {
     useState<CloudDocumentManagementFormTypes>(
       initialAutoCareCloudDocumentManagement
     );
-    const [autoCareScanner, setAutoCareScanner] =
-    useState<ScannerFormTypes>(
-      initialAutoCareScanner
-    );
+  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(
+    initialAutoCareScanner
+  );
+
 
   return (
     <div className={`${className}`}>
@@ -56,6 +59,7 @@ function AutoCareSystemLocationChecklist({ className }: any) {
       <POSSystem
         autoCarePosSystem={autoCarePosSystem}
         setAutoCarePosSystem={setAutoCarePosSystem}
+        posErrors={systemSoftwareLocationErrors}
       />
       <AccountingSoftware
         autoCareAccountingSoftware={autoCareAccountingSoftware}
@@ -81,7 +85,9 @@ const ITStructureReview = ({
 }: ITStructureReviewTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleItStructureReviewChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareITStructureReview((prev: ITStructureReviewFormTypes) => ({
@@ -106,7 +112,7 @@ const ITStructureReview = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareITStructureReview?.itStructureComments}
-                onChange={handleChange}
+                onChange={handleItStructureReviewChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -128,7 +134,7 @@ const ITStructureReview = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareITStructureReview?.itStructureStatus}
-                onChange={handleChange}
+                onChange={handleItStructureReviewChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -150,7 +156,7 @@ const ITStructureReview = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareITStructureReview?.itStructureDetails}
-                onChange={handleChange}
+                onChange={handleItStructureReviewChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -174,7 +180,7 @@ const ITStructureReview = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareITStructureReview?.itStructureActionName}
-                onChange={handleChange}
+                onChange={handleItStructureReviewChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -198,7 +204,7 @@ const ITStructureReview = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareITStructureReview?.itStructureActionItems}
-                onChange={handleChange}
+                onChange={handleItStructureReviewChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -222,7 +228,9 @@ const AccessComputerMethod = ({
 }: AccessComputerMethodTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessComputerMethodChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareAccessComputerMethod((prev: AccessComputerFormTypes) => ({
@@ -247,7 +255,7 @@ const AccessComputerMethod = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareAccessComputerMethod?.accessComputerComments}
-                onChange={handleChange}
+                onChange={handleAccessComputerMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -269,7 +277,7 @@ const AccessComputerMethod = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareAccessComputerMethod?.accessComputerStatus}
-                onChange={handleChange}
+                onChange={handleAccessComputerMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -291,7 +299,7 @@ const AccessComputerMethod = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareAccessComputerMethod?.accessComputerDetails}
-                onChange={handleChange}
+                onChange={handleAccessComputerMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -315,7 +323,7 @@ const AccessComputerMethod = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareAccessComputerMethod?.accessComputerActionName}
-                onChange={handleChange}
+                onChange={handleAccessComputerMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -339,7 +347,7 @@ const AccessComputerMethod = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareAccessComputerMethod?.accessComputerActionItems}
-                onChange={handleChange}
+                onChange={handleAccessComputerMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -360,10 +368,11 @@ const AccessComputerMethod = ({
 const POSSystem = ({
   autoCarePosSystem,
   setAutoCarePosSystem,
+  posErrors
 }: PosSystemTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePosSystemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCarePosSystem((prev: PosSystemFormTypes) => ({
@@ -388,7 +397,9 @@ const POSSystem = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCarePosSystem?.posSystemComments}
-                onChange={handleChange}
+                error={!!posErrors?.posSystemComments}
+                helperText={posErrors?.posSystemComments}
+                onChange={handlePosSystemChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -410,7 +421,7 @@ const POSSystem = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCarePosSystem?.posSystemStatus}
-                onChange={handleChange}
+                onChange={handlePosSystemChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -432,7 +443,7 @@ const POSSystem = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCarePosSystem?.posSystemDetails}
-                onChange={handleChange}
+                onChange={handlePosSystemChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -456,7 +467,7 @@ const POSSystem = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCarePosSystem?.posSystemActionName}
-                onChange={handleChange}
+                onChange={handlePosSystemChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -480,7 +491,7 @@ const POSSystem = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCarePosSystem?.posSystemActionItems}
-                onChange={handleChange}
+                onChange={handlePosSystemChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -504,7 +515,9 @@ const AccountingSoftware = ({
 }: AccountingSoftwareTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccountingSoftwareChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareAccountingSoftware((prev: AccountingSoftwareFormTypes) => ({
@@ -529,7 +542,7 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareAccountingSoftware?.accountingSoftwareComments}
-                onChange={handleChange}
+                onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -551,7 +564,7 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareAccountingSoftware?.accountingSoftwareStatus}
-                onChange={handleChange}
+                onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -573,7 +586,7 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareAccountingSoftware?.accountingSoftwareDetails}
-                onChange={handleChange}
+                onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -597,7 +610,7 @@ const AccountingSoftware = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareAccountingSoftware?.accountingSoftwareActionName}
-                onChange={handleChange}
+                onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -623,7 +636,7 @@ const AccountingSoftware = ({
                 value={
                   autoCareAccountingSoftware?.accountingSoftwareActionItems
                 }
-                onChange={handleChange}
+                onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -647,7 +660,9 @@ const CloudDocumentManagement = ({
 }: CloudDocumentManagementTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCloudDocumentManagementChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareCloudDocumentManagement(
@@ -676,7 +691,7 @@ const CloudDocumentManagement = ({
                 value={
                   autoCareCloudDocumentManagement?.cloudDocumentManagementComments
                 }
-                onChange={handleChange}
+                onChange={handleCloudDocumentManagementChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -700,7 +715,7 @@ const CloudDocumentManagement = ({
                 value={
                   autoCareCloudDocumentManagement?.cloudDocumentManagementStatus
                 }
-                onChange={handleChange}
+                onChange={handleCloudDocumentManagementChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -724,7 +739,7 @@ const CloudDocumentManagement = ({
                 value={
                   autoCareCloudDocumentManagement?.cloudDocumentManagementDetails
                 }
-                onChange={handleChange}
+                onChange={handleCloudDocumentManagementChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -750,7 +765,7 @@ const CloudDocumentManagement = ({
                 value={
                   autoCareCloudDocumentManagement?.cloudDocumentManagementActionName
                 }
-                onChange={handleChange}
+                onChange={handleCloudDocumentManagementChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -776,7 +791,7 @@ const CloudDocumentManagement = ({
                 value={
                   autoCareCloudDocumentManagement?.cloudDocumentManagementActionItems
                 }
-                onChange={handleChange}
+                onChange={handleCloudDocumentManagementChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -797,7 +812,7 @@ const CloudDocumentManagement = ({
 const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleScannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCareScanner((prev: ScannerFormTypes) => ({
@@ -822,7 +837,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareScanner?.scannerComments}
-                onChange={handleChange}
+                onChange={handleScannerChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -844,7 +859,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareScanner?.scannerStatus}
-                onChange={handleChange}
+                onChange={handleScannerChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -866,7 +881,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareScanner?.scannerDetails}
-                onChange={handleChange}
+                onChange={handleScannerChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -890,7 +905,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareScanner?.scannerActionName}
-                onChange={handleChange}
+                onChange={handleScannerChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -914,7 +929,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareScanner?.scannerActionItems}
-                onChange={handleChange}
+                onChange={handleScannerChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,

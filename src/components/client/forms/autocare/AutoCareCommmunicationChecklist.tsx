@@ -26,9 +26,6 @@ function AutoCareCommmunicationChecklist({ className }: any) {
     initialAutoCareKickOff
   );
 
-  console.log("autoCareKickOff : ",autoCareKickOff)
-  console.log('autoCarePreKickOff : ',autoCarePreKickOff)
-  console.log("autoCareGroupEmailEstablished : ",autoCareGroupEmailEstablished)
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished

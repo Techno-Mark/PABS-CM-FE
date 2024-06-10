@@ -90,8 +90,8 @@ function BasicDetailsAutoCare({
     const fieldDisplayNames: { [key: string]: string } = {
       accountName: "Account Name",
       corporateAddress: "Corporate Address",
-      no_of_Locations: "Number of Locations",
-      locationName: "Location Name",
+      noOfLocations: "Number of Locations",
+      nameOfLocations: "Locations Name",
       ownerContact: "Owner Contact",
       ownerEmail: "Owner Email",
       ownerPhone: "Owner Phone",
@@ -192,22 +192,22 @@ function BasicDetailsAutoCare({
       businessType: autoCareAccountDetails.businessType,
       service: autoCareAccountDetails.service,
       corporateAddress: autoCareAccountDetails.corporateAddress,
-      no_of_Locations: autoCareAccountDetails.no_of_Locations,
-      locationName: autoCareAccountDetails.locationName,
+      noOfLocations: autoCareAccountDetails.noOfLocations,//
+      nameOfLocations: autoCareAccountDetails.nameOfLocations,//
       ownerContact: autoCareAccountDetails.ownerContact,
       ownerEmail: autoCareAccountDetails.ownerEmail,
       ownerPhone: autoCareAccountDetails.ownerPhone,
-      no_of_Entities: autoCareLegalStructure.no_of_Entities,
-      no_of_Shops: autoCareLegalStructure.no_of_Shops,
+      noOfEntities: autoCareLegalStructure.no_of_Entities,//
+      noOfShops: autoCareLegalStructure.no_of_Shops,//
       salesRep: autoCareLegalStructure.salesRep,
       agreementDate: autoCareLegalStructure.agreementDate,
-      probableAcquitionDate: autoCareLegalStructure.probableAcquitionDate,
+      probableAcquisitionDate: autoCareLegalStructure.probableAcquitionDate,
       dba: autoCareLegalStructure.dba,
       shopManager: autoCareClientTeam.shopManager,
       poc1: autoCareClientTeam.poc1,
-      email: autoCareClientTeam.email,
+      emailId: autoCareClientTeam.email,
       cpa: autoCareClientTeam.cpa,
-      priorBookkeeper: autoCareClientTeam.priorBookkeeper,
+      priorBookkeeperCpa: autoCareClientTeam.priorBookkeeper,//
       itSupport: autoCareClientTeam.itSupport,
       timeZone: autoCareClientTeam.timeZone,
       state: autoCareClientTeam.state,
@@ -218,7 +218,7 @@ function BasicDetailsAutoCare({
       implementationAnalyst: autoCarePabsAccountingTeam.implementationAnalyst,
       operationsHead: autoCarePabsAccountingTeam.operationsHead,
       operationsManager: autoCarePabsAccountingTeam.operationsManager,
-      operationsAccountHolder:
+      operationsAccountHandler:
         autoCarePabsAccountingTeam.operationsAccountHolder,
       pabsGroupEmail: autoCarePabsAccountingTeam.pabsGroupEmail,
       pabsPhone: autoCarePabsAccountingTeam.pabsPhone,

@@ -1,21 +1,66 @@
+import {
+  FrequencyFormTypes,
+  FrequencyTypes,
+  NoOfEmployeeFormTypes,
+  NoOfEmployeeTypes,
+  PayrollServiceProviderFormTypes,
+  PayrollServiceProviderTypes,
+} from "@/models/autoCarChecklist";
+import {
+  initialAutoCareFrequency,
+  initialAutoCareNoOfEmployee,
+  initialAutoCarePayrollServiceProvider,
+} from "@/static/autoCareChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 function AutoCarePayrollSystem({ className }: any) {
+  const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] =
+    useState<PayrollServiceProviderFormTypes>(
+      initialAutoCarePayrollServiceProvider
+    );
+  const [autoCareFrequency, setAutoCareFrequency] =
+    useState<FrequencyFormTypes>(initialAutoCareFrequency);
+  const [autoCareNoOfEmployee, setAutoCareNoOfEmployee] =
+    useState<NoOfEmployeeFormTypes>(initialAutoCareNoOfEmployee);
+
   return (
     <div className={`${className}`}>
-      <PayrollServiceProvider />
-      <Frequency />
-      <NoOfEmployees />
+      <PayrollServiceProvider
+        autoCarePayrollServiceProvider={autoCarePayrollServiceProvider}
+        setAutoCarePayrollServiceProvider={setAutoCarePayrollServiceProvider}
+      />
+      <Frequency
+        autoCareFrequency={autoCareFrequency}
+        setAutoCareFrequency={setAutoCareFrequency}
+      />
+      <NoOfEmployees
+        autoCareNoOfEmployee={autoCareNoOfEmployee}
+        setAutoCareNoOfEmployee={setAutoCareNoOfEmployee}
+      />
     </div>
   );
 }
 
 export default AutoCarePayrollSystem;
 
-const PayrollServiceProvider = () => {
+const PayrollServiceProvider = ({
+  autoCarePayrollServiceProvider,
+  setAutoCarePayrollServiceProvider,
+}: PayrollServiceProviderTypes) => {
   const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setAutoCarePayrollServiceProvider(
+      (prev: PayrollServiceProviderFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
+  };
 
   return (
     <>
@@ -28,10 +73,15 @@ const PayrollServiceProvider = () => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
+                name="payrollServiceProviderComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
+                value={
+                  autoCarePayrollServiceProvider?.payrollServiceProviderComments
+                }
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -47,10 +97,15 @@ const PayrollServiceProvider = () => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
+                name="payrollServiceProviderStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
+                value={
+                  autoCarePayrollServiceProvider?.payrollServiceProviderStatus
+                }
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -66,10 +121,15 @@ const PayrollServiceProvider = () => {
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
+                name="payrollServiceProviderDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
+                value={
+                  autoCarePayrollServiceProvider?.payrollServiceProviderDetails
+                }
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -87,10 +147,15 @@ const PayrollServiceProvider = () => {
                 Action Name - PABS
               </label>
               <TextField
+                name="payrollServiceProviderActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
+                value={
+                  autoCarePayrollServiceProvider?.payrollServiceProviderActionName
+                }
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -108,10 +173,15 @@ const PayrollServiceProvider = () => {
                 Action Items - Client
               </label>
               <TextField
+                name="payrollServiceProviderActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
+                value={
+                  autoCarePayrollServiceProvider?.payrollServiceProviderActionItems
+                }
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -129,8 +199,20 @@ const PayrollServiceProvider = () => {
   );
 };
 
-const Frequency = () => {
+const Frequency = ({
+  autoCareFrequency,
+  setAutoCareFrequency,
+}: FrequencyTypes) => {
   const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setAutoCareFrequency((prev: FrequencyFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <>
@@ -143,10 +225,13 @@ const Frequency = () => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
+                name="frequencyComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
+                value={autoCareFrequency?.frequencyComments}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -162,10 +247,13 @@ const Frequency = () => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
+                name="frequencyStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
+                value={autoCareFrequency?.frequencyStatus}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -181,10 +269,13 @@ const Frequency = () => {
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
+                name="frequencyDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
+                value={autoCareFrequency?.frequencyDetails}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -202,10 +293,13 @@ const Frequency = () => {
                 Action Name - PABS
               </label>
               <TextField
+                name="frequencyActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
+                value={autoCareFrequency?.frequencyActionName}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -223,10 +317,13 @@ const Frequency = () => {
                 Action Items - Client
               </label>
               <TextField
+                name="frequencyActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
+                value={autoCareFrequency?.frequencyActionItems}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -244,8 +341,20 @@ const Frequency = () => {
   );
 };
 
-const NoOfEmployees = () => {
+const NoOfEmployees = ({
+  autoCareNoOfEmployee,
+  setAutoCareNoOfEmployee,
+}: NoOfEmployeeTypes) => {
   const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setAutoCareNoOfEmployee((prev: NoOfEmployeeFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <>
@@ -258,10 +367,13 @@ const NoOfEmployees = () => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
+                name="noOfEmployeeComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
+                value={autoCareNoOfEmployee?.noOfEmployeeComments}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -277,10 +389,13 @@ const NoOfEmployees = () => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
+                name="noOfEmployeeStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
+                value={autoCareNoOfEmployee?.noOfEmployeeStatus}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -296,10 +411,13 @@ const NoOfEmployees = () => {
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
+                name="noOfEmployeeStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
+                value={autoCareNoOfEmployee?.noOfEmployeeStatus}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -317,10 +435,13 @@ const NoOfEmployees = () => {
                 Action Name - PABS
               </label>
               <TextField
+                name="noOfEmployeeActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Name"
+                value={autoCareNoOfEmployee?.noOfEmployeeActionName}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -338,10 +459,13 @@ const NoOfEmployees = () => {
                 Action Items - Client
               </label>
               <TextField
+                name="noOfEmployeeActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
+                value={autoCareNoOfEmployee?.noOfEmployeeActionItems}
+                onChange={handleChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
