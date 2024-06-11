@@ -6,10 +6,9 @@ import Cookies from "js-cookie";
 import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
 import { AccordianExpand } from "@/static/autoCareChecklist";
+import AutoCareLocationDetails from "../forms/autocare/AutoCareLocationDetails";
 
-function LoginInfoAutoCare({
-  setLoginInfoFormSubmit,
-}: any) {
+function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
   const roleId = Cookies.get("roleId");
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
@@ -29,40 +28,97 @@ function LoginInfoAutoCare({
           <div className="m-6 flex flex-col gap-6">
             <ChecklistAccordian
               expandedAccordian={
-                expandedAccordian === AccordianExpand.COMMUNICATION
+                expandedAccordian === AccordianExpand.LOCATION_DETAILS
               }
               handleChange={handleAccordianChange(
-                AccordianExpand.COMMUNICATION
+                AccordianExpand.LOCATION_DETAILS
               )}
-              title="Phase 1: Communication"
+              title="Location Details"
             >
-            <></>
+              <AutoCareLocationDetails />
             </ChecklistAccordian>
 
             <ChecklistAccordian
               expandedAccordian={
-                expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
+                expandedAccordian === AccordianExpand.SALES_TAX_DETAILS
               }
               handleChange={handleAccordianChange(
-                AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
+                AccordianExpand.SALES_TAX_DETAILS
               )}
-              title="Phase 2: System, Software Locations"
+              title="Sales Tax Details"
             >
-             <></>
+              <></>
             </ChecklistAccordian>
 
             <ChecklistAccordian
               expandedAccordian={
-                expandedAccordian === AccordianExpand.CASH_BANKING_LOANS
+                expandedAccordian === AccordianExpand.POS_DETAILS
               }
               handleChange={handleAccordianChange(
-                AccordianExpand.CASH_BANKING_LOANS
+                AccordianExpand.POS_DETAILS
               )}
-              title="Phase 3: Cash and Banking & Loans"
+              title="POS Details"
             >
-             <></>
+              <></>
             </ChecklistAccordian>
 
+            <ChecklistAccordian
+              expandedAccordian={
+                expandedAccordian === AccordianExpand.UTILITIES
+              }
+              handleChange={handleAccordianChange(
+                AccordianExpand.UTILITIES
+              )}
+              title="Utilities"
+            >
+              <></>
+            </ChecklistAccordian>
+
+            <ChecklistAccordian
+              expandedAccordian={
+                expandedAccordian === AccordianExpand.VENDOR_DETAILS
+              }
+              handleChange={handleAccordianChange(
+                AccordianExpand.VENDOR_DETAILS
+              )}
+              title="Vendor Details"
+            >
+              <></>
+            </ChecklistAccordian>
+
+            <ChecklistAccordian
+              expandedAccordian={
+                expandedAccordian === AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
+              }
+              handleChange={handleAccordianChange(
+                AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
+              )}
+              title="Bank Details/CC Details/Loan"
+            >
+              <></>
+            </ChecklistAccordian>
+            <ChecklistAccordian
+              expandedAccordian={
+                expandedAccordian === AccordianExpand.MERCHANT_DETAILS
+              }
+              handleChange={handleAccordianChange(
+                AccordianExpand.MERCHANT_DETAILS
+              )}
+              title="Merchant Details"
+            >
+              <></>
+            </ChecklistAccordian>
+            <ChecklistAccordian
+              expandedAccordian={
+                expandedAccordian === AccordianExpand.PAYROLL_DETAILS
+              }
+              handleChange={handleAccordianChange(
+                AccordianExpand.PAYROLL_DETAILS
+              )}
+              title="Payroll Details"
+            >
+              <></>
+            </ChecklistAccordian>
           </div>
         </div>
 
