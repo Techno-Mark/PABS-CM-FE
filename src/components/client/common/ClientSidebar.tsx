@@ -62,8 +62,8 @@ const ClientSidebar = ({
     },
     {
       id: 3,
-      module: "Account Details",
-      link: "/client/onboarding/accountdetails",
+      module: "Login Info",
+      link: "/client/onboarding/logininfo",
       value: 15,
     },
   ];

@@ -6,6 +6,7 @@ import ClientWrapper from "@/components/ClientWapper";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
+import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
 
 function Page() {
   const router = useRouter();
@@ -34,9 +35,9 @@ function Page() {
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
       ) : (
-        <BasicDetailsAutoCare
-          setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
-          setBasicDetailCount={(value: number) => setBasicDetailCount(value)}
+        <LoginInfoAutoCare
+          setLoginInfoFormSubmit={(value: number) => setFormSubmit(value)}
+          setLoginInfoCount={(value: number) => setBasicDetailCount(value)}
         />
       )}
     </ClientWrapper>

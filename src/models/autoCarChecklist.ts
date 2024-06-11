@@ -96,6 +96,7 @@ export interface OperatingCheckingAccountFormTypes {
   operatingCheckingAccountDetails: string;
   operatingCheckingAccountActionName: string;
   operatingCheckingAccountActionItems: string;
+  [key: string]: string | null;
 }
 
 export interface SavingsAccountFormTypes {
@@ -104,6 +105,7 @@ export interface SavingsAccountFormTypes {
   savingsAccountDetails: string;
   savingsAccountActionName: string;
   savingsAccountActionItems: string;
+  [key: string]: string | null;
 }
 
 export interface CreditCardFormTypes {
@@ -112,6 +114,7 @@ export interface CreditCardFormTypes {
   creditCardDetails: string;
   creditCardActionName: string;
   creditCardActionItems: string;
+  [key: string]: string | null;
 }
 
 export interface BusinessLoansFormTypes {
@@ -136,6 +139,7 @@ export interface PayrollServiceProviderFormTypes {
   payrollServiceProviderDetails: string;
   payrollServiceProviderActionName: string;
   payrollServiceProviderActionItems: string;
+  [key: string]: string | null;
 }
 
 export interface FrequencyFormTypes {
@@ -144,6 +148,7 @@ export interface FrequencyFormTypes {
   frequencyDetails: string;
   frequencyActionName: string;
   frequencyActionItems: string;
+  [key: string]: string | null;
 }
 
 export interface NoOfEmployeeFormTypes {
@@ -318,21 +323,30 @@ export interface OperatingCheckingAccountTypes {
   setAutoCareOperatingCheckingAccount: React.Dispatch<
     React.SetStateAction<OperatingCheckingAccountFormTypes>
   >;
+  operatingCheckingAccountErrors:OperatingCheckingAccountFormErrors;
 }
+
+export interface OperatingCheckingAccountFormErrors extends Partial<OperatingCheckingAccountFormTypes> {}
 
 export interface SavingsAccountTypes {
   autoCareSavingsAccount: SavingsAccountFormTypes;
   setAutoCareSavingsAccount: React.Dispatch<
     React.SetStateAction<SavingsAccountFormTypes>
   >;
+  savingsAccountErrors:SavingsAccountFormErrors;
 }
+
+export interface SavingsAccountFormErrors extends Partial<SavingsAccountFormTypes> {}
 
 export interface CreditCardTypes {
   autoCareCreditCard: CreditCardFormTypes;
   setAutoCareCreditCard: React.Dispatch<
     React.SetStateAction<CreditCardFormTypes>
   >;
+  creditCardErrors:CreditCardFormErrors;
 }
+
+export interface CreditCardFormErrors extends Partial<CreditCardFormTypes> {}
 
 export interface BusinessLoansTypes {
   autoCareBusinessLoans: BusinessLoansFormTypes;
@@ -353,14 +367,20 @@ export interface PayrollServiceProviderTypes {
   setAutoCarePayrollServiceProvider: React.Dispatch<
     React.SetStateAction<PayrollServiceProviderFormTypes>
   >;
+  payrollServiceProviderError:PayrollServiceProviderFormErrors;
 }
+
+export interface PayrollServiceProviderFormErrors extends Partial<PayrollServiceProviderFormTypes> {}
 
 export interface FrequencyTypes {
   autoCareFrequency: FrequencyFormTypes;
   setAutoCareFrequency: React.Dispatch<
     React.SetStateAction<FrequencyFormTypes>
   >;
+  frequencyErrors:FrequencyFormErrors;
 }
+
+export interface FrequencyFormErrors extends Partial<FrequencyFormTypes> {}
 
 export interface NoOfEmployeeTypes {
   autoCareNoOfEmployee: NoOfEmployeeFormTypes;
@@ -374,31 +394,46 @@ export interface SalesTaxAccessWorkPaperTypes {
   setAutoCareSalesTaxAccessWorkPaper: React.Dispatch<
     React.SetStateAction<SalesTaxAccessWorkPaperFormTypes>
   >;
+  salesTaxAccessWorkPaperErrors:SalesTaxAccessWorkPaperFormErrors;
 }
+
+export interface SalesTaxAccessWorkPaperFormErrors extends Partial<SalesTaxAccessWorkPaperFormTypes> {}
 
 export interface UseTaxTypes {
   autoCareUseTax: UseTaxFormTypes;
   setAutoCareUseTax: React.Dispatch<React.SetStateAction<UseTaxFormTypes>>;
+  useTaxErrors:UseTaxFormErrors;
 }
+
+export interface UseTaxFormErrors extends Partial<UseTaxFormTypes> {}
 
 export interface TireTaxTypes {
   autoCareTireTax: TireTaxFormTypes;
   setAutoCareTireTax: React.Dispatch<React.SetStateAction<TireTaxFormTypes>>;
+  tireTaxErrors:TireTaxFormErrors;
 }
+
+export interface TireTaxFormErrors extends Partial<TireTaxFormTypes> {}
 
 export interface LastTaxReturnFiledYearTypes {
   autoCareLastTaxReturnFiledYear: LastTaxReturnFiledYearFormTypes;
   setAutoCareLastTaxReturnFiledYear: React.Dispatch<
     React.SetStateAction<LastTaxReturnFiledYearFormTypes>
   >;
+  lastTaxReturnFiledYearErrors:LastTaxReturnFiledYearFormErrors;
 }
+
+export interface LastTaxReturnFiledYearFormErrors extends Partial<LastTaxReturnFiledYearFormTypes> {}
 
 export interface VendorPortalAccessTypes {
   autoCareVendorPortalAccess: VendorPortalAccessFormTypes;
   setAutoCareVendorPortalAccess: React.Dispatch<
     React.SetStateAction<VendorPortalAccessFormTypes>
   >;
+  vendorPortalAccessErrors:VendorPortalAccessFormErrors
 }
+
+export interface VendorPortalAccessFormErrors extends Partial<VendorPortalAccessFormTypes> {}
 
 export interface TradeAccountTypes {
   autoCareTradeAccount: TradeAccountFormTypes;
@@ -412,7 +447,10 @@ export interface BillPayAccessTypes {
   setAutoCareBillPayAccess: React.Dispatch<
     React.SetStateAction<BillPayAccessFormTypes>
   >;
+  billPayAccessErrors:BillPayAccessFormErrors
 }
+
+export interface BillPayAccessFormErrors extends Partial<BillPayAccessFormTypes> {}
 
 export interface ApThresholdLimitTypes {
   autoCareApThresholdLimit: ApThresholdLimitFormTypes;

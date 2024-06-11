@@ -20,8 +20,6 @@ function AutoCareStatusCondition({ className }: any) {
     useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
   const [autoCareSharingFinancials, setAutoCareSharingFinancials] =
     useState<SharingFinancialsFormTypes>(initialAutoCareSharingFinancials);
-  const [autoCareGP_GMNP_NM, setAutoCareGP_GMNP_NM] =
-    useState<GP_GMNP_NMFormTypes>(initialAutoCareGP_GMNP_NM);
   return (
     <div className={`${className}`}>
       <LastClosedPeriod
@@ -31,10 +29,6 @@ function AutoCareStatusCondition({ className }: any) {
       <SharingFinancials
         autoCareSharingFinancials={autoCareSharingFinancials}
         setAutoCareSharingFinancials={setAutoCareSharingFinancials}
-      />
-      <GP_GMNP_NM
-        autoCareGP_GMNP_NM={autoCareGP_GMNP_NM}
-        setAutoCareGP_GMNP_NM={setAutoCareGP_GMNP_NM}
       />
     </div>
   );
@@ -313,148 +307,6 @@ const SharingFinancials = ({
                 placeholder="Please Enter Action Items"
                 value={autoCareSharingFinancials?.sharingFinancialsActionItems}
                 onChange={handleSharingFinancialsChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    </>
-  );
-};
-
-const GP_GMNP_NM = ({
-  autoCareGP_GMNP_NM,
-  setAutoCareGP_GMNP_NM,
-}: GP_GMNP_NMTypes) => {
-  const classes = useStyles();
-
-  const handleGP_GMNP_NMChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setAutoCareGP_GMNP_NM((prev: GP_GMNP_NMFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  return (
-    <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        GP/GM NP/NM
-      </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Comments</label>
-              <TextField
-                name="gpGmnpNmComments"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Comments"
-                value={autoCareGP_GMNP_NM?.gpGmnpNmComments}
-                onChange={handleGP_GMNP_NMChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="gpGmnpNmStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareGP_GMNP_NM?.gpGmnpNmStatus}
-                onChange={handleGP_GMNP_NMChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
-              <TextField
-                name="gpGmnpNmDetails"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Details"
-                value={autoCareGP_GMNP_NM?.gpGmnpNmDetails}
-                onChange={handleGP_GMNP_NMChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
-              </label>
-              <TextField
-                name="gpGmnpNmActionName"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Name"
-                value={autoCareGP_GMNP_NM?.gpGmnpNmActionName}
-                onChange={handleGP_GMNP_NMChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Items - Client
-              </label>
-              <TextField
-                name="gpGmnpNmActionItems"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Items"
-                value={autoCareGP_GMNP_NM?.gpGmnpNmActionItems}
-                onChange={handleGP_GMNP_NMChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,

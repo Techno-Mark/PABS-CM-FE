@@ -231,17 +231,166 @@ export const initialAutoCareGP_GMNP_NM = {
 };
 
 export const validateAutoCareSystemSoftwareLocationField = [
-  "posSystemStatus",
-  "posSystemComments",
-  "posSystemDetails",
-  "posSystemActionName",
-  "posSystemActionItems",
+  "posSoftwareStatus",
+  "posSoftwareComments",
+  "posSoftwareDetails",
+  "posSoftwareActionName",
+  "posSoftwareActionItems",
   "accountingSoftwareStatus",
   "accountingSoftwareComments",
   "accountingSoftwareDetails",
   "accountingSoftwareActionName",
   "accountingSoftwareActionItems"
 ];
+
+export const validateAutoCareCashBankLoansField = [
+  "operatingCheckingAccountStatus",
+  "operatingCheckingAccountComments",
+  "operatingCheckingAccountDetails",
+  "operatingCheckingAccountActionName",
+  "operatingCheckingAccountActionItems",
+  "savingsAccountStatus",
+  "savingsAccountComments",
+  "savingsAccountDetails",
+  "savingsAccountActionName",
+  "savingsAccountActionItems",
+  "creditCardStatus",
+  "creditCardComments",
+  "creditCardDetails",
+  "creditCardActionName",
+  "creditCardActionItems",
+];
+
+export const validateAutoCareFrequencyField = [
+  "payrollServiceProviderStatus",
+  "payrollServiceProviderComments",
+  "payrollServiceProviderDetails",
+  "payrollServiceProviderActionName",
+  "payrollServiceProviderActionItems",
+  "frequencyStatus",
+  "frequencyComments",
+  "frequencyDetails",
+  "frequencyActionName",
+  "frequencyActionItems",
+];
+
+export const validateAutoCareCompliancesField = [
+  "salesTaxAccessWorkPaperStatus",
+  "salesTaxAccessWorkPaperComments",
+  "salesTaxAccessWorkPaperDetails",
+  "salesTaxAccessWorkPaperActionName",
+  "salesTaxAccessWorkPaperActionItems",
+  "useTaxStatus",
+  "useTaxComments",
+  "useTaxDetails",
+  "useTaxActionName",
+  "useTaxActionItems",
+  "tireTaxStatus",
+  "tireTaxComments",
+  "tireTaxDetails",
+  "tireTaxActionName",
+  "tireTaxActionItems",
+  "lastTaxReturnFiledYearStatus",
+  "lastTaxReturnFiledYearComments",
+  "lastTaxReturnFiledYearDetails",
+  "lastTaxReturnFiledYearActionName",
+  "lastTaxReturnFiledYearActionItems",
+];
+
+export const validateAutoCarePayableCashPayAccessField = [
+  "vendorPortalAccessStatus",
+  "vendorPortalAccessComments",
+  "vendorPortalAccessDetails",
+  "vendorPortalAccessActionName",
+  "vendorPortalAccessActionItems",
+  "billPayAccessStatus",
+  "billPayAccessComments",
+  "billPayAccessDetails",
+  "billPayAccessActionName",
+  "billPayAccessActionItems",
+];
+
+export const fieldDisplayNamesPayableCashPayAccess: { [key: string]: string } = {
+  vendorPortalAccessStatus: "Status is required",
+  vendorPortalAccessComments: "Commments is required",
+  vendorPortalAccessDetails: "Details is reuired",
+  vendorPortalAccessActionName: "Action Name is required",
+  vendorPortalAccessActionItems: "Action Items is required",
+  billPayAccessStatus: "Status is required",
+  billPayAccessComments: "Commments is required",
+  billPayAccessDetails: "Details is reuired",
+  billPayAccessActionName: "Action Name is required",
+  billPayAccessActionItems: "Action Items is required",
+};
+
+export const fieldDisplayNamesCompliances: { [key: string]: string } = {
+  salesTaxAccessWorkPaperStatus: "Status is required",
+  salesTaxAccessWorkPaperComments: "Commments is required",
+  salesTaxAccessWorkPaperDetails: "Details is reuired",
+  salesTaxAccessWorkPaperActionName: "Action Name is required",
+  salesTaxAccessWorkPaperActionItems: "Action Items is required",
+  useTaxStatus: "Status is required",
+  useTaxComments: "Commments is required",
+  useTaxDetails: "Details is reuired",
+  useTaxActionName: "Action Name is required",
+  useTaxActionItems: "Action Items is required",
+  tireTaxStatus: "Status is required",
+  tireTaxComments: "Commments is required",
+  tireTaxDetails: "Details is reuired",
+  tireTaxActionName: "Action Name is required",
+  tireTaxActionItems: "Action Items is required",
+  lastTaxReturnFiledYearStatus: "Status is required",
+  lastTaxReturnFiledYearComments: "Commments is required",
+  lastTaxReturnFiledYearDetails: "Details is reuired",
+  lastTaxReturnFiledYearActionName: "Action Name is required",
+  lastTaxReturnFiledYearActionItems: "Action Items is required",
+};
+
+
+export const fieldDisplayNamesCashBankLoans: { [key: string]: string } = {
+  operatingCheckingAccountStatus: "Status is required",
+  operatingCheckingAccountComments: "Comments is required",
+  operatingCheckingAccountDetails: "Details is required",
+  operatingCheckingAccountActionName: "Action Name is required",
+  operatingCheckingAccountActionItems: "Action Items is required",
+  savingsAccountStatus: "Status is required",
+  savingsAccountComments: "Comments is required",
+  savingsAccountDetails: "Details is required",
+  savingsAccountActionName: "Action Name is required",
+  savingsAccountActionItems: "Action Items is required",
+  creditCardStatus: "Status is required",
+  creditCardComments: "Comments is required",
+  creditCardDetails: "Details is required",
+  creditCardActionName: "Action Name is required",
+  creditCardActionItems: "Action Items is required"
+};
+
+export const fieldDisplayNamesFrequency: { [key: string]: string } = {
+  payrollServiceProviderStatus: "Status is required",
+  payrollServiceProviderComments: "Comments is required",
+  payrollServiceProviderDetails: "Details is required",
+  payrollServiceProviderActionName: "Action Name is required",
+  payrollServiceProviderActionItems: "Action Items is required",
+  frequencyStatus: "Status is required",
+  frequencyComments: "Comments is required",
+  frequencyDetails: "Details is required",
+  frequencyActionName: "Action Name is required",
+  frequencyActionItems: "Action Items is required",
+};
+
+export const fieldDisplayNamesSystemSoftwareLoans: { [key: string]: string } = {
+  posSoftwareStatus: "Status is required",
+  posSoftwareComments: "Commments is required",
+  posSoftwareDetails: "Details is reuired",
+  posSoftwareActionName: "Action Name is required",
+  posSoftwareActionItems: "Action Items is required",
+  accountingSoftwareStatus: "Status is required",
+  accountingSoftwareComments: "Commments is required",
+  accountingSoftwareDetails: "Details is reuired",
+  accountingSoftwareActionName: "Action Name is required",
+  accountingSoftwareActionItems: "Action Items is required",
+};
+
 
 export const AccordianExpand = {
   COMMUNICATION: 1,

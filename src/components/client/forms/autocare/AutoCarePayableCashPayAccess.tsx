@@ -8,30 +8,28 @@ import {
   VendorPortalAccessFormTypes,
   VendorPortalAccessTypes,
 } from "@/models/autoCarChecklist";
-import {
-  initialAutoCareApThresholdLimit,
-  initialAutoCareBillPayAccess,
-  initialAutoCareTradeAccount,
-  initialAutoCareVendorPortalAccess,
-} from "@/static/autoCareChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
-function AutoCarePayableCashPayAccess({ className }: any) {
-  const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] =
-    useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
-  const [autoCareTradeAccount, setAutoCareTradeAccount] =
-    useState<TradeAccountFormTypes>(initialAutoCareTradeAccount);
-  const [autoCareBillPayAccess, setAutoCareBillPayAccess] =
-    useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
-  const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] =
-    useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
+function AutoCarePayableCashPayAccess({
+  className,
+  payableCashPayAccessError,
+  autoCareVendorPortalAccess,
+  setAutoCareVendorPortalAccess,
+  autoCareTradeAccount,
+  setAutoCareTradeAccount,
+  autoCareBillPayAccess,
+  setAutoCareBillPayAccess,
+  autoCareApThresholdLimit,
+  setAutoCareApThresholdLimit
+}: any) {
   return (
     <div className={`${className}`}>
       <VendorPortalAccess
         autoCareVendorPortalAccess={autoCareVendorPortalAccess}
         setAutoCareVendorPortalAccess={setAutoCareVendorPortalAccess}
+        vendorPortalAccessErrors={payableCashPayAccessError}
       />
       <TradeAccount
         autoCareTradeAccount={autoCareTradeAccount}
@@ -40,6 +38,7 @@ function AutoCarePayableCashPayAccess({ className }: any) {
       <BillPayAccess
         autoCareBillPayAccess={autoCareBillPayAccess}
         setAutoCareBillPayAccess={setAutoCareBillPayAccess}
+        billPayAccessErrors={payableCashPayAccessError}
       />
       <APThresholdLimit
         autoCareApThresholdLimit={autoCareApThresholdLimit}
@@ -54,6 +53,7 @@ export default AutoCarePayableCashPayAccess;
 const VendorPortalAccess = ({
   autoCareVendorPortalAccess,
   setAutoCareVendorPortalAccess,
+  vendorPortalAccessErrors
 }: VendorPortalAccessTypes) => {
   const classes = useStyles();
 
@@ -85,6 +85,8 @@ const VendorPortalAccess = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessComments}
+                error={!!vendorPortalAccessErrors?.vendorPortalAccessComments}
+                helperText={vendorPortalAccessErrors?.vendorPortalAccessComments}
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -107,6 +109,8 @@ const VendorPortalAccess = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessStatus}
+                error={!!vendorPortalAccessErrors?.vendorPortalAccessStatus}
+                helperText={vendorPortalAccessErrors?.vendorPortalAccessStatus}
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -129,6 +133,8 @@ const VendorPortalAccess = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessDetails}
+                error={!!vendorPortalAccessErrors?.vendorPortalAccessDetails}
+                helperText={vendorPortalAccessErrors?.vendorPortalAccessDetails}
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -153,6 +159,8 @@ const VendorPortalAccess = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessActionName}
+                error={!!vendorPortalAccessErrors?.vendorPortalAccessActionName}
+                helperText={vendorPortalAccessErrors?.vendorPortalAccessActionName}
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -179,6 +187,8 @@ const VendorPortalAccess = ({
                 value={
                   autoCareVendorPortalAccess?.vendorPortalAccessActionItems
                 }
+                error={!!vendorPortalAccessErrors?.vendorPortalAccessActionItems}
+                helperText={vendorPortalAccessErrors?.vendorPortalAccessActionItems}
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -341,6 +351,7 @@ const TradeAccount = ({
 const BillPayAccess = ({
   autoCareBillPayAccess,
   setAutoCareBillPayAccess,
+  billPayAccessErrors
 }: BillPayAccessTypes) => {
   const classes = useStyles();
 
@@ -372,6 +383,8 @@ const BillPayAccess = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareBillPayAccess?.billPayAccessComments}
+                error={!!billPayAccessErrors?.billPayAccessComments}
+                helperText={billPayAccessErrors?.billPayAccessComments}
                 onChange={handleBillPayAccessChange}
                 InputProps={{
                   classes: {
@@ -394,6 +407,8 @@ const BillPayAccess = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareBillPayAccess?.billPayAccessStatus}
+                error={!!billPayAccessErrors?.billPayAccessStatus}
+                helperText={billPayAccessErrors?.billPayAccessStatus}
                 onChange={handleBillPayAccessChange}
                 InputProps={{
                   classes: {
@@ -416,6 +431,8 @@ const BillPayAccess = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareBillPayAccess?.billPayAccessDetails}
+                error={!!billPayAccessErrors?.billPayAccessDetails}
+                helperText={billPayAccessErrors?.billPayAccessDetails}
                 onChange={handleBillPayAccessChange}
                 InputProps={{
                   classes: {
@@ -440,6 +457,8 @@ const BillPayAccess = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareBillPayAccess?.billPayAccessActionName}
+                error={!!billPayAccessErrors?.billPayAccessActionName}
+                helperText={billPayAccessErrors?.billPayAccessActionName}
                 onChange={handleBillPayAccessChange}
                 InputProps={{
                   classes: {
@@ -464,6 +483,8 @@ const BillPayAccess = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareBillPayAccess?.billPayAccessActionItems}
+                error={!!billPayAccessErrors?.billPayAccessActionItems}
+                helperText={billPayAccessErrors?.billPayAccessActionItems}
                 onChange={handleBillPayAccessChange}
                 InputProps={{
                   classes: {

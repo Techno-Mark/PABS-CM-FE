@@ -46,7 +46,7 @@ function AutoCareSystemLocationChecklist({
         autoCareAccessComputerMethod={autoCareAccessComputerMethod}
         setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
       />
-      <POSSoftware
+      <PosSoftware
         autoCarePosSoftware={autoCarePosSoftware}
         setAutoCarePosSoftware={setAutoCarePosSoftware}
         posErrors={systemSoftwareLocationErrors}
@@ -360,7 +360,7 @@ const AccessComputerMethod = ({
   );
 };
 
-const POSSoftware = ({
+const PosSoftware = ({
   autoCarePosSoftware,
   setAutoCarePosSoftware,
   posErrors
@@ -529,7 +529,7 @@ const EstimatingSoftware = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Estimating Software<span className="text-[#DC3545]">*</span>
+        Estimating Software
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -629,7 +629,7 @@ const EstimatingSoftware = ({
                 Action Items - Client
               </label>
               <TextField
-                name="posSystemActionItems"
+                name="estimatingSoftwareActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"

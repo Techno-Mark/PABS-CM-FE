@@ -21,21 +21,20 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-function AutoCareCashBankLoans({ className }: any) {
-  const [
-    autoCareOperatingCheckingAccount,
-    setAutoCareOperatingCheckingAccount,
-  ] = useState<OperatingCheckingAccountFormTypes>(
-    initialAutoCareOperatingCheckingAccount
-  );
-  const [autoCareSavingsAccount, setAutoCareSavingsAccount] =
-    useState<SavingsAccountFormTypes>(initialAutoCareSavingsAccount);
-  const [autoCareCreditCard, setAutoCareCreditCard] =
-    useState<CreditCardFormTypes>(initialAutoCareCreditCard);
-  const [autoCareBusinessLoans, setAutoCareBusinessLoans] =
-    useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
-  const [autoCarePropertyLoans, setAutoCarePropertyLoans] =
-    useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
+function AutoCareCashBankLoans({
+  className,
+  cashBankLoansErrors,
+  autoCareOperatingCheckingAccount,
+  setAutoCareOperatingCheckingAccount,
+  autoCareSavingsAccount,
+  setAutoCareSavingsAccount,
+  autoCareCreditCard,
+  setAutoCareCreditCard,
+  autoCareBusinessLoans,
+  setAutoCareBusinessLoans,
+  autoCarePropertyLoans,
+  setAutoCarePropertyLoans,
+}: any) {
 
   return (
     <div className={`${className}`}>
@@ -44,14 +43,17 @@ function AutoCareCashBankLoans({ className }: any) {
         setAutoCareOperatingCheckingAccount={
           setAutoCareOperatingCheckingAccount
         }
+        operatingCheckingAccountErrors={cashBankLoansErrors}
       />
       <SavingsAccount
         autoCareSavingsAccount={autoCareSavingsAccount}
         setAutoCareSavingsAccount={setAutoCareSavingsAccount}
+        savingsAccountErrors={cashBankLoansErrors}
       />
       <CreditCard
         autoCareCreditCard={autoCareCreditCard}
         setAutoCareCreditCard={setAutoCareCreditCard}
+        creditCardErrors={cashBankLoansErrors}
       />
       <BusinessLoans
         autoCareBusinessLoans={autoCareBusinessLoans}
@@ -70,10 +72,11 @@ export default AutoCareCashBankLoans;
 const OperatingCheckingAccount = ({
   autoCareOperatingCheckingAccount,
   setAutoCareOperatingCheckingAccount,
+  operatingCheckingAccountErrors,
 }: OperatingCheckingAccountTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOperatingCheckingAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCareOperatingCheckingAccount(
@@ -102,7 +105,9 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountComments
                 }
-                onChange={handleChange}
+                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountComments}
+                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountComments}
+                onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -126,7 +131,9 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountStatus
                 }
-                onChange={handleChange}
+                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
+                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
+                onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -150,7 +157,9 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountDetails
                 }
-                onChange={handleChange}
+                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountDetails}
+                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountDetails}
+                onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -176,7 +185,9 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountActionName
                 }
-                onChange={handleChange}
+                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountActionName}
+                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountActionName}
+                onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -202,7 +213,9 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountActionItems
                 }
-                onChange={handleChange}
+                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountActionItems}
+                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountActionItems}
+                onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -223,10 +236,11 @@ const OperatingCheckingAccount = ({
 const SavingsAccount = ({
   autoCareSavingsAccount,
   setAutoCareSavingsAccount,
+  savingsAccountErrors
 }: SavingsAccountTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSavingsAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCareSavingsAccount((prev: SavingsAccountFormTypes) => ({
@@ -251,7 +265,9 @@ const SavingsAccount = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareSavingsAccount?.savingsAccountComments}
-                onChange={handleChange}
+                error={!!savingsAccountErrors?.savingsAccountComments}
+                helperText={savingsAccountErrors?.savingsAccountComments}
+                onChange={handleSavingsAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -273,7 +289,9 @@ const SavingsAccount = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareSavingsAccount?.savingsAccountStatus}
-                onChange={handleChange}
+                error={!!savingsAccountErrors?.savingsAccountStatus}
+                helperText={savingsAccountErrors?.savingsAccountStatus}
+                onChange={handleSavingsAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -295,7 +313,9 @@ const SavingsAccount = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareSavingsAccount?.savingsAccountDetails}
-                onChange={handleChange}
+                error={!!savingsAccountErrors?.savingsAccountDetails}
+                helperText={savingsAccountErrors?.savingsAccountDetails}
+                onChange={handleSavingsAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -319,7 +339,9 @@ const SavingsAccount = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareSavingsAccount?.savingsAccountActionName}
-                onChange={handleChange}
+                error={!!savingsAccountErrors?.savingsAccountActionName}
+                helperText={savingsAccountErrors?.savingsAccountActionName}
+                onChange={handleSavingsAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -343,7 +365,9 @@ const SavingsAccount = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareSavingsAccount?.savingsAccountActionItems}
-                onChange={handleChange}
+                error={!!savingsAccountErrors?.savingsAccountActionItems}
+                helperText={savingsAccountErrors?.savingsAccountActionItems}
+                onChange={handleSavingsAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -364,10 +388,11 @@ const SavingsAccount = ({
 const CreditCard = ({
   autoCareCreditCard,
   setAutoCareCreditCard,
+  creditCardErrors
 }: CreditCardTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCreditCardChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCareCreditCard((prev: CreditCardFormTypes) => ({
@@ -393,7 +418,9 @@ const CreditCard = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareCreditCard?.creditCardComments}
-                onChange={handleChange}
+                error={!!creditCardErrors?.creditCardComments}
+                helperText={creditCardErrors?.creditCardComments}
+                onChange={handleCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -415,7 +442,9 @@ const CreditCard = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareCreditCard?.creditCardStatus}
-                onChange={handleChange}
+                error={!!creditCardErrors?.creditCardStatus}
+                helperText={creditCardErrors?.creditCardStatus}
+                onChange={handleCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -437,7 +466,9 @@ const CreditCard = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareCreditCard?.creditCardDetails}
-                onChange={handleChange}
+                error={!!creditCardErrors?.creditCardDetails}
+                helperText={creditCardErrors?.creditCardDetails}
+                onChange={handleCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -461,7 +492,9 @@ const CreditCard = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareCreditCard?.creditCardActionName}
-                onChange={handleChange}
+                error={!!creditCardErrors?.creditCardActionName}
+                helperText={creditCardErrors?.creditCardActionName}
+                onChange={handleCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -485,7 +518,9 @@ const CreditCard = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareCreditCard?.creditCardActionItems}
-                onChange={handleChange}
+                error={!!creditCardErrors?.creditCardActionItems}
+                helperText={creditCardErrors?.creditCardActionItems}
+                onChange={handleCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -509,7 +544,7 @@ const BusinessLoans = ({
 }: BusinessLoansTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBusinessLoansChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCareBusinessLoans((prev: BusinessLoansFormTypes) => ({
@@ -534,7 +569,7 @@ const BusinessLoans = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareBusinessLoans?.businessLoansComments}
-                onChange={handleChange}
+                onChange={handleBusinessLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -556,7 +591,7 @@ const BusinessLoans = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareBusinessLoans?.businessLoansStatus}
-                onChange={handleChange}
+                onChange={handleBusinessLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -578,7 +613,7 @@ const BusinessLoans = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareBusinessLoans?.businessLoansDetails}
-                onChange={handleChange}
+                onChange={handleBusinessLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -602,7 +637,7 @@ const BusinessLoans = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareBusinessLoans?.businessLoansActionName}
-                onChange={handleChange}
+                onChange={handleBusinessLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -626,7 +661,7 @@ const BusinessLoans = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareBusinessLoans?.businessLoansActionItems}
-                onChange={handleChange}
+                onChange={handleBusinessLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -650,7 +685,7 @@ const PropertyLoans = ({
 }: PropertyLoansTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePropertyLoansChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setAutoCarePropertyLoans((prev: PropertyLoansFormTypes) => ({
@@ -675,7 +710,7 @@ const PropertyLoans = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCarePropertyLoans?.propertyLoansComments}
-                onChange={handleChange}
+                onChange={handlePropertyLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -697,7 +732,7 @@ const PropertyLoans = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCarePropertyLoans?.propertyLoansStatus}
-                onChange={handleChange}
+                onChange={handlePropertyLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -719,7 +754,7 @@ const PropertyLoans = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCarePropertyLoans?.propertyLoansDetails}
-                onChange={handleChange}
+                onChange={handlePropertyLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -743,7 +778,7 @@ const PropertyLoans = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCarePropertyLoans?.propertyLoansActionName}
-                onChange={handleChange}
+                onChange={handlePropertyLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -767,7 +802,7 @@ const PropertyLoans = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCarePropertyLoans?.propertyLoansActionItems}
-                onChange={handleChange}
+                onChange={handlePropertyLoansChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
