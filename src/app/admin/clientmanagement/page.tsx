@@ -48,7 +48,7 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 // Utlis imports
 import { useStyles } from "@/utils/useStyles";
 import { checkPermission } from "@/utils/permissionCheckFunction";
-import { AlphabetColor } from "@/utils/commonData";
+import { AlphabetColor, noRecordText } from "@/utils/commonData";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie imports
 import Cookies from "js-cookie";
@@ -560,10 +560,6 @@ function Page() {
     });
   };
 
-  const localeText: { noRowsLabel: string } = {
-    noRowsLabel: "No record found",
-  };
-
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
@@ -645,7 +641,7 @@ function Page() {
             getRowId={(i: any) => i.ClientId}
             onRowSelectionModelChange={handleSelectionModelChange}
             rowSelectionModel={selectedIds}
-            localeText={localeText}
+            localeText={noRecordText}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
               footer: () => (
