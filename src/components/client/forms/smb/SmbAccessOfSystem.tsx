@@ -51,25 +51,6 @@ function SmbAccessOfSystem({
           }));
         }
         break;
-        if (validateNumber(value)) {
-          setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
-            ...prev,
-            [name]: value,
-          }));
-          setAutoCareAccountDetailsErrors(
-            (prevErrors: AccountDetailsFormErrors) => ({
-              ...prevErrors,
-              [name]: "",
-            })
-          );
-        } else {
-          const validValue = value.replace(/[^0-9]/g, "");
-          setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
-            ...prev,
-            [name]: validValue,
-          }));
-        }
-        break;
       default:
         setSmbSystemAccessDetailsErrors(
           (prevErrors: SystemAccessDetailsFormErrors) => ({
