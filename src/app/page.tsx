@@ -15,7 +15,7 @@ export default function Home() {
     hasToken(router);
     const roleId = Cookies.get("roleId");
     if (roleId == "4") {
-      router.push("/client/onboarding");
+      router.push("/client/onboarding/whitelabel");
     } else {
       if (
         checkPermission("Client Management", "view") ||

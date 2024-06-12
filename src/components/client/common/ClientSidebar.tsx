@@ -13,6 +13,8 @@ import { Theme } from "@material-ui/core/styles";
 import { clientDrawerWidth } from "@/static/commonVariables";
 // Model import
 import { ClientSidebarItemsType } from "@/models/adminSidebar";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const openedMixin = (theme: Theme) => ({
   width: clientDrawerWidth,
@@ -46,27 +48,52 @@ const ClientSidebar = ({
   basicDetailCount,
   sidebarModule,
 }: SidebarModuleTypes) => {
+  const pathname = usePathname();
+  const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
 
-  const items: ClientSidebarItemsType[] = [
-    {
-      id: 1,
-      module: "Basic Details",
-      link: "/client/onboarding/basicdetails",
-      value: basicDetailCount,
-    },
-    {
-      id: 2,
-      module: "Checklist",
-      link: "/client/onboarding/checklist",
-      value: 45,
-    },
-    {
-      id: 3,
-      module: "Login Info",
-      link: "/client/onboarding/logininfo",
-      value: 15,
-    },
-  ];
+  useEffect(() => {
+    pathname === "/client/onboarding/autocare"
+      ? setItems([
+          {
+            id: 1,
+            module: "Basic Details",
+            link: "/client/onboarding/basicdetails",
+            value: basicDetailCount,
+          },
+          {
+            id: 2,
+            module: "Checklist",
+            link: "/client/onboarding/checklist",
+            value: 45,
+          },
+          {
+            id: 3,
+            module: "Login Info",
+            link: "/client/onboarding/logininfo",
+            value: 15,
+          },
+        ])
+      : setItems([
+          {
+            id: 1,
+            module: "Basic Details",
+            link: "/client/onboarding/basicdetails",
+            value: basicDetailCount,
+          },
+          {
+            id: 2,
+            module: "Checklist",
+            link: "/client/onboarding/checklist",
+            value: 45,
+          },
+          {
+            id: 3,
+            module: "Account Details",
+            link: "/client/onboarding/accountDetails",
+            value: 15,
+          },
+        ]);
+  }, [pathname]);
 
   return (
     <>
