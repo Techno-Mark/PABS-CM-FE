@@ -1,42 +1,42 @@
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
-import { autoCareLocationDetailsTypes } from "@/models/autoCareLogininfo";
-import { initialAutoCareLocationDetails } from "@/static/autoCareLoginInfo";
+import { autoCareSalesTaxTypes } from "@/models/autoCareLogininfo";
+import { initialAutoCareSalesTaxDetails } from "@/static/autoCareLoginInfo";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-function AutoCareLocationDetails({ className }: any) {
+function AutoCareSalesTaxDetails({ className }: any) {
   const classes = useStyles();
-  const [locationDetailsRows, setLocationDetailsRows] = useState<
-    autoCareLocationDetailsTypes[]
-  >([initialAutoCareLocationDetails]);
+  const [salesTaxDetailsRows, setSalesTaxDetailsRows] = useState<
+    autoCareSalesTaxTypes[]
+  >([initialAutoCareSalesTaxDetails]);
 
   const handleAddRow = () => {
-    setLocationDetailsRows([
-      ...locationDetailsRows,
-      initialAutoCareLocationDetails,
+    setSalesTaxDetailsRows([
+      ...salesTaxDetailsRows,
+      initialAutoCareSalesTaxDetails,
     ]);
   };
 
   const handleRemoveRow = (index: any) => {
-    const newRows = locationDetailsRows.filter((_, i) => i !== index);
-    setLocationDetailsRows(newRows);
+    const newRows = salesTaxDetailsRows.filter((_, i) => i !== index);
+    setSalesTaxDetailsRows(newRows);
   };
 
   const handleInputChange = (index: any, event: any) => {
     const { name, value } = event.target;
-    const newRows = locationDetailsRows.map((locationDetailsRows, rowIndex) =>
+    const newRows = salesTaxDetailsRows.map((salesTaxDetailsRows, rowIndex) =>
       rowIndex === index
-        ? { ...locationDetailsRows, [name]: value }
-        : locationDetailsRows
+        ? { ...salesTaxDetailsRows, [name]: value }
+        : salesTaxDetailsRows
     );
-    setLocationDetailsRows(newRows);
+    setSalesTaxDetailsRows(newRows);
   };
 
   return (
     <div className={`${className}`}>
-      {locationDetailsRows.map((row, index) => (
+      {salesTaxDetailsRows.map((row, index) => (
         <div key={index} className="py-3 px-2 w-full flex justify-center">
           <span className="pr-2 flex justify-center items-center text-[12px]">
             {index + 1}.
@@ -44,13 +44,13 @@ function AutoCareLocationDetails({ className }: any) {
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">Name</label>
+                <label className="text-[#6E6D7A] text-[12px]">User-ID</label>
                 <TextField
-                  name="locationDetailsName"
+                  name="salestaxDetailsUserId"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter Name"
-                  value={row.locationDetailsName}
+                  placeholder="Please Enter User-ID"
+                  value={row.salestaxDetailsUserId}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
@@ -67,11 +67,11 @@ function AutoCareLocationDetails({ className }: any) {
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">Details</label>
                 <TextField
-                  name="locationDetailsDetails"
+                  name="details"
                   variant="standard"
                   size="small"
                   placeholder="Please Enter Details"
-                  value={row.locationDetailsDetails}
+                  value={row.salestaxDetailsDetails}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
@@ -85,12 +85,12 @@ function AutoCareLocationDetails({ className }: any) {
               </div>
             </Grid>
             <Grid item xs={6} className="flex justify-end items-end gap-4">
-              {locationDetailsRows.length > 1 && (
+              {salesTaxDetailsRows.length > 1 && (
                 <span onClick={() => handleRemoveRow(index)}>
                   <MinusCircle />
                 </span>
               )}
-              {index === locationDetailsRows.length - 1 && (
+              {index === salesTaxDetailsRows.length - 1 && (
                 <span onClick={handleAddRow}>
                   <PlusCircleicon />
                 </span>
@@ -103,4 +103,4 @@ function AutoCareLocationDetails({ className }: any) {
   );
 }
 
-export default AutoCareLocationDetails;
+export default AutoCareSalesTaxDetails;

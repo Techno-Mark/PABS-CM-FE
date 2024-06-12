@@ -7,6 +7,8 @@ import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
 import { AccordianExpand } from "@/static/autoCareChecklist";
 import AutoCareLocationDetails from "../forms/autocare/AutoCareLocationDetails";
+import AutoCareSalesTaxDetails from "../forms/autocare/AutoCareSalesTaxDetails";
+import AutoCarePosDetails from "../forms/autocare/AutoCarePosDetails";
 
 function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
   const roleId = Cookies.get("roleId");
@@ -47,28 +49,24 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Sales Tax Details"
             >
-              <></>
+              <AutoCareSalesTaxDetails />
             </ChecklistAccordian>
 
             <ChecklistAccordian
               expandedAccordian={
                 expandedAccordian === AccordianExpand.POS_DETAILS
               }
-              handleChange={handleAccordianChange(
-                AccordianExpand.POS_DETAILS
-              )}
+              handleChange={handleAccordianChange(AccordianExpand.POS_DETAILS)}
               title="POS Details"
             >
-              <></>
+              <AutoCarePosDetails />
             </ChecklistAccordian>
 
             <ChecklistAccordian
               expandedAccordian={
                 expandedAccordian === AccordianExpand.UTILITIES
               }
-              handleChange={handleAccordianChange(
-                AccordianExpand.UTILITIES
-              )}
+              handleChange={handleAccordianChange(AccordianExpand.UTILITIES)}
               title="Utilities"
             >
               <></>
@@ -88,7 +86,8 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
 
             <ChecklistAccordian
               expandedAccordian={
-                expandedAccordian === AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
+                expandedAccordian ===
+                AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
               }
               handleChange={handleAccordianChange(
                 AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
