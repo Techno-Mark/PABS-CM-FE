@@ -24,6 +24,7 @@ import {
 import WhitelabelOtherInformationForm from "../../forms/whitelabel/WhitelabelOtherInformationForm";
 import WhitelabelCpaClientTeamForm from "../../forms/whitelabel/WhitelabelCpaClientTeamForm";
 import WhitelabelPabsAccountingTeamForm from "../../forms/whitelabel/WhitelabelPabsAccountingTeamForm";
+import { validateNumber } from "@/utils/validate";
 
 const BasicDetailsWhitelabel = ({
   setBasicDetailCount,
@@ -210,14 +211,28 @@ const BasicDetailsWhitelabel = ({
 
     switch (name) {
       case "pocContactNo":
-        if (/^\d*$/.test(value)) {
+        if (validateNumber(value)) {
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? `Contact No must be exactly ${10} characters`
+              : "";
           // Simplified validation for numeric values
-          newFields[index][name] = value;
-          newErrors[index][name] = "";
+          newFields[index][name] = validValue;
+          newErrors[index][name] = errorMessage;
         } else {
-          const validValue = value.replace(/[^0-9]/g, "");
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
           newFields[index][name] = validValue;
         }
+        break;
+      case "pocEmailId":
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        const errorMessage = !regex.test(value)
+          ? `Please provide valid email`
+          : "";
+        // Simplified validation for numeric values
+        newFields[index][name] = value;
+        newErrors[index][name] = errorMessage;
         break;
       default:
         newFields[index][name] = value;

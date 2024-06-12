@@ -76,7 +76,7 @@ const WhitelabelOtherInformationForm = ({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col w-full">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  No.of Accounts<span className="text-[#DC3545]">*</span>
+                  No. of Accounts<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField
                   name="noOfAccounts"

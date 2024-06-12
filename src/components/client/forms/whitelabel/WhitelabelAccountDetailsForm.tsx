@@ -24,32 +24,109 @@ const WhitelabelAccountDetailsForm = ({
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
     switch (name) {
       case "ownerPhone":
       case "ownerContact":
-      case "zip":
         if (validateNumber(value)) {
-          setWhitelabelAccountDetails(
-            (prev: WhitelabelAccountDetailsFormTypes) => ({
-              ...prev,
-              [name]: value,
-            })
-          );
-          setWhitelabelAccountDetailsErrors(
-            (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
-              ...prevErrors,
-              [name]: "",
-            })
-          );
-        } else {
-          const validValue = value.replace(/[^0-9]/g, "");
+          const validValue = value.slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? `${
+                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
+                } must be exactly ${10} characters`
+              : "";
+
           setWhitelabelAccountDetails(
             (prev: WhitelabelAccountDetailsFormTypes) => ({
               ...prev,
               [name]: validValue,
             })
           );
+          setWhitelabelAccountDetailsErrors(
+            (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: errorMessage,
+            })
+          );
+        } else {
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? `${
+                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
+                } must be exactly ${10} characters`
+              : "";
+
+          setWhitelabelAccountDetails(
+            (prev: WhitelabelAccountDetailsFormTypes) => ({
+              ...prev,
+              [name]: validValue,
+            })
+          );
+          setWhitelabelAccountDetailsErrors(
+            (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: errorMessage,
+            })
+          );
         }
+        break;
+      case "zip":
+        if (validateNumber(value)) {
+          const validValue = value.slice(0, 6);
+          const errorMessage =
+            validValue.length < 6 ? `Zip must be exactly ${6} characters` : "";
+
+          setWhitelabelAccountDetails(
+            (prev: WhitelabelAccountDetailsFormTypes) => ({
+              ...prev,
+              [name]: validValue,
+            })
+          );
+          setWhitelabelAccountDetailsErrors(
+            (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: errorMessage,
+            })
+          );
+        } else {
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 6);
+          const errorMessage =
+            validValue.length < 6 ? `Zip must be exactly ${6} characters` : "";
+
+          setWhitelabelAccountDetails(
+            (prev: WhitelabelAccountDetailsFormTypes) => ({
+              ...prev,
+              [name]: validValue,
+            })
+          );
+          setWhitelabelAccountDetailsErrors(
+            (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: errorMessage,
+            })
+          );
+        }
+        break;
+      case "ownerEmail":
+        const errorMessage = !regex.test(value)
+          ? `Please provide valid email`
+          : "";
+
+        setWhitelabelAccountDetails(
+          (prev: WhitelabelAccountDetailsFormTypes) => ({
+            ...prev,
+            [name]: value,
+          })
+        );
+        setWhitelabelAccountDetailsErrors(
+          (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
+            ...prevErrors,
+            [name]: errorMessage,
+          })
+        );
         break;
       default:
         setWhitelabelAccountDetailsErrors(

@@ -20,20 +20,26 @@ const WhitelabelPabsAccountingTeamForm = ({
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     switch (name) {
       case "pabsPhone":
         if (validateNumber(value)) {
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? `PABS Phone must be exactly ${10} characters`
+              : "";
           setWhitelabelPABSAccountingTeam(
             (prev: WhitelabelPABSAccountingTeamTypes) => ({
               ...prev,
-              [name]: value,
+              [name]: validValue,
             })
           );
           setWhitelabelPABSAccountingTeamErrors(
             (prevErrors: WhitelabelPABSAccountingTeamErrors) => ({
               ...prevErrors,
-              [name]: "",
+              [name]: errorMessage,
             })
           );
         } else {
@@ -45,6 +51,24 @@ const WhitelabelPabsAccountingTeamForm = ({
             })
           );
         }
+        break;
+      case "pabsGroupEmail":
+        const errorMessage = !regex.test(value)
+          ? `Please provide valid email`
+          : "";
+
+        setWhitelabelPABSAccountingTeam(
+          (prev: WhitelabelPABSAccountingTeamTypes) => ({
+            ...prev,
+            [name]: value,
+          })
+        );
+        setWhitelabelPABSAccountingTeamErrors(
+          (prevErrors: WhitelabelPABSAccountingTeamErrors) => ({
+            ...prevErrors,
+            [name]: errorMessage,
+          })
+        );
         break;
       default:
         setWhitelabelPABSAccountingTeamErrors(
