@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Wrapper from "@/components/Wrapper";
 // MUI import
 import {
-  CircularProgress,
   Switch,
   TablePagination,
   Tooltip,
@@ -31,6 +30,7 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 // Utils import
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
+import { noRecordText } from "@/utils/commonData";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -302,10 +302,6 @@ function Page() {
     });
   };
 
-  const localeText: { noRowsLabel: string } = {
-    noRowsLabel: "No record found",
-  };
-
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
@@ -347,7 +343,7 @@ function Page() {
             rows={roleData}
             columns={columns}
             getRowId={(i: any) => i.RoleId}
-            localeText={localeText}
+            localeText={noRecordText}
             loading={loading}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
