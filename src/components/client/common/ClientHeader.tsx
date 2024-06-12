@@ -32,6 +32,7 @@ const AppBar = styled(MuiAppBar, {
 
 const ClientHeader = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const userId = Cookies.get("userId");
   const roleId = Cookies.get("roleId");
   const userName = Cookies.get("userName");
@@ -109,7 +110,10 @@ const ClientHeader = () => {
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
             <span className="!font-semibold text-[15px]">
-              SF00123 &nbsp;|&nbsp; {userName} &nbsp;|&nbsp; Auto Care
+              SF00123 &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
+              {pathname === "/client/onboarding/autocare"
+                ? "Auto Care"
+                : "White Label"}
             </span>
           </div>
           <div className="relative flex">
