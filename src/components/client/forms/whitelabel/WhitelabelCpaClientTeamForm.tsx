@@ -151,17 +151,18 @@ const WhitelabelCpaClientTeamForm = ({
                   </div>
                 </Grid>
                 <Grid item xs={1}>
-                  <div className="flex justify-center items-center pl-2 mt-6">
-                    {index === whitelabelCpaClientTeam.cpaArray.length - 1 ? (
-                      <span className="cursor-pointer" onClick={handleAddField}>
-                        <PlusCircleicon />
-                      </span>
-                    ) : (
+                  <div className="flex justify-center items-center pl-2 mt-6 gap-4">
+                    {whitelabelCpaClientTeam.cpaArray.length > 1 && (
                       <span
                         className="cursor-pointer"
                         onClick={() => handleRemoveField(index)}
                       >
                         <MinusCircle />
+                      </span>
+                    )}
+                    {index === whitelabelCpaClientTeam.cpaArray.length - 1 && (
+                      <span className="cursor-pointer" onClick={handleAddField}>
+                        <PlusCircleicon />
                       </span>
                     )}
                   </div>
