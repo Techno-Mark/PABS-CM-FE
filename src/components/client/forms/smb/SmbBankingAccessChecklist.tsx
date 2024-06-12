@@ -172,7 +172,7 @@ const AccessSavingAccount = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Access ( "Read-Only" ) to Checking/ Saving Accounts
+        Access to Checking/ Saving Accounts
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
