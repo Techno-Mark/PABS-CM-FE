@@ -598,7 +598,7 @@ const ClientDrawer = ({
                 const fileTypeExtension =
                   fileTypeParts[fileTypeParts.length - 1];
                 if (
-                  ["tif", "tiff", "gif", "jpeg", "png", "jpg"].includes(
+                  ["png"].includes(
                     fileTypeExtension.toLowerCase()
                   )
                 ) {
@@ -610,7 +610,7 @@ const ClientDrawer = ({
                       reader.onloadend = () => {
                         const image: any = new Image();
                         image.onload = () => {
-                          if (image.width <= 100 && image.height <= 35) {
+                          if (image.width <= 150 && image.height <= 100) {
                             setFileError(false);
                             setImagePreview(reader.result);
                             convertFileToBase64(file)
@@ -618,7 +618,7 @@ const ClientDrawer = ({
                               .catch((err) => console.error(err));
                           } else {
                             setFileErrorText(
-                              "Image dimensions should less than 100x35 pixels"
+                              "Image dimensions should less than 150x100 pixels"
                             );
                             setFileError(true);
                           }
