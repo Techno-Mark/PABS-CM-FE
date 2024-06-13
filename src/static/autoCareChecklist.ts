@@ -310,6 +310,22 @@ export const validateAutoCarePayableCashPayAccessField = [
   "billPayAccessActionItems",
 ];
 
+export const validateAutoCareFinancialsField = [
+  "lastClosedPeriodStatus",
+  "lastClosedPeriodComments",
+  "lastClosedPeriodDetails",
+  "lastClosedPeriodActionName",
+  "lastClosedPeriodActionItems",
+];
+
+export const fieldDisplayNamesFinancials: { [key: string]: string } = {
+  lastClosedPeriodStatus: "Status is required",
+  lastClosedPeriodComments: "Commments is required",
+  lastClosedPeriodDetails: "Details is reuired",
+  lastClosedPeriodActionName: "Action Name is required",
+  lastClosedPeriodActionItems: "Action Items is required"
+};
+
 export const fieldDisplayNamesPayableCashPayAccess: { [key: string]: string } = {
   vendorPortalAccessStatus: "Status is required",
   vendorPortalAccessComments: "Commments is required",

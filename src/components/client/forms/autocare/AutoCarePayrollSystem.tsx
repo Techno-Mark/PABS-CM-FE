@@ -1,3 +1,5 @@
+import React from "react";
+// Models import
 import {
   FrequencyFormTypes,
   FrequencyTypes,
@@ -5,10 +7,12 @@ import {
   NoOfEmployeeTypes,
   PayrollServiceProviderFormTypes,
   PayrollServiceProviderTypes,
+  autoCarePayrollSystemTypes,
 } from "@/models/autoCarChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
 function AutoCarePayrollSystem({
   className,
@@ -19,7 +23,7 @@ function AutoCarePayrollSystem({
   setAutoCareFrequency,
   autoCareNoOfEmployee,
   setAutoCareNoOfEmployee,
-}: any) {
+}: autoCarePayrollSystemTypes) {
   return (
     <div className={`${className}`}>
       <PayrollServiceProvider
@@ -49,7 +53,9 @@ const PayrollServiceProvider = ({
 }: PayrollServiceProviderTypes) => {
   const classes = useStyles();
 
-  const handlePayrollServiceProviderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePayrollServiceProviderChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCarePayrollServiceProvider(
@@ -79,8 +85,12 @@ const PayrollServiceProvider = ({
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderComments
                 }
-                error={!!payrollServiceProviderError?.payrollServiceProviderComments}
-                helperText={payrollServiceProviderError?.payrollServiceProviderComments}
+                error={
+                  !!payrollServiceProviderError?.payrollServiceProviderComments
+                }
+                helperText={
+                  payrollServiceProviderError?.payrollServiceProviderComments
+                }
                 onChange={handlePayrollServiceProviderChange}
                 InputProps={{
                   classes: {
@@ -105,8 +115,12 @@ const PayrollServiceProvider = ({
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderStatus
                 }
-                error={!!payrollServiceProviderError?.payrollServiceProviderStatus}
-                helperText={payrollServiceProviderError?.payrollServiceProviderStatus}
+                error={
+                  !!payrollServiceProviderError?.payrollServiceProviderStatus
+                }
+                helperText={
+                  payrollServiceProviderError?.payrollServiceProviderStatus
+                }
                 onChange={handlePayrollServiceProviderChange}
                 InputProps={{
                   classes: {
@@ -131,8 +145,12 @@ const PayrollServiceProvider = ({
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderDetails
                 }
-                error={!!payrollServiceProviderError?.payrollServiceProviderDetails}
-                helperText={payrollServiceProviderError?.payrollServiceProviderDetails}
+                error={
+                  !!payrollServiceProviderError?.payrollServiceProviderDetails
+                }
+                helperText={
+                  payrollServiceProviderError?.payrollServiceProviderDetails
+                }
                 onChange={handlePayrollServiceProviderChange}
                 InputProps={{
                   classes: {
@@ -159,8 +177,12 @@ const PayrollServiceProvider = ({
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderActionName
                 }
-                error={!!payrollServiceProviderError?.payrollServiceProviderActionName}
-                helperText={payrollServiceProviderError?.payrollServiceProviderActionName}
+                error={
+                  !!payrollServiceProviderError?.payrollServiceProviderActionName
+                }
+                helperText={
+                  payrollServiceProviderError?.payrollServiceProviderActionName
+                }
                 onChange={handlePayrollServiceProviderChange}
                 InputProps={{
                   classes: {
@@ -187,8 +209,12 @@ const PayrollServiceProvider = ({
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderActionItems
                 }
-                error={!!payrollServiceProviderError?.payrollServiceProviderActionItems}
-                helperText={payrollServiceProviderError?.payrollServiceProviderActionItems}
+                error={
+                  !!payrollServiceProviderError?.payrollServiceProviderActionItems
+                }
+                helperText={
+                  payrollServiceProviderError?.payrollServiceProviderActionItems
+                }
                 onChange={handlePayrollServiceProviderChange}
                 InputProps={{
                   classes: {
@@ -210,7 +236,7 @@ const PayrollServiceProvider = ({
 const Frequency = ({
   autoCareFrequency,
   setAutoCareFrequency,
-  frequencyErrors
+  frequencyErrors,
 }: FrequencyTypes) => {
   const classes = useStyles();
 

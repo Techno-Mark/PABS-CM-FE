@@ -1,16 +1,22 @@
+import React from "react";
+// Icons import
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
+// Models import
 import { autoCareLocationDetailsTypes } from "@/models/autoCareLogininfo";
+// Static import
 import { initialAutoCareLocationDetails } from "@/static/autoCareLoginInfo";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI imports
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
-function AutoCareLocationDetails({ className }: any) {
+function AutoCareLocationDetails({
+  className,
+  locationDetailsRows,
+  setLocationDetailsRows,
+}: autoCareLocationDetailsTypes) {
   const classes = useStyles();
-  const [locationDetailsRows, setLocationDetailsRows] = useState<
-    autoCareLocationDetailsTypes[]
-  >([initialAutoCareLocationDetails]);
 
   const handleAddRow = () => {
     setLocationDetailsRows([
@@ -37,8 +43,8 @@ function AutoCareLocationDetails({ className }: any) {
   return (
     <div className={`${className}`}>
       {locationDetailsRows.map((row, index) => (
-        <div key={index} className="py-3 px-2 w-full flex justify-center">
-          <span className="pr-2 flex justify-center items-center text-[12px]">
+        <div key={index} className={`py-3 px-2 w-full flex justify-center ${index !== locationDetailsRows.length-1  && 'border-b border-[#D8D8D8]'}`}>
+          <span className="pr-2 flex justify-center items-start font-semibold text-[12px]">
             {index + 1}.
           </span>
           <Grid container spacing={2}>

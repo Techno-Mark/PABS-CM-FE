@@ -1,3 +1,5 @@
+import React from "react";
+// Model import
 import {
   ApThresholdLimitFormTypes,
   ApThresholdLimitTypes,
@@ -7,10 +9,12 @@ import {
   TradeAccountTypes,
   VendorPortalAccessFormTypes,
   VendorPortalAccessTypes,
+  autoCarePayableCashPayAccessTypes,
 } from "@/models/autoCarChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
 
 function AutoCarePayableCashPayAccess({
   className,
@@ -23,7 +27,7 @@ function AutoCarePayableCashPayAccess({
   setAutoCareBillPayAccess,
   autoCareApThresholdLimit,
   setAutoCareApThresholdLimit
-}: any) {
+}: autoCarePayableCashPayAccessTypes) {
   return (
     <div className={`${className}`}>
       <VendorPortalAccess

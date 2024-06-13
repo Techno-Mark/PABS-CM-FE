@@ -2,13 +2,40 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
-// Types import
-import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
-import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
+// Static import
 import { AccordianExpand } from "@/static/autoCareChecklist";
-import AutoCareLocationDetails from "../forms/autocare/AutoCareLocationDetails";
-import AutoCareSalesTaxDetails from "../forms/autocare/AutoCareSalesTaxDetails";
-import AutoCarePosDetails from "../forms/autocare/AutoCarePosDetails";
+// Component import
+import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
+import AutoCareLocationDetails from "@/components/client/forms/autocare/AutoCareLocationDetails";
+import AutoCareSalesTaxDetails from "@/components/client/forms/autocare/AutoCareSalesTaxDetails";
+import AutoCarePosDetails from "@/components/client/forms/autocare/AutoCarePosDetails";
+import AutoCareUtilities from "@/components/client/forms/autocare/AutoCareUtilities";
+import AutoCareVendorDetails from "@/components/client/forms/autocare/AutoCareVendorDetails";
+import AutoCareBankDetailsLoans from "@/components/client/forms/autocare/AutoCareBankDetailsLoans";
+import AutoCareMerchantDetails from "@/components/client/forms/autocare/AutoCareMerchantDetails";
+import AutoCarePayrollDetails from "@/components/client/forms/autocare/AutoCarePayrollDetails";
+// Models import
+import {
+  autoCareBankDetailsLoansFormTypes,
+  autoCareLocationDetailsFormTypes,
+  autoCareMerchantDetailsFormTypes,
+  autoCarePayrollDetailsFormTypes,
+  autoCarePosDetailsFormTypes,
+  autoCareSalesTaxDetailsFormTypes,
+  autoCareUtilitiesFormTypes,
+  autoCareVendorDetailsFormTypes,
+} from "@/models/autoCareLogininfo";
+// Static import
+import {
+  initialAutoCareBankDetailsLoans,
+  initialAutoCareLocationDetails,
+  initialAutoCareMerchantDetails,
+  initialAutoCarePayrollDetails,
+  initialAutoCarePosDetails,
+  initialAutoCareSalesTaxDetails,
+  initialAutoCareUtilities,
+  initialAutoCareVendorDetails,
+} from "@/static/autoCareLoginInfo";
 
 function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
   const roleId = Cookies.get("roleId");
@@ -18,6 +45,31 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
     (arg1: number) => (e: any, isExpanded: boolean) => {
       setExpandedAccordian(isExpanded ? arg1 : -1);
     };
+
+  const [locationDetailsRows, setLocationDetailsRows] = useState<
+    autoCareLocationDetailsFormTypes[]
+  >([initialAutoCareLocationDetails]);
+  const [salesTaxDetailsRows, setSalesTaxDetailsRows] = useState<
+    autoCareSalesTaxDetailsFormTypes[]
+  >([initialAutoCareSalesTaxDetails]);
+  const [posDetailsRows, setPosDetailsRows] = useState<
+    autoCarePosDetailsFormTypes[]
+  >([initialAutoCarePosDetails]);
+  const [utilitiesRows, setUtilitiesRows] = useState<
+    autoCareUtilitiesFormTypes[]
+  >([initialAutoCareUtilities]);
+  const [vendorDetailsRows, setVendorDetailsRows] = useState<
+    autoCareVendorDetailsFormTypes[]
+  >([initialAutoCareVendorDetails]);
+  const [bankDetailsLoansRows, setBankDetailsLoansRows] = useState<
+    autoCareBankDetailsLoansFormTypes[]
+  >([initialAutoCareBankDetailsLoans]);
+  const [merchantDetailsRows, setMerchantDetailsRows] = useState<
+    autoCareMerchantDetailsFormTypes[]
+  >([initialAutoCareMerchantDetails]);
+  const [payrollDetailsRows, setPayrollDetailsRows] = useState<
+    autoCarePayrollDetailsFormTypes[]
+  >([initialAutoCarePayrollDetails]);
 
   return (
     <>
@@ -37,7 +89,10 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Location Details"
             >
-              <AutoCareLocationDetails />
+              <AutoCareLocationDetails
+                locationDetailsRows={locationDetailsRows}
+                setLocationDetailsRows={setLocationDetailsRows}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -49,7 +104,10 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Sales Tax Details"
             >
-              <AutoCareSalesTaxDetails />
+              <AutoCareSalesTaxDetails
+                salesTaxDetailsRows={salesTaxDetailsRows}
+                setSalesTaxDetailsRows={setSalesTaxDetailsRows}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -59,7 +117,10 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               handleChange={handleAccordianChange(AccordianExpand.POS_DETAILS)}
               title="POS Details"
             >
-              <AutoCarePosDetails />
+              <AutoCarePosDetails
+                posDetailsRows={posDetailsRows}
+                setPosDetailsRows={setPosDetailsRows}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -69,7 +130,10 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               handleChange={handleAccordianChange(AccordianExpand.UTILITIES)}
               title="Utilities"
             >
-              <></>
+              <AutoCareUtilities
+                utilitiesRows={utilitiesRows}
+                setUtilitiesRows={setUtilitiesRows}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -81,7 +145,10 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Vendor Details"
             >
-              <></>
+              <AutoCareVendorDetails
+                vendorDetailsRows={vendorDetailsRows}
+                setVendorDetailsRows={setVendorDetailsRows}
+              />
             </ChecklistAccordian>
 
             <ChecklistAccordian
@@ -94,8 +161,12 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Bank Details/CC Details/Loan"
             >
-              <></>
+              <AutoCareBankDetailsLoans
+                bankDetailsLoansRows={bankDetailsLoansRows}
+                setBankDetailsLoansRows={setBankDetailsLoansRows}
+              />
             </ChecklistAccordian>
+
             <ChecklistAccordian
               expandedAccordian={
                 expandedAccordian === AccordianExpand.MERCHANT_DETAILS
@@ -105,8 +176,12 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Merchant Details"
             >
-              <></>
+              <AutoCareMerchantDetails
+                merchantDetailsRows={merchantDetailsRows}
+                setMerchantDetailsRows={setMerchantDetailsRows}
+              />
             </ChecklistAccordian>
+
             <ChecklistAccordian
               expandedAccordian={
                 expandedAccordian === AccordianExpand.PAYROLL_DETAILS
@@ -116,15 +191,18 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
               )}
               title="Payroll Details"
             >
-              <></>
+              <AutoCarePayrollDetails
+                payrollDetailsRows={payrollDetailsRows}
+                setPayrollDetailsRows={setPayrollDetailsRows}
+              />
             </ChecklistAccordian>
           </div>
         </div>
 
         <div className="py-5 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
           <Button
-            // onClick={() => setChecklistFormSubmit(1)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+            onClick={() => setLoginInfoFormSubmit(2)}
+            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
             variant="outlined"
           >
             Back
@@ -132,26 +210,24 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
           <div className="flex gap-5">
             <Button
               onClick={() => {}}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
               variant="outlined"
             >
               Cancel
             </Button>
             <Button
               onClick={() => {}}
-              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold !text-[16px]`}
               variant="outlined"
             >
               Save as Draft
             </Button>
             <Button
               onClick={() => {}}
-              className={`!bg-[#022946] text-white !rounded-lg`}
+              className={`!bg-[#022946] text-white !rounded-full font-semibold !text-[16px]`}
               variant="contained"
             >
-              <span className="uppercase font-semibold text-[16px] whitespace-nowrap">
-                Submit
-              </span>
+              Submit
             </Button>
           </div>
         </div>

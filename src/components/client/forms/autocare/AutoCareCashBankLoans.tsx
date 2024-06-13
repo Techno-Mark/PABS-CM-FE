@@ -1,3 +1,5 @@
+import React from "react";
+// Models import
 import {
   BusinessLoansFormTypes,
   BusinessLoansTypes,
@@ -9,17 +11,12 @@ import {
   PropertyLoansTypes,
   SavingsAccountFormTypes,
   SavingsAccountTypes,
+  autoCareCashBankLoansTypes,
 } from "@/models/autoCarChecklist";
-import {
-  initialAutoCareBusinessLoans,
-  initialAutoCareCreditCard,
-  initialAutoCareOperatingCheckingAccount,
-  initialAutoCarePropertyLoans,
-  initialAutoCareSavingsAccount,
-} from "@/static/autoCareChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
 function AutoCareCashBankLoans({
   className,
@@ -34,7 +31,7 @@ function AutoCareCashBankLoans({
   setAutoCareBusinessLoans,
   autoCarePropertyLoans,
   setAutoCarePropertyLoans,
-}: any) {
+}: autoCareCashBankLoansTypes) {
 
   return (
     <div className={`${className}`}>

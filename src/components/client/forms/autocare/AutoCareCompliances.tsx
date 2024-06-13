@@ -1,3 +1,5 @@
+import React from "react";
+// Models import
 import {
   LastTaxReturnFiledYearFormTypes,
   LastTaxReturnFiledYearTypes,
@@ -7,16 +9,12 @@ import {
   TireTaxTypes,
   UseTaxFormTypes,
   UseTaxTypes,
+  autoCareCompliancesTypes,
 } from "@/models/autoCarChecklist";
-import {
-  initialAutoCareLastTaxReturnFiledYear,
-  initialAutoCareSalesTaxAccessWorkPaper,
-  initialAutoCareTireTax,
-  initialAutoCareUseTax,
-} from "@/static/autoCareChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
 function AutoCareCompliances({
   className,
@@ -28,8 +26,8 @@ function AutoCareCompliances({
   autoCareTireTax,
   setAutoCareTireTax,
   autoCareLastTaxReturnFiledYear,
-  setAutoCareLastTaxReturnFiledYear
-}: any) {
+  setAutoCareLastTaxReturnFiledYear,
+}: autoCareCompliancesTypes) {
   return (
     <div className={`${className}`}>
       <SalesTaxAccessWorkPaper
@@ -97,8 +95,12 @@ const SalesTaxAccessWorkPaper = ({
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperComments
                 }
-                error={!!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperComments}
-                helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperComments}
+                error={
+                  !!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperComments
+                }
+                helperText={
+                  salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperComments
+                }
                 onChange={handleSalesTaxAccessWorkPaperChange}
                 InputProps={{
                   classes: {
@@ -123,8 +125,12 @@ const SalesTaxAccessWorkPaper = ({
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperStatus
                 }
-                error={!!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus}
-                helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus}
+                error={
+                  !!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus
+                }
+                helperText={
+                  salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus
+                }
                 onChange={handleSalesTaxAccessWorkPaperChange}
                 InputProps={{
                   classes: {
@@ -149,8 +155,12 @@ const SalesTaxAccessWorkPaper = ({
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperDetails
                 }
-                error={!!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperDetails}
-                helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperDetails}
+                error={
+                  !!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperDetails
+                }
+                helperText={
+                  salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperDetails
+                }
                 onChange={handleSalesTaxAccessWorkPaperChange}
                 InputProps={{
                   classes: {
@@ -177,8 +187,12 @@ const SalesTaxAccessWorkPaper = ({
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperActionName
                 }
-                error={!!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionName}
-                helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionName}
+                error={
+                  !!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionName
+                }
+                helperText={
+                  salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionName
+                }
                 onChange={handleSalesTaxAccessWorkPaperChange}
                 InputProps={{
                   classes: {
@@ -205,8 +219,12 @@ const SalesTaxAccessWorkPaper = ({
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperActionItems
                 }
-                error={!!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionItems}
-                helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionItems}
+                error={
+                  !!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionItems
+                }
+                helperText={
+                  salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperActionItems
+                }
                 onChange={handleSalesTaxAccessWorkPaperChange}
                 InputProps={{
                   classes: {
@@ -225,7 +243,11 @@ const SalesTaxAccessWorkPaper = ({
   );
 };
 
-const UseTax = ({ autoCareUseTax, setAutoCareUseTax, useTaxErrors }: UseTaxTypes) => {
+const UseTax = ({
+  autoCareUseTax,
+  setAutoCareUseTax,
+  useTaxErrors,
+}: UseTaxTypes) => {
   const classes = useStyles();
 
   const handleUseTaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -374,7 +396,11 @@ const UseTax = ({ autoCareUseTax, setAutoCareUseTax, useTaxErrors }: UseTaxTypes
   );
 };
 
-const TireTax = ({ autoCareTireTax, setAutoCareTireTax, tireTaxErrors }: TireTaxTypes) => {
+const TireTax = ({
+  autoCareTireTax,
+  setAutoCareTireTax,
+  tireTaxErrors,
+}: TireTaxTypes) => {
   const classes = useStyles();
 
   const handleTireTaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -525,7 +551,7 @@ const TireTax = ({ autoCareTireTax, setAutoCareTireTax, tireTaxErrors }: TireTax
 const LastTaxReturnFiledYear = ({
   autoCareLastTaxReturnFiledYear,
   setAutoCareLastTaxReturnFiledYear,
-  lastTaxReturnFiledYearErrors
+  lastTaxReturnFiledYearErrors,
 }: LastTaxReturnFiledYearTypes) => {
   const classes = useStyles();
 
@@ -562,8 +588,12 @@ const LastTaxReturnFiledYear = ({
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearComments
                 }
-                error={!!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearComments}
-                helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearComments}
+                error={
+                  !!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearComments
+                }
+                helperText={
+                  lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearComments
+                }
                 onChange={handleLastTaxReturnFiledYearChange}
                 InputProps={{
                   classes: {
@@ -588,8 +618,12 @@ const LastTaxReturnFiledYear = ({
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearStatus
                 }
-                error={!!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
-                helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
+                error={
+                  !!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus
+                }
+                helperText={
+                  lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus
+                }
                 onChange={handleLastTaxReturnFiledYearChange}
                 InputProps={{
                   classes: {
@@ -614,8 +648,12 @@ const LastTaxReturnFiledYear = ({
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearDetails
                 }
-                error={!!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearDetails}
-                helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearDetails}
+                error={
+                  !!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearDetails
+                }
+                helperText={
+                  lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearDetails
+                }
                 onChange={handleLastTaxReturnFiledYearChange}
                 InputProps={{
                   classes: {
@@ -642,8 +680,12 @@ const LastTaxReturnFiledYear = ({
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearActionName
                 }
-                error={!!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionName}
-                helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionName}
+                error={
+                  !!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionName
+                }
+                helperText={
+                  lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionName
+                }
                 onChange={handleLastTaxReturnFiledYearChange}
                 InputProps={{
                   classes: {
@@ -670,8 +712,12 @@ const LastTaxReturnFiledYear = ({
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearActionItems
                 }
-                error={!!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionItems}
-                helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionItems}
+                error={
+                  !!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionItems
+                }
+                helperText={
+                  lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearActionItems
+                }
                 onChange={handleLastTaxReturnFiledYearChange}
                 InputProps={{
                   classes: {

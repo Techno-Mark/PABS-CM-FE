@@ -10,7 +10,7 @@ import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
 
 function Page() {
   const router = useRouter();
-  const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
+  const [perCount, setPerCount] = useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(1);
 
   useEffect(() => {
@@ -21,23 +21,23 @@ function Page() {
   }, []);
   return (
     <ClientWrapper
-      basicDetailCount={basicDetailsCount}
+      perCount={perCount}
       basicDetailsFormSubmit={formSubmit}
     >
       {formSubmit === 1 ? (
         <BasicDetailsAutoCare
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
-          setBasicDetailCount={(value: number) => setBasicDetailCount(value)}
+          setBasicDetailCount={(value: number) => setPerCount(value)}
         />
       ) : formSubmit === 2 ? (
         <ChecklistAutoCare
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setBasicDetailCount(value)}
+          setChecklistCount={(value: number) => setPerCount(value)}
         />
       ) : (
         <LoginInfoAutoCare
           setLoginInfoFormSubmit={(value: number) => setFormSubmit(value)}
-          setLoginInfoCount={(value: number) => setBasicDetailCount(value)}
+          setLoginInfoCount={(value: number) => setPerCount(value)}
         />
       )}
     </ClientWrapper>

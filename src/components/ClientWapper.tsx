@@ -14,10 +14,10 @@ type WrapperPropsType = {
   basicDetailsFormSubmit:number
   isScrollable?: boolean;
   children: ReactNode;
-  basicDetailCount:number
+  perCount:number
 };
 
-const ClientWrapper = ({ isScrollable,basicDetailCount,basicDetailsFormSubmit, children }: WrapperPropsType) => {
+const ClientWrapper = ({ isScrollable,perCount,basicDetailsFormSubmit, children }: WrapperPropsType) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const ClientWrapper = ({ isScrollable,basicDetailCount,basicDetailsFormSubmit, c
         >
           <CssBaseline />
           <ClientHeader />
-          <ClientSidebar basicDetailCount={basicDetailCount} sidebarModule={basicDetailsFormSubmit} />
+          <ClientSidebar basicDetailCount={perCount} sidebarModule={basicDetailsFormSubmit} />
           <Box
             component="main"
             sx={{

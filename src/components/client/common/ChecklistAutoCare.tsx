@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Button } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
-// Types import
-import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
-import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
-import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
+// Static import
 import {
   AccordianExpand,
   fieldDisplayNamesCashBankLoans,
@@ -25,6 +22,7 @@ import {
   initialAutoCareGroupEmailEstablished,
   initialAutoCareITStructureReview,
   initialAutoCareKickOff,
+  initialAutoCareLastClosedPeriod,
   initialAutoCareLastTaxReturnFiledYear,
   initialAutoCareNoOfEmployee,
   initialAutoCareOperatingCheckingAccount,
@@ -35,22 +33,29 @@ import {
   initialAutoCareSalesTaxAccessWorkPaper,
   initialAutoCareSavingsAccount,
   initialAutoCareScanner,
+  initialAutoCareSharingFinancials,
   initialAutoCareTireTax,
   initialAutoCareTradeAccount,
   initialAutoCareUseTax,
   initialAutoCareVendorPortalAccess,
   validateAutoCareCashBankLoansField,
   validateAutoCareCompliancesField,
+  validateAutoCareFinancialsField,
   validateAutoCareFrequencyField,
   validateAutoCarePayableCashPayAccessField,
   validateAutoCareSystemSoftwareLocationField,
 } from "@/static/autoCareChecklist";
-import AutoCareSystemLocationChecklist from "../forms/autocare/AutoCareSystemLocationChecklist";
-import AutoCareCashBankLoans from "../forms/autocare/AutoCareCashBankLoans";
-import AutoCarePayrollSystem from "../forms/autocare/AutoCarePayrollSystem";
-import AutoCareCompliances from "../forms/autocare/AutoCareCompliances";
-import AutoCarePayableCashPayAccess from "../forms/autocare/AutoCarePayableCashPayAccess";
-import AutoCareStatusCondition from "../forms/autocare/AutoCareStatusCondition";
+// Component import
+import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
+import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
+import AutoCareSystemLocationChecklist from "@/components/client/forms/autocare/AutoCareSystemLocationChecklist";
+import AutoCareCashBankLoans from "@/components/client/forms/autocare/AutoCareCashBankLoans";
+import AutoCarePayrollSystem from "@/components/client/forms/autocare/AutoCarePayrollSystem";
+import AutoCareCompliances from "@/components/client/forms/autocare/AutoCareCompliances";
+import AutoCarePayableCashPayAccess from "@/components/client/forms/autocare/AutoCarePayableCashPayAccess";
+import AutoCareFinancials from "@/components/client/forms/autocare/AutoCareFinancials";
+// Models import
+import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
 import {
   AccessComputerFormTypes,
   AccountingSoftwareFormTypes,
@@ -64,6 +69,8 @@ import {
   GroupEmailEstablishedFormTypes,
   ITStructureReviewFormTypes,
   KickOffFormTypes,
+  LastClosedPeriodFormErrors,
+  LastClosedPeriodFormTypes,
   LastTaxReturnFiledYearFormTypes,
   NoOfEmployeeFormTypes,
   OperatingCheckingAccountFormTypes,
@@ -74,10 +81,16 @@ import {
   SalesTaxAccessWorkPaperFormTypes,
   SavingsAccountFormTypes,
   ScannerFormTypes,
+  SharingFinancialsFormTypes,
   TireTaxFormTypes,
   TradeAccountFormTypes,
   UseTaxFormTypes,
   VendorPortalAccessFormTypes,
+  autoCareCashBankLoansErrors,
+  autoCareCompliancesErrors,
+  autoCarePayableCashPayAccessErrors,
+  autoCarePayrollSystemErrors,
+  autoCareSystemLocationChecklistErrors
 } from "@/models/autoCarChecklist";
 
 function ChecklistAutoCare({
@@ -85,110 +98,60 @@ function ChecklistAutoCare({
   setChecklistFormSubmit,
 }: ChecklistAutoCareType) {
   const roleId = Cookies.get("roleId");
-  const initialAutoCareSystemSoftwareLocationErrors: any = {};
-  const initialAutoCareCashBankLoansErrors: any = {};
-  const initialAutoCareFrequencyErrors: any = {};
-  const initialAutoCareCompliancesErrors: any = {};
-  const initialAutoCarePayableCashPayAccessErrors: any = {};
+  const initialAutoCareSystemSoftwareLocationErrors: autoCareSystemLocationChecklistErrors = {};
+  const initialAutoCareCashBankLoansErrors: autoCareCashBankLoansErrors = {};
+  const initialAutoCareFrequencyErrors: autoCarePayrollSystemErrors = {};
+  const initialAutoCareCompliancesErrors: autoCareCompliancesErrors = {};
+  const initialAutoCarePayableCashPayAccessErrors: autoCarePayableCashPayAccessErrors = {};
+  const initialAutoCareFinancialsErrors: LastClosedPeriodFormErrors = {};
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
-  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
-    useState<GroupEmailEstablishedFormTypes>(
-      initialAutoCareGroupEmailEstablished
-    );
-  const [autoCarePreKickOff, setAutoCarePreKickOff] =
-    useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
-  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(
-    initialAutoCareKickOff
-  );
+  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] = useState<GroupEmailEstablishedFormTypes>(initialAutoCareGroupEmailEstablished);
+  const [autoCarePreKickOff, setAutoCarePreKickOff] = useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
+  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(initialAutoCareKickOff);
 
-  const [autoCareITStructureReview, setAutoCareITStructureReview] =
-    useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
-  const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] =
-    useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
-  const [autoCarePosSoftware, setAutoCarePosSoftware] =
-    useState<PosSoftwareFormTypes>(initialAutoCarePosSoftware);
-  const [autoCareEstimatingSoftware, setAutoCareEstimatingSoftware] =
-    useState<EstimatingSoftwareFormTypes>(initialAutoCareEstimatingSoftware);
-  const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] =
-    useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
-  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] =
-    useState<CloudDocumentManagementFormTypes>(
-      initialAutoCareCloudDocumentManagement
-    );
-  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(
-    initialAutoCareScanner
-  );
+  const [autoCareITStructureReview, setAutoCareITStructureReview] = useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
+  const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] = useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
+  const [autoCarePosSoftware, setAutoCarePosSoftware] = useState<PosSoftwareFormTypes>(initialAutoCarePosSoftware);
+  const [autoCareEstimatingSoftware, setAutoCareEstimatingSoftware] = useState<EstimatingSoftwareFormTypes>(initialAutoCareEstimatingSoftware);
+  const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] = useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
+  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] = useState<CloudDocumentManagementFormTypes>(initialAutoCareCloudDocumentManagement);
+  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(initialAutoCareScanner);
 
-  const [
-    autoCareOperatingCheckingAccount,
-    setAutoCareOperatingCheckingAccount,
-  ] = useState<OperatingCheckingAccountFormTypes>(
-    initialAutoCareOperatingCheckingAccount
-  );
-  const [autoCareSavingsAccount, setAutoCareSavingsAccount] =
-    useState<SavingsAccountFormTypes>(initialAutoCareSavingsAccount);
-  const [autoCareCreditCard, setAutoCareCreditCard] =
-    useState<CreditCardFormTypes>(initialAutoCareCreditCard);
-  const [autoCareBusinessLoans, setAutoCareBusinessLoans] =
-    useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
-  const [autoCarePropertyLoans, setAutoCarePropertyLoans] =
-    useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
+  const [autoCareOperatingCheckingAccount, setAutoCareOperatingCheckingAccount] = useState<OperatingCheckingAccountFormTypes>(initialAutoCareOperatingCheckingAccount);
+  const [autoCareSavingsAccount, setAutoCareSavingsAccount] = useState<SavingsAccountFormTypes>(initialAutoCareSavingsAccount);
+  const [autoCareCreditCard, setAutoCareCreditCard] = useState<CreditCardFormTypes>(initialAutoCareCreditCard);
+  const [autoCareBusinessLoans, setAutoCareBusinessLoans] = useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
+  const [autoCarePropertyLoans, setAutoCarePropertyLoans] = useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
 
-  const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] =
-    useState<PayrollServiceProviderFormTypes>(
-      initialAutoCarePayrollServiceProvider
-    );
-  const [autoCareFrequency, setAutoCareFrequency] =
-    useState<FrequencyFormTypes>(initialAutoCareFrequency);
-  const [autoCareNoOfEmployee, setAutoCareNoOfEmployee] =
-    useState<NoOfEmployeeFormTypes>(initialAutoCareNoOfEmployee);
+  const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] = useState<PayrollServiceProviderFormTypes>(initialAutoCarePayrollServiceProvider);
+  const [autoCareFrequency, setAutoCareFrequency] = useState<FrequencyFormTypes>(initialAutoCareFrequency);
+  const [autoCareNoOfEmployee, setAutoCareNoOfEmployee] = useState<NoOfEmployeeFormTypes>(initialAutoCareNoOfEmployee);
 
-  const [autoCareSalesTaxAccessWorkPaper, setAutoCareSalesTaxAccessWorkPaper] =
-    useState<SalesTaxAccessWorkPaperFormTypes>(
-      initialAutoCareSalesTaxAccessWorkPaper
-    );
-  const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(
-    initialAutoCareUseTax
-  );
-  const [autoCareTireTax, setAutoCareTireTax] = useState<TireTaxFormTypes>(
-    initialAutoCareTireTax
-  );
-  const [autoCareLastTaxReturnFiledYear, setAutoCareLastTaxReturnFiledYear] =
-    useState<LastTaxReturnFiledYearFormTypes>(
-      initialAutoCareLastTaxReturnFiledYear
-    );
+  const [autoCareSalesTaxAccessWorkPaper, setAutoCareSalesTaxAccessWorkPaper] = useState<SalesTaxAccessWorkPaperFormTypes>(initialAutoCareSalesTaxAccessWorkPaper);
+  const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(initialAutoCareUseTax);
+  const [autoCareTireTax, setAutoCareTireTax] = useState<TireTaxFormTypes>(initialAutoCareTireTax);
+  const [autoCareLastTaxReturnFiledYear, setAutoCareLastTaxReturnFiledYear] = useState<LastTaxReturnFiledYearFormTypes>(initialAutoCareLastTaxReturnFiledYear);
 
-  const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] =
-    useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
-  const [autoCareTradeAccount, setAutoCareTradeAccount] =
-    useState<TradeAccountFormTypes>(initialAutoCareTradeAccount);
-  const [autoCareBillPayAccess, setAutoCareBillPayAccess] =
-    useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
-  const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] =
-    useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
+  const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] = useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
+  const [autoCareTradeAccount, setAutoCareTradeAccount] = useState<TradeAccountFormTypes>(initialAutoCareTradeAccount);
+  const [autoCareBillPayAccess, setAutoCareBillPayAccess] = useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
+  const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] = useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
 
-  const [
-    autoCareSystemSoftwareLocationErrors,
-    setAutoCareSystemSoftwareLocationErrors,
-  ] = useState<any>(initialAutoCareSystemSoftwareLocationErrors);
-  const [autoCareCashbankLoansErrors, setAutoCareCashbankLoansErrors] =
-    useState<any>(initialAutoCareCashBankLoansErrors);
-  const [autoCareFrequencyErrors, setAutoCareFrequencyErrors] = useState<any>(
-    initialAutoCareFrequencyErrors
-  );
-  const [autoCareCompliancesErrors, setAutoCareCompliancesErrors] =
-    useState<any>(initialAutoCareCompliancesErrors);
-  const [
-    autoCarePayableCashPayAccessErrors,
-    setAutoCarePayableCashPayAccessErrors,
-  ] = useState<any>(initialAutoCarePayableCashPayAccessErrors);
+  const [autoCareLastClosedPeriod, setAutoCareLastClosedPeriod] = useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
+  const [autoCareSharingFinancials, setAutoCareSharingFinancials] = useState<SharingFinancialsFormTypes>(initialAutoCareSharingFinancials);
 
-  const handleAccordianChange =
-    (arg1: number) => (e: any, isExpanded: boolean) => {
-      setExpandedAccordian(isExpanded ? arg1 : -1);
-    };
+  const [autoCareSystemSoftwareLocationErrors,setAutoCareSystemSoftwareLocationErrors] = useState<autoCareSystemLocationChecklistErrors>(initialAutoCareSystemSoftwareLocationErrors);
+  const [autoCareCashbankLoansErrors, setAutoCareCashbankLoansErrors] = useState<autoCareCashBankLoansErrors>(initialAutoCareCashBankLoansErrors);
+  const [autoCareFrequencyErrors, setAutoCareFrequencyErrors] = useState<autoCarePayrollSystemErrors>(initialAutoCareFrequencyErrors);
+  const [autoCareCompliancesErrors, setAutoCareCompliancesErrors] = useState<autoCareCompliancesErrors>(initialAutoCareCompliancesErrors);
+  const [autoCarePayableCashPayAccessErrors,setAutoCarePayableCashPayAccessErrors] = useState<autoCarePayableCashPayAccessErrors>(initialAutoCarePayableCashPayAccessErrors);
+  const [autoCareFinancialsErrors, setAutoCareFinancialsErrors] = useState<LastClosedPeriodFormErrors>(initialAutoCareFinancialsErrors);
+
+  const handleAccordianChange = (arg1: number) => (e: SyntheticEvent, isExpanded: boolean) => {
+    setExpandedAccordian(isExpanded ? arg1 : -1);
+  };
 
   const validateAutoCareSystemSoftwareLocation = () => {
     const newErrors: { [key: string]: string } = {};
@@ -256,7 +219,12 @@ function ChecklistAutoCare({
     const newCompliancesErrors: { [key: string]: string } = {};
 
     validateAutoCareCompliancesField.forEach((field) => {
-      if (!autoCarePayrollServiceProvider[field] && !autoCareFrequency[field]) {
+      if (
+        !autoCareSalesTaxAccessWorkPaper[field] &&
+        !autoCareUseTax[field] &&
+        !autoCareTireTax[field] &&
+        !autoCareLastTaxReturnFiledYear[field]
+      ) {
         newCompliancesErrors[
           field
         ] = `${fieldDisplayNamesCompliances[field]} is required`;
@@ -276,7 +244,7 @@ function ChecklistAutoCare({
     const newPayableCashPayAccessErrors: { [key: string]: string } = {};
 
     validateAutoCarePayableCashPayAccessField.forEach((field) => {
-      if (!autoCarePayrollServiceProvider[field] && !autoCareFrequency[field]) {
+      if (!autoCareVendorPortalAccess[field] && !autoCareBillPayAccess[field]) {
         newPayableCashPayAccessErrors[
           field
         ] = `${fieldDisplayNamesPayableCashPayAccess[field]} is required`;
@@ -292,25 +260,141 @@ function ChecklistAutoCare({
     return hasErrors;
   };
 
+  const validateAutoCareFinancials = () => {
+    const newFinancialsErrors: { [key: string]: string } = {};
+
+    validateAutoCareFinancialsField.forEach((field) => {
+      if (!autoCareLastClosedPeriod[field]) {
+        newFinancialsErrors[
+          field
+        ] = `${fieldDisplayNamesPayableCashPayAccess[field]} is required`;
+      } else {
+        newFinancialsErrors[field] = "";
+      }
+    });
+
+    const hasErrors = Object.values(newFinancialsErrors).some(
+      (error) => !!error
+    );
+    setAutoCareFinancialsErrors(newFinancialsErrors);
+    return hasErrors;
+  };
+
+  const basicDetailStatus = () => {
+    let count = 0;
+  
+    const validators = [
+      {
+        fields: validateAutoCareSystemSoftwareLocationField,
+        sources: [autoCarePosSoftware, autoCareAccountingSoftware]
+      },
+      {
+        fields: validateAutoCareCashBankLoansField,
+        sources: [autoCareOperatingCheckingAccount, autoCareSavingsAccount, autoCareCreditCard]
+      },
+      {
+        fields: validateAutoCareFrequencyField,
+        sources: [autoCarePayrollServiceProvider, autoCareFrequency]
+      },
+      {
+        fields: validateAutoCareCompliancesField,
+        sources: [autoCareSalesTaxAccessWorkPaper, autoCareUseTax, autoCareTireTax, autoCareLastTaxReturnFiledYear]
+      },
+      {
+        fields: validateAutoCarePayableCashPayAccessField,
+        sources: [autoCareVendorPortalAccess, autoCareBillPayAccess]
+      },
+      {
+        fields: validateAutoCareFinancialsField,
+        sources: [autoCareLastClosedPeriod]
+      }
+    ];
+  
+    validators.forEach(({ fields, sources }) => {
+      fields.forEach(field => {
+        if (sources.some(source => !!source[field])) {
+          count++;
+        }
+      });
+    });
+  
+    let calc = (count / 15) * 100;
+    return Math.floor(calc);
+  };
+  
+  const handleChecklistInitialValues = () => {
+    setAutoCareGroupEmailEstablished(initialAutoCareGroupEmailEstablished);
+    setAutoCarePreKickOff(initialAutoCarePreKickOff);
+    setAutoCareKickOff(initialAutoCareKickOff);
+    setAutoCareITStructureReview(initialAutoCareITStructureReview);
+    setAutoCareAccessComputerMethod(initialAutoCareAccessComputerMethod);
+    setAutoCarePosSoftware(initialAutoCarePosSoftware);
+    setAutoCareEstimatingSoftware(initialAutoCareEstimatingSoftware);
+    setAutoCareAccountingSoftware(initialAutoCareAccountingSoftware);
+    setAutoCareCloudDocumentManagement(initialAutoCareCloudDocumentManagement);
+    setAutoCareScanner(initialAutoCareScanner);
+    setAutoCareOperatingCheckingAccount(initialAutoCareOperatingCheckingAccount);
+    setAutoCareSavingsAccount(initialAutoCareSavingsAccount);
+    setAutoCareCreditCard(initialAutoCareCreditCard);
+    setAutoCareBusinessLoans(initialAutoCareBusinessLoans);
+    setAutoCarePropertyLoans(initialAutoCarePropertyLoans);
+    setAutoCarePayrollServiceProvider(initialAutoCarePayrollServiceProvider);
+    setAutoCareFrequency(initialAutoCareFrequency);
+    setAutoCareNoOfEmployee(initialAutoCareNoOfEmployee);
+    setAutoCareSalesTaxAccessWorkPaper(initialAutoCareSalesTaxAccessWorkPaper);
+    setAutoCareUseTax(initialAutoCareUseTax);
+    setAutoCareTireTax(initialAutoCareTireTax);
+    setAutoCareLastTaxReturnFiledYear(initialAutoCareLastTaxReturnFiledYear);
+    setAutoCareVendorPortalAccess(initialAutoCareVendorPortalAccess);
+    setAutoCareTradeAccount(initialAutoCareTradeAccount);
+    setAutoCareBillPayAccess(initialAutoCareBillPayAccess);
+    setAutoCareApThresholdLimit(initialAutoCareApThresholdLimit);
+    setAutoCareLastClosedPeriod(initialAutoCareLastClosedPeriod);
+    setAutoCareSharingFinancials(initialAutoCareSharingFinancials);
+  
+  }
+
+  const handleChecklistRemoveErrors = () => {
+    setAutoCareSystemSoftwareLocationErrors({});
+    setAutoCareCashbankLoansErrors({});
+    setAutoCareFrequencyErrors({});
+    setAutoCareCompliancesErrors({});
+    setAutoCarePayableCashPayAccessErrors({});
+    setAutoCareFinancialsErrors({})
+  }
+
   const handleSubmit = (type: number) => {
     if (type === 1) {
       setChecklistFormSubmit(3);
-      validateAutoCarePayableCashPayAccess();
-      validateAutoCareCompliances();
-      validateAutoCareFrequency();
-      validateAutoCareSystemSoftwareLocation();
-      validateAutoCareCashBankLoans();
+  
+      const isFinancialsValid = validateAutoCareFinancials();
+      const isPayableCashPayAccessValid = validateAutoCarePayableCashPayAccess();
+      const isCompliancesValid = validateAutoCareCompliances();
+      const isFrequencyValid = validateAutoCareFrequency();
+      const isSystemSoftwareLocationValid = validateAutoCareSystemSoftwareLocation();
+      const isCashBankLoansValid = validateAutoCareCashBankLoans();
+  
       const isValid =
-        !validateAutoCareSystemSoftwareLocation() &&
-        !validateAutoCareSystemSoftwareLocation() &&
-        !validateAutoCareCompliances() &&
-        !validateAutoCarePayableCashPayAccess() &&
-        !validateAutoCareCashBankLoans();
+        !isFinancialsValid &&
+        !isPayableCashPayAccessValid &&
+        !isCompliancesValid &&
+        !isSystemSoftwareLocationValid &&
+        !isCashBankLoansValid;
+  
       if (isValid) {
         console.log("completed..");
       }
+    } else if (type === 2) {
+      const filledFieldsCount = basicDetailStatus();
+      setChecklistCount(filledFieldsCount);
+      handleChecklistRemoveErrors();
+      // callAPIwithHeaders(autoCarFormUrl, "post", callback, formData);
+    }else {
+      handleChecklistInitialValues();
+      handleChecklistRemoveErrors();
     }
   };
+  
 
   return (
     <>
@@ -321,20 +405,15 @@ function ChecklistAutoCare({
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
+
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.COMMUNICATION
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.COMMUNICATION
-              )}
+              expandedAccordian={expandedAccordian === AccordianExpand.COMMUNICATION}
+              handleChange={handleAccordianChange(AccordianExpand.COMMUNICATION)}
               title="Phase 1: Communication"
             >
               <AutoCareCommmunicationChecklist
                 autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
-                setAutoCareGroupEmailEstablished={
-                  setAutoCareGroupEmailEstablished
-                }
+                setAutoCareGroupEmailEstablished={setAutoCareGroupEmailEstablished}
                 autoCarePreKickOff={autoCarePreKickOff}
                 setAutoCarePreKickOff={setAutoCarePreKickOff}
                 autoCareKickOff={autoCareKickOff}
@@ -343,58 +422,38 @@ function ChecklistAutoCare({
             </ChecklistAccordian>
 
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
-              )}
+              expandedAccordian={expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS}
+              handleChange={handleAccordianChange(AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS)}
               title="Phase 2: System, Software Locations"
             >
               <AutoCareSystemLocationChecklist
-                systemSoftwareLocationErrors={
-                  autoCareSystemSoftwareLocationErrors
-                }
+                systemSoftwareLocationErrors={autoCareSystemSoftwareLocationErrors}
                 autoCareITStructureReview={autoCareITStructureReview}
                 setAutoCareITStructureReview={setAutoCareITStructureReview}
                 autoCareAccessComputerMethod={autoCareAccessComputerMethod}
-                setAutoCareAccessComputerMethod={
-                  setAutoCareAccessComputerMethod
-                }
+                setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
                 autoCarePosSoftware={autoCarePosSoftware}
                 setAutoCarePosSoftware={setAutoCarePosSoftware}
                 autoCareEstimatingSoftware={autoCareEstimatingSoftware}
                 setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
                 autoCareAccountingSoftware={autoCareAccountingSoftware}
                 setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
-                autoCareCloudDocumentManagement={
-                  autoCareCloudDocumentManagement
-                }
-                setAutoCareCloudDocumentManagement={
-                  setAutoCareCloudDocumentManagement
-                }
+                autoCareCloudDocumentManagement={autoCareCloudDocumentManagement}
+                setAutoCareCloudDocumentManagement={setAutoCareCloudDocumentManagement}
                 autoCareScanner={autoCareScanner}
                 setAutoCareScanner={setAutoCareScanner}
               />
             </ChecklistAccordian>
 
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.CASH_BANKING_LOANS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.CASH_BANKING_LOANS
-              )}
+              expandedAccordian={expandedAccordian === AccordianExpand.CASH_BANKING_LOANS}
+              handleChange={handleAccordianChange(AccordianExpand.CASH_BANKING_LOANS)}
               title="Phase 3: Cash and Banking & Loans"
             >
               <AutoCareCashBankLoans
                 cashBankLoansErrors={autoCareCashbankLoansErrors}
-                autoCareOperatingCheckingAccount={
-                  autoCareOperatingCheckingAccount
-                }
-                setAutoCareOperatingCheckingAccount={
-                  setAutoCareOperatingCheckingAccount
-                }
+                autoCareOperatingCheckingAccount={autoCareOperatingCheckingAccount}
+                setAutoCareOperatingCheckingAccount={setAutoCareOperatingCheckingAccount}
                 autoCareSavingsAccount={autoCareSavingsAccount}
                 setAutoCareSavingsAccount={setAutoCareSavingsAccount}
                 autoCareCreditCard={autoCareCreditCard}
@@ -407,20 +466,14 @@ function ChecklistAutoCare({
             </ChecklistAccordian>
 
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.PAYROLL_SYSTEM
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.PAYROLL_SYSTEM
-              )}
+              expandedAccordian={expandedAccordian === AccordianExpand.PAYROLL_SYSTEM}
+              handleChange={handleAccordianChange(AccordianExpand.PAYROLL_SYSTEM)}
               title="Phase 4: Payroll System"
             >
               <AutoCarePayrollSystem
                 payrollSystemError={autoCareFrequencyErrors}
                 autoCarePayrollServiceProvider={autoCarePayrollServiceProvider}
-                setAutoCarePayrollServiceProvider={
-                  setAutoCarePayrollServiceProvider
-                }
+                setAutoCarePayrollServiceProvider={setAutoCarePayrollServiceProvider}
                 autoCareFrequency={autoCareFrequency}
                 setAutoCareFrequency={setAutoCareFrequency}
                 autoCareNoOfEmployee={autoCareNoOfEmployee}
@@ -429,9 +482,7 @@ function ChecklistAutoCare({
             </ChecklistAccordian>
 
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.COMPLIANCES
-              }
+              expandedAccordian={expandedAccordian === AccordianExpand.COMPLIANCES}
               handleChange={handleAccordianChange(AccordianExpand.COMPLIANCES)}
               title="Phase 5: Compliances"
             >
@@ -440,9 +491,7 @@ function ChecklistAutoCare({
                 autoCareSalesTaxAccessWorkPaper={
                   autoCareSalesTaxAccessWorkPaper
                 }
-                setAutoCareSalesTaxAccessWorkPaper={
-                  setAutoCareSalesTaxAccessWorkPaper
-                }
+                setAutoCareSalesTaxAccessWorkPaper={setAutoCareSalesTaxAccessWorkPaper}
                 autoCareUseTax={autoCareUseTax}
                 setAutoCareUseTax={setAutoCareUseTax}
                 autoCareTireTax={autoCareTireTax}
@@ -473,24 +522,26 @@ function ChecklistAutoCare({
             </ChecklistAccordian>
 
             <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian ===
-                AccordianExpand.STATUS_CONDITION_FINANCIALS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.STATUS_CONDITION_FINANCIALS
-              )}
+              expandedAccordian={expandedAccordian === AccordianExpand.STATUS_CONDITION_FINANCIALS}
+              handleChange={handleAccordianChange(AccordianExpand.STATUS_CONDITION_FINANCIALS)}
               title="Phase 7: Financials"
             >
-              <AutoCareStatusCondition />
+              <AutoCareFinancials
+                financialsErrors={autoCareFinancialsErrors}
+                autoCareSharingFinancials={autoCareSharingFinancials}
+                setAutoCareSharingFinancials={setAutoCareSharingFinancials}
+                autoCareLastClosedPeriod={autoCareLastClosedPeriod}
+                setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
+              />
             </ChecklistAccordian>
+            
           </div>
         </div>
 
         <div className="py-5 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
           <Button
             onClick={() => setChecklistFormSubmit(1)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
             variant="outlined"
           >
             Back
@@ -498,21 +549,21 @@ function ChecklistAutoCare({
           <div className="flex gap-5">
             <Button
               onClick={() => handleSubmit(3)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
               variant="outlined"
             >
               Cancel
             </Button>
             <Button
               onClick={() => handleSubmit(2)}
-              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
               variant="outlined"
             >
               Save as Draft
             </Button>
             <Button
               onClick={() => handleSubmit(1)}
-              className={`!bg-[#022946] text-white !rounded-lg`}
+              className={`!bg-[#022946] text-white !rounded-full`}
               variant="contained"
             >
               <span className="uppercase font-semibold text-[16px] whitespace-nowrap">

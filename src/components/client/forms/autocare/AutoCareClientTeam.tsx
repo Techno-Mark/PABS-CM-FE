@@ -94,15 +94,13 @@ function AutoCareClientTeam({
           setAutoCareClientTeam({
             ...autoCareClientTeam,
             istTime: convertedTime.format("hh:mm A"),
+            weeklyCallTime: formattedTime,
           });
           setAutoCareClientTeamErrors((prevErrors) => ({
             ...prevErrors,
             istTime: "",
+            weeklyCallTime: "",
           }));
-          setAutoCareClientTeamErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "",
-          }))
         }
         break;
       case "istTime":

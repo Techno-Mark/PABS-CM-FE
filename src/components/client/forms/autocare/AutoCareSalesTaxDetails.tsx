@@ -1,16 +1,22 @@
+import React from "react";
+// Icons import
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
-import { autoCareSalesTaxTypes } from "@/models/autoCareLogininfo";
+// Models import
+import { autoCareSalesTaxDetailsTypes } from "@/models/autoCareLogininfo";
+// Static import
 import { initialAutoCareSalesTaxDetails } from "@/static/autoCareLoginInfo";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
-function AutoCareSalesTaxDetails({ className }: any) {
+function AutoCareSalesTaxDetails({
+  className,
+  salesTaxDetailsRows,
+  setSalesTaxDetailsRows,
+}: autoCareSalesTaxDetailsTypes) {
   const classes = useStyles();
-  const [salesTaxDetailsRows, setSalesTaxDetailsRows] = useState<
-    autoCareSalesTaxTypes[]
-  >([initialAutoCareSalesTaxDetails]);
 
   const handleAddRow = () => {
     setSalesTaxDetailsRows([
@@ -37,20 +43,26 @@ function AutoCareSalesTaxDetails({ className }: any) {
   return (
     <div className={`${className}`}>
       {salesTaxDetailsRows.map((row, index) => (
-        <div key={index} className="py-3 px-2 w-full flex justify-center">
-          <span className="pr-2 flex justify-center items-center text-[12px]">
+        <div
+          key={index}
+          className={`py-3 px-2 w-full flex justify-center ${
+            index !== salesTaxDetailsRows.length - 1 &&
+            "border-b border-[#D8D8D8]"
+          }`}
+        >
+          <span className="pr-2 flex justify-center items-start font-semibold text-[12px]">
             {index + 1}.
           </span>
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">User-ID</label>
+                <label className="text-[#6E6D7A] text-[12px]">User ID</label>
                 <TextField
-                  name="salestaxDetailsUserId"
+                  name="salesTaxDetailsUserId"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter User-ID"
-                  value={row.salestaxDetailsUserId}
+                  placeholder="Please Enter User ID"
+                  value={row.salesTaxDetailsUserId}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
@@ -67,11 +79,11 @@ function AutoCareSalesTaxDetails({ className }: any) {
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">Details</label>
                 <TextField
-                  name="details"
+                  name="salesTaxDetailsDetails"
                   variant="standard"
                   size="small"
                   placeholder="Please Enter Details"
-                  value={row.salestaxDetailsDetails}
+                  value={row.salesTaxDetailsDetails}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
