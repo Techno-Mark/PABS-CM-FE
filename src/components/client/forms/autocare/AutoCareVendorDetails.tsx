@@ -257,14 +257,14 @@ function AutoCareVendorDetails({
               </Grid>
             </Grid>
           </div>
-          <div className="flex justify-end items-center gap-3">
+          <div className="flex justify-end items-end gap-3">
             {vendorDetailsRows.length > 1 && (
-              <span onClick={() => handleRemoveRow(index)}>
+              <span className="cursor-pointer" onClick={() => handleRemoveRow(index)}>
                 <MinusCircle />
               </span>
             )}
             {index === vendorDetailsRows.length - 1 && (
-              <span onClick={handleAddRow}>
+              <span className="cursor-pointer" onClick={handleAddRow}>
                 <PlusCircleicon />
               </span>
             )}

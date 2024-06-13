@@ -36,6 +36,9 @@ const ClientHeader = () => {
   const userId = Cookies.get("userId");
   const roleId = Cookies.get("roleId");
   const userName = Cookies.get("userName");
+  const businessTypeName = Cookies.get("businessTypeName");
+  const clientSFId = Cookies.get("clientSFId");
+
   const [isOpen, setOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const selectRefNavbar = useRef<HTMLDivElement>(null);
@@ -110,10 +113,8 @@ const ClientHeader = () => {
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
             <span className="!font-semibold text-[15px]">
-              SF00123 &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
-              {pathname === "/client/onboarding/autocare"
-                ? "Auto Care"
-                : "White Label"}
+              {clientSFId} &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
+              {businessTypeName}
             </span>
           </div>
           <div className="relative flex">

@@ -13,12 +13,13 @@ const ChecklistAccordian = ({
   children,
   expandedAccordian,
   handleChange,
+  hasError=false
 }: ChecklistAccordianProps) => {
   return (
     <Accordion
       expanded={expandedAccordian}
       onChange={handleChange}
-      className="!border-t-4 !rounded-md !border-[#022946] w-full"
+      className={`!border-t-4 !rounded-md ${hasError ? '!border-[#ec2a2a]':'!border-[#022946]'} w-full`}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
@@ -29,7 +30,7 @@ const ChecklistAccordian = ({
           <span className="text-[#333333] text-[18px] font-medium">
             {title}
           </span>
-          <span className="!z-0">
+          <span className={`!z-0`}>
             <Switch checked={true} />
           </span>
         </div>

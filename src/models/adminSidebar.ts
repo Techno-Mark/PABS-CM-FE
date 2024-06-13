@@ -13,6 +13,5 @@ export interface SidebarItemsType {
 export interface ClientSidebarItemsType {
   id: number;
   module: string;
-  link: string;
   value: number;
 }

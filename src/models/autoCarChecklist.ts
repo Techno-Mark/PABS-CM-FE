@@ -5,6 +5,7 @@ export interface ChecklistAccordianProps {
   children: ReactNode;
   expandedAccordian: boolean;
   handleChange: any;
+  hasError?:boolean
 }
 
 export interface autoCareCommmunicationChecklistTypes {

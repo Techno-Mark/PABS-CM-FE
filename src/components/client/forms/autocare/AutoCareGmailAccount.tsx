@@ -3,60 +3,60 @@ import React from "react";
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
 // Models import
-import { autoCareLocationDetailsTypes } from "@/models/autoCareLogininfo";
+import { autoCareGmailAccountTypes } from "@/models/autoCareLogininfo";
 // Static import
-import { initialAutoCareLocationDetails } from "@/static/autoCareLoginInfo";
+import { initialAutoCareGmailAccountDetails } from "@/static/autoCareLoginInfo";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI imports
 import { Grid, TextField } from "@mui/material";
 
-function AutoCareLocationDetails({
+function AutoCareGmailAccount({
   className,
-  locationDetailsRows,
-  setLocationDetailsRows,
-}: autoCareLocationDetailsTypes) {
+  gmailAccountRows,
+  setGmailAccountRows,
+}: autoCareGmailAccountTypes) {
   const classes = useStyles();
 
   const handleAddRow = () => {
-    setLocationDetailsRows([
-      ...locationDetailsRows,
-      initialAutoCareLocationDetails,
+    setGmailAccountRows([
+      ...gmailAccountRows,
+      initialAutoCareGmailAccountDetails,
     ]);
   };
 
   const handleRemoveRow = (index: any) => {
-    const newRows = locationDetailsRows.filter((_, i) => i !== index);
-    setLocationDetailsRows(newRows);
+    const newRows = gmailAccountRows.filter((_, i) => i !== index);
+    setGmailAccountRows(newRows);
   };
 
   const handleInputChange = (index: any, event: any) => {
     const { name, value } = event.target;
-    const newRows = locationDetailsRows.map((locationDetailsRows, rowIndex) =>
+    const newRows = gmailAccountRows.map((gmailAccountRows, rowIndex) =>
       rowIndex === index
-        ? { ...locationDetailsRows, [name]: value }
-        : locationDetailsRows
+        ? { ...gmailAccountRows, [name]: value }
+        : gmailAccountRows
     );
-    setLocationDetailsRows(newRows);
+    setGmailAccountRows(newRows);
   };
 
   return (
     <div className={`${className}`}>
-      {locationDetailsRows.map((row, index) => (
-        <div key={index} className={`py-3 px-2 w-full flex justify-center ${index !== locationDetailsRows.length-1  && 'border-b border-[#D8D8D8]'}`}>
+      {gmailAccountRows.map((row, index) => (
+        <div key={index} className={`py-3 px-2 w-full flex justify-center ${index !== gmailAccountRows.length-1  && 'border-b border-[#D8D8D8]'}`}>
           <span className="pr-2 flex justify-center items-start font-semibold text-[12px]">
             {index + 1}.
           </span>
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">Name</label>
+                <label className="text-[#6E6D7A] text-[12px]">User ID</label>
                 <TextField
-                  name="locationDetailsName"
+                  name="gmailAccountUserId"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter Name"
-                  value={row.locationDetailsName}
+                  placeholder="Please Enter User ID"
+                  value={row.gmailAccountUserId}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
@@ -71,13 +71,13 @@ function AutoCareLocationDetails({
             </Grid>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">Details</label>
+                <label className="text-[#6E6D7A] text-[12px]">Password</label>
                 <TextField
-                  name="locationDetailsDetails"
+                  name="gmailAccountPassword"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter Details"
-                  value={row.locationDetailsDetails}
+                  placeholder="Please Enter Password"
+                  value={row.gmailAccountPassword}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
@@ -90,13 +90,34 @@ function AutoCareLocationDetails({
                 />
               </div>
             </Grid>
-            <Grid item xs={6} className="flex justify-end items-end gap-4">
-              {locationDetailsRows.length > 1 && (
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col">
+                <label className="text-[#6E6D7A] text-[12px]">Status</label>
+                <TextField
+                  name="gmailAccountStatus"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Status"
+                  value={row.gmailAccountStatus}
+                  onChange={(event) => handleInputChange(index, event)}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    className: classes.textSize,
+                  }}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={3} className="flex justify-end items-end gap-4">
+              {gmailAccountRows.length > 1 && (
                 <span className="cursor-pointer" onClick={() => handleRemoveRow(index)}>
                   <MinusCircle />
                 </span>
               )}
-              {index === locationDetailsRows.length - 1 && (
+              {index === gmailAccountRows.length - 1 && (
                 <span className="cursor-pointer" onClick={handleAddRow}>
                   <PlusCircleicon />
                 </span>
@@ -109,4 +130,4 @@ function AutoCareLocationDetails({
   );
 }
 
-export default AutoCareLocationDetails;
+export default AutoCareGmailAccount;

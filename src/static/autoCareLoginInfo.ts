@@ -5,7 +5,14 @@ export const initialAutoCareLocationDetails = {
 
 export const initialAutoCareSalesTaxDetails = {
   salesTaxDetailsUserId: "",
-  salesTaxDetailsDetails: "",
+  salesTaxDetailsPassword: "",
+  salesTaxDetailsStatus: "",
+};
+
+export const initialAutoCareGmailAccountDetails = {
+  gmailAccountUserId: "",
+  gmailAccountPassword: "",
+  gmailAccountStatus: "",
 };
 
 export const initialAutoCarePosDetails = {

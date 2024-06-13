@@ -5,7 +5,14 @@ export interface autoCareLocationDetailsFormTypes {
 
 export interface autoCareSalesTaxDetailsFormTypes {
   salesTaxDetailsUserId: string;
-  salesTaxDetailsDetails: string;
+  salesTaxDetailsPassword: string;
+  salesTaxDetailsStatus: string;
+}
+
+export interface autoCareGmailAccountFormTypes {
+  gmailAccountUserId: string;
+  gmailAccountPassword: string;
+  gmailAccountStatus: string;
 }
 
 export interface autoCarePosDetailsFormTypes {
@@ -83,6 +90,12 @@ export interface autoCareSalesTaxDetailsTypes {
   className?:string,
   salesTaxDetailsRows:autoCareSalesTaxDetailsFormTypes[],
   setSalesTaxDetailsRows:React.Dispatch<React.SetStateAction<autoCareSalesTaxDetailsFormTypes[]>>,
+}
+
+export interface autoCareGmailAccountTypes {
+  className?:string,
+  gmailAccountRows:autoCareGmailAccountFormTypes[],
+  setGmailAccountRows:React.Dispatch<React.SetStateAction<autoCareGmailAccountFormTypes[]>>,
 }
 
 export interface autoCarePosDetailsTypes {

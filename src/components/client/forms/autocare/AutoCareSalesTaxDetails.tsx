@@ -77,13 +77,13 @@ function AutoCareSalesTaxDetails({
             </Grid>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">Details</label>
+                <label className="text-[#6E6D7A] text-[12px]">Password</label>
                 <TextField
-                  name="salesTaxDetailsDetails"
+                  name="salesTaxDetailsPassword"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter Details"
-                  value={row.salesTaxDetailsDetails}
+                  placeholder="Please Enter Password"
+                  value={row.salesTaxDetailsPassword}
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     classes: {
@@ -96,14 +96,35 @@ function AutoCareSalesTaxDetails({
                 />
               </div>
             </Grid>
-            <Grid item xs={6} className="flex justify-end items-end gap-4">
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col">
+                <label className="text-[#6E6D7A] text-[12px]">Status</label>
+                <TextField
+                  name="salesTaxDetailsStatus"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Status"
+                  value={row.salesTaxDetailsStatus}
+                  onChange={(event) => handleInputChange(index, event)}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    className: classes.textSize,
+                  }}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={3} className="flex justify-end items-end gap-4">
               {salesTaxDetailsRows.length > 1 && (
-                <span onClick={() => handleRemoveRow(index)}>
+                <span className="cursor-pointer" onClick={() => handleRemoveRow(index)}>
                   <MinusCircle />
                 </span>
               )}
               {index === salesTaxDetailsRows.length - 1 && (
-                <span onClick={handleAddRow}>
+                <span className="cursor-pointer" onClick={handleAddRow}>
                   <PlusCircleicon />
                 </span>
               )}

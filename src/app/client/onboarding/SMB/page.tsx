@@ -20,8 +20,9 @@ function Page() {
   }, []);
   return (
     <ClientWrapper
-      basicDetailCount={basicDetailsCount}
-      basicDetailsFormSubmit={formSubmit}
+      perCountChecklist={50}
+      perCountBasicDetails={12}
+      formSubmit={formSubmit}
     >
       {formSubmit === 2 ? (
         <ChecklistSmb

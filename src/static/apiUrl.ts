@@ -31,4 +31,5 @@ export const toggleRoleUrl = "api/roles/status";
 export const getRolePermission = "api/roles/permissionlist";
 
 // OnboardingForm url
-export const autoCarFormUrl = "http://localhost:3000/carCareFormData.json";
+export const autoCarFormUrl = "api/clients/save-client-info";
+export const autoCarFormListUrl = "api/clients/getbyid-client-info";

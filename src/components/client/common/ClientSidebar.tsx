@@ -40,56 +40,51 @@ const MyDrawer = styled(Drawer, {
 }));
 
 interface SidebarModuleTypes {
-  basicDetailCount: number;
+  perCountBasicDetails: number;
   sidebarModule: number;
+  perCountChecklist: number;
 }
 
 const ClientSidebar = ({
-  basicDetailCount,
+  perCountBasicDetails,
+  perCountChecklist,
   sidebarModule,
 }: SidebarModuleTypes) => {
   const pathname = usePathname();
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
-
   useEffect(() => {
     pathname === "/client/onboarding/autocare"
       ? setItems([
           {
             id: 1,
             module: "Basic Details",
-            link: "/client/onboarding/basicdetails",
-            value: basicDetailCount,
+            value: perCountBasicDetails,
           },
           {
             id: 2,
             module: "Checklist",
-            link: "/client/onboarding/checklist",
-            value: 45,
+            value: perCountChecklist,
           },
           {
             id: 3,
             module: "Login Info",
-            link: "/client/onboarding/logininfo",
-            value: 15,
+            value: 0,
           },
         ])
       : setItems([
           {
             id: 1,
             module: "Basic Details",
-            link: "/client/onboarding/basicdetails",
-            value: basicDetailCount,
+            value: 0,
           },
           {
             id: 2,
             module: "Checklist",
-            link: "/client/onboarding/checklist",
             value: 45,
           },
           {
             id: 3,
             module: "Account Details",
-            link: "/client/onboarding/accountDetails",
             value: 15,
           },
         ]);
@@ -131,28 +126,30 @@ const ClientSidebar = ({
               >
                 {data.module}
               </span>
-              <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
-                <div
-                  className={`absolute left-0 top-0 h-full ${
-                    data.value < 93
-                      ? "rounded-l-full"
-                      : "rounded-l-full rounded-r-full"
-                  }`}
-                  style={{
-                    width: `${Math.max(
-                      (data.value / 100) * 100,
-                      data.value > 0 && data.value < 7 ? 6 : 0
-                    )}px`,
-                    backgroundColor: "#022946",
-                  }}
-                ></div>
-                <span
-                  className={`relative z-10 ml-auto mr-1 text-[8px] items-center ${
-                    data.value > 85 ? "text-white" : "text-[#023963]"
-                  }`}
-                >
-                  {data.value}%
-                </span>
+              <div className="flex items-center justify-center gap-2">
+                <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
+                  <div
+                    className={`absolute left-0 top-0 h-full ${
+                      data.value < 93
+                        ? "rounded-full"
+                        : "rounded-l-full rounded-r-full"
+                    }`}
+                    style={{
+                      width: `${Math.max(
+                        (data.value / 100) * 100,
+                        data.value > 0 && data.value < 7 ? 6 : 0
+                      )}px`,
+                      backgroundColor: "#022946",
+                    }}
+                  ></div>
+                  <span
+                    className={`relative z-10 ml-auto mr-1 text-[8px] items-center ${
+                      data.value > 85 ? "text-white" : "text-[#023963]"
+                    }`}
+                  >
+                    {data.value}%
+                  </span>
+                </div>
               </div>
             </div>
           ))}
