@@ -6,7 +6,8 @@ const ImgInfoIcon = () => {
     <Tooltip
       title={
         <ul className="custom-tooltip">
-          <li>File type must contain JPEG, PNG, GIF, TIF</li>
+          <li>File type must contain only PNG.</li>
+          <li>Image dimensions should be 150x100 pixels.</li>
         </ul>
       }
       placement="top"
