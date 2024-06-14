@@ -268,7 +268,17 @@ function Page() {
             <Tooltip title="Form Type" placement="top" arrow>
               <span
                 className="cursor-pointer"
-                onClick={() => setClientOpenModal(true)}
+                onClick={() => {
+                  setClientOpenModal(true);
+                  setClientInfo({
+                    SFID: params.row.SfId,
+                    DepartmentType: params.row.BusinessType,
+                    DepartmentId: params.row.BusinessTypeId,
+                    ClientId: params.row.ClientId,
+                    clientName: params.row.Clientname,
+                    UserId: params.row.UserId
+                  });
+                }}
               >
                 <FormIcon />
               </span>
@@ -278,7 +288,14 @@ function Page() {
       },
     },
   ];
-
+  const [clientInfo, setClientInfo] = useState<any>({
+    SFID: "",
+    DepartmentType: "",
+    DepartmentId: "",
+    ClientId: "",
+    clientName: "",
+    UserId:"",
+  });
   const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
   const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
   const [assignUserList3, setAssignUserList3] = useState<Option[]>([]);
@@ -719,8 +736,19 @@ function Page() {
 
       {clientOpenModal && (
         <ClientModal
+          clientInfo={clientInfo}
           isOpen={clientOpenModal}
-          handleClose={() => setClientOpenModal(false)}
+          handleClose={() => {
+            setClientOpenModal(false);
+            setClientInfo({
+              SFID: "",
+              DepartmentType: "",
+              DepartmentId: "",
+              ClientId: "",
+              clientName: "",
+              UserId:"",
+            });
+          }}
           setIsOpenModal={(value) => {
             setClientOpenModal(value);
           }}

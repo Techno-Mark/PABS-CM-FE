@@ -26,11 +26,13 @@ function Page() {
     >
       {formSubmit === 2 ? (
         <ChecklistSmb
+          clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
       ) : (
         <SystemAccessForSmb
+          clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />

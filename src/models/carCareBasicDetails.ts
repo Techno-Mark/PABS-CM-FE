@@ -2,8 +2,9 @@ import { Dayjs } from "dayjs";
 import { ReactNode } from "react";
 
 export interface FormBoxProps {
+  checkStatus?:boolean
+  handleChange?:any;
   title: string;
-  checked: boolean;
   children: ReactNode;
   className?: string;
 }
@@ -14,12 +15,14 @@ export interface LegalStructureFormTypes {
   agreementDate: Dayjs | null | string;
   probableAcquitionDate: Dayjs | null | string;
   dba: string;
+  clientWebsite:string;
   [key: string]: string | Dayjs | null;
 }
 
 export interface LegalStructureFormErrors extends Partial<LegalStructureFormTypes> {}
 
 export interface AccountDetailsFormTypes {
+  accountName:string
   businessType: string;
   service: string;
   corporateAddress: string;
@@ -37,7 +40,7 @@ export interface ClientTeamFormTypes {
   shopManager: string;
   poc1: string;
   email: string;
-  cpa: string;
+  contactInfo:string;
   priorBookkeeper: string;
   itSupport: string;
   timeZone: string;
@@ -64,6 +67,8 @@ export interface PabsAccountingTeamFormTypes {
 export interface PabsAccountingTeamFormErrors extends Partial<PabsAccountingTeamFormTypes> {}
 export interface AccountDetailsTypes {
   className?:string,
+  accountDetailsCheckStatus:boolean
+  setAccountDetailsCheckStatus:React.Dispatch<React.SetStateAction<boolean>>
   autoCareAccountDetails:AccountDetailsFormTypes,
   setAutoCareAccountDetails:React.Dispatch<React.SetStateAction<AccountDetailsFormTypes>>,
   autoCareAccountDetailsErrors:AccountDetailsFormErrors,
@@ -72,6 +77,8 @@ export interface AccountDetailsTypes {
 
 export interface LegalStructureTypes {
   className?:string,
+  legalStructureCheckStatus:boolean,
+  setLegalStructureCheckStatus:React.Dispatch<React.SetStateAction<boolean>>,
   autoCareLegalStructure:LegalStructureFormTypes,
   setAutoCareLegalStructure:React.Dispatch<React.SetStateAction<LegalStructureFormTypes>>,
   autoCareLegalStructureErrors:LegalStructureFormErrors,
@@ -80,6 +87,8 @@ export interface LegalStructureTypes {
 
 export interface ClientTeamTypes {
   className?:string,
+  clientTeamCheckStatus:boolean
+  setClientTeamCheckStatus:React.Dispatch<React.SetStateAction<boolean>>
   autoCareClientTeam:ClientTeamFormTypes,
   setAutoCareClientTeam:React.Dispatch<React.SetStateAction<ClientTeamFormTypes>>,
   autoCareClientTeamErrors:ClientTeamFormErrors,
@@ -88,16 +97,20 @@ export interface ClientTeamTypes {
 
 export interface PabsAccountingTeamTypes {
   className?:string,
+  pabsAccountingTeamCheckStatus:boolean
+  setPabsAccountingTeamCheckStatus:React.Dispatch<React.SetStateAction<boolean>>
   autoCarePabsAccountingTeam:PabsAccountingTeamFormTypes,
   setAutoCarePabsAccountingTeam:React.Dispatch<React.SetStateAction<PabsAccountingTeamFormTypes>>,
 }
 
 export interface BasicDetailAutoCareType {
+  clientInfo:any
   setBasicDetailCount:(value:number) => void,
   setBasicDetailsFormSubmit:(value:number) => void,
 }
 
 export interface ChecklistAutoCareType {
+  clientInfo:any
   setChecklistCount:(value:number) => void,
   setChecklistFormSubmit:(value:number) => void,
 }

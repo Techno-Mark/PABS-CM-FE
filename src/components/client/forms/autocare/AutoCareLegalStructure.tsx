@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // Utlis import
@@ -14,15 +14,43 @@ import {
   LegalStructureFormTypes,
   LegalStructureTypes,
 } from "@/models/carCareBasicDetails";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import { autoCarFormUrl } from "@/static/apiUrl";
 
 function AutoCareLegalStructure({
   className,
+  legalStructureCheckStatus,
+  setLegalStructureCheckStatus,
   autoCareLegalStructure,
   setAutoCareLegalStructure,
   autoCareLegalStructureErrors,
   setAutoCareLegalStructureErrors,
 }: LegalStructureTypes) {
   const classes = useStyles();
+
+  const handleSwitch = (e: any) => {
+    const legalStructureIsDisplay = e.target.checked;
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          setLegalStructureCheckStatus(legalStructureIsDisplay);
+          return;
+      }
+    };
+    const checkStatusFormData = {
+      userId: 89,
+      businessTypeId: 3,
+      legalStructureIsDisplay: legalStructureIsDisplay,
+    };
+
+    callAPIwithHeaders(autoCarFormUrl, "post", callback, checkStatusFormData);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -70,7 +98,11 @@ function AutoCareLegalStructure({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="Legal Structure" checked={true}>
+      <FormBox
+        title="Legal Structure"
+        checkStatus={legalStructureCheckStatus}
+        handleChange={(e: any) => handleSwitch(e)}
+      >
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col">
@@ -238,6 +270,30 @@ function AutoCareLegalStructure({
                 size="small"
                 placeholder="Please Enter DBA"
                 value={autoCareLegalStructure?.dba}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Client Website
+              </label>
+              <TextField
+                name="clientWebsite"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Client Website"
+                value={autoCareLegalStructure?.clientWebsite}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

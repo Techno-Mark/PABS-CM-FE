@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI import
@@ -9,18 +9,47 @@ import {
   AccountDetailsFormTypes,
   AccountDetailsTypes,
 } from "@/models/carCareBasicDetails";
+// Cookie import
+import Cookies from "js-cookie";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 import { validateEmail, validateNumber } from "@/utils/validate";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import { autoCarFormUrl } from "@/static/apiUrl";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
 
 function AutoCareAccountDetails({
   className,
+  accountDetailsCheckStatus,
+  setAccountDetailsCheckStatus,
   autoCareAccountDetails,
   setAutoCareAccountDetails,
   autoCareAccountDetailsErrors,
   setAutoCareAccountDetailsErrors,
 }: AccountDetailsTypes) {
   const classes = useStyles();
+
+  const handleSwitch = (e: any) => {
+    const accountDetailsIsDisplay = e.target.checked;
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setAccountDetailsCheckStatus(accountDetailsIsDisplay);
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+    const checkStatusFormData = {
+      userId: 89,
+      businessTypeId: 3,
+      accountDetailsIsDisplay: accountDetailsIsDisplay,
+    };
+    callAPIwithHeaders(autoCarFormUrl, "post", callback, checkStatusFormData);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,22 +58,42 @@ function AutoCareAccountDetails({
       case "ownerPhone":
       case "ownerContact":
         if (validateNumber(value)) {
-          setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
-            ...prev,
-            [name]: value,
-          }));
-          setAutoCareAccountDetailsErrors(
-            (prevErrors: AccountDetailsFormErrors) => ({
-              ...prevErrors,
-              [name]: "",
-            })
-          );
-        } else {
-          const validValue = value.replace(/[^0-9]/g, "");
+          const validValue = value.slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? `${
+                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
+                } must be exactly ${10} characters`
+              : "";
           setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
             ...prev,
             [name]: validValue,
           }));
+          setAutoCareAccountDetailsErrors(
+            (prevErrors: AccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: errorMessage,
+            })
+          );
+        } else {
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? `${
+                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
+                } must be exactly ${10} characters`
+              : "";
+
+          setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
+            ...prev,
+            [name]: validValue,
+          }));
+          setAutoCareAccountDetailsErrors(
+            (prevErrors: AccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: errorMessage,
+            })
+          );
         }
         break;
       case "ownerEmail":
@@ -109,7 +158,11 @@ function AutoCareAccountDetails({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="Account Details" checked={true}>
+      <FormBox
+        title="Account Details"
+        checkStatus={accountDetailsCheckStatus}
+        handleChange={(e: any) => handleSwitch(e)}
+      >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={8}>

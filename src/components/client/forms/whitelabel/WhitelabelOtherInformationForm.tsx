@@ -70,7 +70,7 @@ const WhitelabelOtherInformationForm = ({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="Other Information" checked={true}>
+      <FormBox title="Other Information" checkStatus={true}>
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
             <Grid item xs={4}>

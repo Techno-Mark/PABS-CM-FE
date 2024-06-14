@@ -17,13 +17,14 @@ export const initialAutoCareLegalStructure = {
   agreementDate: null,
   probableAcquitionDate: null,
   dba: "",
+  clientWebsite:"",
 };
 
 export const initialAutoCareClientTeam = {
   shopManager: "",
   poc1: "",
   email: "",
-  cpa: "",
+  contactInfo:"",
   priorBookkeeper: "",
   itSupport: "",
   timeZone: "-1",

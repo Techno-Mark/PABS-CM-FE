@@ -6,6 +6,8 @@ export interface ChecklistAccordianProps {
   expandedAccordian: boolean;
   handleChange: any;
   hasError?:boolean
+  checkStatus?:boolean, 
+  handleSwitchChange?:any
 }
 
 export interface autoCareCommmunicationChecklistTypes {

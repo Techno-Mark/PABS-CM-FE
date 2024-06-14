@@ -42,9 +42,9 @@ import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { autoCarFormListUrl, autoCarFormUrl } from "@/static/apiUrl";
-import AutoCareGmailAccount from "../forms/autocare/AutoCareGmailAccount";
+import AutoCareGmailAccount from "@/components/client/forms/autocare/AutoCareGmailAccount";
 
-function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
+function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
   const businessTypeId = Cookies.get("businessTypeId");
@@ -83,10 +83,27 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
     autoCarePayrollDetailsFormTypes[]
   >([initialAutoCarePayrollDetails]);
 
+  const [locationDetailsChecked, setLocationDetailsChecked] =
+    useState<boolean>(true);
+  const [salesTaxDetailsChecked, setSalesTaxDetailsChecked] =
+    useState<boolean>(true);
+  const [gmailAccountDetailsChecked, setGmailAccountDetailsChecked] =
+    useState<boolean>(true);
+  const [posDetailsChecked, setPosDetailsChecked] = useState<boolean>(true);
+  const [utilitiesChecked, setUtilitiesChecked] = useState<boolean>(true);
+  const [vendorDetailsChecked, setVendorDetailsChecked] =
+    useState<boolean>(true);
+  const [bankDetailsLoanChecked, setBankDetailsLoansChecked] =
+    useState<boolean>(true);
+  const [merchantDetailsChecked, setMerchantDetailsChecked] =
+    useState<boolean>(true);
+  const [payrollDetailsChecked, setPayrollDetailsChecked] =
+    useState<boolean>(true);
+
   const handleLoginInfoInitialValues = () => {
     setLocationDetailsRows([initialAutoCareLocationDetails]);
     setSalesTaxDetailsRows([initialAutoCareSalesTaxDetails]);
-    setGmailAccountRows([initialAutoCareGmailAccountDetails])
+    setGmailAccountRows([initialAutoCareGmailAccountDetails]);
     setPosDetailsRows([initialAutoCarePosDetails]);
     setUtilitiesRows([initialAutoCareUtilities]);
     setVendorDetailsRows([initialAutoCareVendorDetails]);
@@ -106,6 +123,15 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          setLocationDetailsChecked(ResponseData.locationDetailsIsDisplay)
+          setSalesTaxDetailsChecked(ResponseData.salesTaxDetailsIsDisplay)
+          setGmailAccountDetailsChecked(ResponseData.gmailAccountDetailsIsDisplay)
+          setPosDetailsChecked(ResponseData.posDetailsIsDisplay)
+          setUtilitiesChecked(ResponseData.utilitiesDetailsIsDisplay)
+          setVendorDetailsChecked(ResponseData.vendorDetailsIsDisplay)
+          setBankDetailsLoansChecked(ResponseData.bankDetailsIsDisplay)
+          setMerchantDetailsChecked(ResponseData.merchantDetailsIsDisplay)
+          setPayrollDetailsChecked(ResponseData.payrollDetailsIsDisplay)
           if (ResponseData.locationDetails.length > 0) {
             setLocationDetailsRows(
               ResponseData.locationDetails.map((locationItem: any) => ({
@@ -231,7 +257,10 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
       }
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
-      userId: userId,
+      userId:
+        clientInfo?.UserId !== ""
+          ? parseInt(clientInfo?.UserId)
+          : parseInt(userId!),
     });
   };
 
@@ -252,8 +281,9 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
       }
     };
     const loginInfoFormData = {
-      userId: 89,
-      businessTypeId: parseInt(businessTypeId!),
+      userId: clientInfo?.ClientId !== "" ? 89 : parseInt(userId!),
+      businessTypeId:
+        clientInfo?.DepartmentId !== "" ? 3 : parseInt(businessTypeId!),
       locationDetails: locationDetailsRows.map((locationItem) => ({
         name: locationItem.locationDetailsName,
         details: locationItem.locationDetailsDetails,
@@ -330,6 +360,79 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
     }
   };
 
+  const handleSwitchChange = async (e: any, phaseType: number) => {
+    const check = e.target.checked;
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          break;
+        case "success":
+          showToast(Message, ToastType.Success);
+          break;
+      }
+    };
+
+    const updatePhaseState = (key: string, value: boolean) => {
+      const updateStateFunc: any = {
+        1: setLocationDetailsChecked,
+        2: setSalesTaxDetailsChecked,
+        3: setGmailAccountDetailsChecked,
+        4: setPosDetailsChecked,
+        5: setUtilitiesChecked,
+        6: setVendorDetailsChecked,
+        7: setBankDetailsLoansChecked,
+        8: setMerchantDetailsChecked,
+        9: setPayrollDetailsChecked,
+      }[phaseType];
+      updateStateFunc(value);
+    };
+
+    const requestBody: any = {
+      userId:
+        clientInfo?.UserId !== ""
+          ? parseInt(clientInfo?.UserId!)
+          : parseInt(userId!),
+      businessTypeId:
+        clientInfo?.DepartmentId !== ""
+          ? parseInt(clientInfo?.DepartmentId!)
+          : parseInt(businessTypeId!),
+    };
+
+    switch (phaseType) {
+      case 1:
+        requestBody.locationDetailsIsDisplay = check;
+        break;
+      case 2:
+        requestBody.salesTaxDetailsIsDisplay = check;
+        break;
+      case 3:
+        requestBody.gmailAccountDetailsIsDisplay = check;
+        break;
+      case 4:
+        requestBody.posDetailsIsDisplay = check;
+        break;
+      case 5:
+        requestBody.utilitiesDetailsIsDisplay = check;
+        break;
+      case 6:
+        requestBody.vendorDetailsIsDisplay = check;
+        break;
+      case 7:
+        requestBody.bankDetailsIsDisplay = check;
+        break;
+      case 8:
+        requestBody.merchantDetailsIsDisplay = check;
+        break;
+      case 9:
+        requestBody.payrollDetailsIsDisplay = check;
+        break;
+    }
+
+    await callAPIwithHeaders(autoCarFormUrl, "post", callback, requestBody);
+    updatePhaseState(`setPhase${phaseType}Checked`, check);
+  };
+
   return (
     <>
       <div
@@ -339,137 +442,168 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit }: any) {
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.LOCATION_DETAILS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.LOCATION_DETAILS
-              )}
-              title="Location Details"
-            >
-              <AutoCareLocationDetails
-                locationDetailsRows={locationDetailsRows}
-                setLocationDetailsRows={setLocationDetailsRows}
-              />
-            </ChecklistAccordian>
+            {(roleId === "4" ? locationDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 1)}
+                checkStatus={locationDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.LOCATION_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.LOCATION_DETAILS
+                )}
+                title="Location Details"
+              >
+                <AutoCareLocationDetails
+                  locationDetailsRows={locationDetailsRows}
+                  setLocationDetailsRows={setLocationDetailsRows}
+                />
+              </ChecklistAccordian>
+            )}
 
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.SALES_TAX_DETAILS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.SALES_TAX_DETAILS
-              )}
-              title="Sales Tax Details"
-            >
-              <AutoCareSalesTaxDetails
-                salesTaxDetailsRows={salesTaxDetailsRows}
-                setSalesTaxDetailsRows={setSalesTaxDetailsRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.GMAILACCOUNT_DETAILS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.GMAILACCOUNT_DETAILS
-              )}
-              title="Gmail Account"
-            >
-              <AutoCareGmailAccount
-                gmailAccountRows={gmailAccountRows}
-                setGmailAccountRows={setGmailAccountRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.POS_DETAILS
-              }
-              handleChange={handleAccordianChange(AccordianExpand.POS_DETAILS)}
-              title="POS Details"
-            >
-              <AutoCarePosDetails
-                posDetailsRows={posDetailsRows}
-                setPosDetailsRows={setPosDetailsRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.UTILITIES
-              }
-              handleChange={handleAccordianChange(AccordianExpand.UTILITIES)}
-              title="Utilities"
-            >
-              <AutoCareUtilities
-                utilitiesRows={utilitiesRows}
-                setUtilitiesRows={setUtilitiesRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.VENDOR_DETAILS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.VENDOR_DETAILS
-              )}
-              title="Vendor Details"
-            >
-              <AutoCareVendorDetails
-                vendorDetailsRows={vendorDetailsRows}
-                setVendorDetailsRows={setVendorDetailsRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian ===
-                AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
-              )}
-              title="Bank Details/CC Details/Loan"
-            >
-              <AutoCareBankDetailsLoans
-                bankDetailsLoansRows={bankDetailsLoansRows}
-                setBankDetailsLoansRows={setBankDetailsLoansRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.MERCHANT_DETAILS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.MERCHANT_DETAILS
-              )}
-              title="Merchant Details"
-            >
-              <AutoCareMerchantDetails
-                merchantDetailsRows={merchantDetailsRows}
-                setMerchantDetailsRows={setMerchantDetailsRows}
-              />
-            </ChecklistAccordian>
-
-            <ChecklistAccordian
-              expandedAccordian={
-                expandedAccordian === AccordianExpand.PAYROLL_DETAILS
-              }
-              handleChange={handleAccordianChange(
-                AccordianExpand.PAYROLL_DETAILS
-              )}
-              title="Payroll Details"
-            >
-              <AutoCarePayrollDetails
-                payrollDetailsRows={payrollDetailsRows}
-                setPayrollDetailsRows={setPayrollDetailsRows}
-              />
-            </ChecklistAccordian>
+            {(roleId === "4" ? salesTaxDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 2)}
+                checkStatus={salesTaxDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.SALES_TAX_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.SALES_TAX_DETAILS
+                )}
+                title="Sales Tax Details"
+              >
+                <AutoCareSalesTaxDetails
+                  salesTaxDetailsRows={salesTaxDetailsRows}
+                  setSalesTaxDetailsRows={setSalesTaxDetailsRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? gmailAccountDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 3)}
+                checkStatus={gmailAccountDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.GMAILACCOUNT_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.GMAILACCOUNT_DETAILS
+                )}
+                title="Gmail Account"
+              >
+                <AutoCareGmailAccount
+                  gmailAccountRows={gmailAccountRows}
+                  setGmailAccountRows={setGmailAccountRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? posDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 4)}
+                checkStatus={posDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.POS_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.POS_DETAILS
+                )}
+                title="POS Details"
+              >
+                <AutoCarePosDetails
+                  posDetailsRows={posDetailsRows}
+                  setPosDetailsRows={setPosDetailsRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? utilitiesChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 5)}
+                checkStatus={utilitiesChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.UTILITIES
+                }
+                handleChange={handleAccordianChange(AccordianExpand.UTILITIES)}
+                title="Utilities"
+              >
+                <AutoCareUtilities
+                  utilitiesRows={utilitiesRows}
+                  setUtilitiesRows={setUtilitiesRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? vendorDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 6)}
+                checkStatus={vendorDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.VENDOR_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.VENDOR_DETAILS
+                )}
+                title="Vendor Details"
+              >
+                <AutoCareVendorDetails
+                  vendorDetailsRows={vendorDetailsRows}
+                  setVendorDetailsRows={setVendorDetailsRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? bankDetailsLoanChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 7)}
+                checkStatus={bankDetailsLoanChecked}
+                expandedAccordian={
+                  expandedAccordian ===
+                  AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.BANK_DETAILS_CC_DETAILS_LOAN
+                )}
+                title="Bank Details/CC Details/Loan"
+              >
+                <AutoCareBankDetailsLoans
+                  bankDetailsLoansRows={bankDetailsLoansRows}
+                  setBankDetailsLoansRows={setBankDetailsLoansRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? merchantDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 8)}
+                checkStatus={merchantDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.MERCHANT_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.MERCHANT_DETAILS
+                )}
+                title="Merchant Details"
+              >
+                <AutoCareMerchantDetails
+                  merchantDetailsRows={merchantDetailsRows}
+                  setMerchantDetailsRows={setMerchantDetailsRows}
+                />
+              </ChecklistAccordian>
+            )}
+            {(roleId === "4" ? payrollDetailsChecked : true) && (
+              <ChecklistAccordian
+                handleSwitchChange={(e: any) => handleSwitchChange(e, 9)}
+                checkStatus={payrollDetailsChecked}
+                expandedAccordian={
+                  expandedAccordian === AccordianExpand.PAYROLL_DETAILS
+                }
+                handleChange={handleAccordianChange(
+                  AccordianExpand.PAYROLL_DETAILS
+                )}
+                title="Payroll Details"
+              >
+                <AutoCarePayrollDetails
+                  payrollDetailsRows={payrollDetailsRows}
+                  setPayrollDetailsRows={setPayrollDetailsRows}
+                />
+              </ChecklistAccordian>
+            )}
           </div>
         </div>
 

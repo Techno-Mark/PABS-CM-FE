@@ -15,6 +15,8 @@ import { clientDrawerWidth } from "@/static/commonVariables";
 import { ClientSidebarItemsType } from "@/models/adminSidebar";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+// Cookie import
+import Cookies from "js-cookie";
 
 const openedMixin = (theme: Theme) => ({
   width: clientDrawerWidth,
@@ -52,9 +54,12 @@ const ClientSidebar = ({
 }: SidebarModuleTypes) => {
   const pathname = usePathname();
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
+  const businessTypeId = Cookies.get("businessTypeId");
+
   useEffect(() => {
     pathname === "/client/onboarding/autocare"
-      ? setItems([
+      ? 
+      setItems([
           {
             id: 1,
             module: "Basic Details",

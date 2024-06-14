@@ -15,22 +15,27 @@ import {
 import {
   StateList,
   TimeZoneList,
-  WeeklyCallTimeList,
   WeeklyCallsList,
 } from "@/static/carCareBasicDetail";
-import { validateEmail } from "@/utils/validate";
+import { validateEmail, validateNumber } from "@/utils/validate";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import { autoCarFormUrl } from "@/static/apiUrl";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 function AutoCareClientTeam({
   className,
+  clientTeamCheckStatus,
+  setClientTeamCheckStatus,
   autoCareClientTeam,
   setAutoCareClientTeam,
   autoCareClientTeamErrors,
@@ -38,10 +43,64 @@ function AutoCareClientTeam({
 }: ClientTeamTypes) {
   const classes = useStyles();
 
+  const handleSwitch = (e: any) => {
+    const cpaClientTeamIsDisplay = e.target.checked;
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setClientTeamCheckStatus(cpaClientTeamIsDisplay);
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+    const checkStatusFormData = {
+      userId: 89,
+      businessTypeId: 3,
+      cpaClientTeamIsDisplay: cpaClientTeamIsDisplay,
+    };
+
+    callAPIwithHeaders(autoCarFormUrl, "post", callback, checkStatusFormData);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     switch (name) {
+      case "contactInfo":
+        if (validateNumber(value)) {
+          const validValue = value.slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? "Contact Info Phone must be exactly 10 characters"
+              : "";
+          setAutoCareClientTeam((prev: ClientTeamFormTypes) => ({
+            ...prev,
+            [name]: validValue,
+          }));
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: errorMessage,
+          }));
+        } else {
+          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
+          const errorMessage =
+            validValue.length < 10
+              ? "Contact Info Phone must be exactly 10 characters"
+              : "";
+
+          setAutoCareClientTeam((prev: ClientTeamFormTypes) => ({
+            ...prev,
+            [name]: validValue,
+          }));
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: errorMessage,
+          }));
+        }
+        break;
       case "email":
         if (!validateEmail(value)) {
           setAutoCareClientTeamErrors((prevErrors) => ({
@@ -86,10 +145,7 @@ function AutoCareClientTeam({
           ...prevErrors,
           weeklyCallTime: "",
         }));
-        if (
-          formattedTime &&
-          autoCareClientTeam.timeZone !== "-1"
-        ) {
+        if (formattedTime && autoCareClientTeam.timeZone !== "-1") {
           const convertedTime = convertToIST(time, autoCareClientTeam.timeZone);
           setAutoCareClientTeam({
             ...autoCareClientTeam,
@@ -157,7 +213,11 @@ function AutoCareClientTeam({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="Client Team" checked={true}>
+      <FormBox
+        title="Client Team"
+        checkStatus={clientTeamCheckStatus}
+        handleChange={(e: any) => handleSwitch(e)}
+      >
         <div className="py-3 px-2 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
@@ -232,16 +292,15 @@ function AutoCareClientTeam({
               }}
             />
           </div>
-
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">CPA</label>
+            <label className="text-[#6E6D7A] text-[12px]">Contact Info</label>
             <TextField
-              name="cpa"
+              name="contactInfo"
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter CPA"
-              value={autoCareClientTeam?.cpa}
+              placeholder="Please Enter Contact Info"
+              value={autoCareClientTeam?.contactInfo}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -256,14 +315,14 @@ function AutoCareClientTeam({
 
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Prior Bookkeeper
+              Prior Bookkeeper CPA
             </label>
             <TextField
               name="priorBookkeeper"
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter Prior Bookkeeper"
+              placeholder="Please Enter Prior Bookkeeper CPA"
               value={autoCareClientTeam?.priorBookkeeper}
               onChange={handleChange}
               InputProps={{
@@ -388,7 +447,11 @@ function AutoCareClientTeam({
             </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                timezone={autoCareClientTeam?.timeZone ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"}
+                timezone={
+                  autoCareClientTeam?.timeZone
+                    ? timeZoneMap[autoCareClientTeam.timeZone]
+                    : "Asia/Kolkata"
+                }
                 name="weeklyCallTime"
                 sx={{
                   height: "22px !important",
@@ -399,7 +462,13 @@ function AutoCareClientTeam({
                 }}
                 value={
                   autoCareClientTeam?.weeklyCallTime
-                    ? dayjs.tz(autoCareClientTeam?.weeklyCallTime, "hh:mm A", autoCareClientTeam?.timeZone ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata")
+                    ? dayjs.tz(
+                        autoCareClientTeam?.weeklyCallTime,
+                        "hh:mm A",
+                        autoCareClientTeam?.timeZone
+                          ? timeZoneMap[autoCareClientTeam.timeZone]
+                          : "Asia/Kolkata"
+                      )
                     : null
                 }
                 onChange={(e) => handleTimeChange(e, "weeklyCallTime")}
@@ -409,7 +478,7 @@ function AutoCareClientTeam({
                     weeklyCallTime: error,
                   }))
                 }
-                disabled={autoCareClientTeam?.timeZone !== '-1' ? false : true}
+                disabled={autoCareClientTeam?.timeZone !== "-1" ? false : true}
                 slotProps={{
                   textField: {
                     variant: "standard",

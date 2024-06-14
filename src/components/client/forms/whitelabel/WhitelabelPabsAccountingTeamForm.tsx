@@ -89,7 +89,7 @@ const WhitelabelPabsAccountingTeamForm = ({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="PABS Accounting Team" checked={true}>
+      <FormBox title="PABS Accounting Team" checkStatus={true}>
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
             <Grid item xs={4}>

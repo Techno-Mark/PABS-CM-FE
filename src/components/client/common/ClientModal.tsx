@@ -34,6 +34,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 function ClientModal({
+  clientInfo,
   isOpen,
   setIsOpenModal,
   handleClose,
@@ -76,7 +77,8 @@ function ClientModal({
                 <div className="flex flex-row w-full justify-between items-center mb-3">
                   <div className="!text-[#000000]">
                     <span className="!font-semibold text-[15px]">
-                      SF00123 &nbsp;|&nbsp; Technomark &nbsp;|&nbsp; White Label
+                      {clientInfo.SFID} &nbsp;|&nbsp; {clientInfo.clientName}{" "}
+                      &nbsp;|&nbsp; {clientInfo.DepartmentType}
                     </span>
                   </div>
                   <div className="relative flex gap-5">
@@ -116,6 +118,7 @@ function ClientModal({
             >
               {formSubmit === 1 ? (
                 <BasicDetailsAutoCare
+                  clientInfo={clientInfo}
                   setBasicDetailsFormSubmit={(value: number) =>
                     setFormSubmit(value)
                   }
@@ -125,6 +128,7 @@ function ClientModal({
                 />
               ) : formSubmit === 2 ? (
                 <ChecklistAutoCare
+                  clientInfo={clientInfo}
                   setChecklistFormSubmit={(value: number) =>
                     setFormSubmit(value)
                   }
@@ -134,6 +138,7 @@ function ClientModal({
                 />
               ) : (
                 <LoginInfoAutoCare
+                  clientInfo={clientInfo}
                   setLoginInfoFormSubmit={(value: number) =>
                     setFormSubmit(value)
                   }

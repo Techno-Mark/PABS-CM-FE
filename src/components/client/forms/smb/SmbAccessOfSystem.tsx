@@ -68,7 +68,7 @@ function SmbAccessOfSystem({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="System Of Access" checked={true}>
+      <FormBox title="System Of Access" checkStatus={true}>
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={4}>

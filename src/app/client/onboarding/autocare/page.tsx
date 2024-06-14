@@ -29,6 +29,7 @@ function Page() {
     >
       {formSubmit === 1 ? (
         <BasicDetailsAutoCare
+          clientInfo={{}}
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setBasicDetailCount={(value: number) =>
             setPerCountBasicDetails(value)
@@ -36,11 +37,13 @@ function Page() {
         />
       ) : formSubmit === 2 ? (
         <ChecklistAutoCare
+          clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setPerCountChecklist(value)}
         />
       ) : (
         <LoginInfoAutoCare
+          clientInfo={{}}
           setLoginInfoFormSubmit={(value: number) => setFormSubmit(value)}
           setLoginInfoCount={(value: number) => {}}
         />
