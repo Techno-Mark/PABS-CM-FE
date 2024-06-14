@@ -38,6 +38,10 @@ function Page() {
         <ChecklistAutoCare
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setPerCountChecklist(value)}
+          formDetails={[]}
+          getFormDetials={function (): void {
+            throw new Error("Function not implemented.");
+          }}
         />
       ) : (
         <LoginInfoAutoCare

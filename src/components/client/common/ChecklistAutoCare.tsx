@@ -464,12 +464,12 @@ function ChecklistAutoCare({
     setAutoCareCompliancesErrors({});
     setAutoCarePayableCashPayAccessErrors({});
     setAutoCareFinancialsErrors({});
-    setAutoCareSystemSoftwareHasErrors(false)
-    setAutoCareCashBankingLoansHasErrors(false)
-    setAutoCarePayrollServiceProviderHasErrors(false)
-    setAutoCareComplaincesHasErrors(false)
-    setAutoCareAccessHasErrors(false)
-    setAutoCareFinancialsHasErrors(false)
+    setAutoCareSystemSoftwareHasErrors(false);
+    setAutoCareCashBankingLoansHasErrors(false);
+    setAutoCarePayrollServiceProviderHasErrors(false);
+    setAutoCareComplaincesHasErrors(false);
+    setAutoCareAccessHasErrors(false);
+    setAutoCareFinancialsHasErrors(false);
   };
 
   const getAutoCareChecklistData = async () => {
@@ -478,7 +478,6 @@ function ChecklistAutoCare({
       Message: string,
       ResponseData: any
     ) => {
-      console.log(ResponseStatus,)
       switch (ResponseStatus) {
         case "failure":
           showToast(Message, ToastType.Error);

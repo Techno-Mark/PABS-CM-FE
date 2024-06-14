@@ -94,13 +94,11 @@ const ClientSidebar = ({
           {
             id: 1,
             module: "Checklist",
-            link: "/client/onboarding/checklist",
-            value: basicDetailCount,
+            value: perCountBasicDetails,
           },
           {
             id: 2,
             module: "System Access Status",
-            link: "/client/onboarding/systemaccessstatus",
             value: 45,
           },
         ]);

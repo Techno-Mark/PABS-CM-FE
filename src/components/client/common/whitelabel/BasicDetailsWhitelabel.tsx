@@ -78,7 +78,6 @@ const BasicDetailsWhitelabel = ({
   ] = useState<WhitelabelPABSAccountingTeamErrors>(
     initialWhitelabelPABSAccountingTeamErrors
   );
-  console.log(whitelabelCpaClientTeam);
 
   const validateAccountDetails = () => {
     const fieldDisplayNames: { [key: string]: string } = {

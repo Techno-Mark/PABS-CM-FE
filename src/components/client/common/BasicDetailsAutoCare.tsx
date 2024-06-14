@@ -225,7 +225,6 @@ function BasicDetailsAutoCare({
         (!!autoCareClientTeam[field] &&
           autoCareClientTeam["weeklyCalls"] !== "-1")
       ) {
-        console.log("hello count");
         count++;
       }
     });
