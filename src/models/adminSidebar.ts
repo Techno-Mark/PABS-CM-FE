@@ -9,3 +9,9 @@ export interface SidebarItemsType {
   link: string;
   icon: any;
 }
+
+export interface ClientSidebarItemsType {
+  id: number;
+  module: string;
+  value: number;
+}

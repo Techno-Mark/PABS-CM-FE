@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 //mui components
-import { Box, CssBaseline } from "@mui/material";
+import { Box, Button, CircularProgress, CssBaseline } from "@mui/material";
 //custom components
 import ClientSidebar from "@/components/client/common/ClientSidebar";
 import ClientHeader from "@/components/client/common/ClientHeader";
@@ -11,19 +11,29 @@ import { drawerWidth } from "@/static/commonVariables";
 import Cookies from "js-cookie";
 
 type WrapperPropsType = {
+  formSubmit: number;
   isScrollable?: boolean;
   children: ReactNode;
+  perCountBasicDetails: number;
+  perCountChecklist: number;
 };
 
-const ClientWrapper = ({ isScrollable, children }: WrapperPropsType) => {
-  const [openSidebar, setOpenSidebar] = useState(true);
+const ClientWrapper = ({
+  isScrollable,
+  perCountBasicDetails,
+  perCountChecklist,
+  formSubmit,
+  children,
+}: WrapperPropsType) => {
   const router = useRouter();
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
       router.push("/auth/login");
     }
   }, []);
+
   return (
     <>
       <div className="max-h-screen flex flex-col overflow-hidden">
@@ -36,12 +46,16 @@ const ClientWrapper = ({ isScrollable, children }: WrapperPropsType) => {
         >
           <CssBaseline />
           <ClientHeader />
-          <ClientSidebar/>
+          <ClientSidebar
+            clientInfo={{}}
+            perCountBasicDetails={perCountBasicDetails}
+            perCountChecklist={perCountChecklist}
+            sidebarModule={formSubmit}
+          />
           <Box
             component="main"
             sx={{
               flexGrow: 1,
-              p: 3,
               backgroundColor: "#F9FBFF",
               width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}

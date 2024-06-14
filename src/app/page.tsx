@@ -14,8 +14,17 @@ export default function Home() {
   useEffect(() => {
     hasToken(router);
     const roleId = Cookies.get("roleId");
+    const businessTypeId = Cookies.get("businessTypeId");
+
     if (roleId == "4") {
-      router.push("/client/onboarding");
+      if(businessTypeId === '3'){
+        router.push("/client/onboarding/autocare");
+      }else if (businessTypeId === '2'){
+        router.push("/client/onboarding/SMB");
+      }else{
+        removeCookies();
+        router.push("/auth/login")
+      }
     } else {
       if (
         checkPermission("Client Management", "view") ||

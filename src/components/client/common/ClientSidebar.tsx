@@ -1,24 +1,25 @@
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 // MUI imports
 import {
   List,
   Drawer,
   styled,
-  Divider,
   ListItem,
   CssBaseline,
   ListItemButton,
 } from "@mui/material";
 import { Theme } from "@material-ui/core/styles";
 // Static import
-import { drawerWidth } from "@/static/commonVariables";
-// Utlis import
-import { useStyles } from "@/utils/useStyles";
-import CallIcon from "@/assets/Icons/client/sidebar/CallIcon";
+import { clientDrawerWidth } from "@/static/commonVariables";
+// Model import
+import { ClientSidebarItemsType } from "@/models/adminSidebar";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+// Cookie import
+import Cookies from "js-cookie";
 
 const openedMixin = (theme: Theme) => ({
-  width: drawerWidth,
+  width: clientDrawerWidth,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -27,22 +28,10 @@ const openedMixin = (theme: Theme) => ({
   overflowX: "hidden",
 });
 
-const closedMixin = (theme: Theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
 const MyDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }: any) => ({
-  width: drawerWidth,
+  width: clientDrawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
@@ -50,42 +39,86 @@ const MyDrawer = styled(Drawer, {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
   }),
-
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
 }));
 
-const DrawerFooter = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  position: "absolute",
-  bottom: 0,
-}));
+interface SidebarModuleTypes {
+  clientInfo:any
+  perCountBasicDetails: number;
+  sidebarModule: number;
+  perCountChecklist: number;
+}
 
-const SidebarData = [
-  { label: "Basic Details", value: 27 },
-  { label: "Amount Details", value: 0 },
-  { label: "Taxation Workflow", value: 100 },
-];
+const ClientSidebar = ({
+  clientInfo,
+  perCountBasicDetails,
+  perCountChecklist,
+  sidebarModule,
+}: SidebarModuleTypes) => {
+  const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
+  const businessTypeId = Cookies.get("businessTypeId");
 
-const ClientSidebar = () => {
-  const classes = useStyles();
-  const pathname = usePathname();
+  useEffect(() => {
+    if (businessTypeId === "3" || clientInfo.DepartmentId === 3) {
+      setItems([
+        {
+          id: 1,
+          module: "Basic Details",
+          value: perCountBasicDetails,
+        },
+        {
+          id: 2,
+          module: "Checklist",
+          value: perCountChecklist,
+        },
+        {
+          id: 3,
+          module: "Login Info",
+          value: 0,
+        },
+      ]);
+    } else if (businessTypeId === "2" || clientInfo.DepartmentId === 2) {
+      setItems([
+        {
+          id: 1,
+          module: "Checklist",
+          value: perCountBasicDetails,
+        },
+        {
+          id: 2,
+          module: "System Access Status",
+          value: 45,
+        },
+      ]);
+    } else {
+      setItems([
+        {
+          id: 1,
+          module: "Basic Details",
+          value: 0,
+        },
+        {
+          id: 2,
+          module: "Checklist",
+          value: 45,
+        },
+        {
+          id: 3,
+          module: "Account Details",
+          value: 15,
+        },
+      ]);
+    }
+  }, [businessTypeId,clientInfo]);
 
   return (
     <>
       <CssBaseline />
       <MyDrawer className="z-0 h-screen" variant="permanent" open={true}>
-        <List className="m-0 p-0 min-h-[80px] !bg-[#023963]">
+        <List className="m-0 p-0 min-h-[80px] !bg-[#091D36]">
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
               sx={{
-                minHeight: 80,
+                height: 108,
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "#023963",
@@ -94,51 +127,53 @@ const ClientSidebar = () => {
               <Image
                 alt="PABS_Logo"
                 src={"/PABS.png"}
-                width={150}
-                height={150}
+                width={160}
+                height={160}
               />
             </ListItemButton>
           </ListItem>
         </List>
         <div className="mt-8">
-          {SidebarData.map(
-            (data: { label: string; value: number }, index: number) => (
-              <div
-                key={index}
-                className="flex items-center justify-between mb-5 mx-2"
+          {items.map((data: ClientSidebarItemsType, index: number) => (
+            <div
+              key={index}
+              className="flex items-center justify-between mb-5 mx-2"
+            >
+              <span
+                className={` ${
+                  sidebarModule === data.id && "font-semibold"
+                } mr-2 text-[#333333] text-[16px] cursor-default`}
               >
-                <span className="mr-2 w-[100px] text-md">{data.label}</span>
-                <div className="relative flex items-center w-[60px] h-4 rounded-full bg-[#F6F6F6]">
+                {data.module}
+              </span>
+              <div className="flex items-center justify-center gap-2">
+                <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${
                       data.value < 93
-                        ? "rounded-l-full"
+                        ? "rounded-full"
                         : "rounded-l-full rounded-r-full"
                     }`}
                     style={{
-                      width: `${Math.max((data.value / 100) * 60, 6)}px`, // Adjust width and ensure a minimum width of 8px
+                      width: `${Math.max(
+                        (data.value / 100) * 100,
+                        data.value > 0 && data.value < 7 ? 6 : 0
+                      )}px`,
                       backgroundColor: "#022946",
                     }}
                   ></div>
                   <span
-                    className={`relative z-10 ml-auto mr-1 text-[8px] ${
-                      data.value > 63 ? "text-white" : "text-[#023963]"
+                    className={`relative z-10 ml-auto mr-1 text-[8px] items-center ${
+                      data.value > 85 ? "text-white" : "text-[#023963]"
                     }`}
                   >
                     {data.value}%
                   </span>
                 </div>
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
-        <DrawerFooter>
-          <Divider sx={{ mb: 1 }} />
-          <div className="text-[#333333] flex items-center justify-center gap-2 border border-[#6E6D7A] bg-[#0229460D] py-2 pl-4 pr-16 mx-1 cursor-pointer rounded-md">
-            <CallIcon />
-            Contact us
-          </div>
-        </DrawerFooter>
       </MyDrawer>
     </>
   );

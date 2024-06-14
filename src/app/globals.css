@@ -58,6 +58,10 @@ input::-ms-clear {
   color: #002641 !important;
 }
 
+.MuiSvgIcon-root {
+  height: 18px !important;
+}
+
 .makeStyles-drawer-3 {
   animation: drawerAnimation;
   animation-duration: 0.3s;
@@ -86,4 +90,31 @@ input::-ms-clear {
   to {
     right: -100%;
   }
+}
+.muiDatepickerCustomizer .MuiIconButton-root {
+  margin-top: 20px;
+}
+
+.muiDatepickerCustomizer fieldset {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #8a8a8a;
+}
+
+.muiDatepickerCustomizer input {
+  padding: 8px 0 1px;
+  margin-top: 15px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.datepickerError .MuiFormHelperText-root {
+  color: #dc3545;
+  margin-left: 0;
+}
+.datepickerError.muiDatepickerCustomizer label {
+  border-color: #dc3545;
+}
+.muiDatepickerCustomizer.datepickerError fieldset {
+  border-color: #dc3545;
 }

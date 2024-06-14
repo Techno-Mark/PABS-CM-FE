@@ -452,7 +452,7 @@ const ClientDrawer = ({
         </div>
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
-          Client Full Name<span className="text-[#DC3545]">*</span>
+            Client Full Name<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
             id="outlined-basic"

@@ -29,3 +29,7 @@ export const getRoleDetailsByIdUrl = "api/roles/getbyid";
 export const deleteRoleUrl = "api/roles/delete";
 export const toggleRoleUrl = "api/roles/status";
 export const getRolePermission = "api/roles/permissionlist";
+
+// OnboardingForm url
+export const autoCarFormUrl = "api/clients/save-client-info";
+export const autoCarFormListUrl = "api/clients/getbyid-client-info";

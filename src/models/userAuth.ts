@@ -9,6 +9,10 @@ export interface userLoginData {
   RefreshTokenExpiry: string;
   RoleId: number;
   RoleName: string;
+  BusinessTypeId:number;
+  BusinessTypeName:string;
+  ClientSfId:string;
+  ClientLogo:string;
   Permissions: RolePermission[];
 }
 

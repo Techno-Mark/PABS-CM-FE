@@ -52,6 +52,8 @@ import { AlphabetColor, noRecordText } from "@/utils/commonData";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 // Cookie imports
 import Cookies from "js-cookie";
+import ClientModal from "@/components/client/common/ClientModal";
+import FormIcon from "@/assets/Icons/client/FormIcon";
 
 function Page() {
   const router = useRouter();
@@ -264,19 +266,21 @@ function Page() {
               </Tooltip>
             )}
             <Tooltip title="Form Type" placement="top" arrow>
-              <span className="cursor-pointer">
-                <svg
-                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-19up1ds-MuiSvgIcon-root"
-                  focusable="false"
-                  aria-hidden="true"
-                  height={20}
-                  viewBox="0 0 24 24"
-                  data-testid="DescriptionOutlinedIcon"
-                  fill="black"
-                  opacity="0.54"
-                >
-                  <path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8zm4 18H6V4h7v5h5z"></path>
-                </svg>
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  setClientOpenModal(true);
+                  setClientInfo({
+                    SFID: params.row.SfId,
+                    DepartmentType: params.row.BusinessType,
+                    DepartmentId: params.row.BusinessTypeId,
+                    ClientId: params.row.ClientId,
+                    clientName: params.row.Clientname,
+                    UserId: params.row.UserId
+                  });
+                }}
+              >
+                <FormIcon />
               </span>
             </Tooltip>
           </div>
@@ -284,13 +288,21 @@ function Page() {
       },
     },
   ];
-
+  const [clientInfo, setClientInfo] = useState<any>({
+    SFID: "",
+    DepartmentType: "",
+    DepartmentId: "",
+    ClientId: "",
+    clientName: "",
+    UserId:"",
+  });
   const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
   const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
   const [assignUserList3, setAssignUserList3] = useState<Option[]>([]);
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [clientOpenModal, setClientOpenModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openEdit, setEdit] = useState<boolean>(false);
   const [clientData, setClientData] = useState<ClientList[]>([]);
@@ -721,7 +733,29 @@ function Page() {
           }}
         />
       )}
+
+      {clientOpenModal && (
+        <ClientModal
+          clientInfo={clientInfo}
+          isOpen={clientOpenModal}
+          handleClose={() => {
+            setClientOpenModal(false);
+            setClientInfo({
+              SFID: "",
+              DepartmentType: "",
+              DepartmentId: "",
+              ClientId: "",
+              clientName: "",
+              UserId:"",
+            });
+          }}
+          setIsOpenModal={(value) => {
+            setClientOpenModal(value);
+          }}
+        />
+      )}
       <DrawerOverlay isOpen={openDrawer} />
+      <DrawerOverlay isOpen={clientOpenModal} />
     </Wrapper>
   );
 }

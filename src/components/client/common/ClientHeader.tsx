@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 // MUI imports
-import { styled, Toolbar, AppBar as MuiAppBar } from "@mui/material";
+import { styled, Toolbar, AppBar as MuiAppBar, Tooltip } from "@mui/material";
 // Static data import
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
-import { AppBarProps, HeaderPropsType, Option } from "@/models/adminHeader";
+import { AppBarProps, Option } from "@/models/adminHeader";
 // Icons import
 import UserIcon from "@/assets/Icons/admin/header/UserIcon";
 import { callAPIwithHeaders } from "@/api/commonFunction";
@@ -16,6 +16,7 @@ import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
+import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -31,13 +32,15 @@ const AppBar = styled(MuiAppBar, {
 
 const ClientHeader = () => {
   const router = useRouter();
-  const query = usePathname();
-  const url = query.split("/");
-  const dropDownRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setOpen] = useState(false);
+  const pathname = usePathname();
   const userId = Cookies.get("userId");
-  const token = Cookies.get("token");
+  const roleId = Cookies.get("roleId");
   const userName = Cookies.get("userName");
+  const businessTypeName = Cookies.get("businessTypeName");
+  const clientSFId = Cookies.get("clientSFId");
+
+  const [isOpen, setOpen] = useState(false);
+  const dropDownRef = useRef<HTMLDivElement>(null);
   const selectRefNavbar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -95,13 +98,13 @@ const ClientHeader = () => {
     <AppBar
       position="fixed"
       sx={{
-        zIndex: 0,
+        zIndex: 1,
         backgroundColor: "white !important",
         borderBottom: "0.5px solid lightgrey !important",
         boxShadow: "none !important",
         height: "50.5px !important",
         width: {
-          sm: `calc(100% - 224px)`,
+          sm: `calc(100% - 281px)`,
         },
         ml: { sm: `65px` },
       }}
@@ -109,7 +112,10 @@ const ClientHeader = () => {
       <Toolbar>
         <div className="flex flex-row w-full justify-between items-center mb-3">
           <div className="!text-[#000000]">
-            <span className="!font-semibold text-[15px]">SF00123 &nbsp;&nbsp;|&nbsp;&nbsp; Bosch Pvt Ltd. &nbsp;&nbsp;|&nbsp;&nbsp; White Label</span>
+            <span className="!font-semibold text-[15px]">
+              {clientSFId} &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
+              {businessTypeName}
+            </span>
           </div>
           <div className="relative flex">
             <div
