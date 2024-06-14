@@ -1,11 +1,14 @@
 export interface BasicDetailWhitelabelType {
   setBasicDetailCount: (value: number) => void;
   setBasicDetailsFormSubmit: (value: number) => void;
+  getFormDetials: () => void;
 }
 
 export interface ChecklistWhitelabelType {
   setChecklistCount: (value: number) => void;
   setChecklistFormSubmit: (value: number) => void;
+  formDetails: any;
+  getFormDetials: () => void;
 }
 
 export interface WhitelabelAccountDetailsFormTypes {

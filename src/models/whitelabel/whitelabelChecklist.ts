@@ -1,374 +1,201 @@
+export interface WhitelabelFormTypes {
+  Status: string;
+  Comments: string;
+  ActionPABS: string;
+  ActionClient: string;
+}
+
 // 1
-export interface GroupEmailEstablishedFormTypes {
-  groupEmailEstablishStatus: string;
-  groupEmailEstablishComments: string;
-  groupEmailEstablishActionName: string;
-  groupEmailEstablishActionItems: string;
-}
-
-export interface PreKickOffFormTypes {
-  preKickOffStatus: string;
-  preKickOffComments: string;
-  preKickOffActionName: string;
-  preKickOffActionItems: string;
-}
-
-export interface KickOffFormTypes {
-  kickOffStatus: string;
-  kickOffComments: string;
-  kickOffActionName: string;
-  kickOffActionItems: string;
-}
-
 export interface GroupEmailEstablishedTypes {
-  whitelabelGroupEmailEstablished: GroupEmailEstablishedFormTypes;
+  whitelabelGroupEmailEstablished: WhitelabelFormTypes;
   setWhitelabelGroupEmailEstablished: React.Dispatch<
-    React.SetStateAction<GroupEmailEstablishedFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface PreKickOffTypes {
-  whitelabelPreKickOff: PreKickOffFormTypes;
+  whitelabelPreKickOff: WhitelabelFormTypes;
   setWhitelabelPreKickOff: React.Dispatch<
-    React.SetStateAction<PreKickOffFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface KickOffTypes {
-  whitelabelKickOff: KickOffFormTypes;
-  setWhitelabelKickOff: React.Dispatch<React.SetStateAction<KickOffFormTypes>>;
+  whitelabelKickOff: WhitelabelFormTypes;
+  setWhitelabelKickOff: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 // 2
-export interface ITStructureFormTypes {
-  itStructureStatus: string;
-  itStructureComments: string;
-  itStructureActionName: string;
-  itStructureActionItems: string;
-}
-
-export interface RemoteSetupFormTypes {
-  remoteSetupStatus: string;
-  remoteSetupComments: string;
-  remoteSetupActionName: string;
-  remoteSetupActionItems: string;
-}
-
-export interface ITHelpFormTypes {
-  itHelpStatus: string;
-  itHelpComments: string;
-  itHelpActionName: string;
-  itHelpActionItems: string;
-}
-
-export interface AccountingSoftwareFormTypes {
-  accountingSoftwareStatus: string;
-  accountingSoftwareComments: string;
-  accountingSoftwareActionName: string;
-  accountingSoftwareActionItems: string;
-}
-
-export interface CloudDocumentFormTypes {
-  cloudDocumentStatus: string;
-  cloudDocumentComments: string;
-  cloudDocumentActionName: string;
-  cloudDocumentActionItems: string;
-}
-
-export interface MessengerFormTypes {
-  messengerStatus: string;
-  messengerComments: string;
-  messengerActionName: string;
-  messengerActionItems: string;
-}
-
-export interface SystemAccessFormTypes {
-  systemAccessStatus: string;
-  systemAccessComments: string;
-  systemAccessActionName: string;
-  systemAccessActionItems: string;
-}
-
-export interface OtherInfoFormTypes {
-  otherInfoStatus: string;
-  otherInfoComments: string;
-  otherInfoActionName: string;
-  otherInfoActionItems: string;
-}
-
 export interface ITStructureTypes {
-  whitelabelITStructure: ITStructureFormTypes;
+  whitelabelITStructure: WhitelabelFormTypes;
   setWhitelabelITStructure: React.Dispatch<
-    React.SetStateAction<ITStructureFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface RemoteSetupTypes {
-  whitelabelRemoteSetup: RemoteSetupFormTypes;
+  whitelabelRemoteSetup: WhitelabelFormTypes;
   setWhitelabelRemoteSetup: React.Dispatch<
-    React.SetStateAction<RemoteSetupFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface ITHelpTypes {
-  whitelabelITHelp: ITHelpFormTypes;
-  setWhitelabelITHelp: React.Dispatch<React.SetStateAction<ITHelpFormTypes>>;
+  whitelabelITHelp: WhitelabelFormTypes;
+  setWhitelabelITHelp: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 export interface AccountingSoftwareTypes {
-  whitelabelAccountingSoftware: AccountingSoftwareFormTypes;
+  whitelabelAccountingSoftware: WhitelabelFormTypes;
   setWhitelabelAccountingSoftware: React.Dispatch<
-    React.SetStateAction<AccountingSoftwareFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface CloudDocumentTypes {
-  whitelabelCloudDocument: CloudDocumentFormTypes;
+  whitelabelCloudDocument: WhitelabelFormTypes;
   setWhitelabelCloudDocument: React.Dispatch<
-    React.SetStateAction<CloudDocumentFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface MessengerTypes {
-  whitelabelMessenger: MessengerFormTypes;
+  whitelabelMessenger: WhitelabelFormTypes;
   setWhitelabelMessenger: React.Dispatch<
-    React.SetStateAction<MessengerFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface SystemAccessTypes {
-  whitelabelSystemAccess: SystemAccessFormTypes;
+  whitelabelSystemAccess: WhitelabelFormTypes;
   setWhitelabelSystemAccess: React.Dispatch<
-    React.SetStateAction<SystemAccessFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface OtherInfoTypes {
-  whitelabelOtherInfo: OtherInfoFormTypes;
+  whitelabelOtherInfo: WhitelabelFormTypes;
   setWhitelabelOtherInfo: React.Dispatch<
-    React.SetStateAction<OtherInfoFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 // 3
-export interface FTEFormTypes {
-  fteStatus: string;
-  fteComments: string;
-  fteActionName: string;
-  fteActionItems: string;
-}
-
-export interface AccountingFormTypes {
-  accountingStatus: string;
-  accountingComments: string;
-  accountingActionName: string;
-  accountingActionItems: string;
-}
-export interface TaxFormTypes {
-  taxStatus: string;
-  taxComments: string;
-  taxActionName: string;
-  taxActionItems: string;
-}
-
-export interface WeeklyFormTypes {
-  weeklyStatus: string;
-  weeklyComments: string;
-  weeklyActionName: string;
-  weeklyActionItems: string;
-}
-export interface IndustryFormTypes {
-  industryStatus: string;
-  industryComments: string;
-  industryActionName: string;
-  industryActionItems: string;
-}
-
 export interface FTETypes {
-  whitelabelFTE: FTEFormTypes;
-  setWhitelabelFTE: React.Dispatch<React.SetStateAction<FTEFormTypes>>;
+  whitelabelFTE: WhitelabelFormTypes;
+  setWhitelabelFTE: React.Dispatch<React.SetStateAction<WhitelabelFormTypes>>;
 }
 
 export interface AccountingTypes {
-  whitelabelAccounting: AccountingFormTypes;
+  whitelabelAccounting: WhitelabelFormTypes;
   setWhitelabelAccounting: React.Dispatch<
-    React.SetStateAction<AccountingFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface TaxTypes {
-  whitelabelTax: TaxFormTypes;
-  setWhitelabelTax: React.Dispatch<React.SetStateAction<TaxFormTypes>>;
+  whitelabelTax: WhitelabelFormTypes;
+  setWhitelabelTax: React.Dispatch<React.SetStateAction<WhitelabelFormTypes>>;
 }
 
 export interface WeeklyTypes {
-  whitelabelWeekly: WeeklyFormTypes;
-  setWhitelabelWeekly: React.Dispatch<React.SetStateAction<WeeklyFormTypes>>;
+  whitelabelWeekly: WhitelabelFormTypes;
+  setWhitelabelWeekly: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 export interface IndustryTypes {
-  whitelabelIndustry: IndustryFormTypes;
+  whitelabelIndustry: WhitelabelFormTypes;
   setWhitelabelIndustry: React.Dispatch<
-    React.SetStateAction<IndustryFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 // 4
-export interface CurrentChallengesFormTypes {
-  currentChallengesStatus: string;
-  currentChallengesComments: string;
-  currentChallengesActionName: string;
-  currentChallengesActionItems: string;
-}
-
-export interface ExpectationFormTypes {
-  expectationStatus: string;
-  expectationComments: string;
-  expectationActionName: string;
-  expectationActionItems: string;
-}
-
 export interface CurrentChallengesTypes {
-  whitelabelCurrentChallenges: CurrentChallengesFormTypes;
+  whitelabelCurrentChallenges: WhitelabelFormTypes;
   setWhitelabelCurrentChallenges: React.Dispatch<
-    React.SetStateAction<CurrentChallengesFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface ExpectationTypes {
-  whitelabelExpectation: ExpectationFormTypes;
+  whitelabelExpectation: WhitelabelFormTypes;
   setWhitelabelExpectation: React.Dispatch<
-    React.SetStateAction<ExpectationFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 // 5
-export interface MonthlyFormTypes {
-  monthlyStatus: string;
-  monthlyComments: string;
-  monthlyActionName: string;
-  monthlyActionItems: string;
-}
-
-export interface CleanupFormTypes {
-  cleanupStatus: string;
-  cleanupComments: string;
-  cleanupActionName: string;
-  cleanupActionItems: string;
-}
-
-export interface CatchupFormTypes {
-  catchupStatus: string;
-  catchupComments: string;
-  catchupActionName: string;
-  catchupActionItems: string;
-}
-
-export interface CombinationFormTypes {
-  combinationStatus: string;
-  combinationComments: string;
-  combinationActionName: string;
-  combinationActionItems: string;
-}
-
 export interface MonthlyTypes {
-  whitelabelMonthly: MonthlyFormTypes;
-  setWhitelabelMonthly: React.Dispatch<React.SetStateAction<MonthlyFormTypes>>;
+  whitelabelMonthly: WhitelabelFormTypes;
+  setWhitelabelMonthly: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 export interface CleanupTypes {
-  whitelabelCleanup: CleanupFormTypes;
-  setWhitelabelCleanup: React.Dispatch<React.SetStateAction<CleanupFormTypes>>;
+  whitelabelCleanup: WhitelabelFormTypes;
+  setWhitelabelCleanup: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 export interface CatchupTypes {
-  whitelabelCatchup: CatchupFormTypes;
-  setWhitelabelCatchup: React.Dispatch<React.SetStateAction<CatchupFormTypes>>;
+  whitelabelCatchup: WhitelabelFormTypes;
+  setWhitelabelCatchup: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 export interface CombinationTypes {
-  whitelabelCombination: CombinationFormTypes;
+  whitelabelCombination: WhitelabelFormTypes;
   setWhitelabelCombination: React.Dispatch<
-    React.SetStateAction<CombinationFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 // 6
-export interface ClientFormTypes {
-  clientStatus: string;
-  clientComments: string;
-  clientActionName: string;
-  clientActionItems: string;
-}
-
-export interface PabsFormTypes {
-  pabsStatus: string;
-  pabsComments: string;
-  pabsActionName: string;
-  pabsActionItems: string;
-}
-
-export interface BdmFormTypes {
-  bdmStatus: string;
-  bdmComments: string;
-  bdmActionName: string;
-  bdmActionItems: string;
-}
-
 export interface ClientTypes {
-  whitelabelClient: ClientFormTypes;
-  setWhitelabelClient: React.Dispatch<React.SetStateAction<ClientFormTypes>>;
+  whitelabelClient: WhitelabelFormTypes;
+  setWhitelabelClient: React.Dispatch<
+    React.SetStateAction<WhitelabelFormTypes>
+  >;
 }
 
 export interface PabsTypes {
-  whitelabelPABS: PabsFormTypes;
-  setWhitelabelPABS: React.Dispatch<React.SetStateAction<PabsFormTypes>>;
+  whitelabelPABS: WhitelabelFormTypes;
+  setWhitelabelPABS: React.Dispatch<React.SetStateAction<WhitelabelFormTypes>>;
 }
 
 export interface BdmTypes {
-  whitelabelBDM: BdmFormTypes;
-  setWhitelabelBDM: React.Dispatch<React.SetStateAction<BdmFormTypes>>;
+  whitelabelBDM: WhitelabelFormTypes;
+  setWhitelabelBDM: React.Dispatch<React.SetStateAction<WhitelabelFormTypes>>;
 }
 
 // 7
-export interface TimeZoneFormTypes {
-  timeZoneStatus: string;
-  timeZoneComments: string;
-  timeZoneActionName: string;
-  timeZoneActionItems: string;
-}
-
-export interface ConvenientDayFormTypes {
-  convenientDayStatus: string;
-  convenientDayComments: string;
-  convenientDayActionName: string;
-  convenientDayActionItems: string;
-}
-
-export interface TimeSlotFormTypes {
-  timeSlotStatus: string;
-  timeSlotComments: string;
-  timeSlotActionName: string;
-  timeSlotActionItems: string;
-}
-
 export interface TimeZoneTypes {
-  whitelabelTimeZone: TimeZoneFormTypes;
+  whitelabelTimeZone: WhitelabelFormTypes;
   setWhitelabelTimeZone: React.Dispatch<
-    React.SetStateAction<TimeZoneFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface ConvenientDayTypes {
-  whitelabelConvenientDay: ConvenientDayFormTypes;
+  whitelabelConvenientDay: WhitelabelFormTypes;
   setWhitelabelConvenientDay: React.Dispatch<
-    React.SetStateAction<ConvenientDayFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }
 
 export interface TimeSlotTypes {
-  whitelabelTimeSlot: TimeSlotFormTypes;
+  whitelabelTimeSlot: WhitelabelFormTypes;
   setWhitelabelTimeSlot: React.Dispatch<
-    React.SetStateAction<TimeSlotFormTypes>
+    React.SetStateAction<WhitelabelFormTypes>
   >;
 }

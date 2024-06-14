@@ -29,6 +29,7 @@ import { validateNumber } from "@/utils/validate";
 const BasicDetailsWhitelabel = ({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
+  getFormDetials,
 }: BasicDetailWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const initialWhitelabelAccountDetailsErrors: WhitelabelAccountDetailsFormErrors =

@@ -1,12 +1,9 @@
 import {
-  CatchupFormTypes,
   CatchupTypes,
-  CleanupFormTypes,
   CleanupTypes,
-  CombinationFormTypes,
   CombinationTypes,
-  MonthlyFormTypes,
   MonthlyTypes,
+  WhitelabelFormTypes,
 } from "@/models/whitelabel/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -53,7 +50,7 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelMonthly((prev: MonthlyFormTypes) => ({
+    setWhitelabelMonthly((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -61,7 +58,7 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Current Challenges
+        Monthly
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -69,12 +66,12 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="monthlyComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelMonthly?.monthlyComments}
+                value={whitelabelMonthly?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -91,12 +88,12 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="monthlyStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelMonthly?.monthlyStatus}
+                value={whitelabelMonthly?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -115,12 +112,12 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="monthlyActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMonthly?.monthlyActionItems}
+                value={whitelabelMonthly?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -139,12 +136,12 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="monthlyActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMonthly?.monthlyActionName}
+                value={whitelabelMonthly?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -169,7 +166,7 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCleanup((prev: CleanupFormTypes) => ({
+    setWhitelabelCleanup((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -185,12 +182,12 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="cleanupComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCleanup?.cleanupComments}
+                value={whitelabelCleanup?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -207,12 +204,12 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="cleanupStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCleanup?.cleanupStatus}
+                value={whitelabelCleanup?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -231,12 +228,12 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="cleanupActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCleanup?.cleanupActionItems}
+                value={whitelabelCleanup?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -255,12 +252,12 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="cleanupActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCleanup?.cleanupActionName}
+                value={whitelabelCleanup?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -285,7 +282,7 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCatchup((prev: CatchupFormTypes) => ({
+    setWhitelabelCatchup((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -301,12 +298,12 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="catchupComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCatchup?.catchupComments}
+                value={whitelabelCatchup?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -323,12 +320,12 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="catchupStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCatchup?.catchupStatus}
+                value={whitelabelCatchup?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -347,12 +344,12 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="catchupActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCatchup?.catchupActionItems}
+                value={whitelabelCatchup?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -371,12 +368,12 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="catchupActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCatchup?.catchupActionName}
+                value={whitelabelCatchup?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -404,7 +401,7 @@ const Combination = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCombination((prev: CombinationFormTypes) => ({
+    setWhitelabelCombination((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -420,12 +417,12 @@ const Combination = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="combinationComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCombination?.combinationComments}
+                value={whitelabelCombination?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -442,12 +439,12 @@ const Combination = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="combinationStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCombination?.combinationStatus}
+                value={whitelabelCombination?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -466,12 +463,12 @@ const Combination = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="combinationActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCombination?.combinationActionItems}
+                value={whitelabelCombination?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -490,12 +487,12 @@ const Combination = ({
                 Action Items - Client
               </label>
               <TextField
-                name="combinationActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCombination?.combinationActionName}
+                value={whitelabelCombination?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

@@ -1,20 +1,13 @@
 import {
-  AccountingSoftwareFormTypes,
   AccountingSoftwareTypes,
-  CloudDocumentFormTypes,
   CloudDocumentTypes,
-  ITHelpFormTypes,
   ITHelpTypes,
-  ITStructureFormTypes,
   ITStructureTypes,
-  MessengerFormTypes,
   MessengerTypes,
-  OtherInfoFormTypes,
   OtherInfoTypes,
-  RemoteSetupFormTypes,
   RemoteSetupTypes,
-  SystemAccessFormTypes,
   SystemAccessTypes,
+  WhitelabelFormTypes,
 } from "@/models/whitelabel/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -88,7 +81,7 @@ const ITStructure = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelITStructure((prev: ITStructureFormTypes) => ({
+    setWhitelabelITStructure((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -104,12 +97,12 @@ const ITStructure = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="itStructureComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelITStructure?.itStructureComments}
+                value={whitelabelITStructure?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -126,12 +119,12 @@ const ITStructure = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="itStructureStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelITStructure?.itStructureStatus}
+                value={whitelabelITStructure?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -150,12 +143,12 @@ const ITStructure = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="itStructureActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITStructure?.itStructureActionItems}
+                value={whitelabelITStructure?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -174,12 +167,12 @@ const ITStructure = ({
                 Action Items - Client
               </label>
               <TextField
-                name="itStructureActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITStructure?.itStructureActionName}
+                value={whitelabelITStructure?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -207,7 +200,7 @@ const RemoteSetup = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelRemoteSetup((prev: RemoteSetupFormTypes) => ({
+    setWhitelabelRemoteSetup((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -223,12 +216,12 @@ const RemoteSetup = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="remoteSetupComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelRemoteSetup?.remoteSetupComments}
+                value={whitelabelRemoteSetup?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -245,12 +238,12 @@ const RemoteSetup = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="remoteSetupStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelRemoteSetup?.remoteSetupStatus}
+                value={whitelabelRemoteSetup?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -269,12 +262,12 @@ const RemoteSetup = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="remoteSetupActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelRemoteSetup?.remoteSetupActionItems}
+                value={whitelabelRemoteSetup?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -293,12 +286,12 @@ const RemoteSetup = ({
                 Action Items - Client
               </label>
               <TextField
-                name="remoteSetupActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelRemoteSetup?.remoteSetupActionName}
+                value={whitelabelRemoteSetup?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -323,7 +316,7 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelITHelp((prev: ITHelpFormTypes) => ({
+    setWhitelabelITHelp((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -339,12 +332,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="itHelpComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelITHelp?.itHelpComments}
+                value={whitelabelITHelp?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -361,12 +354,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="itHelpStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelITHelp?.itHelpStatus}
+                value={whitelabelITHelp?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -385,12 +378,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="itHelpActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITHelp?.itHelpActionItems}
+                value={whitelabelITHelp?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -409,12 +402,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="itHelpActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITHelp?.itHelpActionName}
+                value={whitelabelITHelp?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -442,7 +435,7 @@ const AccountingSoftware = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelAccountingSoftware((prev: AccountingSoftwareFormTypes) => ({
+    setWhitelabelAccountingSoftware((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -458,12 +451,12 @@ const AccountingSoftware = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="accountingSoftwareComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelAccountingSoftware?.accountingSoftwareComments}
+                value={whitelabelAccountingSoftware?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -480,12 +473,12 @@ const AccountingSoftware = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="accountingSoftwareStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelAccountingSoftware?.accountingSoftwareStatus}
+                value={whitelabelAccountingSoftware?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -504,14 +497,12 @@ const AccountingSoftware = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="accountingSoftwareActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={
-                  whitelabelAccountingSoftware?.accountingSoftwareActionItems
-                }
+                value={whitelabelAccountingSoftware?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -530,14 +521,12 @@ const AccountingSoftware = ({
                 Action Items - Client
               </label>
               <TextField
-                name="accountingSoftwareActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={
-                  whitelabelAccountingSoftware?.accountingSoftwareActionName
-                }
+                value={whitelabelAccountingSoftware?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -565,7 +554,7 @@ const CloudDocument = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCloudDocument((prev: CloudDocumentFormTypes) => ({
+    setWhitelabelCloudDocument((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -581,12 +570,12 @@ const CloudDocument = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="cloudDocumentComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCloudDocument?.cloudDocumentComments}
+                value={whitelabelCloudDocument?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -603,12 +592,12 @@ const CloudDocument = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="cloudDocumentStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCloudDocument?.cloudDocumentStatus}
+                value={whitelabelCloudDocument?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -627,12 +616,12 @@ const CloudDocument = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="cloudDocumentActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCloudDocument?.cloudDocumentActionItems}
+                value={whitelabelCloudDocument?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -651,12 +640,12 @@ const CloudDocument = ({
                 Action Items - Client
               </label>
               <TextField
-                name="cloudDocumentActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCloudDocument?.cloudDocumentActionName}
+                value={whitelabelCloudDocument?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -684,7 +673,7 @@ const Messenger = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelMessenger((prev: MessengerFormTypes) => ({
+    setWhitelabelMessenger((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -700,12 +689,12 @@ const Messenger = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="messengerComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelMessenger?.messengerComments}
+                value={whitelabelMessenger?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -722,12 +711,12 @@ const Messenger = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="messengerStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelMessenger?.messengerStatus}
+                value={whitelabelMessenger?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -746,12 +735,12 @@ const Messenger = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="messengerActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMessenger?.messengerActionItems}
+                value={whitelabelMessenger?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -770,12 +759,12 @@ const Messenger = ({
                 Action Items - Client
               </label>
               <TextField
-                name="messengerActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMessenger?.messengerActionName}
+                value={whitelabelMessenger?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -803,7 +792,7 @@ const SystemAccess = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelSystemAccess((prev: SystemAccessFormTypes) => ({
+    setWhitelabelSystemAccess((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -819,12 +808,12 @@ const SystemAccess = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="systemAccessComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelSystemAccess?.systemAccessComments}
+                value={whitelabelSystemAccess?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -841,12 +830,12 @@ const SystemAccess = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="systemAccessStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelSystemAccess?.systemAccessStatus}
+                value={whitelabelSystemAccess?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -865,12 +854,12 @@ const SystemAccess = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="systemAccessActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelSystemAccess?.systemAccessActionItems}
+                value={whitelabelSystemAccess?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -889,12 +878,12 @@ const SystemAccess = ({
                 Action Items - Client
               </label>
               <TextField
-                name="systemAccessActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelSystemAccess?.systemAccessActionName}
+                value={whitelabelSystemAccess?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -922,7 +911,7 @@ const OtherInfo = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelOtherInfo((prev: OtherInfoFormTypes) => ({
+    setWhitelabelOtherInfo((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -938,12 +927,12 @@ const OtherInfo = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="otherInfoComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelOtherInfo?.otherInfoComments}
+                value={whitelabelOtherInfo?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -960,12 +949,12 @@ const OtherInfo = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="otherInfoStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelOtherInfo?.otherInfoStatus}
+                value={whitelabelOtherInfo?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -984,12 +973,12 @@ const OtherInfo = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="otherInfoActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelOtherInfo?.otherInfoActionItems}
+                value={whitelabelOtherInfo?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -1008,12 +997,12 @@ const OtherInfo = ({
                 Action Items - Client
               </label>
               <TextField
-                name="otherInfoActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelOtherInfo?.otherInfoActionName}
+                value={whitelabelOtherInfo?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

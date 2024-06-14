@@ -1,8 +1,7 @@
 import {
-  CurrentChallengesFormTypes,
   CurrentChallengesTypes,
-  ExpectationFormTypes,
   ExpectationTypes,
+  WhitelabelFormTypes,
 } from "@/models/whitelabel/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -40,7 +39,7 @@ const CurrentChallenges = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCurrentChallenges((prev: CurrentChallengesFormTypes) => ({
+    setWhitelabelCurrentChallenges((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -48,7 +47,7 @@ const CurrentChallenges = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Current Challenges
+        Current Challenges (If any)
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -56,12 +55,12 @@ const CurrentChallenges = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="currentChallengesComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCurrentChallenges?.currentChallengesComments}
+                value={whitelabelCurrentChallenges?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -78,12 +77,12 @@ const CurrentChallenges = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="currentChallengesStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCurrentChallenges?.currentChallengesStatus}
+                value={whitelabelCurrentChallenges?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -102,14 +101,12 @@ const CurrentChallenges = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="currentChallengesActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={
-                  whitelabelCurrentChallenges?.currentChallengesActionItems
-                }
+                value={whitelabelCurrentChallenges?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -128,12 +125,12 @@ const CurrentChallenges = ({
                 Action Items - Client
               </label>
               <TextField
-                name="currentChallengesActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCurrentChallenges?.currentChallengesActionName}
+                value={whitelabelCurrentChallenges?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -161,7 +158,7 @@ const Expectation = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelExpectation((prev: ExpectationFormTypes) => ({
+    setWhitelabelExpectation((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -177,12 +174,12 @@ const Expectation = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="expectationComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelExpectation?.expectationComments}
+                value={whitelabelExpectation?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -199,12 +196,12 @@ const Expectation = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="expectationStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelExpectation?.expectationStatus}
+                value={whitelabelExpectation?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -223,12 +220,12 @@ const Expectation = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="expectationActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelExpectation?.expectationActionItems}
+                value={whitelabelExpectation?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -247,12 +244,12 @@ const Expectation = ({
                 Action Items - Client
               </label>
               <TextField
-                name="expectationActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelExpectation?.expectationActionName}
+                value={whitelabelExpectation?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

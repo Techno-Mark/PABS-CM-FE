@@ -1,10 +1,8 @@
 import {
-  GroupEmailEstablishedFormTypes,
   GroupEmailEstablishedTypes,
-  KickOffFormTypes,
   KickOffTypes,
-  PreKickOffFormTypes,
   PreKickOffTypes,
+  WhitelabelFormTypes,
 } from "@/models/whitelabel/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -21,20 +19,18 @@ const WhitelabelCommunicationForm = ({
 }: any) => {
   return (
     <div className={`${className}`}>
-        <GroupEmailEstablished
-          whitelabelGroupEmailEstablished={whitelabelGroupEmailEstablished}
-          setWhitelabelGroupEmailEstablished={
-            setWhitelabelGroupEmailEstablished
-          }
-        />
-        <PreKickOff
-          whitelabelPreKickOff={whitelabelPreKickOff}
-          setWhitelabelPreKickOff={setWhitelabelPreKickOff}
-        />
-        <KickOff
-          whitelabelKickOff={whitelabelKickOff}
-          setWhitelabelKickOff={setWhitelabelKickOff}
-        />
+      <GroupEmailEstablished
+        whitelabelGroupEmailEstablished={whitelabelGroupEmailEstablished}
+        setWhitelabelGroupEmailEstablished={setWhitelabelGroupEmailEstablished}
+      />
+      <PreKickOff
+        whitelabelPreKickOff={whitelabelPreKickOff}
+        setWhitelabelPreKickOff={setWhitelabelPreKickOff}
+      />
+      <KickOff
+        whitelabelKickOff={whitelabelKickOff}
+        setWhitelabelKickOff={setWhitelabelKickOff}
+      />
     </div>
   );
 };
@@ -50,12 +46,10 @@ const GroupEmailEstablished = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelGroupEmailEstablished(
-      (prev: GroupEmailEstablishedFormTypes) => ({
-        ...prev,
-        [name]: value,
-      })
-    );
+    setWhitelabelGroupEmailEstablished((prev: WhitelabelFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
   return (
     <>
@@ -68,14 +62,12 @@ const GroupEmailEstablished = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="groupEmailEstablishComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={
-                  whitelabelGroupEmailEstablished?.groupEmailEstablishComments
-                }
+                value={whitelabelGroupEmailEstablished?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -92,14 +84,12 @@ const GroupEmailEstablished = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="groupEmailEstablishStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={
-                  whitelabelGroupEmailEstablished?.groupEmailEstablishStatus
-                }
+                value={whitelabelGroupEmailEstablished?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -118,14 +108,12 @@ const GroupEmailEstablished = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="groupEmailEstablishActionName"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={
-                  whitelabelGroupEmailEstablished?.groupEmailEstablishActionName
-                }
+                value={whitelabelGroupEmailEstablished?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -144,14 +132,12 @@ const GroupEmailEstablished = ({
                 Action Items - Client
               </label>
               <TextField
-                name="groupEmailEstablishActionItems"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={
-                  whitelabelGroupEmailEstablished?.groupEmailEstablishActionItems
-                }
+                value={whitelabelGroupEmailEstablished?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -179,7 +165,7 @@ const PreKickOff = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelPreKickOff((prev: PreKickOffFormTypes) => ({
+    setWhitelabelPreKickOff((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -195,12 +181,12 @@ const PreKickOff = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="preKickOffComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelPreKickOff?.preKickOffComments}
+                value={whitelabelPreKickOff?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -217,12 +203,12 @@ const PreKickOff = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="preKickOffStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelPreKickOff?.preKickOffStatus}
+                value={whitelabelPreKickOff?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -241,12 +227,12 @@ const PreKickOff = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="preKickOffActionName"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelPreKickOff?.preKickOffActionName}
+                value={whitelabelPreKickOff?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -265,12 +251,12 @@ const PreKickOff = ({
                 Action Items - Client
               </label>
               <TextField
-                name="preKickOffActionItems"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelPreKickOff?.preKickOffActionItems}
+                value={whitelabelPreKickOff?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -295,7 +281,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelKickOff((prev: KickOffFormTypes) => ({
+    setWhitelabelKickOff((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -311,12 +297,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="kickOffComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelKickOff?.kickOffComments}
+                value={whitelabelKickOff?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -333,12 +319,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="kickOffStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelKickOff?.kickOffStatus}
+                value={whitelabelKickOff?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -357,12 +343,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="kickOffActionName"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelKickOff?.kickOffActionName}
+                value={whitelabelKickOff?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -381,12 +367,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="kickOffActionItems"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelKickOff?.kickOffActionItems}
+                value={whitelabelKickOff?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
