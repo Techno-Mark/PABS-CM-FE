@@ -258,7 +258,7 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
       userId:
-        clientInfo?.UserId !== ""
+        !!clientInfo?.UserId
           ? parseInt(clientInfo?.UserId)
           : parseInt(userId!),
     });
@@ -281,9 +281,9 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
       }
     };
     const loginInfoFormData = {
-      userId: clientInfo?.ClientId !== "" ? 89 : parseInt(userId!),
+      userId: !!clientInfo?.ClientId ? 89 : parseInt(userId!),
       businessTypeId:
-        clientInfo?.DepartmentId !== "" ? 3 : parseInt(businessTypeId!),
+        !!clientInfo?.DepartmentId ? 3 : parseInt(businessTypeId!),
       locationDetails: locationDetailsRows.map((locationItem) => ({
         name: locationItem.locationDetailsName,
         details: locationItem.locationDetailsDetails,
@@ -351,9 +351,7 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
         status: payrollItem.payrollDetailsNotes_Status,
       })),
     };
-    if (type === 1) {
-      callAPIwithHeaders(autoCarFormUrl, "post", callback, loginInfoFormData);
-    } else if (type === 2) {
+    if (type === 1 || type === 2) {
       callAPIwithHeaders(autoCarFormUrl, "post", callback, loginInfoFormData);
     } else {
       handleLoginInfoInitialValues();
@@ -390,11 +388,11 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
 
     const requestBody: any = {
       userId:
-        clientInfo?.UserId !== ""
+        !!clientInfo?.UserId
           ? parseInt(clientInfo?.UserId!)
           : parseInt(userId!),
       businessTypeId:
-        clientInfo?.DepartmentId !== ""
+        !!clientInfo?.DepartmentId
           ? parseInt(clientInfo?.DepartmentId!)
           : parseInt(businessTypeId!),
     };
@@ -402,35 +400,45 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
     switch (phaseType) {
       case 1:
         requestBody.locationDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 2:
         requestBody.salesTaxDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 3:
         requestBody.gmailAccountDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 4:
         requestBody.posDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 5:
         requestBody.utilitiesDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 6:
         requestBody.vendorDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 7:
         requestBody.bankDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 8:
         requestBody.merchantDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 9:
         requestBody.payrollDetailsIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
     }
 
     await callAPIwithHeaders(autoCarFormUrl, "post", callback, requestBody);
     updatePhaseState(`setPhase${phaseType}Checked`, check);
+    
   };
 
   return (

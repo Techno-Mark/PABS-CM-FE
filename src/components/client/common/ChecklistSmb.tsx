@@ -235,21 +235,6 @@ function ChecklistSmb({
     initialSmbPeopleBusinessErrors
   );
 
-  const [smbSystemAccessErrors, setSmbSystemAccessErrors] = useState<any>(
-    initialSmbSystemAccessErrors
-  );
-
-  const [smbBankingAccessErrors, setSmbBankingAccessErrors] = useState<any>(
-    initialSmbBankingAccessErrors
-  );
-
-  const [smbExistingFinancialsErrors, setSmbExistingFinancialsErrors] =
-    useState<any>(initialSmbExistingFinancialsErrors);
-
-  const [smbMeetingErrors, setSmbMeetingErrors] = useState<any>(
-    initialSmbMeetingErrors
-  );
-
   useEffect(() => {
     if (formDetails) {
       const fieldMap: { [key: string]: FieldMapEntry } = {
@@ -592,100 +577,6 @@ function ChecklistSmb({
     return hasErrors;
   };
 
-  const validateSmbSystemAccess = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    validateSmbSystemAccessField.forEach((field) => {
-      if (
-        !smbPABSGroupEmail[field] &&
-        !smbAccessAccountingSoftware[field] &&
-        !smbDropboxSetUp[field] &&
-        !smbPayrollServiceAccess[field] &&
-        !smbPayrollFrequency[field] &&
-        !smbModeOfPayment[field] &&
-        !smbApBills[field] &&
-        !smbApplicablity[field]
-      ) {
-        newErrors[
-          field
-        ] = `${fieldDisplayNamesSmbSystemAccess[field]} is required`;
-      } else {
-        newErrors[field] = "";
-      }
-    });
-
-    const hasErrors = Object.values(newErrors).some((error) => !!error);
-    setSmbSystemAccessErrors(newErrors);
-    return hasErrors;
-  };
-
-  const validateSmbBankingAccess = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    validateSmbBankingAccessField.forEach((field) => {
-      if (
-        !smbSavingAccount[field] &&
-        !smbAccessSavingAccount[field] &&
-        !smbAddCards[field] &&
-        !smbAccessCreditCard1[field] &&
-        !smbAccessLoanAccount[field] &&
-        !smbAccessCreditCard2[field]
-      ) {
-        newErrors[
-          field
-        ] = `${fieldDisplayNamesSmbBankingAccess[field]} is required`;
-      } else {
-        newErrors[field] = "";
-      }
-    });
-
-    const hasErrors = Object.values(newErrors).some((error) => !!error);
-    setSmbBankingAccessErrors(newErrors);
-    return hasErrors;
-  };
-
-  const validateSmbExistingFinancials = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    validateSmbExistingFinancialsField.forEach((field) => {
-      if (
-        !smbLiveDate[field] &&
-        !smbAccountingMethod[field] &&
-        !smbFEIN[field] &&
-        !smbFiscalYearEnd[field] &&
-        !smbLastClosedMonth[field] &&
-        !smbContactOfCpa[field] &&
-        !smbTaxReturn[field] &&
-        !smbDistributionList[field]
-      ) {
-        newErrors[
-          field
-        ] = `${fieldDisplayNamesSmbExistingFinancials[field]} is required`;
-      } else {
-        newErrors[field] = "";
-      }
-    });
-
-    const hasErrors = Object.values(newErrors).some((error) => !!error);
-    setSmbExistingFinancialsErrors(newErrors);
-    return hasErrors;
-  };
-
-  const validateSmbMeeting = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    validateSmbMeetingField.forEach((field) => {
-      if (!smbTimeZone[field] && !smbConvenient[field] && !smbTimeSlot[field]) {
-        newErrors[field] = `${fieldDisplayNamesSmbMeeting[field]} is required`;
-      } else {
-        newErrors[field] = "";
-      }
-    });
-
-    const hasErrors = Object.values(newErrors).some((error) => !!error);
-    setSmbMeetingErrors(newErrors);
-    return hasErrors;
-  };
 
   const handleSubmit = (type: number) => {
     if (type === 1 || type === 2) {
@@ -1049,21 +940,8 @@ function ChecklistSmb({
         businessTypeId: 2,
         checkList: checkList,
       });
+    }else{
 
-      // validateSmbPeopleBusiness();
-      // validateSmbSystemAccess();
-      // validateSmbBankingAccess();
-      // validateSmbExistingFinancials();
-      // validateSmbMeeting();
-      // const isValid =
-      //   !validateSmbPeopleBusiness() &&
-      //   !validateSmbSystemAccess() &&
-      //   !validateSmbBankingAccess() &&
-      //   !validateSmbExistingFinancials() &&
-      //   !validateSmbMeeting();
-      // if (isValid) {
-      //   console.log("completed..");
-      // }
     }
   };
 
@@ -1122,7 +1000,6 @@ function ChecklistSmb({
               title="Phase 2: System & Document Access"
             >
               <SmbSystemAccessChecklist
-                systemAccessErrors={smbSystemAccessErrors}
                 smbPABSGroupEmail={smbPABSGroupEmail}
                 setSmbPABSGroupEmail={setSmbPABSGroupEmail}
                 smbAccessAccountingSoftware={smbAccessAccountingSoftware}
@@ -1152,7 +1029,6 @@ function ChecklistSmb({
               title="Phase 3: Cash & Banking Access"
             >
               <SmbBankingAccessChecklist
-                bankingAccessErrors={smbBankingAccessErrors}
                 smbSavingAccount={smbSavingAccount}
                 setSmbSavingAccount={setSmbSavingAccount}
                 smbAccessSavingAccount={smbAccessSavingAccount}
@@ -1178,7 +1054,6 @@ function ChecklistSmb({
               title="Phase 4: Condition of Existing Financials"
             >
               <SmbExistingFinancialsChecklist
-                existingFinancialsErrors={smbExistingFinancialsErrors}
                 smbLiveDate={smbLiveDate}
                 setSmbLiveDate={setSmbLiveDate}
                 smbAccountingMethod={smbAccountingMethod}
@@ -1206,7 +1081,6 @@ function ChecklistSmb({
               title="Phase 5: Meeting Availability"
             >
               <SmbMeetingChecklist
-                meetingErrors={smbMeetingErrors}
                 smbTimeZone={smbTimeZone}
                 setSmbTimeZone={setSmbTimeZone}
                 smbConvenient={smbConvenient}
@@ -1241,7 +1115,7 @@ function ChecklistSmb({
               variant="contained"
             >
               <span className="uppercase font-semibold text-[16px] whitespace-nowrap">
-                Next: Login Info
+                Next: System Access Status
               </span>
             </Button>
           </div>

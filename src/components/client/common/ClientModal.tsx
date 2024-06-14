@@ -10,16 +10,25 @@ import {
   Toolbar,
   Tooltip,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClientSidebar from "@/components/client/common/ClientSidebar";
 // Types imports
 import { AppBarProps } from "@/models/adminHeader";
-// MUI imports
-import DownloadIcon from "@/assets/Icons/client/forms/DownloadIcon";
-import BasicDetailsAutoCare from "@/components/client/common/BasicDetailsAutoCare";
+// Static import
 import { drawerWidth } from "@/static/commonVariables";
+import { ToastType } from "@/static/toastType";
+// Icons imports
+import DownloadIcon from "@/assets/Icons/client/forms/DownloadIcon";
+// Components import
+import BasicDetailsAutoCare from "@/components/client/common/BasicDetailsAutoCare";
 import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
 import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
+import SystemAccessForSmb from "@/components/client/common/SystemAccessForSmb";
+import ChecklistSmb from "@/components/client/common/ChecklistSmb";
+import { showToast } from "@/components/ToastContainer";
+// Cookie import
+import Cookies from "js-cookie";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -39,9 +48,38 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
+  const userID = Cookies.get("userId");
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(1);
+  const [formSubmitAutoCare, setFormSubmitAutoCare] = useState<number>(1);
+  const [formSubmitSMB, setFormSubmitSMB] = useState<number>(1);
+  const [formDetails, setFormDetails] = useState<any>(null);
+
+  const getFormDetials = async () => {
+    const callBack = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: any
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setFormDetails(ResponseData !== null ? ResponseData : null);
+          return;
+      }
+    };
+
+    const saveClientIndo = "/api/clients/getbyid-client-info";
+    callAPIwithHeaders(saveClientIndo, "post", callBack, {
+      userId: Number(userID),
+    });
+  };
+
+  useEffect(() => {
+    getFormDetials();
+  }, []);
 
   return (
     <Modal
@@ -103,9 +141,10 @@ function ClientModal({
               </Toolbar>
             </AppBar>
             <ClientSidebar
+              clientInfo={clientInfo}
               perCountChecklist={perCountChecklist}
               perCountBasicDetails={perCountBasicDetails}
-              sidebarModule={formSubmit}
+              sidebarModule={formSubmitAutoCare}
             />
             <Box
               component="main"
@@ -116,38 +155,76 @@ function ClientModal({
                 height: "calc(100% - 64px)",
               }}
             >
-              {formSubmit === 1 ? (
-                <BasicDetailsAutoCare
-                  clientInfo={clientInfo}
-                  setBasicDetailsFormSubmit={(value: number) =>
-                    setFormSubmit(value)
-                  }
-                  setBasicDetailCount={(value: number) =>
-                    setPerCountBasicDetails(value)
-                  }
-                />
-              ) : formSubmit === 2 ? (
-                <ChecklistAutoCare
-                  clientInfo={clientInfo}
-                  setChecklistFormSubmit={(value: number) =>
-                    setFormSubmit(value)
-                  }
-                  setChecklistCount={(value: number) =>
-                    setPerCountChecklist(value)
-                  }
-                  formDetails={[]}
-                  getFormDetials={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                />
+              {clientInfo.DepartmentId === 3 ? (
+                <>
+                  {formSubmitAutoCare === 1 ? (
+                    <BasicDetailsAutoCare
+                      clientInfo={clientInfo}
+                      setBasicDetailsFormSubmit={(value: number) =>
+                        setFormSubmitAutoCare(value)
+                      }
+                      setBasicDetailCount={(value: number) =>
+                        setPerCountBasicDetails(value)
+                      }
+                    />
+                  ) : formSubmitAutoCare === 2 ? (
+                    <ChecklistAutoCare
+                      clientInfo={clientInfo}
+                      setChecklistFormSubmit={(value: number) =>
+                        setFormSubmitAutoCare(value)
+                      }
+                      setChecklistCount={(value: number) =>
+                        setPerCountChecklist(value)
+                      }
+                      formDetails={[]}
+                      getFormDetials={function (): void {
+                        throw new Error("Function not implemented.");
+                      }}
+                    />
+                  ) : (
+                    <LoginInfoAutoCare
+                      clientInfo={clientInfo}
+                      setLoginInfoFormSubmit={(value: number) =>
+                        setFormSubmitAutoCare(value)
+                      }
+                      setLoginInfoCount={(value: number) => {}}
+                    />
+                  )}
+                </>
+              ) : clientInfo.DepartmentId === 2 ? (
+                <>
+                  {formSubmitSMB === 1 ? (
+                    <ChecklistSmb
+                      clientInfo={{}}
+                      setChecklistFormSubmit={(value: number) =>
+                        setFormSubmitSMB(value)
+                      }
+                      setChecklistCount={(value: number) => {}}
+                      formDetails={
+                        formDetails !== null ? formDetails?.checkList : false
+                      }
+                      getFormDetials={getFormDetials}
+                    />
+                  ) : formSubmitSMB === 2 ? (
+                    <SystemAccessForSmb
+                      clientInfo={{}}
+                      setChecklistFormSubmit={(value: number) =>
+                        setFormSubmitSMB(value)
+                      }
+                      setChecklistCount={(value: number) => {}}
+                      formDetails={
+                        formDetails !== null
+                          ? formDetails?.systemAccessDetails
+                          : false
+                      }
+                      getFormDetials={getFormDetials}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </>
               ) : (
-                <LoginInfoAutoCare
-                  clientInfo={clientInfo}
-                  setLoginInfoFormSubmit={(value: number) =>
-                    setFormSubmit(value)
-                  }
-                  setLoginInfoCount={(value: number) => {}}
-                />
+                <></>
               )}
             </Box>
           </Box>

@@ -41,7 +41,6 @@ function Page() {
     };
 
     const saveClientIndo = "/api/clients/getbyid-client-info";
-    // formDetails === null &&
     callAPIwithHeaders(saveClientIndo, "post", callBack, {
       userId: Number(userID),
     });

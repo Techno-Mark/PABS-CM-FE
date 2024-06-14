@@ -47,6 +47,7 @@ const ClientWrapper = ({
           <CssBaseline />
           <ClientHeader />
           <ClientSidebar
+            clientInfo={{}}
             perCountBasicDetails={perCountBasicDetails}
             perCountChecklist={perCountChecklist}
             sidebarModule={formSubmit}

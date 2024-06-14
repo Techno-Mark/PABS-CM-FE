@@ -772,7 +772,7 @@ function ChecklistAutoCare({
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
       userId:
-        clientInfo?.UserId !== ""
+        !!clientInfo?.UserId
           ? parseInt(clientInfo?.UserId)
           : parseInt(userId!),
     });
@@ -796,11 +796,11 @@ function ChecklistAutoCare({
     };
     const checklistFormData = {
       userId:
-        clientInfo?.UserId !== ""
+        !!clientInfo?.UserId
           ? parseInt(clientInfo?.UserId)
           : parseInt(userId!),
       businessTypeId:
-        clientInfo?.DepartmentId !== ""
+        !!clientInfo?.DepartmentId
           ? parseInt(clientInfo?.DepartmentId)
           : parseInt(businessTypeId!),
       checkList: [
@@ -1134,11 +1134,11 @@ function ChecklistAutoCare({
 
     const requestBody: any = {
       userId:
-        clientInfo?.UserId !== ""
+        !!clientInfo?.UserId
           ? parseInt(clientInfo?.UserId!)
           : parseInt(userId!),
       businessTypeId:
-        clientInfo?.DepartmentId !== ""
+        !!clientInfo?.DepartmentId
           ? parseInt(clientInfo?.DepartmentId!)
           : parseInt(businessTypeId!),
     };
@@ -1146,24 +1146,31 @@ function ChecklistAutoCare({
     switch (phaseType) {
       case 1:
         requestBody.phase1CommunicationIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 2:
         requestBody.phase2SystemIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 3:
         requestBody.phase3CashIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 4:
         requestBody.phase4PayrollIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 5:
         requestBody.phase5CompliancesIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 6:
         requestBody.phase6ApPayableIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
       case 7:
         requestBody.phase7StatusIsDisplay = check;
+        setExpandedAccordian(-1);
         break;
     }
 

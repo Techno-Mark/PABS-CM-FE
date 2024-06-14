@@ -152,14 +152,15 @@ function BasicDetailsAutoCare({
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
       userId:
-        clientInfo?.UserId !== ""
-          ? parseInt(clientInfo?.UserId!)
+        !!clientInfo?.UserId
+          ? parseInt(clientInfo?.UserId)
           : parseInt(userId!),
     });
   };
 
   useEffect(() => {
     getAutoCareBasicDetailsList();
+    basicDetailStatus()
   }, []);
 
   const validateCarCareAccountDetails = () => {
@@ -253,6 +254,7 @@ function BasicDetailsAutoCare({
       }
     });
     let calc = (count / 15) * 100;
+    console.log(calc)
     return Math.floor(calc);
   };
 
@@ -283,11 +285,11 @@ function BasicDetailsAutoCare({
     };
     const basicDetailsFormData = {
       userId:
-        clientInfo?.UserId !== ""
+        !!clientInfo?.UserId
           ? parseInt(clientInfo?.UserId!)
           : parseInt(userId!),
       businessTypeId:
-        clientInfo?.DepartmentId !== ""
+        !!clientInfo?.DepartmentId
           ? parseInt(clientInfo?.DepartmentId!)
           : parseInt(businessTypeId!),
       businessTypeName: autoCareAccountDetails.businessType,

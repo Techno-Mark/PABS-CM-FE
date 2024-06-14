@@ -42,72 +42,73 @@ const MyDrawer = styled(Drawer, {
 }));
 
 interface SidebarModuleTypes {
+  clientInfo:any
   perCountBasicDetails: number;
   sidebarModule: number;
   perCountChecklist: number;
 }
 
 const ClientSidebar = ({
+  clientInfo,
   perCountBasicDetails,
   perCountChecklist,
   sidebarModule,
 }: SidebarModuleTypes) => {
-  const pathname = usePathname();
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
   const businessTypeId = Cookies.get("businessTypeId");
 
   useEffect(() => {
-    pathname === "/client/onboarding/autocare"
-      ? 
+    if (businessTypeId === "3" || clientInfo.DepartmentId === 3) {
       setItems([
-          {
-            id: 1,
-            module: "Basic Details",
-            value: perCountBasicDetails,
-          },
-          {
-            id: 2,
-            module: "Checklist",
-            value: perCountChecklist,
-          },
-          {
-            id: 3,
-            module: "Login Info",
-            value: 0,
-          },
-        ])
-      : pathname === "/client/onboarding/whitelabel"
-      ? setItems([
-          {
-            id: 1,
-            module: "Basic Details",
-            value: 0,
-          },
-          {
-            id: 2,
-            module: "Checklist",
-            value: 45,
-          },
-          {
-            id: 3,
-            module: "Account Details",
-            value: 15,
-          },
-        ])
-      : pathname === "/client/onboarding/SMB" &&
-        setItems([
-          {
-            id: 1,
-            module: "Checklist",
-            value: perCountBasicDetails,
-          },
-          {
-            id: 2,
-            module: "System Access Status",
-            value: 45,
-          },
-        ]);
-  }, [pathname]);
+        {
+          id: 1,
+          module: "Basic Details",
+          value: perCountBasicDetails,
+        },
+        {
+          id: 2,
+          module: "Checklist",
+          value: perCountChecklist,
+        },
+        {
+          id: 3,
+          module: "Login Info",
+          value: 0,
+        },
+      ]);
+    } else if (businessTypeId === "2" || clientInfo.DepartmentId === 2) {
+      setItems([
+        {
+          id: 1,
+          module: "Checklist",
+          value: perCountBasicDetails,
+        },
+        {
+          id: 2,
+          module: "System Access Status",
+          value: 45,
+        },
+      ]);
+    } else {
+      setItems([
+        {
+          id: 1,
+          module: "Basic Details",
+          value: 0,
+        },
+        {
+          id: 2,
+          module: "Checklist",
+          value: 45,
+        },
+        {
+          id: 3,
+          module: "Account Details",
+          value: 15,
+        },
+      ]);
+    }
+  }, [businessTypeId,clientInfo]);
 
   return (
     <>
