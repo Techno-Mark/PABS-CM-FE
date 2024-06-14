@@ -71,6 +71,30 @@ export const validateAutoCarAccountDetails = [
   "ownerPhone",
 ];
 
+export const fieldDisplayNamesAccountDetails: { [key: string]: string } = {
+  accountName: "Account Name",
+  corporateAddress: "Corporate Address",
+  noOfLocations: "Number of Locations",
+  nameOfLocations: "Locations Name",
+  ownerContact: "Owner Contact",
+  ownerEmail: "Owner Email",
+  ownerPhone: "Owner Phone",
+};
+
+export const fieldDisplayNamesLegalStructure: { [key: string]: string } = {
+  no_of_Entities: "Number of Entities",
+  no_of_Shops: "Number of Shops",
+};
+
+export const fieldDisplayNamesClientTeam: { [key: string]: string } = {
+  istTime: "IST Time",
+  shopManager: "Shop Manager",
+  poc1: "Poc1",
+  email: "Email",
+  weeklyCalls: "Weekly Calls",
+  weeklyCallTime: "Weekly Call Time",
+};
+
 export const validateAutoCarLegalStructure = ["no_of_Entities", "no_of_Shops"];
 
 export const validateAutoCarClientTeam = ["shopManager", "poc1", "email", "weeklyCalls","weeklyCallTime", "istTime"];

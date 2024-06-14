@@ -1,18 +1,18 @@
+import React from "react";
+// Models import
 import {
   GroupEmailEstablishedFormTypes,
   GroupEmailEstablishedTypes,
   KickOffFormTypes,
+  KickOffTypes,
   PreKickOffFormTypes,
   PreKickOffTypes,
+  autoCareCommmunicationChecklistTypes,
 } from "@/models/autoCarChecklist";
-import {
-  initialAutoCareGroupEmailEstablished,
-  initialAutoCareKickOff,
-  initialAutoCarePreKickOff,
-} from "@/static/autoCareChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
 function AutoCareCommmunicationChecklist({
   className,
@@ -22,7 +22,7 @@ function AutoCareCommmunicationChecklist({
   setAutoCarePreKickOff,
   autoCareKickOff,
   setAutoCareKickOff,
-}: any) {
+}: autoCareCommmunicationChecklistTypes) {
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished
@@ -335,7 +335,7 @@ const PreKickOff = ({
   );
 };
 
-const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: any) => {
+const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,30 +1,31 @@
+import React from "react";
+// Models import
 import {
-  GP_GMNP_NMFormTypes,
-  GP_GMNP_NMTypes,
+  AutoCareFinancialsTypes,
   LastClosedPeriodFormTypes,
   LastClosedPeriodTypes,
   SharingFinancialsFormTypes,
   SharingFinancialsTypes,
 } from "@/models/autoCarChecklist";
-import {
-  initialAutoCareGP_GMNP_NM,
-  initialAutoCareLastClosedPeriod,
-  initialAutoCareSharingFinancials,
-} from "@/static/autoCareChecklist";
+// Utlis import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
-function AutoCareStatusCondition({ className }: any) {
-  const [autoCareLastClosedPeriod, setAutoCareLastClosedPeriod] =
-    useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
-  const [autoCareSharingFinancials, setAutoCareSharingFinancials] =
-    useState<SharingFinancialsFormTypes>(initialAutoCareSharingFinancials);
+function AutoCareFinancials({
+  className,
+  financialsErrors,
+  autoCareLastClosedPeriod,
+  setAutoCareLastClosedPeriod,
+  autoCareSharingFinancials,
+  setAutoCareSharingFinancials,
+}: AutoCareFinancialsTypes) {
   return (
     <div className={`${className}`}>
       <LastClosedPeriod
         autoCareLastClosedPeriod={autoCareLastClosedPeriod}
         setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
+        lastClosedPeriodErrors={financialsErrors}
       />
       <SharingFinancials
         autoCareSharingFinancials={autoCareSharingFinancials}
@@ -34,11 +35,12 @@ function AutoCareStatusCondition({ className }: any) {
   );
 }
 
-export default AutoCareStatusCondition;
+export default AutoCareFinancials;
 
 const LastClosedPeriod = ({
   autoCareLastClosedPeriod,
   setAutoCareLastClosedPeriod,
+  lastClosedPeriodErrors,
 }: LastClosedPeriodTypes) => {
   const classes = useStyles();
 
@@ -70,6 +72,8 @@ const LastClosedPeriod = ({
                 size="small"
                 placeholder="Please Enter Comments"
                 value={autoCareLastClosedPeriod?.lastClosedPeriodComments}
+                error={!!lastClosedPeriodErrors?.lastClosedPeriodComments}
+                helperText={lastClosedPeriodErrors?.lastClosedPeriodComments}
                 onChange={handleLastClosedPeriodChange}
                 InputProps={{
                   classes: {
@@ -92,6 +96,8 @@ const LastClosedPeriod = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={autoCareLastClosedPeriod?.lastClosedPeriodStatus}
+                error={!!lastClosedPeriodErrors?.lastClosedPeriodStatus}
+                helperText={lastClosedPeriodErrors?.lastClosedPeriodStatus}
                 onChange={handleLastClosedPeriodChange}
                 InputProps={{
                   classes: {
@@ -114,6 +120,8 @@ const LastClosedPeriod = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={autoCareLastClosedPeriod?.lastClosedPeriodDetails}
+                error={!!lastClosedPeriodErrors?.lastClosedPeriodDetails}
+                helperText={lastClosedPeriodErrors?.lastClosedPeriodDetails}
                 onChange={handleLastClosedPeriodChange}
                 InputProps={{
                   classes: {
@@ -138,6 +146,8 @@ const LastClosedPeriod = ({
                 size="small"
                 placeholder="Please Enter Action Name"
                 value={autoCareLastClosedPeriod?.lastClosedPeriodActionName}
+                error={!!lastClosedPeriodErrors?.lastClosedPeriodActionName}
+                helperText={lastClosedPeriodErrors?.lastClosedPeriodActionName}
                 onChange={handleLastClosedPeriodChange}
                 InputProps={{
                   classes: {
@@ -162,6 +172,8 @@ const LastClosedPeriod = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareLastClosedPeriod?.lastClosedPeriodActionItems}
+                error={!!lastClosedPeriodErrors?.lastClosedPeriodActionItems}
+                helperText={lastClosedPeriodErrors?.lastClosedPeriodActionItems}
                 onChange={handleLastClosedPeriodChange}
                 InputProps={{
                   classes: {

@@ -11,13 +11,20 @@ import { drawerWidth } from "@/static/commonVariables";
 import Cookies from "js-cookie";
 
 type WrapperPropsType = {
-  basicDetailsFormSubmit:number
+  formSubmit: number;
   isScrollable?: boolean;
   children: ReactNode;
-  basicDetailCount:number
+  perCountBasicDetails: number;
+  perCountChecklist: number;
 };
 
-const ClientWrapper = ({ isScrollable,basicDetailCount,basicDetailsFormSubmit, children }: WrapperPropsType) => {
+const ClientWrapper = ({
+  isScrollable,
+  perCountBasicDetails,
+  perCountChecklist,
+  formSubmit,
+  children,
+}: WrapperPropsType) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -39,7 +46,11 @@ const ClientWrapper = ({ isScrollable,basicDetailCount,basicDetailsFormSubmit, c
         >
           <CssBaseline />
           <ClientHeader />
-          <ClientSidebar basicDetailCount={basicDetailCount} sidebarModule={basicDetailsFormSubmit} />
+          <ClientSidebar
+            perCountBasicDetails={perCountBasicDetails}
+            perCountChecklist={perCountChecklist}
+            sidebarModule={formSubmit}
+          />
           <Box
             component="main"
             sx={{
@@ -48,7 +59,7 @@ const ClientWrapper = ({ isScrollable,basicDetailCount,basicDetailsFormSubmit, c
               width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
-           {children}
+            {children}
           </Box>
         </Box>
       </div>

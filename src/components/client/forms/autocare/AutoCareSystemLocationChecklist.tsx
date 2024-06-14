@@ -1,3 +1,5 @@
+import React from "react";
+// Models import
 import {
   AccessComputerFormTypes,
   AccessComputerMethodTypes,
@@ -13,10 +15,12 @@ import {
   PosSoftwareTypes,
   ScannerFormTypes,
   ScannerTypes,
+  autoCareSystemLocationChecklistTypes,
 } from "@/models/autoCarChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
 
 function AutoCareSystemLocationChecklist({
   className,
@@ -35,7 +39,7 @@ function AutoCareSystemLocationChecklist({
   setAutoCareCloudDocumentManagement,
   autoCareScanner,
   setAutoCareScanner,
-}: any) {
+}: autoCareSystemLocationChecklistTypes) {
   return (
     <div className={`${className}`}>
       <ITStructureReview

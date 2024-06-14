@@ -11,7 +11,7 @@ import {
 } from "@/models/carCareBasicDetails";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
-import { validateNumber } from "@/utils/validate";
+import { validateEmail, validateNumber } from "@/utils/validate";
 
 function AutoCareAccountDetails({
   className,
@@ -45,6 +45,31 @@ function AutoCareAccountDetails({
             ...prev,
             [name]: validValue,
           }));
+        }
+        break;
+      case "ownerEmail":
+        if (!validateEmail(value)) {
+          setAutoCareAccountDetailsErrors(
+            (prevErrors: AccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: "Please provide a valid email address.",
+            })
+          );
+          setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+        } else {
+          setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
+            ...prev,
+            [name]: value,
+          }));
+          setAutoCareAccountDetailsErrors(
+            (prevErrors: AccountDetailsFormErrors) => ({
+              ...prevErrors,
+              [name]: "",
+            })
+          );
         }
         break;
       case "noOfLocations":
@@ -168,7 +193,13 @@ function AutoCareAccountDetails({
               </div>
             </Grid>
             <Grid item xs={4}>
-              <div className={`text-[12px] flex flex-col ${autoCareAccountDetailsErrors.ownerEmail ? '!mb-2':'!mb-[30px]'}`}>
+              <div
+                className={`text-[12px] flex flex-col ${
+                  autoCareAccountDetailsErrors.ownerEmail
+                    ? "!mb-2"
+                    : "!mb-[30px]"
+                }`}
+              >
                 <label className="text-[#6E6D7A] text-[12px]">
                   Owner Email<span className="text-[#DC3545]">*</span>
                 </label>

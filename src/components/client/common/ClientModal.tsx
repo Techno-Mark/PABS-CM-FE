@@ -12,14 +12,14 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ClientSidebar from "@/components/client/common/ClientSidebar";
-// Cookie import
-import Cookies from "js-cookie";
 // Types imports
-import { AppBarProps, Option } from "@/models/adminHeader";
+import { AppBarProps } from "@/models/adminHeader";
 // MUI imports
 import DownloadIcon from "@/assets/Icons/client/forms/DownloadIcon";
 import BasicDetailsAutoCare from "@/components/client/common/BasicDetailsAutoCare";
 import { drawerWidth } from "@/static/commonVariables";
+import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
+import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -38,9 +38,10 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
-  const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
-  const [basicDetailsFormSubmit, setBasicDetailsFormSubmit] =
-    useState<number>(1);
+  const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
+  const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
+  const [formSubmit, setFormSubmit] = useState<number>(1);
+
   return (
     <Modal
       open={isOpen}
@@ -100,8 +101,9 @@ function ClientModal({
               </Toolbar>
             </AppBar>
             <ClientSidebar
-              basicDetailCount={basicDetailsCount}
-              sidebarModule={basicDetailsFormSubmit}
+              perCountChecklist={perCountChecklist}
+              perCountBasicDetails={perCountBasicDetails}
+              sidebarModule={formSubmit}
             />
             <Box
               component="main"
@@ -112,14 +114,32 @@ function ClientModal({
                 height: "calc(100% - 64px)",
               }}
             >
-              <BasicDetailsAutoCare
-                setBasicDetailsFormSubmit={(value: number) =>
-                  setBasicDetailsFormSubmit(value)
-                }
-                setBasicDetailCount={(value: number) =>
-                  setBasicDetailCount(value)
-                }
-              />
+              {formSubmit === 1 ? (
+                <BasicDetailsAutoCare
+                  setBasicDetailsFormSubmit={(value: number) =>
+                    setFormSubmit(value)
+                  }
+                  setBasicDetailCount={(value: number) =>
+                    setPerCountBasicDetails(value)
+                  }
+                />
+              ) : formSubmit === 2 ? (
+                <ChecklistAutoCare
+                  setChecklistFormSubmit={(value: number) =>
+                    setFormSubmit(value)
+                  }
+                  setChecklistCount={(value: number) =>
+                    setPerCountChecklist(value)
+                  }
+                />
+              ) : (
+                <LoginInfoAutoCare
+                  setLoginInfoFormSubmit={(value: number) =>
+                    setFormSubmit(value)
+                  }
+                  setLoginInfoCount={(value: number) => {}}
+                />
+              )}
             </Box>
           </Box>
         </div>

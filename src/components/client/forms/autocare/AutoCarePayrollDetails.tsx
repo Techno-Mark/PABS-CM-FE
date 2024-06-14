@@ -3,47 +3,54 @@ import React from "react";
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
 // Models import
-import { autoCarePosDetailsTypes } from "@/models/autoCareLogininfo";
+import { autoCarePayrollDetailsTypes } from "@/models/autoCareLogininfo";
 // Static import
-import { initialAutoCarePosDetails } from "@/static/autoCareLoginInfo";
+import { initialAutoCarePayrollDetails } from "@/static/autoCareLoginInfo";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
 
-function AutoCarePosDetails({
+function AutoCarePayrollDetails({
   className,
-  posDetailsRows,
-  setPosDetailsRows,
-}: autoCarePosDetailsTypes) {
+  payrollDetailsRows,
+  setPayrollDetailsRows,
+}: autoCarePayrollDetailsTypes) {
   const classes = useStyles();
 
   const handleAddRow = () => {
-    setPosDetailsRows([...posDetailsRows, initialAutoCarePosDetails]);
+    setPayrollDetailsRows([
+      ...payrollDetailsRows,
+      initialAutoCarePayrollDetails,
+    ]);
   };
 
   const handleRemoveRow = (index: any) => {
-    const newRows = posDetailsRows.filter((_, i) => i !== index);
-    setPosDetailsRows(newRows);
+    const newRows = payrollDetailsRows.filter((_, i) => i !== index);
+    setPayrollDetailsRows(newRows);
   };
 
   const handleInputChange = (index: any, event: any) => {
     const { name, value } = event.target;
-    const newRows = posDetailsRows.map((posDetailsRows, rowIndex) =>
-      rowIndex === index ? { ...posDetailsRows, [name]: value } : posDetailsRows
+    const newRows = payrollDetailsRows.map((payrollDetailsRows, rowIndex) =>
+      rowIndex === index
+        ? { ...payrollDetailsRows, [name]: value }
+        : payrollDetailsRows
     );
-    setPosDetailsRows(newRows);
+    setPayrollDetailsRows(newRows);
   };
 
   return (
     <div className={`${className}`}>
-      {posDetailsRows.map((row, index) => (
+      {payrollDetailsRows.map((row, index) => (
         <div
           key={index}
           className={`py-3 px-2 w-full flex justify-between ${
-            posDetailsRows.length - 1 === index ? "gap-[30px]" : "gap-[63px]"
+            payrollDetailsRows.length - 1 === index
+              ? "gap-[30px]"
+              : "gap-[63px]"
           }${
-            index !== posDetailsRows.length - 1 && "border-b border-[#D8D8D8]"
+            index !== payrollDetailsRows.length - 1 && "border-b border-[#D8D8D8]"
           }`}
         >
           <div className="flex">
@@ -53,13 +60,15 @@ function AutoCarePosDetails({
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <div className="text-[12px] flex flex-col">
-                  <label className="text-[#6E6D7A] text-[12px]">POS</label>
+                  <label className="text-[#6E6D7A] text-[12px]">
+                    Company Name
+                  </label>
                   <TextField
-                    name="posDetailsPos"
+                    name="payrollDetailsCompanyName"
                     variant="standard"
                     size="small"
-                    placeholder="Please Enter POS"
-                    value={row.posDetailsPos}
+                    placeholder="Please Enter Company Name"
+                    value={row.payrollDetailsCompanyName}
                     onChange={(event) => handleInputChange(index, event)}
                     InputProps={{
                       classes: {
@@ -74,15 +83,13 @@ function AutoCarePosDetails({
               </Grid>
               <Grid item xs={4}>
                 <div className="text-[12px] flex flex-col">
-                  <label className="text-[#6E6D7A] text-[12px]">
-                    Server Name
-                  </label>
+                  <label className="text-[#6E6D7A] text-[12px]">Link</label>
                   <TextField
-                    name="posDetailsServerName"
+                    name="payrollDetailsLink"
                     variant="standard"
                     size="small"
-                    placeholder="Please Enter ServerName"
-                    value={row.posDetailsServerName}
+                    placeholder="Please Enter Link"
+                    value={row.payrollDetailsLink}
                     onChange={(event) => handleInputChange(index, event)}
                     InputProps={{
                       classes: {
@@ -97,38 +104,13 @@ function AutoCarePosDetails({
               </Grid>
               <Grid item xs={4}>
                 <div className="text-[12px] flex flex-col">
-                  <label className="text-[#6E6D7A] text-[12px]">
-                    Personal Key
-                  </label>
+                  <label className="text-[#6E6D7A] text-[12px]">User ID</label>
                   <TextField
-                    name="posDetailsPersonalKey"
+                    name="payrollDetailsUserId"
                     variant="standard"
                     size="small"
-                    placeholder="Please Enter Personal Key"
-                    value={row.posDetailsPersonalKey}
-                    onChange={(event) => handleInputChange(index, event)}
-                    InputProps={{
-                      classes: {
-                        underline: classes.underline,
-                      },
-                    }}
-                    inputProps={{
-                      className: classes.textSize,
-                    }}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={4}>
-                <div className="text-[12px] flex flex-col">
-                  <label className="text-[#6E6D7A] text-[12px]">
-                    User Name
-                  </label>
-                  <TextField
-                    name="posDetailsUserName"
-                    variant="standard"
-                    size="small"
-                    placeholder="Please Enter User Name"
-                    value={row.posDetailsUserName}
+                    placeholder="Please Enter User ID"
+                    value={row.payrollDetailsUserId}
                     onChange={(event) => handleInputChange(index, event)}
                     InputProps={{
                       classes: {
@@ -145,11 +127,34 @@ function AutoCarePosDetails({
                 <div className="text-[12px] flex flex-col">
                   <label className="text-[#6E6D7A] text-[12px]">Password</label>
                   <TextField
-                    name="posDetailsPassword"
+                    name="payrollDetailsPassword"
                     variant="standard"
                     size="small"
                     placeholder="Please Enter Password"
-                    value={row.posDetailsPassword}
+                    value={row.payrollDetailsPassword}
+                    onChange={(event) => handleInputChange(index, event)}
+                    InputProps={{
+                      classes: {
+                        underline: classes.underline,
+                      },
+                    }}
+                    inputProps={{
+                      className: classes.textSize,
+                    }}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={4}>
+                <div className="text-[12px] flex flex-col">
+                  <label className="text-[#6E6D7A] text-[12px]">
+                    Passcode (If any)
+                  </label>
+                  <TextField
+                    name="payrollDetailsPasscode"
+                    variant="standard"
+                    size="small"
+                    placeholder="Please Enter Passcode (If any)"
+                    value={row.payrollDetailsPasscode}
                     onChange={(event) => handleInputChange(index, event)}
                     InputProps={{
                       classes: {
@@ -168,11 +173,11 @@ function AutoCarePosDetails({
                     PABS Notes/Status
                   </label>
                   <TextField
-                    name="posDetailsNotes_Status"
+                    name="payrollDetailsNotes_Status"
                     variant="standard"
                     size="small"
                     placeholder="Please Enter PABS Notes/Status"
-                    value={row.posDetailsNotes_Status}
+                    value={row.payrollDetailsNotes_Status}
                     onChange={(event) => handleInputChange(index, event)}
                     InputProps={{
                       classes: {
@@ -188,12 +193,12 @@ function AutoCarePosDetails({
             </Grid>
           </div>
           <div className="flex justify-end items-end gap-3">
-            {posDetailsRows.length > 1 && (
+            {payrollDetailsRows.length > 1 && (
               <span className="cursor-pointer" onClick={() => handleRemoveRow(index)}>
                 <MinusCircle />
               </span>
             )}
-            {index === posDetailsRows.length - 1 && (
+            {index === payrollDetailsRows.length - 1 && (
               <span className="cursor-pointer" onClick={handleAddRow}>
                 <PlusCircleicon />
               </span>
@@ -205,4 +210,4 @@ function AutoCarePosDetails({
   );
 }
 
-export default AutoCarePosDetails;
+export default AutoCarePayrollDetails;

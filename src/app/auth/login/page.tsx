@@ -146,6 +146,10 @@ function Page() {
           Cookies.set("userName", ResponseData?.Username);
           Cookies.set("roleName", ResponseData?.RoleName);
           Cookies.set("roleId", ResponseData?.RoleId.toString());
+          Cookies.set("businessTypeId", ResponseData?.BusinessTypeId.toString());
+          Cookies.set("businessTypeName", ResponseData?.BusinessTypeName);
+          Cookies.set("clientSFId", ResponseData?.ClientSfId);
+          Cookies.set("clientLogo", ResponseData?.ClientLogo);
           Cookies.set("permission", JSON.stringify(ResponseData?.Permissions));
           return;
       }
