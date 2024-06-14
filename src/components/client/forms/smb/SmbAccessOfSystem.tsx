@@ -74,7 +74,8 @@ function SmbAccessOfSystem({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Name of the Resource<span className="text-[#DC3545]">*</span>
+                  Name of the Resource
+                  {/* <span className="text-[#DC3545]">*</span> */}
                 </label>
                 <TextField
                   name="nameOfResource"
@@ -100,7 +101,8 @@ function SmbAccessOfSystem({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Role<span className="text-[#DC3545]">*</span>
+                  Role
+                  {/* <span className="text-[#DC3545]">*</span> */}
                 </label>
                 <TextField
                   name="role"
@@ -126,7 +128,8 @@ function SmbAccessOfSystem({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Email<span className="text-[#DC3545]">*</span>
+                  Email
+                  {/* <span className="text-[#DC3545]">*</span> */}
                 </label>
                 <TextField
                   name="email"
@@ -153,7 +156,8 @@ function SmbAccessOfSystem({
             <Grid item xs={4}>
               <div className={`text-[12px] flex flex-col `}>
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Accounting Software<span className="text-[#DC3545]">*</span>
+                  Accounting Software
+                  {/* <span className="text-[#DC3545]">*</span> */}
                 </label>
                 <TextField
                   name="accountingSoftware"
@@ -226,7 +230,8 @@ function SmbAccessOfSystem({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Payroll Detail<span className="text-[#DC3545]">*</span>
+                  Payroll Detail
+                  {/* <span className="text-[#DC3545]">*</span> */}
                 </label>
                 <TextField
                   name="payrollDetails"
@@ -252,7 +257,8 @@ function SmbAccessOfSystem({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Comments<span className="text-[#DC3545]">*</span>
+                  Comments
+                  {/* <span className="text-[#DC3545]">*</span> */}
                 </label>
                 <TextField
                   name="comments"

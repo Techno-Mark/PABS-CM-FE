@@ -6,11 +6,16 @@ import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import SystemAccessForSmb from "@/components/client/common/SystemAccessForSmb";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
 
 function Page() {
   const router = useRouter();
+  const userID = Cookies.get("userId");
   const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(2);
+  const [formSubmit, setFormSubmit] = useState<number>(1);
+  const [formDetails, setFormDetails] = useState<any>(null);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -18,21 +23,56 @@ function Page() {
       router.push("/auth/login");
     }
   }, []);
+
+  const getFormDetials = async () => {
+    const callBack = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: any
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setFormDetails(ResponseData !== null ? ResponseData : null);
+          return;
+      }
+    };
+
+    const saveClientIndo = "/api/clients/getbyid-client-info";
+    // formDetails === null &&
+    callAPIwithHeaders(saveClientIndo, "post", callBack, {
+      userId: Number(userID),
+    });
+  };
+
+  useEffect(() => {
+    getFormDetials();
+  }, []);
   return (
     <ClientWrapper
       basicDetailCount={basicDetailsCount}
       basicDetailsFormSubmit={formSubmit}
     >
-      {formSubmit === 2 ? (
+      {formSubmit === 1 ? (
         <ChecklistSmb
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
+          formDetails={formDetails !== null ? formDetails?.checkList : false}
+          getFormDetials={getFormDetials}
         />
-      ) : (
+      ) : formSubmit === 2 ? (
         <SystemAccessForSmb
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
+          formDetails={
+            formDetails !== null ? formDetails?.systemAccessDetails : false
+          }
+          getFormDetials={getFormDetials}
         />
+      ) : (
+        ""
       )}
     </ClientWrapper>
   );

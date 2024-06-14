@@ -129,7 +129,7 @@ export const initialAddCards = {
   AddCardsActionItems: "",
 };
 
-export const initialAccessCreditCardPortal = {
+export const initialAccessCreditCard2 = {
   AccessCreditCardPortalStatus: "",
   AccessCreditCardPortalDetails: "",
   AccessCreditCardPortalActionItems: "",
@@ -141,7 +141,7 @@ export const initialAccessLoanAccount = {
   AccessLoanAccountActionItems: "",
 };
 
-export const initialAccessCreditCard = {
+export const initialAccessCreditCard1 = {
   AccessCreditCardStatus: "",
   AccessCreditCardDetails: "",
   AccessCreditCardActionItems: "",

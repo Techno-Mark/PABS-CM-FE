@@ -161,7 +161,7 @@ export interface AddCardsFormTypes {
   [key: string]: string | null;
 }
 
-export interface AccessCreditCardPortalFormTypes {
+export interface AccessCreditCard2FormTypes {
   AccessCreditCardPortalStatus: string;
   AccessCreditCardPortalDetails: string;
   AccessCreditCardPortalActionItems: string;
@@ -175,7 +175,7 @@ export interface AccessLoanAccountFormTypes {
   [key: string]: string | null;
 }
 
-export interface AccessCreditCardFormTypes {
+export interface AccessCreditCard1FormTypes {
   AccessCreditCardStatus: string;
   AccessCreditCardDetails: string;
   AccessCreditCardActionItems: string;
@@ -387,9 +387,9 @@ export interface AddCardsTypes {
 }
 
 export interface AccessCreditCardPortalTypes {
-  smbAccessCreditCardPortal: AccessCreditCardPortalFormTypes;
+  smbAccessCreditCardPortal: AccessCreditCard2FormTypes;
   setSmbAccessCreditCardPortal: React.Dispatch<
-    React.SetStateAction<AccessCreditCardPortalFormTypes>
+    React.SetStateAction<AccessCreditCard2FormTypes>
   >;
 }
 
@@ -401,9 +401,9 @@ export interface AccessLoanAccountTypes {
 }
 
 export interface AccessCreditCardTypes {
-  smbAccessCreditCard: AccessCreditCardFormTypes;
+  smbAccessCreditCard: AccessCreditCard1FormTypes;
   setSmbAccessCreditCard: React.Dispatch<
-    React.SetStateAction<AccessCreditCardFormTypes>
+    React.SetStateAction<AccessCreditCard1FormTypes>
   >;
 }
 
@@ -470,4 +470,20 @@ export interface ConvenientTypes {
 export interface TimeSlotTypes {
   smbTimeSlot: TimeSlotFormTypes;
   setSmbTimeSlot: React.Dispatch<React.SetStateAction<TimeSlotFormTypes>>;
+}
+
+export interface FormDetails {
+  fieldName: string;
+  status: string;
+  details: string;
+  actionsOfPabs: string;
+}
+
+export interface FieldMapEntry {
+  setter: (data: any) => void;
+  keys: {
+    status: string;
+    details: string;
+    actionItems: string;
+  };
 }

@@ -174,7 +174,7 @@ const BasicDetailsWhitelabel = ({
 
   const handleSubmit = (type: number) => {
     if (type === 1) {
-      // setBasicDetailsFormSubmit(2); // temporary basic change it afterwards
+      setBasicDetailsFormSubmit(2); // temporary basic change it afterwards
       validateAccountDetails();
       validateOtherInformation();
       validateCpaClientTeam();

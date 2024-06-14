@@ -50,7 +50,6 @@ const ClientSidebar = ({
 }: SidebarModuleTypes) => {
   const pathname = usePathname();
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
-
   useEffect(() => {
     pathname === "/client/onboarding/autocare"
       ? setItems([
@@ -73,7 +72,8 @@ const ClientSidebar = ({
             value: 15,
           },
         ])
-      : setItems([
+      : pathname === "/client/onboarding/whitelabel"
+      ? setItems([
           {
             id: 1,
             module: "Basic Details",
@@ -91,6 +91,21 @@ const ClientSidebar = ({
             module: "Account Details",
             link: "/client/onboarding/accountDetails",
             value: 15,
+          },
+        ])
+      : pathname === "/client/onboarding/SMB" &&
+        setItems([
+          {
+            id: 1,
+            module: "Checklist",
+            link: "/client/onboarding/checklist",
+            value: basicDetailCount,
+          },
+          {
+            id: 2,
+            module: "System Access Status",
+            link: "/client/onboarding/systemaccessstatus",
+            value: 45,
           },
         ]);
   }, [pathname]);

@@ -1,6 +1,6 @@
 import {
-  AccessCreditCardFormTypes,
-  AccessCreditCardPortalFormTypes,
+  AccessCreditCard1FormTypes,
+  AccessCreditCard2FormTypes,
   AccessCreditCardPortalTypes,
   AccessCreditCardTypes,
   AccessLoanAccountFormTypes,
@@ -24,12 +24,12 @@ function SmbBankingAccessChecklist({
   setSmbAccessSavingAccount,
   smbAddCards,
   setSmbAddCards,
-  smbAccessCreditCard,
-  setSmbAccessCreditCard,
+  smbAccessCreditCard1,
+  setSmbAccessCreditCard1,
   smbAccessLoanAccount,
   setSmbAccessLoanAccount,
-  smbAccessCreditCardPortal,
-  setSmbAccessCreditCardPortal,
+  smbAccessCreditCard2,
+  setSmbAccessCreditCard2,
 }: any) {
   return (
     <div className={`${className}`}>
@@ -42,17 +42,17 @@ function SmbBankingAccessChecklist({
         setSmbAccessSavingAccount={setSmbAccessSavingAccount}
       />
       <AddCards smbAddCards={smbAddCards} setSmbAddCards={setSmbAddCards} />
-      <AccessCreditCardPortal
-        smbAccessCreditCardPortal={smbAccessCreditCardPortal}
-        setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
+      <AccessCreditCard
+        smbAccessCreditCard={smbAccessCreditCard1}
+        setSmbAccessCreditCard={setSmbAccessCreditCard1}
       />
       <AccessLoanAccount
         smbAccessLoanAccount={smbAccessLoanAccount}
         setSmbAccessLoanAccount={setSmbAccessLoanAccount}
       />
-      <AccessCreditCard
-        smbAccessCreditCard={smbAccessCreditCard}
-        setSmbAccessCreditCard={setSmbAccessCreditCard}
+      <AccessCreditCardPortal
+        smbAccessCreditCardPortal={smbAccessCreditCard2}
+        setSmbAccessCreditCardPortal={setSmbAccessCreditCard2}
       />
     </div>
   );
@@ -351,7 +351,7 @@ const AccessCreditCard = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setSmbAccessCreditCard((prev: AccessCreditCardFormTypes) => ({
+    setSmbAccessCreditCard((prev: AccessCreditCard1FormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -541,7 +541,7 @@ const AccessCreditCardPortal = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setSmbAccessCreditCardPortal((prev: AccessCreditCardPortalFormTypes) => ({
+    setSmbAccessCreditCardPortal((prev: AccessCreditCard2FormTypes) => ({
       ...prev,
       [name]: value,
     }));

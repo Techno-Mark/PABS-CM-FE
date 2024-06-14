@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Cookie import
 import Cookies from "js-cookie";
 // Types import
@@ -7,8 +7,8 @@ import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
 import { ChecklistAutoCareType } from "@/models/carCareBasicDetails";
 import {
   AccessAccountingSoftwareFormTypes,
-  AccessCreditCardFormTypes,
-  AccessCreditCardPortalFormTypes,
+  AccessCreditCard1FormTypes,
+  AccessCreditCard2FormTypes,
   AccessLoanAccountTypes,
   AccessSavingAccountFormTypes,
   AccountingMethodFormTypes,
@@ -28,7 +28,9 @@ import {
   DropboxSetUpFormTypes,
   EmailFormTypes,
   FEINFormTypes,
+  FieldMapEntry,
   FiscalYearEndFormTypes,
+  FormDetails,
   LastClosedMonthFormTypes,
   LiveDateFormTypes,
   ModeOfPaymentFormTypes,
@@ -55,8 +57,8 @@ import {
   fieldDisplayNamesSmbPeopleBusiness,
   fieldDisplayNamesSmbSystemAccess,
   initialAccessAccountingSoftware,
-  initialAccessCreditCard,
-  initialAccessCreditCardPortal,
+  initialAccessCreditCard1,
+  initialAccessCreditCard2,
   initialAccessLoanAccount,
   initialAccessSavingAccount,
   initialAccountingMethod,
@@ -101,12 +103,18 @@ import SmbExistingFinancialsChecklist from "../forms/smb/SmbExistingFinancialsCh
 import SmbMeetingChecklist from "../forms/smb/SmbMeetingChecklist";
 import SmbPeopleBusinessChecklist from "../forms/smb/SmbPeopleBusinessChecklist";
 import SmbSystemAccessChecklist from "../forms/smb/SmbSystemAccessChecklist";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 
 function ChecklistSmb({
   setChecklistCount,
   setChecklistFormSubmit,
+  formDetails,
+  getFormDetials,
 }: ChecklistAutoCareType) {
   const roleId = Cookies.get("roleId");
+  const userID = Cookies.get("userId");
   const initialSmbPeopleBusinessErrors: any = {};
   const initialSmbSystemAccessErrors: any = {};
   const initialSmbBankingAccessErrors: any = {};
@@ -178,17 +186,18 @@ function ChecklistSmb({
   const [smbAccessSavingAccount, setSmbAccessSavingAccount] =
     useState<AccessSavingAccountFormTypes>(initialAccessSavingAccount);
 
-  const [smbAddCards, setSmbAddCards] = 
+  const [smbAddCards, setSmbAddCards] =
     useState<AddCardsFormTypes>(initialAddCards);
 
-  const [smbAccessCreditCard, setSmbAccessCreditCard] =
-    useState<AccessCreditCardFormTypes>(initialAccessCreditCard);
+  const [smbAccessCreditCard1, setSmbAccessCreditCard1] =
+    useState<AccessCreditCard1FormTypes>(initialAccessCreditCard1);
 
-  const [smbAccessLoanAccount, setSmbAccessLoanAccount] =
-    useState<any>(initialAccessLoanAccount);
+  const [smbAccessLoanAccount, setSmbAccessLoanAccount] = useState<any>(
+    initialAccessLoanAccount
+  );
 
-  const [smbAccessCreditCardPortal, setSmbAccessCreditCardPortal] =
-    useState<AccessCreditCardPortalFormTypes>(initialAccessCreditCardPortal);
+  const [smbAccessCreditCard2, setSmbAccessCreditCard2] =
+    useState<AccessCreditCard2FormTypes>(initialAccessCreditCard2);
 
   const [smbLiveDate, setSmbLiveDate] =
     useState<LiveDateFormTypes>(initialLiveDate);
@@ -240,6 +249,313 @@ function ChecklistSmb({
   const [smbMeetingErrors, setSmbMeetingErrors] = useState<any>(
     initialSmbMeetingErrors
   );
+
+  useEffect(() => {
+    if (formDetails) {
+      const fieldMap: { [key: string]: FieldMapEntry } = {
+        "Client Name": {
+          setter: setSmbClientName,
+          keys: {
+            status: "ClientNameStatus",
+            details: "ClientNameDetails",
+            actionItems: "ClientNameActionItems",
+          },
+        },
+        "Type of entity": {
+          setter: setSmbTypeOfEntity,
+          keys: {
+            status: "TypeOfEntityStatus",
+            details: "TypeOfEntityDetails",
+            actionItems: "TypeOfEntityActionItems",
+          },
+        },
+        "Nature of business": {
+          setter: setSmbBusinessNature,
+          keys: {
+            status: "BusinessNatureStatus",
+            details: "BusinessNatureDetails",
+            actionItems: "BusinessNatureActionItems",
+          },
+        },
+        "Any other subsidiary or verticles or dimensions": {
+          setter: setSmbDimensions,
+          keys: {
+            status: "DimensionsStatus",
+            details: "DimensionsDetails",
+            actionItems: "DimensionsActionItems",
+          },
+        },
+        POC: {
+          setter: setSmbPoc,
+          keys: {
+            status: "PocStatus",
+            details: "PocDetails",
+            actionItems: "PocActionItems",
+          },
+        },
+        Email: {
+          setter: setSmbEmail,
+          keys: {
+            status: "EmailStatus",
+            details: "EmailDetails",
+            actionItems: "EmailActionItems",
+          },
+        },
+        "Contact Number": {
+          setter: setSmbContactNumber,
+          keys: {
+            status: "ContactNumberStatus",
+            details: "ContactNumberDetails",
+            actionItems: "ContactNumberActionItems",
+          },
+        },
+        Address: {
+          setter: setSmbAddress,
+          keys: {
+            status: "AddressStatus",
+            details: "AddressDetails",
+            actionItems: "AddressActionItems",
+          },
+        },
+        "Client Website": {
+          setter: setSmbClientWebsite,
+          keys: {
+            status: "ClientWebsiteStatus",
+            details: "ClientWebsiteDetails",
+            actionItems: "ClientWebsiteActionItems",
+          },
+        },
+        "Department Head": {
+          setter: setSmbDepartment,
+          keys: {
+            status: "DepartmentStatus",
+            details: "DepartmentDetails",
+            actionItems: "DepartmentActionItems",
+          },
+        },
+        "Onboarding and Operations POC": {
+          setter: setSmbOperations,
+          keys: {
+            status: "OperationsStatus",
+            details: "OperationsDetails",
+            actionItems: "OperationsActionItems",
+          },
+        },
+        "PABS Group Email": {
+          setter: setSmbPABSGroupEmail,
+          keys: {
+            status: "pabsGroupEmailStatus",
+            details: "pabsGroupEmailDetails",
+            actionItems: "pabsGroupEmailActionItems",
+          },
+        },
+        "Provide Access to Accounting Software": {
+          setter: setSmbAccessAccountingSoftware,
+          keys: {
+            status: "AccessAccountingSoftwareStatus",
+            details: "AccessAccountingSoftwareDetails",
+            actionItems: "AccessAccountingSoftwareActionItems",
+          },
+        },
+        "Dropbox Set-Up": {
+          setter: setSmbDropboxSetUp,
+          keys: {
+            status: "DropboxSetUpStatus",
+            details: "DropboxSetUpDetails",
+            actionItems: "DropboxSetUpActionItems",
+          },
+        },
+        "Payroll Service Provider Access": {
+          setter: setSmbPayrollServiceAccess,
+          keys: {
+            status: "PayrollServiceAccessStatus",
+            details: "PayrollServiceAccessDetails",
+            actionItems: "PayrollServiceAccessActionItems",
+          },
+        },
+        "No. of employees on roll/Payroll Frequency": {
+          setter: setSmbPayrollFrequency,
+          keys: {
+            status: "PayrollFrequencyStatus",
+            details: "PayrollFrequencyDetails",
+            actionItems: "PayrollFrequencyActionItems",
+          },
+        },
+        "Monthly AP Bills counts & Mode of Payment": {
+          setter: setSmbModeOfPayment,
+          keys: {
+            status: "ModeOfPaymentStatus",
+            details: "ModeOfPaymentDetails",
+            actionItems: "ModeOfPaymentActionItems",
+          },
+        },
+        "AP bills - (mode of receiving bills)": {
+          setter: setSmbApBills,
+          keys: {
+            status: "ApBillsStatus",
+            details: "ApBillsDetails",
+            actionItems: "ApBillsActionItems",
+          },
+        },
+        Applicablity: {
+          setter: setSmbApplicablity,
+          keys: {
+            status: "ApplicablityStatus",
+            details: "ApplicablityDetails",
+            actionItems: "ApplicablityActionItems",
+          },
+        },
+        "No of Checking & Saving Accounts": {
+          setter: setSmbSavingAccount,
+          keys: {
+            status: "SavingAccountStatus",
+            details: "SavingAccountDetails",
+            actionItems: "SavingAccountActionItems",
+          },
+        },
+        "Access to Checking/ Saving Accounts": {
+          setter: setSmbAccessSavingAccount,
+          keys: {
+            status: "AccessSavingAccountStatus",
+            details: "AccessSavingAccountDetails",
+            actionItems: "AccessSavingAccountActionItems",
+          },
+        },
+        "No Credit/Debit Cards Any add on Cards": {
+          setter: setSmbAddCards,
+          keys: {
+            status: "AddCardsStatus",
+            details: "AddCardsDetails",
+            actionItems: "AddCardsActionItems",
+          },
+        },
+        "Access for Credit Cards Portal1": {
+          setter: setSmbAccessCreditCard1,
+          keys: {
+            status: "AccessCreditCardStatus",
+            details: "AccessCreditCardDetails",
+            actionItems: "AccessCreditCardActionItems",
+          },
+        },
+        "Access to Loan/Loc Account": {
+          setter: setSmbAccessLoanAccount,
+          keys: {
+            status: "AccessLoanAccountStatus",
+            details: "AccessLoanAccountDetails",
+            actionItems: "AccessLoanAccountActionItems",
+          },
+        },
+        "Access for Credit Cards Portal2": {
+          setter: setSmbAccessCreditCard2,
+          keys: {
+            status: "AccessCreditCardPortalStatus",
+            details: "AccessCreditCardPortalDetails",
+            actionItems: "AccessCreditCardPortalActionItems",
+          },
+        },
+        "Go Live Date": {
+          setter: setSmbLiveDate,
+          keys: {
+            status: "LiveDateStatus",
+            details: "LiveDateDetails",
+            actionItems: "LiveDateActionItems",
+          },
+        },
+        "Method of accounting": {
+          setter: setSmbAccountingMethod,
+          keys: {
+            status: "AccountingMethodStatus",
+            details: "AccountingMethodDetails",
+            actionItems: "AccountingMethodActionItems",
+          },
+        },
+        FEIN: {
+          setter: setSmbFEIN,
+          keys: {
+            status: "FEINStatus",
+            details: "FEINDetails",
+            actionItems: "FEINActionItems",
+          },
+        },
+        "Fiscal Year end": {
+          setter: setSmbFiscalYearEnd,
+          keys: {
+            status: "FiscalYearEndStatus",
+            details: "FiscalYearEndDetails",
+            actionItems: "FiscalYearEndActionItems",
+          },
+        },
+        "Last Closed month in Accounting Software": {
+          setter: setSmbLastClosedMonth,
+          keys: {
+            status: "LastClosedMonthStatus",
+            details: "LastClosedMonthDetails",
+            actionItems: "LastClosedMonthActionItems",
+          },
+        },
+        "Name and Contact of CPA": {
+          setter: setSmbContactOfCpa,
+          keys: {
+            status: "ContactOfCpaStatus",
+            details: "ContactOfCpaDetails",
+            actionItems: "ContactOfCpaActionItems",
+          },
+        },
+        "Last year Tax Return": {
+          setter: setSmbTaxReturn,
+          keys: {
+            status: "TaxReturnStatus",
+            details: "TaxReturnDetails",
+            actionItems: "TaxReturnActionItems",
+          },
+        },
+        "Monthly Financials distribution list": {
+          setter: setSmbDistributionList,
+          keys: {
+            status: "DistributionListStatus",
+            details: "DistributionListDetails",
+            actionItems: "DistributionListActionItems",
+          },
+        },
+        "Time Zone": {
+          setter: setSmbTimeZone,
+          keys: {
+            status: "TimeZoneStatus",
+            details: "TimeZoneDetails",
+            actionItems: "TimeZoneActionItems",
+          },
+        },
+        "Convenient days": {
+          setter: setSmbConvenient,
+          keys: {
+            status: "ConvenientStatus",
+            details: "ConvenientDetails",
+            actionItems: "ConvenientActionItems",
+          },
+        },
+        "Time slot Availability": {
+          setter: setSmbTimeSlot,
+          keys: {
+            status: "TimeSlotStatus",
+            details: "TimeSlotDetails",
+            actionItems: "TimeSlotActionItems",
+          },
+        },
+      };
+
+      formDetails.forEach((f: FormDetails) => {
+        const field = fieldMap[f.fieldName];
+        if (field) {
+          const { setter, keys } = field;
+          setter({
+            [keys.status]: f.status,
+            [keys.details]: f.details,
+            [keys.actionItems]: f.actionsOfPabs,
+          });
+        }
+      });
+    }
+  }, [formDetails]);
 
   const handleAccordianChange =
     (arg1: number) => (e: any, isExpanded: boolean) => {
@@ -311,9 +627,9 @@ function ChecklistSmb({
         !smbSavingAccount[field] &&
         !smbAccessSavingAccount[field] &&
         !smbAddCards[field] &&
-        !smbAccessCreditCard[field] &&
+        !smbAccessCreditCard1[field] &&
         !smbAccessLoanAccount[field] &&
-        !smbAccessCreditCardPortal[field]
+        !smbAccessCreditCard2[field]
       ) {
         newErrors[
           field
@@ -372,22 +688,382 @@ function ChecklistSmb({
   };
 
   const handleSubmit = (type: number) => {
-    if (type === 1) {
-      setChecklistFormSubmit(3);
-      validateSmbPeopleBusiness();
-      validateSmbSystemAccess();
-      validateSmbBankingAccess();
-      validateSmbExistingFinancials();
-      validateSmbMeeting();
-      const isValid =
-        !validateSmbPeopleBusiness() &&
-        !validateSmbSystemAccess() &&
-        !validateSmbBankingAccess() &&
-        !validateSmbExistingFinancials() &&
-        !validateSmbMeeting();
-      if (isValid) {
-        console.log("completed..");
-      }
+    if (type === 1 || type === 2) {
+      const smbData: any = {
+        smbClientName: smbClientName,
+        smbTypeOfEntity: smbTypeOfEntity,
+        smbBusinessNature: smbBusinessNature,
+        smbDimensions: smbDimensions,
+        smbPoc: smbPoc,
+        smbEmail: smbEmail,
+        smbContactNumber: smbContactNumber,
+        smbAddress: smbAddress,
+        smbClientWebsite: smbClientWebsite,
+        smbDepartment: smbDepartment,
+        smbOperations: smbOperations,
+        smbPABSGroupEmail: smbPABSGroupEmail,
+        smbAccessAccountingSoftware: smbAccessAccountingSoftware,
+        smbDropboxSetUp: smbDropboxSetUp,
+        smbPayrollServiceAccess: smbPayrollServiceAccess,
+        smbPayrollFrequency: smbPayrollFrequency,
+        smbModeOfPayment: smbModeOfPayment,
+        smbApBills: smbApBills,
+        smbApplicablity: smbApplicablity,
+        smbSavingAccount: smbSavingAccount,
+        smbAccessSavingAccount: smbAccessSavingAccount,
+        smbAddCards: smbAddCards,
+        smbAccessCreditCard1: smbAccessCreditCard1,
+        smbAccessLoanAccount: smbAccessLoanAccount,
+        smbAccessCreditCard2: smbAccessCreditCard2,
+        smbLiveDate: smbLiveDate,
+        smbAccountingMethod: smbAccountingMethod,
+        smbFEIN: smbFEIN,
+        smbFiscalYearEnd: smbFiscalYearEnd,
+        smbLastClosedMonth: smbLastClosedMonth,
+        smbContactOfCpa: smbContactOfCpa,
+        smbTaxReturn: smbTaxReturn,
+        smbDistributionList: smbDistributionList,
+        smbTimeZone: smbTimeZone,
+        smbConvenient: smbConvenient,
+        smbTimeSlot: smbTimeSlot,
+      };
+
+      const fields = [
+        {
+          fieldName: "Client Name",
+          key: "smbClientName",
+          fields: [
+            "ClientNameStatus",
+            "ClientNameDetails",
+            "ClientNameActionItems",
+          ],
+        },
+        {
+          fieldName: "Type of entity",
+          key: "smbTypeOfEntity",
+          fields: [
+            "TypeOfEntityStatus",
+            "TypeOfEntityDetails",
+            "TypeOfEntityActionItems",
+          ],
+        },
+        {
+          fieldName: "Nature of business",
+          key: "smbBusinessNature",
+          fields: [
+            "BusinessNatureStatus",
+            "BusinessNatureDetails",
+            "BusinessNatureActionItems",
+          ],
+        },
+        {
+          fieldName: "Any other subsidiary or verticles or dimensions",
+          key: "smbDimensions",
+          fields: [
+            "DimensionsStatus",
+            "DimensionsDetails",
+            "DimensionsActionItems",
+          ],
+        },
+        {
+          fieldName: "POC",
+          key: "smbPoc",
+          fields: ["PocStatus", "PocDetails", "PocActionItems"],
+        },
+        {
+          fieldName: "Email",
+          key: "smbEmail",
+          fields: ["EmailStatus", "EmailDetails", "EmailActionItems"],
+        },
+        {
+          fieldName: "Contact Number",
+          key: "smbContactNumber",
+          fields: [
+            "ContactNumberStatus",
+            "ContactNumberDetails",
+            "ContactNumberActionItems",
+          ],
+        },
+        {
+          fieldName: "Address",
+          key: "smbAddress",
+          fields: ["AddressStatus", "AddressDetails", "AddressActionItems"],
+        },
+        {
+          fieldName: "Client Website",
+          key: "smbClientWebsite",
+          fields: [
+            "ClientWebsiteStatus",
+            "ClientWebsiteDetails",
+            "ClientWebsiteActionItems",
+          ],
+        },
+        {
+          fieldName: "Department Head",
+          key: "smbDepartment",
+          fields: [
+            "DepartmentStatus",
+            "DepartmentDetails",
+            "DepartmentActionItems",
+          ],
+        },
+        {
+          fieldName: "Onboarding and Operations POC",
+          key: "smbOperations",
+          fields: [
+            "OperationsStatus",
+            "OperationsDetails",
+            "OperationsActionItems",
+          ],
+        },
+        {
+          fieldName: "PABS Group Email",
+          key: "smbPABSGroupEmail",
+          fields: [
+            "pabsGroupEmailStatus",
+            "pabsGroupEmailDetails",
+            "pabsGroupEmailActionItems",
+          ],
+        },
+        {
+          fieldName: "Provide Access to Accounting Software",
+          key: "smbAccessAccountingSoftware",
+          fields: [
+            "AccessAccountingSoftwareStatus",
+            "AccessAccountingSoftwareDetails",
+            "AccessAccountingSoftwareActionItems",
+          ],
+        },
+        {
+          fieldName: "Dropbox Set-Up",
+          key: "smbDropboxSetUp",
+          fields: [
+            "DropboxSetUpStatus",
+            "DropboxSetUpDetails",
+            "DropboxSetUpActionItems",
+          ],
+        },
+        {
+          fieldName: "Payroll Service Provider Access",
+          key: "smbPayrollServiceAccess",
+          fields: [
+            "PayrollServiceAccessStatus",
+            "PayrollServiceAccessDetails",
+            "PayrollServiceAccessActionItems",
+          ],
+        },
+        {
+          fieldName: "No. of employees on roll/Payroll Frequency",
+          key: "smbPayrollFrequency",
+          fields: [
+            "PayrollFrequencyStatus",
+            "PayrollFrequencyDetails",
+            "PayrollFrequencyActionItems",
+          ],
+        },
+        {
+          fieldName: "Monthly AP Bills counts & Mode of Payment",
+          key: "smbModeOfPayment",
+          fields: [
+            "ModeOfPaymentStatus",
+            "ModeOfPaymentDetails",
+            "ModeOfPaymentActionItems",
+          ],
+        },
+        {
+          fieldName: "AP bills - (mode of receiving bills)",
+          key: "smbApBills",
+          fields: ["ApBillsStatus", "ApBillsDetails", "ApBillsActionItems"],
+        },
+        {
+          fieldName: "Applicablity",
+          key: "smbApplicablity",
+          fields: [
+            "ApplicablityStatus",
+            "ApplicablityDetails",
+            "ApplicablityActionItems",
+          ],
+        },
+        {
+          fieldName: "No of Checking & Saving Accounts",
+          key: "smbSavingAccount",
+          fields: [
+            "SavingAccountStatus",
+            "SavingAccountDetails",
+            "SavingAccountActionItems",
+          ],
+        },
+        {
+          fieldName: "Access to Checking/ Saving Accounts",
+          key: "smbAccessSavingAccount",
+          fields: [
+            "AccessSavingAccountStatus",
+            "AccessSavingAccountDetails",
+            "AccessSavingAccountActionItems",
+          ],
+        },
+        {
+          fieldName: "No Credit/Debit Cards Any add on Cards",
+          key: "smbAddCards",
+          fields: ["AddCardsStatus", "AddCardsDetails", "AddCardsActionItems"],
+        },
+        {
+          fieldName: "Access for Credit Cards Portal1",
+          key: "smbAccessCreditCard1",
+          fields: [
+            "AccessCreditCardStatus",
+            "AccessCreditCardDetails",
+            "AccessCreditCardActionItems",
+          ],
+        },
+        {
+          fieldName: "Access to Loan/Loc Account",
+          key: "smbAccessLoanAccount",
+          fields: [
+            "AccessLoanAccountStatus",
+            "AccessLoanAccountDetails",
+            "AccessLoanAccountActionItems",
+          ],
+        },
+        {
+          fieldName: "Access for Credit Cards Portal2",
+          key: "smbAccessCreditCard2",
+          fields: [
+            "AccessCreditCardPortalStatus",
+            "AccessCreditCardPortalDetails",
+            "AccessCreditCardPortalActionItems",
+          ],
+        },
+        {
+          fieldName: "Go Live Date",
+          key: "smbLiveDate",
+          fields: ["LiveDateStatus", "LiveDateDetails", "LiveDateActionItems"],
+        },
+        {
+          fieldName: "Method of accounting",
+          key: "smbAccountingMethod",
+          fields: [
+            "AccountingMethodStatus",
+            "AccountingMethodDetails",
+            "AccountingMethodActionItems",
+          ],
+        },
+        {
+          fieldName: "FEIN",
+          key: "smbFEIN",
+          fields: ["FEINStatus", "FEINDetails", "FEINActionItems"],
+        },
+        {
+          fieldName: "Fiscal Year end",
+          key: "smbFiscalYearEnd",
+          fields: [
+            "FiscalYearEndStatus",
+            "FiscalYearEndDetails",
+            "FiscalYearEndActionItems",
+          ],
+        },
+        {
+          fieldName: "Last Closed month in Accounting Software",
+          key: "smbLastClosedMonth",
+          fields: [
+            "LastClosedMonthStatus",
+            "LastClosedMonthDetails",
+            "LastClosedMonthActionItems",
+          ],
+        },
+        {
+          fieldName: "Name and Contact of CPA",
+          key: "smbContactOfCpa",
+          fields: [
+            "ContactOfCpaStatus",
+            "ContactOfCpaDetails",
+            "ContactOfCpaActionItems",
+          ],
+        },
+        {
+          fieldName: "Last year Tax Return",
+          key: "smbTaxReturn",
+          fields: [
+            "TaxReturnStatus",
+            "TaxReturnDetails",
+            "TaxReturnActionItems",
+          ],
+        },
+        {
+          fieldName: "Monthly Financials distribution list",
+          key: "smbDistributionList",
+          fields: [
+            "DistributionListStatus",
+            "DistributionListDetails",
+            "DistributionListActionItems",
+          ],
+        },
+        {
+          fieldName: "Time Zone",
+          key: "smbTimeZone",
+          fields: ["TimeZoneStatus", "TimeZoneDetails", "TimeZoneActionItems"],
+        },
+        {
+          fieldName: "Convenient days",
+          key: "smbConvenient",
+          fields: [
+            "ConvenientStatus",
+            "ConvenientDetails",
+            "ConvenientActionItems",
+          ],
+        },
+        {
+          fieldName: "Time slot Availability",
+          key: "smbTimeSlot",
+          fields: ["TimeSlotStatus", "TimeSlotDetails", "TimeSlotActionItems"],
+        },
+      ];
+
+      const checkList = fields.map((field) => {
+        const smbObject = smbData[field.key];
+        return {
+          fieldName: field.fieldName,
+          status: smbObject[field.fields[0]],
+          details: smbObject[field.fields[1]],
+          actionsOfPabs: smbObject[field.fields[2]],
+        };
+      });
+
+      const callBack = (ResponseStatus: string, Message: string) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            showToast(Message, ToastType.Success);
+            type === 1 && setChecklistFormSubmit(2);
+            type === 1 && setChecklistCount(2);
+            type === 2 && getFormDetials();
+            return;
+        }
+      };
+
+      const saveClientIndo = "/api/clients/save-client-info";
+      callAPIwithHeaders(saveClientIndo, "post", callBack, {
+        userId: Number(userID),
+        businessTypeId: 2,
+        checkList: checkList,
+      });
+
+      // validateSmbPeopleBusiness();
+      // validateSmbSystemAccess();
+      // validateSmbBankingAccess();
+      // validateSmbExistingFinancials();
+      // validateSmbMeeting();
+      // const isValid =
+      //   !validateSmbPeopleBusiness() &&
+      //   !validateSmbSystemAccess() &&
+      //   !validateSmbBankingAccess() &&
+      //   !validateSmbExistingFinancials() &&
+      //   !validateSmbMeeting();
+      // if (isValid) {
+      //   console.log("completed..");
+      // }
     }
   };
 
@@ -483,12 +1159,12 @@ function ChecklistSmb({
                 setSmbAccessSavingAccount={setSmbAccessSavingAccount}
                 smbAddCards={smbAddCards}
                 setSmbAddCards={setSmbAddCards}
-                smbAccessCreditCard={smbAccessCreditCard}
-                setSmbAccessCreditCard={setSmbAccessCreditCard}
+                smbAccessCreditCard1={smbAccessCreditCard1}
+                setSmbAccessCreditCard1={setSmbAccessCreditCard1}
                 smbAccessLoanAccount={smbAccessLoanAccount}
                 setSmbAccessLoanAccount={setSmbAccessLoanAccount}
-                smbAccessCreditCardPortal={smbAccessCreditCardPortal}
-                setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
+                smbAccessCreditCard2={smbAccessCreditCard2}
+                setSmbAccessCreditCard2={setSmbAccessCreditCard2}
               />
             </ChecklistAccordian>
 
@@ -543,31 +1219,25 @@ function ChecklistSmb({
         </div>
 
         <div className="py-5 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-          <Button
-            onClick={() => setChecklistFormSubmit(2)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
-            variant="outlined"
-          >
-            Back
-          </Button>
+          <span></span>
           <div className="flex gap-5">
             <Button
               onClick={() => handleSubmit(3)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
               variant="outlined"
             >
               Cancel
             </Button>
             <Button
               onClick={() => handleSubmit(2)}
-              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[16px]`}
               variant="outlined"
             >
               Save as Draft
             </Button>
             <Button
-              onClick={() => handleSubmit(3)}
-              className={`!bg-[#022946] text-white !rounded-lg`}
+              onClick={() => handleSubmit(1)}
+              className={`!bg-[#022946] text-white !rounded-full`}
               variant="contained"
             >
               <span className="uppercase font-semibold text-[16px] whitespace-nowrap">

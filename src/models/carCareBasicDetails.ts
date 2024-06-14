@@ -17,7 +17,8 @@ export interface LegalStructureFormTypes {
   [key: string]: string | Dayjs | null;
 }
 
-export interface LegalStructureFormErrors extends Partial<LegalStructureFormTypes> {}
+export interface LegalStructureFormErrors
+  extends Partial<LegalStructureFormTypes> {}
 
 export interface AccountDetailsFormTypes {
   businessType: string;
@@ -31,7 +32,8 @@ export interface AccountDetailsFormTypes {
   [key: string]: string | null;
 }
 
-export interface AccountDetailsFormErrors extends Partial<AccountDetailsFormTypes> {}
+export interface AccountDetailsFormErrors
+  extends Partial<AccountDetailsFormTypes> {}
 
 export interface ClientTeamFormTypes {
   shopManager: string;
@@ -61,43 +63,72 @@ export interface PabsAccountingTeamFormTypes {
   [key: string]: string | Date | null;
 }
 
-export interface PabsAccountingTeamFormErrors extends Partial<PabsAccountingTeamFormTypes> {}
+export interface PabsAccountingTeamFormErrors
+  extends Partial<PabsAccountingTeamFormTypes> {}
 export interface AccountDetailsTypes {
-  className?:string,
-  autoCareAccountDetails:AccountDetailsFormTypes,
-  setAutoCareAccountDetails:React.Dispatch<React.SetStateAction<AccountDetailsFormTypes>>,
-  autoCareAccountDetailsErrors:AccountDetailsFormErrors,
-  setAutoCareAccountDetailsErrors:React.Dispatch<React.SetStateAction<AccountDetailsFormErrors>>,
+  className?: string;
+  autoCareAccountDetails: AccountDetailsFormTypes;
+  setAutoCareAccountDetails: React.Dispatch<
+    React.SetStateAction<AccountDetailsFormTypes>
+  >;
+  autoCareAccountDetailsErrors: AccountDetailsFormErrors;
+  setAutoCareAccountDetailsErrors: React.Dispatch<
+    React.SetStateAction<AccountDetailsFormErrors>
+  >;
 }
 
 export interface LegalStructureTypes {
-  className?:string,
-  autoCareLegalStructure:LegalStructureFormTypes,
-  setAutoCareLegalStructure:React.Dispatch<React.SetStateAction<LegalStructureFormTypes>>,
-  autoCareLegalStructureErrors:LegalStructureFormErrors,
-  setAutoCareLegalStructureErrors:React.Dispatch<React.SetStateAction<LegalStructureFormErrors>>,
+  className?: string;
+  autoCareLegalStructure: LegalStructureFormTypes;
+  setAutoCareLegalStructure: React.Dispatch<
+    React.SetStateAction<LegalStructureFormTypes>
+  >;
+  autoCareLegalStructureErrors: LegalStructureFormErrors;
+  setAutoCareLegalStructureErrors: React.Dispatch<
+    React.SetStateAction<LegalStructureFormErrors>
+  >;
 }
 
 export interface ClientTeamTypes {
-  className?:string,
-  autoCareClientTeam:ClientTeamFormTypes,
-  setAutoCareClientTeam:React.Dispatch<React.SetStateAction<ClientTeamFormTypes>>,
-  autoCareClientTeamErrors:ClientTeamFormErrors,
-  setAutoCareClientTeamErrors:React.Dispatch<React.SetStateAction<ClientTeamFormErrors>>,
+  className?: string;
+  autoCareClientTeam: ClientTeamFormTypes;
+  setAutoCareClientTeam: React.Dispatch<
+    React.SetStateAction<ClientTeamFormTypes>
+  >;
+  autoCareClientTeamErrors: ClientTeamFormErrors;
+  setAutoCareClientTeamErrors: React.Dispatch<
+    React.SetStateAction<ClientTeamFormErrors>
+  >;
 }
 
 export interface PabsAccountingTeamTypes {
-  className?:string,
-  autoCarePabsAccountingTeam:PabsAccountingTeamFormTypes,
-  setAutoCarePabsAccountingTeam:React.Dispatch<React.SetStateAction<PabsAccountingTeamFormTypes>>,
+  className?: string;
+  autoCarePabsAccountingTeam: PabsAccountingTeamFormTypes;
+  setAutoCarePabsAccountingTeam: React.Dispatch<
+    React.SetStateAction<PabsAccountingTeamFormTypes>
+  >;
 }
 
 export interface BasicDetailAutoCareType {
-  setBasicDetailCount:(value:number) => void,
-  setBasicDetailsFormSubmit:(value:number) => void,
+  setBasicDetailCount: (value: number) => void;
+  setBasicDetailsFormSubmit: (value: number) => void;
+}
+
+export interface formChecklistDetails {
+  id: number;
+  clientId: number;
+  businessType: string;
+  fieldName: string;
+  status: string;
+  comments: string | null;
+  details: string;
+  actionsOfPabs: string;
+  actionOfClient: string | null;
 }
 
 export interface ChecklistAutoCareType {
-  setChecklistCount:(value:number) => void,
-  setChecklistFormSubmit:(value:number) => void,
+  setChecklistCount: (value: number) => void;
+  setChecklistFormSubmit: (value: number) => void;
+  formDetails: formChecklistDetails[];
+  getFormDetials: () => void;
 }
