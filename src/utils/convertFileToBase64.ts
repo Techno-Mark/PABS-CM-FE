@@ -27,7 +27,6 @@ export const downloadFileFromBase64 = (base64String: string) => {
     }
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray]);
-    console.log(blob);
     return blob;
   } catch (error) {
     console.error("Error:", error);

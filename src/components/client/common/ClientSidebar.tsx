@@ -76,7 +76,8 @@ const ClientSidebar = ({
             value: 0,
           },
         ])
-      : setItems([
+      : pathname === "/client/onboarding/whitelabel"
+      ? setItems([
           {
             id: 1,
             module: "Basic Details",
@@ -91,6 +92,19 @@ const ClientSidebar = ({
             id: 3,
             module: "Account Details",
             value: 15,
+          },
+        ])
+      : pathname === "/client/onboarding/SMB" &&
+        setItems([
+          {
+            id: 1,
+            module: "Checklist",
+            value: perCountBasicDetails,
+          },
+          {
+            id: 2,
+            module: "System Access Status",
+            value: 45,
           },
         ]);
   }, [pathname]);

@@ -1,13 +1,10 @@
 import React from "react";
-import FormBox from "@/components/client/common/FormBox";
 import { Grid, TextField } from "@mui/material";
 import {
-  ConvenientDayFormTypes,
   ConvenientDayTypes,
-  TimeSlotFormTypes,
   TimeSlotTypes,
-  TimeZoneFormTypes,
   TimeZoneTypes,
+  WhitelabelFormTypes,
 } from "@/models/whitelabel/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 
@@ -49,7 +46,7 @@ const TimeZone = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelTimeZone((prev: TimeZoneFormTypes) => ({
+    setWhitelabelTimeZone((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -65,12 +62,12 @@ const TimeZone = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="timeZoneComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelTimeZone?.timeZoneComments}
+                value={whitelabelTimeZone?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -87,12 +84,12 @@ const TimeZone = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="timeZoneStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelTimeZone?.timeZoneStatus}
+                value={whitelabelTimeZone?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -111,12 +108,12 @@ const TimeZone = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="timeZoneActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTimeZone?.timeZoneActionItems}
+                value={whitelabelTimeZone?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -135,12 +132,12 @@ const TimeZone = ({
                 Action Items - Client
               </label>
               <TextField
-                name="timeZoneActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTimeZone?.timeZoneActionName}
+                value={whitelabelTimeZone?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -168,7 +165,7 @@ const ConvenientDay = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelConvenientDay((prev: ConvenientDayFormTypes) => ({
+    setWhitelabelConvenientDay((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -184,12 +181,12 @@ const ConvenientDay = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="convenientDayComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelConvenientDay?.convenientDayComments}
+                value={whitelabelConvenientDay?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -206,12 +203,12 @@ const ConvenientDay = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="convenientDayStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelConvenientDay?.convenientDayStatus}
+                value={whitelabelConvenientDay?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -230,12 +227,12 @@ const ConvenientDay = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="convenientDayActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelConvenientDay?.convenientDayActionItems}
+                value={whitelabelConvenientDay?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -254,12 +251,12 @@ const ConvenientDay = ({
                 Action Items - Client
               </label>
               <TextField
-                name="convenientDayActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelConvenientDay?.convenientDayActionName}
+                value={whitelabelConvenientDay?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -287,7 +284,7 @@ const TimeSlot = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelTimeSlot((prev: TimeSlotFormTypes) => ({
+    setWhitelabelTimeSlot((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -303,12 +300,12 @@ const TimeSlot = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="timeSlotComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelTimeSlot?.timeSlotComments}
+                value={whitelabelTimeSlot?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -325,12 +322,12 @@ const TimeSlot = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="timeSlotStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelTimeSlot?.timeSlotStatus}
+                value={whitelabelTimeSlot?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -349,12 +346,12 @@ const TimeSlot = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="timeSlotActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTimeSlot?.timeSlotActionItems}
+                value={whitelabelTimeSlot?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -373,12 +370,12 @@ const TimeSlot = ({
                 Action Items - Client
               </label>
               <TextField
-                name="timeSlotActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTimeSlot?.timeSlotActionName}
+                value={whitelabelTimeSlot?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

@@ -1,14 +1,10 @@
 import {
-  AccountingFormTypes,
   AccountingTypes,
-  FTEFormTypes,
   FTETypes,
-  IndustryFormTypes,
   IndustryTypes,
-  TaxFormTypes,
   TaxTypes,
-  WeeklyFormTypes,
   WeeklyTypes,
+  WhitelabelFormTypes,
 } from "@/models/whitelabel/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -55,7 +51,7 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE }: FTETypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelFTE((prev: FTEFormTypes) => ({
+    setWhitelabelFTE((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -71,12 +67,12 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE }: FTETypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="fteComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelFTE?.fteComments}
+                value={whitelabelFTE?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -93,12 +89,12 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE }: FTETypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="fteStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelFTE?.fteStatus}
+                value={whitelabelFTE?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -117,12 +113,12 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE }: FTETypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="fteActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelFTE?.fteActionItems}
+                value={whitelabelFTE?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -141,12 +137,12 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE }: FTETypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="fteActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelFTE?.fteActionName}
+                value={whitelabelFTE?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -174,7 +170,7 @@ const Accounting = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelAccounting((prev: AccountingFormTypes) => ({
+    setWhitelabelAccounting((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -190,12 +186,12 @@ const Accounting = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="accountingComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelAccounting?.accountingComments}
+                value={whitelabelAccounting?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -212,12 +208,12 @@ const Accounting = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="accountingStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelAccounting?.accountingStatus}
+                value={whitelabelAccounting?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -236,12 +232,12 @@ const Accounting = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="accountingActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelAccounting?.accountingActionItems}
+                value={whitelabelAccounting?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -260,12 +256,12 @@ const Accounting = ({
                 Action Items - Client
               </label>
               <TextField
-                name="accountingActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelAccounting?.accountingActionName}
+                value={whitelabelAccounting?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -290,7 +286,7 @@ const Tax = ({ whitelabelTax, setWhitelabelTax }: TaxTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelTax((prev: TaxFormTypes) => ({
+    setWhitelabelTax((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -306,12 +302,12 @@ const Tax = ({ whitelabelTax, setWhitelabelTax }: TaxTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="taxComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelTax?.taxComments}
+                value={whitelabelTax?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -328,12 +324,12 @@ const Tax = ({ whitelabelTax, setWhitelabelTax }: TaxTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="taxStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelTax?.taxStatus}
+                value={whitelabelTax?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -352,12 +348,12 @@ const Tax = ({ whitelabelTax, setWhitelabelTax }: TaxTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="taxActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTax?.taxActionItems}
+                value={whitelabelTax?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -376,12 +372,12 @@ const Tax = ({ whitelabelTax, setWhitelabelTax }: TaxTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="taxActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTax?.taxActionName}
+                value={whitelabelTax?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -406,7 +402,7 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelWeekly((prev: WeeklyFormTypes) => ({
+    setWhitelabelWeekly((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -422,12 +418,12 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="weeklyComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelWeekly?.weeklyComments}
+                value={whitelabelWeekly?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -444,12 +440,12 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="weeklyStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelWeekly?.weeklyStatus}
+                value={whitelabelWeekly?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -468,12 +464,12 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="weeklyActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelWeekly?.weeklyActionItems}
+                value={whitelabelWeekly?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -492,12 +488,12 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="weeklyActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelWeekly?.weeklyActionName}
+                value={whitelabelWeekly?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -525,7 +521,7 @@ const Industry = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelIndustry((prev: IndustryFormTypes) => ({
+    setWhitelabelIndustry((prev: WhitelabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -541,12 +537,12 @@ const Industry = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="industryComments"
+                name="Comments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelIndustry?.industryComments}
+                value={whitelabelIndustry?.Comments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -563,12 +559,12 @@ const Industry = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="industryStatus"
+                name="Status"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelIndustry?.industryStatus}
+                value={whitelabelIndustry?.Status}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -587,12 +583,12 @@ const Industry = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="industryActionItems"
+                name="ActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelIndustry?.industryActionItems}
+                value={whitelabelIndustry?.ActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -611,12 +607,12 @@ const Industry = ({
                 Action Items - Client
               </label>
               <TextField
-                name="industryActionName"
+                name="ActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelIndustry?.industryActionName}
+                value={whitelabelIndustry?.ActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

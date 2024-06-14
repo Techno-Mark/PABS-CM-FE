@@ -29,6 +29,7 @@ import { validateNumber } from "@/utils/validate";
 const BasicDetailsWhitelabel = ({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
+  getFormDetials,
 }: BasicDetailWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const initialWhitelabelAccountDetailsErrors: WhitelabelAccountDetailsFormErrors =
@@ -78,7 +79,6 @@ const BasicDetailsWhitelabel = ({
   ] = useState<WhitelabelPABSAccountingTeamErrors>(
     initialWhitelabelPABSAccountingTeamErrors
   );
-  console.log(whitelabelCpaClientTeam);
 
   const validateAccountDetails = () => {
     const fieldDisplayNames: { [key: string]: string } = {
@@ -174,7 +174,7 @@ const BasicDetailsWhitelabel = ({
 
   const handleSubmit = (type: number) => {
     if (type === 1) {
-      // setBasicDetailsFormSubmit(2); // temporary basic change it afterwards
+      setBasicDetailsFormSubmit(2); // temporary basic change it afterwards
       validateAccountDetails();
       validateOtherInformation();
       validateCpaClientTeam();

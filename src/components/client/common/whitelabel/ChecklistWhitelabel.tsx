@@ -1,173 +1,268 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { ChecklistWhitelabelType } from "@/models/whitelabel/whitelabelBasicDetails";
 import { Button } from "@mui/material";
 import ChecklistAccordian from "../ChecklistAccordian";
 import {
   AccordianExpand,
-  initialWhitelabelAccounting,
-  initialWhitelabelAccountingSoftware,
-  initialWhitelabelBDM,
-  initialWhitelabelCatchup,
-  initialWhitelabelCleanup,
-  initialWhitelabelClient,
-  initialWhitelabelCloudDocument,
-  initialWhitelabelCombination,
-  initialWhitelabelConvenientDay,
-  initialWhitelabelCurrentChallenges,
-  initialWhitelabelExpectation,
-  initialWhitelabelFTE,
-  initialWhitelabelGroupEmailEstablished,
-  initialWhitelabelITHelp,
-  initialWhitelabelITStructure,
-  initialWhitelabelIndustry,
-  initialWhitelabelKickOff,
-  initialWhitelabelMessenger,
-  initialWhitelabelMonthly,
-  initialWhitelabelOtherInfo,
-  initialWhitelabelPABS,
-  initialWhitelabelPreKickOff,
-  initialWhitelabelRemoteSetup,
-  initialWhitelabelSystemAccess,
-  initialWhitelabelTax,
-  initialWhitelabelTimeSlot,
-  initialWhitelabelTimeZone,
-  initialWhitelabelWeekly,
+  initialWhitelabel,
 } from "@/static/whitelabel/whitelabelChecklist";
 import WhitelabelCommunicationForm from "../../forms/whitelabel/WhitelabelCommunicationForm";
-import {
-  AccountingFormTypes,
-  AccountingSoftwareFormTypes,
-  BdmFormTypes,
-  CatchupFormTypes,
-  CleanupFormTypes,
-  ClientFormTypes,
-  CloudDocumentFormTypes,
-  CombinationFormTypes,
-  ConvenientDayFormTypes,
-  CurrentChallengesFormTypes,
-  ExpectationFormTypes,
-  FTEFormTypes,
-  GroupEmailEstablishedFormTypes,
-  ITHelpFormTypes,
-  ITStructureFormTypes,
-  IndustryFormTypes,
-  KickOffFormTypes,
-  MessengerFormTypes,
-  MonthlyFormTypes,
-  OtherInfoFormTypes,
-  PabsFormTypes,
-  PreKickOffFormTypes,
-  RemoteSetupFormTypes,
-  SystemAccessFormTypes,
-  TaxFormTypes,
-  TimeSlotFormTypes,
-  TimeZoneFormTypes,
-  WeeklyFormTypes,
-} from "@/models/whitelabel/whitelabelChecklist";
+import { WhitelabelFormTypes } from "@/models/whitelabel/whitelabelChecklist";
 import WhitelabelMeetingAvailabilityForm from "../../forms/whitelabel/WhitelabelMeetingAvailabilityForm";
 import WhitelabelEscalationmatrixForm from "../../forms/whitelabel/WhitelabelEscalationmatrixForm";
 import WhitelabelChallengesForm from "../../forms/whitelabel/WhitelabelChallengesForm";
 import WhitelabelWorkAssignmentForm from "../../forms/whitelabel/WhitelabelWorkAssignmentForm";
 import WhitelabelServiceTypeForm from "../../forms/whitelabel/WhitelabelServiceTypeForm";
 import WhitelabelSystemSoftwareSetupForm from "../../forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 
 const ChecklistWhitelabel = ({
   setChecklistCount,
   setChecklistFormSubmit,
+  formDetails,
+  getFormDetials,
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
+  const userID = Cookies.get("userId");
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
   // 1
   const [whitelabelGroupEmailEstablished, setWhitelabelGroupEmailEstablished] =
-    useState<GroupEmailEstablishedFormTypes>(
-      initialWhitelabelGroupEmailEstablished
-    );
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelPreKickOff, setWhitelabelPreKickOff] =
-    useState<PreKickOffFormTypes>(initialWhitelabelPreKickOff);
-  const [whitelabelKickOff, setWhitelabelKickOff] = useState<KickOffFormTypes>(
-    initialWhitelabelKickOff
-  );
+    useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelKickOff, setWhitelabelKickOff] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   // 2
   const [whitelabelITStructure, setWhitelabelITStructure] =
-    useState<ITStructureFormTypes>(initialWhitelabelITStructure);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelRemoteSetup, setWhitelabelRemoteSetup] =
-    useState<RemoteSetupFormTypes>(initialWhitelabelRemoteSetup);
-  const [whitelabelITHelp, setWhitelabelITHelp] = useState<ITHelpFormTypes>(
-    initialWhitelabelITHelp
-  );
+    useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelITHelp, setWhitelabelITHelp] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelAccountingSoftware, setWhitelabelAccountingSoftware] =
-    useState<AccountingSoftwareFormTypes>(initialWhitelabelAccountingSoftware);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelCloudDocument, setWhitelabelCloudDocument] =
-    useState<CloudDocumentFormTypes>(initialWhitelabelCloudDocument);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelMessenger, setWhitelabelMessenger] =
-    useState<MessengerFormTypes>(initialWhitelabelMessenger);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelSystemAccess, setWhitelabelSystemAccess] =
-    useState<SystemAccessFormTypes>(initialWhitelabelSystemAccess);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelOtherInfo, setWhitelabelOtherInfo] =
-    useState<OtherInfoFormTypes>(initialWhitelabelOtherInfo);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   // 3
   const [whitelabelFTE, setWhitelabelFTE] =
-    useState<FTEFormTypes>(initialWhitelabelFTE);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelAccounting, setWhitelabelAccounting] =
-    useState<AccountingFormTypes>(initialWhitelabelAccounting);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelTax, setWhitelabelTax] =
-    useState<TaxFormTypes>(initialWhitelabelTax);
-  const [whitelabelWeekly, setWhitelabelWeekly] = useState<WeeklyFormTypes>(
-    initialWhitelabelWeekly
-  );
+    useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelWeekly, setWhitelabelWeekly] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelIndustry, setWhitelabelIndustry] =
-    useState<IndustryFormTypes>(initialWhitelabelIndustry);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   // 4
   const [whitelabelCurrentChallenges, setWhitelabelCurrentChallenges] =
-    useState<CurrentChallengesFormTypes>(initialWhitelabelCurrentChallenges);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelExpectation, setWhitelabelExpectation] =
-    useState<ExpectationFormTypes>(initialWhitelabelExpectation);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   // 5
-  const [whitelabelMonthly, setWhitelabelMonthly] = useState<MonthlyFormTypes>(
-    initialWhitelabelMonthly
-  );
-  const [whitelabelCleanup, setWhitelabelCleanup] = useState<CleanupFormTypes>(
-    initialWhitelabelCleanup
-  );
-  const [whitelabelCatchup, setWhitelabelCatchup] = useState<CatchupFormTypes>(
-    initialWhitelabelCatchup
-  );
+  const [whitelabelMonthly, setWhitelabelMonthly] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelCleanup, setWhitelabelCleanup] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelCatchup, setWhitelabelCatchup] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelCombination, setWhitelabelCombination] =
-    useState<CombinationFormTypes>(initialWhitelabelCombination);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   // 6
-  const [whitelabelClient, setWhitelabelClient] = useState<ClientFormTypes>(
-    initialWhitelabelClient
-  );
-  const [whitelabelPABS, setWhitelabelPABS] = useState<PabsFormTypes>(
-    initialWhitelabelPABS
-  );
+  const [whitelabelClient, setWhitelabelClient] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelPABS, setWhitelabelPABS] =
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelBDM, setWhitelabelBDM] =
-    useState<BdmFormTypes>(initialWhitelabelBDM);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   // 7
   const [whitelabelTimeZone, setWhitelabelTimeZone] =
-    useState<TimeZoneFormTypes>(initialWhitelabelTimeZone);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelConvenientDay, setWhitelabelConvenientDay] =
-    useState<ConvenientDayFormTypes>(initialWhitelabelConvenientDay);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
   const [whitelabelTimeSlot, setWhitelabelTimeSlot] =
-    useState<TimeSlotFormTypes>(initialWhitelabelTimeSlot);
+    useState<WhitelabelFormTypes>(initialWhitelabel);
 
   const handleAccordianChange =
     (arg1: number) => (e: any, isExpanded: boolean) => {
       setExpandedAccordian(isExpanded ? arg1 : -1);
     };
 
+  useEffect(() => {
+    const fieldSetters: any = {
+      "Group Email Established": setWhitelabelGroupEmailEstablished,
+      "Pre Kick Off": setWhitelabelPreKickOff,
+      "Kick Off": setWhitelabelKickOff,
+      "IT Structure Knowledge": setWhitelabelITStructure,
+      "If Remote Set up - Access Computer method (dedicated)":
+        setWhitelabelRemoteSetup,
+      "Need your IT teams help?": setWhitelabelITHelp,
+      "Accounting Software": setWhitelabelAccountingSoftware,
+      "Cloud Document Management Software": setWhitelabelCloudDocument,
+      "Team/Clickup/Slack/ Other Messenger tool set up": setWhitelabelMessenger,
+      "Any Other System access": setWhitelabelSystemAccess,
+      "Other information": setWhitelabelOtherInfo,
+      FTE: setWhitelabelFTE,
+      Accounting: setWhitelabelAccounting,
+      Tax: setWhitelabelTax,
+      "Biweekly Hours Reporting update": setWhitelabelWeekly,
+      "Industry Type": setWhitelabelIndustry,
+      "Current Challenges": setWhitelabelCurrentChallenges,
+      Expectation: setWhitelabelExpectation,
+      "Monthly ": setWhitelabelMonthly,
+      "Clean up": setWhitelabelCleanup,
+      "Catch up": setWhitelabelCatchup,
+      "Combination of Monthly/ Clean up/ Catch up": setWhitelabelCombination,
+      Client: setWhitelabelClient,
+      PABS: setWhitelabelPABS,
+      BDM: setWhitelabelBDM,
+      "Time Zone": setWhitelabelTimeZone,
+      "Convenient day": setWhitelabelConvenientDay,
+      "Time slot availability": setWhitelabelTimeSlot,
+    };
+
+    if (formDetails) {
+      formDetails.forEach(
+        (f: {
+          id: number;
+          fieldName: string;
+          status: string;
+          comments: string;
+          details: string | null;
+          actionsOfPabs: string;
+          actionsOfClient: string;
+        }) => {
+          const setFieldState = fieldSetters[f.fieldName];
+          if (setFieldState) {
+            setFieldState({
+              Status: f.status,
+              Comments: f.comments,
+              ActionPABS: f.actionsOfPabs,
+              ActionClient: f.actionsOfClient,
+            });
+          }
+        }
+      );
+    }
+  }, [formDetails]);
+
   const handleSubmit = (type: number) => {
-    if (type === 1) {
-      setChecklistFormSubmit(3);
+    if (type === 1 || type === 2) {
+      const fields = [
+        {
+          fieldName: "Group Email Established",
+          data: whitelabelGroupEmailEstablished,
+        },
+        { fieldName: "Pre Kick Off", data: whitelabelPreKickOff },
+        { fieldName: "Kick Off", data: whitelabelKickOff },
+        {
+          fieldName: "IT Structure Knowledge",
+          data: whitelabelITStructure,
+        },
+        {
+          fieldName: "If Remote Set up - Access Computer method (dedicated)",
+          data: whitelabelRemoteSetup,
+        },
+        { fieldName: "Need your IT teams help?", data: whitelabelITHelp },
+        {
+          fieldName: "Accounting Software",
+          data: whitelabelAccountingSoftware,
+        },
+        {
+          fieldName: "Cloud Document Management Software",
+          data: whitelabelCloudDocument,
+        },
+        {
+          fieldName: "Team/Clickup/Slack/ Other Messenger tool set up",
+          data: whitelabelMessenger,
+        },
+        {
+          fieldName: "Any Other System access",
+          data: whitelabelSystemAccess,
+        },
+        { fieldName: "Other information", data: whitelabelOtherInfo },
+        {
+          fieldName: "FTE",
+          data: whitelabelFTE,
+        },
+        {
+          fieldName: "Accounting",
+          data: whitelabelAccounting,
+        },
+        {
+          fieldName: "Tax",
+          data: whitelabelTax,
+        },
+        {
+          fieldName: "Biweekly Hours Reporting update",
+          data: whitelabelWeekly,
+        },
+        { fieldName: "Industry Type", data: whitelabelIndustry },
+        {
+          fieldName: "Current Challenges",
+          data: whitelabelCurrentChallenges,
+        },
+        { fieldName: "Expectation", data: whitelabelExpectation },
+        { fieldName: "Monthly", data: whitelabelMonthly },
+        { fieldName: "Clean up", data: whitelabelCleanup },
+        { fieldName: "Catch up", data: whitelabelCatchup },
+        {
+          fieldName: "Combination of Monthly/ Clean up/ Catch up",
+          data: whitelabelCombination,
+        },
+        { fieldName: "Client", data: whitelabelClient },
+        { fieldName: "PABS", data: whitelabelPABS },
+        { fieldName: "BDM", data: whitelabelBDM },
+        { fieldName: "Time Zone", data: whitelabelTimeZone },
+        { fieldName: "Convenient day", data: whitelabelConvenientDay },
+        { fieldName: "Time slot availability", data: whitelabelTimeSlot },
+      ];
+
+      const checkList = fields.map((field) => ({
+        fieldName: field.fieldName,
+        status: field.data.Status,
+        comments: field.data.Comments,
+        actionsOfPabs: field.data.ActionPABS,
+        actionsOfClient: field.data.ActionClient,
+      }));
+
+      const callBack = (ResponseStatus: string, Message: string) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            showToast(Message, ToastType.Success);
+            type === 1 && setChecklistFormSubmit(3);
+            type === 2 && getFormDetials();
+            return;
+        }
+      };
+
+      const saveClientIndo = "/api/clients/save-client-info";
+      callAPIwithHeaders(saveClientIndo, "post", callBack, {
+        userId: Number(userID),
+        businessTypeId: 3,
+        checkList: checkList,
+      });
+
       //   validateAutoCarePayableCashPayAccess();
       //   validateAutoCareCompliances();
       //   validateAutoCareFrequency();

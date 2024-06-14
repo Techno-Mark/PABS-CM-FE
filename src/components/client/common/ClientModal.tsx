@@ -135,6 +135,10 @@ function ClientModal({
                   setChecklistCount={(value: number) =>
                     setPerCountChecklist(value)
                   }
+                  formDetails={[]}
+                  getFormDetials={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
                 />
               ) : (
                 <LoginInfoAutoCare
