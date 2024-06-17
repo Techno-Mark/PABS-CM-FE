@@ -281,7 +281,6 @@ function LoginInfoAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          setLoginInfoFormSubmit(3);
           showToast(Message, ToastType.Success);
           return;
       }

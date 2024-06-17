@@ -36,17 +36,13 @@ function Page() {
         />
       ) : formSubmit === 32 ? (
         <ChecklistAutoCare
-          clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setPerCountChecklist(value)}
           formDetails={[]}
-          getFormDetials={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          getFormDetials={() => {}}
         />
       ) : formSubmit === 33 && (
         <LoginInfoAutoCare
-          clientInfo={{}}
           setLoginInfoFormSubmit={(value: number) => setFormSubmit(value)}
         />
       )}
