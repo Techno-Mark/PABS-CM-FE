@@ -26,9 +26,9 @@ import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
 import SystemAccessForSmb from "@/components/client/common/SystemAccessForSmb";
 import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import { showToast } from "@/components/ToastContainer";
-// Cookie import
-import Cookies from "js-cookie";
+
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import { autoCarFormListUrl } from "@/static/apiUrl";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -48,11 +48,10 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
-  const userID = Cookies.get("userId");
+  const formSubmitId = clientInfo.DepartmentId === 3 ? 31 : clientInfo.DepartmentId === 2 ? 21 : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
-  const [formSubmitAutoCare, setFormSubmitAutoCare] = useState<number>(1);
-  const [formSubmitSMB, setFormSubmitSMB] = useState<number>(1);
+  const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
   const [formDetails, setFormDetails] = useState<any>(null);
 
   const getFormDetials = async () => {
@@ -71,9 +70,8 @@ function ClientModal({
       }
     };
 
-    const saveClientIndo = "/api/clients/getbyid-client-info";
-    callAPIwithHeaders(saveClientIndo, "post", callBack, {
-      userId: Number(userID),
+    callAPIwithHeaders(autoCarFormListUrl, "post", callBack, {
+      userId: Number(clientInfo?.UserId!),
     });
   };
 
@@ -144,7 +142,7 @@ function ClientModal({
               clientInfo={clientInfo}
               perCountChecklist={perCountChecklist}
               perCountBasicDetails={perCountBasicDetails}
-              sidebarModule={formSubmitAutoCare}
+              sidebarModule={formSubmit}
             />
             <Box
               component="main"
@@ -157,21 +155,23 @@ function ClientModal({
             >
               {clientInfo.DepartmentId === 3 ? (
                 <>
-                  {formSubmitAutoCare === 1 ? (
+                  {formSubmit === 31 ? (
                     <BasicDetailsAutoCare
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
                       setBasicDetailsFormSubmit={(value: number) =>
-                        setFormSubmitAutoCare(value)
+                        setFormSubmit(value)
                       }
                       setBasicDetailCount={(value: number) =>
                         setPerCountBasicDetails(value)
                       }
                     />
-                  ) : formSubmitAutoCare === 2 ? (
+                  ) : formSubmit === 32 ? (
                     <ChecklistAutoCare
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
                       setChecklistFormSubmit={(value: number) =>
-                        setFormSubmitAutoCare(value)
+                        setFormSubmit(value)
                       }
                       setChecklistCount={(value: number) =>
                         setPerCountChecklist(value)
@@ -181,35 +181,38 @@ function ClientModal({
                         throw new Error("Function not implemented.");
                       }}
                     />
-                  ) : (
+                  ) : formSubmit === 33 && (
                     <LoginInfoAutoCare
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
                       setLoginInfoFormSubmit={(value: number) =>
-                        setFormSubmitAutoCare(value)
+                        setFormSubmit(value)
                       }
-                      setLoginInfoCount={(value: number) => {}}
                     />
                   )}
                 </>
               ) : clientInfo.DepartmentId === 2 ? (
                 <>
-                  {formSubmitSMB === 1 ? (
+                  {formSubmit === 21 ? (
                     <ChecklistSmb
-                      clientInfo={{}}
+                      clientInfo={clientInfo}
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       setChecklistFormSubmit={(value: number) =>
-                        setFormSubmitSMB(value)
+                        setFormSubmit(value)
                       }
                       setChecklistCount={(value: number) => {}}
                       formDetails={
                         formDetails !== null ? formDetails?.checkList : false
                       }
+                      responseData={formDetails !== null ? formDetails : false}
                       getFormDetials={getFormDetials}
                     />
-                  ) : formSubmitSMB === 2 ? (
+                  ) : formSubmit === 22 && (
                     <SystemAccessForSmb
-                      clientInfo={{}}
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
+                      clientInfo={clientInfo}
                       setChecklistFormSubmit={(value: number) =>
-                        setFormSubmitSMB(value)
+                        setFormSubmit(value)
                       }
                       setChecklistCount={(value: number) => {}}
                       formDetails={
@@ -217,10 +220,9 @@ function ClientModal({
                           ? formDetails?.systemAccessDetails
                           : false
                       }
+                      responseData={formDetails !== null ? formDetails : false}
                       getFormDetials={getFormDetials}
                     />
-                  ) : (
-                    ""
                   )}
                 </>
               ) : (

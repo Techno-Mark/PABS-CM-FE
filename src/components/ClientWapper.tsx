@@ -11,11 +11,12 @@ import { drawerWidth } from "@/static/commonVariables";
 import Cookies from "js-cookie";
 
 type WrapperPropsType = {
-  formSubmit: number;
+  formSubmit?: number;
   isScrollable?: boolean;
   children: ReactNode;
   perCountBasicDetails: number;
   perCountChecklist: number;
+  
 };
 
 const ClientWrapper = ({
@@ -47,7 +48,6 @@ const ClientWrapper = ({
           <CssBaseline />
           <ClientHeader />
           <ClientSidebar
-            clientInfo={{}}
             perCountBasicDetails={perCountBasicDetails}
             perCountChecklist={perCountChecklist}
             sidebarModule={formSubmit}

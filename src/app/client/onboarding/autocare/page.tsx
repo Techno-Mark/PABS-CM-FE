@@ -13,7 +13,7 @@ function Page() {
   const router = useRouter();
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(1);
+  const [formSubmit, setFormSubmit] = useState<number>(31);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -27,15 +27,14 @@ function Page() {
       perCountChecklist={perCountChecklist}
       formSubmit={formSubmit}
     >
-      {formSubmit === 1 ? (
+      {formSubmit === 31 ? (
         <BasicDetailsAutoCare
-          clientInfo={{}}
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setBasicDetailCount={(value: number) =>
             setPerCountBasicDetails(value)
           }
         />
-      ) : formSubmit === 2 ? (
+      ) : formSubmit === 32 ? (
         <ChecklistAutoCare
           clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
@@ -45,11 +44,10 @@ function Page() {
             throw new Error("Function not implemented.");
           }}
         />
-      ) : (
+      ) : formSubmit === 33 && (
         <LoginInfoAutoCare
           clientInfo={{}}
           setLoginInfoFormSubmit={(value: number) => setFormSubmit(value)}
-          setLoginInfoCount={(value: number) => {}}
         />
       )}
     </ClientWrapper>

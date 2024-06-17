@@ -14,43 +14,17 @@ import {
   LegalStructureFormTypes,
   LegalStructureTypes,
 } from "@/models/carCareBasicDetails";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { autoCarFormUrl } from "@/static/apiUrl";
 
 function AutoCareLegalStructure({
   className,
   legalStructureCheckStatus,
-  setLegalStructureCheckStatus,
   autoCareLegalStructure,
   setAutoCareLegalStructure,
   autoCareLegalStructureErrors,
   setAutoCareLegalStructureErrors,
+  handleLegalStructureSwitch
 }: LegalStructureTypes) {
   const classes = useStyles();
-
-  const handleSwitch = (e: any) => {
-    const legalStructureIsDisplay = e.target.checked;
-    const callback = (ResponseStatus: string, Message: string) => {
-      switch (ResponseStatus) {
-        case "failure":
-          showToast(Message, ToastType.Error);
-          return;
-        case "success":
-          showToast(Message, ToastType.Success);
-          setLegalStructureCheckStatus(legalStructureIsDisplay);
-          return;
-      }
-    };
-    const checkStatusFormData = {
-      userId: 89,
-      businessTypeId: 3,
-      legalStructureIsDisplay: legalStructureIsDisplay,
-    };
-
-    callAPIwithHeaders(autoCarFormUrl, "post", callback, checkStatusFormData);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -101,7 +75,7 @@ function AutoCareLegalStructure({
       <FormBox
         title="Legal Structure"
         checkStatus={legalStructureCheckStatus}
-        handleChange={(e: any) => handleSwitch(e)}
+        handleChange={(e: any) => handleLegalStructureSwitch(e)}
       >
         <Grid container spacing={2}>
           <Grid item xs={4}>

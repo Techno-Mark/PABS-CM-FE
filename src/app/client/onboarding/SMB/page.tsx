@@ -9,12 +9,12 @@ import { useRouter } from "next/navigation";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
+import { autoCarFormListUrl } from "@/static/apiUrl";
 
 function Page() {
   const router = useRouter();
-  const userID = Cookies.get("userId");
-  const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(1);
+  const userId = Cookies.get("userId");
+  const [formSubmit, setFormSubmit] = useState<number>(21);
   const [formDetails, setFormDetails] = useState<any>(null);
 
   useEffect(() => {
@@ -40,41 +40,39 @@ function Page() {
       }
     };
 
-    const saveClientIndo = "/api/clients/getbyid-client-info";
-    callAPIwithHeaders(saveClientIndo, "post", callBack, {
-      userId: Number(userID),
+    callAPIwithHeaders(autoCarFormListUrl, "post", callBack, {
+      userId: Number(userId),
     });
   };
 
   useEffect(() => {
     getFormDetials();
   }, []);
+
   return (
     <ClientWrapper
       perCountChecklist={50}
       perCountBasicDetails={12}
       formSubmit={formSubmit}
     >
-      {formSubmit === 1 ? (
+      {formSubmit === 21 ? (
         <ChecklistSmb
-          clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setBasicDetailCount(value)}
+          setChecklistCount={(value: number) => {}}
           formDetails={formDetails !== null ? formDetails?.checkList : false}
+          responseData={formDetails !== null ? formDetails : false}
           getFormDetials={getFormDetials}
         />
-      ) : formSubmit === 2 ? (
+      ) : formSubmit === 22 && (
         <SystemAccessForSmb
-          clientInfo={{}}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setBasicDetailCount(value)}
+          setChecklistCount={(value: number) => {}}
           formDetails={
             formDetails !== null ? formDetails?.systemAccessDetails : false
           }
+          responseData={formDetails !== null ? formDetails : false}
           getFormDetials={getFormDetials}
         />
-      ) : (
-        ""
       )}
     </ClientWrapper>
   );

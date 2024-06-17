@@ -17,13 +17,19 @@ import {
   SystemAccessDetailsFormTypes,
   SystemAccessDetailsTypes,
 } from "@/models/smbSystemAccessDetails";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import { autoCarFormUrl } from "@/static/apiUrl";
 
 function SmbAccessOfSystem({
   className,
+  smbSystemAccessDetailsCheckStatus,
   smbSystemAccessDetails,
   setSmbSystemAccessDetails,
   smbSystemAccessDetailsErrors,
   setSmbSystemAccessDetailsErrors,
+  handleSwitch
 }: SystemAccessDetailsTypes) {
   const classes = useStyles();
 
@@ -68,7 +74,11 @@ function SmbAccessOfSystem({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="System Of Access" checkStatus={true}>
+      <FormBox
+        title="System Of Access"
+        checkStatus={smbSystemAccessDetailsCheckStatus}
+        handleChange={(e: any) => handleSwitch(e)}
+      >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={4}>

@@ -46,6 +46,7 @@ function BasicDetailsAutoCare({
   clientInfo,
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
+  setIsOpenModal,
 }: BasicDetailAutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -89,8 +90,6 @@ function BasicDetailsAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          const filledFieldsCount = basicDetailStatus();
-          setBasicDetailCount(filledFieldsCount);
           setAccountDetailsCheckStatus(ResponseData.accountDetailsIsDisplay);
           setLegalStructureCheckStatus(ResponseData.legalStructureIsDisplay);
           setClientTeamCheckStatus(ResponseData.cpaClientTeamIsDisplay);
@@ -151,16 +150,14 @@ function BasicDetailsAutoCare({
       }
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId)
-          : parseInt(userId!),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId)
+        : parseInt(userId!),
     });
   };
 
   useEffect(() => {
     getAutoCareBasicDetailsList();
-    basicDetailStatus()
   }, []);
 
   const validateCarCareAccountDetails = () => {
@@ -254,15 +251,8 @@ function BasicDetailsAutoCare({
       }
     });
     let calc = (count / 15) * 100;
-    console.log(calc)
+    console.log(calc);
     return Math.floor(calc);
-  };
-
-  const handleBasicDetailInitialValues = () => {
-    setAutoCareAccountDetails(initialAutoCareAccountName);
-    setAutoCareLegalStructure(initialAutoCareLegalStructure);
-    setAutoCareClientTeam(initialAutoCareClientTeam);
-    setAutoCarePabsAccountingTeam(initialAutoCarePabsAccountingTeam);
   };
 
   const handleBasicDetailRemoveErrors = () => {
@@ -278,20 +268,18 @@ function BasicDetailsAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          type === 1 && setBasicDetailsFormSubmit(32);
           showToast(Message, ToastType.Success);
-          getAutoCareBasicDetailsList();
           return;
       }
     };
     const basicDetailsFormData = {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId!)
-          : parseInt(userId!),
-      businessTypeId:
-        !!clientInfo?.DepartmentId
-          ? parseInt(clientInfo?.DepartmentId!)
-          : parseInt(businessTypeId!),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId)
+        : parseInt(userId!),
+      businessTypeId: !!clientInfo?.DepartmentId
+        ? parseInt(clientInfo?.DepartmentId)
+        : parseInt(businessTypeId!),
       businessTypeName: autoCareAccountDetails.businessType,
       accountName: autoCareAccountDetails.accountName,
       service: autoCareAccountDetails.service,
@@ -347,7 +335,7 @@ function BasicDetailsAutoCare({
 
       const filledFieldsCount = basicDetailStatus();
       if (isValid) {
-        setBasicDetailsFormSubmit(2);
+        
         setBasicDetailCount(filledFieldsCount);
         callAPIwithHeaders(
           autoCarFormUrl,
@@ -369,10 +357,54 @@ function BasicDetailsAutoCare({
         callback,
         basicDetailsFormData
       );
-    } else {
-      handleBasicDetailInitialValues();
-      handleBasicDetailRemoveErrors();
     }
+  };
+
+  const handleSwitchChange = async (e: any, phaseType: number) => {
+    const check = e.target.checked;
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          break;
+        case "success":
+          showToast(Message, ToastType.Success);
+          break;
+      }
+    };
+
+    const updatePhaseState = (key: string, value: boolean) => {
+      const updateStateFunc: any = {
+        1: setAccountDetailsCheckStatus,
+        2: setLegalStructureCheckStatus,
+        3: setClientTeamCheckStatus,
+        4: setPabsAccountingTeamCheckStatus,
+      }[phaseType];
+      updateStateFunc(value);
+    };
+
+    const requestBody: any = {
+      userId: parseInt(clientInfo?.UserId!),
+      businessTypeId:  parseInt(clientInfo?.DepartmentId!),
+    };
+
+    switch (phaseType) {
+      case 1:
+        requestBody.accountDetailsIsDisplay = check;
+        break;
+      case 2:
+        requestBody.legalStructureIsDisplay = check;
+        break;
+      case 3:
+        requestBody.cpaClientTeamIsDisplay = check;
+        break;
+      case 4:
+        requestBody.pabsAccountingTeamIsDisplay = check;
+        break;
+    }
+
+    await callAPIwithHeaders(autoCarFormUrl, "post", callback, requestBody);
+    updatePhaseState(`setPhase${phaseType}Checked`, check);
   };
 
   return (
@@ -387,7 +419,7 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
               <AutoCareAccountDetails
                 accountDetailsCheckStatus={accountDetailsCheckStatus}
-                setAccountDetailsCheckStatus={setAccountDetailsCheckStatus}
+                handleAccountDetailsSwitch={(e:any) => handleSwitchChange(e,1)}
                 autoCareAccountDetails={autoCareAccountDetails}
                 setAutoCareAccountDetails={setAutoCareAccountDetails}
                 autoCareAccountDetailsErrors={autoCareAccountDetailsErrors}
@@ -399,7 +431,7 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? legalStructureCheckStatus : true) && (
               <AutoCareLegalStructure
                 legalStructureCheckStatus={legalStructureCheckStatus}
-                setLegalStructureCheckStatus={setLegalStructureCheckStatus}
+                handleLegalStructureSwitch={(e:any) => handleSwitchChange(e,2)}
                 autoCareLegalStructure={autoCareLegalStructure}
                 setAutoCareLegalStructure={setAutoCareLegalStructure}
                 autoCareLegalStructureErrors={autoCareLegalStructureErrors}
@@ -411,7 +443,7 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? clientTeamCheckStatus : true) && (
               <AutoCareClientTeam
                 clientTeamCheckStatus={clientTeamCheckStatus}
-                setClientTeamCheckStatus={setClientTeamCheckStatus}
+                handleClientTeamSwitch={(e:any) => handleSwitchChange(e,3)}
                 autoCareClientTeam={autoCareClientTeam}
                 setAutoCareClientTeam={setAutoCareClientTeam}
                 autoCareClientTeamErrors={autoCareClientTeamErrors}
@@ -421,9 +453,7 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? pabsAccountingTeamCheckStatus : true) && (
               <AutoCarePabsAccountingTeam
                 pabsAccountingTeamCheckStatus={pabsAccountingTeamCheckStatus}
-                setPabsAccountingTeamCheckStatus={
-                  setPabsAccountingTeamCheckStatus
-                }
+                handlePabsAccountingTeamSwitch={(e:any) => handleSwitchChange(e,4)}
                 autoCarePabsAccountingTeam={autoCarePabsAccountingTeam}
                 setAutoCarePabsAccountingTeam={setAutoCarePabsAccountingTeam}
               />
@@ -432,13 +462,15 @@ function BasicDetailsAutoCare({
         </div>
 
         <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-end border-t gap-5 px-6 w-full">
-          <Button
-            onClick={() => handleSubmit(3)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-            variant="outlined"
-          >
-            Cancel
-          </Button>
+          {roleId !== "4" && (
+            <Button
+              onClick={() => setIsOpenModal(false)}
+              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              variant="outlined"
+            >
+              Cancel
+            </Button>
+          )}
           <Button
             onClick={() => handleSubmit(2)}
             className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}

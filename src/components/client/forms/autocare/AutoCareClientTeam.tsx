@@ -1,6 +1,7 @@
-import { useStyles } from "@/utils/useStyles";
-import React, { useState } from "react";
+import React from "react";
+// Component import
 import FormBox from "@/components/client/common/FormBox";
+// MUI import
 import {
   FormControl,
   MenuItem,
@@ -8,26 +9,27 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
+// Models import
 import {
   ClientTeamFormTypes,
   ClientTeamTypes,
 } from "@/models/carCareBasicDetails";
+// Static import
 import {
   StateList,
   TimeZoneList,
   WeeklyCallsList,
 } from "@/static/carCareBasicDetail";
+// Utils import
+import { useStyles } from "@/utils/useStyles";
 import { validateEmail, validateNumber } from "@/utils/validate";
+// Date import
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { autoCarFormUrl } from "@/static/apiUrl";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -35,35 +37,13 @@ dayjs.extend(timezone);
 function AutoCareClientTeam({
   className,
   clientTeamCheckStatus,
-  setClientTeamCheckStatus,
   autoCareClientTeam,
   setAutoCareClientTeam,
   autoCareClientTeamErrors,
   setAutoCareClientTeamErrors,
+  handleClientTeamSwitch
 }: ClientTeamTypes) {
   const classes = useStyles();
-
-  const handleSwitch = (e: any) => {
-    const cpaClientTeamIsDisplay = e.target.checked;
-    const callback = (ResponseStatus: string, Message: string) => {
-      switch (ResponseStatus) {
-        case "failure":
-          showToast(Message, ToastType.Error);
-          return;
-        case "success":
-          setClientTeamCheckStatus(cpaClientTeamIsDisplay);
-          showToast(Message, ToastType.Success);
-          return;
-      }
-    };
-    const checkStatusFormData = {
-      userId: 89,
-      businessTypeId: 3,
-      cpaClientTeamIsDisplay: cpaClientTeamIsDisplay,
-    };
-
-    callAPIwithHeaders(autoCarFormUrl, "post", callback, checkStatusFormData);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -216,7 +196,7 @@ function AutoCareClientTeam({
       <FormBox
         title="Client Team"
         checkStatus={clientTeamCheckStatus}
-        handleChange={(e: any) => handleSwitch(e)}
+        handleChange={(e: any) => handleClientTeamSwitch(e)}
       >
         <div className="py-3 px-2 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">
