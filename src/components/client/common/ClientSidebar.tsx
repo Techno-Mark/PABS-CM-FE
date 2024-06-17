@@ -42,9 +42,9 @@ const MyDrawer = styled(Drawer, {
 }));
 
 interface SidebarModuleTypes {
-  clientInfo:any
+  clientInfo?: any;
   perCountBasicDetails: number;
-  sidebarModule: number;
+  sidebarModule?: number;
   perCountChecklist: number;
 }
 
@@ -58,57 +58,57 @@ const ClientSidebar = ({
   const businessTypeId = Cookies.get("businessTypeId");
 
   useEffect(() => {
-    if (businessTypeId === "3" || clientInfo.DepartmentId === 3) {
+    if (businessTypeId === "3" || clientInfo?.DepartmentId === 3) {
       setItems([
         {
-          id: 1,
+          id: 31,
           module: "Basic Details",
-          value: perCountBasicDetails,
+          value: 0,
         },
         {
-          id: 2,
+          id: 32,
           module: "Checklist",
-          value: perCountChecklist,
+          value: 0,
         },
         {
-          id: 3,
+          id: 33,
           module: "Login Info",
           value: 0,
         },
       ]);
-    } else if (businessTypeId === "2" || clientInfo.DepartmentId === 2) {
+    } else if (businessTypeId === "2" || clientInfo?.DepartmentId === 2) {
       setItems([
         {
-          id: 1,
+          id: 21,
           module: "Checklist",
-          value: perCountBasicDetails,
+          value: 0,
         },
         {
-          id: 2,
+          id: 22,
           module: "System Access Status",
-          value: 45,
+          value: 0,
         },
       ]);
     } else {
       setItems([
         {
-          id: 1,
+          id: 11,
           module: "Basic Details",
           value: 0,
         },
         {
-          id: 2,
+          id: 12,
           module: "Checklist",
-          value: 45,
+          value: 0,
         },
         {
-          id: 3,
+          id: 13,
           module: "Account Details",
-          value: 15,
+          value: 0,
         },
       ]);
     }
-  }, [businessTypeId,clientInfo]);
+  }, [businessTypeId, clientInfo]);
 
   return (
     <>
@@ -137,16 +137,16 @@ const ClientSidebar = ({
           {items.map((data: ClientSidebarItemsType, index: number) => (
             <div
               key={index}
-              className="flex items-center justify-between mb-5 mx-2"
+              className="flex items-center justify-between w-full mb-5"
             >
               <span
                 className={` ${
                   sidebarModule === data.id && "font-semibold"
-                } mr-2 text-[#333333] text-[16px] cursor-default`}
+                } mx-2 text-[#333333] text-[14px] text-wrap w-[40%] cursor-default`}
               >
                 {data.module}
               </span>
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-end w-[60%]">
                 <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${
@@ -162,14 +162,14 @@ const ClientSidebar = ({
                       backgroundColor: "#022946",
                     }}
                   ></div>
+                </div>
                   <span
-                    className={`relative z-10 ml-auto mr-1 text-[8px] items-center ${
+                    className={`relative mx-2 z-10 text-[8px] items-center ${
                       data.value > 85 ? "text-white" : "text-[#023963]"
                     }`}
                   >
                     {data.value}%
                   </span>
-                </div>
               </div>
             </div>
           ))}

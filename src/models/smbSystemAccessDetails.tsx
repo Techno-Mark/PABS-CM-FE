@@ -16,6 +16,8 @@ export interface SystemAccessDetailsFormErrors
 
 export interface SystemAccessDetailsTypes {
   className?: string;
+  smbSystemAccessDetailsCheckStatus: boolean;
+  handleSwitch: any;
   smbSystemAccessDetails: SystemAccessDetailsFormTypes;
   setSmbSystemAccessDetails: React.Dispatch<
     React.SetStateAction<SystemAccessDetailsFormTypes>

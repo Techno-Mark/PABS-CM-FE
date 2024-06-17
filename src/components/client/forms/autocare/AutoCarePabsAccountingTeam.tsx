@@ -1,43 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
 import { PabsAccountingTeamTypes } from "@/models/carCareBasicDetails";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { autoCarFormUrl } from "@/static/apiUrl";
 
 function AutoCarePabsAccountingTeam({
   className,
   pabsAccountingTeamCheckStatus,
-  setPabsAccountingTeamCheckStatus,
   autoCarePabsAccountingTeam,
   setAutoCarePabsAccountingTeam,
+  handlePabsAccountingTeamSwitch
 }: PabsAccountingTeamTypes) {
   const classes = useStyles();
-
-  const handleSwitch = (e: any) => {
-    const pabsAccountingTeamIsDisplay = e.target.checked;
-    const callback = (ResponseStatus: string, Message: string) => {
-      switch (ResponseStatus) {
-        case "failure":
-          showToast(Message, ToastType.Error);
-          return;
-        case "success":
-          setPabsAccountingTeamCheckStatus(pabsAccountingTeamIsDisplay);
-          showToast(Message, ToastType.Success);
-          return;
-      }
-    };
-    const checkStatusFormData = {
-      userId: 89,
-      businessTypeId: 3,
-      pabsAccountingTeamIsDisplay: pabsAccountingTeamIsDisplay,
-    };
-    
-    callAPIwithHeaders(autoCarFormUrl, "post", callback, checkStatusFormData);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -52,7 +26,7 @@ function AutoCarePabsAccountingTeam({
       <FormBox
         title="PABS Accounting Team"
         checkStatus={pabsAccountingTeamCheckStatus}
-        handleChange={(e: any) => handleSwitch(e)}
+        handleChange={(e: any) => handlePabsAccountingTeamSwitch(e)}
       >
         <div className="py-3 px-2 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col ">

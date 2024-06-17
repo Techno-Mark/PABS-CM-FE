@@ -102,6 +102,7 @@ function ChecklistAutoCare({
   clientInfo,
   setChecklistCount,
   setChecklistFormSubmit,
+  setIsOpenModal
 }: ChecklistAutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -771,10 +772,9 @@ function ChecklistAutoCare({
       }
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId)
-          : parseInt(userId!),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId)
+        : parseInt(userId!),
     });
   };
 
@@ -789,20 +789,18 @@ function ChecklistAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          type === 1 && setChecklistFormSubmit(33);
           showToast(Message, ToastType.Success);
-          getAutoCareChecklistData();
           return;
       }
     };
     const checklistFormData = {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId)
-          : parseInt(userId!),
-      businessTypeId:
-        !!clientInfo?.DepartmentId
-          ? parseInt(clientInfo?.DepartmentId)
-          : parseInt(businessTypeId!),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId)
+        : parseInt(userId!),
+      businessTypeId: !!clientInfo?.DepartmentId
+        ? parseInt(clientInfo?.DepartmentId)
+        : parseInt(businessTypeId!),
       checkList: [
         {
           fieldName: "Group Email Established",
@@ -1069,13 +1067,13 @@ function ChecklistAutoCare({
       const isCompliancesValid = compliancesChecked
         ? validateAutoCareCompliances()
         : false;
-        const isFrequencyValid = payrollSystemChecked
+      const isFrequencyValid = payrollSystemChecked
         ? validateAutoCareFrequency()
         : false;
-        const isSystemSoftwareLocationValid = systemSoftwareLocationsChecked
+      const isSystemSoftwareLocationValid = systemSoftwareLocationsChecked
         ? validateAutoCareSystemSoftwareLocation()
         : false;
-        const isCashBankLoansValid = cashBankLoansChecked
+      const isCashBankLoansValid = cashBankLoansChecked
         ? validateAutoCareCashBankLoans()
         : false;
 
@@ -1088,7 +1086,7 @@ function ChecklistAutoCare({
         !isCashBankLoansValid;
 
       if (isValid) {
-        setChecklistFormSubmit(3);
+        
         const filledFieldsCount = basicDetailStatus();
         setChecklistCount(filledFieldsCount);
         callAPIwithHeaders(autoCarFormUrl, "post", callback, checklistFormData);
@@ -1133,14 +1131,8 @@ function ChecklistAutoCare({
     };
 
     const requestBody: any = {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId!)
-          : parseInt(userId!),
-      businessTypeId:
-        !!clientInfo?.DepartmentId
-          ? parseInt(clientInfo?.DepartmentId!)
-          : parseInt(businessTypeId!),
+      userId:parseInt(clientInfo?.UserId!),
+      businessTypeId:parseInt(clientInfo?.DepartmentId!)
     };
 
     switch (phaseType) {
@@ -1373,7 +1365,7 @@ function ChecklistAutoCare({
                 />
               </ChecklistAccordian>
             )}
-            
+
             {(roleId === "4" ? financialsChecked : true) && (
               <ChecklistAccordian
                 handleSwitchChange={(e: any) => handleSwitchChange(e, 7)}
@@ -1403,7 +1395,7 @@ function ChecklistAutoCare({
         <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
           <Button
             onClick={() => {
-              setChecklistFormSubmit(1);
+              setChecklistFormSubmit(31);
               handleChecklistInitialValues();
               handleChecklistRemoveErrors();
             }}
@@ -1413,13 +1405,15 @@ function ChecklistAutoCare({
             Back
           </Button>
           <div className="flex gap-5">
-            <Button
-              onClick={() => handleSubmit(3)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
+            {roleId !== "4" && (
+              <Button
+                onClick={() => setIsOpenModal(false)}
+                className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            )}
             <Button
               onClick={() => handleSubmit(2)}
               className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}

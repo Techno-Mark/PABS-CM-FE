@@ -71,7 +71,7 @@ export interface PabsAccountingTeamFormErrors
 export interface AccountDetailsTypes {
   className?:string,
   accountDetailsCheckStatus:boolean
-  setAccountDetailsCheckStatus:React.Dispatch<React.SetStateAction<boolean>>
+  handleAccountDetailsSwitch:any
   autoCareAccountDetails:AccountDetailsFormTypes,
   setAutoCareAccountDetails:React.Dispatch<React.SetStateAction<AccountDetailsFormTypes>>,
   autoCareAccountDetailsErrors:AccountDetailsFormErrors,
@@ -81,7 +81,7 @@ export interface AccountDetailsTypes {
 export interface LegalStructureTypes {
   className?:string,
   legalStructureCheckStatus:boolean,
-  setLegalStructureCheckStatus:React.Dispatch<React.SetStateAction<boolean>>,
+  handleLegalStructureSwitch:any,
   autoCareLegalStructure:LegalStructureFormTypes,
   setAutoCareLegalStructure:React.Dispatch<React.SetStateAction<LegalStructureFormTypes>>,
   autoCareLegalStructureErrors:LegalStructureFormErrors,
@@ -91,7 +91,7 @@ export interface LegalStructureTypes {
 export interface ClientTeamTypes {
   className?:string,
   clientTeamCheckStatus:boolean
-  setClientTeamCheckStatus:React.Dispatch<React.SetStateAction<boolean>>
+  handleClientTeamSwitch:any
   autoCareClientTeam:ClientTeamFormTypes,
   setAutoCareClientTeam:React.Dispatch<React.SetStateAction<ClientTeamFormTypes>>,
   autoCareClientTeamErrors:ClientTeamFormErrors,
@@ -101,15 +101,16 @@ export interface ClientTeamTypes {
 export interface PabsAccountingTeamTypes {
   className?:string,
   pabsAccountingTeamCheckStatus:boolean
-  setPabsAccountingTeamCheckStatus:React.Dispatch<React.SetStateAction<boolean>>
+  handlePabsAccountingTeamSwitch:any
   autoCarePabsAccountingTeam:PabsAccountingTeamFormTypes,
   setAutoCarePabsAccountingTeam:React.Dispatch<React.SetStateAction<PabsAccountingTeamFormTypes>>,
 }
 
 export interface BasicDetailAutoCareType {
-  clientInfo:any
+  clientInfo?:any
   setBasicDetailCount:(value:number) => void,
   setBasicDetailsFormSubmit:(value:number) => void,
+  setIsOpenModal?:any;
 }
 
 export interface formChecklistDetails {
@@ -125,9 +126,17 @@ export interface formChecklistDetails {
 }
 
 export interface ChecklistAutoCareType {
-  clientInfo:any
+  clientInfo?:any
   setChecklistCount:(value:number) => void,
   setChecklistFormSubmit:(value:number) => void,
   formDetails: formChecklistDetails[];
   getFormDetials: () => void;
+  setIsOpenModal?: any;
+  responseData?:any
+}
+
+export interface LoginInfoAutoCareType {
+  clientInfo?:any
+  setLoginInfoFormSubmit:(value:number) => void,
+  setIsOpenModal?: any;
 }

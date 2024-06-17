@@ -43,8 +43,13 @@ import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { autoCarFormListUrl, autoCarFormUrl } from "@/static/apiUrl";
 import AutoCareGmailAccount from "@/components/client/forms/autocare/AutoCareGmailAccount";
+import { LoginInfoAutoCareType } from "@/models/carCareBasicDetails";
 
-function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
+function LoginInfoAutoCare({
+  setLoginInfoFormSubmit,
+  clientInfo,
+  setIsOpenModal,
+}: LoginInfoAutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
   const businessTypeId = Cookies.get("businessTypeId");
@@ -123,15 +128,17 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          setLocationDetailsChecked(ResponseData.locationDetailsIsDisplay)
-          setSalesTaxDetailsChecked(ResponseData.salesTaxDetailsIsDisplay)
-          setGmailAccountDetailsChecked(ResponseData.gmailAccountDetailsIsDisplay)
-          setPosDetailsChecked(ResponseData.posDetailsIsDisplay)
-          setUtilitiesChecked(ResponseData.utilitiesDetailsIsDisplay)
-          setVendorDetailsChecked(ResponseData.vendorDetailsIsDisplay)
-          setBankDetailsLoansChecked(ResponseData.bankDetailsIsDisplay)
-          setMerchantDetailsChecked(ResponseData.merchantDetailsIsDisplay)
-          setPayrollDetailsChecked(ResponseData.payrollDetailsIsDisplay)
+          setLocationDetailsChecked(ResponseData.locationDetailsIsDisplay);
+          setSalesTaxDetailsChecked(ResponseData.salesTaxDetailsIsDisplay);
+          setGmailAccountDetailsChecked(
+            ResponseData.gmailAccountDetailsIsDisplay
+          );
+          setPosDetailsChecked(ResponseData.posDetailsIsDisplay);
+          setUtilitiesChecked(ResponseData.utilitiesDetailsIsDisplay);
+          setVendorDetailsChecked(ResponseData.vendorDetailsIsDisplay);
+          setBankDetailsLoansChecked(ResponseData.bankDetailsIsDisplay);
+          setMerchantDetailsChecked(ResponseData.merchantDetailsIsDisplay);
+          setPayrollDetailsChecked(ResponseData.payrollDetailsIsDisplay);
           if (ResponseData.locationDetails.length > 0) {
             setLocationDetailsRows(
               ResponseData.locationDetails.map((locationItem: any) => ({
@@ -257,10 +264,9 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
       }
     };
     await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId)
-          : parseInt(userId!),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId)
+        : parseInt(userId!),
     });
   };
 
@@ -275,82 +281,171 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          setLoginInfoFormSubmit(3);
           showToast(Message, ToastType.Success);
           return;
       }
     };
+
     const loginInfoFormData = {
-      userId: !!clientInfo?.ClientId ? 89 : parseInt(userId!),
-      businessTypeId:
-        !!clientInfo?.DepartmentId ? 3 : parseInt(businessTypeId!),
-      locationDetails: locationDetailsRows.map((locationItem) => ({
-        name: locationItem.locationDetailsName,
-        details: locationItem.locationDetailsDetails,
-      })),
-      salesTaxDetails: salesTaxDetailsRows.map((salesTaxItem) => ({
-        userId: salesTaxItem.salesTaxDetailsUserId,
-        password: salesTaxItem.salesTaxDetailsPassword,
-        status: salesTaxItem.salesTaxDetailsStatus,
-      })),
-      gmailAccountDetails: gmailAccountRows.map((gmailDetailsItem) => ({
-        userId: gmailDetailsItem.gmailAccountUserId,
-        password: gmailDetailsItem.gmailAccountPassword,
-        status: gmailDetailsItem.gmailAccountStatus,
-      })),
-      posDetails: posDetailsRows.map((posDetailsItem) => ({
-        POS: posDetailsItem.posDetailsPos,
-        serverName: posDetailsItem.posDetailsServerName,
-        personalKey: posDetailsItem.posDetailsPersonalKey,
-        userName: posDetailsItem.posDetailsUserName,
-        password: posDetailsItem.posDetailsPassword,
-        status: posDetailsItem.posDetailsNotes_Status,
-      })),
-      utilitiesDetails: utilitiesRows.map((utilitiesItem) => ({
-        location: utilitiesItem.utilitiesLocation,
-        utilities: utilitiesItem.utilitiesUtilities,
-        service: utilitiesItem.utilitiesService,
-        account_customerNumber: utilitiesItem.utilitiesAccount_CustomerNo,
-        user: utilitiesItem.utilitiesUser,
-        password: utilitiesItem.utilitiesPassword,
-        website: utilitiesItem.utilitiesWebsite,
-        status: utilitiesItem.utilitiesNotes_Status,
-      })),
-      vendorDetails: vendorDetailsRows.map((vendorItem) => ({
-        location: vendorItem.vendorDetailsLocation,
-        vendorName: vendorItem.vendorDetailsName,
-        service: vendorItem.vendorDetailsService,
-        vendorLoginLink: vendorItem.vendorDetailsLoginLink,
-        vendorUserId: vendorItem.vendorDetailsUserId,
-        vendorPassword: vendorItem.vendorDetailsPassword,
-        status: vendorItem.vendorDetailsNotes_Status,
-      })),
-      bankDetails: bankDetailsLoansRows.map((bankItem) => ({
-        bankName: bankItem.bankDetailsLoansName,
-        type: bankItem.bankDetailsLoansType,
-        bankSiteLink: bankItem.bankDetailsLoansSiteLink,
-        companyId: bankItem.bankDetailsLoansCompanyId,
-        userId: bankItem.bankDetailsLoansUserId,
-        password: bankItem.bankDetailsLoansPassword,
-        status: bankItem.bankDetailsLoansNotes_Status,
-      })),
-      merchantDetails: merchantDetailsRows.map((merchantItem) => ({
-        merchantName: merchantItem.merchantDetailsName,
-        link: merchantItem.merchantDetailsLink,
-        userId: merchantItem.merchantDetailsUserId,
-        password: merchantItem.merchantDetailsPassword,
-        accountId: merchantItem.merchantDetailsAccountId,
-        status: merchantItem.merchantDetailNotes_Status,
-      })),
-      payrollDetails: payrollDetailsRows.map((payrollItem) => ({
-        companyName: payrollItem.payrollDetailsCompanyName,
-        link: payrollItem.payrollDetailsLink,
-        userId: payrollItem.payrollDetailsUserId,
-        password: payrollItem.payrollDetailsPassword,
-        passcode: payrollItem.payrollDetailsPasscode,
-        status: payrollItem.payrollDetailsNotes_Status,
-      })),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId)
+        : parseInt(userId!),
+      businessTypeId: !!clientInfo?.DepartmentId
+        ? parseInt(clientInfo?.DepartmentId)
+        : parseInt(businessTypeId!),
+      locationDetails: locationDetailsRows
+        .filter(
+          (locationItem) =>
+            !!locationItem.locationDetailsName ||
+            !!locationItem.locationDetailsDetails
+        )
+        .map((locationItem) => ({
+          name: locationItem.locationDetailsName,
+          details: locationItem.locationDetailsDetails,
+        })),
+      salesTaxDetails: salesTaxDetailsRows
+        .filter(
+          (salesTaxItem) =>
+            !!salesTaxItem.salesTaxDetailsUserId ||
+            !!salesTaxItem.salesTaxDetailsPassword ||
+            !!salesTaxItem.salesTaxDetailsStatus
+        )
+        .map((salesTaxItem) => ({
+          userId: salesTaxItem.salesTaxDetailsUserId,
+          password: salesTaxItem.salesTaxDetailsPassword,
+          status: salesTaxItem.salesTaxDetailsStatus,
+        })),
+      gmailAccountDetails: gmailAccountRows
+        .filter(
+          (gmailDetailsItem) =>
+            !!gmailDetailsItem.gmailAccountUserId ||
+            !!gmailDetailsItem.gmailAccountPassword ||
+            !!gmailDetailsItem.gmailAccountStatus
+        )
+        .map((gmailDetailsItem) => ({
+          userId: gmailDetailsItem.gmailAccountUserId,
+          password: gmailDetailsItem.gmailAccountPassword,
+          status: gmailDetailsItem.gmailAccountStatus,
+        })),
+      posDetails: posDetailsRows
+        .filter(
+          (posDetailsItem) =>
+            posDetailsItem.posDetailsPos ||
+            !!posDetailsItem.posDetailsServerName ||
+            !!posDetailsItem.posDetailsPersonalKey ||
+            !!posDetailsItem.posDetailsUserName ||
+            !!posDetailsItem.posDetailsPassword ||
+            !!posDetailsItem.posDetailsNotes_Status
+        )
+        .map((posDetailsItem) => ({
+          POS: posDetailsItem.posDetailsPos,
+          serverName: posDetailsItem.posDetailsServerName,
+          personalKey: posDetailsItem.posDetailsPersonalKey,
+          userName: posDetailsItem.posDetailsUserName,
+          password: posDetailsItem.posDetailsPassword,
+          status: posDetailsItem.posDetailsNotes_Status,
+        })),
+      utilitiesDetails: utilitiesRows
+        .filter(
+          (utilitiesItem) =>
+            !!utilitiesItem.utilitiesLocation ||
+            !!utilitiesItem.utilitiesUtilities ||
+            !!utilitiesItem.utilitiesService ||
+            !!utilitiesItem.utilitiesAccount_CustomerNo ||
+            !!utilitiesItem.utilitiesUser ||
+            !!utilitiesItem.utilitiesPassword ||
+            !!utilitiesItem.utilitiesWebsite ||
+            !!utilitiesItem.utilitiesNotes_Status
+        )
+        .map((utilitiesItem) => ({
+          location: utilitiesItem.utilitiesLocation,
+          utilities: utilitiesItem.utilitiesUtilities,
+          service: utilitiesItem.utilitiesService,
+          account_customerNumber: utilitiesItem.utilitiesAccount_CustomerNo,
+          user: utilitiesItem.utilitiesUser,
+          password: utilitiesItem.utilitiesPassword,
+          website: utilitiesItem.utilitiesWebsite,
+          status: utilitiesItem.utilitiesNotes_Status,
+        })),
+      vendorDetails: vendorDetailsRows
+        .filter(
+          (vendorItem) =>
+            !!vendorItem.vendorDetailsLocation ||
+            !!vendorItem.vendorDetailsName ||
+            !!vendorItem.vendorDetailsService ||
+            !!vendorItem.vendorDetailsLoginLink ||
+            !!vendorItem.vendorDetailsUserId ||
+            !!vendorItem.vendorDetailsPassword ||
+            !!vendorItem.vendorDetailsNotes_Status
+        )
+        .map((vendorItem) => ({
+          location: vendorItem.vendorDetailsLocation,
+          vendorName: vendorItem.vendorDetailsName,
+          service: vendorItem.vendorDetailsService,
+          vendorLoginLink: vendorItem.vendorDetailsLoginLink,
+          vendorUserId: vendorItem.vendorDetailsUserId,
+          vendorPassword: vendorItem.vendorDetailsPassword,
+          status: vendorItem.vendorDetailsNotes_Status,
+        })),
+      bankDetails: bankDetailsLoansRows
+        .filter(
+          (bankItem) =>
+            !!bankItem.bankDetailsLoansName ||
+            !!bankItem.bankDetailsLoansType ||
+            !!bankItem.bankDetailsLoansSiteLink ||
+            !!bankItem.bankDetailsLoansCompanyId ||
+            !!bankItem.bankDetailsLoansUserId ||
+            !!bankItem.bankDetailsLoansPassword ||
+            !!bankItem.bankDetailsLoansNotes_Status
+        )
+        .map((bankItem) => ({
+          bankName: bankItem.bankDetailsLoansName,
+          type: bankItem.bankDetailsLoansType,
+          bankSiteLink: bankItem.bankDetailsLoansSiteLink,
+          companyId: bankItem.bankDetailsLoansCompanyId,
+          userId: bankItem.bankDetailsLoansUserId,
+          password: bankItem.bankDetailsLoansPassword,
+          status: bankItem.bankDetailsLoansNotes_Status,
+        })),
+      merchantDetails: merchantDetailsRows
+        .filter(
+          (merchantItem) =>
+            !!merchantItem.merchantDetailsName ||
+            !!merchantItem.merchantDetailsLink ||
+            !!merchantItem.merchantDetailsUserId ||
+            !!merchantItem.merchantDetailsPassword ||
+            !!merchantItem.merchantDetailsAccountId ||
+            !!merchantItem.merchantDetailNotes_Status ||
+            !!merchantItem.merchantDetailNotes_Status
+        )
+        .map((merchantItem) => ({
+          merchantName: merchantItem.merchantDetailsName,
+          link: merchantItem.merchantDetailsLink,
+          userId: merchantItem.merchantDetailsUserId,
+          password: merchantItem.merchantDetailsPassword,
+          accountId: merchantItem.merchantDetailsAccountId,
+          status: merchantItem.merchantDetailNotes_Status,
+        })),
+      payrollDetails: payrollDetailsRows
+        .filter(
+          (payrollItem) =>
+            !!payrollItem.payrollDetailsCompanyName ||
+            !!payrollItem.payrollDetailsLink ||
+            !!payrollItem.payrollDetailsUserId ||
+            !!payrollItem.payrollDetailsPassword ||
+            !!payrollItem.payrollDetailsPasscode ||
+            !!payrollItem.payrollDetailsNotes_Status
+        )
+        .map((payrollItem) => ({
+          companyName: payrollItem.payrollDetailsCompanyName,
+          link: payrollItem.payrollDetailsLink,
+          userId: payrollItem.payrollDetailsUserId,
+          password: payrollItem.payrollDetailsPassword,
+          passcode: payrollItem.payrollDetailsPasscode,
+          status: payrollItem.payrollDetailsNotes_Status,
+        })),
     };
+
     if (type === 1 || type === 2) {
       callAPIwithHeaders(autoCarFormUrl, "post", callback, loginInfoFormData);
     } else {
@@ -387,14 +482,12 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
     };
 
     const requestBody: any = {
-      userId:
-        !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId!)
-          : parseInt(userId!),
-      businessTypeId:
-        !!clientInfo?.DepartmentId
-          ? parseInt(clientInfo?.DepartmentId!)
-          : parseInt(businessTypeId!),
+      userId: !!clientInfo?.UserId
+        ? parseInt(clientInfo?.UserId!)
+        : parseInt(userId!),
+      businessTypeId: !!clientInfo?.DepartmentId
+        ? parseInt(clientInfo?.DepartmentId!)
+        : parseInt(businessTypeId!),
     };
 
     switch (phaseType) {
@@ -438,7 +531,6 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
 
     await callAPIwithHeaders(autoCarFormUrl, "post", callback, requestBody);
     updatePhaseState(`setPhase${phaseType}Checked`, check);
-    
   };
 
   return (
@@ -617,20 +709,22 @@ function LoginInfoAutoCare({ setLoginInfoFormSubmit, clientInfo }: any) {
 
         <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
           <Button
-            onClick={() => setLoginInfoFormSubmit(2)}
+            onClick={() => setLoginInfoFormSubmit(32)}
             className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
             Back
           </Button>
           <div className="flex gap-5">
-            <Button
-              onClick={() => {}}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
+            {roleId !== "4" && (
+              <Button
+                onClick={() => setIsOpenModal(false)}
+                className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            )}
             <Button
               onClick={() => handleSubmit(2)}
               className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold !text-[14px]`}
