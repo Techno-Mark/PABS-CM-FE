@@ -3,13 +3,12 @@ import ClientWrapper from "@/components/ClientWapper";
 import { useEffect, useState } from "react";
 // Cookie import
 import ChecklistSmb from "@/components/client/common/ChecklistSmb";
-import SystemAccessForSmb from "@/components/client/common/SystemAccessForSmb";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
-import { autoCarFormListUrl } from "@/static/apiUrl";
+import { onboardingListFormUrl } from "@/static/apiUrl";
 
 function Page() {
   const router = useRouter();
@@ -40,7 +39,7 @@ function Page() {
       }
     };
 
-    callAPIwithHeaders(autoCarFormListUrl, "post", callBack, {
+    callAPIwithHeaders(onboardingListFormUrl, "post", callBack, {
       userId: Number(userId),
     });
   };
@@ -55,21 +54,11 @@ function Page() {
       perCountBasicDetails={12}
       formSubmit={formSubmit}
     >
-      {formSubmit === 21 ? (
+      {formSubmit === 21 && (
         <ChecklistSmb
-          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => {}}
+          setSMBChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+          setSMBChecklistCount={(value: number) => {}}
           formDetails={formDetails !== null ? formDetails?.checkList : false}
-          responseData={formDetails !== null ? formDetails : false}
-          getFormDetials={getFormDetials}
-        />
-      ) : formSubmit === 22 && (
-        <SystemAccessForSmb
-          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => {}}
-          formDetails={
-            formDetails !== null ? formDetails?.systemAccessDetails : false
-          }
           responseData={formDetails !== null ? formDetails : false}
           getFormDetials={getFormDetials}
         />

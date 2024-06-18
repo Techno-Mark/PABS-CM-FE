@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 //Component import
 import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
-import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
 import BasicDetailsAutoCare from "@/components/client/common/BasicDetailsAutoCare";
 import ClientWrapper from "@/components/ClientWapper";
 
@@ -29,22 +28,20 @@ function Page() {
     >
       {formSubmit === 31 ? (
         <BasicDetailsAutoCare
+          setIsOpenModal={() => {}}
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setBasicDetailCount={(value: number) =>
             setPerCountBasicDetails(value)
           }
         />
-      ) : formSubmit === 32 ? (
-        <ChecklistAutoCare
-          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setPerCountChecklist(value)}
-          formDetails={[]}
-          getFormDetials={() => {}}
-        />
-      ) : formSubmit === 33 && (
-        <LoginInfoAutoCare
-          setLoginInfoFormSubmit={(value: number) => setFormSubmit(value)}
-        />
+      ) : (
+        formSubmit === 32 && (
+          <ChecklistAutoCare
+            setIsOpenModal={() => {}}
+            setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+            setChecklistCount={(value: number) => setPerCountChecklist(value)}
+          />
+        )
       )}
     </ClientWrapper>
   );

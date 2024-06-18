@@ -223,11 +223,11 @@ export const initialAutoCareSharingFinancials = {
 };
 
 export const initialAutoCareGP_GMNP_NM = {
-  gpGmnpNmStatus: "",
-  gpGmnpNmComments: "",
-  gpGmnpNmDetails: "",
-  gpGmnpNmActionName: "",
-  gpGmnpNmActionItems: "",
+  gp_gmnp_nmStatus: "",
+  gp_gmnp_nmComments: "",
+  gp_gmnp_nmDetails: "",
+  gp_gmnp_nmActionName: "",
+  gp_gmnp_nmActionItems: "",
 };
 
 export const validateAutoCareSystemSoftwareLocationField = [

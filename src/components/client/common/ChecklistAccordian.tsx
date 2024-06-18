@@ -5,7 +5,7 @@ import {
   Switch,
 } from "@mui/material";
 import React from "react";
-import { ChecklistAccordianProps } from "@/models/autoCarChecklist";
+import { ChecklistAccordianProps } from "@/models/autoCareChecklist";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // Cookie import
 import Cookies from "js-cookie";

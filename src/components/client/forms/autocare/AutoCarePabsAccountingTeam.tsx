@@ -2,7 +2,7 @@ import React from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
-import { PabsAccountingTeamTypes } from "@/models/carCareBasicDetails";
+import { PabsAccountingTeamTypes } from "@/models/autoCareBasicDetails";
 
 function AutoCarePabsAccountingTeam({
   className,

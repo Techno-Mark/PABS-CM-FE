@@ -2,7 +2,7 @@ import { Switch } from "@mui/material";
 import React from "react";
 // Cookie import
 import Cookies from "js-cookie";
-import { FormBoxProps } from "@/models/carCareBasicDetails";
+import { FormBoxProps } from "@/models/autoCareBasicDetails";
 
 const FormBox = ({ title, children, className, checkStatus, handleChange }: FormBoxProps) => {
   const roleId = Cookies.get("roleId");

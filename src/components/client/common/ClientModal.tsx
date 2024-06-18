@@ -22,13 +22,11 @@ import DownloadIcon from "@/assets/Icons/client/forms/DownloadIcon";
 // Components import
 import BasicDetailsAutoCare from "@/components/client/common/BasicDetailsAutoCare";
 import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
-import LoginInfoAutoCare from "@/components/client/common/LoginInfoAutoCare";
-import SystemAccessForSmb from "@/components/client/common/SystemAccessForSmb";
 import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import { showToast } from "@/components/ToastContainer";
 
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import { autoCarFormListUrl } from "@/static/apiUrl";
+import { onboardingListFormUrl } from "@/static/apiUrl";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -70,7 +68,7 @@ function ClientModal({
       }
     };
 
-    callAPIwithHeaders(autoCarFormListUrl, "post", callBack, {
+    callAPIwithHeaders(onboardingListFormUrl, "post", callBack, {
       userId: Number(clientInfo?.UserId!),
     });
   };
@@ -166,7 +164,7 @@ function ClientModal({
                         setPerCountBasicDetails(value)
                       }
                     />
-                  ) : formSubmit === 32 ? (
+                  ) : formSubmit === 32 && (
                     <ChecklistAutoCare
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -176,49 +174,21 @@ function ClientModal({
                       setChecklistCount={(value: number) =>
                         setPerCountChecklist(value)
                       }
-                      formDetails={[]}
-                      getFormDetials={function (): void {
-                        throw new Error("Function not implemented.");
-                      }}
-                    />
-                  ) : formSubmit === 33 && (
-                    <LoginInfoAutoCare
-                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
-                      clientInfo={clientInfo}
-                      setLoginInfoFormSubmit={(value: number) =>
-                        setFormSubmit(value)
-                      }
                     />
                   )}
                 </>
               ) : clientInfo.DepartmentId === 2 ? (
                 <>
-                  {formSubmit === 21 ? (
+                  {formSubmit === 21 && (
                     <ChecklistSmb
                       clientInfo={clientInfo}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
-                      setChecklistFormSubmit={(value: number) =>
+                      setSMBChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setChecklistCount={(value: number) => {}}
+                      setSMBChecklistCount={(value: number) => {}}
                       formDetails={
                         formDetails !== null ? formDetails?.checkList : false
-                      }
-                      responseData={formDetails !== null ? formDetails : false}
-                      getFormDetials={getFormDetials}
-                    />
-                  ) : formSubmit === 22 && (
-                    <SystemAccessForSmb
-                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
-                      clientInfo={clientInfo}
-                      setChecklistFormSubmit={(value: number) =>
-                        setFormSubmit(value)
-                      }
-                      setChecklistCount={(value: number) => {}}
-                      formDetails={
-                        formDetails !== null
-                          ? formDetails?.systemAccessDetails
-                          : false
                       }
                       responseData={formDetails !== null ? formDetails : false}
                       getFormDetials={getFormDetials}

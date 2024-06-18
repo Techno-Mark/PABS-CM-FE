@@ -2,11 +2,13 @@ import React from "react";
 // Models import
 import {
   AutoCareFinancialsTypes,
+  GP_GMNP_NMFormTypes,
+  GP_GMNP_NMTypes,
   LastClosedPeriodFormTypes,
   LastClosedPeriodTypes,
   SharingFinancialsFormTypes,
   SharingFinancialsTypes,
-} from "@/models/autoCarChecklist";
+} from "@/models/autoCareChecklist";
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
 // MUI import
@@ -19,6 +21,8 @@ function AutoCareFinancials({
   setAutoCareLastClosedPeriod,
   autoCareSharingFinancials,
   setAutoCareSharingFinancials,
+  autoCaregp_gmnp_nm,
+  setAutoCaregp_gmnp_nm,
 }: AutoCareFinancialsTypes) {
   return (
     <div className={`${className}`}>
@@ -30,6 +34,10 @@ function AutoCareFinancials({
       <SharingFinancials
         autoCareSharingFinancials={autoCareSharingFinancials}
         setAutoCareSharingFinancials={setAutoCareSharingFinancials}
+      />
+      <GP_GMNP_NM
+        autoCaregp_gmnp_nm={autoCaregp_gmnp_nm}
+        setAutoCaregp_gmnp_nm={setAutoCaregp_gmnp_nm}
       />
     </div>
   );
@@ -318,6 +326,150 @@ const SharingFinancials = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={autoCareSharingFinancials?.sharingFinancialsActionItems}
+                onChange={handleSharingFinancialsChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+const GP_GMNP_NM = ({
+  autoCaregp_gmnp_nm,
+  setAutoCaregp_gmnp_nm,
+}: GP_GMNP_NMTypes) => {
+  const classes = useStyles();
+
+  const handleSharingFinancialsChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setAutoCaregp_gmnp_nm((prev: GP_GMNP_NMFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        GP/GM NP/NM
+      </div>
+      <div className="py-3 px-2 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Comments</label>
+              <TextField
+                name="gp_gmnp_nmComments"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Comments"
+                value={autoCaregp_gmnp_nm?.gp_gmnp_nmComments}
+                onChange={handleSharingFinancialsChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="gp_gmnp_nmStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={autoCaregp_gmnp_nm?.gp_gmnp_nmStatus}
+                onChange={handleSharingFinancialsChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <TextField
+                name="gp_gmnp_nmDetails"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Details"
+                value={autoCaregp_gmnp_nm?.gp_gmnp_nmDetails}
+                onChange={handleSharingFinancialsChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Name - PABS
+              </label>
+              <TextField
+                name="gp_gmnp_nmActionName"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Name"
+                value={autoCaregp_gmnp_nm?.gp_gmnp_nmActionName}
+                onChange={handleSharingFinancialsChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - Client
+              </label>
+              <TextField
+                name="gp_gmnp_nmActionItems"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={autoCaregp_gmnp_nm?.gp_gmnp_nmActionItems}
                 onChange={handleSharingFinancialsChange}
                 InputProps={{
                   classes: {

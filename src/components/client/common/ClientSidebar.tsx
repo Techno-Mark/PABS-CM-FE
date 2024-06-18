@@ -63,18 +63,13 @@ const ClientSidebar = ({
         {
           id: 31,
           module: "Basic Details",
-          value: 0,
+          value: perCountBasicDetails,
         },
         {
           id: 32,
           module: "Checklist",
-          value: 0,
-        },
-        {
-          id: 33,
-          module: "Login Info",
-          value: 0,
-        },
+          value: perCountChecklist,
+        }
       ]);
     } else if (businessTypeId === "2" || clientInfo?.DepartmentId === 2) {
       setItems([
@@ -82,12 +77,7 @@ const ClientSidebar = ({
           id: 21,
           module: "Checklist",
           value: 0,
-        },
-        {
-          id: 22,
-          module: "System Access Status",
-          value: 0,
-        },
+        }
       ]);
     } else {
       setItems([
@@ -108,7 +98,7 @@ const ClientSidebar = ({
         },
       ]);
     }
-  }, [businessTypeId, clientInfo]);
+  }, [businessTypeId, clientInfo, perCountBasicDetails, perCountChecklist]);
 
   return (
     <>
@@ -164,9 +154,7 @@ const ClientSidebar = ({
                   ></div>
                 </div>
                   <span
-                    className={`relative mx-2 z-10 text-[8px] items-center ${
-                      data.value > 85 ? "text-white" : "text-[#023963]"
-                    }`}
+                    className={`relative mx-2 z-10 text-[8px] items-center text-[#023963]`}
                   >
                     {data.value}%
                   </span>

@@ -189,7 +189,7 @@ const BasicDetailsWhitelabel = ({
       if (isValid) {
         setBasicDetailsFormSubmit(2);
         setBasicDetailCount(filledFieldsCount);
-        // callAPIwithHeaders(autoCarFormUrl, "post", callback, formData);
+        // callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, formData);
       } else {
         setBasicDetailCount(filledFieldsCount);
       }
@@ -197,7 +197,7 @@ const BasicDetailsWhitelabel = ({
       const filledFieldsCount = basicDetailStatus();
       setBasicDetailCount(filledFieldsCount);
       setWhitelabelAccountDetailsErrors({});
-      // callAPIwithHeaders(autoCarFormUrl, "post", callback, formData);
+      // callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, formData);
     } else {
       setWhitelabelAccountDetails(initialWhitelabelAccountName);
       setWhitelabelAccountDetailsErrors({});
