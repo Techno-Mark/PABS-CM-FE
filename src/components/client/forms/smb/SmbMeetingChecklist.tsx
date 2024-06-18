@@ -1,42 +1,49 @@
+import React from "react";
+// Models import
 import {
   ConvenientFormTypes,
   ConvenientTypes,
+  MeetingChecklistType,
   TimeSlotFormTypes,
   TimeSlotTypes,
   TimeZoneFormTypes,
   TimeZoneTypes,
 } from "@/models/smbChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
 
 function SmbMeetingChecklist({
   className,
+  smbMeetingChecklistErrors,
   smbTimeZone,
   setSmbTimeZone,
   smbConvenient,
   setSmbConvenient,
   smbTimeSlot,
-  setSmbTimeSlot,
-}: any) {
+  setSmbTimeSlot
+}: MeetingChecklistType) {
   return (
     <div className={`${className}`}>
-      <TimeZone smbTimeZone={smbTimeZone} setSmbTimeZone={setSmbTimeZone} />
+      <TimeZone smbTimeZone={smbTimeZone} setSmbTimeZone={setSmbTimeZone} smbTimeZoneErrors={smbMeetingChecklistErrors} />
       <Convenient
         smbConvenient={smbConvenient}
         setSmbConvenient={setSmbConvenient}
+        smbConvenientErrors={smbMeetingChecklistErrors}
       />
-      <TimeSlot smbTimeSlot={smbTimeSlot} setSmbTimeSlot={setSmbTimeSlot} />
+      <TimeSlot smbTimeSlot={smbTimeSlot} setSmbTimeSlot={setSmbTimeSlot}
+        smbTimeSlotErrors={smbMeetingChecklistErrors} />
     </div>
   );
 }
 
 export default SmbMeetingChecklist;
 
-const TimeZone = ({ smbTimeZone, setSmbTimeZone }: TimeZoneTypes) => {
+const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTimeZoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbTimeZone((prev: TimeZoneFormTypes) => ({
@@ -47,7 +54,7 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone }: TimeZoneTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Time Zone
+        Time Zone<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -61,7 +68,9 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone }: TimeZoneTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbTimeZone?.TimeZoneStatus}
-                onChange={handleChange}
+                error={!!smbTimeZoneErrors?.TimeZoneStatus}
+                helperText={smbTimeZoneErrors?.TimeZoneStatus}
+                onChange={handleTimeZoneChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -83,7 +92,9 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone }: TimeZoneTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbTimeZone?.TimeZoneDetails}
-                onChange={handleChange}
+                error={!!smbTimeZoneErrors?.TimeZoneDetails}
+                helperText={smbTimeZoneErrors?.TimeZoneDetails}
+                onChange={handleTimeZoneChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -107,7 +118,9 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone }: TimeZoneTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbTimeZone?.TimeZoneActionItems}
-                onChange={handleChange}
+                error={!!smbTimeZoneErrors?.TimeZoneActionItems}
+                helperText={smbTimeZoneErrors?.TimeZoneActionItems}
+                onChange={handleTimeZoneChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -125,10 +138,10 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone }: TimeZoneTypes) => {
   );
 };
 
-const Convenient = ({ smbConvenient, setSmbConvenient }: ConvenientTypes) => {
+const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: ConvenientTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConvenientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbConvenient((prev: ConvenientFormTypes) => ({
@@ -139,7 +152,7 @@ const Convenient = ({ smbConvenient, setSmbConvenient }: ConvenientTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Convenient days
+        Convenient days<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -153,7 +166,9 @@ const Convenient = ({ smbConvenient, setSmbConvenient }: ConvenientTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbConvenient?.ConvenientStatus}
-                onChange={handleChange}
+                error={!!smbConvenientErrors?.ConvenientStatus}
+                helperText={smbConvenientErrors?.ConvenientStatus}
+                onChange={handleConvenientChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -175,7 +190,9 @@ const Convenient = ({ smbConvenient, setSmbConvenient }: ConvenientTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbConvenient?.ConvenientDetails}
-                onChange={handleChange}
+                error={!!smbConvenientErrors?.ConvenientDetails}
+                helperText={smbConvenientErrors?.ConvenientDetails}
+                onChange={handleConvenientChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -199,7 +216,9 @@ const Convenient = ({ smbConvenient, setSmbConvenient }: ConvenientTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbConvenient?.ConvenientActionItems}
-                onChange={handleChange}
+                error={!!smbConvenientErrors?.ConvenientActionItems}
+                helperText={smbConvenientErrors?.ConvenientActionItems}
+                onChange={handleConvenientChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -217,10 +236,10 @@ const Convenient = ({ smbConvenient, setSmbConvenient }: ConvenientTypes) => {
   );
 };
 
-const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot }: TimeSlotTypes) => {
+const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTimeSlotChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbTimeSlot((prev: TimeSlotFormTypes) => ({
@@ -231,7 +250,7 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot }: TimeSlotTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Time slot Availability
+        Time slot availability<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -245,7 +264,9 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot }: TimeSlotTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbTimeSlot?.TimeSlotStatus}
-                onChange={handleChange}
+                error={!!smbTimeSlotErrors?.TimeSlotStatus}
+                helperText={smbTimeSlotErrors?.TimeSlotStatus}
+                onChange={handleTimeSlotChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -267,7 +288,9 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot }: TimeSlotTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbTimeSlot?.TimeSlotDetails}
-                onChange={handleChange}
+                error={!!smbTimeSlotErrors?.TimeSlotDetails}
+                helperText={smbTimeSlotErrors?.TimeSlotDetails}
+                onChange={handleTimeSlotChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -291,7 +314,9 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot }: TimeSlotTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbTimeSlot?.TimeSlotActionItems}
-                onChange={handleChange}
+                error={!!smbTimeSlotErrors?.TimeSlotActionItems}
+                helperText={smbTimeSlotErrors?.TimeSlotActionItems}
+                onChange={handleTimeSlotChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,

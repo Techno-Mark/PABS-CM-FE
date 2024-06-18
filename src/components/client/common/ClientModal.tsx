@@ -49,6 +49,7 @@ function ClientModal({
   const formSubmitId = clientInfo.DepartmentId === 3 ? 31 : clientInfo.DepartmentId === 2 ? 21 : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
+  const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
   const [formDetails, setFormDetails] = useState<any>(null);
 
@@ -140,6 +141,7 @@ function ClientModal({
               clientInfo={clientInfo}
               perCountChecklist={perCountChecklist}
               perCountBasicDetails={perCountBasicDetails}
+              perCountSmbChecklist={perCountSmbChecklist}
               sidebarModule={formSubmit}
             />
             <Box
@@ -183,10 +185,7 @@ function ClientModal({
                     <ChecklistSmb
                       clientInfo={clientInfo}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
-                      setSMBChecklistFormSubmit={(value: number) =>
-                        setFormSubmit(value)
-                      }
-                      setSMBChecklistCount={(value: number) => {}}
+                      setSMBChecklistCount={(value: number) => setPerCountSmbChecklist(value)}
                       formDetails={
                         formDetails !== null ? formDetails?.checkList : false
                       }

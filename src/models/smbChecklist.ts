@@ -378,6 +378,37 @@ export interface DistributionListFormTypes {
   [key: string]: string | null;
 }
 
+export interface ExistingFinancialsChecklistType {
+  className?: string,
+  smbExistingFinancialsChecklistErrors: smbExistingFinancialsChecklistErrors,
+  smbLiveDate: LiveDateFormTypes;
+  setSmbLiveDate: React.Dispatch<React.SetStateAction<LiveDateFormTypes>>;
+  smbAccountingMethod: AccountingMethodFormTypes;
+  setSmbAccountingMethod: React.Dispatch<
+    React.SetStateAction<AccountingMethodFormTypes>
+  >;
+  smbFEIN: FEINFormTypes;
+  setSmbFEIN: React.Dispatch<React.SetStateAction<FEINFormTypes>>;
+  smbFiscalYearEnd: FiscalYearEndFormTypes;
+  setSmbFiscalYearEnd: React.Dispatch<
+    React.SetStateAction<FiscalYearEndFormTypes>
+  >;
+  smbLastClosedMonth: LastClosedMonthFormTypes;
+  setSmbLastClosedMonth: React.Dispatch<
+    React.SetStateAction<LastClosedMonthFormTypes>
+  >;
+  smbContactOfCpa: ContactOfCpaFormTypes;
+  setSmbContactOfCpa: React.Dispatch<
+    React.SetStateAction<ContactOfCpaFormTypes>
+  >;
+  smbTaxReturn: TaxReturnFormTypes;
+  setSmbTaxReturn: React.Dispatch<React.SetStateAction<TaxReturnFormTypes>>;
+  smbDistributionList: DistributionListFormTypes;
+  setSmbDistributionList: React.Dispatch<
+    React.SetStateAction<DistributionListFormTypes>
+  >;
+}
+
 export interface TimeZoneFormTypes {
   TimeZoneStatus: string;
   TimeZoneDetails: string;
@@ -397,6 +428,17 @@ export interface TimeSlotFormTypes {
   TimeSlotDetails: string;
   TimeSlotActionItems: string;
   [key: string]: string | null;
+}
+
+export interface MeetingChecklistType {
+  className?: string;
+  smbMeetingChecklistErrors: smbMeetingAvailabilityErrors
+  smbTimeZone: TimeZoneFormTypes;
+  setSmbTimeZone: React.Dispatch<React.SetStateAction<TimeZoneFormTypes>>;
+  smbConvenient: ConvenientFormTypes;
+  setSmbConvenient: React.Dispatch<React.SetStateAction<ConvenientFormTypes>>;
+  smbTimeSlot: TimeSlotFormTypes;
+  setSmbTimeSlot: React.Dispatch<React.SetStateAction<TimeSlotFormTypes>>;
 }
 
 export interface ClientNameTypes {
@@ -471,12 +513,12 @@ export interface OnboardingPocTypes {
 export interface smbPeopleBusinessErrors
   extends Partial<
     ClientNameFormTypes &
-      PocFormTypes &
-      EmailFormTypes &
-      ContactNumberFormTypes &
-      AddressFormTypes &
-      ClientWebsiteFormTypes
-  > {}
+    PocFormTypes &
+    EmailFormTypes &
+    ContactNumberFormTypes &
+    AddressFormTypes &
+    ClientWebsiteFormTypes
+  > { }
 
 export interface PABSGroupEmailTypes {
   smbPABSGroupEmail: PABSGroupEmailFormTypes;
@@ -560,10 +602,10 @@ export interface PointSalesAccessTypes {
 export interface smbSystemDocumentAccessErrors
   extends Partial<
     AccessAccountingSoftwareFormTypes &
-      PayrollServiceProviderFormTypes &
-      ModeOfPaymentFormTypes &
-      PointSalesAccessFormTypes
-  > {}
+    PayrollServiceProviderFormTypes &
+    ModeOfPaymentFormTypes &
+    PointSalesAccessFormTypes
+  > { }
 
 export interface SavingAccountTypes {
   smbSavingAccount: SavingAccountFormTypes;
@@ -608,11 +650,12 @@ export interface AccessCreditCardTypes {
 }
 
 export interface smbCashBankingAccessErrors
-  extends Partial<SavingAccountFormTypes & AddCardsFormTypes> {}
+  extends Partial<SavingAccountFormTypes & AddCardsFormTypes> { }
 
 export interface LiveDateTypes {
   smbLiveDate: LiveDateFormTypes;
   setSmbLiveDate: React.Dispatch<React.SetStateAction<LiveDateFormTypes>>;
+  smbLiveDateErrors: smbExistingFinancialsChecklistErrors
 }
 
 export interface AccountingMethodTypes {
@@ -639,6 +682,7 @@ export interface LastClosedMonthTypes {
   setSmbLastClosedMonth: React.Dispatch<
     React.SetStateAction<LastClosedMonthFormTypes>
   >;
+  smbLastClosedMonthErrors: smbExistingFinancialsChecklistErrors
 }
 
 export interface ContactOfCpaTypes {
@@ -651,6 +695,7 @@ export interface ContactOfCpaTypes {
 export interface TaxReturnTypes {
   smbTaxReturn: TaxReturnFormTypes;
   setSmbTaxReturn: React.Dispatch<React.SetStateAction<TaxReturnFormTypes>>;
+  smbTaxReturnErrors: smbExistingFinancialsChecklistErrors
 }
 
 export interface DistributionListTypes {
@@ -658,22 +703,41 @@ export interface DistributionListTypes {
   setSmbDistributionList: React.Dispatch<
     React.SetStateAction<DistributionListFormTypes>
   >;
+  smbDistributionListErrors: smbExistingFinancialsChecklistErrors
 }
+
+export interface smbExistingFinancialsChecklistErrors
+  extends Partial<
+    LiveDateFormTypes &
+    LastClosedMonthFormTypes &
+    TaxReturnFormTypes &
+    DistributionListFormTypes
+  > { }
 
 export interface TimeZoneTypes {
   smbTimeZone: TimeZoneFormTypes;
   setSmbTimeZone: React.Dispatch<React.SetStateAction<TimeZoneFormTypes>>;
+  smbTimeZoneErrors: smbMeetingAvailabilityErrors
 }
 
 export interface ConvenientTypes {
   smbConvenient: ConvenientFormTypes;
   setSmbConvenient: React.Dispatch<React.SetStateAction<ConvenientFormTypes>>;
+  smbConvenientErrors: smbMeetingAvailabilityErrors
 }
 
 export interface TimeSlotTypes {
   smbTimeSlot: TimeSlotFormTypes;
   setSmbTimeSlot: React.Dispatch<React.SetStateAction<TimeSlotFormTypes>>;
+  smbTimeSlotErrors: smbMeetingAvailabilityErrors
 }
+
+export interface smbMeetingAvailabilityErrors
+  extends Partial<
+    TimeZoneFormTypes &
+    ConvenientFormTypes &
+    TimeSlotFormTypes
+  > { }
 
 export interface FormDetails {
   fieldName: string;
@@ -698,6 +762,5 @@ export interface SMBType {
   formDetails?: any;
   getFormAutoCareDetials?: any;
   setSMBChecklistCount: (value: number) => void;
-  setSMBChecklistFormSubmit: (value: number) => void;
   setIsOpenModal?: any;
 }

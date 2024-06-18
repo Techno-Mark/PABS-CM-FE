@@ -13,8 +13,8 @@ import { onboardingListFormUrl } from "@/static/apiUrl";
 function Page() {
   const router = useRouter();
   const userId = Cookies.get("userId");
-  const [formSubmit, setFormSubmit] = useState<number>(21);
   const [formDetails, setFormDetails] = useState<any>(null);
+  const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -50,19 +50,15 @@ function Page() {
 
   return (
     <ClientWrapper
-      perCountChecklist={50}
-      perCountBasicDetails={12}
-      formSubmit={formSubmit}
+      formSubmit={21}
+      perCountSmbChecklist={perCountSmbChecklist}
     >
-      {formSubmit === 21 && (
-        <ChecklistSmb
-          setSMBChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setSMBChecklistCount={(value: number) => {}}
-          formDetails={formDetails !== null ? formDetails?.checkList : false}
-          responseData={formDetails !== null ? formDetails : false}
-          getFormDetials={getFormDetials}
-        />
-      )}
+      <ChecklistSmb
+        setSMBChecklistCount={(value: number) => setPerCountSmbChecklist(value)}
+        formDetails={formDetails !== null ? formDetails?.checkList : false}
+        responseData={formDetails !== null ? formDetails : false}
+        getFormDetials={getFormDetials}
+      />
     </ClientWrapper>
   );
 }

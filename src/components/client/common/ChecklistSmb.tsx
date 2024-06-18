@@ -48,12 +48,16 @@ import {
   TimeZoneFormTypes,
   TypeOfEntityFormTypes,
   smbCashBankingAccessErrors,
+  smbExistingFinancialsChecklistErrors,
+  smbMeetingAvailabilityErrors,
   smbPeopleBusinessErrors,
   smbSystemDocumentAccessErrors,
 } from "@/models/smbChecklist";
 import { AccordianExpand } from "@/static/autoCareChecklist";
 import {
   fieldDisplayNamesSmbBankingAccess,
+  fieldDisplayNamesSmbExistingFinancials,
+  fieldDisplayNamesSmbMeeting,
   fieldDisplayNamesSmbPeopleBusiness,
   fieldDisplayNamesSmbSystemAccess,
   initialAccessAccountingSoftware,
@@ -97,6 +101,8 @@ import {
   initialTimeZone,
   initialTypeOfEntity,
   validateSmbBankingAccessField,
+  validateSmbExistingFinancialsField,
+  validateSmbMeetingField,
   validateSmbPeopleBusinessField,
   validateSmbSystemAccessField,
 } from "@/static/smbChecklist";
@@ -113,7 +119,6 @@ import { onboardingSaveFormUrl } from "@/static/apiUrl";
 function ChecklistSmb({
   clientInfo,
   setSMBChecklistCount,
-  setSMBChecklistFormSubmit,
   formDetails,
   getFormDetials,
   setIsOpenModal,
@@ -129,6 +134,8 @@ function ChecklistSmb({
   const initialSmbSystemDocumentAccessErrors: smbSystemDocumentAccessErrors =
     {};
   const initialSmbCashBankingAccessErrors: smbCashBankingAccessErrors = {};
+  const initialSmbExistingFinancialsChecklistErrors: smbExistingFinancialsChecklistErrors = {};
+  const initialSmbMeetingChecklistErrors: smbMeetingAvailabilityErrors = {};
 
   const [smbClientName, setSmbClientName] =
     useState<ClientNameFormTypes>(initialClientName);
@@ -266,6 +273,14 @@ function ChecklistSmb({
   const [smbCashBankingAccessErrors, setSmbCashBankingAccessErrors] =
     useState<smbCashBankingAccessErrors>(initialSmbCashBankingAccessErrors);
   const [smbCashBankingAccessHasErrors, setSmbCashBankingAccessHasErrors] =
+    useState<boolean>(false);
+  const [smbExistingFinancialsChecklistErrors, setSmbExistingFinancialsChecklistErrors] =
+    useState<smbExistingFinancialsChecklistErrors>(initialSmbExistingFinancialsChecklistErrors);
+  const [smbExistingFinancialsChecklistHasErrors, setSmbExistingFinancialsChecklistHasErrors] =
+    useState<boolean>(false);
+  const [smbMeetingChecklistErrors, setSmbMeetingChecklistErrors] =
+    useState<smbMeetingAvailabilityErrors>(initialSmbMeetingChecklistErrors);
+  const [smbMeetingChecklistHasErrors, setSmbMeetingChecklistHasErrors] =
     useState<boolean>(false);
 
   const [peopleBusinessChecked, setPeopleBusinessChecked] =
@@ -627,8 +642,31 @@ function ChecklistSmb({
     setMeetingAvailabilityChecked(responseData?.phase5MeetingIsDisplay);
   }, [formDetails, responseData]);
 
+  useEffect(() => {
+    const counts = smbChecklistStatus()
+    setSMBChecklistCount(counts)
+  }, [smbClientName,
+    smbPoc,
+    smbEmail,
+    smbContactNumber,
+    smbAddress,
+    smbClientWebsite,
+    smbAccessAccountingSoftware,
+    smbPayrollServiceAccess,
+    smbModeOfPayment,
+    smbPointSalesAccess,
+    smbSavingAccount,
+    smbAddCards,
+    smbLiveDate,
+    smbLastClosedMonth,
+    smbTaxReturn,
+    smbDistributionList,
+    smbTimeZone,
+    smbConvenient,
+    smbTimeSlot])
+
   const handleAccordianChange =
-    (arg1: number) => (e: any, isExpanded: boolean) => {
+    (arg1: number) => (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
       setExpandedAccordian(isExpanded ? arg1 : -1);
     };
 
@@ -707,6 +745,48 @@ function ChecklistSmb({
     return hasErrors;
   };
 
+  const validateSmbExistingFinancialsChecklist = () => {
+    const newExistingFinancialsChecklistErrors: { [key: string]: string } = {};
+
+    validateSmbExistingFinancialsField.forEach((field) => {
+      if (!smbLiveDate[field] && !smbLastClosedMonth[field] && !smbTaxReturn[field] && !smbDistributionList[field]) {
+        newExistingFinancialsChecklistErrors[
+          field
+        ] = `${fieldDisplayNamesSmbExistingFinancials[field]} is required`;
+      } else {
+        newExistingFinancialsChecklistErrors[field] = "";
+      }
+    });
+
+    const hasErrors = Object.values(newExistingFinancialsChecklistErrors).some(
+      (error) => !!error
+    );
+    setSmbExistingFinancialsChecklistErrors(newExistingFinancialsChecklistErrors);
+    setSmbExistingFinancialsChecklistHasErrors(hasErrors);
+    return hasErrors;
+  };
+
+  const validateSmbMeetingChecklist = () => {
+    const newMeetingChecklistErrors: { [key: string]: string } = {};
+
+    validateSmbMeetingField.forEach((field) => {
+      if (!smbTimeZone[field] && !smbConvenient[field] && !smbTimeSlot[field]) {
+        newMeetingChecklistErrors[
+          field
+        ] = `${fieldDisplayNamesSmbMeeting[field]} is required`;
+      } else {
+        newMeetingChecklistErrors[field] = "";
+      }
+    });
+
+    const hasErrors = Object.values(newMeetingChecklistErrors).some(
+      (error) => !!error
+    );
+    setSmbMeetingChecklistErrors(newMeetingChecklistErrors);
+    setSmbMeetingChecklistHasErrors(hasErrors);
+    return hasErrors;
+  };
+
   const handleRemoveErrors = () => {
     setSmbPeopleBusinessErrors({});
     setSmbPeopleBusinessHasErrors(false);
@@ -714,6 +794,10 @@ function ChecklistSmb({
     setSmbSystemDocumentAccessHasErrors(false);
     setSmbCashBankingAccessErrors({});
     setSmbCashBankingAccessHasErrors(false);
+    setSmbExistingFinancialsChecklistErrors({})
+    setSmbExistingFinancialsChecklistHasErrors(false);
+    setSmbMeetingChecklistErrors({});
+    setSmbMeetingChecklistHasErrors(false);
   };
 
   const handleSubmit = (type: number) => {
@@ -1114,8 +1198,14 @@ function ChecklistSmb({
       const isCashBankingAccessValid = cashBanksLoansChecked
         ? validateSmbCashBankingAccess()
         : false;
+      const isExistingFinancialsAccessValid = conditionExistingFinancialsChecked
+        ? validateSmbExistingFinancialsChecklist()
+        : false;
+      const isMeetingChecklistValid = meetingAvailabilityChecked
+        ? validateSmbMeetingChecklist()
+        : false;
 
-      const isValid = !isPeopleBusinessValid && !isSystemDocumentAccessValid && !isCashBankingAccessValid;
+      const isValid = !isPeopleBusinessValid && !isSystemDocumentAccessValid && !isCashBankingAccessValid && !isExistingFinancialsAccessValid && !isMeetingChecklistValid;
 
       if (isValid) {
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
@@ -1144,7 +1234,7 @@ function ChecklistSmb({
     }
   };
 
-  const handleSwitchChange = async (e: any, phaseType: number) => {
+  const handleSwitchChange = async (e: ChangeEvent<HTMLInputElement>, phaseType: number) => {
     const check = e.target.checked;
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -1205,12 +1295,140 @@ function ChecklistSmb({
     updatePhaseState(`setPhase${phaseType}Checked`, check);
   };
 
+  const smbChecklistStatus = () => {
+    let relevantFields = [];
+
+    if (peopleBusinessChecked) {
+      relevantFields.push(
+        ...[
+          "ClientNameStatus",
+          "ClientNameDetails",
+          "ClientNameActionItems",
+          "PocStatus",
+          "PocDetails",
+          "PocActionItems",
+          "EmailStatus",
+          "EmailDetails",
+          "EmailActionItems",
+          "ContactNumberStatus",
+          "ContactNumberDetails",
+          "ContactNumberActionItems",
+          "AddressStatus",
+          "AddressDetails",
+          "AddressActionItems",
+          "ClientWebsiteStatus",
+          "ClientWebsiteDetails",
+          "ClientWebsiteActionItems",
+        ]
+      );
+    }
+
+    if (systemDocumentAccessChecked) {
+      relevantFields.push(
+        ...[
+          "AccessAccountingSoftwareStatus",
+          "AccessAccountingSoftwareDetails",
+          "AccessAccountingSoftwareActionItems",
+          "PayrollServiceAccessStatus",
+          "PayrollServiceAccessDetails",
+          "PayrollServiceAccessActionItems",
+          "ModeOfPaymentStatus",
+          "ModeOfPaymentDetails",
+          "ModeOfPaymentActionItems",
+          "pointSalesAccessStatus",
+          "pointSalesAccessDetails",
+          "pointSalesAccessActionItems",
+        ]
+      );
+    }
+
+    if (cashBanksLoansChecked) {
+      relevantFields.push(
+        ...[
+          "SavingAccountStatus",
+          "SavingAccountDetails",
+          "SavingAccountActionItems",
+          "AddCardsStatus",
+          "AddCardsDetails",
+          "AddCardsActionItems",
+        ]
+      );
+    }
+
+    if (conditionExistingFinancialsChecked) {
+      relevantFields.push(
+        ...[
+          "LiveDateStatus",
+          "LiveDateDetails",
+          "LiveDateActionItems",
+          "LastClosedMonthStatus",
+          "LastClosedMonthDetails",
+          "LastClosedMonthActionItems",
+          "TaxReturnStatus",
+          "TaxReturnDetails",
+          "TaxReturnActionItems",
+          "DistributionListStatus",
+          "DistributionListDetails",
+          "DistributionListActionItems",
+        ]
+      );
+    }
+
+    if (meetingAvailabilityChecked) {
+      relevantFields.push(
+        ...[
+          "TimeZoneStatus",
+          "TimeZoneDetails",
+          "TimeZoneActionItems",
+          "ConvenientStatus",
+          "ConvenientDetails",
+          "ConvenientActionItems",
+          "TimeSlotStatus",
+          "TimeSlotDetails",
+          "TimeSlotActionItems",
+        ]
+      );
+    }
+
+    let count = 0;
+    relevantFields.forEach((field) => {
+      if (
+        !!smbClientName[field] ||
+        !!smbPoc[field] ||
+        !!smbEmail[field] ||
+        !!smbContactNumber[field] ||
+        !!smbAddress[field] ||
+        !!smbClientWebsite[field] ||
+        !!smbAccessAccountingSoftware[field] ||
+        !!smbPayrollServiceAccess[field] ||
+        !!smbModeOfPayment[field] ||
+        !!smbPointSalesAccess[field] ||
+        !!smbSavingAccount[field] ||
+        !!smbAddCards[field] ||
+        !!smbLiveDate[field] ||
+        !!smbLastClosedMonth[field] ||
+        !!smbTaxReturn[field] ||
+        !!smbDistributionList[field] ||
+        !!smbTimeZone[field] ||
+        !!smbConvenient[field] ||
+        !!smbTimeSlot[field]
+      ) {
+        count++;
+      }
+    });
+
+    let totalFields = relevantFields.length;
+    let percentage =
+      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+
+    return percentage;
+  };
+
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
@@ -1350,6 +1568,7 @@ function ChecklistSmb({
                   handleSwitchChange(e, 4)
                 }
                 checkStatus={conditionExistingFinancialsChecked}
+                hasError={smbExistingFinancialsChecklistHasErrors}
                 expandedAccordian={
                   expandedAccordian === AccordianExpand.PAYROLL_SYSTEM
                 }
@@ -1359,6 +1578,7 @@ function ChecklistSmb({
                 title="Phase 4: Condition of Existing Financials"
               >
                 <SmbExistingFinancialsChecklist
+                  smbExistingFinancialsChecklistErrors={smbExistingFinancialsChecklistErrors}
                   smbLiveDate={smbLiveDate}
                   setSmbLiveDate={setSmbLiveDate}
                   smbAccountingMethod={smbAccountingMethod}
@@ -1385,6 +1605,7 @@ function ChecklistSmb({
                   handleSwitchChange(e, 5)
                 }
                 checkStatus={meetingAvailabilityChecked}
+                hasError={smbMeetingChecklistHasErrors}
                 expandedAccordian={
                   expandedAccordian === AccordianExpand.COMPLIANCES
                 }
@@ -1394,6 +1615,7 @@ function ChecklistSmb({
                 title="Phase 5: Meeting Availability"
               >
                 <SmbMeetingChecklist
+                  smbMeetingChecklistErrors={smbMeetingChecklistErrors}
                   smbTimeZone={smbTimeZone}
                   setSmbTimeZone={setSmbTimeZone}
                   smbConvenient={smbConvenient}
@@ -1403,6 +1625,18 @@ function ChecklistSmb({
                 />
               </ChecklistAccordian>
             )}
+
+            {roleId === "4" &&
+              !peopleBusinessChecked &&
+              !systemDocumentAccessChecked &&
+              !cashBanksLoansChecked &&
+              !conditionExistingFinancialsChecked &&
+              !meetingAvailabilityChecked && (
+                <span className="text-[14px] flex justify-center items-center text-[#333333]">
+                  No details for implementation checklist found for your
+                  account. Please contact PABS team to get support.
+                </span>
+              )}
           </div>
         </div>
 
@@ -1416,22 +1650,38 @@ function ChecklistSmb({
               Cancel
             </Button>
           )}
-          <Button
-            onClick={() => handleSubmit(2)}
-            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-            variant="outlined"
-          >
-            Save as Draft
-          </Button>
-          <Button
-            onClick={() => handleSubmit(1)}
-            className={`!bg-[#022946] text-white !rounded-full`}
-            variant="contained"
-          >
-            <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-              Submit
-            </span>
-          </Button>
+          {roleId === "4"
+            ? peopleBusinessChecked &&
+            systemDocumentAccessChecked &&
+            cashBanksLoansChecked &&
+            conditionExistingFinancialsChecked &&
+            meetingAvailabilityChecked
+            : true && (
+              <Button
+                onClick={() => handleSubmit(2)}
+                className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                variant="outlined"
+              >
+                Save as Draft
+              </Button>
+            )}
+          {roleId === "4"
+            ? peopleBusinessChecked &&
+            systemDocumentAccessChecked &&
+            cashBanksLoansChecked &&
+            conditionExistingFinancialsChecked &&
+            meetingAvailabilityChecked
+            : true && (
+              <Button
+                onClick={() => handleSubmit(1)}
+                className={`!bg-[#022946] text-white !rounded-full`}
+                variant="contained"
+              >
+                <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                  Submit
+                </span>
+              </Button>
+            )}
         </div>
       </div>
     </>

@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 // Cookie import
 import Cookies from "js-cookie";
+import { ClientInfoType } from "@/models/autoCareBasicDetails";
 
 const openedMixin = (theme: Theme) => ({
   width: clientDrawerWidth,
@@ -42,41 +43,43 @@ const MyDrawer = styled(Drawer, {
 }));
 
 interface SidebarModuleTypes {
-  clientInfo?: any;
-  perCountBasicDetails: number;
+  clientInfo?: ClientInfoType;
+  perCountBasicDetails?: number;
   sidebarModule?: number;
-  perCountChecklist: number;
+  perCountChecklist?: number;
+  perCountSmbChecklist?:number;
 }
 
 const ClientSidebar = ({
   clientInfo,
   perCountBasicDetails,
   perCountChecklist,
+  perCountSmbChecklist,
   sidebarModule,
 }: SidebarModuleTypes) => {
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
   const businessTypeId = Cookies.get("businessTypeId");
 
   useEffect(() => {
-    if (businessTypeId === "3" || clientInfo?.DepartmentId === 3) {
+    if (businessTypeId === "3" || clientInfo?.DepartmentId.toString() === "3") {
       setItems([
         {
           id: 31,
           module: "Basic Details",
-          value: perCountBasicDetails,
+          value: perCountBasicDetails || 0,
         },
         {
           id: 32,
           module: "Checklist",
-          value: perCountChecklist,
+          value: perCountChecklist || 0,
         }
       ]);
-    } else if (businessTypeId === "2" || clientInfo?.DepartmentId === 2) {
+    } else if (businessTypeId === "2" || clientInfo?.DepartmentId.toString() === "2") {
       setItems([
         {
           id: 21,
           module: "Checklist",
-          value: 0,
+          value: perCountSmbChecklist || 0,
         }
       ]);
     } else {
@@ -98,7 +101,7 @@ const ClientSidebar = ({
         },
       ]);
     }
-  }, [businessTypeId, clientInfo, perCountBasicDetails, perCountChecklist]);
+  }, [businessTypeId, clientInfo, perCountBasicDetails, perCountChecklist,perCountSmbChecklist]);
 
   return (
     <>
@@ -136,7 +139,7 @@ const ClientSidebar = ({
               >
                 {data.module}
               </span>
-              <div className="flex items-center justify-end w-[60%]">
+              <div className="flex items-center justify-end gap-3 w-[60%]">
                 <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${

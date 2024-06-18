@@ -5,6 +5,7 @@ import {
   ContactOfCpaTypes,
   DistributionListFormTypes,
   DistributionListTypes,
+  ExistingFinancialsChecklistType,
   FEINFormTypes,
   FEINTypes,
   FiscalYearEndFormTypes,
@@ -22,6 +23,7 @@ import React from "react";
 
 function SmbExistingFinancialsChecklist({
   className,
+  smbExistingFinancialsChecklistErrors,
   smbLiveDate,
   setSmbLiveDate,
   smbAccountingMethod,
@@ -38,10 +40,10 @@ function SmbExistingFinancialsChecklist({
   setSmbTaxReturn,
   smbDistributionList,
   setSmbDistributionList,
-}: any) {
+}: ExistingFinancialsChecklistType) {
   return (
     <div className={`${className}`}>
-      <LiveDate smbLiveDate={smbLiveDate} setSmbLiveDate={setSmbLiveDate} />
+      <LiveDate smbLiveDate={smbLiveDate} setSmbLiveDate={setSmbLiveDate} smbLiveDateErrors={smbExistingFinancialsChecklistErrors} />
       <AccountingMethod
         smbAccountingMethod={smbAccountingMethod}
         setSmbAccountingMethod={setSmbAccountingMethod}
@@ -54,6 +56,7 @@ function SmbExistingFinancialsChecklist({
       <LastClosedMonth
         smbLastClosedMonth={smbLastClosedMonth}
         setSmbLastClosedMonth={setSmbLastClosedMonth}
+        smbLastClosedMonthErrors={smbExistingFinancialsChecklistErrors}
       />
       <ContactOfCpa
         smbContactOfCpa={smbContactOfCpa}
@@ -62,10 +65,12 @@ function SmbExistingFinancialsChecklist({
       <TaxReturn
         smbTaxReturn={smbTaxReturn}
         setSmbTaxReturn={setSmbTaxReturn}
+        smbTaxReturnErrors={smbExistingFinancialsChecklistErrors}
       />
       <DistributionList
         smbDistributionList={smbDistributionList}
         setSmbDistributionList={setSmbDistributionList}
+        smbDistributionListErrors={smbExistingFinancialsChecklistErrors}
       />
     </div>
   );
@@ -73,10 +78,10 @@ function SmbExistingFinancialsChecklist({
 
 export default SmbExistingFinancialsChecklist;
 
-const LiveDate = ({ smbLiveDate, setSmbLiveDate }: LiveDateTypes) => {
+const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLiveDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbLiveDate((prev: LiveDateFormTypes) => ({
@@ -87,7 +92,7 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate }: LiveDateTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Go Live Date
+        Go Live Date<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -101,7 +106,9 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate }: LiveDateTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbLiveDate?.LiveDateStatus}
-                onChange={handleChange}
+                error={!!smbLiveDateErrors?.LiveDateStatus}
+                helperText={smbLiveDateErrors?.LiveDateStatus}
+                onChange={handleLiveDateChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -123,7 +130,9 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate }: LiveDateTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbLiveDate?.LiveDateDetails}
-                onChange={handleChange}
+                error={!!smbLiveDateErrors?.LiveDateDetails}
+                helperText={smbLiveDateErrors?.LiveDateDetails}
+                onChange={handleLiveDateChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -147,7 +156,9 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate }: LiveDateTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbLiveDate?.LiveDateActionItems}
-                onChange={handleChange}
+                error={!!smbLiveDateErrors?.LiveDateActionItems}
+                helperText={smbLiveDateErrors?.LiveDateActionItems}
+                onChange={handleLiveDateChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -171,7 +182,7 @@ const AccountingMethod = ({
 }: AccountingMethodTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccountingMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbAccountingMethod((prev: AccountingMethodFormTypes) => ({
@@ -196,7 +207,7 @@ const AccountingMethod = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAccountingMethod?.AccountingMethodStatus}
-                onChange={handleChange}
+                onChange={handleAccountingMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -218,7 +229,7 @@ const AccountingMethod = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAccountingMethod?.AccountingMethodDetails}
-                onChange={handleChange}
+                onChange={handleAccountingMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -242,7 +253,7 @@ const AccountingMethod = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbAccountingMethod?.AccountingMethodActionItems}
-                onChange={handleChange}
+                onChange={handleAccountingMethodChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -263,7 +274,7 @@ const AccountingMethod = ({
 const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlFeinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbFEIN((prev: FEINFormTypes) => ({
@@ -288,7 +299,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbFEIN?.FEINStatus}
-                onChange={handleChange}
+                onChange={handlFeinChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -310,7 +321,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbFEIN?.FEINDetails}
-                onChange={handleChange}
+                onChange={handlFeinChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -334,7 +345,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbFEIN?.FEINActionItems}
-                onChange={handleChange}
+                onChange={handlFeinChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -358,7 +369,7 @@ const FiscalYearEnd = ({
 }: FiscalYearEndTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFiscalYearEndChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbFiscalYearEnd((prev: FiscalYearEndFormTypes) => ({
@@ -383,7 +394,7 @@ const FiscalYearEnd = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbFiscalYearEnd?.FiscalYearEndStatus}
-                onChange={handleChange}
+                onChange={handleFiscalYearEndChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -405,7 +416,7 @@ const FiscalYearEnd = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbFiscalYearEnd?.FiscalYearEndDetails}
-                onChange={handleChange}
+                onChange={handleFiscalYearEndChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -429,7 +440,7 @@ const FiscalYearEnd = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbFiscalYearEnd?.FiscalYearEndActionItems}
-                onChange={handleChange}
+                onChange={handleFiscalYearEndChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -450,10 +461,11 @@ const FiscalYearEnd = ({
 const LastClosedMonth = ({
   smbLastClosedMonth,
   setSmbLastClosedMonth,
+  smbLastClosedMonthErrors
 }: LastClosedMonthTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLastClosedMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbLastClosedMonth((prev: LastClosedMonthFormTypes) => ({
@@ -464,7 +476,7 @@ const LastClosedMonth = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Last Closed month in Accounting Software
+        Last Closed month in Accounting Software<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -478,7 +490,9 @@ const LastClosedMonth = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbLastClosedMonth?.LastClosedMonthStatus}
-                onChange={handleChange}
+                error={!!smbLastClosedMonthErrors?.LastClosedMonthStatus}
+                helperText={smbLastClosedMonthErrors?.LastClosedMonthStatus}
+                onChange={handleLastClosedMonthChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -500,7 +514,9 @@ const LastClosedMonth = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbLastClosedMonth?.LastClosedMonthDetails}
-                onChange={handleChange}
+                error={!!smbLastClosedMonthErrors?.LastClosedMonthDetails}
+                helperText={smbLastClosedMonthErrors?.LastClosedMonthDetails}
+                onChange={handleLastClosedMonthChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -524,7 +540,9 @@ const LastClosedMonth = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbLastClosedMonth?.LastClosedMonthActionItems}
-                onChange={handleChange}
+                error={!!smbLastClosedMonthErrors?.LastClosedMonthActionItems}
+                helperText={smbLastClosedMonthErrors?.LastClosedMonthActionItems}
+                onChange={handleLastClosedMonthChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -548,7 +566,7 @@ const ContactOfCpa = ({
 }: ContactOfCpaTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContactOfCpaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbContactOfCpa((prev: ContactOfCpaFormTypes) => ({
@@ -573,7 +591,7 @@ const ContactOfCpa = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbContactOfCpa?.ContactOfCpaStatus}
-                onChange={handleChange}
+                onChange={handleContactOfCpaChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -595,7 +613,7 @@ const ContactOfCpa = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbContactOfCpa?.ContactOfCpaDetails}
-                onChange={handleChange}
+                onChange={handleContactOfCpaChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -619,7 +637,7 @@ const ContactOfCpa = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbContactOfCpa?.ContactOfCpaActionItems}
-                onChange={handleChange}
+                onChange={handleContactOfCpaChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -637,10 +655,10 @@ const ContactOfCpa = ({
   );
 };
 
-const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn }: TaxReturnTypes) => {
+const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxReturnTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTaxReturnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbTaxReturn((prev: TaxReturnFormTypes) => ({
@@ -651,7 +669,7 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn }: TaxReturnTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Last year Tax Return
+        Last year Tax Return 990<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -665,7 +683,9 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn }: TaxReturnTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbTaxReturn?.TaxReturnStatus}
-                onChange={handleChange}
+                error={!!smbTaxReturnErrors?.TaxReturnStatus}
+                helperText={smbTaxReturnErrors?.TaxReturnStatus}
+                onChange={handleTaxReturnChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -687,7 +707,9 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn }: TaxReturnTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbTaxReturn?.TaxReturnDetails}
-                onChange={handleChange}
+                error={!!smbTaxReturnErrors?.TaxReturnDetails}
+                helperText={smbTaxReturnErrors?.TaxReturnDetails}
+                onChange={handleTaxReturnChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -711,7 +733,9 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn }: TaxReturnTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbTaxReturn?.TaxReturnActionItems}
-                onChange={handleChange}
+                error={!!smbTaxReturnErrors?.TaxReturnActionItems}
+                helperText={smbTaxReturnErrors?.TaxReturnActionItems}
+                onChange={handleTaxReturnChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -732,10 +756,11 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn }: TaxReturnTypes) => {
 const DistributionList = ({
   smbDistributionList,
   setSmbDistributionList,
+  smbDistributionListErrors
 }: DistributionListTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDistributionListChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbDistributionList((prev: DistributionListFormTypes) => ({
@@ -746,7 +771,7 @@ const DistributionList = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Monthly Financials distribution list
+        Monthly Financials distribution list<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -760,7 +785,9 @@ const DistributionList = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbDistributionList?.DistributionListStatus}
-                onChange={handleChange}
+                error={!!smbDistributionListErrors?.DistributionListStatus}
+                helperText={smbDistributionListErrors?.DistributionListStatus}
+                onChange={handleDistributionListChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -782,7 +809,9 @@ const DistributionList = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbDistributionList?.DistributionListDetails}
-                onChange={handleChange}
+                error={!!smbDistributionListErrors?.DistributionListDetails}
+                helperText={smbDistributionListErrors?.DistributionListDetails}
+                onChange={handleDistributionListChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -806,7 +835,9 @@ const DistributionList = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbDistributionList?.DistributionListActionItems}
-                onChange={handleChange}
+                error={!!smbDistributionListErrors?.DistributionListActionItems}
+                helperText={smbDistributionListErrors?.DistributionListActionItems}
+                onChange={handleDistributionListChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
