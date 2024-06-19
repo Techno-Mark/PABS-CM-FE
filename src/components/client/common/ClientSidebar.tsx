@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 // Cookie import
 import Cookies from "js-cookie";
+import { ClientInfoType } from "@/models/autoCareBasicDetails";
 
 const openedMixin = (theme: Theme) => ({
   width: clientDrawerWidth,
@@ -42,52 +43,44 @@ const MyDrawer = styled(Drawer, {
 }));
 
 interface SidebarModuleTypes {
-  clientInfo?: any;
-  perCountBasicDetails: number;
+  clientInfo?: ClientInfoType;
+  perCountBasicDetails?: number;
   sidebarModule?: number;
-  perCountChecklist: number;
+  perCountChecklist?: number;
+  perCountSmbChecklist?:number;
 }
 
 const ClientSidebar = ({
   clientInfo,
   perCountBasicDetails,
   perCountChecklist,
+  perCountSmbChecklist,
   sidebarModule,
 }: SidebarModuleTypes) => {
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
   const businessTypeId = Cookies.get("businessTypeId");
 
   useEffect(() => {
-    if (businessTypeId === "3" || clientInfo?.DepartmentId === 3) {
+    if (businessTypeId === "3" || clientInfo?.DepartmentId.toString() === "3") {
       setItems([
         {
           id: 31,
           module: "Basic Details",
-          value: 0,
+          value: perCountBasicDetails || 0,
         },
         {
           id: 32,
           module: "Checklist",
-          value: 0,
-        },
-        {
-          id: 33,
-          module: "Login Info",
-          value: 0,
-        },
+          value: perCountChecklist || 0,
+        }
       ]);
-    } else if (businessTypeId === "2" || clientInfo?.DepartmentId === 2) {
+    } else if (businessTypeId === "2" || clientInfo?.DepartmentId.toString() === "2") {
       setItems([
         {
           id: 21,
           module: "Checklist",
-          value: 0,
-        },
-        {
-          id: 22,
-          module: "System Access Status",
-          value: 0,
-        },
+          value: perCountSmbChecklist || 0,
+        }
       ]);
     } else {
       setItems([
@@ -108,7 +101,7 @@ const ClientSidebar = ({
         },
       ]);
     }
-  }, [businessTypeId, clientInfo]);
+  }, [businessTypeId, clientInfo, perCountBasicDetails, perCountChecklist,perCountSmbChecklist]);
 
   return (
     <>
@@ -142,12 +135,12 @@ const ClientSidebar = ({
               <span
                 className={` ${
                   sidebarModule === data.id && "font-semibold"
-                } mx-2 text-[#333333] text-[14px] text-wrap w-[40%] cursor-default`}
+                } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
               >
                 {data.module}
               </span>
-              <div className="flex items-center justify-end w-[60%]">
-                <div className="relative flex items-center w-[100px] h-4 rounded-full bg-[#F6F6F6]">
+              <div className="flex items-start justify-start gap-2 w-[50%]">
+                <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${
                       data.value < 93
@@ -164,9 +157,7 @@ const ClientSidebar = ({
                   ></div>
                 </div>
                   <span
-                    className={`relative mx-2 z-10 text-[8px] items-center ${
-                      data.value > 85 ? "text-white" : "text-[#023963]"
-                    }`}
+                    className={`relative mr-1 z-10 text-[8px] items-end text-[#023963]`}
                   >
                     {data.value}%
                   </span>

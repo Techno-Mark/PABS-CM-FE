@@ -1,3 +1,5 @@
+import React from "react";
+// Models import
 import {
   TypeOfEntityFormTypes,
   TypeOfEntityTypes,
@@ -11,8 +13,6 @@ import {
   ClientWebsiteTypes,
   DepartmentFormTypes,
   DepartmentTypes,
-  OperationsFormTypes,
-  OperationsTypes,
   ClientNameFormTypes,
   ClientNameTypes,
   PocFormTypes,
@@ -21,21 +21,30 @@ import {
   DimensionsTypes,
   BusinessNatureTypes,
   BusinessNatureFormTypes,
+  OperationsPocTypes,
+  OperationsPocFormTypes,
+  OnboardingPocFormTypes,
+  OnboardingPocTypes,
+  smbPeopleBusinessTypes,
 } from "@/models/smbChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
 function SmbPeopleBusinessChecklist({
   className,
+  smbPeopleBusinessErrors,
   smbClientName,
   setSmbClientName,
   smbClientWebsite,
   setSmbClientWebsite,
   smbDepartment,
   setSmbDepartment,
-  smbOperations,
-  setSmbOperations,
+  smbOperationsPoc,
+  setSmbOperationsPoc,
+  smbOnboardingPoc,
+  setSmbOnboardingPoc,
   smbTypeOfEntity,
   setSmbTypeOfEntity,
   smbBusinessNature,
@@ -50,12 +59,13 @@ function SmbPeopleBusinessChecklist({
   setSmbContactNumber,
   smbAddress,
   setSmbAddress,
-}: any) {
+}: smbPeopleBusinessTypes) {
   return (
     <div className={`${className}`}>
       <ClientName
         smbClientName={smbClientName}
         setSmbClientName={setSmbClientName}
+        smbClientNameErrors={smbPeopleBusinessErrors}
       />
       <TypeOfEntity
         smbTypeOfEntity={smbTypeOfEntity}
@@ -69,24 +79,42 @@ function SmbPeopleBusinessChecklist({
         smbDimensions={smbDimensions}
         setSmbDimensions={setSmbDimensions}
       />
-      <Poc smbPoc={smbPoc} setSmbPoc={setSmbPoc} />
-      <Email smbEmail={smbEmail} setSmbEmail={setSmbEmail} />
+      <Poc
+        smbPoc={smbPoc}
+        setSmbPoc={setSmbPoc}
+        smbPocErrors={smbPeopleBusinessErrors}
+      />
+      <Email
+        smbEmail={smbEmail}
+        setSmbEmail={setSmbEmail}
+        smbEmailErrors={smbPeopleBusinessErrors}
+      />
       <ContactNumber
         smbContactNumber={smbContactNumber}
         setSmbContactNumber={setSmbContactNumber}
+        smbContactNumberErrors={smbPeopleBusinessErrors}
       />
-      <Address smbAddress={smbAddress} setSmbAddress={setSmbAddress} />
+      <Address
+        smbAddress={smbAddress}
+        setSmbAddress={setSmbAddress}
+        smbAddressErrors={smbPeopleBusinessErrors}
+      />
       <ClientWebsite
         smbClientWebsite={smbClientWebsite}
         setSmbClientWebsite={setSmbClientWebsite}
+        smbClientWebsiteErrors={smbPeopleBusinessErrors}
       />
       <Department
         smbDepartment={smbDepartment}
         setSmbDepartment={setSmbDepartment}
       />
-      <Operations
-        smbOperations={smbOperations}
-        setSmbOperations={setSmbOperations}
+      <OperationsPoc
+        smbOperationsPoc={smbOperationsPoc}
+        setSmbOperationsPoc={setSmbOperationsPoc}
+      />
+      <OnboardingPoc
+        smbOnboardingPoc={smbOnboardingPoc}
+        setSmbOnboardingPoc={setSmbOnboardingPoc}
       />
     </div>
   );
@@ -94,10 +122,14 @@ function SmbPeopleBusinessChecklist({
 
 export default SmbPeopleBusinessChecklist;
 
-const ClientName = ({ smbClientName, setSmbClientName }: ClientNameTypes) => {
+const ClientName = ({
+  smbClientName,
+  setSmbClientName,
+  smbClientNameErrors,
+}: ClientNameTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbClientName((prev: ClientNameFormTypes) => ({
@@ -108,7 +140,7 @@ const ClientName = ({ smbClientName, setSmbClientName }: ClientNameTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Client Name
+        Client Name<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -122,7 +154,9 @@ const ClientName = ({ smbClientName, setSmbClientName }: ClientNameTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbClientName?.ClientNameStatus}
-                onChange={handleChange}
+                error={!!smbClientNameErrors?.ClientNameStatus}
+                helperText={smbClientNameErrors?.ClientNameStatus}
+                onChange={handleClientNameChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -144,7 +178,9 @@ const ClientName = ({ smbClientName, setSmbClientName }: ClientNameTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbClientName?.ClientNameDetails}
-                onChange={handleChange}
+                error={!!smbClientNameErrors?.ClientNameDetails}
+                helperText={smbClientNameErrors?.ClientNameDetails}
+                onChange={handleClientNameChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -168,7 +204,9 @@ const ClientName = ({ smbClientName, setSmbClientName }: ClientNameTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbClientName?.ClientNameActionItems}
-                onChange={handleChange}
+                error={!!smbClientNameErrors?.ClientNameActionItems}
+                helperText={smbClientNameErrors?.ClientNameActionItems}
+                onChange={handleClientNameChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -192,7 +230,7 @@ const TypeOfEntity = ({
 }: TypeOfEntityTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTypeOfEntityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbTypeOfEntity((prev: TypeOfEntityFormTypes) => ({
@@ -217,7 +255,7 @@ const TypeOfEntity = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbTypeOfEntity?.TypeOfEntityStatus}
-                onChange={handleChange}
+                onChange={handleTypeOfEntityChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -239,7 +277,7 @@ const TypeOfEntity = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbTypeOfEntity?.TypeOfEntityDetails}
-                onChange={handleChange}
+                onChange={handleTypeOfEntityChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -263,7 +301,7 @@ const TypeOfEntity = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbTypeOfEntity?.TypeOfEntityActionItems}
-                onChange={handleChange}
+                onChange={handleTypeOfEntityChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -287,7 +325,7 @@ const BusinessNature = ({
 }: BusinessNatureTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBusinessNatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbBusinessNature((prev: BusinessNatureFormTypes) => ({
@@ -312,7 +350,7 @@ const BusinessNature = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbBusinessNature?.BusinessNatureStatus}
-                onChange={handleChange}
+                onChange={handleBusinessNatureChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -334,7 +372,7 @@ const BusinessNature = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbBusinessNature?.BusinessNatureDetails}
-                onChange={handleChange}
+                onChange={handleBusinessNatureChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -358,7 +396,7 @@ const BusinessNature = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbBusinessNature?.BusinessNatureActionItems}
-                onChange={handleChange}
+                onChange={handleBusinessNatureChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -379,7 +417,7 @@ const BusinessNature = ({
 const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDimenionsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbDimensions((prev: DimensionsFormTypes) => ({
@@ -404,7 +442,7 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbDimensions?.DimensionsStatus}
-                onChange={handleChange}
+                onChange={handleDimenionsChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -426,7 +464,7 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbDimensions?.DimensionsDetails}
-                onChange={handleChange}
+                onChange={handleDimenionsChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -450,7 +488,7 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbDimensions?.DimensionsActionItems}
-                onChange={handleChange}
+                onChange={handleDimenionsChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -468,10 +506,10 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
   );
 };
 
-const Poc = ({ smbPoc, setSmbPoc }: PocTypes) => {
+const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbPoc((prev: PocFormTypes) => ({
@@ -482,7 +520,7 @@ const Poc = ({ smbPoc, setSmbPoc }: PocTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        POC
+        POC (Point Of Contact)<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -496,7 +534,9 @@ const Poc = ({ smbPoc, setSmbPoc }: PocTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbPoc?.PocStatus}
-                onChange={handleChange}
+                error={!!smbPocErrors?.PocStatus}
+                helperText={smbPocErrors?.PocStatus}
+                onChange={handlePocChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -518,7 +558,9 @@ const Poc = ({ smbPoc, setSmbPoc }: PocTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbPoc?.PocDetails}
-                onChange={handleChange}
+                error={!!smbPocErrors?.PocDetails}
+                helperText={smbPocErrors?.PocDetails}
+                onChange={handlePocChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -542,7 +584,9 @@ const Poc = ({ smbPoc, setSmbPoc }: PocTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbPoc?.PocActionItems}
-                onChange={handleChange}
+                error={!!smbPocErrors?.PocActionItems}
+                helperText={smbPocErrors?.PocActionItems}
+                onChange={handlePocChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -560,10 +604,10 @@ const Poc = ({ smbPoc, setSmbPoc }: PocTypes) => {
   );
 };
 
-const Email = ({ smbEmail, setSmbEmail }: EmailTypes) => {
+const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbEmail((prev: EmailFormTypes) => ({
@@ -574,7 +618,7 @@ const Email = ({ smbEmail, setSmbEmail }: EmailTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Email
+        Email<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -588,7 +632,9 @@ const Email = ({ smbEmail, setSmbEmail }: EmailTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbEmail?.EmailStatus}
-                onChange={handleChange}
+                error={!!smbEmailErrors?.EmailStatus}
+                helperText={smbEmailErrors?.EmailStatus}
+                onChange={handleEmailChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -610,7 +656,9 @@ const Email = ({ smbEmail, setSmbEmail }: EmailTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbEmail?.EmailDetails}
-                onChange={handleChange}
+                error={!!smbEmailErrors?.EmailDetails}
+                helperText={smbEmailErrors?.EmailDetails}
+                onChange={handleEmailChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -634,7 +682,9 @@ const Email = ({ smbEmail, setSmbEmail }: EmailTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbEmail?.EmailActionItems}
-                onChange={handleChange}
+                error={!!smbEmailErrors?.EmailActionItems}
+                helperText={smbEmailErrors?.EmailActionItems}
+                onChange={handleEmailChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -655,10 +705,11 @@ const Email = ({ smbEmail, setSmbEmail }: EmailTypes) => {
 const ContactNumber = ({
   smbContactNumber,
   setSmbContactNumber,
+  smbContactNumberErrors,
 }: ContactNumberTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContactNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbContactNumber((prev: ContactNumberFormTypes) => ({
@@ -669,7 +720,7 @@ const ContactNumber = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Contact Number
+        Contact Number<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -683,7 +734,9 @@ const ContactNumber = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbContactNumber?.ContactNumberStatus}
-                onChange={handleChange}
+                error={!!smbContactNumberErrors?.ContactNumberStatus}
+                helperText={smbContactNumberErrors?.ContactNumberStatus}
+                onChange={handleContactNumberChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -705,7 +758,9 @@ const ContactNumber = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbContactNumber?.ContactNumberDetails}
-                onChange={handleChange}
+                error={!!smbContactNumberErrors?.ContactNumberDetails}
+                helperText={smbContactNumberErrors?.ContactNumberDetails}
+                onChange={handleContactNumberChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -729,7 +784,9 @@ const ContactNumber = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbContactNumber?.ContactNumberActionItems}
-                onChange={handleChange}
+                error={!!smbContactNumberErrors?.ContactNumberActionItems}
+                helperText={smbContactNumberErrors?.ContactNumberActionItems}
+                onChange={handleContactNumberChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -747,10 +804,14 @@ const ContactNumber = ({
   );
 };
 
-const Address = ({ smbAddress, setSmbAddress }: AddressTypes) => {
+const Address = ({
+  smbAddress,
+  setSmbAddress,
+  smbAddressErrors,
+}: AddressTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbAddress((prev: AddressFormTypes) => ({
@@ -761,7 +822,7 @@ const Address = ({ smbAddress, setSmbAddress }: AddressTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Address
+        Address<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -775,7 +836,9 @@ const Address = ({ smbAddress, setSmbAddress }: AddressTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAddress?.AddressStatus}
-                onChange={handleChange}
+                error={!!smbAddressErrors?.AddressStatus}
+                helperText={smbAddressErrors?.AddressStatus}
+                onChange={handleAddressChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -797,7 +860,9 @@ const Address = ({ smbAddress, setSmbAddress }: AddressTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAddress?.AddressDetails}
-                onChange={handleChange}
+                error={!!smbAddressErrors?.AddressDetails}
+                helperText={smbAddressErrors?.AddressDetails}
+                onChange={handleAddressChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -821,7 +886,9 @@ const Address = ({ smbAddress, setSmbAddress }: AddressTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbAddress?.AddressActionItems}
-                onChange={handleChange}
+                error={!!smbAddressErrors?.AddressActionItems}
+                helperText={smbAddressErrors?.AddressActionItems}
+                onChange={handleAddressChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -842,10 +909,11 @@ const Address = ({ smbAddress, setSmbAddress }: AddressTypes) => {
 const ClientWebsite = ({
   smbClientWebsite,
   setSmbClientWebsite,
+  smbClientWebsiteErrors,
 }: ClientWebsiteTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClientWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbClientWebsite((prev: ClientWebsiteFormTypes) => ({
@@ -856,7 +924,7 @@ const ClientWebsite = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Client Name
+        Client Website<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -870,7 +938,9 @@ const ClientWebsite = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbClientWebsite?.ClientWebsiteStatus}
-                onChange={handleChange}
+                error={!!smbClientWebsiteErrors?.ClientWebsiteStatus}
+                helperText={smbClientWebsiteErrors?.ClientWebsiteStatus}
+                onChange={handleClientWebsiteChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -892,7 +962,9 @@ const ClientWebsite = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbClientWebsite?.ClientWebsiteDetails}
-                onChange={handleChange}
+                error={!!smbClientWebsiteErrors?.ClientWebsiteDetails}
+                helperText={smbClientWebsiteErrors?.ClientWebsiteDetails}
+                onChange={handleClientWebsiteChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -916,7 +988,9 @@ const ClientWebsite = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbClientWebsite?.ClientWebsiteActionItems}
-                onChange={handleChange}
+                error={!!smbClientWebsiteErrors?.ClientWebsiteActionItems}
+                helperText={smbClientWebsiteErrors?.ClientWebsiteActionItems}
+                onChange={handleClientWebsiteChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -937,7 +1011,7 @@ const ClientWebsite = ({
 const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDepartmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbDepartment((prev: DepartmentFormTypes) => ({
@@ -962,7 +1036,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbDepartment?.DepartmentStatus}
-                onChange={handleChange}
+                onChange={handleDepartmentChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -984,7 +1058,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbDepartment?.DepartmentDetails}
-                onChange={handleChange}
+                onChange={handleDepartmentChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -1008,7 +1082,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbDepartment?.DepartmentActionItems}
-                onChange={handleChange}
+                onChange={handleDepartmentChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -1026,13 +1100,16 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
   );
 };
 
-const Operations = ({ smbOperations, setSmbOperations }: OperationsTypes) => {
+const OperationsPoc = ({
+  smbOperationsPoc,
+  setSmbOperationsPoc,
+}: OperationsPocTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOperationsPocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setSmbOperations((prev: OperationsFormTypes) => ({
+    setSmbOperationsPoc((prev: OperationsPocFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -1040,7 +1117,7 @@ const Operations = ({ smbOperations, setSmbOperations }: OperationsTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Onboarding and Operations POC
+        Operations POC
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -1048,13 +1125,13 @@ const Operations = ({ smbOperations, setSmbOperations }: OperationsTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="OperationsStatus"
+                name="OperationsPocStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={smbOperations?.OperationsStatus}
-                onChange={handleChange}
+                value={smbOperationsPoc?.OperationsPocStatus}
+                onChange={handleOperationsPocChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -1070,13 +1147,13 @@ const Operations = ({ smbOperations, setSmbOperations }: OperationsTypes) => {
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="OperationsDetails"
+                name="OperationsPocDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={smbOperations?.OperationsDetails}
-                onChange={handleChange}
+                value={smbOperationsPoc?.OperationsPocDetails}
+                onChange={handleOperationsPocChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -1094,13 +1171,108 @@ const Operations = ({ smbOperations, setSmbOperations }: OperationsTypes) => {
                 Action Items - PABS/Client
               </label>
               <TextField
-                name="OperationsActionItems"
+                name="OperationsPocActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={smbOperations?.OperationsActionItems}
-                onChange={handleChange}
+                value={smbOperationsPoc?.OperationsPocActionItems}
+                onChange={handleOperationsPocChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+const OnboardingPoc = ({
+  smbOnboardingPoc,
+  setSmbOnboardingPoc,
+}: OnboardingPocTypes) => {
+  const classes = useStyles();
+
+  const handleOnboardingPocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setSmbOnboardingPoc((prev: OnboardingPocFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Onboarding POC
+      </div>
+      <div className="py-3 px-2 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="OnboardingPocStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={smbOnboardingPoc?.OnboardingPocStatus}
+                onChange={handleOnboardingPocChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <TextField
+                name="OnboardingPocDetails"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Details"
+                value={smbOnboardingPoc?.OnboardingPocDetails}
+                onChange={handleOnboardingPocChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - PABS/Client
+              </label>
+              <TextField
+                name="OnboardingPocActionItems"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={smbOnboardingPoc?.OnboardingPocActionItems}
+                onChange={handleOnboardingPocChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,

@@ -1,7 +1,7 @@
-import { ReactNode, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { ReactNode, useEffect } from "react";
+import { useRouter } from "next/navigation";
 //mui components
-import { Box, Button, CircularProgress, CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 //custom components
 import ClientSidebar from "@/components/client/common/ClientSidebar";
 import ClientHeader from "@/components/client/common/ClientHeader";
@@ -14,15 +14,16 @@ type WrapperPropsType = {
   formSubmit?: number;
   isScrollable?: boolean;
   children: ReactNode;
-  perCountBasicDetails: number;
-  perCountChecklist: number;
-  
+  perCountBasicDetails?: number;
+  perCountChecklist?: number;
+  perCountSmbChecklist?: number;
 };
 
 const ClientWrapper = ({
   isScrollable,
   perCountBasicDetails,
   perCountChecklist,
+  perCountSmbChecklist,
   formSubmit,
   children,
 }: WrapperPropsType) => {
@@ -50,6 +51,7 @@ const ClientWrapper = ({
           <ClientSidebar
             perCountBasicDetails={perCountBasicDetails}
             perCountChecklist={perCountChecklist}
+            perCountSmbChecklist={perCountSmbChecklist}
             sidebarModule={formSubmit}
           />
           <Box

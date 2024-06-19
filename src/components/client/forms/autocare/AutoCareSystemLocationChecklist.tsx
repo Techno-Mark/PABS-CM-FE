@@ -16,7 +16,7 @@ import {
   ScannerFormTypes,
   ScannerTypes,
   autoCareSystemLocationChecklistTypes,
-} from "@/models/autoCarChecklist";
+} from "@/models/autoCareChecklist";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI import

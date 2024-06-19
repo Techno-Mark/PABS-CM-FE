@@ -28,7 +28,6 @@ export interface ClientFormFieldType {
 }
 
 export interface AuthType {
-  // token: string | null;
   passwordType: "Reset" | "Create";
   isReset: boolean;
 }

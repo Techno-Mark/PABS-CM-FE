@@ -8,7 +8,7 @@ import {
   AccountDetailsFormErrors,
   AccountDetailsFormTypes,
   AccountDetailsTypes,
-} from "@/models/carCareBasicDetails";
+} from "@/models/autoCareBasicDetails";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 import { validateEmail, validateNumber } from "@/utils/validate";
@@ -323,14 +323,14 @@ function AutoCareAccountDetails({
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Locations Name<span className="text-[#DC3545]">*</span>
+                  Name of Locations<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField
                   name="nameOfLocations"
                   id="outlined-basic"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter Locations name"
+                  placeholder="Please Enter Name of Locations"
                   value={autoCareAccountDetails?.nameOfLocations}
                   error={!!autoCareAccountDetailsErrors.nameOfLocations}
                   helperText={autoCareAccountDetailsErrors.nameOfLocations}

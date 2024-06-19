@@ -13,7 +13,7 @@ import {
 import {
   ClientTeamFormTypes,
   ClientTeamTypes,
-} from "@/models/carCareBasicDetails";
+} from "@/models/autoCareBasicDetails";
 // Static import
 import {
   StateList,
@@ -250,7 +250,7 @@ function AutoCareClientTeam({
 
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Email<span className="text-[#DC3545]">*</span>
+              Email-ID<span className="text-[#DC3545]">*</span>
             </label>
             <TextField
               name="email"
@@ -273,14 +273,14 @@ function AutoCareClientTeam({
             />
           </div>
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">Contact Info</label>
+            <label className="text-[#6E6D7A] text-[12px]">CPA</label>
             <TextField
-              name="contactInfo"
+              name="cpa"
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter Contact Info"
-              value={autoCareClientTeam?.contactInfo}
+              placeholder="Please Enter CPA"
+              value={autoCareClientTeam?.cpa}
               onChange={handleChange}
               InputProps={{
                 classes: {
@@ -295,14 +295,14 @@ function AutoCareClientTeam({
 
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
-              Prior Bookkeeper CPA
+              Prior Bookkeeper
             </label>
             <TextField
               name="priorBookkeeper"
               id="outlined-basic"
               variant="standard"
               size="small"
-              placeholder="Please Enter Prior Bookkeeper CPA"
+              placeholder="Please Enter Prior Bookkeeper"
               value={autoCareClientTeam?.priorBookkeeper}
               onChange={handleChange}
               InputProps={{

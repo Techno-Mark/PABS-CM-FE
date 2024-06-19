@@ -1,6 +1,8 @@
+import React from "react";
+// Models import
 import {
-  AccessCreditCard1FormTypes,
-  AccessCreditCard2FormTypes,
+  AccessCreditCardFormTypes,
+  AccessCreditCardPortalFormTypes,
   AccessCreditCardPortalTypes,
   AccessCreditCardTypes,
   AccessLoanAccountFormTypes,
@@ -9,50 +11,58 @@ import {
   AccessSavingAccountTypes,
   AddCardsFormTypes,
   AddCardsTypes,
+  CashBankingAccessType,
   SavingAccountFormTypes,
   SavingAccountTypes,
 } from "@/models/smbChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
 
 function SmbBankingAccessChecklist({
   className,
+  smbCashBankingAccessErrors,
   smbSavingAccount,
   setSmbSavingAccount,
   smbAccessSavingAccount,
   setSmbAccessSavingAccount,
   smbAddCards,
   setSmbAddCards,
-  smbAccessCreditCard1,
-  setSmbAccessCreditCard1,
+  smbAccessCreditCardPortal,
+  setSmbAccessCreditCardPortal,
   smbAccessLoanAccount,
   setSmbAccessLoanAccount,
-  smbAccessCreditCard2,
-  setSmbAccessCreditCard2,
-}: any) {
+  smbAccessCreditCard,
+  setSmbAccessCreditCard,
+}: CashBankingAccessType) {
   return (
     <div className={`${className}`}>
       <SavingAccount
         smbSavingAccount={smbSavingAccount}
         setSmbSavingAccount={setSmbSavingAccount}
+        smbSavingAccountErrors={smbCashBankingAccessErrors}
       />
       <AccessSavingAccount
         smbAccessSavingAccount={smbAccessSavingAccount}
         setSmbAccessSavingAccount={setSmbAccessSavingAccount}
       />
-      <AddCards smbAddCards={smbAddCards} setSmbAddCards={setSmbAddCards} />
+      <AddCards
+        smbAddCards={smbAddCards}
+        setSmbAddCards={setSmbAddCards}
+        smbAddCardsErrors={smbCashBankingAccessErrors}
+      />
       <AccessCreditCard
-        smbAccessCreditCard={smbAccessCreditCard1}
-        setSmbAccessCreditCard={setSmbAccessCreditCard1}
+        smbAccessCreditCard={smbAccessCreditCard}
+        setSmbAccessCreditCard={setSmbAccessCreditCard}
       />
       <AccessLoanAccount
         smbAccessLoanAccount={smbAccessLoanAccount}
         setSmbAccessLoanAccount={setSmbAccessLoanAccount}
       />
       <AccessCreditCardPortal
-        smbAccessCreditCardPortal={smbAccessCreditCard2}
-        setSmbAccessCreditCardPortal={setSmbAccessCreditCard2}
+        smbAccessCreditCardPortal={smbAccessCreditCardPortal}
+        setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
       />
     </div>
   );
@@ -63,10 +73,13 @@ export default SmbBankingAccessChecklist;
 const SavingAccount = ({
   smbSavingAccount,
   setSmbSavingAccount,
+  smbSavingAccountErrors,
 }: SavingAccountTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSavingAccountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbSavingAccount((prev: SavingAccountFormTypes) => ({
@@ -91,7 +104,9 @@ const SavingAccount = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbSavingAccount?.SavingAccountStatus}
-                onChange={handleChange}
+                error={!!smbSavingAccountErrors?.SavingAccountStatus}
+                helperText={smbSavingAccountErrors?.SavingAccountStatus}
+                onChange={handleSavingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -113,7 +128,9 @@ const SavingAccount = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbSavingAccount?.SavingAccountDetails}
-                onChange={handleChange}
+                error={!!smbSavingAccountErrors?.SavingAccountDetails}
+                helperText={smbSavingAccountErrors?.SavingAccountDetails}
+                onChange={handleSavingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -137,7 +154,9 @@ const SavingAccount = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbSavingAccount?.SavingAccountActionItems}
-                onChange={handleChange}
+                error={!!smbSavingAccountErrors?.SavingAccountActionItems}
+                helperText={smbSavingAccountErrors?.SavingAccountActionItems}
+                onChange={handleSavingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -161,7 +180,9 @@ const AccessSavingAccount = ({
 }: AccessSavingAccountTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessSavingAccountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbAccessSavingAccount((prev: AccessSavingAccountFormTypes) => ({
@@ -172,7 +193,7 @@ const AccessSavingAccount = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Access to Checking/ Saving Accounts
+        Access (&ldquo;Read-Only&rdquo;) to Checking/ Saving Accounts
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -186,7 +207,7 @@ const AccessSavingAccount = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAccessSavingAccount?.AccessSavingAccountStatus}
-                onChange={handleChange}
+                onChange={handleAccessSavingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -208,7 +229,7 @@ const AccessSavingAccount = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAccessSavingAccount?.AccessSavingAccountDetails}
-                onChange={handleChange}
+                onChange={handleAccessSavingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -232,7 +253,7 @@ const AccessSavingAccount = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbAccessSavingAccount?.AccessSavingAccountActionItems}
-                onChange={handleChange}
+                onChange={handleAccessSavingAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -250,10 +271,14 @@ const AccessSavingAccount = ({
   );
 };
 
-const AddCards = ({ smbAddCards, setSmbAddCards }: AddCardsTypes) => {
+const AddCards = ({
+  smbAddCards,
+  setSmbAddCards,
+  smbAddCardsErrors,
+}: AddCardsTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessCardsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setSmbAddCards((prev: AddCardsFormTypes) => ({
@@ -278,7 +303,9 @@ const AddCards = ({ smbAddCards, setSmbAddCards }: AddCardsTypes) => {
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAddCards?.AddCardsStatus}
-                onChange={handleChange}
+                error={!!smbAddCardsErrors?.AddCardsStatus}
+                helperText={smbAddCardsErrors?.AddCardsStatus}
+                onChange={handleAccessCardsChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -300,7 +327,9 @@ const AddCards = ({ smbAddCards, setSmbAddCards }: AddCardsTypes) => {
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAddCards?.AddCardsDetails}
-                onChange={handleChange}
+                error={!!smbAddCardsErrors?.AddCardsDetails}
+                helperText={smbAddCardsErrors?.AddCardsDetails}
+                onChange={handleAccessCardsChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -324,7 +353,9 @@ const AddCards = ({ smbAddCards, setSmbAddCards }: AddCardsTypes) => {
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbAddCards?.AddCardsActionItems}
-                onChange={handleChange}
+                error={!!smbAddCardsErrors?.AddCardsActionItems}
+                helperText={smbAddCardsErrors?.AddCardsActionItems}
+                onChange={handleAccessCardsChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -348,10 +379,12 @@ const AccessCreditCard = ({
 }: AccessCreditCardTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessCreditCardChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
-    setSmbAccessCreditCard((prev: AccessCreditCard1FormTypes) => ({
+    setSmbAccessCreditCard((prev: AccessCreditCardFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -373,7 +406,7 @@ const AccessCreditCard = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAccessCreditCard?.AccessCreditCardStatus}
-                onChange={handleChange}
+                onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -395,7 +428,7 @@ const AccessCreditCard = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAccessCreditCard?.AccessCreditCardDetails}
-                onChange={handleChange}
+                onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -419,7 +452,7 @@ const AccessCreditCard = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbAccessCreditCard?.AccessCreditCardActionItems}
-                onChange={handleChange}
+                onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -443,7 +476,9 @@ const AccessLoanAccount = ({
 }: AccessLoanAccountTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessLoanAccountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbAccessLoanAccount((prev: AccessLoanAccountFormTypes) => ({
@@ -468,7 +503,7 @@ const AccessLoanAccount = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAccessLoanAccount?.AccessLoanAccountStatus}
-                onChange={handleChange}
+                onChange={handleAccessLoanAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -490,7 +525,7 @@ const AccessLoanAccount = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAccessLoanAccount?.AccessLoanAccountDetails}
-                onChange={handleChange}
+                onChange={handleAccessLoanAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -514,7 +549,7 @@ const AccessLoanAccount = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbAccessLoanAccount?.AccessLoanAccountActionItems}
-                onChange={handleChange}
+                onChange={handleAccessLoanAccountChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -538,10 +573,12 @@ const AccessCreditCardPortal = ({
 }: AccessCreditCardPortalTypes) => {
   const classes = useStyles();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessCreditCardChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
-    setSmbAccessCreditCardPortal((prev: AccessCreditCard2FormTypes) => ({
+    setSmbAccessCreditCardPortal((prev: AccessCreditCardPortalFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -563,7 +600,7 @@ const AccessCreditCardPortal = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbAccessCreditCardPortal?.AccessCreditCardPortalStatus}
-                onChange={handleChange}
+                onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -585,7 +622,7 @@ const AccessCreditCardPortal = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbAccessCreditCardPortal?.AccessCreditCardPortalDetails}
-                onChange={handleChange}
+                onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,
@@ -611,7 +648,7 @@ const AccessCreditCardPortal = ({
                 value={
                   smbAccessCreditCardPortal?.AccessCreditCardPortalActionItems
                 }
-                onChange={handleChange}
+                onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
                     underline: classes.underline,

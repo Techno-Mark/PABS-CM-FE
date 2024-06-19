@@ -1,12 +1,16 @@
+import React from "react";
+// Models import
 import {
   AccessAccountingSoftwareFormTypes,
   AccessAccountingSoftwareTypes,
   ApBillsFormTypes,
   ApBillsTypes,
-  ApplicablityFormTypes,
-  ApplicablityTypes,
   DropboxSetUpFormTypes,
   DropboxSetUpTypes,
+  ExpensePaymentPortalAccessFormTypes,
+  ExpensePaymentPortalAccessTypes,
+  MerchantAccountPortalAccessFormTypes,
+  MerchantAccountPortalAccessTypes,
   ModeOfPaymentFormTypes,
   ModeOfPaymentTypes,
   PABSGroupEmailFormTypes,
@@ -15,19 +19,30 @@ import {
   PayrollFrequencyTypes,
   PayrollServiceAccessFormTypes,
   PayrollServiceAccessTypes,
+  PointSalesAccessFormTypes,
+  PointSalesAccessTypes,
+  SalesTaxPortalAccessFormTypes,
+  SalesTaxPortalAccessTypes,
+  SystemDocumentInformationAccessTypes,
 } from "@/models/smbChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 
 function SmbSystemAccessChecklist({
   className,
+  smbSystemAccessChecklistErrors,
   smbPABSGroupEmail,
   setSmbPABSGroupEmail,
   smbAccessAccountingSoftware,
   setSmbAccessAccountingSoftware,
   smbDropboxSetUp,
   setSmbDropboxSetUp,
+  smbSalesTaxPortalAccess,
+  setSmbSalesTaxPortalAccess,
+  smbMerchantAccountPortalAccess,
+  setSmbMerchantAccountPortalAccess,
   smbPayrollServiceAccess,
   setSmbPayrollServiceAccess,
   smbPayrollFrequency,
@@ -36,9 +51,11 @@ function SmbSystemAccessChecklist({
   setSmbModeOfPayment,
   smbApBills,
   setSmbApBills,
-  smbApplicablity,
-  setSmbApplicablity,
-}: any) {
+  smbExpensePaymentPortalAccess,
+  setSmbExpensePaymentPortalAccess,
+  smbPointSalesAccess,
+  setSmbPointSalesAccess,
+}: SystemDocumentInformationAccessTypes) {
   return (
     <div className={`${className}`}>
       <PABSGroupEmail
@@ -48,14 +65,24 @@ function SmbSystemAccessChecklist({
       <AccessAccountingSoftware
         smbAccessAccountingSoftware={smbAccessAccountingSoftware}
         setSmbAccessAccountingSoftware={setSmbAccessAccountingSoftware}
+        smbAccessAccountingSoftwareErrors={smbSystemAccessChecklistErrors}
       />
       <DropboxSetUp
         smbDropboxSetUp={smbDropboxSetUp}
         setSmbDropboxSetUp={setSmbDropboxSetUp}
       />
+      <SalesTaxPortalAccess
+        smbSalesTaxPortalAccess={smbSalesTaxPortalAccess}
+        setSmbSalesTaxPortalAccess={setSmbSalesTaxPortalAccess}
+      />
+      <MerchantAccountPortalAccess
+        smbMerchantAccountPortalAccess={smbMerchantAccountPortalAccess}
+        setSmbMerchantAccountPortalAccess={setSmbMerchantAccountPortalAccess}
+      />
       <PayrollServiceAccess
         smbPayrollServiceAccess={smbPayrollServiceAccess}
         setSmbPayrollServiceAccess={setSmbPayrollServiceAccess}
+        smbPayrollServiceAccessErrors={smbSystemAccessChecklistErrors}
       />
       <PayrollFrequency
         smbPayrollFrequency={smbPayrollFrequency}
@@ -64,11 +91,18 @@ function SmbSystemAccessChecklist({
       <ModeOfPayment
         smbModeOfPayment={smbModeOfPayment}
         setSmbModeOfPayment={setSmbModeOfPayment}
+        smbModeOfPaymentErrors={smbSystemAccessChecklistErrors}
       />
       <ApBills smbApBills={smbApBills} setSmbApBills={setSmbApBills} />
-      <Applicablity
-        smbApplicablity={smbApplicablity}
-        setSmbApplicablity={setSmbApplicablity}
+
+      <ExpensePaymentPortalAccess
+        smbExpensePaymentPortalAccess={smbExpensePaymentPortalAccess}
+        setSmbExpensePaymentPortalAccess={setSmbExpensePaymentPortalAccess}
+      />
+      <PointSalesAccess
+        smbPointSalesAccess={smbPointSalesAccess}
+        setSmbPointSalesAccess={setSmbPointSalesAccess}
+        smbPointSalesAccessErrors={smbSystemAccessChecklistErrors}
       />
     </div>
   );
@@ -174,6 +208,7 @@ const PABSGroupEmail = ({
 const AccessAccountingSoftware = ({
   smbAccessAccountingSoftware,
   setSmbAccessAccountingSoftware,
+  smbAccessAccountingSoftwareErrors,
 }: AccessAccountingSoftwareTypes) => {
   const classes = useStyles();
 
@@ -191,6 +226,7 @@ const AccessAccountingSoftware = ({
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Provide Access to Accounting Software
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -205,6 +241,12 @@ const AccessAccountingSoftware = ({
                 placeholder="Please Enter Status"
                 value={
                   smbAccessAccountingSoftware?.AccessAccountingSoftwareStatus
+                }
+                error={
+                  !!smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareStatus
+                }
+                helperText={
+                  smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareStatus
                 }
                 onChange={handleChange}
                 InputProps={{
@@ -229,6 +271,12 @@ const AccessAccountingSoftware = ({
                 placeholder="Please Enter Details"
                 value={
                   smbAccessAccountingSoftware?.AccessAccountingSoftwareDetails
+                }
+                error={
+                  !!smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareDetails
+                }
+                helperText={
+                  smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareDetails
                 }
                 onChange={handleChange}
                 InputProps={{
@@ -255,6 +303,12 @@ const AccessAccountingSoftware = ({
                 placeholder="Please Enter Action Items"
                 value={
                   smbAccessAccountingSoftware?.AccessAccountingSoftwareActionItems
+                }
+                error={
+                  !!smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareActionItems
+                }
+                helperText={
+                  smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareActionItems
                 }
                 onChange={handleChange}
                 InputProps={{
@@ -369,9 +423,208 @@ const DropboxSetUp = ({
   );
 };
 
+const SalesTaxPortalAccess = ({
+  smbSalesTaxPortalAccess,
+  setSmbSalesTaxPortalAccess,
+}: SalesTaxPortalAccessTypes) => {
+  const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setSmbSalesTaxPortalAccess((prev: SalesTaxPortalAccessFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Provide access to sales tax portal access
+      </div>
+      <div className="py-3 px-2 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="salesTaxPortalAccessStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={smbSalesTaxPortalAccess?.salesTaxPortalAccessStatus}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <TextField
+                name="salesTaxPortalAccessDetails"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Details"
+                value={smbSalesTaxPortalAccess?.salesTaxPortalAccessDetails}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - PABS/Client
+              </label>
+              <TextField
+                name="salesTaxPortalAccessActionItems"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={smbSalesTaxPortalAccess?.salesTaxPortalAccessActionItems}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+const MerchantAccountPortalAccess = ({
+  smbMerchantAccountPortalAccess,
+  setSmbMerchantAccountPortalAccess,
+}: MerchantAccountPortalAccessTypes) => {
+  const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setSmbMerchantAccountPortalAccess(
+      (prev: MerchantAccountPortalAccessFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
+  };
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Merchant account portal access (If any)
+      </div>
+      <div className="py-3 px-2 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="merchantAccountPortalAccessStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={
+                  smbMerchantAccountPortalAccess?.merchantAccountPortalAccessStatus
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <TextField
+                name="merchantAccountPortalAccessDetails"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Details"
+                value={
+                  smbMerchantAccountPortalAccess?.merchantAccountPortalAccessDetails
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - PABS/Client
+              </label>
+              <TextField
+                name="merchantAccountPortalAccessActionItems"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={
+                  smbMerchantAccountPortalAccess?.merchantAccountPortalAccessActionItems
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
 const PayrollServiceAccess = ({
   smbPayrollServiceAccess,
   setSmbPayrollServiceAccess,
+  smbPayrollServiceAccessErrors,
 }: PayrollServiceAccessTypes) => {
   const classes = useStyles();
 
@@ -386,7 +639,7 @@ const PayrollServiceAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Payroll Service Provider Access
+        Payroll service provider access<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -400,6 +653,8 @@ const PayrollServiceAccess = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbPayrollServiceAccess?.PayrollServiceAccessStatus}
+                error={!!smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus}
+                helperText={smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -422,6 +677,8 @@ const PayrollServiceAccess = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbPayrollServiceAccess?.PayrollServiceAccessDetails}
+                error={!!smbPayrollServiceAccessErrors?.PayrollServiceAccessDetails}
+                helperText={smbPayrollServiceAccessErrors?.PayrollServiceAccessDetails}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -446,6 +703,12 @@ const PayrollServiceAccess = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbPayrollServiceAccess?.PayrollServiceAccessActionItems}
+                error={
+                  !!smbPayrollServiceAccessErrors?.PayrollServiceAccessActionItems
+                }
+                helperText={
+                  smbPayrollServiceAccessErrors?.PayrollServiceAccessActionItems
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -481,7 +744,7 @@ const PayrollFrequency = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No. of employees on roll/Payroll Frequency
+        No. of employees on roll, Payroll Frequency
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -559,9 +822,113 @@ const PayrollFrequency = ({
   );
 };
 
+const ExpensePaymentPortalAccess = ({
+  smbExpensePaymentPortalAccess,
+  setSmbExpensePaymentPortalAccess,
+}: ExpensePaymentPortalAccessTypes) => {
+  const classes = useStyles();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setSmbExpensePaymentPortalAccess(
+      (prev: ExpensePaymentPortalAccessFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
+  };
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Expense payment portal access (If any)
+      </div>
+      <div className="py-3 px-2 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="expensePaymentPortalAccessStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={
+                  smbExpensePaymentPortalAccess?.expensePaymentPortalAccessStatus
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <TextField
+                name="expensePaymentPortalAccessDetails"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Details"
+                value={
+                  smbExpensePaymentPortalAccess?.expensePaymentPortalAccessDetails
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - PABS/Client
+              </label>
+              <TextField
+                name="expensePaymentPortalAccessActionItems"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={
+                  smbExpensePaymentPortalAccess?.expensePaymentPortalAccessActionItems
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
 const ModeOfPayment = ({
   smbModeOfPayment,
   setSmbModeOfPayment,
+  smbModeOfPaymentErrors,
 }: ModeOfPaymentTypes) => {
   const classes = useStyles();
 
@@ -577,6 +944,7 @@ const ModeOfPayment = ({
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Monthly AP Bills counts & Mode of Payment
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -590,6 +958,8 @@ const ModeOfPayment = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbModeOfPayment?.ModeOfPaymentStatus}
+                error={!!smbModeOfPaymentErrors?.ModeOfPaymentStatus}
+                helperText={smbModeOfPaymentErrors?.ModeOfPaymentStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -612,6 +982,8 @@ const ModeOfPayment = ({
                 size="small"
                 placeholder="Please Enter Details"
                 value={smbModeOfPayment?.ModeOfPaymentDetails}
+                error={!!smbModeOfPaymentErrors?.ModeOfPaymentDetails}
+                helperText={smbModeOfPaymentErrors?.ModeOfPaymentDetails}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -636,6 +1008,8 @@ const ModeOfPayment = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={smbModeOfPayment?.ModeOfPaymentActionItems}
+                error={!!smbModeOfPaymentErrors?.ModeOfPaymentActionItems}
+                helperText={smbModeOfPaymentErrors?.ModeOfPaymentActionItems}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -746,16 +1120,17 @@ const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
   );
 };
 
-const Applicablity = ({
-  smbApplicablity,
-  setSmbApplicablity,
-}: ApplicablityTypes) => {
+const PointSalesAccess = ({
+  smbPointSalesAccess,
+  setSmbPointSalesAccess,
+  smbPointSalesAccessErrors,
+}: PointSalesAccessTypes) => {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setSmbApplicablity((prev: ApplicablityFormTypes) => ({
+    setSmbPointSalesAccess((prev: PointSalesAccessFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -763,7 +1138,7 @@ const Applicablity = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Applicablity
+        Point of sales access<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -771,12 +1146,14 @@ const Applicablity = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="ApplicablityStatus"
+                name="pointSalesAccessStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={smbApplicablity?.ApplicablityStatus}
+                value={smbPointSalesAccess?.pointSalesAccessStatus}
+                error={!!smbPointSalesAccessErrors?.pointSalesAccessStatus}
+                helperText={smbPointSalesAccessErrors?.pointSalesAccessStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -793,12 +1170,14 @@ const Applicablity = ({
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
               <TextField
-                name="ApplicablityDetails"
+                name="pointSalesAccessDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Details"
-                value={smbApplicablity?.ApplicablityDetails}
+                value={smbPointSalesAccess?.pointSalesAccessDetails}
+                error={!!smbPointSalesAccessErrors?.pointSalesAccessDetails}
+                helperText={smbPointSalesAccessErrors?.pointSalesAccessDetails}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -817,12 +1196,16 @@ const Applicablity = ({
                 Action Items - PABS/Client
               </label>
               <TextField
-                name="ApplicablityActionItems"
+                name="pointSalesAccessActionItems"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={smbApplicablity?.ApplicablityActionItems}
+                value={smbPointSalesAccess?.pointSalesAccessActionItems}
+                error={!!smbPointSalesAccessErrors.pointSalesAccessActionItems}
+                helperText={
+                  smbPointSalesAccessErrors.pointSalesAccessActionItems
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {

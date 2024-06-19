@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 // MUI import
 import { Button } from "@mui/material";
 // Component import
@@ -10,13 +10,14 @@ import AutoCarePabsAccountingTeam from "@/components/client/forms/autocare/AutoC
 import {
   AccountDetailsFormErrors,
   AccountDetailsFormTypes,
-  BasicDetailAutoCareType,
+  AutoCareType,
+  BasicDetailsResponseDataType,
   ClientTeamFormErrors,
   ClientTeamFormTypes,
   LegalStructureFormErrors,
   LegalStructureFormTypes,
   PabsAccountingTeamFormTypes,
-} from "@/models/carCareBasicDetails";
+} from "@/models/autoCareBasicDetails";
 // Static import
 import {
   StateList,
@@ -31,10 +32,9 @@ import {
   validateAutoCarAccountDetails,
   validateAutoCarClientTeam,
   validateAutoCarLegalStructure,
-  validateFields,
 } from "@/static/carCareBasicDetail";
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import { autoCarFormListUrl, autoCarFormUrl } from "@/static/apiUrl";
+import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";
@@ -47,7 +47,7 @@ function BasicDetailsAutoCare({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
   setIsOpenModal,
-}: BasicDetailAutoCareType) {
+}: AutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
   const businessTypeId = Cookies.get("businessTypeId");
@@ -83,7 +83,7 @@ function BasicDetailsAutoCare({
     const callback = (
       ResponseStatus: string,
       Message: string,
-      ResponseData: any
+      ResponseData: BasicDetailsResponseDataType
     ) => {
       switch (ResponseStatus) {
         case "failure":
@@ -108,7 +108,6 @@ function BasicDetailsAutoCare({
             ownerPhone: ResponseData.ownerPhone,
           });
           setAutoCareLegalStructure({
-            clientWebsite: ResponseData.clientWebsite,
             no_of_Entities: ResponseData.noOfEntities,
             no_of_Shops: ResponseData.noOfShops,
             salesRep: ResponseData.salesRep,
@@ -124,7 +123,7 @@ function BasicDetailsAutoCare({
             shopManager: ResponseData.shopManager,
             poc1: ResponseData.poc1,
             email: ResponseData.emailId,
-            contactInfo: ResponseData.contactInfo,
+            cpa: ResponseData.cpa,
             priorBookkeeper: ResponseData.priorBookkeeper,
             itSupport: ResponseData.itSupport,
             timeZone:
@@ -146,19 +145,30 @@ function BasicDetailsAutoCare({
             pabsGroupEmail: ResponseData.pabsGroupEmail,
             pabsPhone: ResponseData.pabsPhone,
           });
+
           return;
       }
     };
-    await callAPIwithHeaders(autoCarFormListUrl, "post", callback, {
+    await callAPIwithHeaders(onboardingListFormUrl, "post", callback, {
       userId: !!clientInfo?.UserId
         ? parseInt(clientInfo?.UserId)
         : parseInt(userId!),
     });
   };
-
   useEffect(() => {
     getAutoCareBasicDetailsList();
   }, []);
+
+  useEffect(() => {
+    const count = basicDetailStatus();
+    setBasicDetailCount(count);
+  }, [
+    autoCareAccountDetails,
+    autoCareLegalStructure,
+    autoCareAccountDetails,
+    autoCareClientTeam,
+    autoCarePabsAccountingTeam,
+  ]);
 
   const validateCarCareAccountDetails = () => {
     const newAccountDetailsErrors: { [key: string]: string } = {};
@@ -239,20 +249,74 @@ function BasicDetailsAutoCare({
   };
 
   const basicDetailStatus = () => {
+    let relevantFields = [];
+
+    if (accountDetailsCheckStatus) {
+      relevantFields.push(
+        ...[
+          "accountName",
+          "corporateAddress",
+          "noOfLocations",
+          "nameOfLocations",
+          "ownerContact",
+          "ownerEmail",
+          "ownerPhone",
+        ]
+      );
+    }
+
+    if (legalStructureCheckStatus) {
+      relevantFields.push(...["no_of_Entities", "no_of_Shops"]);
+    }
+
+    if (clientTeamCheckStatus) {
+      relevantFields.push(
+        ...[
+          "shopManager",
+          "poc1",
+          "email",
+          "weeklyCalls",
+          "weeklyCallTime",
+          "istTime",
+        ]
+      );
+    }
+
+    if (
+      !accountDetailsCheckStatus &&
+      !legalStructureCheckStatus &&
+      !clientTeamCheckStatus &&
+      pabsAccountingTeamCheckStatus
+    ) {
+      relevantFields.push(
+        "implementationManager",
+        "implementationAnalyst",
+        "operationsHead",
+        "operationsManager",
+        "operationsAccountHolder",
+        "pabsGroupEmail",
+        "pabsPhone"
+      );
+    }
+
     let count = 0;
-    validateFields.forEach((field) => {
+    relevantFields.forEach((field) => {
       if (
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
         (!!autoCareClientTeam[field] &&
-          autoCareClientTeam["weeklyCalls"] !== "-1")
+          autoCareClientTeam["weeklyCalls"] !== "-1") ||
+        !!autoCarePabsAccountingTeam[field]
       ) {
         count++;
       }
     });
-    let calc = (count / 15) * 100;
-    console.log(calc);
-    return Math.floor(calc);
+
+    let totalFields = relevantFields.length;
+    let percentage =
+      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+
+    return percentage;
   };
 
   const handleBasicDetailRemoveErrors = () => {
@@ -295,11 +359,10 @@ function BasicDetailsAutoCare({
       agreementDate: autoCareLegalStructure.agreementDate,
       probableAcquisitionDate: autoCareLegalStructure.probableAcquitionDate,
       dba: autoCareLegalStructure.dba,
-      clientWebsite: autoCareLegalStructure.clientWebsite,
       shopManager: autoCareClientTeam.shopManager,
       poc1: autoCareClientTeam.poc1,
       emailId: autoCareClientTeam.email,
-      contactInfo: autoCareClientTeam.contactInfo,
+      cpa: autoCareClientTeam.cpa,
       priorBookkeeper: autoCareClientTeam.priorBookkeeper,
       itSupport: autoCareClientTeam.itSupport,
       timeZone: TimeZoneList.find(
@@ -335,32 +398,48 @@ function BasicDetailsAutoCare({
 
       const filledFieldsCount = basicDetailStatus();
       if (isValid) {
-        
         setBasicDetailCount(filledFieldsCount);
         callAPIwithHeaders(
-          autoCarFormUrl,
+          onboardingSaveFormUrl,
           "post",
           callback,
           basicDetailsFormData
         );
       } else {
-        showToast("Please Enter Required Field.", ToastType.Error);
+        showToast(
+          "Please provide mandatory fields to submit the onboarding form.",
+          ToastType.Error
+        );
         setBasicDetailCount(filledFieldsCount);
       }
     } else if (type === 2) {
-      const filledFieldsCount = basicDetailStatus();
-      setBasicDetailCount(filledFieldsCount);
-      handleBasicDetailRemoveErrors();
-      callAPIwithHeaders(
-        autoCarFormUrl,
-        "post",
-        callback,
-        basicDetailsFormData
-      );
+      const isValidStatus =
+        accountDetailsCheckStatus ||
+        legalStructureCheckStatus ||
+        clientTeamCheckStatus ||
+        pabsAccountingTeamCheckStatus
+      if (roleId === '4' ? isValidStatus : true) {
+        showToast(
+          "Mandatory information is not provided. Please fill in to submit the form.",
+          ToastType.Warning
+        );
+        const filledFieldsCount = basicDetailStatus();
+        setBasicDetailCount(filledFieldsCount);
+        handleBasicDetailRemoveErrors();
+        callAPIwithHeaders(
+          onboardingSaveFormUrl,
+          "post",
+          callback,
+          basicDetailsFormData
+        );
+      }
     }
   };
 
-  const handleSwitchChange = async (e: any, phaseType: number) => {
+  const handleSwitchChange = async (
+    e: ChangeEvent<HTMLInputElement>,
+    phaseType: number
+  ) => {
     const check = e.target.checked;
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -374,18 +453,20 @@ function BasicDetailsAutoCare({
     };
 
     const updatePhaseState = (key: string, value: boolean) => {
-      const updateStateFunc: any = {
+      const updateStateFunc: ((value: boolean) => void) | undefined = {
         1: setAccountDetailsCheckStatus,
         2: setLegalStructureCheckStatus,
         3: setClientTeamCheckStatus,
         4: setPabsAccountingTeamCheckStatus,
       }[phaseType];
-      updateStateFunc(value);
+      if (updateStateFunc) {
+        updateStateFunc(value);
+      }
     };
 
     const requestBody: any = {
       userId: parseInt(clientInfo?.UserId!),
-      businessTypeId:  parseInt(clientInfo?.DepartmentId!),
+      businessTypeId: parseInt(clientInfo?.DepartmentId!),
     };
 
     switch (phaseType) {
@@ -403,7 +484,12 @@ function BasicDetailsAutoCare({
         break;
     }
 
-    await callAPIwithHeaders(autoCarFormUrl, "post", callback, requestBody);
+    await callAPIwithHeaders(
+      onboardingSaveFormUrl,
+      "post",
+      callback,
+      requestBody
+    );
     updatePhaseState(`setPhase${phaseType}Checked`, check);
   };
 
@@ -419,7 +505,9 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
               <AutoCareAccountDetails
                 accountDetailsCheckStatus={accountDetailsCheckStatus}
-                handleAccountDetailsSwitch={(e:any) => handleSwitchChange(e,1)}
+                handleAccountDetailsSwitch={(
+                  e: ChangeEvent<HTMLInputElement>
+                ) => handleSwitchChange(e, 1)}
                 autoCareAccountDetails={autoCareAccountDetails}
                 setAutoCareAccountDetails={setAutoCareAccountDetails}
                 autoCareAccountDetailsErrors={autoCareAccountDetailsErrors}
@@ -431,7 +519,9 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? legalStructureCheckStatus : true) && (
               <AutoCareLegalStructure
                 legalStructureCheckStatus={legalStructureCheckStatus}
-                handleLegalStructureSwitch={(e:any) => handleSwitchChange(e,2)}
+                handleLegalStructureSwitch={(
+                  e: ChangeEvent<HTMLInputElement>
+                ) => handleSwitchChange(e, 2)}
                 autoCareLegalStructure={autoCareLegalStructure}
                 setAutoCareLegalStructure={setAutoCareLegalStructure}
                 autoCareLegalStructureErrors={autoCareLegalStructureErrors}
@@ -443,7 +533,9 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? clientTeamCheckStatus : true) && (
               <AutoCareClientTeam
                 clientTeamCheckStatus={clientTeamCheckStatus}
-                handleClientTeamSwitch={(e:any) => handleSwitchChange(e,3)}
+                handleClientTeamSwitch={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleSwitchChange(e, 3)
+                }
                 autoCareClientTeam={autoCareClientTeam}
                 setAutoCareClientTeam={setAutoCareClientTeam}
                 autoCareClientTeamErrors={autoCareClientTeamErrors}
@@ -453,11 +545,24 @@ function BasicDetailsAutoCare({
             {(roleId === "4" ? pabsAccountingTeamCheckStatus : true) && (
               <AutoCarePabsAccountingTeam
                 pabsAccountingTeamCheckStatus={pabsAccountingTeamCheckStatus}
-                handlePabsAccountingTeamSwitch={(e:any) => handleSwitchChange(e,4)}
+                handlePabsAccountingTeamSwitch={(
+                  e: ChangeEvent<HTMLInputElement>
+                ) => handleSwitchChange(e, 4)}
                 autoCarePabsAccountingTeam={autoCarePabsAccountingTeam}
                 setAutoCarePabsAccountingTeam={setAutoCarePabsAccountingTeam}
               />
             )}
+
+            {roleId === "4" &&
+              !accountDetailsCheckStatus &&
+              !legalStructureCheckStatus &&
+              !clientTeamCheckStatus &&
+              !pabsAccountingTeamCheckStatus && (
+                <span className="text-[14px] flex justify-center items-center text-[#333333]">
+                  No details for implementation checklist found for your
+                  account. Please contact PABS team to get support.
+                </span>
+              )}
           </div>
         </div>
 
@@ -471,6 +576,7 @@ function BasicDetailsAutoCare({
               Cancel
             </Button>
           )}
+
           <Button
             onClick={() => handleSubmit(2)}
             className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
@@ -478,6 +584,7 @@ function BasicDetailsAutoCare({
           >
             Save as Draft
           </Button>
+
           <Button
             onClick={() => handleSubmit(1)}
             className={`!bg-[#022946] text-white !rounded-full`}

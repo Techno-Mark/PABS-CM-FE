@@ -17,14 +17,13 @@ export const initialAutoCareLegalStructure = {
   agreementDate: null,
   probableAcquitionDate: null,
   dba: "",
-  clientWebsite:"",
 };
 
 export const initialAutoCareClientTeam = {
   shopManager: "",
   poc1: "",
   email: "",
-  contactInfo:"",
+  cpa:"",
   priorBookkeeper: "",
   itSupport: "",
   timeZone: "-1",
@@ -44,7 +43,7 @@ export const initialAutoCarePabsAccountingTeam = {
   pabsPhone: "",
 };
 
-export const validateFields = [
+export const validatePerCountFields = [
   "accountName",
   "corporateAddress",
   "noOfLocations",
@@ -59,7 +58,14 @@ export const validateFields = [
   "email",
   "weeklyCalls",
   "weeklyCallTime", 
-  "istTime"
+  "istTime",
+  "implementationMa",
+  "implementationAnalyst",
+  "operationsHead",
+  "operationsManager",
+  "operationsAccountHolder",
+  "pabsGroupEmail",
+  "pabsPhone",
 ];
 
 export const validateAutoCarAccountDetails = [

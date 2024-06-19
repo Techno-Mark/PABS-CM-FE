@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // Utlis import
@@ -13,7 +13,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
   LegalStructureFormTypes,
   LegalStructureTypes,
-} from "@/models/carCareBasicDetails";
+} from "@/models/autoCareBasicDetails";
 
 function AutoCareLegalStructure({
   className,
@@ -22,7 +22,7 @@ function AutoCareLegalStructure({
   setAutoCareLegalStructure,
   autoCareLegalStructureErrors,
   setAutoCareLegalStructureErrors,
-  handleLegalStructureSwitch
+  handleLegalStructureSwitch,
 }: LegalStructureTypes) {
   const classes = useStyles();
 
@@ -54,20 +54,22 @@ function AutoCareLegalStructure({
     }
   };
 
-  const handleAgreementDateChange = (date: Dayjs | null) => {
+  const handleDateChange = (date: Dayjs | null, type: string) => {
     const formattedDate = date ? date.format("D MMM YYYY") : null;
-    setAutoCareLegalStructure({
-      ...autoCareLegalStructure,
-      agreementDate: formattedDate,
-    });
-  };
-
-  const handleProbableDateChange = (date: Dayjs | null) => {
-    const formattedDate = date ? date.format("D MMM YYYY") : null;
-    setAutoCareLegalStructure({
-      ...autoCareLegalStructure,
-      probableAcquitionDate: formattedDate,
-    });
+    switch (type) {
+      case "AgreementDate":
+        setAutoCareLegalStructure({
+          ...autoCareLegalStructure,
+          agreementDate: formattedDate,
+        });
+        break;
+      case "probableAcquitionDate":
+        setAutoCareLegalStructure({
+          ...autoCareLegalStructure,
+          probableAcquitionDate: formattedDate,
+        });
+        break;
+    }
   };
 
   return (
@@ -168,7 +170,6 @@ function AutoCareLegalStructure({
                     fontSize: "12px !important",
                     fontFamily: "'Poppins !important',sans serif",
                   }}
-                  minDate={dayjs(new Date())}
                   value={
                     autoCareLegalStructure?.agreementDate
                       ? dayjs(
@@ -177,7 +178,7 @@ function AutoCareLegalStructure({
                         )
                       : null
                   }
-                  onChange={handleAgreementDateChange}
+                  onChange={(value: Dayjs | null) => handleDateChange(value, "AgreementDate")}
                   format="D MMM YYYY"
                   slotProps={{
                     textField: {
@@ -208,7 +209,6 @@ function AutoCareLegalStructure({
                     fontSize: "12px !important",
                     fontFamily: "'Poppins !important',sans serif",
                   }}
-                  minDate={dayjs(new Date())}
                   value={
                     autoCareLegalStructure?.probableAcquitionDate
                       ? dayjs(
@@ -217,7 +217,9 @@ function AutoCareLegalStructure({
                         )
                       : null
                   }
-                  onChange={handleProbableDateChange}
+                  onChange={(value: Dayjs | null) =>
+                    handleDateChange(value, "probableAcquitionDate")
+                  }
                   format="D MMM YYYY"
                   slotProps={{
                     textField: {
@@ -244,30 +246,6 @@ function AutoCareLegalStructure({
                 size="small"
                 placeholder="Please Enter DBA"
                 value={autoCareLegalStructure?.dba}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Client Website
-              </label>
-              <TextField
-                name="clientWebsite"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Client Website"
-                value={autoCareLegalStructure?.clientWebsite}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
