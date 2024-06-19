@@ -62,6 +62,7 @@ function SmbPeopleBusinessChecklist({
 }: smbPeopleBusinessTypes) {
   return (
     <div className={`${className}`}>
+      <div className="text-[18px] font-medium py-2 w-full">General</div>
       <ClientName
         smbClientName={smbClientName}
         setSmbClientName={setSmbClientName}
@@ -84,6 +85,7 @@ function SmbPeopleBusinessChecklist({
         setSmbPoc={setSmbPoc}
         smbPocErrors={smbPeopleBusinessErrors}
       />
+      <div className="text-[18px] font-medium py-2 w-full">Contact Details</div>
       <Email
         smbEmail={smbEmail}
         setSmbEmail={setSmbEmail}
@@ -104,17 +106,18 @@ function SmbPeopleBusinessChecklist({
         setSmbClientWebsite={setSmbClientWebsite}
         smbClientWebsiteErrors={smbPeopleBusinessErrors}
       />
+      <div className="text-[18px] font-medium py-2 w-full">POC Details</div>
       <Department
         smbDepartment={smbDepartment}
         setSmbDepartment={setSmbDepartment}
       />
-      <OperationsPoc
-        smbOperationsPoc={smbOperationsPoc}
-        setSmbOperationsPoc={setSmbOperationsPoc}
-      />
       <OnboardingPoc
         smbOnboardingPoc={smbOnboardingPoc}
         setSmbOnboardingPoc={setSmbOnboardingPoc}
+      />
+      <OperationsPoc
+        smbOperationsPoc={smbOperationsPoc}
+        setSmbOperationsPoc={setSmbOperationsPoc}
       />
     </div>
   );
@@ -142,7 +145,7 @@ const ClientName = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Client Name<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -170,13 +173,13 @@ const ClientName = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ClientNameDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbClientName?.ClientNameDetails}
                 error={!!smbClientNameErrors?.ClientNameDetails}
                 helperText={smbClientNameErrors?.ClientNameDetails}
@@ -243,7 +246,7 @@ const TypeOfEntity = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Type of entity
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -269,13 +272,13 @@ const TypeOfEntity = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="TypeOfEntityDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbTypeOfEntity?.TypeOfEntityDetails}
                 onChange={handleTypeOfEntityChange}
                 InputProps={{
@@ -325,7 +328,9 @@ const BusinessNature = ({
 }: BusinessNatureTypes) => {
   const classes = useStyles();
 
-  const handleBusinessNatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBusinessNatureChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbBusinessNature((prev: BusinessNatureFormTypes) => ({
@@ -338,7 +343,7 @@ const BusinessNature = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Nature of business
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -364,13 +369,13 @@ const BusinessNature = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="BusinessNatureDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbBusinessNature?.BusinessNatureDetails}
                 onChange={handleBusinessNatureChange}
                 InputProps={{
@@ -428,9 +433,9 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Any other subsidiary or verticles or dimensions
+        Any other subsidiary/Locations
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -456,13 +461,13 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="DimensionsDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbDimensions?.DimensionsDetails}
                 onChange={handleDimenionsChange}
                 InputProps={{
@@ -522,7 +527,7 @@ const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         POC (Point Of Contact)<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -550,13 +555,13 @@ const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="PocDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbPoc?.PocDetails}
                 error={!!smbPocErrors?.PocDetails}
                 helperText={smbPocErrors?.PocDetails}
@@ -620,7 +625,7 @@ const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Email<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -648,13 +653,13 @@ const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="EmailDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbEmail?.EmailDetails}
                 error={!!smbEmailErrors?.EmailDetails}
                 helperText={smbEmailErrors?.EmailDetails}
@@ -709,7 +714,9 @@ const ContactNumber = ({
 }: ContactNumberTypes) => {
   const classes = useStyles();
 
-  const handleContactNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContactNumberChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbContactNumber((prev: ContactNumberFormTypes) => ({
@@ -722,7 +729,7 @@ const ContactNumber = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Contact Number<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -750,13 +757,13 @@ const ContactNumber = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ContactNumberDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbContactNumber?.ContactNumberDetails}
                 error={!!smbContactNumberErrors?.ContactNumberDetails}
                 helperText={smbContactNumberErrors?.ContactNumberDetails}
@@ -824,7 +831,7 @@ const Address = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Address<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -852,13 +859,13 @@ const Address = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AddressDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbAddress?.AddressDetails}
                 error={!!smbAddressErrors?.AddressDetails}
                 helperText={smbAddressErrors?.AddressDetails}
@@ -913,7 +920,9 @@ const ClientWebsite = ({
 }: ClientWebsiteTypes) => {
   const classes = useStyles();
 
-  const handleClientWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClientWebsiteChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbClientWebsite((prev: ClientWebsiteFormTypes) => ({
@@ -926,7 +935,7 @@ const ClientWebsite = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Client Website<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -960,7 +969,7 @@ const ClientWebsite = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbClientWebsite?.ClientWebsiteDetails}
                 error={!!smbClientWebsiteErrors?.ClientWebsiteDetails}
                 helperText={smbClientWebsiteErrors?.ClientWebsiteDetails}
@@ -1024,7 +1033,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Department Head
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -1050,13 +1059,13 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="DepartmentDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbDepartment?.DepartmentDetails}
                 onChange={handleDepartmentChange}
                 InputProps={{
@@ -1106,7 +1115,9 @@ const OperationsPoc = ({
 }: OperationsPocTypes) => {
   const classes = useStyles();
 
-  const handleOperationsPocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOperationsPocChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbOperationsPoc((prev: OperationsPocFormTypes) => ({
@@ -1119,7 +1130,7 @@ const OperationsPoc = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Operations POC
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -1145,13 +1156,13 @@ const OperationsPoc = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="OperationsPocDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbOperationsPoc?.OperationsPocDetails}
                 onChange={handleOperationsPocChange}
                 InputProps={{
@@ -1201,7 +1212,9 @@ const OnboardingPoc = ({
 }: OnboardingPocTypes) => {
   const classes = useStyles();
 
-  const handleOnboardingPocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnboardingPocChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbOnboardingPoc((prev: OnboardingPocFormTypes) => ({
@@ -1214,7 +1227,7 @@ const OnboardingPoc = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Onboarding POC
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -1240,13 +1253,13 @@ const OnboardingPoc = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="OnboardingPocDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbOnboardingPoc?.OnboardingPocDetails}
                 onChange={handleOnboardingPocChange}
                 InputProps={{

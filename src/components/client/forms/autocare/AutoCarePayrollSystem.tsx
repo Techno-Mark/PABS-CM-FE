@@ -166,14 +166,14 @@ const PayrollServiceProvider = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="payrollServiceProviderActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderActionName
                 }
@@ -331,14 +331,14 @@ const Frequency = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="frequencyActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareFrequency?.frequencyActionName}
                 error={!!frequencyErrors?.frequencyActionName}
                 helperText={frequencyErrors?.frequencyActionName}
@@ -477,14 +477,14 @@ const NoOfEmployees = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="noOfEmployeeActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareNoOfEmployee?.noOfEmployeeActionName}
                 onChange={handleChange}
                 InputProps={{

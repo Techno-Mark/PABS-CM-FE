@@ -107,6 +107,7 @@ function ChecklistAutoCare({
   setChecklistCount,
   setChecklistFormSubmit,
   setIsOpenModal,
+  autoCareProgressPercentage
 }: ChecklistType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -452,294 +453,308 @@ function ChecklistAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          setCommunicationChecked(ResponseData.phase1CommunicationIsDisplay);
-          setSystemSoftwareLocationsChecked(ResponseData.phase2SystemIsDisplay);
-          setCashBankLoansChecked(ResponseData.phase3CashIsDisplay);
-          setPayrollSystemChecked(ResponseData.phase4PayrollIsDisplay);
-          setCompliancesChecked(ResponseData.phase5CompliancesIsDisplay);
-          setAccessChecked(ResponseData.phase6ApPayableIsDisplay);
-          setFinancialsChecked(ResponseData.phase7StatusIsDisplay);
-          ResponseData.checkList.forEach(
-            (checklistItem: PhaseFormResponseDataType) => {
-              switch (checklistItem.fieldName) {
-                case "Group Email Established":
-                  setAutoCareGroupEmailEstablished({
-                    groupEmailEstablishStatus: checklistItem.status,
-                    groupEmailEstablishComments: checklistItem.comments,
-                    groupEmailEstablishDetails: checklistItem.details,
-                    groupEmailEstablishActionName: checklistItem.actionsOfPabs,
-                    groupEmailEstablishActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Pre Kick Off":
-                  setAutoCarePreKickOff({
-                    preKickOffStatus: checklistItem.status,
-                    preKickOffComments: checklistItem.comments,
-                    preKickOffDetails: checklistItem.details,
-                    preKickOffActionName: checklistItem.actionsOfPabs,
-                    preKickOffActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Kick Off":
-                  setAutoCareKickOff({
-                    kickOffStatus: checklistItem.status,
-                    kickOffComments: checklistItem.comments,
-                    kickOffDetails: checklistItem.details,
-                    kickOffActionName: checklistItem.actionsOfPabs,
-                    kickOffActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "IT Structure Review":
-                  setAutoCareITStructureReview({
-                    itStructureStatus: checklistItem.status,
-                    itStructureComments: checklistItem.comments,
-                    itStructureDetails: checklistItem.details,
-                    itStructureActionName: checklistItem.actionsOfPabs,
-                    itStructureActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Access Computer Method":
-                  setAutoCareAccessComputerMethod({
-                    accessComputerStatus: checklistItem.status,
-                    accessComputerComments: checklistItem.comments,
-                    accessComputerDetails: checklistItem.details,
-                    accessComputerActionName: checklistItem.actionsOfPabs,
-                    accessComputerActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "POS Software":
-                  setAutoCarePosSoftware({
-                    posSoftwareStatus: checklistItem.status,
-                    posSoftwareComments: checklistItem.comments,
-                    posSoftwareDetails: checklistItem.details,
-                    posSoftwareActionName: checklistItem.actionsOfPabs,
-                    posSoftwareActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Estimating Software":
-                  setAutoCareEstimatingSoftware({
-                    estimatingSoftwareStatus: checklistItem.status,
-                    estimatingSoftwareComments: checklistItem.comments,
-                    estimatingSoftwareDetails: checklistItem.details,
-                    estimatingSoftwareActionName: checklistItem.actionsOfPabs,
-                    estimatingSoftwareActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Accounting Software":
-                  setAutoCareAccountingSoftware({
-                    accountingSoftwareStatus: checklistItem.status,
-                    accountingSoftwareComments: checklistItem.comments,
-                    accountingSoftwareDetails: checklistItem.details,
-                    accountingSoftwareActionName: checklistItem.actionsOfPabs,
-                    accountingSoftwareActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Cloud Document Management":
-                  setAutoCareCloudDocumentManagement({
-                    cloudDocumentManagementStatus: checklistItem.status,
-                    cloudDocumentManagementComments: checklistItem.comments,
-                    cloudDocumentManagementDetails: checklistItem.details,
-                    cloudDocumentManagementActionName:
-                      checklistItem.actionsOfPabs,
-                    cloudDocumentManagementActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Scanner":
-                  setAutoCareScanner({
-                    scannerStatus: checklistItem.status,
-                    scannerComments: checklistItem.comments,
-                    scannerDetails: checklistItem.details,
-                    scannerActionName: checklistItem.actionsOfPabs,
-                    scannerActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Operating Checking Account":
-                  setAutoCareOperatingCheckingAccount({
-                    operatingCheckingAccountStatus: checklistItem.status,
-                    operatingCheckingAccountComments: checklistItem.comments,
-                    operatingCheckingAccountDetails: checklistItem.details,
-                    operatingCheckingAccountActionName:
-                      checklistItem.actionsOfPabs,
-                    operatingCheckingAccountActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Savings Account":
-                  setAutoCareSavingsAccount({
-                    savingsAccountStatus: checklistItem.status,
-                    savingsAccountComments: checklistItem.comments,
-                    savingsAccountDetails: checklistItem.details,
-                    savingsAccountActionName: checklistItem.actionsOfPabs,
-                    savingsAccountActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Credit Card":
-                  setAutoCareCreditCard({
-                    creditCardStatus: checklistItem.status,
-                    creditCardComments: checklistItem.comments,
-                    creditCardDetails: checklistItem.details,
-                    creditCardActionName: checklistItem.actionsOfPabs,
-                    creditCardActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Business Loans":
-                  setAutoCareBusinessLoans({
-                    businessLoansStatus: checklistItem.status,
-                    businessLoansComments: checklistItem.comments,
-                    businessLoansDetails: checklistItem.details,
-                    businessLoansActionName: checklistItem.actionsOfPabs,
-                    businessLoansActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Property Loans":
-                  setAutoCarePropertyLoans({
-                    propertyLoansStatus: checklistItem.status,
-                    propertyLoansComments: checklistItem.comments,
-                    propertyLoansDetails: checklistItem.details,
-                    propertyLoansActionName: checklistItem.actionsOfPabs,
-                    propertyLoansActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Payroll Service Provider":
-                  setAutoCarePayrollServiceProvider({
-                    payrollServiceProviderStatus: checklistItem.status,
-                    payrollServiceProviderComments: checklistItem.comments,
-                    payrollServiceProviderDetails: checklistItem.details,
-                    payrollServiceProviderActionName:
-                      checklistItem.actionsOfPabs,
-                    payrollServiceProviderActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Frequency":
-                  setAutoCareFrequency({
-                    frequencyStatus: checklistItem.status,
-                    frequencyComments: checklistItem.comments,
-                    frequencyDetails: checklistItem.details,
-                    frequencyActionName: checklistItem.actionsOfPabs,
-                    frequencyActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Number of Employees":
-                  setAutoCareNoOfEmployee({
-                    noOfEmployeeStatus: checklistItem.status,
-                    noOfEmployeeComments: checklistItem.comments,
-                    noOfEmployeeDetails: checklistItem.details,
-                    noOfEmployeeActionName: checklistItem.actionsOfPabs,
-                    noOfEmployeeActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Sales Tax Frequency":
-                  setAutoCareSalesTaxAccessWorkPaper({
-                    salesTaxAccessWorkPaperStatus: checklistItem.status,
-                    salesTaxAccessWorkPaperComments: checklistItem.comments,
-                    salesTaxAccessWorkPaperDetails: checklistItem.details,
-                    salesTaxAccessWorkPaperActionName:
-                      checklistItem.actionsOfPabs,
-                    salesTaxAccessWorkPaperActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Use Tax":
-                  setAutoCareUseTax({
-                    useTaxStatus: checklistItem.status,
-                    useTaxComments: checklistItem.comments,
-                    useTaxDetails: checklistItem.details,
-                    useTaxActionName: checklistItem.actionsOfPabs,
-                    useTaxActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Tire Tax":
-                  setAutoCareTireTax({
-                    tireTaxStatus: checklistItem.status,
-                    tireTaxComments: checklistItem.comments,
-                    tireTaxDetails: checklistItem.details,
-                    tireTaxActionName: checklistItem.actionsOfPabs,
-                    tireTaxActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Last Tax Return Filed Year":
-                  setAutoCareLastTaxReturnFiledYear({
-                    lastTaxReturnFiledYearStatus: checklistItem.status,
-                    lastTaxReturnFiledYearComments: checklistItem.comments,
-                    lastTaxReturnFiledYearDetails: checklistItem.details,
-                    lastTaxReturnFiledYearActionName:
-                      checklistItem.actionsOfPabs,
-                    lastTaxReturnFiledYearActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Vendor Portal Access":
-                  setAutoCareVendorPortalAccess({
-                    vendorPortalAccessStatus: checklistItem.status,
-                    vendorPortalAccessComments: checklistItem.comments,
-                    vendorPortalAccessDetails: checklistItem.details,
-                    vendorPortalAccessActionName: checklistItem.actionsOfPabs,
-                    vendorPortalAccessActionItems:
-                      checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Trade Account":
-                  setAutoCareTradeAccount({
-                    tradeAccountStatus: checklistItem.status,
-                    tradeAccountComments: checklistItem.comments,
-                    tradeAccountDetails: checklistItem.details,
-                    tradeAccountActionName: checklistItem.actionsOfPabs,
-                    tradeAccountActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Bill Pay Access":
-                  setAutoCareBillPayAccess({
-                    billPayAccessStatus: checklistItem.status,
-                    billPayAccessComments: checklistItem.comments,
-                    billPayAccessDetails: checklistItem.details,
-                    billPayAccessActionName: checklistItem.actionsOfPabs,
-                    billPayAccessActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "AP Threshold Limit":
-                  setAutoCareApThresholdLimit({
-                    apThresholdLimitStatus: checklistItem.status,
-                    apThresholdLimitComments: checklistItem.comments,
-                    apThresholdLimitDetails: checklistItem.details,
-                    apThresholdLimitActionName: checklistItem.actionsOfPabs,
-                    apThresholdLimitActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Last Closed Period":
-                  setAutoCareLastClosedPeriod({
-                    lastClosedPeriodStatus: checklistItem.status,
-                    lastClosedPeriodComments: checklistItem.comments,
-                    lastClosedPeriodDetails: checklistItem.details,
-                    lastClosedPeriodActionName: checklistItem.actionsOfPabs,
-                    lastClosedPeriodActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "Sharing the Financials":
-                  setAutoCareSharingFinancials({
-                    sharingFinancialsStatus: checklistItem.status,
-                    sharingFinancialsComments: checklistItem.comments,
-                    sharingFinancialsDetails: checklistItem.details,
-                    sharingFinancialsActionName: checklistItem.actionsOfPabs,
-                    sharingFinancialsActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
-                case "GP/GM NP/NM":
-                  setAutoCaregp_gmnp_nm({
-                    gp_gmnp_nmStatus: checklistItem.status,
-                    gp_gmnp_nmComments: checklistItem.comments,
-                    gp_gmnp_nmDetails: checklistItem.details,
-                    gp_gmnp_nmActionName: checklistItem.actionsOfPabs,
-                    gp_gmnp_nmActionItems: checklistItem.actionsOfClient,
-                  });
-                  break;
+          if (!!ResponseData) {
+            setCommunicationChecked(
+              ResponseData.phase1CommunicationIsDisplay ?? true
+            );
+            setSystemSoftwareLocationsChecked(
+              ResponseData.phase2SystemIsDisplay ?? true
+            );
+            setCashBankLoansChecked(ResponseData.phase3CashIsDisplay ?? true);
+            setPayrollSystemChecked(
+              ResponseData.phase4PayrollIsDisplay ?? true
+            );
+            setCompliancesChecked(
+              ResponseData.phase5CompliancesIsDisplay ?? true
+            );
+            setAccessChecked(ResponseData.phase6ApPayableIsDisplay ?? true);
+            setFinancialsChecked(ResponseData.phase7StatusIsDisplay ?? true);
+            ResponseData.checkList.forEach(
+              (checklistItem: PhaseFormResponseDataType) => {
+                switch (checklistItem.fieldName) {
+                  case "Group Email Established":
+                    setAutoCareGroupEmailEstablished({
+                      groupEmailEstablishStatus: checklistItem.status,
+                      groupEmailEstablishComments: checklistItem.comments,
+                      groupEmailEstablishDetails: checklistItem.details,
+                      groupEmailEstablishActionName:
+                        checklistItem.actionsOfPabs,
+                      groupEmailEstablishActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Pre Kick Off":
+                    setAutoCarePreKickOff({
+                      preKickOffStatus: checklistItem.status,
+                      preKickOffComments: checklistItem.comments,
+                      preKickOffDetails: checklistItem.details,
+                      preKickOffActionName: checklistItem.actionsOfPabs,
+                      preKickOffActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Kick Off":
+                    setAutoCareKickOff({
+                      kickOffStatus: checklistItem.status,
+                      kickOffComments: checklistItem.comments,
+                      kickOffDetails: checklistItem.details,
+                      kickOffActionName: checklistItem.actionsOfPabs,
+                      kickOffActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "IT Structure Review":
+                    setAutoCareITStructureReview({
+                      itStructureStatus: checklistItem.status,
+                      itStructureComments: checklistItem.comments,
+                      itStructureDetails: checklistItem.details,
+                      itStructureActionName: checklistItem.actionsOfPabs,
+                      itStructureActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Access Computer Method":
+                    setAutoCareAccessComputerMethod({
+                      accessComputerStatus: checklistItem.status,
+                      accessComputerComments: checklistItem.comments,
+                      accessComputerDetails: checklistItem.details,
+                      accessComputerActionName: checklistItem.actionsOfPabs,
+                      accessComputerActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "POS Software":
+                    setAutoCarePosSoftware({
+                      posSoftwareStatus: checklistItem.status,
+                      posSoftwareComments: checklistItem.comments,
+                      posSoftwareDetails: checklistItem.details,
+                      posSoftwareActionName: checklistItem.actionsOfPabs,
+                      posSoftwareActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Estimating Software":
+                    setAutoCareEstimatingSoftware({
+                      estimatingSoftwareStatus: checklistItem.status,
+                      estimatingSoftwareComments: checklistItem.comments,
+                      estimatingSoftwareDetails: checklistItem.details,
+                      estimatingSoftwareActionName: checklistItem.actionsOfPabs,
+                      estimatingSoftwareActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Accounting Software":
+                    setAutoCareAccountingSoftware({
+                      accountingSoftwareStatus: checklistItem.status,
+                      accountingSoftwareComments: checklistItem.comments,
+                      accountingSoftwareDetails: checklistItem.details,
+                      accountingSoftwareActionName: checklistItem.actionsOfPabs,
+                      accountingSoftwareActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Cloud Document Management":
+                    setAutoCareCloudDocumentManagement({
+                      cloudDocumentManagementStatus: checklistItem.status,
+                      cloudDocumentManagementComments: checklistItem.comments,
+                      cloudDocumentManagementDetails: checklistItem.details,
+                      cloudDocumentManagementActionName:
+                        checklistItem.actionsOfPabs,
+                      cloudDocumentManagementActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Scanner":
+                    setAutoCareScanner({
+                      scannerStatus: checklistItem.status,
+                      scannerComments: checklistItem.comments,
+                      scannerDetails: checklistItem.details,
+                      scannerActionName: checklistItem.actionsOfPabs,
+                      scannerActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Operating Checking Account":
+                    setAutoCareOperatingCheckingAccount({
+                      operatingCheckingAccountStatus: checklistItem.status,
+                      operatingCheckingAccountComments: checklistItem.comments,
+                      operatingCheckingAccountDetails: checklistItem.details,
+                      operatingCheckingAccountActionName:
+                        checklistItem.actionsOfPabs,
+                      operatingCheckingAccountActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Savings Account":
+                    setAutoCareSavingsAccount({
+                      savingsAccountStatus: checklistItem.status,
+                      savingsAccountComments: checklistItem.comments,
+                      savingsAccountDetails: checklistItem.details,
+                      savingsAccountActionName: checklistItem.actionsOfPabs,
+                      savingsAccountActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Credit Card":
+                    setAutoCareCreditCard({
+                      creditCardStatus: checklistItem.status,
+                      creditCardComments: checklistItem.comments,
+                      creditCardDetails: checklistItem.details,
+                      creditCardActionName: checklistItem.actionsOfPabs,
+                      creditCardActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Business Loans":
+                    setAutoCareBusinessLoans({
+                      businessLoansStatus: checklistItem.status,
+                      businessLoansComments: checklistItem.comments,
+                      businessLoansDetails: checklistItem.details,
+                      businessLoansActionName: checklistItem.actionsOfPabs,
+                      businessLoansActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Property Loans":
+                    setAutoCarePropertyLoans({
+                      propertyLoansStatus: checklistItem.status,
+                      propertyLoansComments: checklistItem.comments,
+                      propertyLoansDetails: checklistItem.details,
+                      propertyLoansActionName: checklistItem.actionsOfPabs,
+                      propertyLoansActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Payroll Service Provider":
+                    setAutoCarePayrollServiceProvider({
+                      payrollServiceProviderStatus: checklistItem.status,
+                      payrollServiceProviderComments: checklistItem.comments,
+                      payrollServiceProviderDetails: checklistItem.details,
+                      payrollServiceProviderActionName:
+                        checklistItem.actionsOfPabs,
+                      payrollServiceProviderActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Frequency":
+                    setAutoCareFrequency({
+                      frequencyStatus: checklistItem.status,
+                      frequencyComments: checklistItem.comments,
+                      frequencyDetails: checklistItem.details,
+                      frequencyActionName: checklistItem.actionsOfPabs,
+                      frequencyActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Number of Employees":
+                    setAutoCareNoOfEmployee({
+                      noOfEmployeeStatus: checklistItem.status,
+                      noOfEmployeeComments: checklistItem.comments,
+                      noOfEmployeeDetails: checklistItem.details,
+                      noOfEmployeeActionName: checklistItem.actionsOfPabs,
+                      noOfEmployeeActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Sales Tax Frequency":
+                    setAutoCareSalesTaxAccessWorkPaper({
+                      salesTaxAccessWorkPaperStatus: checklistItem.status,
+                      salesTaxAccessWorkPaperComments: checklistItem.comments,
+                      salesTaxAccessWorkPaperDetails: checklistItem.details,
+                      salesTaxAccessWorkPaperActionName:
+                        checklistItem.actionsOfPabs,
+                      salesTaxAccessWorkPaperActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Use Tax":
+                    setAutoCareUseTax({
+                      useTaxStatus: checklistItem.status,
+                      useTaxComments: checklistItem.comments,
+                      useTaxDetails: checklistItem.details,
+                      useTaxActionName: checklistItem.actionsOfPabs,
+                      useTaxActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Tire Tax":
+                    setAutoCareTireTax({
+                      tireTaxStatus: checklistItem.status,
+                      tireTaxComments: checklistItem.comments,
+                      tireTaxDetails: checklistItem.details,
+                      tireTaxActionName: checklistItem.actionsOfPabs,
+                      tireTaxActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Last Tax Return Filed Year":
+                    setAutoCareLastTaxReturnFiledYear({
+                      lastTaxReturnFiledYearStatus: checklistItem.status,
+                      lastTaxReturnFiledYearComments: checklistItem.comments,
+                      lastTaxReturnFiledYearDetails: checklistItem.details,
+                      lastTaxReturnFiledYearActionName:
+                        checklistItem.actionsOfPabs,
+                      lastTaxReturnFiledYearActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Vendor Portal Access":
+                    setAutoCareVendorPortalAccess({
+                      vendorPortalAccessStatus: checklistItem.status,
+                      vendorPortalAccessComments: checklistItem.comments,
+                      vendorPortalAccessDetails: checklistItem.details,
+                      vendorPortalAccessActionName: checklistItem.actionsOfPabs,
+                      vendorPortalAccessActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Trade Account":
+                    setAutoCareTradeAccount({
+                      tradeAccountStatus: checklistItem.status,
+                      tradeAccountComments: checklistItem.comments,
+                      tradeAccountDetails: checklistItem.details,
+                      tradeAccountActionName: checklistItem.actionsOfPabs,
+                      tradeAccountActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Bill Pay Access":
+                    setAutoCareBillPayAccess({
+                      billPayAccessStatus: checklistItem.status,
+                      billPayAccessComments: checklistItem.comments,
+                      billPayAccessDetails: checklistItem.details,
+                      billPayAccessActionName: checklistItem.actionsOfPabs,
+                      billPayAccessActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "AP Threshold Limit":
+                    setAutoCareApThresholdLimit({
+                      apThresholdLimitStatus: checklistItem.status,
+                      apThresholdLimitComments: checklistItem.comments,
+                      apThresholdLimitDetails: checklistItem.details,
+                      apThresholdLimitActionName: checklistItem.actionsOfPabs,
+                      apThresholdLimitActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Last Closed Period":
+                    setAutoCareLastClosedPeriod({
+                      lastClosedPeriodStatus: checklistItem.status,
+                      lastClosedPeriodComments: checklistItem.comments,
+                      lastClosedPeriodDetails: checklistItem.details,
+                      lastClosedPeriodActionName: checklistItem.actionsOfPabs,
+                      lastClosedPeriodActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "Sharing the Financials":
+                    setAutoCareSharingFinancials({
+                      sharingFinancialsStatus: checklistItem.status,
+                      sharingFinancialsComments: checklistItem.comments,
+                      sharingFinancialsDetails: checklistItem.details,
+                      sharingFinancialsActionName: checklistItem.actionsOfPabs,
+                      sharingFinancialsActionItems:
+                        checklistItem.actionsOfClient,
+                    });
+                    break;
+                  case "GP/GM NP/NM":
+                    setAutoCaregp_gmnp_nm({
+                      gp_gmnp_nmStatus: checklistItem.status,
+                      gp_gmnp_nmComments: checklistItem.comments,
+                      gp_gmnp_nmDetails: checklistItem.details,
+                      gp_gmnp_nmActionName: checklistItem.actionsOfPabs,
+                      gp_gmnp_nmActionItems: checklistItem.actionsOfClient,
+                    });
+                    break;
+                }
               }
-            }
-          );
+            );
+          }
           return;
       }
     };
@@ -1058,6 +1073,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCaregp_gmnp_nm.gp_gmnp_nmActionItems,
         },
       ],
+      progress:autoCareProgressPercentage
     };
     if (type === 1) {
       const isFinancialsValid = financialsChecked
@@ -1087,16 +1103,15 @@ function ChecklistAutoCare({
         !isSystemSoftwareLocationValid &&
         !isCashBankLoansValid;
 
-      if (isValid) {
-        const filledFieldsCount = checklistStatus();
-        setChecklistCount(filledFieldsCount);
-        callAPIwithHeaders(
-          onboardingSaveFormUrl,
-          "post",
-          callback,
-          checklistFormData
-        );
-      } else {
+      const filledFieldsCount = checklistStatus();
+      setChecklistCount(filledFieldsCount);
+      callAPIwithHeaders(
+        onboardingSaveFormUrl,
+        "post",
+        callback,
+        checklistFormData
+      );
+      if (!isValid) {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -1660,7 +1675,7 @@ function ChecklistAutoCare({
               className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
             >
-              Save as Draft
+              Save
             </Button>
             <Button
               onClick={() => handleSubmit(1)}

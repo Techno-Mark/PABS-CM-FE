@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI import
@@ -196,7 +196,7 @@ function AutoCareClientTeam({
       <FormBox
         title="Client Team"
         checkStatus={clientTeamCheckStatus}
-        handleChange={(e: any) => handleClientTeamSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleClientTeamSwitch(e)}
       >
         <div className="py-3 px-2 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">

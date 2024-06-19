@@ -11,6 +11,8 @@ import { validateNumber } from "@/utils/validate";
 
 const WhitelabelPabsAccountingTeamForm = ({
   className,
+  whitelabelPABSAccountingTeamCheckStatus,
+  handleWhitelabelPABSAccountingTeamSwitch,
   whitelabelPABSAccountingTeam,
   setWhitelabelPABSAccountingTeam,
   whitelabelPABSAccountingTeamErrors,
@@ -89,14 +91,17 @@ const WhitelabelPabsAccountingTeamForm = ({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="PABS Accounting Team" checkStatus={true}>
+      <FormBox
+        title="PABS Accounting Team"
+        checkStatus={whitelabelPABSAccountingTeamCheckStatus}
+        handleChange={(e: boolean) => handleWhitelabelPABSAccountingTeamSwitch(e)}
+      >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col ">
                 <label className="text-[#6E6D7A] text-[12px]">
                   Implementation Manager
-                  <span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField
                   id="outlined-basic"
@@ -122,7 +127,7 @@ const WhitelabelPabsAccountingTeamForm = ({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Operations Head<span className="text-[#DC3545]">*</span>
+                  Operations Head
                 </label>
                 <TextField
                   id="outlined-basic"
@@ -148,7 +153,7 @@ const WhitelabelPabsAccountingTeamForm = ({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Team Manager<span className="text-[#DC3545]">*</span>
+                  Team Manager
                 </label>
                 <TextField
                   id="outlined-basic"
@@ -174,7 +179,7 @@ const WhitelabelPabsAccountingTeamForm = ({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col ">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Team Leader<span className="text-[#DC3545]">*</span>
+                  Team Leader
                 </label>
                 <TextField
                   id="outlined-basic"
@@ -200,7 +205,7 @@ const WhitelabelPabsAccountingTeamForm = ({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Senior Accountant<span className="text-[#DC3545]">*</span>
+                  Senior Accountant
                 </label>
                 <TextField
                   id="outlined-basic"
@@ -228,7 +233,7 @@ const WhitelabelPabsAccountingTeamForm = ({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col ">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  PABS Group Email<span className="text-[#DC3545]">*</span>
+                  PABS Group Email
                 </label>
                 <TextField
                   id="outlined-basic"
@@ -253,9 +258,7 @@ const WhitelabelPabsAccountingTeamForm = ({
             </Grid>
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col ">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  PABS Phone<span className="text-[#DC3545]">*</span>
-                </label>
+                <label className="text-[#6E6D7A] text-[12px]">PABS Phone</label>
                 <TextField
                   id="outlined-basic"
                   name="pabsPhone"

@@ -77,7 +77,7 @@ function AutoCareLegalStructure({
       <FormBox
         title="Legal Structure"
         checkStatus={legalStructureCheckStatus}
-        handleChange={(e: any) => handleLegalStructureSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleLegalStructureSwitch(e)}
       >
         <Grid container spacing={2}>
           <Grid item xs={4}>

@@ -38,6 +38,7 @@ function SmbBankingAccessChecklist({
 }: CashBankingAccessType) {
   return (
     <div className={`${className}`}>
+      <div className="text-[18px] font-medium py-2 w-full">Banking</div>
       <SavingAccount
         smbSavingAccount={smbSavingAccount}
         setSmbSavingAccount={setSmbSavingAccount}
@@ -47,22 +48,20 @@ function SmbBankingAccessChecklist({
         smbAccessSavingAccount={smbAccessSavingAccount}
         setSmbAccessSavingAccount={setSmbAccessSavingAccount}
       />
+      <div className="text-[18px] font-medium py-2 w-full">Credit Card</div>
       <AddCards
         smbAddCards={smbAddCards}
         setSmbAddCards={setSmbAddCards}
         smbAddCardsErrors={smbCashBankingAccessErrors}
       />
-      <AccessCreditCard
-        smbAccessCreditCard={smbAccessCreditCard}
-        setSmbAccessCreditCard={setSmbAccessCreditCard}
-      />
-      <AccessLoanAccount
-        smbAccessLoanAccount={smbAccessLoanAccount}
-        setSmbAccessLoanAccount={setSmbAccessLoanAccount}
-      />
       <AccessCreditCardPortal
         smbAccessCreditCardPortal={smbAccessCreditCardPortal}
         setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
+      />
+      <div className="text-[18px] font-medium py-2 w-full">Loan/LOC</div>
+      <AccessLoanAccount
+        smbAccessLoanAccount={smbAccessLoanAccount}
+        setSmbAccessLoanAccount={setSmbAccessLoanAccount}
       />
     </div>
   );
@@ -90,9 +89,9 @@ const SavingAccount = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No of Checking & Saving Accounts
+        No of Checking & Saving Accounts<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -120,13 +119,13 @@ const SavingAccount = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="SavingAccountDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbSavingAccount?.SavingAccountDetails}
                 error={!!smbSavingAccountErrors?.SavingAccountDetails}
                 helperText={smbSavingAccountErrors?.SavingAccountDetails}
@@ -195,7 +194,7 @@ const AccessSavingAccount = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Access (&ldquo;Read-Only&rdquo;) to Checking/ Saving Accounts
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -221,13 +220,13 @@ const AccessSavingAccount = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AccessSavingAccountDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbAccessSavingAccount?.AccessSavingAccountDetails}
                 onChange={handleAccessSavingAccountChange}
                 InputProps={{
@@ -289,9 +288,9 @@ const AddCards = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No Credit/Debit Cards Any add on Cards
+        No Credit/Debit Cards Any add on Cards<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -319,13 +318,13 @@ const AddCards = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AddCardsDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbAddCards?.AddCardsDetails}
                 error={!!smbAddCardsErrors?.AddCardsDetails}
                 helperText={smbAddCardsErrors?.AddCardsDetails}
@@ -373,103 +372,6 @@ const AddCards = ({
   );
 };
 
-const AccessCreditCard = ({
-  smbAccessCreditCard,
-  setSmbAccessCreditCard,
-}: AccessCreditCardTypes) => {
-  const classes = useStyles();
-
-  const handleAccessCreditCardChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setSmbAccessCreditCard((prev: AccessCreditCardFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  return (
-    <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Access for Credit Cards Portal
-      </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="AccessCreditCardStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbAccessCreditCard?.AccessCreditCardStatus}
-                onChange={handleAccessCreditCardChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={6}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
-              <TextField
-                name="AccessCreditCardDetails"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Details"
-                value={smbAccessCreditCard?.AccessCreditCardDetails}
-                onChange={handleAccessCreditCardChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Items - PABS/Client
-              </label>
-              <TextField
-                name="AccessCreditCardActionItems"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Items"
-                value={smbAccessCreditCard?.AccessCreditCardActionItems}
-                onChange={handleAccessCreditCardChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    </>
-  );
-};
-
 const AccessLoanAccount = ({
   smbAccessLoanAccount,
   setSmbAccessLoanAccount,
@@ -491,7 +393,7 @@ const AccessLoanAccount = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Access to Loan/Loc Account
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -517,13 +419,13 @@ const AccessLoanAccount = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AccessLoanAccountDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbAccessLoanAccount?.AccessLoanAccountDetails}
                 onChange={handleAccessLoanAccountChange}
                 InputProps={{
@@ -588,7 +490,7 @@ const AccessCreditCardPortal = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Access for Credit Cards Portal
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -614,13 +516,13 @@ const AccessCreditCardPortal = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AccessCreditCardPortalDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbAccessCreditCardPortal?.AccessCreditCardPortalDetails}
                 onChange={handleAccessCreditCardChange}
                 InputProps={{

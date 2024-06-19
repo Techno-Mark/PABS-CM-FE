@@ -154,14 +154,14 @@ const VendorPortalAccess = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="vendorPortalAccessActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessActionName}
                 error={!!vendorPortalAccessErrors?.vendorPortalAccessActionName}
                 helperText={vendorPortalAccessErrors?.vendorPortalAccessActionName}
@@ -301,14 +301,14 @@ const TradeAccount = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="tradeAccountActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareTradeAccount?.tradeAccountActionName}
                 onChange={handleTradeAccountChange}
                 InputProps={{
@@ -452,14 +452,14 @@ const BillPayAccess = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="billPayAccessActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareBillPayAccess?.billPayAccessActionName}
                 error={!!billPayAccessErrors?.billPayAccessActionName}
                 helperText={billPayAccessErrors?.billPayAccessActionName}
@@ -600,14 +600,14 @@ const APThresholdLimit = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="apThresholdLimitActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareApThresholdLimit?.apThresholdLimitActionName}
                 onChange={handleApThresholdLimitChange}
                 InputProps={{

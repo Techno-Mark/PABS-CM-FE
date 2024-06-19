@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { ChangeEvent, forwardRef, useEffect, useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI imports
@@ -15,6 +15,8 @@ import { validateNumber } from "@/utils/validate";
 
 const WhitelabelAccountDetailsForm = ({
   className,
+  whitelabelAccountDetailsCheckStatus,
+  handleAccountDetailsSwitch,
   whitelabelAccountDetails,
   setWhitelabelAccountDetails,
   whitelabelAccountDetailsErrors,
@@ -147,7 +149,11 @@ const WhitelabelAccountDetailsForm = ({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="Account Details" checkStatus={true}>
+      <FormBox
+        title="Account Details"
+        checkStatus={whitelabelAccountDetailsCheckStatus}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleAccountDetailsSwitch(e)}
+      >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={8}>

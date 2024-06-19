@@ -48,6 +48,7 @@ interface SidebarModuleTypes {
   sidebarModule?: number;
   perCountChecklist?: number;
   perCountSmbChecklist?:number;
+  setAutoCareProgressPercentage:any
 }
 
 const ClientSidebar = ({
@@ -56,6 +57,7 @@ const ClientSidebar = ({
   perCountChecklist,
   perCountSmbChecklist,
   sidebarModule,
+  setAutoCareProgressPercentage,
 }: SidebarModuleTypes) => {
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
   const businessTypeId = Cookies.get("businessTypeId");
@@ -101,6 +103,10 @@ const ClientSidebar = ({
         },
       ]);
     }
+    if(perCountBasicDetails || perCountChecklist){
+      const progressPer = (perCountBasicDetails! + perCountChecklist!) / 2;
+      setAutoCareProgressPercentage(Math.floor(progressPer))
+    }
   }, [businessTypeId, clientInfo, perCountBasicDetails, perCountChecklist,perCountSmbChecklist]);
 
   return (
@@ -139,7 +145,7 @@ const ClientSidebar = ({
               >
                 {data.module}
               </span>
-              <div className="flex items-start justify-start gap-2 w-[50%]">
+              <div className="flex justify-start gap-2 w-[50%]">
                 <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${
@@ -157,7 +163,7 @@ const ClientSidebar = ({
                   ></div>
                 </div>
                   <span
-                    className={`relative mr-1 z-10 text-[8px] items-end text-[#023963]`}
+                    className={`relative mr-1 z-10 text-[8px] items-center text-[#023963]`}
                   >
                     {data.value}%
                   </span>

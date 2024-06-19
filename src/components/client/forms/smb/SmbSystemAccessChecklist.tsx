@@ -58,6 +58,7 @@ function SmbSystemAccessChecklist({
 }: SystemDocumentInformationAccessTypes) {
   return (
     <div className={`${className}`}>
+      <div className="text-[18px] font-medium py-2 w-full">General</div>
       <PABSGroupEmail
         smbPABSGroupEmail={smbPABSGroupEmail}
         setSmbPABSGroupEmail={setSmbPABSGroupEmail}
@@ -71,14 +72,17 @@ function SmbSystemAccessChecklist({
         smbDropboxSetUp={smbDropboxSetUp}
         setSmbDropboxSetUp={setSmbDropboxSetUp}
       />
+      <div className="text-[18px] font-medium py-2 w-full">Sales Tax</div>
       <SalesTaxPortalAccess
         smbSalesTaxPortalAccess={smbSalesTaxPortalAccess}
         setSmbSalesTaxPortalAccess={setSmbSalesTaxPortalAccess}
       />
+      <div className="text-[18px] font-medium py-2 w-full">Merchant</div>
       <MerchantAccountPortalAccess
         smbMerchantAccountPortalAccess={smbMerchantAccountPortalAccess}
         setSmbMerchantAccountPortalAccess={setSmbMerchantAccountPortalAccess}
       />
+      <div className="text-[18px] font-medium py-2 w-full">Payroll</div>
       <PayrollServiceAccess
         smbPayrollServiceAccess={smbPayrollServiceAccess}
         setSmbPayrollServiceAccess={setSmbPayrollServiceAccess}
@@ -88,17 +92,18 @@ function SmbSystemAccessChecklist({
         smbPayrollFrequency={smbPayrollFrequency}
         setSmbPayrollFrequency={setSmbPayrollFrequency}
       />
+      <div className="text-[18px] font-medium py-2 w-full">Expense</div>
+      <ExpensePaymentPortalAccess
+        smbExpensePaymentPortalAccess={smbExpensePaymentPortalAccess}
+        setSmbExpensePaymentPortalAccess={setSmbExpensePaymentPortalAccess}
+      />
       <ModeOfPayment
         smbModeOfPayment={smbModeOfPayment}
         setSmbModeOfPayment={setSmbModeOfPayment}
         smbModeOfPaymentErrors={smbSystemAccessChecklistErrors}
       />
       <ApBills smbApBills={smbApBills} setSmbApBills={setSmbApBills} />
-
-      <ExpensePaymentPortalAccess
-        smbExpensePaymentPortalAccess={smbExpensePaymentPortalAccess}
-        setSmbExpensePaymentPortalAccess={setSmbExpensePaymentPortalAccess}
-      />
+      <div className="text-[18px] font-medium py-2 w-full">POS</div>
       <PointSalesAccess
         smbPointSalesAccess={smbPointSalesAccess}
         setSmbPointSalesAccess={setSmbPointSalesAccess}
@@ -129,7 +134,7 @@ const PABSGroupEmail = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         PABS Group Email
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -155,13 +160,13 @@ const PABSGroupEmail = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="pabsGroupEmailDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbPABSGroupEmail?.pabsGroupEmailDetails}
                 onChange={handleChange}
                 InputProps={{
@@ -228,7 +233,7 @@ const AccessAccountingSoftware = ({
         Provide Access to Accounting Software
         <span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -262,13 +267,13 @@ const AccessAccountingSoftware = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AccessAccountingSoftwareDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={
                   smbAccessAccountingSoftware?.AccessAccountingSoftwareDetails
                 }
@@ -347,7 +352,7 @@ const DropboxSetUp = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Dropbox Set-Up
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -373,13 +378,13 @@ const DropboxSetUp = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="DropboxSetUpDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbDropboxSetUp?.DropboxSetUpDetails}
                 onChange={handleChange}
                 InputProps={{
@@ -440,9 +445,9 @@ const SalesTaxPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Provide access to sales tax portal access
+        Provide Access to Sales Tax portal Access
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -468,13 +473,13 @@ const SalesTaxPortalAccess = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="salesTaxPortalAccessDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbSalesTaxPortalAccess?.salesTaxPortalAccessDetails}
                 onChange={handleChange}
                 InputProps={{
@@ -537,9 +542,9 @@ const MerchantAccountPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Merchant account portal access (If any)
+        Merchant account portal Access (If any)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -567,13 +572,13 @@ const MerchantAccountPortalAccess = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="merchantAccountPortalAccessDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={
                   smbMerchantAccountPortalAccess?.merchantAccountPortalAccessDetails
                 }
@@ -639,9 +644,9 @@ const PayrollServiceAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Payroll service provider access<span className="text-[#DC3545]">*</span>
+        Payroll service Provider Access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -653,8 +658,12 @@ const PayrollServiceAccess = ({
                 size="small"
                 placeholder="Please Enter Status"
                 value={smbPayrollServiceAccess?.PayrollServiceAccessStatus}
-                error={!!smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus}
-                helperText={smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus}
+                error={
+                  !!smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus
+                }
+                helperText={
+                  smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -669,16 +678,20 @@ const PayrollServiceAccess = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="PayrollServiceAccessDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbPayrollServiceAccess?.PayrollServiceAccessDetails}
-                error={!!smbPayrollServiceAccessErrors?.PayrollServiceAccessDetails}
-                helperText={smbPayrollServiceAccessErrors?.PayrollServiceAccessDetails}
+                error={
+                  !!smbPayrollServiceAccessErrors?.PayrollServiceAccessDetails
+                }
+                helperText={
+                  smbPayrollServiceAccessErrors?.PayrollServiceAccessDetails
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -744,9 +757,9 @@ const PayrollFrequency = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No. of employees on roll, Payroll Frequency
+        No. of employees on roll , Payroll Frequency
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -772,13 +785,13 @@ const PayrollFrequency = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="PayrollFrequencyDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbPayrollFrequency?.PayrollFrequencyDetails}
                 onChange={handleChange}
                 InputProps={{
@@ -841,9 +854,9 @@ const ExpensePaymentPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Expense payment portal access (If any)
+        Expense Payment portal Access (If any)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -871,13 +884,13 @@ const ExpensePaymentPortalAccess = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="expensePaymentPortalAccessDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={
                   smbExpensePaymentPortalAccess?.expensePaymentPortalAccessDetails
                 }
@@ -946,7 +959,7 @@ const ModeOfPayment = ({
         Monthly AP Bills counts & Mode of Payment
         <span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -974,13 +987,13 @@ const ModeOfPayment = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ModeOfPaymentDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbModeOfPayment?.ModeOfPaymentDetails}
                 error={!!smbModeOfPaymentErrors?.ModeOfPaymentDetails}
                 helperText={smbModeOfPaymentErrors?.ModeOfPaymentDetails}
@@ -1044,7 +1057,7 @@ const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         AP bills - (mode of receiving bills)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -1070,13 +1083,13 @@ const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ApBillsDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbApBills?.ApBillsDetails}
                 onChange={handleChange}
                 InputProps={{
@@ -1138,9 +1151,9 @@ const PointSalesAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Point of sales access<span className="text-[#DC3545]">*</span>
+        Point of Sales Access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -1168,13 +1181,13 @@ const PointSalesAccess = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="pointSalesAccessDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbPointSalesAccess?.pointSalesAccessDetails}
                 error={!!smbPointSalesAccessErrors?.pointSalesAccessDetails}
                 helperText={smbPointSalesAccessErrors?.pointSalesAccessDetails}

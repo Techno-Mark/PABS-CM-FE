@@ -24,14 +24,10 @@ export const initialWhitelabelOtherInformation = {
   noOfAccounts: 0,
   bdm: "",
   startDate: "",
-  pandaDocStatus: "",
 };
 
 export const validateWhitelabelOtherInformation = [
-  "noOfAccounts",
-  "bdm",
   "startDate",
-  "pandaDocStatus",
 ];
 
 export const initialWhitelabelCpaClientTeam = {
@@ -49,13 +45,3 @@ export const initialWhitelabelPABSAccountingTeam = {
   pabsGroupEmail: "",
   pabsPhone: "",
 };
-
-export const validateWhitelabelPABSAccountingTeam = [
-  "implementation",
-  "operationsHead",
-  "teamManager",
-  "teamLeader",
-  "seniorAccountant",
-  "pabsGroupEmail",
-  "pabsPhone",
-];

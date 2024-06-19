@@ -55,10 +55,6 @@ function AutoCareSystemLocationChecklist({
         setAutoCarePosSoftware={setAutoCarePosSoftware}
         posErrors={systemSoftwareLocationErrors}
       />
-      <EstimatingSoftware
-        autoCareEstimatingSoftware={autoCareEstimatingSoftware}
-        setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
-      />
       <AccountingSoftware
         autoCareAccountingSoftware={autoCareAccountingSoftware}
         setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
@@ -99,7 +95,7 @@ const ITStructureReview = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         It Structure Review
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -170,14 +166,14 @@ const ITStructureReview = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="itStructureActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareITStructureReview?.itStructureActionName}
                 onChange={handleItStructureReviewChange}
                 InputProps={{
@@ -242,7 +238,7 @@ const AccessComputerMethod = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Access Computer Method (dedicated)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -313,14 +309,14 @@ const AccessComputerMethod = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="accessComputerActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareAccessComputerMethod?.accessComputerActionName}
                 onChange={handleAccessComputerMethodChange}
                 InputProps={{
@@ -382,9 +378,9 @@ const PosSoftware = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        POS Software<span className="text-[#DC3545]">*</span>
+        POS System<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -461,14 +457,14 @@ const PosSoftware = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="posSoftwareActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCarePosSoftware?.posSoftwareActionName}
                 error={!!posErrors?.posSoftwareActionName}
                 helperText={posErrors?.posSoftwareActionName}
@@ -516,147 +512,6 @@ const PosSoftware = ({
   );
 };
 
-const EstimatingSoftware = ({
-  autoCareEstimatingSoftware,
-  setAutoCareEstimatingSoftware,
-}: EstimatingSoftwareTypes) => {
-  const classes = useStyles();
-
-  const handleEstimatingSoftwareChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setAutoCareEstimatingSoftware((prev: EstimatingSoftwareFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  return (
-    <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Estimating Software
-      </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Comments</label>
-              <TextField
-                name="estimatingSoftwareComments"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Comments"
-                value={autoCareEstimatingSoftware?.estimatingSoftwareComments}
-                onChange={handleEstimatingSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="estimatingSoftwareStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareEstimatingSoftware?.estimatingSoftwareStatus}
-                onChange={handleEstimatingSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
-              <TextField
-                name="estimatingSoftwareDetails"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Details"
-                value={autoCareEstimatingSoftware?.estimatingSoftwareDetails}
-                onChange={handleEstimatingSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
-              </label>
-              <TextField
-                name="estimatingSoftwareActionName"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Name"
-                value={autoCareEstimatingSoftware?.estimatingSoftwareActionName}
-                onChange={handleEstimatingSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Items - Client
-              </label>
-              <TextField
-                name="estimatingSoftwareActionName"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Items"
-                value={autoCareEstimatingSoftware?.estimatingSoftwareActionName}
-                onChange={handleEstimatingSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    </>
-  );
-};
-
 const AccountingSoftware = ({
   autoCareAccountingSoftware,
   setAutoCareAccountingSoftware,
@@ -679,7 +534,7 @@ const AccountingSoftware = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Accounting Software<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -756,14 +611,14 @@ const AccountingSoftware = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="accountingSoftwareActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareAccountingSoftware?.accountingSoftwareActionName}
                 error={!!accountingSoftwareErrors?.accountingSoftwareActionName}
                 helperText={accountingSoftwareErrors?.accountingSoftwareActionName}
@@ -836,7 +691,7 @@ const CloudDocumentManagement = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Cloud Document Management
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -913,14 +768,14 @@ const CloudDocumentManagement = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="cloudDocumentManagementActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCareCloudDocumentManagement?.cloudDocumentManagementActionName
                 }
@@ -984,7 +839,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Scanner (If Any)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -1055,14 +910,14 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="scannerActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareScanner?.scannerActionName}
                 onChange={handleScannerChange}
                 InputProps={{

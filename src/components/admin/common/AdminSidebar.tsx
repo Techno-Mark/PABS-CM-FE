@@ -103,7 +103,7 @@ const Sidebar = ({
   };
 
   useEffect(() => {
-    if (permissions.length > 0) {
+    if (permissions?.length > 0) {
       const items = [
         (checkPermission("Client Management", "view") ||
           checkPermission("Client Management", "create")) && {

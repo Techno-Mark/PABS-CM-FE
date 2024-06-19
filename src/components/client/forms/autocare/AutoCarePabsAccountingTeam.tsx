@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
@@ -26,7 +26,7 @@ function AutoCarePabsAccountingTeam({
       <FormBox
         title="PABS Accounting Team"
         checkStatus={pabsAccountingTeamCheckStatus}
-        handleChange={(e: any) => handlePabsAccountingTeamSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) => handlePabsAccountingTeamSwitch(e)}
       >
         <div className="py-3 px-2 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col ">

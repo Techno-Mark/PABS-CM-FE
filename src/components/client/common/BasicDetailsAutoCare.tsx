@@ -47,6 +47,7 @@ function BasicDetailsAutoCare({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
   setIsOpenModal,
+  autoCareProgressPercentage
 }: AutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -90,62 +91,64 @@ function BasicDetailsAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          setAccountDetailsCheckStatus(ResponseData.accountDetailsIsDisplay);
-          setLegalStructureCheckStatus(ResponseData.legalStructureIsDisplay);
-          setClientTeamCheckStatus(ResponseData.cpaClientTeamIsDisplay);
-          setPabsAccountingTeamCheckStatus(
-            ResponseData.pabsAccountingTeamIsDisplay
-          );
-          setAutoCareAccountDetails({
-            accountName: ResponseData.accountName,
-            businessType: ResponseData.businessTypeName,
-            service: ResponseData.service,
-            corporateAddress: ResponseData.corporateAddress,
-            noOfLocations: ResponseData.noOfLocations,
-            nameOfLocations: ResponseData.nameOfLocations,
-            ownerContact: ResponseData.ownerContact,
-            ownerEmail: ResponseData.ownerEmail,
-            ownerPhone: ResponseData.ownerPhone,
-          });
-          setAutoCareLegalStructure({
-            no_of_Entities: ResponseData.noOfEntities,
-            no_of_Shops: ResponseData.noOfShops,
-            salesRep: ResponseData.salesRep,
-            agreementDate: dayjs(ResponseData.agreementDate).format(
-              "DD MMM YYYY"
-            ),
-            probableAcquitionDate: dayjs(
-              ResponseData.probableAcquisitionDate
-            ).format("DD MMM YYYY"),
-            dba: ResponseData.dba,
-          });
-          setAutoCareClientTeam({
-            shopManager: ResponseData.shopManager,
-            poc1: ResponseData.poc1,
-            email: ResponseData.emailId,
-            cpa: ResponseData.cpa,
-            priorBookkeeper: ResponseData.priorBookkeeper,
-            itSupport: ResponseData.itSupport,
-            timeZone:
-              TimeZoneList.find((time) => time.label === ResponseData?.timeZone)
-                ?.value || "-1",
-            state:
-              StateList.find((state) => state.label === ResponseData?.state)
-                ?.value || "-1",
-            weeklyCalls: ResponseData?.weeklyCalls,
-            weeklyCallTime: ResponseData.weeklyCallTime,
-            istTime: ResponseData.istTime,
-          });
-          setAutoCarePabsAccountingTeam({
-            implementationManager: ResponseData.implementationManager,
-            implementationAnalyst: ResponseData.implementationAnalyst,
-            operationsHead: ResponseData.operationsHead,
-            operationsManager: ResponseData.operationsManager,
-            operationsAccountHolder: ResponseData.operationsAccountHandler,
-            pabsGroupEmail: ResponseData.pabsGroupEmail,
-            pabsPhone: ResponseData.pabsPhone,
-          });
-
+          if (!!ResponseData) {
+            setAccountDetailsCheckStatus(ResponseData.accountDetailsIsDisplay);
+            setLegalStructureCheckStatus(ResponseData.legalStructureIsDisplay);
+            setClientTeamCheckStatus(ResponseData.cpaClientTeamIsDisplay);
+            setPabsAccountingTeamCheckStatus(
+              ResponseData.pabsAccountingTeamIsDisplay
+            );
+            setAutoCareAccountDetails({
+              accountName: ResponseData.accountName,
+              businessType: ResponseData.businessTypeName,
+              service: ResponseData.service,
+              corporateAddress: ResponseData.corporateAddress,
+              noOfLocations: ResponseData.noOfLocations,
+              nameOfLocations: ResponseData.nameOfLocations,
+              ownerContact: ResponseData.ownerContact,
+              ownerEmail: ResponseData.ownerEmail,
+              ownerPhone: ResponseData.ownerPhone,
+            });
+            setAutoCareLegalStructure({
+              no_of_Entities: ResponseData.noOfEntities,
+              no_of_Shops: ResponseData.noOfShops,
+              salesRep: ResponseData.salesRep,
+              agreementDate: dayjs(ResponseData.agreementDate).format(
+                "DD MMM YYYY"
+              ),
+              probableAcquitionDate: dayjs(
+                ResponseData.probableAcquisitionDate
+              ).format("DD MMM YYYY"),
+              dba: ResponseData.dba,
+            });
+            setAutoCareClientTeam({
+              shopManager: ResponseData.shopManager,
+              poc1: ResponseData.poc1,
+              email: ResponseData.emailId,
+              cpa: ResponseData.cpa,
+              priorBookkeeper: ResponseData.priorBookkeeper,
+              itSupport: ResponseData.itSupport,
+              timeZone:
+                TimeZoneList.find(
+                  (time) => time.label === ResponseData?.timeZone
+                )?.value || "-1",
+              state:
+                StateList.find((state) => state.label === ResponseData?.state)
+                  ?.value || "-1",
+              weeklyCalls: ResponseData?.weeklyCalls,
+              weeklyCallTime: ResponseData.weeklyCallTime,
+              istTime: ResponseData.istTime,
+            });
+            setAutoCarePabsAccountingTeam({
+              implementationManager: ResponseData.implementationManager,
+              implementationAnalyst: ResponseData.implementationAnalyst,
+              operationsHead: ResponseData.operationsHead,
+              operationsManager: ResponseData.operationsManager,
+              operationsAccountHolder: ResponseData.operationsAccountHandler,
+              pabsGroupEmail: ResponseData.pabsGroupEmail,
+              pabsPhone: ResponseData.pabsPhone,
+            });
+          }
           return;
       }
     };
@@ -381,6 +384,7 @@ function BasicDetailsAutoCare({
         autoCarePabsAccountingTeam.operationsAccountHolder,
       pabsGroupEmail: autoCarePabsAccountingTeam.pabsGroupEmail,
       pabsPhone: autoCarePabsAccountingTeam.pabsPhone,
+      progress:autoCareProgressPercentage
     };
     if (type === 1) {
       const isValidAccountDetails = accountDetailsCheckStatus
@@ -397,15 +401,14 @@ function BasicDetailsAutoCare({
         !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
 
       const filledFieldsCount = basicDetailStatus();
-      if (isValid) {
-        setBasicDetailCount(filledFieldsCount);
-        callAPIwithHeaders(
-          onboardingSaveFormUrl,
-          "post",
-          callback,
-          basicDetailsFormData
-        );
-      } else {
+      setBasicDetailCount(filledFieldsCount);
+      callAPIwithHeaders(
+        onboardingSaveFormUrl,
+        "post",
+        callback,
+        basicDetailsFormData
+      );
+      if (!isValid) {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -417,8 +420,8 @@ function BasicDetailsAutoCare({
         accountDetailsCheckStatus ||
         legalStructureCheckStatus ||
         clientTeamCheckStatus ||
-        pabsAccountingTeamCheckStatus
-      if (roleId === '4' ? isValidStatus : true) {
+        pabsAccountingTeamCheckStatus;
+      if (roleId === "4" ? isValidStatus : true) {
         showToast(
           "Mandatory information is not provided. Please fill in to submit the form.",
           ToastType.Warning
@@ -582,7 +585,7 @@ function BasicDetailsAutoCare({
             className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
-            Save as Draft
+            Save
           </Button>
 
           <Button

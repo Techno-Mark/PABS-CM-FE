@@ -94,7 +94,7 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTy
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Go Live Date<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -122,13 +122,13 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTy
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="LiveDateDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbLiveDate?.LiveDateDetails}
                 error={!!smbLiveDateErrors?.LiveDateDetails}
                 helperText={smbLiveDateErrors?.LiveDateDetails}
@@ -195,7 +195,7 @@ const AccountingMethod = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Method of accounting
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -221,13 +221,13 @@ const AccountingMethod = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="AccountingMethodDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbAccountingMethod?.AccountingMethodDetails}
                 onChange={handleAccountingMethodChange}
                 InputProps={{
@@ -287,7 +287,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         FEIN
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -313,13 +313,13 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="FEINDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbFEIN?.FEINDetails}
                 onChange={handlFeinChange}
                 InputProps={{
@@ -382,7 +382,7 @@ const FiscalYearEnd = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Fiscal Year end
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -408,13 +408,13 @@ const FiscalYearEnd = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="FiscalYearEndDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbFiscalYearEnd?.FiscalYearEndDetails}
                 onChange={handleFiscalYearEndChange}
                 InputProps={{
@@ -478,7 +478,7 @@ const LastClosedMonth = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Last Closed month in Accounting Software<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -506,13 +506,13 @@ const LastClosedMonth = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="LastClosedMonthDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbLastClosedMonth?.LastClosedMonthDetails}
                 error={!!smbLastClosedMonthErrors?.LastClosedMonthDetails}
                 helperText={smbLastClosedMonthErrors?.LastClosedMonthDetails}
@@ -579,7 +579,7 @@ const ContactOfCpa = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Name and Contact of CPA
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -605,13 +605,13 @@ const ContactOfCpa = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ContactOfCpaDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbContactOfCpa?.ContactOfCpaDetails}
                 onChange={handleContactOfCpaChange}
                 InputProps={{
@@ -671,7 +671,7 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxRet
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Last year Tax Return 990<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -699,13 +699,13 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxRet
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="TaxReturnDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbTaxReturn?.TaxReturnDetails}
                 error={!!smbTaxReturnErrors?.TaxReturnDetails}
                 helperText={smbTaxReturnErrors?.TaxReturnDetails}
@@ -773,7 +773,7 @@ const DistributionList = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Monthly Financials distribution list<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -801,13 +801,13 @@ const DistributionList = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="DistributionListDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbDistributionList?.DistributionListDetails}
                 error={!!smbDistributionListErrors?.DistributionListDetails}
                 helperText={smbDistributionListErrors?.DistributionListDetails}

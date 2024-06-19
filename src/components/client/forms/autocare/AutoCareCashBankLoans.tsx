@@ -171,14 +171,14 @@ const OperatingCheckingAccount = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="operatingCheckingAccountActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountActionName
                 }
@@ -327,14 +327,14 @@ const SavingsAccount = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="savingsAccountActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareSavingsAccount?.savingsAccountActionName}
                 error={!!savingsAccountErrors?.savingsAccountActionName}
                 helperText={savingsAccountErrors?.savingsAccountActionName}
@@ -480,14 +480,14 @@ const CreditCard = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="creditCardActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareCreditCard?.creditCardActionName}
                 error={!!creditCardErrors?.creditCardActionName}
                 helperText={creditCardErrors?.creditCardActionName}
@@ -625,14 +625,14 @@ const BusinessLoans = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="businessLoansActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareBusinessLoans?.businessLoansActionName}
                 onChange={handleBusinessLoansChange}
                 InputProps={{
@@ -766,14 +766,14 @@ const PropertyLoans = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="propertyLoansActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCarePropertyLoans?.propertyLoansActionName}
                 onChange={handlePropertyLoansChange}
                 InputProps={{

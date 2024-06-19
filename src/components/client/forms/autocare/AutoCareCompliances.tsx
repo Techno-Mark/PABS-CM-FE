@@ -79,7 +79,7 @@ const SalesTaxAccessWorkPaper = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Sales Tax Frequency<span className="text-[#DC3545]">*</span>
+        Sales Tax Access & Work Papers<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 px-2 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -176,14 +176,14 @@ const SalesTaxAccessWorkPaper = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="salesTaxAccessWorkPaperActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperActionName
                 }
@@ -341,14 +341,14 @@ const UseTax = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="useTaxActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareUseTax?.useTaxActionName}
                 error={!!useTaxErrors?.useTaxActionName}
                 helperText={useTaxErrors?.useTaxActionName}
@@ -493,14 +493,14 @@ const TireTax = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="tireTaxActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareTireTax?.tireTaxActionName}
                 error={!!tireTaxErrors?.tireTaxActionName}
                 helperText={tireTaxErrors?.tireTaxActionName}
@@ -669,14 +669,14 @@ const LastTaxReturnFiledYear = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="lastTaxReturnFiledYearActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearActionName
                 }

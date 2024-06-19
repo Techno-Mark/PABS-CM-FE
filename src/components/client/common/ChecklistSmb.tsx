@@ -640,13 +640,13 @@ function ChecklistSmb({
         }
       });
     }
-    setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay);
-    setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay);
-    setCashBanksLoansChecked(responseData?.phase3CashIsDisplay);
+    setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay ?? true);
+    setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay ?? true);
+    setCashBanksLoansChecked(responseData?.phase3CashIsDisplay ?? true);
     setConditionExistingFinancialsChecked(
-      responseData?.phase4ConditionIsDisplay
+      responseData?.phase4ConditionIsDisplay ?? true
     );
-    setMeetingAvailabilityChecked(responseData?.phase5MeetingIsDisplay);
+    setMeetingAvailabilityChecked(responseData?.phase5MeetingIsDisplay ?? true);
   }, [formDetails, responseData]);
 
   useEffect(() => {
@@ -818,6 +818,7 @@ function ChecklistSmb({
   };
 
   const handleSubmit = (type: number) => {
+    const progressCounts = smbChecklistStatus();
     const smbData: any = {
       smbClientName: smbClientName,
       smbTypeOfEntity: smbTypeOfEntity,
@@ -1229,7 +1230,6 @@ function ChecklistSmb({
         !isExistingFinancialsAccessValid &&
         !isMeetingChecklistValid;
 
-      if (isValid) {
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
           userId: !!clientInfo?.UserId
             ? parseInt(clientInfo?.UserId)
@@ -1238,8 +1238,9 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
+          progress: progressCounts
         });
-      } else {
+      if (!isValid) {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -1266,6 +1267,7 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
+          progress: progressCounts
         });
       }
     }
@@ -1532,7 +1534,7 @@ function ChecklistSmb({
                 handleChange={handleAccordianChange(
                   AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
                 )}
-                title="Phase 2: System & Document Access"
+                title="Phase 2: System & Document Information & Access"
               >
                 <SmbSystemAccessChecklist
                   smbSystemAccessChecklistErrors={smbSystemDocumentAccessErrors}
@@ -1583,7 +1585,7 @@ function ChecklistSmb({
                 handleChange={handleAccordianChange(
                   AccordianExpand.CASH_BANKING_LOANS
                 )}
-                title="Phase 3: Cash & Banking Access"
+                title="Phase 3: Cash & Banking Information & Access"
               >
                 <SmbBankingAccessChecklist
                   smbCashBankingAccessErrors={smbCashBankingAccessErrors}
@@ -1693,21 +1695,13 @@ function ChecklistSmb({
               Cancel
             </Button>
           )}
-          {/* {roleId === "4"
-            ? peopleBusinessChecked &&
-            systemDocumentAccessChecked &&
-            cashBanksLoansChecked &&
-            conditionExistingFinancialsChecked &&
-            meetingAvailabilityChecked
-            : true && ( */}
           <Button
             onClick={() => handleSubmit(2)}
             className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
-            Save as Draft
+            Save
           </Button>
-          {/* )} */}
           <Button
             onClick={() => handleSubmit(1)}
             className={`!bg-[#022946] text-white !rounded-full`}

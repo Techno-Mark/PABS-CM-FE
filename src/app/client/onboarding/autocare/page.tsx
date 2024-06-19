@@ -10,6 +10,7 @@ function Page() {
   const router = useRouter();
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
+  const [autoCareProgressPercentage, setAutoCareProgressPercentage] = useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(31);
 
   useEffect(() => {
@@ -24,10 +25,12 @@ function Page() {
       perCountBasicDetails={perCountBasicDetails}
       perCountChecklist={perCountChecklist}
       formSubmit={formSubmit}
+      setAutoCareProgressPercentage={(value:number) => setAutoCareProgressPercentage(value)}
     >
       {(formSubmit === 31 || perCountBasicDetails === 0) && (
         <BasicDetailsAutoCare
           setIsOpenModal={() => {}}
+          autoCareProgressPercentage={autoCareProgressPercentage}
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setBasicDetailCount={(value: number) => setPerCountBasicDetails(value)}
         />
@@ -35,6 +38,7 @@ function Page() {
       {(formSubmit === 32 || perCountChecklist === 0) && (
         <ChecklistAutoCare
           setIsOpenModal={() => {}}
+          autoCareProgressPercentage={autoCareProgressPercentage}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setPerCountChecklist(value)}
         />
