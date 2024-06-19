@@ -135,11 +135,11 @@ const ClientSidebar = ({
               <span
                 className={` ${
                   sidebarModule === data.id && "font-semibold"
-                } mx-2 text-[#333333] text-[14px] text-wrap w-[40%] cursor-default`}
+                } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
               >
                 {data.module}
               </span>
-              <div className="flex items-start justify-start gap-3 w-[60%]">
+              <div className="flex items-start justify-start gap-2 w-[50%]">
                 <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
                   <div
                     className={`absolute left-0 top-0 h-full ${
@@ -157,7 +157,7 @@ const ClientSidebar = ({
                   ></div>
                 </div>
                   <span
-                    className={`relative mx-1 z-10 text-[8px] items-end text-[#023963]`}
+                    className={`relative mr-1 z-10 text-[8px] items-end text-[#023963]`}
                   >
                     {data.value}%
                   </span>
