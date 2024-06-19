@@ -562,11 +562,11 @@ function BasicDetailsAutoCare({
               Cancel
             </Button>
           )}
-          {roleId === "4" ?
-            (accountDetailsCheckStatus &&
+          {/* {roleId === "4" &&
+            accountDetailsCheckStatus &&
             legalStructureCheckStatus &&
             clientTeamCheckStatus &&
-            pabsAccountingTeamCheckStatus) : true && (
+            pabsAccountingTeamCheckStatus && ( */}
               <Button
                 onClick={() => handleSubmit(2)}
                 className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
@@ -574,7 +574,7 @@ function BasicDetailsAutoCare({
               >
                 Save as Draft
               </Button>
-            )}
+            {/* )} */}
           <Button
             onClick={() => handleSubmit(1)}
             className={`!bg-[#022946] text-white !rounded-full`}

@@ -1650,13 +1650,13 @@ function ChecklistSmb({
               Cancel
             </Button>
           )}
-          {roleId === "4"
+          {/* {roleId === "4"
             ? peopleBusinessChecked &&
             systemDocumentAccessChecked &&
             cashBanksLoansChecked &&
             conditionExistingFinancialsChecked &&
             meetingAvailabilityChecked
-            : true && (
+            : true && ( */}
               <Button
                 onClick={() => handleSubmit(2)}
                 className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
@@ -1664,14 +1664,7 @@ function ChecklistSmb({
               >
                 Save as Draft
               </Button>
-            )}
-          {roleId === "4"
-            ? peopleBusinessChecked &&
-            systemDocumentAccessChecked &&
-            cashBanksLoansChecked &&
-            conditionExistingFinancialsChecked &&
-            meetingAvailabilityChecked
-            : true && (
+            {/* )} */}
               <Button
                 onClick={() => handleSubmit(1)}
                 className={`!bg-[#022946] text-white !rounded-full`}
@@ -1681,7 +1674,6 @@ function ChecklistSmb({
                   Submit
                 </span>
               </Button>
-            )}
         </div>
       </div>
     </>
