@@ -1097,18 +1097,34 @@ function ChecklistAutoCare({
           checklistFormData
         );
       } else {
-        showToast("Please Enter Required Field.", ToastType.Error);
+        showToast(
+          "Please provide mandatory fields to submit the onboarding form.",
+          ToastType.Error
+        );
       }
     } else if (type === 2) {
-      const filledFieldsCount = checklistStatus();
-      setChecklistCount(filledFieldsCount);
-      handleChecklistRemoveErrors();
-      callAPIwithHeaders(
-        onboardingSaveFormUrl,
-        "post",
-        callback,
-        checklistFormData
-      );
+      const isValidStatus =
+        financialsChecked ||
+        accessChecked ||
+        compliancesChecked ||
+        payrollSystemChecked ||
+        systemSoftwareLocationsChecked ||
+        cashBankLoansChecked;
+      if (roleId === "4" ? isValidStatus : true) {
+        showToast(
+          "Mandatory information is not provided. Please fill in to submit the form.",
+          ToastType.Warning
+        );
+        const filledFieldsCount = checklistStatus();
+        setChecklistCount(filledFieldsCount);
+        handleChecklistRemoveErrors();
+        callAPIwithHeaders(
+          onboardingSaveFormUrl,
+          "post",
+          callback,
+          checklistFormData
+        );
+      }
     } else {
       handleChecklistInitialValues();
       handleChecklistRemoveErrors();
@@ -1369,8 +1385,9 @@ function ChecklistAutoCare({
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
@@ -1638,40 +1655,22 @@ function ChecklistAutoCare({
                 Cancel
               </Button>
             )}
-            {/* {roleId === "4"
-              && communicationChecked &&
-              cashBankLoansChecked &&
-              payrollSystemChecked &&
-              compliancesChecked &&
-              accessChecked &&
-              financialsChecked
-               && ( */}
-                <Button
-                  onClick={() => handleSubmit(2)}
-                  className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-                  variant="outlined"
-                >
-                  Save as Draft
-                </Button>
-              {/* )} */}
-            {/* {roleId === "4"
-              && communicationChecked &&
-              cashBankLoansChecked &&
-              payrollSystemChecked &&
-              compliancesChecked &&
-              accessChecked &&
-              financialsChecked
-              && ( */}
-                <Button
-                  onClick={() => handleSubmit(1)}
-                  className={`!bg-[#022946] text-white !rounded-full`}
-                  variant="contained"
-                >
-                  <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-                    Submit
-                  </span>
-                </Button>
-              {/* )} */}
+            <Button
+              onClick={() => handleSubmit(2)}
+              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              variant="outlined"
+            >
+              Save as Draft
+            </Button>
+            <Button
+              onClick={() => handleSubmit(1)}
+              className={`!bg-[#022946] text-white !rounded-full`}
+              variant="contained"
+            >
+              <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                Submit
+              </span>
+            </Button>
           </div>
         </div>
       </div>

@@ -134,7 +134,8 @@ function ChecklistSmb({
   const initialSmbSystemDocumentAccessErrors: smbSystemDocumentAccessErrors =
     {};
   const initialSmbCashBankingAccessErrors: smbCashBankingAccessErrors = {};
-  const initialSmbExistingFinancialsChecklistErrors: smbExistingFinancialsChecklistErrors = {};
+  const initialSmbExistingFinancialsChecklistErrors: smbExistingFinancialsChecklistErrors =
+    {};
   const initialSmbMeetingChecklistErrors: smbMeetingAvailabilityErrors = {};
 
   const [smbClientName, setSmbClientName] =
@@ -274,10 +275,16 @@ function ChecklistSmb({
     useState<smbCashBankingAccessErrors>(initialSmbCashBankingAccessErrors);
   const [smbCashBankingAccessHasErrors, setSmbCashBankingAccessHasErrors] =
     useState<boolean>(false);
-  const [smbExistingFinancialsChecklistErrors, setSmbExistingFinancialsChecklistErrors] =
-    useState<smbExistingFinancialsChecklistErrors>(initialSmbExistingFinancialsChecklistErrors);
-  const [smbExistingFinancialsChecklistHasErrors, setSmbExistingFinancialsChecklistHasErrors] =
-    useState<boolean>(false);
+  const [
+    smbExistingFinancialsChecklistErrors,
+    setSmbExistingFinancialsChecklistErrors,
+  ] = useState<smbExistingFinancialsChecklistErrors>(
+    initialSmbExistingFinancialsChecklistErrors
+  );
+  const [
+    smbExistingFinancialsChecklistHasErrors,
+    setSmbExistingFinancialsChecklistHasErrors,
+  ] = useState<boolean>(false);
   const [smbMeetingChecklistErrors, setSmbMeetingChecklistErrors] =
     useState<smbMeetingAvailabilityErrors>(initialSmbMeetingChecklistErrors);
   const [smbMeetingChecklistHasErrors, setSmbMeetingChecklistHasErrors] =
@@ -643,9 +650,10 @@ function ChecklistSmb({
   }, [formDetails, responseData]);
 
   useEffect(() => {
-    const counts = smbChecklistStatus()
-    setSMBChecklistCount(counts)
-  }, [smbClientName,
+    const counts = smbChecklistStatus();
+    setSMBChecklistCount(counts);
+  }, [
+    smbClientName,
     smbPoc,
     smbEmail,
     smbContactNumber,
@@ -663,10 +671,12 @@ function ChecklistSmb({
     smbDistributionList,
     smbTimeZone,
     smbConvenient,
-    smbTimeSlot])
+    smbTimeSlot,
+  ]);
 
   const handleAccordianChange =
-    (arg1: number) => (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
+    (arg1: number) =>
+    (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
       setExpandedAccordian(isExpanded ? arg1 : -1);
     };
 
@@ -749,7 +759,12 @@ function ChecklistSmb({
     const newExistingFinancialsChecklistErrors: { [key: string]: string } = {};
 
     validateSmbExistingFinancialsField.forEach((field) => {
-      if (!smbLiveDate[field] && !smbLastClosedMonth[field] && !smbTaxReturn[field] && !smbDistributionList[field]) {
+      if (
+        !smbLiveDate[field] &&
+        !smbLastClosedMonth[field] &&
+        !smbTaxReturn[field] &&
+        !smbDistributionList[field]
+      ) {
         newExistingFinancialsChecklistErrors[
           field
         ] = `${fieldDisplayNamesSmbExistingFinancials[field]} is required`;
@@ -761,7 +776,9 @@ function ChecklistSmb({
     const hasErrors = Object.values(newExistingFinancialsChecklistErrors).some(
       (error) => !!error
     );
-    setSmbExistingFinancialsChecklistErrors(newExistingFinancialsChecklistErrors);
+    setSmbExistingFinancialsChecklistErrors(
+      newExistingFinancialsChecklistErrors
+    );
     setSmbExistingFinancialsChecklistHasErrors(hasErrors);
     return hasErrors;
   };
@@ -794,7 +811,7 @@ function ChecklistSmb({
     setSmbSystemDocumentAccessHasErrors(false);
     setSmbCashBankingAccessErrors({});
     setSmbCashBankingAccessHasErrors(false);
-    setSmbExistingFinancialsChecklistErrors({})
+    setSmbExistingFinancialsChecklistErrors({});
     setSmbExistingFinancialsChecklistHasErrors(false);
     setSmbMeetingChecklistErrors({});
     setSmbMeetingChecklistHasErrors(false);
@@ -1205,7 +1222,12 @@ function ChecklistSmb({
         ? validateSmbMeetingChecklist()
         : false;
 
-      const isValid = !isPeopleBusinessValid && !isSystemDocumentAccessValid && !isCashBankingAccessValid && !isExistingFinancialsAccessValid && !isMeetingChecklistValid;
+      const isValid =
+        !isPeopleBusinessValid &&
+        !isSystemDocumentAccessValid &&
+        !isCashBankingAccessValid &&
+        !isExistingFinancialsAccessValid &&
+        !isMeetingChecklistValid;
 
       if (isValid) {
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
@@ -1218,23 +1240,41 @@ function ChecklistSmb({
           checkList: checkList,
         });
       } else {
-        showToast("Please Enter Required Field.", ToastType.Error);
+        showToast(
+          "Please provide mandatory fields to submit the onboarding form.",
+          ToastType.Error
+        );
       }
     } else {
-      handleRemoveErrors();
-      callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
-        userId: !!clientInfo?.UserId
-          ? parseInt(clientInfo?.UserId)
-          : parseInt(userId!),
-        businessTypeId: !!clientInfo?.DepartmentId
-          ? parseInt(clientInfo?.DepartmentId)
-          : parseInt(businessTypeId!),
-        checkList: checkList,
-      });
+      const isValidStatus =
+        peopleBusinessChecked ||
+        systemDocumentAccessChecked ||
+        cashBanksLoansChecked ||
+        conditionExistingFinancialsChecked ||
+        meetingAvailabilityChecked;
+      if (roleId === "4" ? isValidStatus : true) {
+        showToast(
+          "Mandatory information is not provided. Please fill in to submit the form.",
+          ToastType.Warning
+        );
+        handleRemoveErrors();
+        callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
+          userId: !!clientInfo?.UserId
+            ? parseInt(clientInfo?.UserId)
+            : parseInt(userId!),
+          businessTypeId: !!clientInfo?.DepartmentId
+            ? parseInt(clientInfo?.DepartmentId)
+            : parseInt(businessTypeId!),
+          checkList: checkList,
+        });
+      }
     }
   };
 
-  const handleSwitchChange = async (e: ChangeEvent<HTMLInputElement>, phaseType: number) => {
+  const handleSwitchChange = async (
+    e: ChangeEvent<HTMLInputElement>,
+    phaseType: number
+  ) => {
     const check = e.target.checked;
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -1427,8 +1467,9 @@ function ChecklistSmb({
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
@@ -1578,7 +1619,9 @@ function ChecklistSmb({
                 title="Phase 4: Condition of Existing Financials"
               >
                 <SmbExistingFinancialsChecklist
-                  smbExistingFinancialsChecklistErrors={smbExistingFinancialsChecklistErrors}
+                  smbExistingFinancialsChecklistErrors={
+                    smbExistingFinancialsChecklistErrors
+                  }
                   smbLiveDate={smbLiveDate}
                   setSmbLiveDate={setSmbLiveDate}
                   smbAccountingMethod={smbAccountingMethod}
@@ -1657,23 +1700,23 @@ function ChecklistSmb({
             conditionExistingFinancialsChecked &&
             meetingAvailabilityChecked
             : true && ( */}
-              <Button
-                onClick={() => handleSubmit(2)}
-                className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-                variant="outlined"
-              >
-                Save as Draft
-              </Button>
-            {/* )} */}
-              <Button
-                onClick={() => handleSubmit(1)}
-                className={`!bg-[#022946] text-white !rounded-full`}
-                variant="contained"
-              >
-                <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-                  Submit
-                </span>
-              </Button>
+          <Button
+            onClick={() => handleSubmit(2)}
+            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+            variant="outlined"
+          >
+            Save as Draft
+          </Button>
+          {/* )} */}
+          <Button
+            onClick={() => handleSubmit(1)}
+            className={`!bg-[#022946] text-white !rounded-full`}
+            variant="contained"
+          >
+            <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+              Submit
+            </span>
+          </Button>
         </div>
       </div>
     </>

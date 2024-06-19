@@ -406,19 +406,33 @@ function BasicDetailsAutoCare({
           basicDetailsFormData
         );
       } else {
-        showToast("Please Enter Required Field.", ToastType.Error);
+        showToast(
+          "Please provide mandatory fields to submit the onboarding form.",
+          ToastType.Error
+        );
         setBasicDetailCount(filledFieldsCount);
       }
     } else if (type === 2) {
-      const filledFieldsCount = basicDetailStatus();
-      setBasicDetailCount(filledFieldsCount);
-      handleBasicDetailRemoveErrors();
-      callAPIwithHeaders(
-        onboardingSaveFormUrl,
-        "post",
-        callback,
-        basicDetailsFormData
-      );
+      const isValidStatus =
+        accountDetailsCheckStatus ||
+        legalStructureCheckStatus ||
+        clientTeamCheckStatus ||
+        pabsAccountingTeamCheckStatus
+      if (roleId === '4' ? isValidStatus : true) {
+        showToast(
+          "Mandatory information is not provided. Please fill in to submit the form.",
+          ToastType.Warning
+        );
+        const filledFieldsCount = basicDetailStatus();
+        setBasicDetailCount(filledFieldsCount);
+        handleBasicDetailRemoveErrors();
+        callAPIwithHeaders(
+          onboardingSaveFormUrl,
+          "post",
+          callback,
+          basicDetailsFormData
+        );
+      }
     }
   };
 
@@ -562,19 +576,15 @@ function BasicDetailsAutoCare({
               Cancel
             </Button>
           )}
-          {/* {roleId === "4" &&
-            accountDetailsCheckStatus &&
-            legalStructureCheckStatus &&
-            clientTeamCheckStatus &&
-            pabsAccountingTeamCheckStatus && ( */}
-              <Button
-                onClick={() => handleSubmit(2)}
-                className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-                variant="outlined"
-              >
-                Save as Draft
-              </Button>
-            {/* )} */}
+
+          <Button
+            onClick={() => handleSubmit(2)}
+            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+            variant="outlined"
+          >
+            Save as Draft
+          </Button>
+
           <Button
             onClick={() => handleSubmit(1)}
             className={`!bg-[#022946] text-white !rounded-full`}

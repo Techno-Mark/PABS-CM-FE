@@ -26,7 +26,10 @@ import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import { showToast } from "@/components/ToastContainer";
 
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import { onboardingListFormUrl } from "@/static/apiUrl";
+import {
+  onboardingDownloadFormUrl,
+  onboardingListFormUrl,
+} from "@/static/apiUrl";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -46,7 +49,12 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
-  const formSubmitId = clientInfo.DepartmentId === 3 ? 31 : clientInfo.DepartmentId === 2 ? 21 : 11;
+  const formSubmitId =
+    clientInfo.DepartmentId === 3
+      ? 31
+      : clientInfo.DepartmentId === 2
+      ? 21
+      : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
@@ -77,6 +85,23 @@ function ClientModal({
   useEffect(() => {
     getFormDetials();
   }, []);
+
+  const handleDownload = () => {
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+
+    callAPIwithHeaders(onboardingDownloadFormUrl, "post", callback, {
+      userId: clientInfo.UserId,
+    });
+  };
 
   return (
     <Modal
@@ -120,7 +145,7 @@ function ClientModal({
                     <Tooltip title="Download" placement="bottom" arrow>
                       <span
                         className="flex items-center cursor-pointer"
-                        onClick={() => {}}
+                        onClick={handleDownload}
                       >
                         <DownloadIcon />
                       </span>
@@ -155,7 +180,7 @@ function ClientModal({
             >
               {clientInfo.DepartmentId === 3 ? (
                 <>
-                  {formSubmit === 31 ? (
+                  {(formSubmit === 31 || perCountBasicDetails === 0) && (
                     <BasicDetailsAutoCare
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -166,7 +191,8 @@ function ClientModal({
                         setPerCountBasicDetails(value)
                       }
                     />
-                  ) : formSubmit === 32 && (
+                  )}
+                  {(formSubmit === 32 || perCountChecklist === 0) && (
                     <ChecklistAutoCare
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -185,7 +211,9 @@ function ClientModal({
                     <ChecklistSmb
                       clientInfo={clientInfo}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
-                      setSMBChecklistCount={(value: number) => setPerCountSmbChecklist(value)}
+                      setSMBChecklistCount={(value: number) =>
+                        setPerCountSmbChecklist(value)
+                      }
                       formDetails={
                         formDetails !== null ? formDetails?.checkList : false
                       }
