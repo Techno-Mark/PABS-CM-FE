@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -24,7 +24,7 @@ const WhitelabelCpaClientTeamForm = ({
       <FormBox
         title="CPA Client Team"
         checkStatus={whitelabelCpaClientTeamCheckStatus}
-        handleChange={(e: boolean) => handleWhitelabelCpaClientTeamSwitch(e)}
+        handleChange={(e: any) => handleWhitelabelCpaClientTeamSwitch(e)}
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>

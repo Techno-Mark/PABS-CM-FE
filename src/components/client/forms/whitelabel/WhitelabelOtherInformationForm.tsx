@@ -91,7 +91,7 @@ const WhitelabelOtherInformationForm = ({
       <FormBox
         title="Other Information"
         checkStatus={whitelabelOtherInformationCheckStatus}
-        handleChange={(e: boolean) => handleWhitelabelOtherInformationSwitch(e)}
+        handleChange={(e: any) => handleWhitelabelOtherInformationSwitch(e)}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>

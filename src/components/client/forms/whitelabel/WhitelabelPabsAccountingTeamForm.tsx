@@ -94,7 +94,7 @@ const WhitelabelPabsAccountingTeamForm = ({
       <FormBox
         title="PABS Accounting Team"
         checkStatus={whitelabelPABSAccountingTeamCheckStatus}
-        handleChange={(e: boolean) => handleWhitelabelPABSAccountingTeamSwitch(e)}
+        handleChange={(e: any) => handleWhitelabelPABSAccountingTeamSwitch(e)}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>

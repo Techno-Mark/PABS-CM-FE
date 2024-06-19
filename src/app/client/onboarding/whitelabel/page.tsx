@@ -7,7 +7,7 @@ import ClientWrapper from "@/components/ClientWapper";
 import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const userID = Cookies.get("userId");
   const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
@@ -22,6 +22,7 @@ const page = () => {
 
   return (
     <ClientWrapper
+    setAutoCareProgressPercentage={() =>{}}
       perCountChecklist={50}
       perCountBasicDetails={12}
       formSubmit={formSubmit}
@@ -43,4 +44,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
