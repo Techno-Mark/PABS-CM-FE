@@ -963,7 +963,7 @@ const ClientWebsite = ({
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ClientWebsiteDetails"
                 id="outlined-basic"

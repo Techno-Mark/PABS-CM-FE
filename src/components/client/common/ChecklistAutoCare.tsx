@@ -801,6 +801,7 @@ function ChecklistAutoCare({
           return;
         case "success":
           getAutoCareChecklistData()
+          type === 1 && setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
       }
@@ -1434,7 +1435,7 @@ function ChecklistAutoCare({
       expandedStatus: expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
       handleAccordianChange: handleAccordianChange(AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS),
-      title: "System, Software Locations",
+      title: "Systems, Software Locations",
       component: (
         <AutoCareSystemLocationChecklist
           systemSoftwareLocationErrors={

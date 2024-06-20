@@ -1202,6 +1202,7 @@ function ChecklistSmb({
           return;
         case "success":
           getFormDetials()
+          type === 1 && setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
       }
