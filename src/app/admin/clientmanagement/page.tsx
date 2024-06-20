@@ -103,6 +103,9 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => (
+        <span>{params.value} {params.row.Progress !== null && `(${params.row.Progress}%)`}</span>
+      ),
     },
     {
       field: "AssignUserId",

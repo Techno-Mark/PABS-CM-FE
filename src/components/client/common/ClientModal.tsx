@@ -30,6 +30,8 @@ import {
   onboardingDownloadFormUrl,
   onboardingListFormUrl,
 } from "@/static/apiUrl";
+import BasicDetailsWhitelabel from "./BasicDetailsWhitelabel";
+import ChecklistWhitelabel from "./ChecklistWhitelabel";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -50,14 +52,15 @@ function ClientModal({
   handleClose,
 }: ClientModalProps) {
   const formSubmitId =
-    clientInfo.DepartmentId === 3
+    clientInfo?.DepartmentId === 3
       ? 31
-      : clientInfo.DepartmentId === 2
-      ? 21
-      : 11;
+      : clientInfo?.DepartmentId === 2
+        ? 21
+        : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
+  const [autoCareProgressPer, setAutoCareProgressPer] = useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
   const [formDetails, setFormDetails] = useState<any>(null);
 
@@ -168,6 +171,9 @@ function ClientModal({
               perCountBasicDetails={perCountBasicDetails}
               perCountSmbChecklist={perCountSmbChecklist}
               sidebarModule={formSubmit}
+              setAutoCareProgressPercentage={(value: number) =>
+                setAutoCareProgressPer(value)
+              }
             />
             <Box
               component="main"
@@ -180,8 +186,10 @@ function ClientModal({
             >
               {clientInfo.DepartmentId === 3 ? (
                 <>
-                  {(formSubmit === 31 || perCountBasicDetails === 0) && (
+                  {formSubmit === 31 && (
                     <BasicDetailsAutoCare
+                      setCheckAllFields={() => { }}
+                      autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
                       setBasicDetailsFormSubmit={(value: number) =>
@@ -192,8 +200,10 @@ function ClientModal({
                       }
                     />
                   )}
-                  {(formSubmit === 32 || perCountChecklist === 0) && (
+                  {formSubmit === 32 && (
                     <ChecklistAutoCare
+                      checkAllBasicDetails={false}
+                      autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
                       setChecklistFormSubmit={(value: number) =>
@@ -223,7 +233,27 @@ function ClientModal({
                   )}
                 </>
               ) : (
-                <></>
+                <>
+                  {formSubmit === 11 ? (
+                    <BasicDetailsWhitelabel
+                      clientInfo={clientInfo}
+                      setWhitelabelBasicDetailsFormSubmit={(value: number) =>
+                        setFormSubmit(value)
+                      }
+                      setWhitelabelBasicDetailCount={(value: number) => { }}
+                    />
+                  ) : formSubmit === 12 ? (
+                    <ChecklistWhitelabel
+                      // clientInfo={clientInfo}
+                      setChecklistFormSubmit={(value: number) =>
+                        setFormSubmit(value)
+                      }
+                      setChecklistCount={(value: number) => { }}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </>
               )}
             </Box>
           </Box>

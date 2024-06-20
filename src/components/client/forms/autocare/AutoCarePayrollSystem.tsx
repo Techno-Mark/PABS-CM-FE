@@ -71,7 +71,7 @@ const PayrollServiceProvider = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Payroll Service Provider<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -166,14 +166,14 @@ const PayrollServiceProvider = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="payrollServiceProviderActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCarePayrollServiceProvider?.payrollServiceProviderActionName
                 }
@@ -254,7 +254,7 @@ const Frequency = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Frequency<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -331,14 +331,14 @@ const Frequency = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="frequencyActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareFrequency?.frequencyActionName}
                 error={!!frequencyErrors?.frequencyActionName}
                 helperText={frequencyErrors?.frequencyActionName}
@@ -406,7 +406,7 @@ const NoOfEmployees = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Number of Employees
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -477,14 +477,14 @@ const NoOfEmployees = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="noOfEmployeeActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareNoOfEmployee?.noOfEmployeeActionName}
                 onChange={handleChange}
                 InputProps={{

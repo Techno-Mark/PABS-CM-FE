@@ -640,13 +640,13 @@ function ChecklistSmb({
         }
       });
     }
-    setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay);
-    setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay);
-    setCashBanksLoansChecked(responseData?.phase3CashIsDisplay);
+    setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay ?? true);
+    setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay ?? true);
+    setCashBanksLoansChecked(responseData?.phase3CashIsDisplay ?? true);
     setConditionExistingFinancialsChecked(
-      responseData?.phase4ConditionIsDisplay
+      responseData?.phase4ConditionIsDisplay ?? true
     );
-    setMeetingAvailabilityChecked(responseData?.phase5MeetingIsDisplay);
+    setMeetingAvailabilityChecked(responseData?.phase5MeetingIsDisplay ?? true);
   }, [formDetails, responseData]);
 
   useEffect(() => {
@@ -676,9 +676,9 @@ function ChecklistSmb({
 
   const handleAccordianChange =
     (arg1: number) =>
-    (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
-      setExpandedAccordian(isExpanded ? arg1 : -1);
-    };
+      (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
+        setExpandedAccordian(isExpanded ? arg1 : -1);
+      };
 
   const validateSmbPeopleBusiness = () => {
     const newPeopleBuinessErrors: { [key: string]: string } = {};
@@ -818,6 +818,7 @@ function ChecklistSmb({
   };
 
   const handleSubmit = (type: number) => {
+    const progressCounts = smbChecklistStatus();
     const smbData: any = {
       smbClientName: smbClientName,
       smbTypeOfEntity: smbTypeOfEntity,
@@ -1200,35 +1201,36 @@ function ChecklistSmb({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          getFormDetials()
+          type === 1 && setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
       }
     };
 
+    const isPeopleBusinessValid = peopleBusinessChecked
+      ? validateSmbPeopleBusiness()
+      : false;
+    const isSystemDocumentAccessValid = systemDocumentAccessChecked
+      ? validateSmbSystemDocumentAccess()
+      : false;
+    const isCashBankingAccessValid = cashBanksLoansChecked
+      ? validateSmbCashBankingAccess()
+      : false;
+    const isExistingFinancialsAccessValid = conditionExistingFinancialsChecked
+      ? validateSmbExistingFinancialsChecklist()
+      : false;
+    const isMeetingChecklistValid = meetingAvailabilityChecked
+      ? validateSmbMeetingChecklist()
+      : false;
+
+    const isValid =
+      !isPeopleBusinessValid &&
+      !isSystemDocumentAccessValid &&
+      !isCashBankingAccessValid &&
+      !isExistingFinancialsAccessValid &&
+      !isMeetingChecklistValid;
     if (type === 1) {
-      const isPeopleBusinessValid = peopleBusinessChecked
-        ? validateSmbPeopleBusiness()
-        : false;
-      const isSystemDocumentAccessValid = systemDocumentAccessChecked
-        ? validateSmbSystemDocumentAccess()
-        : false;
-      const isCashBankingAccessValid = cashBanksLoansChecked
-        ? validateSmbCashBankingAccess()
-        : false;
-      const isExistingFinancialsAccessValid = conditionExistingFinancialsChecked
-        ? validateSmbExistingFinancialsChecklist()
-        : false;
-      const isMeetingChecklistValid = meetingAvailabilityChecked
-        ? validateSmbMeetingChecklist()
-        : false;
-
-      const isValid =
-        !isPeopleBusinessValid &&
-        !isSystemDocumentAccessValid &&
-        !isCashBankingAccessValid &&
-        !isExistingFinancialsAccessValid &&
-        !isMeetingChecklistValid;
-
       if (isValid) {
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
           userId: !!clientInfo?.UserId
@@ -1238,6 +1240,7 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
+          progress: progressCounts
         });
       } else {
         showToast(
@@ -1253,10 +1256,12 @@ function ChecklistSmb({
         conditionExistingFinancialsChecked ||
         meetingAvailabilityChecked;
       if (roleId === "4" ? isValidStatus : true) {
-        showToast(
-          "Mandatory information is not provided. Please fill in to submit the form.",
-          ToastType.Warning
-        );
+        if (!isValid) {
+          showToast(
+            "Mandatory information is not provided. Please fill in to submit the form.",
+            ToastType.Warning
+          );
+        }
         handleRemoveErrors();
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
           userId: !!clientInfo?.UserId
@@ -1266,6 +1271,7 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
+          progress: progressCounts
         });
       }
     }
@@ -1464,210 +1470,186 @@ function ChecklistSmb({
     return percentage;
   };
 
+  const phases = [
+    {
+      id: 1,
+      checkStatus: peopleBusinessChecked,
+      errorStatus: smbPeopleBusinessHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 1),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.COMMUNICATION),
+      title: "People and Business",
+      component: (
+        <SmbPeopleBusinessChecklist
+          smbPeopleBusinessErrors={smbPeopleBusinessErrors}
+          smbClientName={smbClientName}
+          setSmbClientName={setSmbClientName}
+          smbClientWebsite={smbClientWebsite}
+          setSmbClientWebsite={setSmbClientWebsite}
+          smbDepartment={smbDepartment}
+          setSmbDepartment={setSmbDepartment}
+          smbOperationsPoc={smbOperationsPoc}
+          setSmbOperationsPoc={setSmbOperationsPoc}
+          smbOnboardingPoc={smbOnboardingPoc}
+          setSmbOnboardingPoc={setSmbOnboardingPoc}
+          smbTypeOfEntity={smbTypeOfEntity}
+          setSmbTypeOfEntity={setSmbTypeOfEntity}
+          smbBusinessNature={smbBusinessNature}
+          setSmbBusinessNature={setSmbBusinessNature}
+          smbDimensions={smbDimensions}
+          setSmbDimensions={setSmbDimensions}
+          smbPoc={smbPoc}
+          setSmbPoc={setSmbPoc}
+          smbEmail={smbEmail}
+          setSmbEmail={setSmbEmail}
+          smbContactNumber={smbContactNumber}
+          setSmbContactNumber={setSmbContactNumber}
+          smbAddress={smbAddress}
+          setSmbAddress={setSmbAddress}
+        />
+      ),
+    },
+    {
+      id: 2,
+      checkStatus: systemDocumentAccessChecked,
+      errorStatus: smbSystemDocumentAccessHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS),
+      title: "System & Document Information & Access",
+      component: (
+        <SmbSystemAccessChecklist
+          smbSystemAccessChecklistErrors={smbSystemDocumentAccessErrors}
+          smbPABSGroupEmail={smbPABSGroupEmail}
+          setSmbPABSGroupEmail={setSmbPABSGroupEmail}
+          smbAccessAccountingSoftware={smbAccessAccountingSoftware}
+          setSmbAccessAccountingSoftware={setSmbAccessAccountingSoftware}
+          smbDropboxSetUp={smbDropboxSetUp}
+          setSmbDropboxSetUp={setSmbDropboxSetUp}
+          smbSalesTaxPortalAccess={smbSalesTaxPortalAccess}
+          setSmbSalesTaxPortalAccess={setSmbSalesTaxPortalAccess}
+          smbMerchantAccountPortalAccess={smbMerchantAccountPortalAccess}
+          setSmbMerchantAccountPortalAccess={setSmbMerchantAccountPortalAccess}
+          smbPayrollServiceAccess={smbPayrollServiceAccess}
+          setSmbPayrollServiceAccess={setSmbPayrollServiceAccess}
+          smbPayrollFrequency={smbPayrollFrequency}
+          setSmbPayrollFrequency={setSmbPayrollFrequency}
+          smbExpensePaymentPortalAccess={smbExpensePaymentPortalAccess}
+          setSmbExpensePaymentPortalAccess={setSmbExpensePaymentPortalAccess}
+          smbModeOfPayment={smbModeOfPayment}
+          setSmbModeOfPayment={setSmbModeOfPayment}
+          smbApBills={smbApBills}
+          setSmbApBills={setSmbApBills}
+          smbPointSalesAccess={smbPointSalesAccess}
+          setSmbPointSalesAccess={setSmbPointSalesAccess}
+        />
+      ),
+    },
+    {
+      id: 3,
+      checkStatus: cashBanksLoansChecked,
+      errorStatus: smbCashBankingAccessHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 3),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.CASH_BANKING_LOANS),
+      title: "Cash & Banking Information & Access",
+      component: (
+        <SmbBankingAccessChecklist
+          smbCashBankingAccessErrors={smbCashBankingAccessErrors}
+          smbSavingAccount={smbSavingAccount}
+          setSmbSavingAccount={setSmbSavingAccount}
+          smbAccessSavingAccount={smbAccessSavingAccount}
+          setSmbAccessSavingAccount={setSmbAccessSavingAccount}
+          smbAddCards={smbAddCards}
+          setSmbAddCards={setSmbAddCards}
+          smbAccessCreditCard={smbAccessCreditCard}
+          setSmbAccessCreditCard={setSmbAccessCreditCard}
+          smbAccessLoanAccount={smbAccessLoanAccount}
+          setSmbAccessLoanAccount={setSmbAccessLoanAccount}
+          smbAccessCreditCardPortal={smbAccessCreditCardPortal}
+          setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
+        />
+      ),
+    },
+    {
+      id: 4,
+      checkStatus: conditionExistingFinancialsChecked,
+      errorStatus: smbExistingFinancialsChecklistHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 4),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.PAYROLL_SYSTEM),
+      title: "Condition of Existing Financials",
+      component: (
+        <SmbExistingFinancialsChecklist
+          smbExistingFinancialsChecklistErrors={smbExistingFinancialsChecklistErrors}
+          smbLiveDate={smbLiveDate}
+          setSmbLiveDate={setSmbLiveDate}
+          smbAccountingMethod={smbAccountingMethod}
+          setSmbAccountingMethod={setSmbAccountingMethod}
+          smbFEIN={smbFEIN}
+          setSmbFEIN={setSmbFEIN}
+          smbFiscalYearEnd={smbFiscalYearEnd}
+          setSmbFiscalYearEnd={setSmbFiscalYearEnd}
+          smbLastClosedMonth={smbLastClosedMonth}
+          setSmbLastClosedMonth={setSmbLastClosedMonth}
+          smbContactOfCpa={smbContactOfCpa}
+          setSmbContactOfCpa={setSmbContactOfCpa}
+          smbTaxReturn={smbTaxReturn}
+          setSmbTaxReturn={setSmbTaxReturn}
+          smbDistributionList={smbDistributionList}
+          setSmbDistributionList={setSmbDistributionList}
+        />
+      ),
+    },
+    {
+      id: 5,
+      checkStatus: meetingAvailabilityChecked,
+      errorStatus: smbMeetingChecklistHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.COMPLIANCES,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 5),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.COMPLIANCES),
+      title: "Meeting Availability",
+      component: (
+        <SmbMeetingChecklist
+          smbMeetingChecklistErrors={smbMeetingChecklistErrors}
+          smbTimeZone={smbTimeZone}
+          setSmbTimeZone={setSmbTimeZone}
+          smbConvenient={smbConvenient}
+          setSmbConvenient={setSmbConvenient}
+          smbTimeSlot={smbTimeSlot}
+          setSmbTimeSlot={setSmbTimeSlot}
+        />
+      ),
+    },
+  ];
+
+  const enabledPhases = phases.filter(phase => roleId === "4" ? phase.checkStatus : true);
+  const updatedPhases = enabledPhases.map((phase, index) => ({
+    ...phase,
+    phaseNumber: index + 1
+  }));
+
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
-            {(roleId === "4" ? peopleBusinessChecked : true) && (
+            {updatedPhases.map(phase => (
               <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 1)
-                }
-                checkStatus={peopleBusinessChecked}
-                hasError={smbPeopleBusinessHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.COMMUNICATION
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.COMMUNICATION
-                )}
-                title="Phase 1: People and Business"
+                key={phase.id}
+                handleSwitchChange={phase.handleSwitchChange}
+                checkStatus={phase.checkStatus}
+                hasError={phase.errorStatus}
+                expandedAccordian={phase.expandedStatus}
+                handleChange={phase.handleAccordianChange}
+                title={`Phase ${phase.phaseNumber}: ${phase.title}`}
               >
-                <SmbPeopleBusinessChecklist
-                  smbPeopleBusinessErrors={smbPeopleBusinessErrors}
-                  smbClientName={smbClientName}
-                  setSmbClientName={setSmbClientName}
-                  smbClientWebsite={smbClientWebsite}
-                  setSmbClientWebsite={setSmbClientWebsite}
-                  smbDepartment={smbDepartment}
-                  setSmbDepartment={setSmbDepartment}
-                  smbOperationsPoc={smbOperationsPoc}
-                  setSmbOperationsPoc={setSmbOperationsPoc}
-                  smbOnboardingPoc={smbOnboardingPoc}
-                  setSmbOnboardingPoc={setSmbOnboardingPoc}
-                  smbTypeOfEntity={smbTypeOfEntity}
-                  setSmbTypeOfEntity={setSmbTypeOfEntity}
-                  smbBusinessNature={smbBusinessNature}
-                  setSmbBusinessNature={setSmbBusinessNature}
-                  smbDimensions={smbDimensions}
-                  setSmbDimensions={setSmbDimensions}
-                  smbPoc={smbPoc}
-                  setSmbPoc={setSmbPoc}
-                  smbEmail={smbEmail}
-                  setSmbEmail={setSmbEmail}
-                  smbContactNumber={smbContactNumber}
-                  setSmbContactNumber={setSmbContactNumber}
-                  smbAddress={smbAddress}
-                  setSmbAddress={setSmbAddress}
-                />
+                {phase.component}
               </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? systemDocumentAccessChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 2)
-                }
-                checkStatus={systemDocumentAccessChecked}
-                hasError={smbSystemDocumentAccessHasErrors}
-                expandedAccordian={
-                  expandedAccordian ===
-                  AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
-                )}
-                title="Phase 2: System & Document Access"
-              >
-                <SmbSystemAccessChecklist
-                  smbSystemAccessChecklistErrors={smbSystemDocumentAccessErrors}
-                  smbPABSGroupEmail={smbPABSGroupEmail}
-                  setSmbPABSGroupEmail={setSmbPABSGroupEmail}
-                  smbAccessAccountingSoftware={smbAccessAccountingSoftware}
-                  setSmbAccessAccountingSoftware={
-                    setSmbAccessAccountingSoftware
-                  }
-                  smbDropboxSetUp={smbDropboxSetUp}
-                  setSmbDropboxSetUp={setSmbDropboxSetUp}
-                  smbSalesTaxPortalAccess={smbSalesTaxPortalAccess}
-                  setSmbSalesTaxPortalAccess={setSmbSalesTaxPortalAccess}
-                  smbMerchantAccountPortalAccess={
-                    smbMerchantAccountPortalAccess
-                  }
-                  setSmbMerchantAccountPortalAccess={
-                    setSmbMerchantAccountPortalAccess
-                  }
-                  smbPayrollServiceAccess={smbPayrollServiceAccess}
-                  setSmbPayrollServiceAccess={setSmbPayrollServiceAccess}
-                  smbPayrollFrequency={smbPayrollFrequency}
-                  setSmbPayrollFrequency={setSmbPayrollFrequency}
-                  smbExpensePaymentPortalAccess={smbExpensePaymentPortalAccess}
-                  setSmbExpensePaymentPortalAccess={
-                    setSmbExpensePaymentPortalAccess
-                  }
-                  smbModeOfPayment={smbModeOfPayment}
-                  setSmbModeOfPayment={setSmbModeOfPayment}
-                  smbApBills={smbApBills}
-                  setSmbApBills={setSmbApBills}
-                  smbPointSalesAccess={smbPointSalesAccess}
-                  setSmbPointSalesAccess={setSmbPointSalesAccess}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? cashBanksLoansChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 3)
-                }
-                checkStatus={cashBanksLoansChecked}
-                hasError={smbCashBankingAccessHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.CASH_BANKING_LOANS
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.CASH_BANKING_LOANS
-                )}
-                title="Phase 3: Cash & Banking Access"
-              >
-                <SmbBankingAccessChecklist
-                  smbCashBankingAccessErrors={smbCashBankingAccessErrors}
-                  smbSavingAccount={smbSavingAccount}
-                  setSmbSavingAccount={setSmbSavingAccount}
-                  smbAccessSavingAccount={smbAccessSavingAccount}
-                  setSmbAccessSavingAccount={setSmbAccessSavingAccount}
-                  smbAddCards={smbAddCards}
-                  setSmbAddCards={setSmbAddCards}
-                  smbAccessCreditCard={smbAccessCreditCard}
-                  setSmbAccessCreditCard={setSmbAccessCreditCard}
-                  smbAccessLoanAccount={smbAccessLoanAccount}
-                  setSmbAccessLoanAccount={setSmbAccessLoanAccount}
-                  smbAccessCreditCardPortal={smbAccessCreditCardPortal}
-                  setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? conditionExistingFinancialsChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 4)
-                }
-                checkStatus={conditionExistingFinancialsChecked}
-                hasError={smbExistingFinancialsChecklistHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.PAYROLL_SYSTEM
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.PAYROLL_SYSTEM
-                )}
-                title="Phase 4: Condition of Existing Financials"
-              >
-                <SmbExistingFinancialsChecklist
-                  smbExistingFinancialsChecklistErrors={
-                    smbExistingFinancialsChecklistErrors
-                  }
-                  smbLiveDate={smbLiveDate}
-                  setSmbLiveDate={setSmbLiveDate}
-                  smbAccountingMethod={smbAccountingMethod}
-                  setSmbAccountingMethod={setSmbAccountingMethod}
-                  smbFEIN={smbFEIN}
-                  setSmbFEIN={setSmbFEIN}
-                  smbFiscalYearEnd={smbFiscalYearEnd}
-                  setSmbFiscalYearEnd={setSmbFiscalYearEnd}
-                  smbLastClosedMonth={smbLastClosedMonth}
-                  setSmbLastClosedMonth={setSmbLastClosedMonth}
-                  smbContactOfCpa={smbContactOfCpa}
-                  setSmbContactOfCpa={setSmbContactOfCpa}
-                  smbTaxReturn={smbTaxReturn}
-                  setSmbTaxReturn={setSmbTaxReturn}
-                  smbDistributionList={smbDistributionList}
-                  setSmbDistributionList={setSmbDistributionList}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? meetingAvailabilityChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 5)
-                }
-                checkStatus={meetingAvailabilityChecked}
-                hasError={smbMeetingChecklistHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.COMPLIANCES
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.COMPLIANCES
-                )}
-                title="Phase 5: Meeting Availability"
-              >
-                <SmbMeetingChecklist
-                  smbMeetingChecklistErrors={smbMeetingChecklistErrors}
-                  smbTimeZone={smbTimeZone}
-                  setSmbTimeZone={setSmbTimeZone}
-                  smbConvenient={smbConvenient}
-                  setSmbConvenient={setSmbConvenient}
-                  smbTimeSlot={smbTimeSlot}
-                  setSmbTimeSlot={setSmbTimeSlot}
-                />
-              </ChecklistAccordian>
-            )}
+            ))}
 
             {roleId === "4" &&
               !peopleBusinessChecked &&
@@ -1693,30 +1675,24 @@ function ChecklistSmb({
               Cancel
             </Button>
           )}
-          {/* {roleId === "4"
-            ? peopleBusinessChecked &&
-            systemDocumentAccessChecked &&
-            cashBanksLoansChecked &&
-            conditionExistingFinancialsChecked &&
-            meetingAvailabilityChecked
-            : true && ( */}
           <Button
             onClick={() => handleSubmit(2)}
             className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
-            Save as Draft
+            Save
           </Button>
-          {/* )} */}
-          <Button
-            onClick={() => handleSubmit(1)}
-            className={`!bg-[#022946] text-white !rounded-full`}
-            variant="contained"
-          >
-            <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-              Submit
-            </span>
-          </Button>
+          {roleId === "4" && (
+            <Button
+              onClick={() => handleSubmit(1)}
+              className={`!bg-[#022946] text-white !rounded-full`}
+              variant="contained"
+            >
+              <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                Submit
+              </span>
+            </Button>
+          )}
         </div>
       </div>
     </>

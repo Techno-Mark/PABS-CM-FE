@@ -1,8 +1,9 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
 import { PabsAccountingTeamTypes } from "@/models/autoCareBasicDetails";
+import { validateNumber } from "@/utils/validate";
 
 function AutoCarePabsAccountingTeam({
   className,
@@ -15,10 +16,27 @@ function AutoCarePabsAccountingTeam({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAutoCarePabsAccountingTeam({
-      ...autoCarePabsAccountingTeam,
-      [name]: value,
-    });
+    
+    switch (name) {
+      case "pabsPhone":
+        const cleanedValue = value.replace(/[^0-9]/g, "");
+        const validValue = cleanedValue.slice(0, 10);
+        
+        if (validateNumber(validValue) || validValue === "") {
+          setAutoCarePabsAccountingTeam({
+            ...autoCarePabsAccountingTeam,
+            [name]: validValue,
+          });
+        }
+        break;
+        
+      default:
+        setAutoCarePabsAccountingTeam({
+          ...autoCarePabsAccountingTeam,
+          [name]: value,
+        });
+        break;
+    }
   };
 
   return (
@@ -26,9 +44,9 @@ function AutoCarePabsAccountingTeam({
       <FormBox
         title="PABS Accounting Team"
         checkStatus={pabsAccountingTeamCheckStatus}
-        handleChange={(e: any) => handlePabsAccountingTeamSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) => handlePabsAccountingTeamSwitch(e)}
       >
-        <div className="py-3 px-2 grid grid-cols-3 gap-4">
+        <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col ">
             <label className="text-[#6E6D7A] text-[12px]">
               Implementation Manager

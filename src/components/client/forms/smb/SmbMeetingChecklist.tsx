@@ -56,7 +56,7 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTyp
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Time Zone<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -84,13 +84,13 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTyp
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="TimeZoneDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbTimeZone?.TimeZoneDetails}
                 error={!!smbTimeZoneErrors?.TimeZoneDetails}
                 helperText={smbTimeZoneErrors?.TimeZoneDetails}
@@ -154,7 +154,7 @@ const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: Con
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Convenient days<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -182,13 +182,13 @@ const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: Con
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="ConvenientDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbConvenient?.ConvenientDetails}
                 error={!!smbConvenientErrors?.ConvenientDetails}
                 helperText={smbConvenientErrors?.ConvenientDetails}
@@ -250,9 +250,9 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTyp
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Time slot availability<span className="text-[#DC3545]">*</span>
+        Time slot Availability<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <div className="text-[12px] flex flex-col">
@@ -280,13 +280,13 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTyp
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">Details</label>
+              <label className="text-[#6E6D7A] text-[12px]">Information</label>
               <TextField
                 name="TimeSlotDetails"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Details"
+                placeholder="Please Enter Information"
                 value={smbTimeSlot?.TimeSlotDetails}
                 error={!!smbTimeSlotErrors?.TimeSlotDetails}
                 helperText={smbTimeSlotErrors?.TimeSlotDetails}

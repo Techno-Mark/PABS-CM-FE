@@ -68,7 +68,7 @@ const LastClosedPeriod = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Last Closed Period<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -145,14 +145,14 @@ const LastClosedPeriod = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="lastClosedPeriodActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareLastClosedPeriod?.lastClosedPeriodActionName}
                 error={!!lastClosedPeriodErrors?.lastClosedPeriodActionName}
                 helperText={lastClosedPeriodErrors?.lastClosedPeriodActionName}
@@ -222,7 +222,7 @@ const SharingFinancials = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Sharing the Financials (POC)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -293,14 +293,14 @@ const SharingFinancials = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="sharingFinancialsActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareSharingFinancials?.sharingFinancialsActionName}
                 onChange={handleSharingFinancialsChange}
                 InputProps={{
@@ -366,7 +366,7 @@ const GP_GMNP_NM = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         GP/GM NP/NM
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -437,14 +437,14 @@ const GP_GMNP_NM = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="gp_gmnp_nmActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCaregp_gmnp_nm?.gp_gmnp_nmActionName}
                 onChange={handleSharingFinancialsChange}
                 InputProps={{

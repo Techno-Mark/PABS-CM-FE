@@ -22,8 +22,7 @@ export default function Home() {
       }else if (businessTypeId === '2'){
         router.push("/client/onboarding/SMB");
       }else{
-        removeCookies();
-        router.push("/auth/login")
+        router.push("/client/onboarding/whitelabel")
       }
     } else {
       if (

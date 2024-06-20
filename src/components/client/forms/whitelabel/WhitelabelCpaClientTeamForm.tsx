@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import FormBox from "@/components/client/common/FormBox";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
@@ -8,6 +8,8 @@ import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 
 const WhitelabelCpaClientTeamForm = ({
   className,
+  whitelabelCpaClientTeamCheckStatus,
+  handleWhitelabelCpaClientTeamSwitch,
   whitelabelCpaClientTeam,
   whitelabelCpaClientTeamErrors,
   handlePocDetailsChange,
@@ -19,7 +21,11 @@ const WhitelabelCpaClientTeamForm = ({
 
   return (
     <div className={`${className}`}>
-      <FormBox title="CPA Client Team" checkStatus={true}>
+      <FormBox
+        title="CPA Client Team"
+        checkStatus={whitelabelCpaClientTeamCheckStatus}
+        handleChange={(e: any) => handleWhitelabelCpaClientTeamSwitch(e)}
+      >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -63,12 +69,13 @@ const WhitelabelCpaClientTeamForm = ({
                       variant="standard"
                       size="small"
                       placeholder="Please Enter POC name"
-                      value={whitelabelCpaClientTeam.cpaArray[index]?.pocName}
+                      value={whitelabelCpaClientTeam?.cpaArray[index]?.pocName}
                       error={
-                        !!whitelabelCpaClientTeamErrors.cpaArray[index]?.pocName
+                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
+                          ?.pocName
                       }
                       helperText={
-                        whitelabelCpaClientTeamErrors.cpaArray[index]?.pocName
+                        whitelabelCpaClientTeamErrors?.cpaArray[index]?.pocName
                       }
                       onChange={(e) => handleChange(index, e)}
                       InputProps={{
@@ -94,14 +101,14 @@ const WhitelabelCpaClientTeamForm = ({
                       size="small"
                       placeholder="Please Enter Email"
                       value={
-                        whitelabelCpaClientTeam.cpaArray[index]?.pocEmailId
+                        whitelabelCpaClientTeam?.cpaArray[index]?.pocEmailId
                       }
                       error={
-                        !!whitelabelCpaClientTeamErrors.cpaArray[index]
+                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
                           ?.pocEmailId
                       }
                       helperText={
-                        whitelabelCpaClientTeamErrors.cpaArray[index]
+                        whitelabelCpaClientTeamErrors?.cpaArray[index]
                           ?.pocEmailId
                       }
                       onChange={(e) => handleChange(index, e)}
@@ -128,14 +135,14 @@ const WhitelabelCpaClientTeamForm = ({
                       size="small"
                       placeholder="Please Enter Contact No."
                       value={
-                        whitelabelCpaClientTeam.cpaArray[index]?.pocContactNo
+                        whitelabelCpaClientTeam?.cpaArray[index]?.pocContactNo
                       }
                       error={
-                        !!whitelabelCpaClientTeamErrors.cpaArray[index]
+                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
                           ?.pocContactNo
                       }
                       helperText={
-                        whitelabelCpaClientTeamErrors.cpaArray[index]
+                        whitelabelCpaClientTeamErrors?.cpaArray[index]
                           ?.pocContactNo
                       }
                       onChange={(e) => handleChange(index, e)}
@@ -151,7 +158,7 @@ const WhitelabelCpaClientTeamForm = ({
                   </div>
                 </Grid>
                 <Grid item xs={1}>
-                  <div className="flex justify-center items-center pl-2 mt-6 gap-4">
+                  <div className="flex justify-end items-center pl-2 mt-6 gap-4">
                     {whitelabelCpaClientTeam.cpaArray.length > 1 && (
                       <span
                         className="cursor-pointer"

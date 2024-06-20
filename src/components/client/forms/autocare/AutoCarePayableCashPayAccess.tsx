@@ -77,7 +77,7 @@ const VendorPortalAccess = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Vendor Portal Access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -154,14 +154,14 @@ const VendorPortalAccess = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="vendorPortalAccessActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessActionName}
                 error={!!vendorPortalAccessErrors?.vendorPortalAccessActionName}
                 helperText={vendorPortalAccessErrors?.vendorPortalAccessActionName}
@@ -230,7 +230,7 @@ const TradeAccount = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Trade Account
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -301,14 +301,14 @@ const TradeAccount = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="tradeAccountActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareTradeAccount?.tradeAccountActionName}
                 onChange={handleTradeAccountChange}
                 InputProps={{
@@ -375,7 +375,7 @@ const BillPayAccess = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Bill Pay Access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -452,14 +452,14 @@ const BillPayAccess = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="billPayAccessActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareBillPayAccess?.billPayAccessActionName}
                 error={!!billPayAccessErrors?.billPayAccessActionName}
                 helperText={billPayAccessErrors?.billPayAccessActionName}
@@ -529,7 +529,7 @@ const APThresholdLimit = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         AP Threshold Limit
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -600,14 +600,14 @@ const APThresholdLimit = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="apThresholdLimitActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareApThresholdLimit?.apThresholdLimitActionName}
                 onChange={handleApThresholdLimitChange}
                 InputProps={{

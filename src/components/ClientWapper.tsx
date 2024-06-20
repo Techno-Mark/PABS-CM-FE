@@ -17,6 +17,7 @@ type WrapperPropsType = {
   perCountBasicDetails?: number;
   perCountChecklist?: number;
   perCountSmbChecklist?: number;
+  setAutoCareProgressPercentage:(value:number) => void
 };
 
 const ClientWrapper = ({
@@ -25,6 +26,7 @@ const ClientWrapper = ({
   perCountChecklist,
   perCountSmbChecklist,
   formSubmit,
+  setAutoCareProgressPercentage,
   children,
 }: WrapperPropsType) => {
   const router = useRouter();
@@ -53,6 +55,7 @@ const ClientWrapper = ({
             perCountChecklist={perCountChecklist}
             perCountSmbChecklist={perCountSmbChecklist}
             sidebarModule={formSubmit}
+            setAutoCareProgressPercentage={(value:number) => setAutoCareProgressPercentage(value)}
           />
           <Box
             component="main"

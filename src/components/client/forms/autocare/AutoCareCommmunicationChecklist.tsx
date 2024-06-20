@@ -64,7 +64,7 @@ const GroupEmailEstablished = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Group Email Established
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -139,14 +139,14 @@ const GroupEmailEstablished = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="groupEmailEstablishActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={
                   autoCareGroupEmailEstablished?.groupEmailEstablishActionName
                 }
@@ -213,7 +213,7 @@ const PreKickOff = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Pre Kick Off
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -284,14 +284,14 @@ const PreKickOff = ({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="preKickOffActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCarePreKickOff?.preKickOffActionName}
                 onChange={handleChange}
                 InputProps={{
@@ -351,7 +351,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Kick Off
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -422,14 +422,14 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
-                Action Name - PABS
+                Action Items - PABS
               </label>
               <TextField
                 name="kickOffActionName"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Name"
+                placeholder="Please Enter Action Items"
                 value={autoCareKickOff?.kickOffActionName}
                 onChange={handleChange}
                 InputProps={{

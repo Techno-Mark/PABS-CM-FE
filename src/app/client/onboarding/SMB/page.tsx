@@ -50,6 +50,7 @@ function Page() {
 
   return (
     <ClientWrapper
+      setAutoCareProgressPercentage={() => {}}
       formSubmit={21}
       perCountSmbChecklist={perCountSmbChecklist}
     >

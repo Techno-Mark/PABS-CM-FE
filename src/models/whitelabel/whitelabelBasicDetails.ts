@@ -1,14 +1,16 @@
+import { ClientInfoType } from "@/models/autoCareBasicDetails";
+import { Dayjs } from "dayjs";
+import { ChangeEvent } from "react";
+
 export interface BasicDetailWhitelabelType {
-  setBasicDetailCount: (value: number) => void;
-  setBasicDetailsFormSubmit: (value: number) => void;
-  getFormDetials: () => void;
+  setWhitelabelBasicDetailCount: (value: number) => void;
+  setWhitelabelBasicDetailsFormSubmit: (value: number) => void;
+  clientInfo?:ClientInfoType
 }
 
 export interface ChecklistWhitelabelType {
   setChecklistCount: (value: number) => void;
   setChecklistFormSubmit: (value: number) => void;
-  formDetails: any;
-  getFormDetials: () => void;
 }
 
 export interface WhitelabelAccountDetailsFormTypes {
@@ -28,6 +30,8 @@ export interface WhitelabelAccountDetailsFormErrors
 
 export interface WhitelabelAccountDetailsTypes {
   className?: string;
+  whitelabelAccountDetailsCheckStatus:boolean,
+  handleAccountDetailsSwitch:(value:ChangeEvent<HTMLInputElement>) => void,
   whitelabelAccountDetails: WhitelabelAccountDetailsFormTypes;
   setWhitelabelAccountDetails: React.Dispatch<
     React.SetStateAction<WhitelabelAccountDetailsFormTypes>
@@ -41,9 +45,8 @@ export interface WhitelabelAccountDetailsTypes {
 export interface WhitelabelOtherInformationTypes {
   noOfAccounts: number;
   bdm: string;
-  startDate: string;
-  pandaDocStatus: string;
-  [key: string]: string | number | null;
+  startDate:  Dayjs | null | string;
+  [key: string]: Dayjs | string | number | null;
 }
 
 export interface WhitelabelOtherInformationErrors
@@ -51,6 +54,8 @@ export interface WhitelabelOtherInformationErrors
 
 export interface WhitelabelOtherInfoTypes {
   className?: string;
+  whitelabelOtherInformationCheckStatus:boolean,
+  handleWhitelabelOtherInformationSwitch:(value:ChangeEvent<HTMLInputElement>) => void,
   whitelabelOtherInformation: WhitelabelOtherInformationTypes;
   setWhitelabelOtherInformation: React.Dispatch<
     React.SetStateAction<WhitelabelOtherInformationTypes>
@@ -69,12 +74,14 @@ export interface WhitelabelCpaClientTeamTypes {
   [key: string]: string | number | null;
 }
 
-export interface WhitelabelCpaClientTeamErrors extends Partial<any> {}
+export interface WhitelabelCpaClientTeamErrors extends Partial<WhitelabelCpaClientTeamTypes> {}
 
 export interface WhitelabelCpaClientTypes {
   className?: string;
   whitelabelCpaClientTeam: any;
-  whitelabelCpaClientTeamErrors: WhitelabelCpaClientTeamErrors;
+  whitelabelCpaClientTeamCheckStatus:boolean,
+  handleWhitelabelCpaClientTeamSwitch:(value:ChangeEvent<HTMLInputElement>) => void,
+  whitelabelCpaClientTeamErrors: any;
   handlePocDetailsChange: any;
   handleChange: any;
   handleAddField: any;
@@ -98,6 +105,8 @@ export interface WhitelabelPABSAccountingTeamErrors
 export interface WhitelabelPABSAccountingTypes {
   className?: string;
   whitelabelPABSAccountingTeam: WhitelabelPABSAccountingTeamTypes;
+  whitelabelPABSAccountingTeamCheckStatus:boolean,
+  handleWhitelabelPABSAccountingTeamSwitch:(value:ChangeEvent<HTMLInputElement>) => void,
   setWhitelabelPABSAccountingTeam: React.Dispatch<
     React.SetStateAction<WhitelabelPABSAccountingTeamTypes>
   >;

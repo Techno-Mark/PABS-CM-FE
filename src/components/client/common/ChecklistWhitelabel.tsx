@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { ChecklistWhitelabelType } from "@/models/whitelabel/whitelabelBasicDetails";
 import { Button } from "@mui/material";
-import ChecklistAccordian from "../ChecklistAccordian";
+import ChecklistAccordian from "./ChecklistAccordian";
 import {
   AccordianExpand,
   initialWhitelabel,
 } from "@/static/whitelabel/whitelabelChecklist";
-import WhitelabelCommunicationForm from "../../forms/whitelabel/WhitelabelCommunicationForm";
+import WhitelabelCommunicationForm from "@/components/client/forms/whitelabel/WhitelabelCommunicationForm";
 import { WhitelabelFormTypes } from "@/models/whitelabel/whitelabelChecklist";
-import WhitelabelMeetingAvailabilityForm from "../../forms/whitelabel/WhitelabelMeetingAvailabilityForm";
-import WhitelabelEscalationmatrixForm from "../../forms/whitelabel/WhitelabelEscalationmatrixForm";
-import WhitelabelChallengesForm from "../../forms/whitelabel/WhitelabelChallengesForm";
-import WhitelabelWorkAssignmentForm from "../../forms/whitelabel/WhitelabelWorkAssignmentForm";
-import WhitelabelServiceTypeForm from "../../forms/whitelabel/WhitelabelServiceTypeForm";
-import WhitelabelSystemSoftwareSetupForm from "../../forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
+import WhitelabelMeetingAvailabilityForm from "@/components/client/forms/whitelabel/WhitelabelMeetingAvailabilityForm";
+import WhitelabelEscalationmatrixForm from "@/components/client/forms/whitelabel/WhitelabelEscalationmatrixForm";
+import WhitelabelChallengesForm from "@/components/client/forms/whitelabel/WhitelabelChallengesForm";
+import WhitelabelWorkAssignmentForm from "@/components/client/forms/whitelabel/WhitelabelWorkAssignmentForm";
+import WhitelabelServiceTypeForm from "@/components/client/forms/whitelabel/WhitelabelServiceTypeForm";
+import WhitelabelSystemSoftwareSetupForm from "@/components/client/forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
@@ -22,8 +22,6 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 const ChecklistWhitelabel = ({
   setChecklistCount,
   setChecklistFormSubmit,
-  formDetails,
-  getFormDetials,
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userID = Cookies.get("userId");
@@ -105,63 +103,63 @@ const ChecklistWhitelabel = ({
       setExpandedAccordian(isExpanded ? arg1 : -1);
     };
 
-  useEffect(() => {
-    const fieldSetters: any = {
-      "Group Email Established": setWhitelabelGroupEmailEstablished,
-      "Pre Kick Off": setWhitelabelPreKickOff,
-      "Kick Off": setWhitelabelKickOff,
-      "IT Structure Knowledge": setWhitelabelITStructure,
-      "If Remote Set up - Access Computer method (dedicated)":
-        setWhitelabelRemoteSetup,
-      "Need your IT teams help?": setWhitelabelITHelp,
-      "Accounting Software": setWhitelabelAccountingSoftware,
-      "Cloud Document Management Software": setWhitelabelCloudDocument,
-      "Team/Clickup/Slack/ Other Messenger tool set up": setWhitelabelMessenger,
-      "Any Other System access": setWhitelabelSystemAccess,
-      "Other information": setWhitelabelOtherInfo,
-      FTE: setWhitelabelFTE,
-      Accounting: setWhitelabelAccounting,
-      Tax: setWhitelabelTax,
-      "Biweekly Hours Reporting update": setWhitelabelWeekly,
-      "Industry Type": setWhitelabelIndustry,
-      "Current Challenges": setWhitelabelCurrentChallenges,
-      Expectation: setWhitelabelExpectation,
-      "Monthly ": setWhitelabelMonthly,
-      "Clean up": setWhitelabelCleanup,
-      "Catch up": setWhitelabelCatchup,
-      "Combination of Monthly/ Clean up/ Catch up": setWhitelabelCombination,
-      Client: setWhitelabelClient,
-      PABS: setWhitelabelPABS,
-      BDM: setWhitelabelBDM,
-      "Time Zone": setWhitelabelTimeZone,
-      "Convenient day": setWhitelabelConvenientDay,
-      "Time slot availability": setWhitelabelTimeSlot,
-    };
+  // useEffect(() => {
+  //   const fieldSetters: any = {
+  //     "Group Email Established": setWhitelabelGroupEmailEstablished,
+  //     "Pre Kick Off": setWhitelabelPreKickOff,
+  //     "Kick Off": setWhitelabelKickOff,
+  //     "IT Structure Knowledge": setWhitelabelITStructure,
+  //     "If Remote Set up - Access Computer method (dedicated)":
+  //       setWhitelabelRemoteSetup,
+  //     "Need your IT teams help?": setWhitelabelITHelp,
+  //     "Accounting Software": setWhitelabelAccountingSoftware,
+  //     "Cloud Document Management Software": setWhitelabelCloudDocument,
+  //     "Team/Clickup/Slack/ Other Messenger tool set up": setWhitelabelMessenger,
+  //     "Any Other System access": setWhitelabelSystemAccess,
+  //     "Other information": setWhitelabelOtherInfo,
+  //     FTE: setWhitelabelFTE,
+  //     Accounting: setWhitelabelAccounting,
+  //     Tax: setWhitelabelTax,
+  //     "Biweekly Hours Reporting update": setWhitelabelWeekly,
+  //     "Industry Type": setWhitelabelIndustry,
+  //     "Current Challenges": setWhitelabelCurrentChallenges,
+  //     Expectation: setWhitelabelExpectation,
+  //     "Monthly ": setWhitelabelMonthly,
+  //     "Clean up": setWhitelabelCleanup,
+  //     "Catch up": setWhitelabelCatchup,
+  //     "Combination of Monthly/ Clean up/ Catch up": setWhitelabelCombination,
+  //     Client: setWhitelabelClient,
+  //     PABS: setWhitelabelPABS,
+  //     BDM: setWhitelabelBDM,
+  //     "Time Zone": setWhitelabelTimeZone,
+  //     "Convenient day": setWhitelabelConvenientDay,
+  //     "Time slot availability": setWhitelabelTimeSlot,
+  //   };
 
-    if (formDetails) {
-      formDetails.forEach(
-        (f: {
-          id: number;
-          fieldName: string;
-          status: string;
-          comments: string;
-          details: string | null;
-          actionsOfPabs: string;
-          actionsOfClient: string;
-        }) => {
-          const setFieldState = fieldSetters[f.fieldName];
-          if (setFieldState) {
-            setFieldState({
-              Status: f.status,
-              Comments: f.comments,
-              ActionPABS: f.actionsOfPabs,
-              ActionClient: f.actionsOfClient,
-            });
-          }
-        }
-      );
-    }
-  }, [formDetails]);
+  //   if (formDetails) {
+  //     formDetails.forEach(
+  //       (f: {
+  //         id: number;
+  //         fieldName: string;
+  //         status: string;
+  //         comments: string;
+  //         details: string | null;
+  //         actionsOfPabs: string;
+  //         actionsOfClient: string;
+  //       }) => {
+  //         const setFieldState = fieldSetters[f.fieldName];
+  //         if (setFieldState) {
+  //           setFieldState({
+  //             Status: f.status,
+  //             Comments: f.comments,
+  //             ActionPABS: f.actionsOfPabs,
+  //             ActionClient: f.actionsOfClient,
+  //           });
+  //         }
+  //       }
+  //     );
+  //   }
+  // }, [formDetails]);
 
   const handleSubmit = (type: number) => {
     if (type === 1 || type === 2) {
@@ -251,7 +249,7 @@ const ChecklistWhitelabel = ({
           case "success":
             showToast(Message, ToastType.Success);
             type === 1 && setChecklistFormSubmit(3);
-            type === 2 && getFormDetials();
+            // type === 2 && getFormDetials();
             return;
         }
       };
