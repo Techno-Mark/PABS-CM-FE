@@ -101,6 +101,7 @@ import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { ChecklistType } from "@/models/autoCareBasicDetails";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
 
 function ChecklistAutoCare({
   clientInfo,
@@ -258,6 +259,8 @@ function ChecklistAutoCare({
   const [accessChecked, setAccessChecked] = useState<boolean>(true);
   const [financialsChecked, setFinancialsChecked] = useState<boolean>(true);
   const [isFormSubmitAutoCareChecklist, setIsFormSubmitAutoCareChecklist] =
+    useState<boolean>(false);
+  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] =
     useState<boolean>(false);
 
   const handleAccordianChange =
@@ -801,10 +804,13 @@ function ChecklistAutoCare({
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
+          setIsOpenConfirmationSubmit(false);
+          setExpandedAccordian(-1);
           showToast(Message, ToastType.Error);
           return;
         case "success":
           getAutoCareChecklistData();
+          setIsOpenConfirmationSubmit(false);
           type === 1 && setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
@@ -1112,18 +1118,20 @@ function ChecklistAutoCare({
       const filledFieldsCount = checklistStatus();
       setChecklistCount(filledFieldsCount);
       if (checkAllBasicDetails && roleId === "4") {
+        setIsOpenConfirmationSubmit(false);
+        setExpandedAccordian(-1);
         setChecklistFormSubmit(31);
       }
 
-      if (isValid && !checkAllBasicDetails) {
-        if (!isFormSubmitAutoCareChecklist) {
-          callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
-            ...checklistFormData,
-            progress: autoCareProgressPercentage,
-            isSubmited: true,
-          });
-        }
+      if (isValid && !checkAllBasicDetails && !isFormSubmitAutoCareChecklist) {
+        callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+          ...checklistFormData,
+          progress: autoCareProgressPercentage,
+          isSubmited: true,
+        });
       } else {
+        setIsOpenConfirmationSubmit(false);
+        setExpandedAccordian(-1);
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -1609,9 +1617,8 @@ function ChecklistAutoCare({
     <>
       {formSubmitId === 32 && (
         <div
-          className={`flex flex-col ${
-            roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+          className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+            } pt-12`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="m-6 flex flex-col gap-6">
@@ -1675,7 +1682,7 @@ function ChecklistAutoCare({
               )}
               {roleId === "4" && !isFormSubmitAutoCareChecklist && (
                 <Button
-                  onClick={() => handleSubmit(1)}
+                  onClick={() => setIsOpenConfirmationSubmit(true)}
                   className={`!bg-[#022946] text-white !rounded-full`}
                   variant="contained"
                 >
@@ -1687,6 +1694,19 @@ function ChecklistAutoCare({
             </div>
           </div>
         </div>
+      )}
+
+      {isOpenConfirmationSubmit && (
+        <ConfirmModal
+          title="Confirm"
+          isOpen={isOpenConfirmationSubmit}
+          message="After submit you will not be able to update data. Please click confirm to continue."
+          handleModalSubmit={() => handleSubmit(1)}
+          handleClose={() => setIsOpenConfirmationSubmit(false)}
+          setIsOpen={(value) => {
+            setIsOpenConfirmationSubmit(value);
+          }}
+        />
       )}
     </>
   );
