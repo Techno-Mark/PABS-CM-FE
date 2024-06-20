@@ -14,6 +14,8 @@ import {
   LegalStructureFormTypes,
   LegalStructureTypes,
 } from "@/models/autoCareBasicDetails";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCareLegalStructure({
   className,
@@ -23,8 +25,10 @@ function AutoCareLegalStructure({
   autoCareLegalStructureErrors,
   setAutoCareLegalStructureErrors,
   handleLegalStructureSwitch,
+  finalCheckAllFieldsLegalStructure,
 }: LegalStructureTypes) {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -77,7 +81,9 @@ function AutoCareLegalStructure({
       <FormBox
         title="Legal Structure"
         checkStatus={legalStructureCheckStatus}
-        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleLegalStructureSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+          handleLegalStructureSwitch(e)
+        }
       >
         <Grid container spacing={2}>
           <Grid item xs={4}>
@@ -103,6 +109,7 @@ function AutoCareLegalStructure({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>
@@ -129,6 +136,7 @@ function AutoCareLegalStructure({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>
@@ -153,6 +161,7 @@ function AutoCareLegalStructure({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>
@@ -178,7 +187,9 @@ function AutoCareLegalStructure({
                         )
                       : null
                   }
-                  onChange={(value: Dayjs | null) => handleDateChange(value, "AgreementDate")}
+                  onChange={(value: Dayjs | null) =>
+                    handleDateChange(value, "AgreementDate")
+                  }
                   format="D MMM YYYY"
                   slotProps={{
                     textField: {
@@ -191,6 +202,7 @@ function AutoCareLegalStructure({
                       },
                     },
                   }}
+                  disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
                 />
               </LocalizationProvider>
             </div>
@@ -232,6 +244,7 @@ function AutoCareLegalStructure({
                       },
                     },
                   }}
+                  disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
                 />
               </LocalizationProvider>
             </div>
@@ -255,6 +268,7 @@ function AutoCareLegalStructure({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>

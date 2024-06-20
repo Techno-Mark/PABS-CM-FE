@@ -22,6 +22,7 @@ export interface autoCareCommmunicationChecklistTypes {
   >;
   autoCareKickOff: KickOffFormTypes;
   setAutoCareKickOff: React.Dispatch<React.SetStateAction<KickOffFormTypes>>;
+  checkAllFieldsAutoCareCommunicationList: boolean;
 }
 
 export interface autoCareSystemLocationChecklistTypes {
@@ -53,6 +54,7 @@ export interface autoCareSystemLocationChecklistTypes {
   >;
   autoCareScanner: ScannerFormTypes;
   setAutoCareScanner: React.Dispatch<React.SetStateAction<ScannerFormTypes>>;
+  checkAllFieldsAutoCareSystemLocation: boolean;
 }
 
 export interface autoCareSystemLocationChecklistErrors
@@ -81,6 +83,7 @@ export interface autoCareCashBankLoansTypes {
   setAutoCarePropertyLoans: React.Dispatch<
     React.SetStateAction<PropertyLoansFormTypes>
   >;
+  checkAllFieldsAutoCareCashBankLoans: boolean;
 }
 
 export interface autoCareCashBankLoansErrors
@@ -105,6 +108,7 @@ export interface autoCarePayrollSystemTypes {
   setAutoCareNoOfEmployee: React.Dispatch<
     React.SetStateAction<NoOfEmployeeFormTypes>
   >;
+  checkAllFieldsAutoCarePayrollSystem: boolean;
 }
 
 export interface autoCarePayrollSystemErrors
@@ -125,6 +129,7 @@ export interface autoCareCompliancesTypes {
   setAutoCareLastTaxReturnFiledYear: React.Dispatch<
     React.SetStateAction<LastTaxReturnFiledYearFormTypes>
   >;
+  checkAllFieldsAutoCareCompliances: boolean;
 }
 
 export interface autoCareCompliancesErrors
@@ -154,6 +159,7 @@ export interface autoCarePayableCashPayAccessTypes {
   setAutoCareApThresholdLimit: React.Dispatch<
     React.SetStateAction<ApThresholdLimitFormTypes>
   >;
+  checkAllFieldsAutoCarePayableCashPayAccess: boolean;
 }
 
 export interface autoCarePayableCashPayAccessErrors
@@ -174,6 +180,7 @@ export interface AutoCareFinancialsTypes {
   setAutoCaregp_gmnp_nm: React.Dispatch<
     React.SetStateAction<GP_GMNP_NMFormTypes>
   >;
+  checkAllFieldsAutoCareFinancials: boolean;
 }
 
 export interface GroupEmailEstablishedFormTypes {
@@ -430,6 +437,7 @@ export interface GroupEmailEstablishedTypes {
   setAutoCareGroupEmailEstablished: React.Dispatch<
     React.SetStateAction<GroupEmailEstablishedFormTypes>
   >;
+  checkAllFieldsGroupEmailEstablished: boolean;
 }
 
 export interface PreKickOffTypes {
@@ -437,11 +445,13 @@ export interface PreKickOffTypes {
   setAutoCarePreKickOff: React.Dispatch<
     React.SetStateAction<PreKickOffFormTypes>
   >;
+  checkAllFieldsPreKickOff: boolean;
 }
 
 export interface KickOffTypes {
   autoCareKickOff: KickOffFormTypes;
   setAutoCareKickOff: React.Dispatch<React.SetStateAction<KickOffFormTypes>>;
+  checkAllFieldsKickOff: boolean;
 }
 
 export interface ITStructureReviewTypes {
@@ -449,6 +459,7 @@ export interface ITStructureReviewTypes {
   setAutoCareITStructureReview: React.Dispatch<
     React.SetStateAction<ITStructureReviewFormTypes>
   >;
+  checkAllFieldsITStructureReview: boolean;
 }
 
 export interface AccessComputerMethodTypes {
@@ -456,6 +467,7 @@ export interface AccessComputerMethodTypes {
   setAutoCareAccessComputerMethod: React.Dispatch<
     React.SetStateAction<AccessComputerFormTypes>
   >;
+  checkAllFieldsAccessComputerMethod: boolean;
 }
 
 export interface PosSoftwareTypes {
@@ -464,6 +476,7 @@ export interface PosSoftwareTypes {
     React.SetStateAction<PosSoftwareFormTypes>
   >;
   posErrors: autoCareSystemLocationChecklistErrors;
+  checkAllFieldsPosSoftware: boolean;
 }
 
 export interface PosFormErrors extends Partial<PosSoftwareFormTypes> {}
@@ -481,6 +494,7 @@ export interface AccountingSoftwareTypes {
     React.SetStateAction<AccountingSoftwareFormTypes>
   >;
   accountingSoftwareErrors: autoCareSystemLocationChecklistErrors;
+  checkAllFieldsAccountingSoftware: boolean;
 }
 
 export interface AccountingSoftwareFormErrors
@@ -491,11 +505,13 @@ export interface CloudDocumentManagementTypes {
   setAutoCareCloudDocumentManagement: React.Dispatch<
     React.SetStateAction<CloudDocumentManagementFormTypes>
   >;
+  checkAllFieldsCloudDocumentManagement: boolean;
 }
 
 export interface ScannerTypes {
   autoCareScanner: ScannerFormTypes;
   setAutoCareScanner: React.Dispatch<React.SetStateAction<ScannerFormTypes>>;
+  checkAllFieldsScanner: boolean;
 }
 
 export interface OperatingCheckingAccountTypes {
@@ -504,6 +520,7 @@ export interface OperatingCheckingAccountTypes {
     React.SetStateAction<OperatingCheckingAccountFormTypes>
   >;
   operatingCheckingAccountErrors: autoCareCashBankLoansErrors;
+  checkAllFieldsOperatingCheckingAccount: boolean;
 }
 
 export interface OperatingCheckingAccountFormErrors
@@ -515,6 +532,7 @@ export interface SavingsAccountTypes {
     React.SetStateAction<SavingsAccountFormTypes>
   >;
   savingsAccountErrors: autoCareCashBankLoansErrors;
+  checkAllFieldsSavingsAccount: boolean;
 }
 
 export interface SavingsAccountFormErrors
@@ -526,6 +544,7 @@ export interface CreditCardTypes {
     React.SetStateAction<CreditCardFormTypes>
   >;
   creditCardErrors: autoCareCashBankLoansErrors;
+  checkAllFieldsCreditCard: boolean;
 }
 
 export interface CreditCardFormErrors extends Partial<CreditCardFormTypes> {}
@@ -535,6 +554,7 @@ export interface BusinessLoansTypes {
   setAutoCareBusinessLoans: React.Dispatch<
     React.SetStateAction<BusinessLoansFormTypes>
   >;
+  checkAllFieldsBusinessLoans: boolean;
 }
 
 export interface PropertyLoansTypes {
@@ -542,6 +562,7 @@ export interface PropertyLoansTypes {
   setAutoCarePropertyLoans: React.Dispatch<
     React.SetStateAction<PropertyLoansFormTypes>
   >;
+  checkAllFieldsPropertyLoans: boolean;
 }
 
 export interface PayrollServiceProviderTypes {
@@ -550,6 +571,7 @@ export interface PayrollServiceProviderTypes {
     React.SetStateAction<PayrollServiceProviderFormTypes>
   >;
   payrollServiceProviderError: autoCarePayrollSystemErrors;
+  checkAllFieldsPayrollServiceProvider: boolean;
 }
 
 export interface PayrollServiceProviderFormErrors
@@ -561,6 +583,7 @@ export interface FrequencyTypes {
     React.SetStateAction<FrequencyFormTypes>
   >;
   frequencyErrors: autoCarePayrollSystemErrors;
+  checkAllFieldsFrequency: boolean;
 }
 
 export interface FrequencyFormErrors extends Partial<FrequencyFormTypes> {}
@@ -570,6 +593,7 @@ export interface NoOfEmployeeTypes {
   setAutoCareNoOfEmployee: React.Dispatch<
     React.SetStateAction<NoOfEmployeeFormTypes>
   >;
+  checkAllFieldsNoOfEmployees: boolean;
 }
 
 export interface SalesTaxAccessWorkPaperTypes {
@@ -578,6 +602,7 @@ export interface SalesTaxAccessWorkPaperTypes {
     React.SetStateAction<SalesTaxAccessWorkPaperFormTypes>
   >;
   salesTaxAccessWorkPaperErrors: autoCareCompliancesErrors;
+  checkAllFieldsSalesTaxAccessWorkPaper: boolean;
 }
 
 export interface SalesTaxAccessWorkPaperFormErrors
@@ -587,6 +612,7 @@ export interface UseTaxTypes {
   autoCareUseTax: UseTaxFormTypes;
   setAutoCareUseTax: React.Dispatch<React.SetStateAction<UseTaxFormTypes>>;
   useTaxErrors: autoCareCompliancesErrors;
+  checkAllFieldsUseTax: boolean;
 }
 
 export interface UseTaxFormErrors extends Partial<UseTaxFormTypes> {}
@@ -595,6 +621,7 @@ export interface TireTaxTypes {
   autoCareTireTax: TireTaxFormTypes;
   setAutoCareTireTax: React.Dispatch<React.SetStateAction<TireTaxFormTypes>>;
   tireTaxErrors: autoCareCompliancesErrors;
+  checkAllFieldsTireTax: boolean;
 }
 
 export interface TireTaxFormErrors extends Partial<TireTaxFormTypes> {}
@@ -605,6 +632,7 @@ export interface LastTaxReturnFiledYearTypes {
     React.SetStateAction<LastTaxReturnFiledYearFormTypes>
   >;
   lastTaxReturnFiledYearErrors: autoCareCompliancesErrors;
+  checkAllFieldsLastTaxReturnFiledYear: boolean;
 }
 
 export interface LastTaxReturnFiledYearFormErrors
@@ -616,6 +644,7 @@ export interface VendorPortalAccessTypes {
     React.SetStateAction<VendorPortalAccessFormTypes>
   >;
   vendorPortalAccessErrors: autoCarePayableCashPayAccessErrors;
+  checkAllFieldsVendorPortalAccess: boolean;
 }
 
 export interface VendorPortalAccessFormErrors
@@ -626,6 +655,7 @@ export interface TradeAccountTypes {
   setAutoCareTradeAccount: React.Dispatch<
     React.SetStateAction<TradeAccountFormTypes>
   >;
+  checkAllFieldsTradeAccount: boolean;
 }
 
 export interface BillPayAccessTypes {
@@ -634,6 +664,7 @@ export interface BillPayAccessTypes {
     React.SetStateAction<BillPayAccessFormTypes>
   >;
   billPayAccessErrors: autoCarePayableCashPayAccessErrors;
+  checkAllFieldsBillPayAccess: boolean;
 }
 
 export interface BillPayAccessFormErrors
@@ -644,6 +675,7 @@ export interface ApThresholdLimitTypes {
   setAutoCareApThresholdLimit: React.Dispatch<
     React.SetStateAction<ApThresholdLimitFormTypes>
   >;
+  checkAllFieldsAPThresholdLimit: boolean;
 }
 
 export interface LastClosedPeriodTypes {
@@ -652,6 +684,7 @@ export interface LastClosedPeriodTypes {
     React.SetStateAction<LastClosedPeriodFormTypes>
   >;
   lastClosedPeriodErrors: LastClosedPeriodFormErrors;
+  checkAllFieldsLastClosedPeriod: boolean;
 }
 
 export interface LastClosedPeriodFormErrors
@@ -662,6 +695,7 @@ export interface SharingFinancialsTypes {
   setAutoCareSharingFinancials: React.Dispatch<
     React.SetStateAction<SharingFinancialsFormTypes>
   >;
+  checkAllFieldsSharingFinancials: boolean;
 }
 
 export interface GP_GMNP_NMTypes {
@@ -669,24 +703,26 @@ export interface GP_GMNP_NMTypes {
   setAutoCaregp_gmnp_nm: React.Dispatch<
     React.SetStateAction<GP_GMNP_NMFormTypes>
   >;
+  checkAllFieldsGP_GMNP_NM: boolean;
 }
 
 export interface PhaseFormResponseDataType {
-  fieldName:string;
-  status:string;
-  comments:string;
-  details:string;
-  actionsOfPabs:string;
-  actionsOfClient:string;
+  fieldName: string;
+  status: string;
+  comments: string;
+  details: string;
+  actionsOfPabs: string;
+  actionsOfClient: string;
 }
 
 export interface ChecklistResponseDataType {
-  phase1CommunicationIsDisplay:boolean;
-  phase2SystemIsDisplay:boolean;
-  phase3CashIsDisplay:boolean;
-  phase4PayrollIsDisplay:boolean;
-  phase5CompliancesIsDisplay:boolean;
-  phase6ApPayableIsDisplay:boolean;
-  phase7StatusIsDisplay:boolean;
-  checkList:PhaseFormResponseDataType[]
+  phase1CommunicationIsDisplay: boolean;
+  phase2SystemIsDisplay: boolean;
+  phase3CashIsDisplay: boolean;
+  phase4PayrollIsDisplay: boolean;
+  phase5CompliancesIsDisplay: boolean;
+  phase6ApPayableIsDisplay: boolean;
+  phase7StatusIsDisplay: boolean;
+  isSubmited: boolean;
+  checkList: PhaseFormResponseDataType[];
 }

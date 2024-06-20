@@ -17,6 +17,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCareCashBankLoans({
   className,
@@ -31,11 +33,14 @@ function AutoCareCashBankLoans({
   setAutoCareBusinessLoans,
   autoCarePropertyLoans,
   setAutoCarePropertyLoans,
+  checkAllFieldsAutoCareCashBankLoans,
 }: autoCareCashBankLoansTypes) {
-
   return (
     <div className={`${className}`}>
       <OperatingCheckingAccount
+        checkAllFieldsOperatingCheckingAccount={
+          checkAllFieldsAutoCareCashBankLoans
+        }
         autoCareOperatingCheckingAccount={autoCareOperatingCheckingAccount}
         setAutoCareOperatingCheckingAccount={
           setAutoCareOperatingCheckingAccount
@@ -43,20 +48,24 @@ function AutoCareCashBankLoans({
         operatingCheckingAccountErrors={cashBankLoansErrors}
       />
       <SavingsAccount
+        checkAllFieldsSavingsAccount={checkAllFieldsAutoCareCashBankLoans}
         autoCareSavingsAccount={autoCareSavingsAccount}
         setAutoCareSavingsAccount={setAutoCareSavingsAccount}
         savingsAccountErrors={cashBankLoansErrors}
       />
       <CreditCard
+        checkAllFieldsCreditCard={checkAllFieldsAutoCareCashBankLoans}
         autoCareCreditCard={autoCareCreditCard}
         setAutoCareCreditCard={setAutoCareCreditCard}
         creditCardErrors={cashBankLoansErrors}
       />
       <BusinessLoans
+        checkAllFieldsBusinessLoans={checkAllFieldsAutoCareCashBankLoans}
         autoCareBusinessLoans={autoCareBusinessLoans}
         setAutoCareBusinessLoans={setAutoCareBusinessLoans}
       />
       <PropertyLoans
+        checkAllFieldsPropertyLoans={checkAllFieldsAutoCareCashBankLoans}
         autoCarePropertyLoans={autoCarePropertyLoans}
         setAutoCarePropertyLoans={setAutoCarePropertyLoans}
       />
@@ -70,10 +79,14 @@ const OperatingCheckingAccount = ({
   autoCareOperatingCheckingAccount,
   setAutoCareOperatingCheckingAccount,
   operatingCheckingAccountErrors,
+  checkAllFieldsOperatingCheckingAccount,
 }: OperatingCheckingAccountTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleOperatingCheckingAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOperatingCheckingAccountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareOperatingCheckingAccount(
@@ -102,8 +115,12 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountComments
                 }
-                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountComments}
-                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountComments}
+                error={
+                  !!operatingCheckingAccountErrors?.operatingCheckingAccountComments
+                }
+                helperText={
+                  operatingCheckingAccountErrors?.operatingCheckingAccountComments
+                }
                 onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
@@ -113,6 +130,9 @@ const OperatingCheckingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                }
               />
             </div>
           </Grid>
@@ -128,8 +148,12 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountStatus
                 }
-                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
-                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
+                error={
+                  !!operatingCheckingAccountErrors?.operatingCheckingAccountStatus
+                }
+                helperText={
+                  operatingCheckingAccountErrors?.operatingCheckingAccountStatus
+                }
                 onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
@@ -139,6 +163,9 @@ const OperatingCheckingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                }
               />
             </div>
           </Grid>
@@ -154,8 +181,12 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountDetails
                 }
-                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountDetails}
-                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountDetails}
+                error={
+                  !!operatingCheckingAccountErrors?.operatingCheckingAccountDetails
+                }
+                helperText={
+                  operatingCheckingAccountErrors?.operatingCheckingAccountDetails
+                }
                 onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
@@ -165,6 +196,9 @@ const OperatingCheckingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                }
               />
             </div>
           </Grid>
@@ -182,8 +216,12 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountActionName
                 }
-                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountActionName}
-                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountActionName}
+                error={
+                  !!operatingCheckingAccountErrors?.operatingCheckingAccountActionName
+                }
+                helperText={
+                  operatingCheckingAccountErrors?.operatingCheckingAccountActionName
+                }
                 onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
@@ -193,6 +231,9 @@ const OperatingCheckingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                }
               />
             </div>
           </Grid>
@@ -210,8 +251,12 @@ const OperatingCheckingAccount = ({
                 value={
                   autoCareOperatingCheckingAccount?.operatingCheckingAccountActionItems
                 }
-                error={!!operatingCheckingAccountErrors?.operatingCheckingAccountActionItems}
-                helperText={operatingCheckingAccountErrors?.operatingCheckingAccountActionItems}
+                error={
+                  !!operatingCheckingAccountErrors?.operatingCheckingAccountActionItems
+                }
+                helperText={
+                  operatingCheckingAccountErrors?.operatingCheckingAccountActionItems
+                }
                 onChange={handleOperatingCheckingAccountChange}
                 InputProps={{
                   classes: {
@@ -221,6 +266,9 @@ const OperatingCheckingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                }
               />
             </div>
           </Grid>
@@ -233,11 +281,15 @@ const OperatingCheckingAccount = ({
 const SavingsAccount = ({
   autoCareSavingsAccount,
   setAutoCareSavingsAccount,
-  savingsAccountErrors
+  savingsAccountErrors,
+  checkAllFieldsSavingsAccount,
 }: SavingsAccountTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleSavingsAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSavingsAccountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareSavingsAccount((prev: SavingsAccountFormTypes) => ({
@@ -273,6 +325,7 @@ const SavingsAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
               />
             </div>
           </Grid>
@@ -297,6 +350,7 @@ const SavingsAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
               />
             </div>
           </Grid>
@@ -321,6 +375,7 @@ const SavingsAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
               />
             </div>
           </Grid>
@@ -347,6 +402,7 @@ const SavingsAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
               />
             </div>
           </Grid>
@@ -373,6 +429,7 @@ const SavingsAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
               />
             </div>
           </Grid>
@@ -385,9 +442,11 @@ const SavingsAccount = ({
 const CreditCard = ({
   autoCareCreditCard,
   setAutoCareCreditCard,
-  creditCardErrors
+  creditCardErrors,
+  checkAllFieldsCreditCard,
 }: CreditCardTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleCreditCardChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -426,6 +485,7 @@ const CreditCard = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsCreditCard}
               />
             </div>
           </Grid>
@@ -450,6 +510,7 @@ const CreditCard = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsCreditCard}
               />
             </div>
           </Grid>
@@ -474,6 +535,7 @@ const CreditCard = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsCreditCard}
               />
             </div>
           </Grid>
@@ -500,6 +562,7 @@ const CreditCard = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsCreditCard}
               />
             </div>
           </Grid>
@@ -526,6 +589,7 @@ const CreditCard = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsCreditCard}
               />
             </div>
           </Grid>
@@ -538,10 +602,14 @@ const CreditCard = ({
 const BusinessLoans = ({
   autoCareBusinessLoans,
   setAutoCareBusinessLoans,
+  checkAllFieldsBusinessLoans,
 }: BusinessLoansTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleBusinessLoansChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBusinessLoansChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCareBusinessLoans((prev: BusinessLoansFormTypes) => ({
@@ -575,6 +643,7 @@ const BusinessLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
               />
             </div>
           </Grid>
@@ -597,6 +666,7 @@ const BusinessLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
               />
             </div>
           </Grid>
@@ -619,6 +689,7 @@ const BusinessLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
               />
             </div>
           </Grid>
@@ -643,6 +714,7 @@ const BusinessLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
               />
             </div>
           </Grid>
@@ -667,6 +739,7 @@ const BusinessLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
               />
             </div>
           </Grid>
@@ -679,10 +752,14 @@ const BusinessLoans = ({
 const PropertyLoans = ({
   autoCarePropertyLoans,
   setAutoCarePropertyLoans,
+  checkAllFieldsPropertyLoans
 }: PropertyLoansTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handlePropertyLoansChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePropertyLoansChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setAutoCarePropertyLoans((prev: PropertyLoansFormTypes) => ({
@@ -716,6 +793,7 @@ const PropertyLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
               />
             </div>
           </Grid>
@@ -738,6 +816,7 @@ const PropertyLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
               />
             </div>
           </Grid>
@@ -760,6 +839,7 @@ const PropertyLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
               />
             </div>
           </Grid>
@@ -784,6 +864,7 @@ const PropertyLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
               />
             </div>
           </Grid>
@@ -808,6 +889,7 @@ const PropertyLoans = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
               />
             </div>
           </Grid>

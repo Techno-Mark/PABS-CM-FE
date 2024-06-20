@@ -13,6 +13,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCarePayrollSystem({
   className,
@@ -23,20 +25,30 @@ function AutoCarePayrollSystem({
   setAutoCareFrequency,
   autoCareNoOfEmployee,
   setAutoCareNoOfEmployee,
+  checkAllFieldsAutoCarePayrollSystem,
 }: autoCarePayrollSystemTypes) {
   return (
     <div className={`${className}`}>
       <PayrollServiceProvider
+        checkAllFieldsPayrollServiceProvider={
+          checkAllFieldsAutoCarePayrollSystem
+        }
         autoCarePayrollServiceProvider={autoCarePayrollServiceProvider}
         setAutoCarePayrollServiceProvider={setAutoCarePayrollServiceProvider}
         payrollServiceProviderError={payrollSystemError}
       />
       <Frequency
+        checkAllFieldsFrequency={
+          checkAllFieldsAutoCarePayrollSystem
+        }
         autoCareFrequency={autoCareFrequency}
         setAutoCareFrequency={setAutoCareFrequency}
         frequencyErrors={payrollSystemError}
       />
       <NoOfEmployees
+        checkAllFieldsNoOfEmployees={
+          checkAllFieldsAutoCarePayrollSystem
+        }
         autoCareNoOfEmployee={autoCareNoOfEmployee}
         setAutoCareNoOfEmployee={setAutoCareNoOfEmployee}
       />
@@ -50,8 +62,10 @@ const PayrollServiceProvider = ({
   autoCarePayrollServiceProvider,
   setAutoCarePayrollServiceProvider,
   payrollServiceProviderError,
+  checkAllFieldsPayrollServiceProvider
 }: PayrollServiceProviderTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handlePayrollServiceProviderChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -100,6 +114,7 @@ const PayrollServiceProvider = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
               />
             </div>
           </Grid>
@@ -130,6 +145,7 @@ const PayrollServiceProvider = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
               />
             </div>
           </Grid>
@@ -160,6 +176,7 @@ const PayrollServiceProvider = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
               />
             </div>
           </Grid>
@@ -192,6 +209,7 @@ const PayrollServiceProvider = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
               />
             </div>
           </Grid>
@@ -224,6 +242,7 @@ const PayrollServiceProvider = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
               />
             </div>
           </Grid>
@@ -237,8 +256,10 @@ const Frequency = ({
   autoCareFrequency,
   setAutoCareFrequency,
   frequencyErrors,
+  checkAllFieldsFrequency
 }: FrequencyTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -277,6 +298,7 @@ const Frequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFrequency}
               />
             </div>
           </Grid>
@@ -301,6 +323,7 @@ const Frequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFrequency}
               />
             </div>
           </Grid>
@@ -325,6 +348,7 @@ const Frequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFrequency}
               />
             </div>
           </Grid>
@@ -351,6 +375,7 @@ const Frequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFrequency}
               />
             </div>
           </Grid>
@@ -377,6 +402,7 @@ const Frequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFrequency}
               />
             </div>
           </Grid>
@@ -389,8 +415,10 @@ const Frequency = ({
 const NoOfEmployees = ({
   autoCareNoOfEmployee,
   setAutoCareNoOfEmployee,
+  checkAllFieldsNoOfEmployees
 }: NoOfEmployeeTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -427,6 +455,7 @@ const NoOfEmployees = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
               />
             </div>
           </Grid>
@@ -449,6 +478,7 @@ const NoOfEmployees = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
               />
             </div>
           </Grid>
@@ -471,6 +501,7 @@ const NoOfEmployees = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
               />
             </div>
           </Grid>
@@ -495,6 +526,7 @@ const NoOfEmployees = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
               />
             </div>
           </Grid>
@@ -519,6 +551,7 @@ const NoOfEmployees = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
               />
             </div>
           </Grid>

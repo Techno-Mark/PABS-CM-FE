@@ -31,6 +31,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function SmbPeopleBusinessChecklist({
   className,
@@ -59,63 +61,76 @@ function SmbPeopleBusinessChecklist({
   setSmbContactNumber,
   smbAddress,
   setSmbAddress,
+  checkAllFieldsSmbPeopleBusinessChecklist,
 }: smbPeopleBusinessTypes) {
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">General</div>
       <ClientName
+        checkAllFieldsClientName={checkAllFieldsSmbPeopleBusinessChecklist}
         smbClientName={smbClientName}
         setSmbClientName={setSmbClientName}
         smbClientNameErrors={smbPeopleBusinessErrors}
       />
       <TypeOfEntity
+        checkAllFieldsTypeOfEntity={checkAllFieldsSmbPeopleBusinessChecklist}
         smbTypeOfEntity={smbTypeOfEntity}
         setSmbTypeOfEntity={setSmbTypeOfEntity}
       />
       <BusinessNature
+        checkAllFieldsBusinessNature={checkAllFieldsSmbPeopleBusinessChecklist}
         smbBusinessNature={smbBusinessNature}
         setSmbBusinessNature={setSmbBusinessNature}
       />
       <Dimensions
+        checkAllFieldsDimensions={checkAllFieldsSmbPeopleBusinessChecklist}
         smbDimensions={smbDimensions}
         setSmbDimensions={setSmbDimensions}
       />
       <Poc
+        checkAllFieldsPoc={checkAllFieldsSmbPeopleBusinessChecklist}
         smbPoc={smbPoc}
         setSmbPoc={setSmbPoc}
         smbPocErrors={smbPeopleBusinessErrors}
       />
       <div className="text-[18px] font-medium py-2 w-full">Contact Details</div>
       <Email
+        checkAllFieldsEmail={checkAllFieldsSmbPeopleBusinessChecklist}
         smbEmail={smbEmail}
         setSmbEmail={setSmbEmail}
         smbEmailErrors={smbPeopleBusinessErrors}
       />
       <ContactNumber
+        checkAllFieldsContactNumber={checkAllFieldsSmbPeopleBusinessChecklist}
         smbContactNumber={smbContactNumber}
         setSmbContactNumber={setSmbContactNumber}
         smbContactNumberErrors={smbPeopleBusinessErrors}
       />
       <Address
+        checkAllFieldsAddress={checkAllFieldsSmbPeopleBusinessChecklist}
         smbAddress={smbAddress}
         setSmbAddress={setSmbAddress}
         smbAddressErrors={smbPeopleBusinessErrors}
       />
       <ClientWebsite
+        checkAllFieldsClientWebsite={checkAllFieldsSmbPeopleBusinessChecklist}
         smbClientWebsite={smbClientWebsite}
         setSmbClientWebsite={setSmbClientWebsite}
         smbClientWebsiteErrors={smbPeopleBusinessErrors}
       />
       <div className="text-[18px] font-medium py-2 w-full">POC Details</div>
       <Department
+        checkAllFieldsDepartment={checkAllFieldsSmbPeopleBusinessChecklist}
         smbDepartment={smbDepartment}
         setSmbDepartment={setSmbDepartment}
       />
       <OnboardingPoc
+        checkAllFieldsOnboardingPoc={checkAllFieldsSmbPeopleBusinessChecklist}
         smbOnboardingPoc={smbOnboardingPoc}
         setSmbOnboardingPoc={setSmbOnboardingPoc}
       />
       <OperationsPoc
+        checkAllFieldsOperationsPoc={checkAllFieldsSmbPeopleBusinessChecklist}
         smbOperationsPoc={smbOperationsPoc}
         setSmbOperationsPoc={setSmbOperationsPoc}
       />
@@ -129,8 +144,10 @@ const ClientName = ({
   smbClientName,
   setSmbClientName,
   smbClientNameErrors,
+  checkAllFieldsClientName,
 }: ClientNameTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleClientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -168,6 +185,7 @@ const ClientName = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsClientName}
               />
             </div>
           </Grid>
@@ -192,6 +210,7 @@ const ClientName = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsClientName}
               />
             </div>
           </Grid>
@@ -218,6 +237,7 @@ const ClientName = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsClientName}
               />
             </div>
           </Grid>
@@ -230,8 +250,10 @@ const ClientName = ({
 const TypeOfEntity = ({
   smbTypeOfEntity,
   setSmbTypeOfEntity,
+  checkAllFieldsTypeOfEntity,
 }: TypeOfEntityTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleTypeOfEntityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -267,6 +289,7 @@ const TypeOfEntity = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
               />
             </div>
           </Grid>
@@ -289,6 +312,7 @@ const TypeOfEntity = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
               />
             </div>
           </Grid>
@@ -313,6 +337,7 @@ const TypeOfEntity = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
               />
             </div>
           </Grid>
@@ -325,8 +350,10 @@ const TypeOfEntity = ({
 const BusinessNature = ({
   smbBusinessNature,
   setSmbBusinessNature,
+  checkAllFieldsBusinessNature,
 }: BusinessNatureTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleBusinessNatureChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -364,6 +391,7 @@ const BusinessNature = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessNature}
               />
             </div>
           </Grid>
@@ -386,6 +414,7 @@ const BusinessNature = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessNature}
               />
             </div>
           </Grid>
@@ -410,6 +439,7 @@ const BusinessNature = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsBusinessNature}
               />
             </div>
           </Grid>
@@ -419,8 +449,13 @@ const BusinessNature = ({
   );
 };
 
-const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
+const Dimensions = ({
+  smbDimensions,
+  setSmbDimensions,
+  checkAllFieldsDimensions,
+}: DimensionsTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleDimenionsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -456,6 +491,7 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsDimensions}
               />
             </div>
           </Grid>
@@ -478,6 +514,7 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsDimensions}
               />
             </div>
           </Grid>
@@ -502,6 +539,7 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsDimensions}
               />
             </div>
           </Grid>
@@ -511,8 +549,14 @@ const Dimensions = ({ smbDimensions, setSmbDimensions }: DimensionsTypes) => {
   );
 };
 
-const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
+const Poc = ({
+  smbPoc,
+  setSmbPoc,
+  smbPocErrors,
+  checkAllFieldsPoc,
+}: PocTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handlePocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -550,6 +594,7 @@ const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPoc}
               />
             </div>
           </Grid>
@@ -574,6 +619,7 @@ const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPoc}
               />
             </div>
           </Grid>
@@ -600,6 +646,7 @@ const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPoc}
               />
             </div>
           </Grid>
@@ -609,8 +656,14 @@ const Poc = ({ smbPoc, setSmbPoc, smbPocErrors }: PocTypes) => {
   );
 };
 
-const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
+const Email = ({
+  smbEmail,
+  setSmbEmail,
+  smbEmailErrors,
+  checkAllFieldsEmail,
+}: EmailTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -648,6 +701,7 @@ const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsEmail}
               />
             </div>
           </Grid>
@@ -672,6 +726,7 @@ const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsEmail}
               />
             </div>
           </Grid>
@@ -698,6 +753,7 @@ const Email = ({ smbEmail, setSmbEmail, smbEmailErrors }: EmailTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsEmail}
               />
             </div>
           </Grid>
@@ -711,8 +767,10 @@ const ContactNumber = ({
   smbContactNumber,
   setSmbContactNumber,
   smbContactNumberErrors,
+  checkAllFieldsContactNumber,
 }: ContactNumberTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleContactNumberChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -752,6 +810,7 @@ const ContactNumber = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsContactNumber}
               />
             </div>
           </Grid>
@@ -776,6 +835,7 @@ const ContactNumber = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsContactNumber}
               />
             </div>
           </Grid>
@@ -802,6 +862,7 @@ const ContactNumber = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsContactNumber}
               />
             </div>
           </Grid>
@@ -815,8 +876,10 @@ const Address = ({
   smbAddress,
   setSmbAddress,
   smbAddressErrors,
+  checkAllFieldsAddress,
 }: AddressTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -854,6 +917,7 @@ const Address = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAddress}
               />
             </div>
           </Grid>
@@ -878,6 +942,7 @@ const Address = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAddress}
               />
             </div>
           </Grid>
@@ -904,6 +969,7 @@ const Address = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAddress}
               />
             </div>
           </Grid>
@@ -917,8 +983,10 @@ const ClientWebsite = ({
   smbClientWebsite,
   setSmbClientWebsite,
   smbClientWebsiteErrors,
+  checkAllFieldsClientWebsite,
 }: ClientWebsiteTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleClientWebsiteChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -958,6 +1026,7 @@ const ClientWebsite = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsClientWebsite}
               />
             </div>
           </Grid>
@@ -982,6 +1051,7 @@ const ClientWebsite = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsClientWebsite}
               />
             </div>
           </Grid>
@@ -1008,6 +1078,7 @@ const ClientWebsite = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsClientWebsite}
               />
             </div>
           </Grid>
@@ -1017,8 +1088,13 @@ const ClientWebsite = ({
   );
 };
 
-const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
+const Department = ({
+  smbDepartment,
+  setSmbDepartment,
+  checkAllFieldsDepartment,
+}: DepartmentTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -1054,6 +1130,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsDepartment}
               />
             </div>
           </Grid>
@@ -1076,6 +1153,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsDepartment}
               />
             </div>
           </Grid>
@@ -1100,6 +1178,7 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsDepartment}
               />
             </div>
           </Grid>
@@ -1112,8 +1191,10 @@ const Department = ({ smbDepartment, setSmbDepartment }: DepartmentTypes) => {
 const OperationsPoc = ({
   smbOperationsPoc,
   setSmbOperationsPoc,
+  checkAllFieldsOperationsPoc,
 }: OperationsPocTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleOperationsPocChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -1151,6 +1232,7 @@ const OperationsPoc = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsOperationsPoc}
               />
             </div>
           </Grid>
@@ -1173,6 +1255,7 @@ const OperationsPoc = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsOperationsPoc}
               />
             </div>
           </Grid>
@@ -1197,6 +1280,7 @@ const OperationsPoc = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsOperationsPoc}
               />
             </div>
           </Grid>
@@ -1209,8 +1293,10 @@ const OperationsPoc = ({
 const OnboardingPoc = ({
   smbOnboardingPoc,
   setSmbOnboardingPoc,
+  checkAllFieldsOnboardingPoc,
 }: OnboardingPocTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleOnboardingPocChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -1270,6 +1356,7 @@ const OnboardingPoc = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsOnboardingPoc}
               />
             </div>
           </Grid>
@@ -1294,6 +1381,7 @@ const OnboardingPoc = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsOnboardingPoc}
               />
             </div>
           </Grid>

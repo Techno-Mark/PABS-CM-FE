@@ -149,7 +149,7 @@ function Page() {
           Cookies.set("businessTypeId", ResponseData?.BusinessTypeId.toString());
           Cookies.set("businessTypeName", ResponseData?.BusinessTypeName);
           Cookies.set("clientSFId", ResponseData?.ClientSfId);
-          Cookies.set("clientLogo", ResponseData?.ClientLogo);
+          localStorage.setItem('clientLogo', ResponseData?.ClientLogo);
           Cookies.set("permission", JSON.stringify(ResponseData?.Permissions));
           return;
       }

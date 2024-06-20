@@ -32,9 +32,8 @@ const AppBar = styled(MuiAppBar, {
 
 const ClientHeader = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const userId = Cookies.get("userId");
-  const roleId = Cookies.get("roleId");
+  const clientLogo = typeof window !== 'undefined' ? localStorage.getItem("clientLogo") : null;
   const userName = Cookies.get("userName");
   const businessTypeName = Cookies.get("businessTypeName");
   const clientSFId = Cookies.get("clientSFId");
@@ -111,7 +110,10 @@ const ClientHeader = () => {
     >
       <Toolbar>
         <div className="flex flex-row w-full justify-between items-center mb-3">
-          <div className="!text-[#000000]">
+          <div className="!text-[#000000] flex gap-4 justify-center items-center">
+            <span>
+              <img className="w-15 h-10" src={`data:image;base64,${clientLogo}`} alt="client logo" />
+            </span>
             <span className="!font-semibold text-[15px]">
               {clientSFId} &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
               {businessTypeName}

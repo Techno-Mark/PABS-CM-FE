@@ -21,6 +21,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCareSystemLocationChecklist({
   className,
@@ -39,32 +41,43 @@ function AutoCareSystemLocationChecklist({
   setAutoCareCloudDocumentManagement,
   autoCareScanner,
   setAutoCareScanner,
+  checkAllFieldsAutoCareSystemLocation,
 }: autoCareSystemLocationChecklistTypes) {
   return (
     <div className={`${className}`}>
       <ITStructureReview
+        checkAllFieldsITStructureReview={checkAllFieldsAutoCareSystemLocation}
         autoCareITStructureReview={autoCareITStructureReview}
         setAutoCareITStructureReview={setAutoCareITStructureReview}
       />
       <AccessComputerMethod
+        checkAllFieldsAccessComputerMethod={
+          checkAllFieldsAutoCareSystemLocation
+        }
         autoCareAccessComputerMethod={autoCareAccessComputerMethod}
         setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
       />
       <PosSoftware
+        checkAllFieldsPosSoftware={checkAllFieldsAutoCareSystemLocation}
         autoCarePosSoftware={autoCarePosSoftware}
         setAutoCarePosSoftware={setAutoCarePosSoftware}
         posErrors={systemSoftwareLocationErrors}
       />
       <AccountingSoftware
+        checkAllFieldsAccountingSoftware={checkAllFieldsAutoCareSystemLocation}
         autoCareAccountingSoftware={autoCareAccountingSoftware}
         setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
         accountingSoftwareErrors={systemSoftwareLocationErrors}
       />
       <CloudDocumentManagement
+        checkAllFieldsCloudDocumentManagement={
+          checkAllFieldsAutoCareSystemLocation
+        }
         autoCareCloudDocumentManagement={autoCareCloudDocumentManagement}
         setAutoCareCloudDocumentManagement={setAutoCareCloudDocumentManagement}
       />
       <Scanner
+        checkAllFieldsScanner={checkAllFieldsAutoCareSystemLocation}
         autoCareScanner={autoCareScanner}
         setAutoCareScanner={setAutoCareScanner}
       />
@@ -77,8 +90,10 @@ export default AutoCareSystemLocationChecklist;
 const ITStructureReview = ({
   autoCareITStructureReview,
   setAutoCareITStructureReview,
+  checkAllFieldsITStructureReview,
 }: ITStructureReviewTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleItStructureReviewChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -116,6 +131,7 @@ const ITStructureReview = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview}
               />
             </div>
           </Grid>
@@ -138,6 +154,7 @@ const ITStructureReview = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview}
               />
             </div>
           </Grid>
@@ -160,6 +177,7 @@ const ITStructureReview = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview}
               />
             </div>
           </Grid>
@@ -184,6 +202,7 @@ const ITStructureReview = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview}
               />
             </div>
           </Grid>
@@ -208,6 +227,7 @@ const ITStructureReview = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview}
               />
             </div>
           </Grid>
@@ -220,8 +240,10 @@ const ITStructureReview = ({
 const AccessComputerMethod = ({
   autoCareAccessComputerMethod,
   setAutoCareAccessComputerMethod,
+  checkAllFieldsAccessComputerMethod,
 }: AccessComputerMethodTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAccessComputerMethodChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -259,6 +281,7 @@ const AccessComputerMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
               />
             </div>
           </Grid>
@@ -281,6 +304,7 @@ const AccessComputerMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
               />
             </div>
           </Grid>
@@ -303,6 +327,7 @@ const AccessComputerMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
               />
             </div>
           </Grid>
@@ -327,6 +352,7 @@ const AccessComputerMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
               />
             </div>
           </Grid>
@@ -351,6 +377,7 @@ const AccessComputerMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
               />
             </div>
           </Grid>
@@ -363,9 +390,11 @@ const AccessComputerMethod = ({
 const PosSoftware = ({
   autoCarePosSoftware,
   setAutoCarePosSoftware,
-  posErrors
+  posErrors,
+  checkAllFieldsPosSoftware,
 }: PosSoftwareTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handlePosSoftwareChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -403,6 +432,7 @@ const PosSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware}
               />
             </div>
           </Grid>
@@ -427,6 +457,7 @@ const PosSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware}
               />
             </div>
           </Grid>
@@ -451,6 +482,7 @@ const PosSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware}
               />
             </div>
           </Grid>
@@ -477,6 +509,7 @@ const PosSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware}
               />
             </div>
           </Grid>
@@ -503,6 +536,7 @@ const PosSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware}
               />
             </div>
           </Grid>
@@ -515,9 +549,11 @@ const PosSoftware = ({
 const AccountingSoftware = ({
   autoCareAccountingSoftware,
   setAutoCareAccountingSoftware,
-  accountingSoftwareErrors
+  accountingSoftwareErrors,
+  checkAllFieldsAccountingSoftware,
 }: AccountingSoftwareTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAccountingSoftwareChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -547,7 +583,9 @@ const AccountingSoftware = ({
                 placeholder="Please Enter Comments"
                 value={autoCareAccountingSoftware?.accountingSoftwareComments}
                 error={!!accountingSoftwareErrors?.accountingSoftwareComments}
-                helperText={accountingSoftwareErrors?.accountingSoftwareComments}
+                helperText={
+                  accountingSoftwareErrors?.accountingSoftwareComments
+                }
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -557,6 +595,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
               />
             </div>
           </Grid>
@@ -581,6 +620,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
               />
             </div>
           </Grid>
@@ -605,6 +645,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
               />
             </div>
           </Grid>
@@ -621,7 +662,9 @@ const AccountingSoftware = ({
                 placeholder="Please Enter Action Items"
                 value={autoCareAccountingSoftware?.accountingSoftwareActionName}
                 error={!!accountingSoftwareErrors?.accountingSoftwareActionName}
-                helperText={accountingSoftwareErrors?.accountingSoftwareActionName}
+                helperText={
+                  accountingSoftwareErrors?.accountingSoftwareActionName
+                }
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -631,6 +674,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
               />
             </div>
           </Grid>
@@ -648,8 +692,12 @@ const AccountingSoftware = ({
                 value={
                   autoCareAccountingSoftware?.accountingSoftwareActionItems
                 }
-                error={!!accountingSoftwareErrors?.accountingSoftwareActionItems}
-                helperText={accountingSoftwareErrors?.accountingSoftwareActionItems}
+                error={
+                  !!accountingSoftwareErrors?.accountingSoftwareActionItems
+                }
+                helperText={
+                  accountingSoftwareErrors?.accountingSoftwareActionItems
+                }
                 onChange={handleAccountingSoftwareChange}
                 InputProps={{
                   classes: {
@@ -659,6 +707,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
               />
             </div>
           </Grid>
@@ -671,8 +720,10 @@ const AccountingSoftware = ({
 const CloudDocumentManagement = ({
   autoCareCloudDocumentManagement,
   setAutoCareCloudDocumentManagement,
+  checkAllFieldsCloudDocumentManagement,
 }: CloudDocumentManagementTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleCloudDocumentManagementChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -714,6 +765,9 @@ const CloudDocumentManagement = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsCloudDocumentManagement
+                }
               />
             </div>
           </Grid>
@@ -738,6 +792,9 @@ const CloudDocumentManagement = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsCloudDocumentManagement
+                }
               />
             </div>
           </Grid>
@@ -762,6 +819,9 @@ const CloudDocumentManagement = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsCloudDocumentManagement
+                }
               />
             </div>
           </Grid>
@@ -788,6 +848,9 @@ const CloudDocumentManagement = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsCloudDocumentManagement
+                }
               />
             </div>
           </Grid>
@@ -814,6 +877,9 @@ const CloudDocumentManagement = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsCloudDocumentManagement
+                }
               />
             </div>
           </Grid>
@@ -823,8 +889,13 @@ const CloudDocumentManagement = ({
   );
 };
 
-const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
+const Scanner = ({
+  autoCareScanner,
+  setAutoCareScanner,
+  checkAllFieldsScanner,
+}: ScannerTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleScannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -860,6 +931,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsScanner}
               />
             </div>
           </Grid>
@@ -882,6 +954,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsScanner}
               />
             </div>
           </Grid>
@@ -904,6 +977,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsScanner}
               />
             </div>
           </Grid>
@@ -928,6 +1002,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsScanner}
               />
             </div>
           </Grid>
@@ -952,6 +1027,7 @@ const Scanner = ({ autoCareScanner, setAutoCareScanner }: ScannerTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsScanner}
               />
             </div>
           </Grid>

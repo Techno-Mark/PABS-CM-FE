@@ -19,6 +19,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function SmbBankingAccessChecklist({
   className,
@@ -35,31 +37,43 @@ function SmbBankingAccessChecklist({
   setSmbAccessLoanAccount,
   smbAccessCreditCard,
   setSmbAccessCreditCard,
+  checkAllFieldsSmbBankingAccessChecklist,
 }: CashBankingAccessType) {
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">Banking</div>
       <SavingAccount
+        checkAllFieldsSavingAccount={checkAllFieldsSmbBankingAccessChecklist}
         smbSavingAccount={smbSavingAccount}
         setSmbSavingAccount={setSmbSavingAccount}
         smbSavingAccountErrors={smbCashBankingAccessErrors}
       />
       <AccessSavingAccount
+        checkAllFieldsAccessSavingAccount={
+          checkAllFieldsSmbBankingAccessChecklist
+        }
         smbAccessSavingAccount={smbAccessSavingAccount}
         setSmbAccessSavingAccount={setSmbAccessSavingAccount}
       />
       <div className="text-[18px] font-medium py-2 w-full">Credit Card</div>
       <AddCards
+        checkAllFieldsAddCards={checkAllFieldsSmbBankingAccessChecklist}
         smbAddCards={smbAddCards}
         setSmbAddCards={setSmbAddCards}
         smbAddCardsErrors={smbCashBankingAccessErrors}
       />
       <AccessCreditCardPortal
+        checkAllFieldsAccessCreditCardPortal={
+          checkAllFieldsSmbBankingAccessChecklist
+        }
         smbAccessCreditCardPortal={smbAccessCreditCardPortal}
         setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
       />
       <div className="text-[18px] font-medium py-2 w-full">Loan/LOC</div>
       <AccessLoanAccount
+        checkAllFieldsAccessLoanAccount={
+          checkAllFieldsSmbBankingAccessChecklist
+        }
         smbAccessLoanAccount={smbAccessLoanAccount}
         setSmbAccessLoanAccount={setSmbAccessLoanAccount}
       />
@@ -73,8 +87,10 @@ const SavingAccount = ({
   smbSavingAccount,
   setSmbSavingAccount,
   smbSavingAccountErrors,
+  checkAllFieldsSavingAccount,
 }: SavingAccountTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleSavingAccountChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -89,7 +105,8 @@ const SavingAccount = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No of Checking & Saving Accounts<span className="text-[#DC3545]">*</span>
+        No of Checking & Saving Accounts
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -114,6 +131,7 @@ const SavingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingAccount}
               />
             </div>
           </Grid>
@@ -138,6 +156,7 @@ const SavingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingAccount}
               />
             </div>
           </Grid>
@@ -164,6 +183,7 @@ const SavingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSavingAccount}
               />
             </div>
           </Grid>
@@ -176,8 +196,10 @@ const SavingAccount = ({
 const AccessSavingAccount = ({
   smbAccessSavingAccount,
   setSmbAccessSavingAccount,
+  checkAllFieldsAccessSavingAccount,
 }: AccessSavingAccountTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAccessSavingAccountChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -215,6 +237,7 @@ const AccessSavingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
               />
             </div>
           </Grid>
@@ -237,6 +260,7 @@ const AccessSavingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
               />
             </div>
           </Grid>
@@ -261,6 +285,7 @@ const AccessSavingAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
               />
             </div>
           </Grid>
@@ -274,8 +299,10 @@ const AddCards = ({
   smbAddCards,
   setSmbAddCards,
   smbAddCardsErrors,
+  checkAllFieldsAddCards,
 }: AddCardsTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAccessCardsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -288,7 +315,8 @@ const AddCards = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No Credit/Debit Cards Any add on Cards<span className="text-[#DC3545]">*</span>
+        No Credit/Debit Cards Any add on Cards
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -313,6 +341,7 @@ const AddCards = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAddCards}
               />
             </div>
           </Grid>
@@ -337,6 +366,7 @@ const AddCards = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAddCards}
               />
             </div>
           </Grid>
@@ -363,6 +393,7 @@ const AddCards = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAddCards}
               />
             </div>
           </Grid>
@@ -375,8 +406,10 @@ const AddCards = ({
 const AccessLoanAccount = ({
   smbAccessLoanAccount,
   setSmbAccessLoanAccount,
+  checkAllFieldsAccessLoanAccount,
 }: AccessLoanAccountTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAccessLoanAccountChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -414,6 +447,7 @@ const AccessLoanAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
               />
             </div>
           </Grid>
@@ -436,6 +470,7 @@ const AccessLoanAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
               />
             </div>
           </Grid>
@@ -460,6 +495,7 @@ const AccessLoanAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
               />
             </div>
           </Grid>
@@ -472,8 +508,10 @@ const AccessLoanAccount = ({
 const AccessCreditCardPortal = ({
   smbAccessCreditCardPortal,
   setSmbAccessCreditCardPortal,
+  checkAllFieldsAccessCreditCardPortal,
 }: AccessCreditCardPortalTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleAccessCreditCardChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -511,6 +549,7 @@ const AccessCreditCardPortal = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
               />
             </div>
           </Grid>
@@ -533,6 +572,7 @@ const AccessCreditCardPortal = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
               />
             </div>
           </Grid>
@@ -559,6 +599,7 @@ const AccessCreditCardPortal = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
               />
             </div>
           </Grid>

@@ -303,6 +303,9 @@ function ChecklistSmb({
   const [meetingAvailabilityChecked, setMeetingAvailabilityChecked] =
     useState<boolean>(true);
 
+  const [finalCheckAllFieldsSmbChecklist, setFinalCheckAllFieldsSmbChecklist] =
+    useState<boolean>(false);
+
   useEffect(() => {
     if (formDetails) {
       const fieldMap: { [key: string]: FieldMapEntry } = {
@@ -676,9 +679,16 @@ function ChecklistSmb({
 
   const handleAccordianChange =
     (arg1: number) =>
-      (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
-        setExpandedAccordian(isExpanded ? arg1 : -1);
-      };
+    (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
+      setExpandedAccordian(isExpanded ? arg1 : -1);
+    };
+
+  useEffect(() => {
+    const counts = smbChecklistStatus();
+    if (counts === 100 && roleId === "4" && finalCheckAllFieldsSmbChecklist) {
+      setFinalCheckAllFieldsSmbChecklist(true);
+    }
+  }, [finalCheckAllFieldsSmbChecklist]);
 
   const validateSmbPeopleBusiness = () => {
     const newPeopleBuinessErrors: { [key: string]: string } = {};
@@ -1201,7 +1211,7 @@ function ChecklistSmb({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          getFormDetials()
+          getFormDetials();
           type === 1 && setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
@@ -1232,6 +1242,10 @@ function ChecklistSmb({
       !isMeetingChecklistValid;
     if (type === 1) {
       if (isValid) {
+        const perCount = smbChecklistStatus();
+        if (perCount === 100 && roleId === "4") {
+          setFinalCheckAllFieldsSmbChecklist(true);
+        }
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
           userId: !!clientInfo?.UserId
             ? parseInt(clientInfo?.UserId)
@@ -1240,7 +1254,7 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
-          progress: progressCounts
+          progress: progressCounts,
         });
       } else {
         showToast(
@@ -1256,12 +1270,17 @@ function ChecklistSmb({
         conditionExistingFinancialsChecked ||
         meetingAvailabilityChecked;
       if (roleId === "4" ? isValidStatus : true) {
+        const perCount = smbChecklistStatus();
+        if (perCount === 100) {
+          setFinalCheckAllFieldsSmbChecklist(false);
+        }
         if (!isValid) {
           showToast(
             "Mandatory information is not provided. Please fill in to submit the form.",
             ToastType.Warning
           );
         }
+
         handleRemoveErrors();
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
           userId: !!clientInfo?.UserId
@@ -1271,7 +1290,7 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
-          progress: progressCounts
+          progress: progressCounts,
         });
       }
     }
@@ -1477,10 +1496,15 @@ function ChecklistSmb({
       errorStatus: smbPeopleBusinessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 1),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.COMMUNICATION),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.COMMUNICATION
+      ),
       title: "People and Business",
       component: (
         <SmbPeopleBusinessChecklist
+          checkAllFieldsSmbPeopleBusinessChecklist={
+            finalCheckAllFieldsSmbChecklist
+          }
           smbPeopleBusinessErrors={smbPeopleBusinessErrors}
           smbClientName={smbClientName}
           setSmbClientName={setSmbClientName}
@@ -1513,12 +1537,18 @@ function ChecklistSmb({
       id: 2,
       checkStatus: systemDocumentAccessChecked,
       errorStatus: smbSystemDocumentAccessHasErrors,
-      expandedStatus: expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
+      expandedStatus:
+        expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
+      ),
       title: "System & Document Information & Access",
       component: (
         <SmbSystemAccessChecklist
+          checkAllFieldsSmbSystemAccessChecklist={
+            finalCheckAllFieldsSmbChecklist
+          }
           smbSystemAccessChecklistErrors={smbSystemDocumentAccessErrors}
           smbPABSGroupEmail={smbPABSGroupEmail}
           setSmbPABSGroupEmail={setSmbPABSGroupEmail}
@@ -1551,10 +1581,15 @@ function ChecklistSmb({
       errorStatus: smbCashBankingAccessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 3),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.CASH_BANKING_LOANS),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.CASH_BANKING_LOANS
+      ),
       title: "Cash & Banking Information & Access",
       component: (
         <SmbBankingAccessChecklist
+          checkAllFieldsSmbBankingAccessChecklist={
+            finalCheckAllFieldsSmbChecklist
+          }
           smbCashBankingAccessErrors={smbCashBankingAccessErrors}
           smbSavingAccount={smbSavingAccount}
           setSmbSavingAccount={setSmbSavingAccount}
@@ -1577,11 +1612,18 @@ function ChecklistSmb({
       errorStatus: smbExistingFinancialsChecklistHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 4),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.PAYROLL_SYSTEM),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.PAYROLL_SYSTEM
+      ),
       title: "Condition of Existing Financials",
       component: (
         <SmbExistingFinancialsChecklist
-          smbExistingFinancialsChecklistErrors={smbExistingFinancialsChecklistErrors}
+          checkAllFieldsSmbExistingFinancialsChecklist={
+            finalCheckAllFieldsSmbChecklist
+          }
+          smbExistingFinancialsChecklistErrors={
+            smbExistingFinancialsChecklistErrors
+          }
           smbLiveDate={smbLiveDate}
           setSmbLiveDate={setSmbLiveDate}
           smbAccountingMethod={smbAccountingMethod}
@@ -1611,6 +1653,7 @@ function ChecklistSmb({
       title: "Meeting Availability",
       component: (
         <SmbMeetingChecklist
+          checkAllFieldsSmbMeetingChecklist={finalCheckAllFieldsSmbChecklist}
           smbMeetingChecklistErrors={smbMeetingChecklistErrors}
           smbTimeZone={smbTimeZone}
           setSmbTimeZone={setSmbTimeZone}
@@ -1623,21 +1666,24 @@ function ChecklistSmb({
     },
   ];
 
-  const enabledPhases = phases.filter(phase => roleId === "4" ? phase.checkStatus : true);
+  const enabledPhases = phases.filter((phase) =>
+    roleId === "4" ? phase.checkStatus : true
+  );
   const updatedPhases = enabledPhases.map((phase, index) => ({
     ...phase,
-    phaseNumber: index + 1
+    phaseNumber: index + 1,
   }));
 
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
-            {updatedPhases.map(phase => (
+            {updatedPhases.map((phase) => (
               <ChecklistAccordian
                 key={phase.id}
                 handleSwitchChange={phase.handleSwitchChange}
@@ -1675,14 +1721,18 @@ function ChecklistSmb({
               Cancel
             </Button>
           )}
-          <Button
-            onClick={() => handleSubmit(2)}
-            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-            variant="outlined"
-          >
-            Save
-          </Button>
-          {roleId === "4" && (
+          {(roleId === "4"
+            ? !finalCheckAllFieldsSmbChecklist
+            : true) && (
+                <Button
+                  onClick={() => handleSubmit(2)}
+                  className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                  variant="outlined"
+                >
+                  Save
+                </Button>
+              )}
+          {roleId === "4" && !finalCheckAllFieldsSmbChecklist && (
             <Button
               onClick={() => handleSubmit(1)}
               className={`!bg-[#022946] text-white !rounded-full`}

@@ -13,6 +13,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function SmbMeetingChecklist({
   className,
@@ -22,26 +24,43 @@ function SmbMeetingChecklist({
   smbConvenient,
   setSmbConvenient,
   smbTimeSlot,
-  setSmbTimeSlot
+  setSmbTimeSlot,
+  checkAllFieldsSmbMeetingChecklist,
 }: MeetingChecklistType) {
   return (
     <div className={`${className}`}>
-      <TimeZone smbTimeZone={smbTimeZone} setSmbTimeZone={setSmbTimeZone} smbTimeZoneErrors={smbMeetingChecklistErrors} />
+      <TimeZone
+        checkAllFieldsTimeZone={checkAllFieldsSmbMeetingChecklist}
+        smbTimeZone={smbTimeZone}
+        setSmbTimeZone={setSmbTimeZone}
+        smbTimeZoneErrors={smbMeetingChecklistErrors}
+      />
       <Convenient
+        checkAllFieldsConvenient={checkAllFieldsSmbMeetingChecklist}
         smbConvenient={smbConvenient}
         setSmbConvenient={setSmbConvenient}
         smbConvenientErrors={smbMeetingChecklistErrors}
       />
-      <TimeSlot smbTimeSlot={smbTimeSlot} setSmbTimeSlot={setSmbTimeSlot}
-        smbTimeSlotErrors={smbMeetingChecklistErrors} />
+      <TimeSlot
+        checkAllFieldsTimeSlot={checkAllFieldsSmbMeetingChecklist}
+        smbTimeSlot={smbTimeSlot}
+        setSmbTimeSlot={setSmbTimeSlot}
+        smbTimeSlotErrors={smbMeetingChecklistErrors}
+      />
     </div>
   );
 }
 
 export default SmbMeetingChecklist;
 
-const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTypes) => {
+const TimeZone = ({
+  smbTimeZone,
+  setSmbTimeZone,
+  smbTimeZoneErrors,
+  checkAllFieldsTimeZone
+}: TimeZoneTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleTimeZoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -79,6 +98,7 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTyp
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTimeZone}
               />
             </div>
           </Grid>
@@ -103,6 +123,7 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTyp
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTimeZone}
               />
             </div>
           </Grid>
@@ -129,6 +150,7 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTyp
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTimeZone}
               />
             </div>
           </Grid>
@@ -138,8 +160,14 @@ const TimeZone = ({ smbTimeZone, setSmbTimeZone,smbTimeZoneErrors }: TimeZoneTyp
   );
 };
 
-const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: ConvenientTypes) => {
+const Convenient = ({
+  smbConvenient,
+  setSmbConvenient,
+  smbConvenientErrors,
+  checkAllFieldsConvenient
+}: ConvenientTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleConvenientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -177,6 +205,7 @@ const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: Con
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsConvenient}
               />
             </div>
           </Grid>
@@ -201,6 +230,7 @@ const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: Con
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsConvenient}
               />
             </div>
           </Grid>
@@ -227,6 +257,7 @@ const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: Con
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsConvenient}
               />
             </div>
           </Grid>
@@ -236,8 +267,14 @@ const Convenient = ({ smbConvenient, setSmbConvenient,smbConvenientErrors }: Con
   );
 };
 
-const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTypes) => {
+const TimeSlot = ({
+  smbTimeSlot,
+  setSmbTimeSlot,
+  smbTimeSlotErrors,
+  checkAllFieldsTimeSlot
+}: TimeSlotTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleTimeSlotChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -275,6 +312,7 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTyp
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTimeSlot}
               />
             </div>
           </Grid>
@@ -299,6 +337,7 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTyp
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTimeSlot}
               />
             </div>
           </Grid>
@@ -325,6 +364,7 @@ const TimeSlot = ({ smbTimeSlot, setSmbTimeSlot,smbTimeSlotErrors }: TimeSlotTyp
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTimeSlot}
               />
             </div>
           </Grid>

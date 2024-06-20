@@ -4,15 +4,19 @@ import { TextField } from "@mui/material";
 import { useStyles } from "@/utils/useStyles";
 import { PabsAccountingTeamTypes } from "@/models/autoCareBasicDetails";
 import { validateNumber } from "@/utils/validate";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCarePabsAccountingTeam({
   className,
   pabsAccountingTeamCheckStatus,
   autoCarePabsAccountingTeam,
   setAutoCarePabsAccountingTeam,
-  handlePabsAccountingTeamSwitch
+  handlePabsAccountingTeamSwitch,
+  finalCheckAllFieldsPabsAccountingTeam
 }: PabsAccountingTeamTypes) {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,6 +71,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col ">
@@ -89,6 +94,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -111,6 +117,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -133,6 +140,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
 
@@ -156,6 +164,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col ">
@@ -178,6 +187,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col ">
@@ -198,6 +208,7 @@ function AutoCarePabsAccountingTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
             />
           </div>
         </div>

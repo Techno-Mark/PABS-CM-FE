@@ -570,7 +570,7 @@ const ClientDrawer = ({
         {imagePreview && (
           <div className="flex flex-col pb-5">
             <div className="p-4 border border-[#6e6d7aad] rounded-md flex gap-2 items-center justify-between">
-              <img className="w-40 h-14" src={imagePreview} alt="Preview" />
+              <img className="w-16 h-14" src={imagePreview} alt="Preview" />
               <span
                 className="cursor-pointer"
                 onClick={() => {
