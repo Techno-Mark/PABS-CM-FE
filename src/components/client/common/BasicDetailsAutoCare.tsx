@@ -22,6 +22,7 @@ import {
 import {
   StateList,
   TimeZoneList,
+  WeeklyCallsList,
   fieldDisplayNamesAccountDetails,
   fieldDisplayNamesClientTeam,
   fieldDisplayNamesLegalStructure,
@@ -47,7 +48,8 @@ function BasicDetailsAutoCare({
   setBasicDetailCount,
   setBasicDetailsFormSubmit,
   setIsOpenModal,
-  autoCareProgressPercentage
+  autoCareProgressPercentage,
+  setCheckAllFields
 }: AutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -92,61 +94,60 @@ function BasicDetailsAutoCare({
           return;
         case "success":
           if (!!ResponseData) {
-            setAccountDetailsCheckStatus(ResponseData.accountDetailsIsDisplay);
-            setLegalStructureCheckStatus(ResponseData.legalStructureIsDisplay);
-            setClientTeamCheckStatus(ResponseData.cpaClientTeamIsDisplay);
+            setAccountDetailsCheckStatus(ResponseData?.accountDetailsIsDisplay ?? true);
+            setLegalStructureCheckStatus(ResponseData?.legalStructureIsDisplay ?? true);
+            setClientTeamCheckStatus(ResponseData?.cpaClientTeamIsDisplay ?? true);
             setPabsAccountingTeamCheckStatus(
-              ResponseData.pabsAccountingTeamIsDisplay
+              ResponseData?.pabsAccountingTeamIsDisplay ?? true
             );
             setAutoCareAccountDetails({
-              accountName: ResponseData.accountName,
-              businessType: ResponseData.businessTypeName,
-              service: ResponseData.service,
-              corporateAddress: ResponseData.corporateAddress,
-              noOfLocations: ResponseData.noOfLocations,
-              nameOfLocations: ResponseData.nameOfLocations,
-              ownerContact: ResponseData.ownerContact,
-              ownerEmail: ResponseData.ownerEmail,
-              ownerPhone: ResponseData.ownerPhone,
+              accountName: ResponseData?.accountName,
+              businessType: ResponseData?.businessTypeName,
+              service: ResponseData?.service,
+              corporateAddress: ResponseData?.corporateAddress,
+              noOfLocations: ResponseData?.noOfLocations,
+              nameOfLocations: ResponseData?.nameOfLocations,
+              ownerContact: ResponseData?.ownerContact,
+              ownerEmail: ResponseData?.ownerEmail,
+              ownerPhone: ResponseData?.ownerPhone,
             });
             setAutoCareLegalStructure({
-              no_of_Entities: ResponseData.noOfEntities,
-              no_of_Shops: ResponseData.noOfShops,
-              salesRep: ResponseData.salesRep,
-              agreementDate: dayjs(ResponseData.agreementDate).format(
-                "DD MMM YYYY"
-              ),
-              probableAcquitionDate: dayjs(
-                ResponseData.probableAcquisitionDate
-              ).format("DD MMM YYYY"),
-              dba: ResponseData.dba,
+              no_of_Entities: ResponseData?.noOfEntities,
+              no_of_Shops: ResponseData?.noOfShops,
+              salesRep: ResponseData?.salesRep,
+              agreementDate: ResponseData?.agreementDate ? dayjs(ResponseData?.agreementDate).format("DD MMM YYYY") : null,
+              probableAcquitionDate: ResponseData?.probableAcquisitionDate ? dayjs(
+                ResponseData?.probableAcquisitionDate
+              ).format("DD MMM YYYY") : null,
+              dba: ResponseData?.dba,
             });
             setAutoCareClientTeam({
-              shopManager: ResponseData.shopManager,
-              poc1: ResponseData.poc1,
-              email: ResponseData.emailId,
-              cpa: ResponseData.cpa,
-              priorBookkeeper: ResponseData.priorBookkeeper,
-              itSupport: ResponseData.itSupport,
-              timeZone:
-                TimeZoneList.find(
-                  (time) => time.label === ResponseData?.timeZone
-                )?.value || "-1",
-              state:
-                StateList.find((state) => state.label === ResponseData?.state)
-                  ?.value || "-1",
-              weeklyCalls: ResponseData?.weeklyCalls,
-              weeklyCallTime: ResponseData.weeklyCallTime,
-              istTime: ResponseData.istTime,
+              shopManager: ResponseData?.shopManager,
+              poc1: ResponseData?.poc1,
+              email: ResponseData?.emailId,
+              cpa: ResponseData?.cpa,
+              priorBookkeeper: ResponseData?.priorBookkeeper,
+              itSupport: ResponseData?.itSupport,
+              timeZone: ResponseData?.timeZone && ResponseData?.timeZone !== '-1'
+                ? TimeZoneList.find((time) => time.label === ResponseData?.timeZone)?.value || '-1'
+                : '-1',
+              state: ResponseData?.state
+                ? StateList.find((state) => state.label === ResponseData?.state)?.value || '-1'
+                : '-1',
+              weeklyCalls: ResponseData?.weeklyCalls && ResponseData?.weeklyCalls !== '-1'
+                ? ResponseData?.weeklyCalls || '-1'
+                : '-1',
+              weeklyCallTime: ResponseData?.weeklyCallTime,
+              istTime: ResponseData?.istTime,
             });
             setAutoCarePabsAccountingTeam({
-              implementationManager: ResponseData.implementationManager,
-              implementationAnalyst: ResponseData.implementationAnalyst,
-              operationsHead: ResponseData.operationsHead,
-              operationsManager: ResponseData.operationsManager,
-              operationsAccountHolder: ResponseData.operationsAccountHandler,
-              pabsGroupEmail: ResponseData.pabsGroupEmail,
-              pabsPhone: ResponseData.pabsPhone,
+              implementationManager: ResponseData?.implementationManager,
+              implementationAnalyst: ResponseData?.implementationAnalyst,
+              operationsHead: ResponseData?.operationsHead,
+              operationsManager: ResponseData?.operationsManager,
+              operationsAccountHolder: ResponseData?.operationsAccountHandler,
+              pabsGroupEmail: ResponseData?.pabsGroupEmail,
+              pabsPhone: ResponseData?.pabsPhone,
             });
           }
           return;
@@ -308,7 +309,7 @@ function BasicDetailsAutoCare({
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
         (!!autoCareClientTeam[field] &&
-          autoCareClientTeam["weeklyCalls"] !== "-1") ||
+          autoCareClientTeam[field] !== "-1") ||
         !!autoCarePabsAccountingTeam[field]
       ) {
         count++;
@@ -335,6 +336,7 @@ function BasicDetailsAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          getAutoCareBasicDetailsList()
           type === 1 && setBasicDetailsFormSubmit(32);
           showToast(Message, ToastType.Success);
           return;
@@ -359,8 +361,8 @@ function BasicDetailsAutoCare({
       noOfEntities: parseInt(autoCareLegalStructure.no_of_Entities),
       noOfShops: parseInt(autoCareLegalStructure.no_of_Shops),
       salesRep: autoCareLegalStructure.salesRep,
-      agreementDate: autoCareLegalStructure.agreementDate,
-      probableAcquisitionDate: autoCareLegalStructure.probableAcquitionDate,
+      agreementDate: autoCareLegalStructure.agreementDate ?? null,
+      probableAcquisitionDate: autoCareLegalStructure.probableAcquitionDate ?? null,
       dba: autoCareLegalStructure.dba,
       shopManager: autoCareClientTeam.shopManager,
       poc1: autoCareClientTeam.poc1,
@@ -368,11 +370,11 @@ function BasicDetailsAutoCare({
       cpa: autoCareClientTeam.cpa,
       priorBookkeeper: autoCareClientTeam.priorBookkeeper,
       itSupport: autoCareClientTeam.itSupport,
-      timeZone: TimeZoneList.find(
+      timeZone: autoCareClientTeam.timeZone !== '-1' ? TimeZoneList.find(
         (time) => time.value === autoCareClientTeam.timeZone
-      )?.label,
-      state: StateList.find((state) => state.value === autoCareClientTeam.state)
-        ?.label,
+      )?.label : "",
+      state: autoCareClientTeam.state !== '-1' ? StateList.find((state) => state.value === autoCareClientTeam.state)
+        ?.label : "",
       weeklyCalls: autoCareClientTeam.weeklyCalls,
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
@@ -384,22 +386,22 @@ function BasicDetailsAutoCare({
         autoCarePabsAccountingTeam.operationsAccountHolder,
       pabsGroupEmail: autoCarePabsAccountingTeam.pabsGroupEmail,
       pabsPhone: autoCarePabsAccountingTeam.pabsPhone,
-      progress:autoCareProgressPercentage
+      progress: autoCareProgressPercentage
     };
+    const isValidAccountDetails = accountDetailsCheckStatus
+      ? validateCarCareAccountDetails()
+      : false;
+    const isValidLegalStructure = legalStructureCheckStatus
+      ? validateCarCareLegalStructure()
+      : false;
+    const isValidClientTeam = clientTeamCheckStatus
+      ? validateCarCareClientTeam()
+      : false;
+
+    const isValid =
+      !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
     if (type === 1) {
-      const isValidAccountDetails = accountDetailsCheckStatus
-        ? validateCarCareAccountDetails()
-        : false;
-      const isValidLegalStructure = legalStructureCheckStatus
-        ? validateCarCareLegalStructure()
-        : false;
-      const isValidClientTeam = clientTeamCheckStatus
-        ? validateCarCareClientTeam()
-        : false;
-
-      const isValid =
-        !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
-
+      roleId === '4' && setCheckAllFields(!isValid)
       const filledFieldsCount = basicDetailStatus();
       setBasicDetailCount(filledFieldsCount);
       callAPIwithHeaders(
@@ -413,7 +415,6 @@ function BasicDetailsAutoCare({
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
         );
-        setBasicDetailCount(filledFieldsCount);
       }
     } else if (type === 2) {
       const isValidStatus =
@@ -422,10 +423,12 @@ function BasicDetailsAutoCare({
         clientTeamCheckStatus ||
         pabsAccountingTeamCheckStatus;
       if (roleId === "4" ? isValidStatus : true) {
-        showToast(
-          "Mandatory information is not provided. Please fill in to submit the form.",
-          ToastType.Warning
-        );
+        if (!isValid) {
+          showToast(
+            "Mandatory information is not provided. Please fill in to submit the form.",
+            ToastType.Warning
+          );
+        }
         const filledFieldsCount = basicDetailStatus();
         setBasicDetailCount(filledFieldsCount);
         handleBasicDetailRemoveErrors();
@@ -499,9 +502,8 @@ function BasicDetailsAutoCare({
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">

@@ -107,7 +107,8 @@ function ChecklistAutoCare({
   setChecklistCount,
   setChecklistFormSubmit,
   setIsOpenModal,
-  autoCareProgressPercentage
+  autoCareProgressPercentage,
+  checkAllBasicDetails
 }: ChecklistType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -455,20 +456,20 @@ function ChecklistAutoCare({
         case "success":
           if (!!ResponseData) {
             setCommunicationChecked(
-              ResponseData.phase1CommunicationIsDisplay ?? true
+              ResponseData?.phase1CommunicationIsDisplay ?? true
             );
             setSystemSoftwareLocationsChecked(
-              ResponseData.phase2SystemIsDisplay ?? true
+              ResponseData?.phase2SystemIsDisplay ?? true
             );
-            setCashBankLoansChecked(ResponseData.phase3CashIsDisplay ?? true);
+            setCashBankLoansChecked(ResponseData?.phase3CashIsDisplay ?? true);
             setPayrollSystemChecked(
-              ResponseData.phase4PayrollIsDisplay ?? true
+              ResponseData?.phase4PayrollIsDisplay ?? true
             );
             setCompliancesChecked(
-              ResponseData.phase5CompliancesIsDisplay ?? true
+              ResponseData?.phase5CompliancesIsDisplay ?? true
             );
-            setAccessChecked(ResponseData.phase6ApPayableIsDisplay ?? true);
-            setFinancialsChecked(ResponseData.phase7StatusIsDisplay ?? true);
+            setAccessChecked(ResponseData?.phase6ApPayableIsDisplay ?? true);
+            setFinancialsChecked(ResponseData?.phase7StatusIsDisplay ?? true);
             ResponseData.checkList.forEach(
               (checklistItem: PhaseFormResponseDataType) => {
                 switch (checklistItem.fieldName) {
@@ -799,6 +800,7 @@ function ChecklistAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          getAutoCareChecklistData()
           showToast(Message, ToastType.Success);
           return;
       }
@@ -1073,45 +1075,50 @@ function ChecklistAutoCare({
           actionsOfClient: autoCaregp_gmnp_nm.gp_gmnp_nmActionItems,
         },
       ],
-      progress:autoCareProgressPercentage
+      progress: autoCareProgressPercentage
     };
+    const isFinancialsValid = financialsChecked
+      ? validateAutoCareFinancials()
+      : false;
+    const isPayableCashPayAccessValid = accessChecked
+      ? validateAutoCarePayableCashPayAccess()
+      : false;
+    const isCompliancesValid = compliancesChecked
+      ? validateAutoCareCompliances()
+      : false;
+    const isFrequencyValid = payrollSystemChecked
+      ? validateAutoCareFrequency()
+      : false;
+    const isSystemSoftwareLocationValid = systemSoftwareLocationsChecked
+      ? validateAutoCareSystemSoftwareLocation()
+      : false;
+    const isCashBankLoansValid = cashBankLoansChecked
+      ? validateAutoCareCashBankLoans()
+      : false;
+
+    const isValid =
+      !isFinancialsValid &&
+      !isPayableCashPayAccessValid &&
+      !isCompliancesValid &&
+      !isFrequencyValid &&
+      !isSystemSoftwareLocationValid &&
+      !isCashBankLoansValid;
     if (type === 1) {
-      const isFinancialsValid = financialsChecked
-        ? validateAutoCareFinancials()
-        : false;
-      const isPayableCashPayAccessValid = accessChecked
-        ? validateAutoCarePayableCashPayAccess()
-        : false;
-      const isCompliancesValid = compliancesChecked
-        ? validateAutoCareCompliances()
-        : false;
-      const isFrequencyValid = payrollSystemChecked
-        ? validateAutoCareFrequency()
-        : false;
-      const isSystemSoftwareLocationValid = systemSoftwareLocationsChecked
-        ? validateAutoCareSystemSoftwareLocation()
-        : false;
-      const isCashBankLoansValid = cashBankLoansChecked
-        ? validateAutoCareCashBankLoans()
-        : false;
 
-      const isValid =
-        !isFinancialsValid &&
-        !isPayableCashPayAccessValid &&
-        !isCompliancesValid &&
-        !isFrequencyValid &&
-        !isSystemSoftwareLocationValid &&
-        !isCashBankLoansValid;
+      if (checkAllBasicDetails && roleId === '4') {
+        setChecklistFormSubmit(31)
+      }
 
-      const filledFieldsCount = checklistStatus();
-      setChecklistCount(filledFieldsCount);
-      callAPIwithHeaders(
-        onboardingSaveFormUrl,
-        "post",
-        callback,
-        checklistFormData
-      );
-      if (!isValid) {
+      if (isValid && !checkAllBasicDetails) {
+        const filledFieldsCount = checklistStatus();
+        setChecklistCount(filledFieldsCount);
+        callAPIwithHeaders(
+          onboardingSaveFormUrl,
+          "post",
+          callback,
+          checklistFormData
+        );
+      } else {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -1126,10 +1133,12 @@ function ChecklistAutoCare({
         systemSoftwareLocationsChecked ||
         cashBankLoansChecked;
       if (roleId === "4" ? isValidStatus : true) {
-        showToast(
-          "Mandatory information is not provided. Please fill in to submit the form.",
-          ToastType.Warning
-        );
+        if (!isValid) {
+          showToast(
+            "Mandatory information is not provided. Please fill in to submit the form.",
+            ToastType.Warning
+          );
+        }
         const filledFieldsCount = checklistStatus();
         setChecklistCount(filledFieldsCount);
         handleChecklistRemoveErrors();
@@ -1396,242 +1405,218 @@ function ChecklistAutoCare({
 
     return percentage;
   };
+  
+  const phases = [
+    {
+      id: 1,
+      checkStatus: communicationChecked,
+      expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 1),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.COMMUNICATION),
+      title: "Communication",
+      component: (
+        <AutoCareCommmunicationChecklist
+          autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
+          setAutoCareGroupEmailEstablished={
+            setAutoCareGroupEmailEstablished
+          }
+          autoCarePreKickOff={autoCarePreKickOff}
+          setAutoCarePreKickOff={setAutoCarePreKickOff}
+          autoCareKickOff={autoCareKickOff}
+          setAutoCareKickOff={setAutoCareKickOff}
+        />
+      ),
+    },
+    {
+      id: 2,
+      checkStatus: systemSoftwareLocationsChecked,
+      errorStatus: autoCareSystemSoftwareHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS),
+      title: "System, Software Locations",
+      component: (
+        <AutoCareSystemLocationChecklist
+          systemSoftwareLocationErrors={
+            autoCareSystemSoftwareLocationErrors
+          }
+          autoCareITStructureReview={autoCareITStructureReview}
+          setAutoCareITStructureReview={setAutoCareITStructureReview}
+          autoCareAccessComputerMethod={autoCareAccessComputerMethod}
+          setAutoCareAccessComputerMethod={
+            setAutoCareAccessComputerMethod
+          }
+          autoCarePosSoftware={autoCarePosSoftware}
+          setAutoCarePosSoftware={setAutoCarePosSoftware}
+          autoCareEstimatingSoftware={autoCareEstimatingSoftware}
+          setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
+          autoCareAccountingSoftware={autoCareAccountingSoftware}
+          setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
+          autoCareCloudDocumentManagement={
+            autoCareCloudDocumentManagement
+          }
+          setAutoCareCloudDocumentManagement={
+            setAutoCareCloudDocumentManagement
+          }
+          autoCareScanner={autoCareScanner}
+          setAutoCareScanner={setAutoCareScanner}
+        />
+      ),
+    },
+    {
+      id: 3,
+      checkStatus: cashBankLoansChecked,
+      errorStatus: autoCareCashBankingLoansHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 3),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.CASH_BANKING_LOANS),
+      title: "Cash and Banking & Loans",
+      component: (
+        <AutoCareCashBankLoans
+          cashBankLoansErrors={autoCareCashbankLoansErrors}
+          autoCareOperatingCheckingAccount={
+            autoCareOperatingCheckingAccount
+          }
+          setAutoCareOperatingCheckingAccount={
+            setAutoCareOperatingCheckingAccount
+          }
+          autoCareSavingsAccount={autoCareSavingsAccount}
+          setAutoCareSavingsAccount={setAutoCareSavingsAccount}
+          autoCareCreditCard={autoCareCreditCard}
+          setAutoCareCreditCard={setAutoCareCreditCard}
+          autoCareBusinessLoans={autoCareBusinessLoans}
+          setAutoCareBusinessLoans={setAutoCareBusinessLoans}
+          autoCarePropertyLoans={autoCarePropertyLoans}
+          setAutoCarePropertyLoans={setAutoCarePropertyLoans}
+        />
+      ),
+    },
+    {
+      id: 4,
+      checkStatus: payrollSystemChecked,
+      errorStatus: autoCarePayrollServiceProviderHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 4),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.PAYROLL_SYSTEM),
+      title: "Payroll System",
+      component: (
+        <AutoCarePayrollSystem
+          payrollSystemError={autoCareFrequencyErrors}
+          autoCarePayrollServiceProvider={
+            autoCarePayrollServiceProvider
+          }
+          setAutoCarePayrollServiceProvider={
+            setAutoCarePayrollServiceProvider
+          }
+          autoCareFrequency={autoCareFrequency}
+          setAutoCareFrequency={setAutoCareFrequency}
+          autoCareNoOfEmployee={autoCareNoOfEmployee}
+          setAutoCareNoOfEmployee={setAutoCareNoOfEmployee}
+        />
+      ),
+    },
+    {
+      id: 5,
+      checkStatus: compliancesChecked,
+      errorStatus: autoCareComplaincesHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.COMPLIANCES,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 5),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.COMPLIANCES),
+      title: "Compliances",
+      component: (
+        <AutoCareCompliances
+          compliancesErrors={autoCareCompliancesErrors}
+          autoCareSalesTaxAccessWorkPaper={
+            autoCareSalesTaxAccessWorkPaper
+          }
+          setAutoCareSalesTaxAccessWorkPaper={
+            setAutoCareSalesTaxAccessWorkPaper
+          }
+          autoCareUseTax={autoCareUseTax}
+          setAutoCareUseTax={setAutoCareUseTax}
+          autoCareTireTax={autoCareTireTax}
+          setAutoCareTireTax={setAutoCareTireTax}
+          autoCareLastTaxReturnFiledYear={
+            autoCareLastTaxReturnFiledYear
+          }
+          setAutoCareLastTaxReturnFiledYear={
+            setAutoCareLastTaxReturnFiledYear
+          }
+        />
+      ),
+    },
+    {
+      id: 6,
+      checkStatus: accessChecked,
+      errorStatus: autoCareAccessHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.AP,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 6),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.AP),
+      title: "AP - Payable Cash Payment Access",
+      component: (
+        <AutoCarePayableCashPayAccess
+          payableCashPayAccessError={autoCarePayableCashPayAccessErrors}
+          autoCareVendorPortalAccess={autoCareVendorPortalAccess}
+          setAutoCareVendorPortalAccess={setAutoCareVendorPortalAccess}
+          autoCareTradeAccount={autoCareTradeAccount}
+          setAutoCareTradeAccount={setAutoCareTradeAccount}
+          autoCareBillPayAccess={autoCareBillPayAccess}
+          setAutoCareBillPayAccess={setAutoCareBillPayAccess}
+          autoCareApThresholdLimit={autoCareApThresholdLimit}
+          setAutoCareApThresholdLimit={setAutoCareApThresholdLimit}
+        />
+      ),
+    },
+    {
+      id: 7,
+      checkStatus: financialsChecked,
+      errorStatus: autoCareFinancialsHasErrors,
+      expandedStatus: expandedAccordian === AccordianExpand.STATUS_CONDITION_FINANCIALS,
+      handleSwitchChange: (e: any) => handleSwitchChange(e, 7),
+      handleAccordianChange: handleAccordianChange(AccordianExpand.STATUS_CONDITION_FINANCIALS),
+      title: "Status and Condition of Existing Financials",
+      component: (
+        <AutoCareFinancials
+          financialsErrors={autoCareFinancialsErrors}
+          autoCareSharingFinancials={autoCareSharingFinancials}
+          setAutoCareSharingFinancials={setAutoCareSharingFinancials}
+          autoCareLastClosedPeriod={autoCareLastClosedPeriod}
+          setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
+          autoCaregp_gmnp_nm={autoCaregp_gmnp_nm}
+          setAutoCaregp_gmnp_nm={setAutoCaregp_gmnp_nm}
+        />
+      ),
+    },
+  ];
+
+  const enabledPhases = phases.filter(phase => roleId === "4" ? phase.checkStatus : true);
+  const updatedPhases = enabledPhases.map((phase, index) => ({
+    ...phase,
+    phaseNumber: index + 1
+  }));
 
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
-            {(roleId === "4" ? communicationChecked : true) && (
+           
+            {updatedPhases.map(phase => (
               <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 1)
-                }
-                checkStatus={communicationChecked}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.COMMUNICATION
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.COMMUNICATION
-                )}
-                title="Phase 1: Communication"
+                key={phase.id}
+                handleSwitchChange={phase.handleSwitchChange}
+                checkStatus={phase.checkStatus}
+                hasError={phase.errorStatus}
+                expandedAccordian={phase.expandedStatus}
+                handleChange={phase.handleAccordianChange}
+                title={`Phase ${phase.phaseNumber}: ${phase.title}`}
               >
-                <AutoCareCommmunicationChecklist
-                  autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
-                  setAutoCareGroupEmailEstablished={
-                    setAutoCareGroupEmailEstablished
-                  }
-                  autoCarePreKickOff={autoCarePreKickOff}
-                  setAutoCarePreKickOff={setAutoCarePreKickOff}
-                  autoCareKickOff={autoCareKickOff}
-                  setAutoCareKickOff={setAutoCareKickOff}
-                />
+                {phase.component}
               </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? systemSoftwareLocationsChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 2)
-                }
-                checkStatus={systemSoftwareLocationsChecked}
-                hasError={autoCareSystemSoftwareHasErrors}
-                expandedAccordian={
-                  expandedAccordian ===
-                  AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
-                )}
-                title="Phase 2: System, Software Locations"
-              >
-                <AutoCareSystemLocationChecklist
-                  systemSoftwareLocationErrors={
-                    autoCareSystemSoftwareLocationErrors
-                  }
-                  autoCareITStructureReview={autoCareITStructureReview}
-                  setAutoCareITStructureReview={setAutoCareITStructureReview}
-                  autoCareAccessComputerMethod={autoCareAccessComputerMethod}
-                  setAutoCareAccessComputerMethod={
-                    setAutoCareAccessComputerMethod
-                  }
-                  autoCarePosSoftware={autoCarePosSoftware}
-                  setAutoCarePosSoftware={setAutoCarePosSoftware}
-                  autoCareEstimatingSoftware={autoCareEstimatingSoftware}
-                  setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
-                  autoCareAccountingSoftware={autoCareAccountingSoftware}
-                  setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
-                  autoCareCloudDocumentManagement={
-                    autoCareCloudDocumentManagement
-                  }
-                  setAutoCareCloudDocumentManagement={
-                    setAutoCareCloudDocumentManagement
-                  }
-                  autoCareScanner={autoCareScanner}
-                  setAutoCareScanner={setAutoCareScanner}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? cashBankLoansChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 3)
-                }
-                checkStatus={cashBankLoansChecked}
-                hasError={autoCareCashBankingLoansHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.CASH_BANKING_LOANS
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.CASH_BANKING_LOANS
-                )}
-                title="Phase 3: Cash and Banking & Loans"
-              >
-                <AutoCareCashBankLoans
-                  cashBankLoansErrors={autoCareCashbankLoansErrors}
-                  autoCareOperatingCheckingAccount={
-                    autoCareOperatingCheckingAccount
-                  }
-                  setAutoCareOperatingCheckingAccount={
-                    setAutoCareOperatingCheckingAccount
-                  }
-                  autoCareSavingsAccount={autoCareSavingsAccount}
-                  setAutoCareSavingsAccount={setAutoCareSavingsAccount}
-                  autoCareCreditCard={autoCareCreditCard}
-                  setAutoCareCreditCard={setAutoCareCreditCard}
-                  autoCareBusinessLoans={autoCareBusinessLoans}
-                  setAutoCareBusinessLoans={setAutoCareBusinessLoans}
-                  autoCarePropertyLoans={autoCarePropertyLoans}
-                  setAutoCarePropertyLoans={setAutoCarePropertyLoans}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? payrollSystemChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 4)
-                }
-                checkStatus={payrollSystemChecked}
-                hasError={autoCarePayrollServiceProviderHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.PAYROLL_SYSTEM
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.PAYROLL_SYSTEM
-                )}
-                title="Phase 4: Payroll System"
-              >
-                <AutoCarePayrollSystem
-                  payrollSystemError={autoCareFrequencyErrors}
-                  autoCarePayrollServiceProvider={
-                    autoCarePayrollServiceProvider
-                  }
-                  setAutoCarePayrollServiceProvider={
-                    setAutoCarePayrollServiceProvider
-                  }
-                  autoCareFrequency={autoCareFrequency}
-                  setAutoCareFrequency={setAutoCareFrequency}
-                  autoCareNoOfEmployee={autoCareNoOfEmployee}
-                  setAutoCareNoOfEmployee={setAutoCareNoOfEmployee}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? compliancesChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 5)
-                }
-                checkStatus={compliancesChecked}
-                hasError={autoCareComplaincesHasErrors}
-                expandedAccordian={
-                  expandedAccordian === AccordianExpand.COMPLIANCES
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.COMPLIANCES
-                )}
-                title="Phase 5: Compliances"
-              >
-                <AutoCareCompliances
-                  compliancesErrors={autoCareCompliancesErrors}
-                  autoCareSalesTaxAccessWorkPaper={
-                    autoCareSalesTaxAccessWorkPaper
-                  }
-                  setAutoCareSalesTaxAccessWorkPaper={
-                    setAutoCareSalesTaxAccessWorkPaper
-                  }
-                  autoCareUseTax={autoCareUseTax}
-                  setAutoCareUseTax={setAutoCareUseTax}
-                  autoCareTireTax={autoCareTireTax}
-                  setAutoCareTireTax={setAutoCareTireTax}
-                  autoCareLastTaxReturnFiledYear={
-                    autoCareLastTaxReturnFiledYear
-                  }
-                  setAutoCareLastTaxReturnFiledYear={
-                    setAutoCareLastTaxReturnFiledYear
-                  }
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? accessChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 6)
-                }
-                checkStatus={accessChecked}
-                hasError={autoCareAccessHasErrors}
-                expandedAccordian={expandedAccordian === AccordianExpand.AP}
-                handleChange={handleAccordianChange(AccordianExpand.AP)}
-                title="Phase 6: AP - Payable Cash Payment Access"
-              >
-                <AutoCarePayableCashPayAccess
-                  payableCashPayAccessError={autoCarePayableCashPayAccessErrors}
-                  autoCareVendorPortalAccess={autoCareVendorPortalAccess}
-                  setAutoCareVendorPortalAccess={setAutoCareVendorPortalAccess}
-                  autoCareTradeAccount={autoCareTradeAccount}
-                  setAutoCareTradeAccount={setAutoCareTradeAccount}
-                  autoCareBillPayAccess={autoCareBillPayAccess}
-                  setAutoCareBillPayAccess={setAutoCareBillPayAccess}
-                  autoCareApThresholdLimit={autoCareApThresholdLimit}
-                  setAutoCareApThresholdLimit={setAutoCareApThresholdLimit}
-                />
-              </ChecklistAccordian>
-            )}
-
-            {(roleId === "4" ? financialsChecked : true) && (
-              <ChecklistAccordian
-                handleSwitchChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSwitchChange(e, 7)
-                }
-                checkStatus={financialsChecked}
-                hasError={autoCareFinancialsHasErrors}
-                expandedAccordian={
-                  expandedAccordian ===
-                  AccordianExpand.STATUS_CONDITION_FINANCIALS
-                }
-                handleChange={handleAccordianChange(
-                  AccordianExpand.STATUS_CONDITION_FINANCIALS
-                )}
-                title="Phase 7: Status and Condition of Existing Financials"
-              >
-                <AutoCareFinancials
-                  financialsErrors={autoCareFinancialsErrors}
-                  autoCareSharingFinancials={autoCareSharingFinancials}
-                  setAutoCareSharingFinancials={setAutoCareSharingFinancials}
-                  autoCareLastClosedPeriod={autoCareLastClosedPeriod}
-                  setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
-                  autoCaregp_gmnp_nm={autoCaregp_gmnp_nm}
-                  setAutoCaregp_gmnp_nm={setAutoCaregp_gmnp_nm}
-                />
-              </ChecklistAccordian>
-            )}
+            ))}
 
             {roleId === "4" &&
               !communicationChecked &&
@@ -1677,15 +1662,17 @@ function ChecklistAutoCare({
             >
               Save
             </Button>
-            <Button
-              onClick={() => handleSubmit(1)}
-              className={`!bg-[#022946] text-white !rounded-full`}
-              variant="contained"
-            >
-              <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-                Submit
-              </span>
-            </Button>
+            {roleId === '4' && (
+              <Button
+                onClick={() => handleSubmit(1)}
+                className={`!bg-[#022946] text-white !rounded-full`}
+                variant="contained"
+              >
+                <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                  Submit
+                </span>
+              </Button>
+            )}
           </div>
         </div>
       </div>

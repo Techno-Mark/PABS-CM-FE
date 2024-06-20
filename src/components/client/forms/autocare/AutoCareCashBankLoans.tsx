@@ -88,7 +88,7 @@ const OperatingCheckingAccount = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Operating Checking Account(s)<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -250,7 +250,7 @@ const SavingsAccount = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Savings Account(s)<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -403,7 +403,7 @@ const CreditCard = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Credit Card(s)<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -554,7 +554,7 @@ const BusinessLoans = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Business Loan(s)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -695,7 +695,7 @@ const PropertyLoans = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Property Loan(s)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">

@@ -55,8 +55,8 @@ function ClientModal({
     clientInfo?.DepartmentId === 3
       ? 31
       : clientInfo?.DepartmentId === 2
-      ? 21
-      : 11;
+        ? 21
+        : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
@@ -186,8 +186,9 @@ function ClientModal({
             >
               {clientInfo.DepartmentId === 3 ? (
                 <>
-                  {(formSubmit === 31 || perCountBasicDetails === 0) && (
+                  {formSubmit === 31 && (
                     <BasicDetailsAutoCare
+                      setCheckAllFields={() => { }}
                       autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -199,8 +200,9 @@ function ClientModal({
                       }
                     />
                   )}
-                  {(formSubmit === 32 || perCountChecklist === 0) && (
+                  {formSubmit === 32 && (
                     <ChecklistAutoCare
+                      checkAllBasicDetails={false}
                       autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -238,7 +240,7 @@ function ClientModal({
                       setWhitelabelBasicDetailsFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setWhitelabelBasicDetailCount={(value: number) => {}}
+                      setWhitelabelBasicDetailCount={(value: number) => { }}
                     />
                   ) : formSubmit === 12 ? (
                     <ChecklistWhitelabel
@@ -246,7 +248,7 @@ function ClientModal({
                       setChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setChecklistCount={(value: number) => {}}
+                      setChecklistCount={(value: number) => { }}
                     />
                   ) : (
                     ""

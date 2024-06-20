@@ -259,7 +259,7 @@ function AutoCareLegalStructure({
             </div>
           </Grid>
         </Grid>
-        <div className="py-3 px-2 grid grid-cols-3 gap-4"></div>
+        <div className="py-3 grid grid-cols-3 gap-4"></div>
       </FormBox>
     </div>
   );

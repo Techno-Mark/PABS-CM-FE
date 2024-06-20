@@ -68,7 +68,7 @@ const LastClosedPeriod = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Last Closed Period<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -222,7 +222,7 @@ const SharingFinancials = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Sharing the Financials (POC)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -366,7 +366,7 @@ const GP_GMNP_NM = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         GP/GM NP/NM
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">

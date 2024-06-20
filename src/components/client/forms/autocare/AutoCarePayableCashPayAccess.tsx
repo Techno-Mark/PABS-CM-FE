@@ -77,7 +77,7 @@ const VendorPortalAccess = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Vendor Portal Access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -230,7 +230,7 @@ const TradeAccount = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Trade Account
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -375,7 +375,7 @@ const BillPayAccess = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Bill Pay Access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -529,7 +529,7 @@ const APThresholdLimit = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         AP Threshold Limit
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">

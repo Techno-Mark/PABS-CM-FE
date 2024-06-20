@@ -163,7 +163,7 @@ const ClientSidebar = ({
                   ></div>
                 </div>
                   <span
-                    className={`relative mr-1 z-10 text-[8px] items-center text-[#023963]`}
+                    className={`relative mr-1 pt-[2px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
                   >
                     {data.value}%
                   </span>

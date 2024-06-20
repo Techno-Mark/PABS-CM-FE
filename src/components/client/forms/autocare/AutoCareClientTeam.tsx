@@ -198,7 +198,7 @@ function AutoCareClientTeam({
         checkStatus={clientTeamCheckStatus}
         handleChange={(e: ChangeEvent<HTMLInputElement>) => handleClientTeamSwitch(e)}
       >
-        <div className="py-3 px-2 grid grid-cols-3 gap-4">
+        <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
               Shop Manager<span className="text-[#DC3545]">*</span>

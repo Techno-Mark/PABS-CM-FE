@@ -71,7 +71,7 @@ const PayrollServiceProvider = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Payroll Service Provider<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -254,7 +254,7 @@ const Frequency = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Frequency<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -406,7 +406,7 @@ const NoOfEmployees = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Number of Employees
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
