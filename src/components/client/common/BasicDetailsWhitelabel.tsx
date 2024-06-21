@@ -237,6 +237,7 @@ const BasicDetailsWhitelabel = ({
         case "success":
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           showToast(Message, ToastType.Success);
+          type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           return;
       }
     };

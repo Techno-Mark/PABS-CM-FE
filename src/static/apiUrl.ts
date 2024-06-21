@@ -33,5 +33,9 @@ export const getRolePermission = "api/roles/permissionlist";
 // OnboardingForm url
 export const onboardingSaveFormUrl = "api/clients/save-client-info";
 export const onboardingListFormUrl = "api/clients/getbyid-client-info";
-
-export const onboardingDownloadFormUrl = `${process.env.APIDEV_URL}api/clients/download-client-info`;
+export const onboardingDownloadFormUrl = "api/clients/download-client-info";
+export const OnboardingFormAccountDetailsList = "api/accountDetails/list";
+export const OnboardingFormAccountDetailsSave = "api/accountDetails/create";
+export const OnboardingFormAccountDetailsGetById = "api/accountDetails/getById";
+export const OnboardingFormAccountDetailsEdit = "api/accountDetails/edit";
+export const OnboardingFormAccountDetailsDelete = "api/accountDetails/delete";

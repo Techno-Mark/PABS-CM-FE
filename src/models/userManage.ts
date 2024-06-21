@@ -41,7 +41,7 @@ export interface StatusOption {
   label: string;
 }
 
-export interface StringOption extends Omit<Option, 'value'> {
+export interface StringOption extends Omit<Option, "value"> {
   value: string;
 }
 
@@ -63,6 +63,15 @@ export interface ConfirmModalProps {
   isLoading?: boolean;
   handleClose: () => void;
   setId?: () => void;
+}
+
+export interface BulkModalProps {
+  isOpen: boolean;
+  title: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading?: boolean;
+  handleClose: () => void;
+  getAccountList: () => void;
 }
 
 export interface RoleList {

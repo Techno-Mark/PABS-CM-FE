@@ -28,7 +28,8 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-toastify": "^10.0.5",
-    "string-to-color": "^2.2.2"
+    "string-to-color": "^2.2.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
