@@ -54,10 +54,14 @@ const Page = () => {
       )}
       <ChecklistWhitelabel
         setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-        setChecklistCount={(value: number) =>
-          setWhitelabelPerCountChecklist(value)
-        }
+        setChecklistCount={(value: number) => {}}
       />
+      {formSubmit === 13 && (
+        <AccountDetailsWhitelabel
+          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+          setChecklistCount={(value: number) => {}}
+        />
+      )}
     </ClientWrapper>
   );
 };

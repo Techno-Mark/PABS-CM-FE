@@ -68,7 +68,7 @@ const BulkImportModel = ({
               item["Notes1 Monthly Transactions"] || "",
             notes: item["Notes"] || "",
           }));
-
+          console.log(transformedData);
           setExcelData(transformedData);
         }
       };
@@ -77,7 +77,7 @@ const BulkImportModel = ({
   };
 
   const handleSubmit = async () => {
-    if (excelData) {
+    if (excelData.length > 0) {
       setIsUploading(true);
       try {
         const response = await axios.post(
@@ -107,9 +107,17 @@ const BulkImportModel = ({
           document.body.appendChild(a);
           a.click();
           window.URL.revokeObjectURL(url);
+          showToast(
+            "Something went wrong. Please check downloaded file.",
+            ToastType.Error
+          );
+          setSelectedFile(null);
+          setExcelData(null);
         } else {
           setIsUploading(false);
           setIsOpen(false);
+          setSelectedFile(null);
+          setExcelData(null);
           getAccountList();
           return;
         }
@@ -117,9 +125,14 @@ const BulkImportModel = ({
         console.error("Error:", error);
         setIsUploading(false);
         setIsOpen(false);
+        setSelectedFile(null);
+        setExcelData(null);
       }
     }
+    showToast("Please attach Import data excel.", ToastType.Error);
     setIsUploading(false);
+    setSelectedFile(null);
+    setExcelData(null);
   };
 
   const downloadSampleFile = () => {
