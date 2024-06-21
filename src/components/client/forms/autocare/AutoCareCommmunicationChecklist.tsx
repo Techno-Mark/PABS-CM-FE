@@ -13,6 +13,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCareCommmunicationChecklist({
   className,
@@ -22,18 +24,28 @@ function AutoCareCommmunicationChecklist({
   setAutoCarePreKickOff,
   autoCareKickOff,
   setAutoCareKickOff,
+  checkAllFieldsAutoCareCommunicationList,
 }: autoCareCommmunicationChecklistTypes) {
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished
+        checkAllFieldsGroupEmailEstablished={
+          checkAllFieldsAutoCareCommunicationList
+        }
         autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
         setAutoCareGroupEmailEstablished={setAutoCareGroupEmailEstablished}
       />
       <PreKickOff
+        checkAllFieldsPreKickOff={
+          checkAllFieldsAutoCareCommunicationList
+        }
         autoCarePreKickOff={autoCarePreKickOff}
         setAutoCarePreKickOff={setAutoCarePreKickOff}
       />
       <KickOff
+        checkAllFieldsKickOff={
+          checkAllFieldsAutoCareCommunicationList
+        }
         autoCareKickOff={autoCareKickOff}
         setAutoCareKickOff={setAutoCareKickOff}
       />
@@ -46,8 +58,10 @@ export default AutoCareCommmunicationChecklist;
 const GroupEmailEstablished = ({
   autoCareGroupEmailEstablished,
   setAutoCareGroupEmailEstablished,
+  checkAllFieldsGroupEmailEstablished,
 }: GroupEmailEstablishedTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -87,6 +101,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -109,6 +124,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -133,6 +149,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -159,6 +176,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -185,6 +203,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -197,8 +216,10 @@ const GroupEmailEstablished = ({
 const PreKickOff = ({
   autoCarePreKickOff,
   setAutoCarePreKickOff,
+  checkAllFieldsPreKickOff
 }: PreKickOffTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -234,6 +255,7 @@ const PreKickOff = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPreKickOff}
               />
             </div>
           </Grid>
@@ -256,6 +278,7 @@ const PreKickOff = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPreKickOff}
               />
             </div>
           </Grid>
@@ -278,6 +301,7 @@ const PreKickOff = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPreKickOff}
               />
             </div>
           </Grid>
@@ -302,6 +326,7 @@ const PreKickOff = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPreKickOff}
               />
             </div>
           </Grid>
@@ -326,6 +351,7 @@ const PreKickOff = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPreKickOff}
               />
             </div>
           </Grid>
@@ -335,8 +361,9 @@ const PreKickOff = ({
   );
 };
 
-const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
+const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: KickOffTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -372,6 +399,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsKickOff}
               />
             </div>
           </Grid>
@@ -394,6 +422,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsKickOff}
               />
             </div>
           </Grid>
@@ -416,6 +445,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsKickOff}
               />
             </div>
           </Grid>
@@ -440,6 +470,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsKickOff}
               />
             </div>
           </Grid>
@@ -464,6 +495,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsKickOff}
               />
             </div>
           </Grid>

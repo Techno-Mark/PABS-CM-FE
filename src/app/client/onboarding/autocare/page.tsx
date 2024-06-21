@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
@@ -10,9 +10,12 @@ function Page() {
   const router = useRouter();
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
-  const [autoCareProgressPercentage, setAutoCareProgressPercentage] = useState<number>(0);
-  const [checkAllBasicDetails, setCheckAllBasicDetails] = useState<boolean>(false);
+  const [autoCareProgressPercentage, setAutoCareProgressPercentage] =
+    useState<number>(0);
+  const [checkAllBasicDetails, setCheckAllBasicDetails] =
+    useState<boolean>(false);
   const [formSubmit, setFormSubmit] = useState<number>(31);
+  const [finalCheckAllFields, setFinalCheckAllFields] = useState<boolean>(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -26,26 +29,29 @@ function Page() {
       perCountBasicDetails={perCountBasicDetails}
       perCountChecklist={perCountChecklist}
       formSubmit={formSubmit}
-      setAutoCareProgressPercentage={(value: number) => setAutoCareProgressPercentage(value)}
+      setAutoCareProgressPercentage={(value: number) =>
+        setAutoCareProgressPercentage(value)
+      }
     >
       {formSubmit === 31 && (
         <BasicDetailsAutoCare
-          setIsOpenModal={() => { }}
+          setIsOpenModal={() => {}}
           setCheckAllFields={(value: boolean) => setCheckAllBasicDetails(value)}
           autoCareProgressPercentage={autoCareProgressPercentage}
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
-          setBasicDetailCount={(value: number) => setPerCountBasicDetails(value)}
+          setBasicDetailCount={(value: number) =>
+            setPerCountBasicDetails(value)
+          }
         />
       )}
-      {formSubmit === 32 && (
-        <ChecklistAutoCare
-          setIsOpenModal={() => { }}
-          checkAllBasicDetails={checkAllBasicDetails}
-          autoCareProgressPercentage={autoCareProgressPercentage}
-          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setPerCountChecklist(value)}
-        />
-      )}
+      <ChecklistAutoCare
+        setIsOpenModal={() => {}}
+        formSubmitId={formSubmit}
+        checkAllBasicDetails={checkAllBasicDetails}
+        autoCareProgressPercentage={autoCareProgressPercentage}
+        setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+        setChecklistCount={(value: number) => setPerCountChecklist(value)}
+      />
     </ClientWrapper>
   );
 }

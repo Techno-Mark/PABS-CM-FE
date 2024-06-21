@@ -20,6 +20,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import React from "react";
+// Cookie import
+import Cookies from "js-cookie";
 
 function SmbExistingFinancialsChecklist({
   className,
@@ -40,34 +42,66 @@ function SmbExistingFinancialsChecklist({
   setSmbTaxReturn,
   smbDistributionList,
   setSmbDistributionList,
+  checkAllFieldsSmbExistingFinancialsChecklist,
 }: ExistingFinancialsChecklistType) {
   return (
     <div className={`${className}`}>
-      <LiveDate smbLiveDate={smbLiveDate} setSmbLiveDate={setSmbLiveDate} smbLiveDateErrors={smbExistingFinancialsChecklistErrors} />
+      <LiveDate
+        checkAllFieldsLiveDate={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
+        smbLiveDate={smbLiveDate}
+        setSmbLiveDate={setSmbLiveDate}
+        smbLiveDateErrors={smbExistingFinancialsChecklistErrors}
+      />
       <AccountingMethod
+        checkAllFieldsAccountingMethod={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
         smbAccountingMethod={smbAccountingMethod}
         setSmbAccountingMethod={setSmbAccountingMethod}
       />
-      <FEIN smbFEIN={smbFEIN} setSmbFEIN={setSmbFEIN} />
+      <FEIN
+        smbFEIN={smbFEIN}
+        setSmbFEIN={setSmbFEIN}
+        checkAllFieldsFEIN={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
+      />
       <FiscalYearEnd
+        checkAllFieldsFiscalYearEnd={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
         smbFiscalYearEnd={smbFiscalYearEnd}
         setSmbFiscalYearEnd={setSmbFiscalYearEnd}
       />
       <LastClosedMonth
+        checkAllFieldsLastClosedMonth={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
         smbLastClosedMonth={smbLastClosedMonth}
         setSmbLastClosedMonth={setSmbLastClosedMonth}
         smbLastClosedMonthErrors={smbExistingFinancialsChecklistErrors}
       />
       <ContactOfCpa
+        checkAllFieldsContactOfCpa={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
         smbContactOfCpa={smbContactOfCpa}
         setSmbContactOfCpa={setSmbContactOfCpa}
       />
       <TaxReturn
+        checkAllFieldsTaxReturn={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
         smbTaxReturn={smbTaxReturn}
         setSmbTaxReturn={setSmbTaxReturn}
         smbTaxReturnErrors={smbExistingFinancialsChecklistErrors}
       />
       <DistributionList
+        checkAllFieldsDistributionList={
+          checkAllFieldsSmbExistingFinancialsChecklist
+        }
         smbDistributionList={smbDistributionList}
         setSmbDistributionList={setSmbDistributionList}
         smbDistributionListErrors={smbExistingFinancialsChecklistErrors}
@@ -78,8 +112,14 @@ function SmbExistingFinancialsChecklist({
 
 export default SmbExistingFinancialsChecklist;
 
-const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTypes) => {
+const LiveDate = ({
+  smbLiveDate,
+  setSmbLiveDate,
+  smbLiveDateErrors,
+  checkAllFieldsLiveDate
+}: LiveDateTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleLiveDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -117,6 +157,7 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTy
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLiveDate}
               />
             </div>
           </Grid>
@@ -141,6 +182,7 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTy
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLiveDate}
               />
             </div>
           </Grid>
@@ -167,6 +209,7 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTy
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLiveDate}
               />
             </div>
           </Grid>
@@ -179,10 +222,14 @@ const LiveDate = ({ smbLiveDate, setSmbLiveDate, smbLiveDateErrors }: LiveDateTy
 const AccountingMethod = ({
   smbAccountingMethod,
   setSmbAccountingMethod,
+  checkAllFieldsAccountingMethod
 }: AccountingMethodTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleAccountingMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccountingMethodChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbAccountingMethod((prev: AccountingMethodFormTypes) => ({
@@ -216,6 +263,7 @@ const AccountingMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAccountingMethod}
               />
             </div>
           </Grid>
@@ -238,6 +286,7 @@ const AccountingMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAccountingMethod}
               />
             </div>
           </Grid>
@@ -262,6 +311,7 @@ const AccountingMethod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAccountingMethod}
               />
             </div>
           </Grid>
@@ -271,8 +321,9 @@ const AccountingMethod = ({
   );
 };
 
-const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
+const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handlFeinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -308,6 +359,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFEIN}
               />
             </div>
           </Grid>
@@ -330,6 +382,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFEIN}
               />
             </div>
           </Grid>
@@ -354,6 +407,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFEIN}
               />
             </div>
           </Grid>
@@ -366,10 +420,14 @@ const FEIN = ({ smbFEIN, setSmbFEIN }: FEINTypes) => {
 const FiscalYearEnd = ({
   smbFiscalYearEnd,
   setSmbFiscalYearEnd,
+  checkAllFieldsFiscalYearEnd
 }: FiscalYearEndTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleFiscalYearEndChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFiscalYearEndChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbFiscalYearEnd((prev: FiscalYearEndFormTypes) => ({
@@ -403,6 +461,7 @@ const FiscalYearEnd = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
               />
             </div>
           </Grid>
@@ -425,6 +484,7 @@ const FiscalYearEnd = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
               />
             </div>
           </Grid>
@@ -449,6 +509,7 @@ const FiscalYearEnd = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
               />
             </div>
           </Grid>
@@ -461,11 +522,15 @@ const FiscalYearEnd = ({
 const LastClosedMonth = ({
   smbLastClosedMonth,
   setSmbLastClosedMonth,
-  smbLastClosedMonthErrors
+  smbLastClosedMonthErrors,
+  checkAllFieldsLastClosedMonth
 }: LastClosedMonthTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleLastClosedMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLastClosedMonthChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbLastClosedMonth((prev: LastClosedMonthFormTypes) => ({
@@ -476,7 +541,8 @@ const LastClosedMonth = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Last Closed month in Accounting Software<span className="text-[#DC3545]">*</span>
+        Last Closed month in Accounting Software
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -501,6 +567,7 @@ const LastClosedMonth = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
               />
             </div>
           </Grid>
@@ -525,6 +592,7 @@ const LastClosedMonth = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
               />
             </div>
           </Grid>
@@ -541,7 +609,9 @@ const LastClosedMonth = ({
                 placeholder="Please Enter Action Items"
                 value={smbLastClosedMonth?.LastClosedMonthActionItems}
                 error={!!smbLastClosedMonthErrors?.LastClosedMonthActionItems}
-                helperText={smbLastClosedMonthErrors?.LastClosedMonthActionItems}
+                helperText={
+                  smbLastClosedMonthErrors?.LastClosedMonthActionItems
+                }
                 onChange={handleLastClosedMonthChange}
                 InputProps={{
                   classes: {
@@ -551,6 +621,7 @@ const LastClosedMonth = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
               />
             </div>
           </Grid>
@@ -563,8 +634,10 @@ const LastClosedMonth = ({
 const ContactOfCpa = ({
   smbContactOfCpa,
   setSmbContactOfCpa,
+  checkAllFieldsContactOfCpa
 }: ContactOfCpaTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleContactOfCpaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -600,6 +673,7 @@ const ContactOfCpa = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsContactOfCpa}
               />
             </div>
           </Grid>
@@ -622,6 +696,7 @@ const ContactOfCpa = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsContactOfCpa}
               />
             </div>
           </Grid>
@@ -646,6 +721,7 @@ const ContactOfCpa = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsContactOfCpa}
               />
             </div>
           </Grid>
@@ -655,8 +731,14 @@ const ContactOfCpa = ({
   );
 };
 
-const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxReturnTypes) => {
+const TaxReturn = ({
+  smbTaxReturn,
+  setSmbTaxReturn,
+  smbTaxReturnErrors,
+  checkAllFieldsTaxReturn
+}: TaxReturnTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleTaxReturnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -694,6 +776,7 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxRet
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTaxReturn}
               />
             </div>
           </Grid>
@@ -718,6 +801,7 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxRet
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTaxReturn}
               />
             </div>
           </Grid>
@@ -744,6 +828,7 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxRet
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTaxReturn}
               />
             </div>
           </Grid>
@@ -756,11 +841,15 @@ const TaxReturn = ({ smbTaxReturn, setSmbTaxReturn, smbTaxReturnErrors }: TaxRet
 const DistributionList = ({
   smbDistributionList,
   setSmbDistributionList,
-  smbDistributionListErrors
+  smbDistributionListErrors,
+  checkAllFieldsDistributionList
 }: DistributionListTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
-  const handleDistributionListChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDistributionListChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setSmbDistributionList((prev: DistributionListFormTypes) => ({
@@ -771,7 +860,8 @@ const DistributionList = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Monthly Financials distribution list<span className="text-[#DC3545]">*</span>
+        Monthly Financials distribution list
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -796,6 +886,7 @@ const DistributionList = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId=== '4' && checkAllFieldsDistributionList}
               />
             </div>
           </Grid>
@@ -820,6 +911,7 @@ const DistributionList = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId=== '4' && checkAllFieldsDistributionList}
               />
             </div>
           </Grid>
@@ -836,7 +928,9 @@ const DistributionList = ({
                 placeholder="Please Enter Action Items"
                 value={smbDistributionList?.DistributionListActionItems}
                 error={!!smbDistributionListErrors?.DistributionListActionItems}
-                helperText={smbDistributionListErrors?.DistributionListActionItems}
+                helperText={
+                  smbDistributionListErrors?.DistributionListActionItems
+                }
                 onChange={handleDistributionListChange}
                 InputProps={{
                   classes: {
@@ -846,6 +940,7 @@ const DistributionList = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId=== '4' && checkAllFieldsDistributionList}
               />
             </div>
           </Grid>

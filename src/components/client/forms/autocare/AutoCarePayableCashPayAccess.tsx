@@ -15,6 +15,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCarePayableCashPayAccess({
   className,
@@ -26,25 +28,38 @@ function AutoCarePayableCashPayAccess({
   autoCareBillPayAccess,
   setAutoCareBillPayAccess,
   autoCareApThresholdLimit,
-  setAutoCareApThresholdLimit
+  setAutoCareApThresholdLimit,
+  checkAllFieldsAutoCarePayableCashPayAccess,
 }: autoCarePayableCashPayAccessTypes) {
   return (
     <div className={`${className}`}>
       <VendorPortalAccess
+        checkAllFieldsVendorPortalAccess={
+          checkAllFieldsAutoCarePayableCashPayAccess
+        }
         autoCareVendorPortalAccess={autoCareVendorPortalAccess}
         setAutoCareVendorPortalAccess={setAutoCareVendorPortalAccess}
         vendorPortalAccessErrors={payableCashPayAccessError}
       />
       <TradeAccount
+        checkAllFieldsTradeAccount={
+          checkAllFieldsAutoCarePayableCashPayAccess
+        }
         autoCareTradeAccount={autoCareTradeAccount}
         setAutoCareTradeAccount={setAutoCareTradeAccount}
       />
       <BillPayAccess
+        checkAllFieldsBillPayAccess={
+          checkAllFieldsAutoCarePayableCashPayAccess
+        }
         autoCareBillPayAccess={autoCareBillPayAccess}
         setAutoCareBillPayAccess={setAutoCareBillPayAccess}
         billPayAccessErrors={payableCashPayAccessError}
       />
       <APThresholdLimit
+        checkAllFieldsAPThresholdLimit={
+          checkAllFieldsAutoCarePayableCashPayAccess
+        }
         autoCareApThresholdLimit={autoCareApThresholdLimit}
         setAutoCareApThresholdLimit={setAutoCareApThresholdLimit}
       />
@@ -57,9 +72,11 @@ export default AutoCarePayableCashPayAccess;
 const VendorPortalAccess = ({
   autoCareVendorPortalAccess,
   setAutoCareVendorPortalAccess,
-  vendorPortalAccessErrors
+  vendorPortalAccessErrors,
+  checkAllFieldsVendorPortalAccess
 }: VendorPortalAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleVendorPortalAccessChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -90,7 +107,9 @@ const VendorPortalAccess = ({
                 placeholder="Please Enter Comments"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessComments}
                 error={!!vendorPortalAccessErrors?.vendorPortalAccessComments}
-                helperText={vendorPortalAccessErrors?.vendorPortalAccessComments}
+                helperText={
+                  vendorPortalAccessErrors?.vendorPortalAccessComments
+                }
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -100,6 +119,7 @@ const VendorPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
               />
             </div>
           </Grid>
@@ -124,6 +144,7 @@ const VendorPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
               />
             </div>
           </Grid>
@@ -148,6 +169,7 @@ const VendorPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
               />
             </div>
           </Grid>
@@ -164,7 +186,9 @@ const VendorPortalAccess = ({
                 placeholder="Please Enter Action Items"
                 value={autoCareVendorPortalAccess?.vendorPortalAccessActionName}
                 error={!!vendorPortalAccessErrors?.vendorPortalAccessActionName}
-                helperText={vendorPortalAccessErrors?.vendorPortalAccessActionName}
+                helperText={
+                  vendorPortalAccessErrors?.vendorPortalAccessActionName
+                }
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -174,6 +198,7 @@ const VendorPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
               />
             </div>
           </Grid>
@@ -191,8 +216,12 @@ const VendorPortalAccess = ({
                 value={
                   autoCareVendorPortalAccess?.vendorPortalAccessActionItems
                 }
-                error={!!vendorPortalAccessErrors?.vendorPortalAccessActionItems}
-                helperText={vendorPortalAccessErrors?.vendorPortalAccessActionItems}
+                error={
+                  !!vendorPortalAccessErrors?.vendorPortalAccessActionItems
+                }
+                helperText={
+                  vendorPortalAccessErrors?.vendorPortalAccessActionItems
+                }
                 onChange={handleVendorPortalAccessChange}
                 InputProps={{
                   classes: {
@@ -202,6 +231,7 @@ const VendorPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
               />
             </div>
           </Grid>
@@ -214,8 +244,10 @@ const VendorPortalAccess = ({
 const TradeAccount = ({
   autoCareTradeAccount,
   setAutoCareTradeAccount,
+  checkAllFieldsTradeAccount
 }: TradeAccountTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleTradeAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -251,6 +283,7 @@ const TradeAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTradeAccount}
               />
             </div>
           </Grid>
@@ -273,6 +306,7 @@ const TradeAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTradeAccount}
               />
             </div>
           </Grid>
@@ -295,6 +329,7 @@ const TradeAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTradeAccount}
               />
             </div>
           </Grid>
@@ -319,6 +354,7 @@ const TradeAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTradeAccount}
               />
             </div>
           </Grid>
@@ -343,6 +379,7 @@ const TradeAccount = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTradeAccount}
               />
             </div>
           </Grid>
@@ -355,9 +392,11 @@ const TradeAccount = ({
 const BillPayAccess = ({
   autoCareBillPayAccess,
   setAutoCareBillPayAccess,
-  billPayAccessErrors
+  billPayAccessErrors,
+  checkAllFieldsBillPayAccess
 }: BillPayAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleBillPayAccessChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -398,6 +437,7 @@ const BillPayAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
               />
             </div>
           </Grid>
@@ -422,6 +462,7 @@ const BillPayAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
               />
             </div>
           </Grid>
@@ -446,6 +487,7 @@ const BillPayAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
               />
             </div>
           </Grid>
@@ -472,6 +514,7 @@ const BillPayAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
               />
             </div>
           </Grid>
@@ -498,6 +541,7 @@ const BillPayAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
               />
             </div>
           </Grid>
@@ -510,8 +554,10 @@ const BillPayAccess = ({
 const APThresholdLimit = ({
   autoCareApThresholdLimit,
   setAutoCareApThresholdLimit,
+  checkAllFieldsAPThresholdLimit
 }: ApThresholdLimitTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleApThresholdLimitChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -550,6 +596,7 @@ const APThresholdLimit = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
               />
             </div>
           </Grid>
@@ -572,6 +619,7 @@ const APThresholdLimit = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
               />
             </div>
           </Grid>
@@ -594,6 +642,7 @@ const APThresholdLimit = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
               />
             </div>
           </Grid>
@@ -618,6 +667,7 @@ const APThresholdLimit = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
               />
             </div>
           </Grid>
@@ -642,6 +692,7 @@ const APThresholdLimit = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
               />
             </div>
           </Grid>

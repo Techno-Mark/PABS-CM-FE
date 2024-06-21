@@ -13,6 +13,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCareFinancials({
   className,
@@ -23,19 +25,23 @@ function AutoCareFinancials({
   setAutoCareSharingFinancials,
   autoCaregp_gmnp_nm,
   setAutoCaregp_gmnp_nm,
+  checkAllFieldsAutoCareFinancials,
 }: AutoCareFinancialsTypes) {
   return (
     <div className={`${className}`}>
       <LastClosedPeriod
+        checkAllFieldsLastClosedPeriod={checkAllFieldsAutoCareFinancials}
         autoCareLastClosedPeriod={autoCareLastClosedPeriod}
         setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
         lastClosedPeriodErrors={financialsErrors}
       />
       <SharingFinancials
+        checkAllFieldsSharingFinancials={checkAllFieldsAutoCareFinancials}
         autoCareSharingFinancials={autoCareSharingFinancials}
         setAutoCareSharingFinancials={setAutoCareSharingFinancials}
       />
       <GP_GMNP_NM
+        checkAllFieldsGP_GMNP_NM={checkAllFieldsAutoCareFinancials}
         autoCaregp_gmnp_nm={autoCaregp_gmnp_nm}
         setAutoCaregp_gmnp_nm={setAutoCaregp_gmnp_nm}
       />
@@ -49,8 +55,10 @@ const LastClosedPeriod = ({
   autoCareLastClosedPeriod,
   setAutoCareLastClosedPeriod,
   lastClosedPeriodErrors,
+  checkAllFieldsLastClosedPeriod
 }: LastClosedPeriodTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleLastClosedPeriodChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -91,6 +99,7 @@ const LastClosedPeriod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
               />
             </div>
           </Grid>
@@ -115,6 +124,7 @@ const LastClosedPeriod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
               />
             </div>
           </Grid>
@@ -139,6 +149,7 @@ const LastClosedPeriod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
               />
             </div>
           </Grid>
@@ -165,6 +176,7 @@ const LastClosedPeriod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
               />
             </div>
           </Grid>
@@ -191,6 +203,7 @@ const LastClosedPeriod = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
               />
             </div>
           </Grid>
@@ -203,8 +216,10 @@ const LastClosedPeriod = ({
 const SharingFinancials = ({
   autoCareSharingFinancials,
   setAutoCareSharingFinancials,
+  checkAllFieldsSharingFinancials
 }: SharingFinancialsTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleSharingFinancialsChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -243,6 +258,7 @@ const SharingFinancials = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
               />
             </div>
           </Grid>
@@ -265,6 +281,7 @@ const SharingFinancials = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
               />
             </div>
           </Grid>
@@ -287,6 +304,7 @@ const SharingFinancials = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
               />
             </div>
           </Grid>
@@ -311,6 +329,7 @@ const SharingFinancials = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
               />
             </div>
           </Grid>
@@ -335,6 +354,7 @@ const SharingFinancials = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
               />
             </div>
           </Grid>
@@ -347,8 +367,10 @@ const SharingFinancials = ({
 const GP_GMNP_NM = ({
   autoCaregp_gmnp_nm,
   setAutoCaregp_gmnp_nm,
+  checkAllFieldsGP_GMNP_NM
 }: GP_GMNP_NMTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleSharingFinancialsChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -387,6 +409,7 @@ const GP_GMNP_NM = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
               />
             </div>
           </Grid>
@@ -409,6 +432,7 @@ const GP_GMNP_NM = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
               />
             </div>
           </Grid>
@@ -431,6 +455,7 @@ const GP_GMNP_NM = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
               />
             </div>
           </Grid>
@@ -455,6 +480,7 @@ const GP_GMNP_NM = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
               />
             </div>
           </Grid>
@@ -479,6 +505,7 @@ const GP_GMNP_NM = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
               />
             </div>
           </Grid>
