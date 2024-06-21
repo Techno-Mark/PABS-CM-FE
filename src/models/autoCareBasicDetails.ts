@@ -79,6 +79,7 @@ export interface AccountDetailsTypes {
   setAutoCareAccountDetailsErrors: React.Dispatch<
     React.SetStateAction<AccountDetailsFormErrors>
   >;
+  finalCheckAllFieldsAccountDetails:boolean
 }
 
 export interface LegalStructureTypes {
@@ -93,6 +94,7 @@ export interface LegalStructureTypes {
   setAutoCareLegalStructureErrors: React.Dispatch<
     React.SetStateAction<LegalStructureFormErrors>
   >;
+  finalCheckAllFieldsLegalStructure:boolean
 }
 
 export interface ClientTeamTypes {
@@ -107,6 +109,7 @@ export interface ClientTeamTypes {
   setAutoCareClientTeamErrors: React.Dispatch<
     React.SetStateAction<ClientTeamFormErrors>
   >;
+  finalCheckAllFieldsClientTeam:boolean
 }
 
 export interface PabsAccountingTeamTypes {
@@ -117,6 +120,7 @@ export interface PabsAccountingTeamTypes {
   setAutoCarePabsAccountingTeam: React.Dispatch<
     React.SetStateAction<PabsAccountingTeamFormTypes>
   >;
+  finalCheckAllFieldsPabsAccountingTeam:boolean
 }
 
 export interface ClientInfoType {
@@ -143,6 +147,7 @@ export interface ChecklistType extends Partial<AutoCareType> {
   setChecklistFormSubmit: (value: number) => void;
   autoCareProgressPercentage:number
   checkAllBasicDetails:boolean
+  formSubmitId:number
 }
 
 export interface BasicDetailsResponseDataType {
@@ -185,6 +190,7 @@ export interface BasicDetailsResponseDataType {
   legalStructureIsDisplay: boolean;
   cpaClientTeamIsDisplay: boolean;
   pabsAccountingTeamIsDisplay: boolean;
+  isSubmited:boolean
 }
 
 export interface formChecklistDetails {

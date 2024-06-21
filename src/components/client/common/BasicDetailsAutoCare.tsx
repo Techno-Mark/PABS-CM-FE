@@ -49,7 +49,7 @@ function BasicDetailsAutoCare({
   setBasicDetailsFormSubmit,
   setIsOpenModal,
   autoCareProgressPercentage,
-  setCheckAllFields
+  setCheckAllFields,
 }: AutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -81,6 +81,10 @@ function BasicDetailsAutoCare({
     useState<boolean>(true);
   const [pabsAccountingTeamCheckStatus, setPabsAccountingTeamCheckStatus] =
     useState<boolean>(true);
+  const [
+    isFormSubmitAutoCareBasicDetails,
+    setIsFormSubmitAutoCareBasicDetails,
+  ] = useState<boolean>(false);
 
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
@@ -94,9 +98,18 @@ function BasicDetailsAutoCare({
           return;
         case "success":
           if (!!ResponseData) {
-            setAccountDetailsCheckStatus(ResponseData?.accountDetailsIsDisplay ?? true);
-            setLegalStructureCheckStatus(ResponseData?.legalStructureIsDisplay ?? true);
-            setClientTeamCheckStatus(ResponseData?.cpaClientTeamIsDisplay ?? true);
+            setIsFormSubmitAutoCareBasicDetails(
+              ResponseData?.isSubmited ?? false
+            );
+            setAccountDetailsCheckStatus(
+              ResponseData?.accountDetailsIsDisplay ?? true
+            );
+            setLegalStructureCheckStatus(
+              ResponseData?.legalStructureIsDisplay ?? true
+            );
+            setClientTeamCheckStatus(
+              ResponseData?.cpaClientTeamIsDisplay ?? true
+            );
             setPabsAccountingTeamCheckStatus(
               ResponseData?.pabsAccountingTeamIsDisplay ?? true
             );
@@ -115,10 +128,14 @@ function BasicDetailsAutoCare({
               no_of_Entities: ResponseData?.noOfEntities,
               no_of_Shops: ResponseData?.noOfShops,
               salesRep: ResponseData?.salesRep,
-              agreementDate: ResponseData?.agreementDate ? dayjs(ResponseData?.agreementDate).format("DD MMM YYYY") : null,
-              probableAcquitionDate: ResponseData?.probableAcquisitionDate ? dayjs(
-                ResponseData?.probableAcquisitionDate
-              ).format("DD MMM YYYY") : null,
+              agreementDate: ResponseData?.agreementDate
+                ? dayjs(ResponseData?.agreementDate).format("DD MMM YYYY")
+                : null,
+              probableAcquitionDate: ResponseData?.probableAcquisitionDate
+                ? dayjs(ResponseData?.probableAcquisitionDate).format(
+                    "DD MMM YYYY"
+                  )
+                : null,
               dba: ResponseData?.dba,
             });
             setAutoCareClientTeam({
@@ -128,15 +145,21 @@ function BasicDetailsAutoCare({
               cpa: ResponseData?.cpa,
               priorBookkeeper: ResponseData?.priorBookkeeper,
               itSupport: ResponseData?.itSupport,
-              timeZone: ResponseData?.timeZone && ResponseData?.timeZone !== '-1'
-                ? TimeZoneList.find((time) => time.label === ResponseData?.timeZone)?.value || '-1'
-                : '-1',
+              timeZone:
+                ResponseData?.timeZone && ResponseData?.timeZone !== "-1"
+                  ? TimeZoneList.find(
+                      (time) => time.label === ResponseData?.timeZone
+                    )?.value || "-1"
+                  : "-1",
               state: ResponseData?.state
-                ? StateList.find((state) => state.label === ResponseData?.state)?.value || '-1'
-                : '-1',
-              weeklyCalls: ResponseData?.weeklyCalls && ResponseData?.weeklyCalls !== '-1'
-                ? ResponseData?.weeklyCalls || '-1'
-                : '-1',
+                ? StateList.find((state) => state.label === ResponseData?.state)
+                    ?.value || "-1"
+                : "-1",
+              weeklyCalls: ResponseData?.weeklyCalls
+                ? WeeklyCallsList.find(
+                    (calls) => calls.label === ResponseData?.weeklyCalls
+                  )?.value || "-1"
+                : "-1",
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
             });
@@ -308,8 +331,7 @@ function BasicDetailsAutoCare({
       if (
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
-        (!!autoCareClientTeam[field] &&
-          autoCareClientTeam[field] !== "-1") ||
+        (!!autoCareClientTeam[field] && autoCareClientTeam[field] !== "-1") ||
         !!autoCarePabsAccountingTeam[field]
       ) {
         count++;
@@ -336,7 +358,7 @@ function BasicDetailsAutoCare({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          getAutoCareBasicDetailsList()
+          getAutoCareBasicDetailsList();
           type === 1 && setBasicDetailsFormSubmit(32);
           showToast(Message, ToastType.Success);
           return;
@@ -349,7 +371,7 @@ function BasicDetailsAutoCare({
       businessTypeId: !!clientInfo?.DepartmentId
         ? parseInt(clientInfo?.DepartmentId)
         : parseInt(businessTypeId!),
-      businessTypeName: autoCareAccountDetails.businessType,
+      businessName: autoCareAccountDetails.businessType,
       accountName: autoCareAccountDetails.accountName,
       service: autoCareAccountDetails.service,
       corporateAddress: autoCareAccountDetails.corporateAddress,
@@ -362,7 +384,8 @@ function BasicDetailsAutoCare({
       noOfShops: parseInt(autoCareLegalStructure.no_of_Shops),
       salesRep: autoCareLegalStructure.salesRep,
       agreementDate: autoCareLegalStructure.agreementDate ?? null,
-      probableAcquisitionDate: autoCareLegalStructure.probableAcquitionDate ?? null,
+      probableAcquisitionDate:
+        autoCareLegalStructure.probableAcquitionDate ?? null,
       dba: autoCareLegalStructure.dba,
       shopManager: autoCareClientTeam.shopManager,
       poc1: autoCareClientTeam.poc1,
@@ -370,12 +393,23 @@ function BasicDetailsAutoCare({
       cpa: autoCareClientTeam.cpa,
       priorBookkeeper: autoCareClientTeam.priorBookkeeper,
       itSupport: autoCareClientTeam.itSupport,
-      timeZone: autoCareClientTeam.timeZone !== '-1' ? TimeZoneList.find(
-        (time) => time.value === autoCareClientTeam.timeZone
-      )?.label : "",
-      state: autoCareClientTeam.state !== '-1' ? StateList.find((state) => state.value === autoCareClientTeam.state)
-        ?.label : "",
-      weeklyCalls: autoCareClientTeam.weeklyCalls,
+      timeZone:
+        autoCareClientTeam.timeZone !== "-1"
+          ? TimeZoneList.find(
+              (time) => time.value === autoCareClientTeam.timeZone
+            )?.label
+          : "",
+      state:
+        autoCareClientTeam.state !== "-1"
+          ? StateList.find((state) => state.value === autoCareClientTeam.state)
+              ?.label
+          : "",
+      weeklyCalls:
+        autoCareClientTeam.weeklyCalls !== "-1"
+          ? WeeklyCallsList.find(
+              (calls) => calls.value === autoCareClientTeam.weeklyCalls
+            )?.label
+          : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
       implementationManager: autoCarePabsAccountingTeam.implementationManager,
@@ -386,7 +420,7 @@ function BasicDetailsAutoCare({
         autoCarePabsAccountingTeam.operationsAccountHolder,
       pabsGroupEmail: autoCarePabsAccountingTeam.pabsGroupEmail,
       pabsPhone: autoCarePabsAccountingTeam.pabsPhone,
-      progress: autoCareProgressPercentage
+      progress: autoCareProgressPercentage,
     };
     const isValidAccountDetails = accountDetailsCheckStatus
       ? validateCarCareAccountDetails()
@@ -401,15 +435,19 @@ function BasicDetailsAutoCare({
     const isValid =
       !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
     if (type === 1) {
-      roleId === '4' && setCheckAllFields(!isValid)
+      roleId === "4" && setCheckAllFields(!isValid);
       const filledFieldsCount = basicDetailStatus();
       setBasicDetailCount(filledFieldsCount);
-      callAPIwithHeaders(
-        onboardingSaveFormUrl,
-        "post",
-        callback,
-        basicDetailsFormData
-      );
+      if (!isFormSubmitAutoCareBasicDetails) {
+        callAPIwithHeaders(
+          onboardingSaveFormUrl,
+          "post",
+          callback,
+          basicDetailsFormData
+        );
+      } else {
+        setBasicDetailsFormSubmit(32);
+      }
       if (!isValid) {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
@@ -502,13 +540,17 @@ function BasicDetailsAutoCare({
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
               <AutoCareAccountDetails
+                finalCheckAllFieldsAccountDetails={
+                  isFormSubmitAutoCareBasicDetails
+                }
                 accountDetailsCheckStatus={accountDetailsCheckStatus}
                 handleAccountDetailsSwitch={(
                   e: ChangeEvent<HTMLInputElement>
@@ -523,6 +565,9 @@ function BasicDetailsAutoCare({
             )}
             {(roleId === "4" ? legalStructureCheckStatus : true) && (
               <AutoCareLegalStructure
+                finalCheckAllFieldsLegalStructure={
+                  isFormSubmitAutoCareBasicDetails
+                }
                 legalStructureCheckStatus={legalStructureCheckStatus}
                 handleLegalStructureSwitch={(
                   e: ChangeEvent<HTMLInputElement>
@@ -537,6 +582,7 @@ function BasicDetailsAutoCare({
             )}
             {(roleId === "4" ? clientTeamCheckStatus : true) && (
               <AutoCareClientTeam
+                finalCheckAllFieldsClientTeam={isFormSubmitAutoCareBasicDetails}
                 clientTeamCheckStatus={clientTeamCheckStatus}
                 handleClientTeamSwitch={(e: ChangeEvent<HTMLInputElement>) =>
                   handleSwitchChange(e, 3)
@@ -549,6 +595,9 @@ function BasicDetailsAutoCare({
             )}
             {(roleId === "4" ? pabsAccountingTeamCheckStatus : true) && (
               <AutoCarePabsAccountingTeam
+                finalCheckAllFieldsPabsAccountingTeam={
+                  isFormSubmitAutoCareBasicDetails
+                }
                 pabsAccountingTeamCheckStatus={pabsAccountingTeamCheckStatus}
                 handlePabsAccountingTeamSwitch={(
                   e: ChangeEvent<HTMLInputElement>
@@ -581,14 +630,15 @@ function BasicDetailsAutoCare({
               Cancel
             </Button>
           )}
-
-          <Button
-            onClick={() => handleSubmit(2)}
-            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-            variant="outlined"
-          >
-            Save
-          </Button>
+          {(roleId === "4" ? !isFormSubmitAutoCareBasicDetails : true) && (
+            <Button
+              onClick={() => handleSubmit(2)}
+              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              variant="outlined"
+            >
+              Save
+            </Button>
+          )}
 
           <Button
             onClick={() => handleSubmit(1)}

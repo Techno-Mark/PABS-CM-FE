@@ -115,6 +115,7 @@ import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { onboardingSaveFormUrl } from "@/static/apiUrl";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
 
 function ChecklistSmb({
   clientInfo,
@@ -302,6 +303,11 @@ function ChecklistSmb({
   ] = useState<boolean>(true);
   const [meetingAvailabilityChecked, setMeetingAvailabilityChecked] =
     useState<boolean>(true);
+
+  const [isSubmitedSmbChecklist, setIsSubmitedSmbChecklist] =
+    useState<boolean>(false);
+  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (formDetails) {
@@ -640,6 +646,7 @@ function ChecklistSmb({
         }
       });
     }
+    setIsSubmitedSmbChecklist(responseData?.isSubmited ?? false)
     setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay ?? true);
     setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay ?? true);
     setCashBanksLoansChecked(responseData?.phase3CashIsDisplay ?? true);
@@ -1198,10 +1205,13 @@ function ChecklistSmb({
     const callBack = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
+          setIsOpenConfirmationSubmit(false);
+          setExpandedAccordian(-1);
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          getFormDetials()
+          getFormDetials();
+          setIsOpenConfirmationSubmit(false);
           type === 1 && setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
@@ -1231,7 +1241,7 @@ function ChecklistSmb({
       !isExistingFinancialsAccessValid &&
       !isMeetingChecklistValid;
     if (type === 1) {
-      if (isValid) {
+      if (isValid && !isSubmitedSmbChecklist) {
         callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
           userId: !!clientInfo?.UserId
             ? parseInt(clientInfo?.UserId)
@@ -1240,9 +1250,12 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
-          progress: progressCounts
+          progress: progressCounts,
+          isSubmited: true
         });
       } else {
+        setIsOpenConfirmationSubmit(false);
+        setExpandedAccordian(-1);
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -1271,7 +1284,7 @@ function ChecklistSmb({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           checkList: checkList,
-          progress: progressCounts
+          progress: progressCounts,
         });
       }
     }
@@ -1477,10 +1490,15 @@ function ChecklistSmb({
       errorStatus: smbPeopleBusinessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 1),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.COMMUNICATION),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.COMMUNICATION
+      ),
       title: "People and Business",
       component: (
         <SmbPeopleBusinessChecklist
+          checkAllFieldsSmbPeopleBusinessChecklist={
+            isSubmitedSmbChecklist
+          }
           smbPeopleBusinessErrors={smbPeopleBusinessErrors}
           smbClientName={smbClientName}
           setSmbClientName={setSmbClientName}
@@ -1513,12 +1531,18 @@ function ChecklistSmb({
       id: 2,
       checkStatus: systemDocumentAccessChecked,
       errorStatus: smbSystemDocumentAccessHasErrors,
-      expandedStatus: expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
+      expandedStatus:
+        expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
+      ),
       title: "System & Document Information & Access",
       component: (
         <SmbSystemAccessChecklist
+          checkAllFieldsSmbSystemAccessChecklist={
+            isSubmitedSmbChecklist
+          }
           smbSystemAccessChecklistErrors={smbSystemDocumentAccessErrors}
           smbPABSGroupEmail={smbPABSGroupEmail}
           setSmbPABSGroupEmail={setSmbPABSGroupEmail}
@@ -1551,10 +1575,15 @@ function ChecklistSmb({
       errorStatus: smbCashBankingAccessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 3),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.CASH_BANKING_LOANS),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.CASH_BANKING_LOANS
+      ),
       title: "Cash & Banking Information & Access",
       component: (
         <SmbBankingAccessChecklist
+          checkAllFieldsSmbBankingAccessChecklist={
+            isSubmitedSmbChecklist
+          }
           smbCashBankingAccessErrors={smbCashBankingAccessErrors}
           smbSavingAccount={smbSavingAccount}
           setSmbSavingAccount={setSmbSavingAccount}
@@ -1577,11 +1606,18 @@ function ChecklistSmb({
       errorStatus: smbExistingFinancialsChecklistHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
       handleSwitchChange: (e: any) => handleSwitchChange(e, 4),
-      handleAccordianChange: handleAccordianChange(AccordianExpand.PAYROLL_SYSTEM),
+      handleAccordianChange: handleAccordianChange(
+        AccordianExpand.PAYROLL_SYSTEM
+      ),
       title: "Condition of Existing Financials",
       component: (
         <SmbExistingFinancialsChecklist
-          smbExistingFinancialsChecklistErrors={smbExistingFinancialsChecklistErrors}
+          checkAllFieldsSmbExistingFinancialsChecklist={
+            isSubmitedSmbChecklist
+          }
+          smbExistingFinancialsChecklistErrors={
+            smbExistingFinancialsChecklistErrors
+          }
           smbLiveDate={smbLiveDate}
           setSmbLiveDate={setSmbLiveDate}
           smbAccountingMethod={smbAccountingMethod}
@@ -1611,6 +1647,7 @@ function ChecklistSmb({
       title: "Meeting Availability",
       component: (
         <SmbMeetingChecklist
+          checkAllFieldsSmbMeetingChecklist={isSubmitedSmbChecklist}
           smbMeetingChecklistErrors={smbMeetingChecklistErrors}
           smbTimeZone={smbTimeZone}
           setSmbTimeZone={setSmbTimeZone}
@@ -1623,10 +1660,12 @@ function ChecklistSmb({
     },
   ];
 
-  const enabledPhases = phases.filter(phase => roleId === "4" ? phase.checkStatus : true);
+  const enabledPhases = phases.filter((phase) =>
+    roleId === "4" ? phase.checkStatus : true
+  );
   const updatedPhases = enabledPhases.map((phase, index) => ({
     ...phase,
-    phaseNumber: index + 1
+    phaseNumber: index + 1,
   }));
 
   return (
@@ -1637,7 +1676,7 @@ function ChecklistSmb({
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
-            {updatedPhases.map(phase => (
+            {updatedPhases.map((phase) => (
               <ChecklistAccordian
                 key={phase.id}
                 handleSwitchChange={phase.handleSwitchChange}
@@ -1665,36 +1704,57 @@ function ChecklistSmb({
           </div>
         </div>
 
-        <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">
-          {roleId !== "4" && (
-            <Button
-              onClick={() => setIsOpenModal(false)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
+        {(roleId === "4"
+          ? !isSubmitedSmbChecklist
+          : true) && (
+            <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">
+              {roleId !== "4" && (
+                <Button
+                  onClick={() => setIsOpenModal(false)}
+                  className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                  variant="outlined"
+                >
+                  Cancel
+                </Button>
+              )}
+              {(roleId === "4"
+                ? !isSubmitedSmbChecklist
+                : true) && (
+                  <Button
+                    onClick={() => handleSubmit(2)}
+                    className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                    variant="outlined"
+                  >
+                    Save
+                  </Button>
+                )}
+              {(roleId === "4" && !isSubmitedSmbChecklist) && (
+                <Button
+                  onClick={() => setIsOpenConfirmationSubmit(true)}
+                  className={`!bg-[#022946] text-white !rounded-full`}
+                  variant="contained"
+                >
+                  <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                    Submit
+                  </span>
+                </Button>
+              )}
+            </div>
           )}
-          <Button
-            onClick={() => handleSubmit(2)}
-            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-            variant="outlined"
-          >
-            Save
-          </Button>
-          {roleId === "4" && (
-            <Button
-              onClick={() => handleSubmit(1)}
-              className={`!bg-[#022946] text-white !rounded-full`}
-              variant="contained"
-            >
-              <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-                Submit
-              </span>
-            </Button>
-          )}
-        </div>
       </div>
+
+      {isOpenConfirmationSubmit && (
+        <ConfirmModal
+          title="Confirm"
+          isOpen={isOpenConfirmationSubmit}
+          message="After submit you will not be able to update data. Please click confirm to continue."
+          handleModalSubmit={() => handleSubmit(1)}
+          handleClose={() => setIsOpenConfirmationSubmit(false)}
+          setIsOpen={(value) => {
+            setIsOpenConfirmationSubmit(value);
+          }}
+        />
+      )}
     </>
   );
 }

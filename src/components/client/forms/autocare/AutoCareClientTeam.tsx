@@ -30,6 +30,8 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+// Cookie import
+import Cookies from "js-cookie";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -41,9 +43,11 @@ function AutoCareClientTeam({
   setAutoCareClientTeam,
   autoCareClientTeamErrors,
   setAutoCareClientTeamErrors,
-  handleClientTeamSwitch
+  finalCheckAllFieldsClientTeam,
+  handleClientTeamSwitch,
 }: ClientTeamTypes) {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -196,7 +200,9 @@ function AutoCareClientTeam({
       <FormBox
         title="Client Team"
         checkStatus={clientTeamCheckStatus}
-        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleClientTeamSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+          handleClientTeamSwitch(e)
+        }
       >
         <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">
@@ -221,6 +227,7 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -245,6 +252,7 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
 
@@ -270,6 +278,7 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -290,6 +299,7 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
 
@@ -313,6 +323,7 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -333,6 +344,7 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -348,6 +360,7 @@ function AutoCareClientTeam({
                 }`}
                 value={autoCareClientTeam?.timeZone}
                 onChange={(e) => handleDropdownChange(e, "timeZone")}
+                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
               >
                 {TimeZoneList.map((type) => (
                   <MenuItem
@@ -374,6 +387,7 @@ function AutoCareClientTeam({
                 }`}
                 value={autoCareClientTeam?.state}
                 onChange={(e) => handleDropdownChange(e, "state")}
+                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
               >
                 {StateList.map((type) => (
                   <MenuItem
@@ -403,6 +417,7 @@ function AutoCareClientTeam({
                 value={autoCareClientTeam?.weeklyCalls}
                 error={!!autoCareClientTeamErrors?.weeklyCalls}
                 onChange={(e) => handleDropdownChange(e, "weeklyCalls")}
+                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
               >
                 {WeeklyCallsList.map((type) => (
                   <MenuItem
@@ -458,7 +473,9 @@ function AutoCareClientTeam({
                     weeklyCallTime: error,
                   }))
                 }
-                disabled={autoCareClientTeam?.timeZone !== "-1" ? false : true}
+                disabled={
+                  autoCareClientTeam?.timeZone !== "-1" ? (roleId === "4" && finalCheckAllFieldsClientTeam) ? true : false : true
+                }
                 slotProps={{
                   textField: {
                     variant: "standard",
@@ -517,6 +534,7 @@ function AutoCareClientTeam({
                     error: !!autoCareClientTeamErrors.istTime,
                   },
                 }}
+                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
               />
               {autoCareClientTeamErrors?.istTime && (
                 <span className="text-[#d32f2f]">

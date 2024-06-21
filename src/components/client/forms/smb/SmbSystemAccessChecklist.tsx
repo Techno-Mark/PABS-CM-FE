@@ -29,6 +29,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function SmbSystemAccessChecklist({
   className,
@@ -55,56 +57,81 @@ function SmbSystemAccessChecklist({
   setSmbExpensePaymentPortalAccess,
   smbPointSalesAccess,
   setSmbPointSalesAccess,
+  checkAllFieldsSmbSystemAccessChecklist,
 }: SystemDocumentInformationAccessTypes) {
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">General</div>
       <PABSGroupEmail
+        checkAllFieldsPABSGroupEmail={checkAllFieldsSmbSystemAccessChecklist}
         smbPABSGroupEmail={smbPABSGroupEmail}
         setSmbPABSGroupEmail={setSmbPABSGroupEmail}
       />
       <AccessAccountingSoftware
+        checkAllFieldsAccessAccountingSoftware={
+          checkAllFieldsSmbSystemAccessChecklist
+        }
         smbAccessAccountingSoftware={smbAccessAccountingSoftware}
         setSmbAccessAccountingSoftware={setSmbAccessAccountingSoftware}
         smbAccessAccountingSoftwareErrors={smbSystemAccessChecklistErrors}
       />
       <DropboxSetUp
+        checkAllFieldsDropboxSetUp={checkAllFieldsSmbSystemAccessChecklist}
         smbDropboxSetUp={smbDropboxSetUp}
         setSmbDropboxSetUp={setSmbDropboxSetUp}
       />
       <div className="text-[18px] font-medium py-2 w-full">Sales Tax</div>
       <SalesTaxPortalAccess
+        checkAllFieldsSalesTaxPortalAccess={
+          checkAllFieldsSmbSystemAccessChecklist
+        }
         smbSalesTaxPortalAccess={smbSalesTaxPortalAccess}
         setSmbSalesTaxPortalAccess={setSmbSalesTaxPortalAccess}
       />
       <div className="text-[18px] font-medium py-2 w-full">Merchant</div>
       <MerchantAccountPortalAccess
+        checkAllFieldsMerchantAccountPortalAccess={
+          checkAllFieldsSmbSystemAccessChecklist
+        }
         smbMerchantAccountPortalAccess={smbMerchantAccountPortalAccess}
         setSmbMerchantAccountPortalAccess={setSmbMerchantAccountPortalAccess}
       />
       <div className="text-[18px] font-medium py-2 w-full">Payroll</div>
       <PayrollServiceAccess
+        checkAllFieldsPayrollServiceAccess={
+          checkAllFieldsSmbSystemAccessChecklist
+        }
         smbPayrollServiceAccess={smbPayrollServiceAccess}
         setSmbPayrollServiceAccess={setSmbPayrollServiceAccess}
         smbPayrollServiceAccessErrors={smbSystemAccessChecklistErrors}
       />
       <PayrollFrequency
+        checkAllFieldsPayrollFrequency={checkAllFieldsSmbSystemAccessChecklist}
         smbPayrollFrequency={smbPayrollFrequency}
         setSmbPayrollFrequency={setSmbPayrollFrequency}
       />
       <div className="text-[18px] font-medium py-2 w-full">Expense</div>
       <ExpensePaymentPortalAccess
+        checkAllFieldsExpensePaymentPortalAccess={
+          checkAllFieldsSmbSystemAccessChecklist
+        }
         smbExpensePaymentPortalAccess={smbExpensePaymentPortalAccess}
         setSmbExpensePaymentPortalAccess={setSmbExpensePaymentPortalAccess}
       />
       <ModeOfPayment
+        checkAllFieldsModeOfPayment={checkAllFieldsSmbSystemAccessChecklist}
         smbModeOfPayment={smbModeOfPayment}
         setSmbModeOfPayment={setSmbModeOfPayment}
         smbModeOfPaymentErrors={smbSystemAccessChecklistErrors}
       />
-      <ApBills smbApBills={smbApBills} setSmbApBills={setSmbApBills} />
+      <ApBills
+        smbApBills={smbApBills}
+        setSmbApBills={setSmbApBills}
+        checkAllFieldsApBills={checkAllFieldsSmbSystemAccessChecklist}
+      />
       <div className="text-[18px] font-medium py-2 w-full">POS</div>
       <PointSalesAccess
+        checkAllFieldsPointSalesAccess={checkAllFieldsSmbSystemAccessChecklist}
         smbPointSalesAccess={smbPointSalesAccess}
         setSmbPointSalesAccess={setSmbPointSalesAccess}
         smbPointSalesAccessErrors={smbSystemAccessChecklistErrors}
@@ -118,8 +145,10 @@ export default SmbSystemAccessChecklist;
 const PABSGroupEmail = ({
   smbPABSGroupEmail,
   setSmbPABSGroupEmail,
+  checkAllFieldsPABSGroupEmail,
 }: PABSGroupEmailTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -155,6 +184,7 @@ const PABSGroupEmail = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
               />
             </div>
           </Grid>
@@ -177,6 +207,7 @@ const PABSGroupEmail = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
               />
             </div>
           </Grid>
@@ -201,6 +232,7 @@ const PABSGroupEmail = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
               />
             </div>
           </Grid>
@@ -214,8 +246,10 @@ const AccessAccountingSoftware = ({
   smbAccessAccountingSoftware,
   setSmbAccessAccountingSoftware,
   smbAccessAccountingSoftwareErrors,
+  checkAllFieldsAccessAccountingSoftware,
 }: AccessAccountingSoftwareTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -262,6 +296,9 @@ const AccessAccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsAccessAccountingSoftware
+                }
               />
             </div>
           </Grid>
@@ -292,6 +329,9 @@ const AccessAccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsAccessAccountingSoftware
+                }
               />
             </div>
           </Grid>
@@ -324,6 +364,9 @@ const AccessAccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsAccessAccountingSoftware
+                }
               />
             </div>
           </Grid>
@@ -336,8 +379,10 @@ const AccessAccountingSoftware = ({
 const DropboxSetUp = ({
   smbDropboxSetUp,
   setSmbDropboxSetUp,
+  checkAllFieldsDropboxSetUp,
 }: DropboxSetUpTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -373,6 +418,7 @@ const DropboxSetUp = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
               />
             </div>
           </Grid>
@@ -395,6 +441,7 @@ const DropboxSetUp = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
               />
             </div>
           </Grid>
@@ -419,6 +466,7 @@ const DropboxSetUp = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
               />
             </div>
           </Grid>
@@ -431,8 +479,10 @@ const DropboxSetUp = ({
 const SalesTaxPortalAccess = ({
   smbSalesTaxPortalAccess,
   setSmbSalesTaxPortalAccess,
+  checkAllFieldsSalesTaxPortalAccess,
 }: SalesTaxPortalAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -468,6 +518,7 @@ const SalesTaxPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
               />
             </div>
           </Grid>
@@ -490,6 +541,7 @@ const SalesTaxPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
               />
             </div>
           </Grid>
@@ -514,6 +566,7 @@ const SalesTaxPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
               />
             </div>
           </Grid>
@@ -526,8 +579,10 @@ const SalesTaxPortalAccess = ({
 const MerchantAccountPortalAccess = ({
   smbMerchantAccountPortalAccess,
   setSmbMerchantAccountPortalAccess,
+  checkAllFieldsMerchantAccountPortalAccess,
 }: MerchantAccountPortalAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -567,6 +622,9 @@ const MerchantAccountPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsMerchantAccountPortalAccess
+                }
               />
             </div>
           </Grid>
@@ -591,6 +649,9 @@ const MerchantAccountPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsMerchantAccountPortalAccess
+                }
               />
             </div>
           </Grid>
@@ -617,6 +678,9 @@ const MerchantAccountPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsMerchantAccountPortalAccess
+                }
               />
             </div>
           </Grid>
@@ -630,8 +694,10 @@ const PayrollServiceAccess = ({
   smbPayrollServiceAccess,
   setSmbPayrollServiceAccess,
   smbPayrollServiceAccessErrors,
+  checkAllFieldsPayrollServiceAccess,
 }: PayrollServiceAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -673,6 +739,7 @@ const PayrollServiceAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
               />
             </div>
           </Grid>
@@ -701,6 +768,7 @@ const PayrollServiceAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
               />
             </div>
           </Grid>
@@ -731,6 +799,7 @@ const PayrollServiceAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
               />
             </div>
           </Grid>
@@ -743,8 +812,10 @@ const PayrollServiceAccess = ({
 const PayrollFrequency = ({
   smbPayrollFrequency,
   setSmbPayrollFrequency,
+  checkAllFieldsPayrollFrequency,
 }: PayrollFrequencyTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -780,6 +851,7 @@ const PayrollFrequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
               />
             </div>
           </Grid>
@@ -802,6 +874,7 @@ const PayrollFrequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
               />
             </div>
           </Grid>
@@ -826,6 +899,7 @@ const PayrollFrequency = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
               />
             </div>
           </Grid>
@@ -838,8 +912,10 @@ const PayrollFrequency = ({
 const ExpensePaymentPortalAccess = ({
   smbExpensePaymentPortalAccess,
   setSmbExpensePaymentPortalAccess,
+  checkAllFieldsExpensePaymentPortalAccess,
 }: ExpensePaymentPortalAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -879,6 +955,7 @@ const ExpensePaymentPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
               />
             </div>
           </Grid>
@@ -903,6 +980,7 @@ const ExpensePaymentPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
               />
             </div>
           </Grid>
@@ -929,6 +1007,7 @@ const ExpensePaymentPortalAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
               />
             </div>
           </Grid>
@@ -942,8 +1021,10 @@ const ModeOfPayment = ({
   smbModeOfPayment,
   setSmbModeOfPayment,
   smbModeOfPaymentErrors,
+  checkAllFieldsModeOfPayment,
 }: ModeOfPaymentTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -982,6 +1063,7 @@ const ModeOfPayment = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsModeOfPayment}
               />
             </div>
           </Grid>
@@ -1006,6 +1088,7 @@ const ModeOfPayment = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsModeOfPayment}
               />
             </div>
           </Grid>
@@ -1032,6 +1115,7 @@ const ModeOfPayment = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsModeOfPayment}
               />
             </div>
           </Grid>
@@ -1041,8 +1125,13 @@ const ModeOfPayment = ({
   );
 };
 
-const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
+const ApBills = ({
+  smbApBills,
+  setSmbApBills,
+  checkAllFieldsApBills,
+}: ApBillsTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -1078,6 +1167,7 @@ const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsApBills}
               />
             </div>
           </Grid>
@@ -1100,6 +1190,7 @@ const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsApBills}
               />
             </div>
           </Grid>
@@ -1124,6 +1215,7 @@ const ApBills = ({ smbApBills, setSmbApBills }: ApBillsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsApBills}
               />
             </div>
           </Grid>
@@ -1137,8 +1229,10 @@ const PointSalesAccess = ({
   smbPointSalesAccess,
   setSmbPointSalesAccess,
   smbPointSalesAccessErrors,
+  checkAllFieldsPointSalesAccess,
 }: PointSalesAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -1176,6 +1270,7 @@ const PointSalesAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPointSalesAccess}
               />
             </div>
           </Grid>
@@ -1200,6 +1295,7 @@ const PointSalesAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPointSalesAccess}
               />
             </div>
           </Grid>
@@ -1228,6 +1324,7 @@ const PointSalesAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsPointSalesAccess}
               />
             </div>
           </Grid>

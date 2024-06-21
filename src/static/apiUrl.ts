@@ -34,4 +34,4 @@ export const getRolePermission = "api/roles/permissionlist";
 export const onboardingSaveFormUrl = "api/clients/save-client-info";
 export const onboardingListFormUrl = "api/clients/getbyid-client-info";
 
-export const onboardingDownloadFormUrl = "api/clients/download-client-info";
+export const onboardingDownloadFormUrl = `${process.env.APIDEV_URL}api/clients/download-client-info`;

@@ -32,6 +32,7 @@ import {
 } from "@/static/apiUrl";
 import BasicDetailsWhitelabel from "./BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "./ChecklistWhitelabel";
+import Cookies from "js-cookie";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -51,12 +52,13 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
+  const token = Cookies.get("token");
   const formSubmitId =
     clientInfo?.DepartmentId === 3
       ? 31
       : clientInfo?.DepartmentId === 2
-        ? 21
-        : 11;
+      ? 21
+      : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
@@ -90,19 +92,34 @@ function ClientModal({
   }, []);
 
   const handleDownload = () => {
-    const callback = (ResponseStatus: string, Message: string) => {
-      switch (ResponseStatus) {
-        case "failure":
-          showToast(Message, ToastType.Error);
-          return;
-        case "success":
-          showToast(Message, ToastType.Success);
-          return;
+   
+    fetch(onboardingDownloadFormUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      },
+      body: JSON.stringify({ userId: 89 })
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.blob();
+      } else {
+        throw new Error('Error downloading file');
       }
-    };
-
-    callAPIwithHeaders(onboardingDownloadFormUrl, "post", callback, {
-      userId: clientInfo.UserId,
+    })
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'ClientInfo.xlsx'; // The same filename set in the backend
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+      console.error('Error:', error);
     });
   };
 
@@ -188,7 +205,7 @@ function ClientModal({
                 <>
                   {formSubmit === 31 && (
                     <BasicDetailsAutoCare
-                      setCheckAllFields={() => { }}
+                      setCheckAllFields={() => {}}
                       autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -200,20 +217,19 @@ function ClientModal({
                       }
                     />
                   )}
-                  {formSubmit === 32 && (
-                    <ChecklistAutoCare
-                      checkAllBasicDetails={false}
-                      autoCareProgressPercentage={autoCareProgressPer}
-                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
-                      clientInfo={clientInfo}
-                      setChecklistFormSubmit={(value: number) =>
-                        setFormSubmit(value)
-                      }
-                      setChecklistCount={(value: number) =>
-                        setPerCountChecklist(value)
-                      }
-                    />
-                  )}
+                  <ChecklistAutoCare
+                    formSubmitId={formSubmit}
+                    checkAllBasicDetails={false}
+                    autoCareProgressPercentage={autoCareProgressPer}
+                    setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
+                    clientInfo={clientInfo}
+                    setChecklistFormSubmit={(value: number) =>
+                      setFormSubmit(value)
+                    }
+                    setChecklistCount={(value: number) =>
+                      setPerCountChecklist(value)
+                    }
+                  />
                 </>
               ) : clientInfo.DepartmentId === 2 ? (
                 <>
@@ -240,7 +256,7 @@ function ClientModal({
                       setWhitelabelBasicDetailsFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setWhitelabelBasicDetailCount={(value: number) => { }}
+                      setWhitelabelBasicDetailCount={(value: number) => {}}
                     />
                   ) : formSubmit === 12 ? (
                     <ChecklistWhitelabel
@@ -248,7 +264,7 @@ function ClientModal({
                       setChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setChecklistCount={(value: number) => { }}
+                      setChecklistCount={(value: number) => {}}
                     />
                   ) : (
                     ""

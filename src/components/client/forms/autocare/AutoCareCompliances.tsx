@@ -15,6 +15,8 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
+// Cookie import
+import Cookies from "js-cookie";
 
 function AutoCareCompliances({
   className,
@@ -27,25 +29,32 @@ function AutoCareCompliances({
   setAutoCareTireTax,
   autoCareLastTaxReturnFiledYear,
   setAutoCareLastTaxReturnFiledYear,
+  checkAllFieldsAutoCareCompliances,
 }: autoCareCompliancesTypes) {
   return (
     <div className={`${className}`}>
       <SalesTaxAccessWorkPaper
+        checkAllFieldsSalesTaxAccessWorkPaper={
+          checkAllFieldsAutoCareCompliances
+        }
         autoCareSalesTaxAccessWorkPaper={autoCareSalesTaxAccessWorkPaper}
         setAutoCareSalesTaxAccessWorkPaper={setAutoCareSalesTaxAccessWorkPaper}
         salesTaxAccessWorkPaperErrors={compliancesErrors}
       />
       <UseTax
+        checkAllFieldsUseTax={checkAllFieldsAutoCareCompliances}
         autoCareUseTax={autoCareUseTax}
         setAutoCareUseTax={setAutoCareUseTax}
         useTaxErrors={compliancesErrors}
       />
       <TireTax
+        checkAllFieldsTireTax={checkAllFieldsAutoCareCompliances}
         autoCareTireTax={autoCareTireTax}
         setAutoCareTireTax={setAutoCareTireTax}
         tireTaxErrors={compliancesErrors}
       />
       <LastTaxReturnFiledYear
+        checkAllFieldsLastTaxReturnFiledYear={checkAllFieldsAutoCareCompliances}
         autoCareLastTaxReturnFiledYear={autoCareLastTaxReturnFiledYear}
         setAutoCareLastTaxReturnFiledYear={setAutoCareLastTaxReturnFiledYear}
         lastTaxReturnFiledYearErrors={compliancesErrors}
@@ -60,8 +69,10 @@ const SalesTaxAccessWorkPaper = ({
   autoCareSalesTaxAccessWorkPaper,
   setAutoCareSalesTaxAccessWorkPaper,
   salesTaxAccessWorkPaperErrors,
+  checkAllFieldsSalesTaxAccessWorkPaper,
 }: SalesTaxAccessWorkPaperTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleSalesTaxAccessWorkPaperChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -110,6 +121,9 @@ const SalesTaxAccessWorkPaper = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                }
               />
             </div>
           </Grid>
@@ -140,6 +154,9 @@ const SalesTaxAccessWorkPaper = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                }
               />
             </div>
           </Grid>
@@ -170,6 +187,9 @@ const SalesTaxAccessWorkPaper = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                }
               />
             </div>
           </Grid>
@@ -202,6 +222,9 @@ const SalesTaxAccessWorkPaper = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                }
               />
             </div>
           </Grid>
@@ -234,6 +257,9 @@ const SalesTaxAccessWorkPaper = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={
+                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                }
               />
             </div>
           </Grid>
@@ -247,8 +273,10 @@ const UseTax = ({
   autoCareUseTax,
   setAutoCareUseTax,
   useTaxErrors,
+  checkAllFieldsUseTax,
 }: UseTaxTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleUseTaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -287,6 +315,7 @@ const UseTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsUseTax}
               />
             </div>
           </Grid>
@@ -311,6 +340,7 @@ const UseTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsUseTax}
               />
             </div>
           </Grid>
@@ -335,6 +365,7 @@ const UseTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsUseTax}
               />
             </div>
           </Grid>
@@ -361,6 +392,7 @@ const UseTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsUseTax}
               />
             </div>
           </Grid>
@@ -387,6 +419,7 @@ const UseTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFieldsUseTax}
               />
             </div>
           </Grid>
@@ -400,8 +433,10 @@ const TireTax = ({
   autoCareTireTax,
   setAutoCareTireTax,
   tireTaxErrors,
+  checkAllFieldsTireTax,
 }: TireTaxTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleTireTaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -439,6 +474,7 @@ const TireTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTireTax}
               />
             </div>
           </Grid>
@@ -463,6 +499,7 @@ const TireTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTireTax}
               />
             </div>
           </Grid>
@@ -487,6 +524,7 @@ const TireTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTireTax}
               />
             </div>
           </Grid>
@@ -513,6 +551,7 @@ const TireTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTireTax}
               />
             </div>
           </Grid>
@@ -539,6 +578,7 @@ const TireTax = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsTireTax}
               />
             </div>
           </Grid>
@@ -552,8 +592,10 @@ const LastTaxReturnFiledYear = ({
   autoCareLastTaxReturnFiledYear,
   setAutoCareLastTaxReturnFiledYear,
   lastTaxReturnFiledYearErrors,
+  checkAllFieldsLastTaxReturnFiledYear,
 }: LastTaxReturnFiledYearTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleLastTaxReturnFiledYearChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -603,6 +645,7 @@ const LastTaxReturnFiledYear = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
               />
             </div>
           </Grid>
@@ -633,6 +676,7 @@ const LastTaxReturnFiledYear = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
               />
             </div>
           </Grid>
@@ -663,6 +707,7 @@ const LastTaxReturnFiledYear = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
               />
             </div>
           </Grid>
@@ -695,6 +740,7 @@ const LastTaxReturnFiledYear = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
               />
             </div>
           </Grid>
@@ -727,6 +773,7 @@ const LastTaxReturnFiledYear = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
               />
             </div>
           </Grid>
