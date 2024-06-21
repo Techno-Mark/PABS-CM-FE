@@ -811,7 +811,7 @@ function ChecklistAutoCare({
         case "success":
           getAutoCareChecklistData();
           setIsOpenConfirmationSubmit(false);
-          type === 1 && setExpandedAccordian(-1);
+          setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
       }
@@ -1152,15 +1152,40 @@ function ChecklistAutoCare({
             ToastType.Warning
           );
         }
-        const filledFieldsCount = checklistStatus();
-        setChecklistCount(filledFieldsCount);
-        handleChecklistRemoveErrors();
-        callAPIwithHeaders(
-          onboardingSaveFormUrl,
-          "post",
-          callback,
-          checklistFormData
-        );
+
+        if (isFormSubmitAutoCareChecklist && roleId !== "4") {
+          const isFinancialsValid = validateAutoCareFinancials();
+          const isPayableCashPayAccessValid =
+            validateAutoCarePayableCashPayAccess();
+          const isCompliancesValid = validateAutoCareCompliances();
+          const isFrequencyValid = validateAutoCareFrequency();
+          const isSystemSoftwareLocationValid =
+            validateAutoCareSystemSoftwareLocation();
+          const isCashBankLoansValid = validateAutoCareCashBankLoans();
+
+          const isValid =
+            !isFinancialsValid &&
+            !isPayableCashPayAccessValid &&
+            !isCompliancesValid &&
+            !isFrequencyValid &&
+            !isSystemSoftwareLocationValid &&
+            !isCashBankLoansValid;
+
+          if (isValid) {
+            callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+              ...checklistFormData,
+              progress: autoCareProgressPercentage,
+            });
+          }
+        } else {
+          const filledFieldsCount = checklistStatus();
+          setChecklistCount(filledFieldsCount);
+          handleChecklistRemoveErrors();
+          callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+            ...checklistFormData,
+            progress: autoCareProgressPercentage,
+          });
+        }
       }
     } else {
       handleChecklistInitialValues();
@@ -1617,8 +1642,9 @@ function ChecklistAutoCare({
     <>
       {formSubmitId === 32 && (
         <div
-          className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-            } pt-12`}
+          className={`flex flex-col ${
+            roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="m-6 flex flex-col gap-6">
@@ -1630,6 +1656,7 @@ function ChecklistAutoCare({
                   hasError={phase.errorStatus}
                   expandedAccordian={phase.expandedStatus}
                   handleChange={phase.handleAccordianChange}
+                  switchDisabled={isFormSubmitAutoCareChecklist}
                   title={`Phase ${phase.phaseNumber}: ${phase.title}`}
                 >
                   {phase.component}

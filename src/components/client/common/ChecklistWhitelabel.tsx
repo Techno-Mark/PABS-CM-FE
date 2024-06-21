@@ -22,9 +22,11 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 const ChecklistWhitelabel = ({
   setChecklistCount,
   setChecklistFormSubmit,
+  clientInfo,
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
-  const userID = Cookies.get("userId");
+  const userId = Cookies.get("userId");
+  const businessTypeId = Cookies.get("businessTypeId");
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
@@ -248,7 +250,7 @@ const ChecklistWhitelabel = ({
             return;
           case "success":
             showToast(Message, ToastType.Success);
-            type === 1 && setChecklistFormSubmit(3);
+            type === 1 && setChecklistFormSubmit(13);
             // type === 2 && getFormDetials();
             return;
         }
@@ -256,8 +258,12 @@ const ChecklistWhitelabel = ({
 
       const saveClientIndo = "/api/clients/save-client-info";
       callAPIwithHeaders(saveClientIndo, "post", callBack, {
-        userId: Number(userID),
-        businessTypeId: 3,
+        userId: !!clientInfo?.UserId
+          ? parseInt(clientInfo?.UserId)
+          : parseInt(userId!),
+        businessTypeId: !!clientInfo?.DepartmentId
+          ? parseInt(clientInfo?.DepartmentId)
+          : parseInt(businessTypeId!),
         checkList: checkList,
       });
 
@@ -286,6 +292,7 @@ const ChecklistWhitelabel = ({
       <div className={`flex-1 overflow-y-scroll`}>
         <div className="m-6 flex flex-col gap-6">
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.COMMUNICATION
             }
@@ -305,6 +312,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.SYSTEMS_SOFTWARE_SET_UP
             }
@@ -334,6 +342,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.SERVICE_TYPE
             }
@@ -355,6 +364,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.CHALLENGES_EXPECTATION
             }
@@ -372,6 +382,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.TYPE_OF_WORK_ASSIGNMENT
             }
@@ -393,6 +404,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.ESCALATION_MATRIX
             }
@@ -412,6 +424,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.MEETING_AVAILABILITY
             }

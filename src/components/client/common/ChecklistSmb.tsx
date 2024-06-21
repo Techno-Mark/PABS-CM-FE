@@ -646,7 +646,7 @@ function ChecklistSmb({
         }
       });
     }
-    setIsSubmitedSmbChecklist(responseData?.isSubmited ?? false)
+    setIsSubmitedSmbChecklist(responseData?.isSubmited ?? false);
     setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay ?? true);
     setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay ?? true);
     setCashBanksLoansChecked(responseData?.phase3CashIsDisplay ?? true);
@@ -683,9 +683,9 @@ function ChecklistSmb({
 
   const handleAccordianChange =
     (arg1: number) =>
-      (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
-        setExpandedAccordian(isExpanded ? arg1 : -1);
-      };
+    (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
+      setExpandedAccordian(isExpanded ? arg1 : -1);
+    };
 
   const validateSmbPeopleBusiness = () => {
     const newPeopleBuinessErrors: { [key: string]: string } = {};
@@ -1212,7 +1212,7 @@ function ChecklistSmb({
         case "success":
           getFormDetials();
           setIsOpenConfirmationSubmit(false);
-          type === 1 && setExpandedAccordian(-1);
+          setExpandedAccordian(-1);
           showToast(Message, ToastType.Success);
           return;
       }
@@ -1251,7 +1251,7 @@ function ChecklistSmb({
             : parseInt(businessTypeId!),
           checkList: checkList,
           progress: progressCounts,
-          isSubmited: true
+          isSubmited: true,
         });
       } else {
         setIsOpenConfirmationSubmit(false);
@@ -1275,17 +1275,46 @@ function ChecklistSmb({
             ToastType.Warning
           );
         }
-        handleRemoveErrors();
-        callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
-          userId: !!clientInfo?.UserId
-            ? parseInt(clientInfo?.UserId)
-            : parseInt(userId!),
-          businessTypeId: !!clientInfo?.DepartmentId
-            ? parseInt(clientInfo?.DepartmentId)
-            : parseInt(businessTypeId!),
-          checkList: checkList,
-          progress: progressCounts,
-        });
+        if (isSubmitedSmbChecklist && roleId !== "4") {
+          const isPeopleBusinessValid = validateSmbPeopleBusiness();
+          const isSystemDocumentAccessValid = validateSmbSystemDocumentAccess();
+          const isCashBankingAccessValid = validateSmbCashBankingAccess();
+          const isExistingFinancialsAccessValid =
+            validateSmbExistingFinancialsChecklist();
+          const isMeetingChecklistValid = validateSmbMeetingChecklist();
+
+          const isValid =
+            !isPeopleBusinessValid &&
+            !isSystemDocumentAccessValid &&
+            !isCashBankingAccessValid &&
+            !isExistingFinancialsAccessValid &&
+            !isMeetingChecklistValid;
+
+          if (isValid) {
+            callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
+              userId: !!clientInfo?.UserId
+                ? parseInt(clientInfo?.UserId)
+                : parseInt(userId!),
+              businessTypeId: !!clientInfo?.DepartmentId
+                ? parseInt(clientInfo?.DepartmentId)
+                : parseInt(businessTypeId!),
+              checkList: checkList,
+              progress: progressCounts,
+            });
+          }
+        } else {
+          handleRemoveErrors();
+          callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
+            userId: !!clientInfo?.UserId
+              ? parseInt(clientInfo?.UserId)
+              : parseInt(userId!),
+            businessTypeId: !!clientInfo?.DepartmentId
+              ? parseInt(clientInfo?.DepartmentId)
+              : parseInt(businessTypeId!),
+            checkList: checkList,
+            progress: progressCounts,
+          });
+        }
       }
     }
   };
@@ -1496,9 +1525,7 @@ function ChecklistSmb({
       title: "People and Business",
       component: (
         <SmbPeopleBusinessChecklist
-          checkAllFieldsSmbPeopleBusinessChecklist={
-            isSubmitedSmbChecklist
-          }
+          checkAllFieldsSmbPeopleBusinessChecklist={isSubmitedSmbChecklist}
           smbPeopleBusinessErrors={smbPeopleBusinessErrors}
           smbClientName={smbClientName}
           setSmbClientName={setSmbClientName}
@@ -1540,9 +1567,7 @@ function ChecklistSmb({
       title: "System & Document Information & Access",
       component: (
         <SmbSystemAccessChecklist
-          checkAllFieldsSmbSystemAccessChecklist={
-            isSubmitedSmbChecklist
-          }
+          checkAllFieldsSmbSystemAccessChecklist={isSubmitedSmbChecklist}
           smbSystemAccessChecklistErrors={smbSystemDocumentAccessErrors}
           smbPABSGroupEmail={smbPABSGroupEmail}
           setSmbPABSGroupEmail={setSmbPABSGroupEmail}
@@ -1581,9 +1606,7 @@ function ChecklistSmb({
       title: "Cash & Banking Information & Access",
       component: (
         <SmbBankingAccessChecklist
-          checkAllFieldsSmbBankingAccessChecklist={
-            isSubmitedSmbChecklist
-          }
+          checkAllFieldsSmbBankingAccessChecklist={isSubmitedSmbChecklist}
           smbCashBankingAccessErrors={smbCashBankingAccessErrors}
           smbSavingAccount={smbSavingAccount}
           setSmbSavingAccount={setSmbSavingAccount}
@@ -1612,9 +1635,7 @@ function ChecklistSmb({
       title: "Condition of Existing Financials",
       component: (
         <SmbExistingFinancialsChecklist
-          checkAllFieldsSmbExistingFinancialsChecklist={
-            isSubmitedSmbChecklist
-          }
+          checkAllFieldsSmbExistingFinancialsChecklist={isSubmitedSmbChecklist}
           smbExistingFinancialsChecklistErrors={
             smbExistingFinancialsChecklistErrors
           }
@@ -1671,13 +1692,15 @@ function ChecklistSmb({
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
             {updatedPhases.map((phase) => (
               <ChecklistAccordian
+                switchDisabled={isSubmitedSmbChecklist}
                 key={phase.id}
                 handleSwitchChange={phase.handleSwitchChange}
                 checkStatus={phase.checkStatus}
@@ -1704,43 +1727,39 @@ function ChecklistSmb({
           </div>
         </div>
 
-        {(roleId === "4"
-          ? !isSubmitedSmbChecklist
-          : true) && (
-            <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">
-              {roleId !== "4" && (
-                <Button
-                  onClick={() => setIsOpenModal(false)}
-                  className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-                  variant="outlined"
-                >
-                  Cancel
-                </Button>
-              )}
-              {(roleId === "4"
-                ? !isSubmitedSmbChecklist
-                : true) && (
-                  <Button
-                    onClick={() => handleSubmit(2)}
-                    className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-                    variant="outlined"
-                  >
-                    Save
-                  </Button>
-                )}
-              {(roleId === "4" && !isSubmitedSmbChecklist) && (
-                <Button
-                  onClick={() => setIsOpenConfirmationSubmit(true)}
-                  className={`!bg-[#022946] text-white !rounded-full`}
-                  variant="contained"
-                >
-                  <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
-                    Submit
-                  </span>
-                </Button>
-              )}
-            </div>
-          )}
+        {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
+          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">
+            {roleId !== "4" && (
+              <Button
+                onClick={() => setIsOpenModal(false)}
+                className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            )}
+            {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
+              <Button
+                onClick={() => handleSubmit(2)}
+                className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                variant="outlined"
+              >
+                Save
+              </Button>
+            )}
+            {roleId === "4" && !isSubmitedSmbChecklist && (
+              <Button
+                onClick={() => setIsOpenConfirmationSubmit(true)}
+                className={`!bg-[#022946] text-white !rounded-full`}
+                variant="contained"
+              >
+                <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                  Submit
+                </span>
+              </Button>
+            )}
+          </div>
+        )}
       </div>
 
       {isOpenConfirmationSubmit && (

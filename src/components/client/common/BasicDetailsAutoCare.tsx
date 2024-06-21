@@ -68,8 +68,9 @@ function BasicDetailsAutoCare({
     useState<AccountDetailsFormTypes>(initialAutoCareAccountName);
   const [autoCareLegalStructure, setAutoCareLegalStructure] =
     useState<LegalStructureFormTypes>(initialAutoCareLegalStructure);
-  const [autoCareClientTeam, setAutoCareClientTeam] =
-    useState<ClientTeamFormTypes>(initialAutoCareClientTeam);
+  const [autoCareClientTeam, setAutoCareClientTeam] = useState<any>(
+    initialAutoCareClientTeam
+  );
   const [autoCarePabsAccountingTeam, setAutoCarePabsAccountingTeam] =
     useState<PabsAccountingTeamFormTypes>(initialAutoCarePabsAccountingTeam);
 
@@ -86,6 +87,7 @@ function BasicDetailsAutoCare({
     setIsFormSubmitAutoCareBasicDetails,
   ] = useState<boolean>(false);
 
+  console.log("autoCareClientTeam: ", autoCareClientTeam);
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
       ResponseStatus: string,
@@ -115,7 +117,7 @@ function BasicDetailsAutoCare({
             );
             setAutoCareAccountDetails({
               accountName: ResponseData?.accountName,
-              businessType: ResponseData?.businessTypeName,
+              businessType: ResponseData?.businessName,
               service: ResponseData?.service,
               corporateAddress: ResponseData?.corporateAddress,
               noOfLocations: ResponseData?.noOfLocations,
@@ -156,10 +158,16 @@ function BasicDetailsAutoCare({
                     ?.value || "-1"
                 : "-1",
               weeklyCalls: ResponseData?.weeklyCalls
-                ? WeeklyCallsList.find(
-                    (calls) => calls.label === ResponseData?.weeklyCalls
-                  )?.value || "-1"
-                : "-1",
+                .split(",")
+                .map((value) => {
+                  const matchingItem = WeeklyCallsList.find(
+                    (item) => item.value === value
+                  );
+                  return matchingItem
+                    ? { value: matchingItem.value, label: matchingItem.label }
+                    : null;
+                })
+                .filter((item) => item !== null),
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
             });
@@ -251,10 +259,7 @@ function BasicDetailsAutoCare({
         newClientTeamErrors[
           field
         ] = `${fieldDisplayNamesClientTeam[field]} is required`;
-      } else if (
-        field === "weeklyCalls" &&
-        autoCareClientTeam[field] === "-1"
-      ) {
+      } else if (field === "weeklyCalls" && autoCareClientTeam[field].length === 0) {
         newClientTeamErrors[
           field
         ] = `${fieldDisplayNamesClientTeam[field]} is required`;
@@ -331,7 +336,7 @@ function BasicDetailsAutoCare({
       if (
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
-        (!!autoCareClientTeam[field] && autoCareClientTeam[field] !== "-1") ||
+        !!(autoCareClientTeam[field] && autoCareClientTeam['weeklyCalls'].length === 0) ||
         !!autoCarePabsAccountingTeam[field]
       ) {
         count++;
@@ -405,10 +410,11 @@ function BasicDetailsAutoCare({
               ?.label
           : "",
       weeklyCalls:
-        autoCareClientTeam.weeklyCalls !== "-1"
-          ? WeeklyCallsList.find(
-              (calls) => calls.value === autoCareClientTeam.weeklyCalls
-            )?.label
+        Array.isArray(autoCareClientTeam.weeklyCalls) &&
+        autoCareClientTeam.weeklyCalls.length > 0
+          ? autoCareClientTeam.weeklyCalls
+              .map((item: any) => item.value)
+              .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
@@ -467,15 +473,35 @@ function BasicDetailsAutoCare({
             ToastType.Warning
           );
         }
-        const filledFieldsCount = basicDetailStatus();
-        setBasicDetailCount(filledFieldsCount);
-        handleBasicDetailRemoveErrors();
-        callAPIwithHeaders(
-          onboardingSaveFormUrl,
-          "post",
-          callback,
-          basicDetailsFormData
-        );
+        if (isFormSubmitAutoCareBasicDetails && roleId !== "4") {
+          const isValidAccountDetails = validateCarCareAccountDetails();
+          const isValidLegalStructure = validateCarCareLegalStructure();
+          const isValidClientTeam = validateCarCareClientTeam();
+
+          const isValid =
+            !isValidAccountDetails &&
+            !isValidLegalStructure &&
+            !isValidClientTeam;
+
+          if (isValid) {
+            callAPIwithHeaders(
+              onboardingSaveFormUrl,
+              "post",
+              callback,
+              basicDetailsFormData
+            );
+          }
+        } else {
+          const filledFieldsCount = basicDetailStatus();
+          setBasicDetailCount(filledFieldsCount);
+          handleBasicDetailRemoveErrors();
+          callAPIwithHeaders(
+            onboardingSaveFormUrl,
+            "post",
+            callback,
+            basicDetailsFormData
+          );
+        }
       }
     }
   };

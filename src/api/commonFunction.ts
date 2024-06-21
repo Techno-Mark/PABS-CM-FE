@@ -72,7 +72,8 @@ export const callAPIwithHeaders = async (
   successCallback: (
     ResponseStatus: string,
     Message: string,
-    ResponseData: any
+    ResponseData: any,
+    Response?: any
   ) => void,
   params: Object
   // headerIfAny?: any
@@ -106,7 +107,7 @@ export const callAPIwithHeaders = async (
     }
 
     const { ResponseStatus, ResponseData, Message } = response.data;
-    successCallback(ResponseStatus, Message, ResponseData);
+    successCallback(ResponseStatus, Message, ResponseData, response);
   } catch (error: any) {
     if (!!error.response) {
       switch (error.response.status) {

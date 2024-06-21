@@ -84,19 +84,20 @@ function AutoCareLegalStructure({
         handleChange={(e: ChangeEvent<HTMLInputElement>) =>
           handleLegalStructureSwitch(e)
         }
+        switchDisabled={finalCheckAllFieldsLegalStructure}
       >
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">
-                No.of Entities<span className="text-[#DC3545]">*</span>
+                No. of Entities<span className="text-[#DC3545]">*</span>
               </label>
               <TextField
                 name="no_of_Entities"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter No.of Entities"
+                placeholder="Please Enter No. of Entities"
                 value={autoCareLegalStructure?.no_of_Entities}
                 error={!!autoCareLegalStructureErrors.no_of_Entities}
                 helperText={autoCareLegalStructureErrors.no_of_Entities}
@@ -116,14 +117,14 @@ function AutoCareLegalStructure({
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">
-                No.of Shops<span className="text-[#DC3545]">*</span>
+                No. of Shops<span className="text-[#DC3545]">*</span>
               </label>
               <TextField
                 name="no_of_Shops"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter No.of Shops"
+                placeholder="Please Enter No. of Shops"
                 value={autoCareLegalStructure?.no_of_Shops}
                 error={!!autoCareLegalStructureErrors.no_of_Shops}
                 helperText={autoCareLegalStructureErrors.no_of_Shops}

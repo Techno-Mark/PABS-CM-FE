@@ -49,6 +49,7 @@ function AutoCarePabsAccountingTeam({
         title="PABS Accounting Team"
         checkStatus={pabsAccountingTeamCheckStatus}
         handleChange={(e: ChangeEvent<HTMLInputElement>) => handlePabsAccountingTeamSwitch(e)}
+        switchDisabled={finalCheckAllFieldsPabsAccountingTeam}
       >
         <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col ">

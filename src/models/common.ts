@@ -6,7 +6,7 @@ export interface StringFieldType {
   errorText: string;
 }
 
-export interface NumberFieldType extends Omit<StringFieldType, 'value'> {
+export interface NumberFieldType extends Omit<StringFieldType, "value"> {
   value: number;
 }
 
@@ -24,7 +24,7 @@ export interface ClientFormFieldType {
   businessType: NumberFieldType;
   status: NumberFieldType;
   email: StringFieldType;
-  file:any
+  file: any;
 }
 
 export interface AuthType {
@@ -46,6 +46,7 @@ export interface DrawerPropsType {
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: (e: { preventDefault: () => void }) => void;
   setId: () => void;
+  largeDrawer?: boolean;
 }
 
 export interface FilterProps {
