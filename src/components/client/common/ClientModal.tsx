@@ -92,35 +92,34 @@ function ClientModal({
   }, []);
 
   const handleDownload = () => {
-   
-    fetch(onboardingDownloadFormUrl, {
-      method: 'POST',
+    fetch(`${process.env.APIDEV_URL}/${onboardingDownloadFormUrl}`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ userId: 89 })
+      body: JSON.stringify({ userId: 89 }),
     })
-    .then(response => {
-      if (response.ok) {
-        return response.blob();
-      } else {
-        throw new Error('Error downloading file');
-      }
-    })
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = 'ClientInfo.xlsx'; // The same filename set in the backend
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      .then((response) => {
+        if (response.ok) {
+          return response.blob();
+        } else {
+          throw new Error("Error downloading file");
+        }
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "ClientInfo.xlsx"; // The same filename set in the backend
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
