@@ -3,6 +3,8 @@ import React, { ChangeEvent } from "react";
 import FormBox from "@/components/client/common/FormBox";
 // MUI import
 import {
+  Autocomplete,
+  Checkbox,
   FormControl,
   MenuItem,
   Select,
@@ -30,6 +32,9 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+// Icons imports
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -195,6 +200,21 @@ function AutoCareClientTeam({
     return utcTime.tz("Asia/Kolkata");
   };
 
+  const handleWeeklyCallsChange = (event: any, newValue: any) => {
+    setAutoCareClientTeam((prev) => ({
+      ...prev,
+      weeklyCalls: newValue,
+    }));
+  
+    setAutoCareClientTeamErrors((prevErrors) => ({
+      ...prevErrors,
+      weeklyCalls: "",
+    }));
+  };
+
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
   return (
     <div className={`${className}`}>
       <FormBox
@@ -203,6 +223,7 @@ function AutoCareClientTeam({
         handleChange={(e: ChangeEvent<HTMLInputElement>) =>
           handleClientTeamSwitch(e)
         }
+        switchDisabled={finalCheckAllFieldsClientTeam}
       >
         <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">
@@ -405,36 +426,44 @@ function AutoCareClientTeam({
             <label className="text-[#6E6D7A] text-[12px]">
               Weekly Calls<span className="text-[#DC3545]">*</span>
             </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.weeklyCalls === "-1"
-                    ? "!text-[12px] !text-[#a1a1a1]"
-                    : "!text-[14px]"
-                }`}
-                value={autoCareClientTeam?.weeklyCalls}
-                error={!!autoCareClientTeamErrors?.weeklyCalls}
-                onChange={(e) => handleDropdownChange(e, "weeklyCalls")}
-                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
-              >
-                {WeeklyCallsList.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === "-1"}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              {autoCareClientTeamErrors?.weeklyCalls && (
-                <span className="text-[#d32f2f]">
-                  {autoCareClientTeamErrors?.weeklyCalls}
-                </span>
+            <Autocomplete
+              multiple
+              id="checkboxes-tags-demo"
+              options={WeeklyCallsList}
+              size="small"
+              value={autoCareClientTeam?.weeklyCalls || []}
+              onChange={handleWeeklyCallsChange}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option?.label}
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option?.label}
+                </li>
               )}
-            </FormControl>
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  placeholder={
+                    autoCareClientTeam?.weeklyCalls.length === 0
+                      ? "Please Select Weekly Calls"
+                      : ""
+                  }
+                  error={!!autoCareClientTeamErrors?.weeklyCalls}
+                />
+              )}
+            />
+            {autoCareClientTeamErrors?.weeklyCalls && (
+              <span className="text-[#d32f2f]">
+                {autoCareClientTeamErrors?.weeklyCalls}
+              </span>
+            )}
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
@@ -474,7 +503,11 @@ function AutoCareClientTeam({
                   }))
                 }
                 disabled={
-                  autoCareClientTeam?.timeZone !== "-1" ? (roleId === "4" && finalCheckAllFieldsClientTeam) ? true : false : true
+                  autoCareClientTeam?.timeZone !== "-1"
+                    ? roleId === "4" && finalCheckAllFieldsClientTeam
+                      ? true
+                      : false
+                    : true
                 }
                 slotProps={{
                   textField: {

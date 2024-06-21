@@ -1,5 +1,6 @@
 import { Dayjs } from "dayjs";
 import { ReactNode } from "react";
+import { Option } from "./adminHeader";
 
 export interface FormBoxProps {
   checkStatus?: boolean;
@@ -7,6 +8,7 @@ export interface FormBoxProps {
   title: string;
   children: ReactNode;
   className?: string;
+  switchDisabled?:boolean
 }
 export interface LegalStructureFormTypes {
   no_of_Entities: string;
@@ -46,7 +48,7 @@ export interface ClientTeamFormTypes {
   itSupport: string;
   timeZone: string;
   state: string;
-  weeklyCalls: string;
+  weeklyCalls: any
   weeklyCallTime: Dayjs | null | string;
   istTime: Dayjs | null | string;
   [key: string]: string | Dayjs | null;
@@ -177,6 +179,7 @@ export interface BasicDetailsResponseDataType {
   timeZone: string;
   state: string;
   weeklyCalls: string;
+  businessName:string;
   weeklyCallTime: Dayjs | null | string;
   istTime: Dayjs | null | string;
   implementationManager: string;

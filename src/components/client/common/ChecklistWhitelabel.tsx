@@ -292,6 +292,7 @@ const ChecklistWhitelabel = ({
       <div className={`flex-1 overflow-y-scroll`}>
         <div className="m-6 flex flex-col gap-6">
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.COMMUNICATION
             }
@@ -311,6 +312,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.SYSTEMS_SOFTWARE_SET_UP
             }
@@ -340,6 +342,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.SERVICE_TYPE
             }
@@ -361,6 +364,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.CHALLENGES_EXPECTATION
             }
@@ -378,6 +382,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.TYPE_OF_WORK_ASSIGNMENT
             }
@@ -399,6 +404,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.ESCALATION_MATRIX
             }
@@ -418,6 +424,7 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+            switchDisabled={false}
             expandedAccordian={
               expandedAccordian === AccordianExpand.MEETING_AVAILABILITY
             }

@@ -28,7 +28,7 @@ export const initialAutoCareClientTeam = {
   itSupport: "",
   timeZone: "-1",
   state: "-1",
-  weeklyCalls: "-1",
+  weeklyCalls: [],
   weeklyCallTime: null,
   istTime: null,
 };
@@ -126,11 +126,10 @@ export const StateList = [
 ];
 
 export const WeeklyCallsList = [
-  { value: '-1', label: "Please Select Weekly Calls" },
   { value: '1', label: "Monday" },
   { value: '2', label: "Tuesday" },
   { value: '3', label: "Wednesday" },
-  { value: '4', label: "Thrusday" },
+  { value: '4', label: "Thursday" },
   { value: '5', label: "Friday" },
 ];
 

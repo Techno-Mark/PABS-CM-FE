@@ -4,7 +4,7 @@ import React from "react";
 import Cookies from "js-cookie";
 import { FormBoxProps } from "@/models/autoCareBasicDetails";
 
-const FormBox = ({ title, children, className, checkStatus, handleChange }: FormBoxProps) => {
+const FormBox = ({ title, children, className, checkStatus, handleChange,switchDisabled }: FormBoxProps) => {
   const roleId = Cookies.get("roleId");
   return (
     <div
@@ -14,7 +14,7 @@ const FormBox = ({ title, children, className, checkStatus, handleChange }: Form
         <span className="text-[#333333] text-[18px] font-medium">{title}</span>
         {roleId !== "4" && (
           <span className="!z-0">
-            <Switch checked={checkStatus} onChange={handleChange} />
+            <Switch checked={checkStatus} onChange={handleChange} disabled={switchDisabled}/>
           </span>
         )}
       </div>

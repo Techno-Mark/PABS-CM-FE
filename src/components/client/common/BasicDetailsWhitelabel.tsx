@@ -235,6 +235,7 @@ const BasicDetailsWhitelabel = ({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           showToast(Message, ToastType.Success);
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           return;
@@ -248,6 +249,7 @@ const BasicDetailsWhitelabel = ({
       businessTypeId: !!clientInfo?.DepartmentId
         ? parseInt(clientInfo?.DepartmentId)
         : parseInt(businessTypeId!),
+      cpaName: whitelabelAccountDetails.cpaName,
       corporateAddress: whitelabelAccountDetails.corporateAddress,
       ownerContact: whitelabelAccountDetails.ownerContact,
       ownerEmail: whitelabelAccountDetails.ownerEmail,
@@ -620,7 +622,7 @@ const BasicDetailsWhitelabel = ({
             className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
-            Save as Draft
+            Save
           </Button>
           <Button
             onClick={() => handleSubmit(1)}
