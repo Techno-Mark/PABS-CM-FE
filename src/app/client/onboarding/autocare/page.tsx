@@ -15,7 +15,6 @@ function Page() {
   const [checkAllBasicDetails, setCheckAllBasicDetails] =
     useState<boolean>(false);
   const [formSubmit, setFormSubmit] = useState<number>(31);
-  const [finalCheckAllFields, setFinalCheckAllFields] = useState<boolean>(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -26,6 +25,7 @@ function Page() {
 
   return (
     <ClientWrapper
+    setWhiteLabelProgressPercentage={() => {}}
       perCountBasicDetails={perCountBasicDetails}
       perCountChecklist={perCountChecklist}
       formSubmit={formSubmit}

@@ -8,6 +8,7 @@ import {
   WhitelabelPABSAccountingTypes,
 } from "@/models/whitelabel/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
+import Cookies from "js-cookie";
 
 const WhitelabelPabsAccountingTeamForm = ({
   className,
@@ -17,8 +18,10 @@ const WhitelabelPabsAccountingTeamForm = ({
   setWhitelabelPABSAccountingTeam,
   whitelabelPABSAccountingTeamErrors,
   setWhitelabelPABSAccountingTeamErrors,
+  checkAllFieldsWhitelabelPabsAccountingTeamForm
 }: WhitelabelPABSAccountingTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -121,6 +124,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -147,6 +151,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -173,6 +178,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -199,6 +205,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -227,6 +234,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -253,6 +261,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -277,6 +286,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>

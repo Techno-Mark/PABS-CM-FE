@@ -335,7 +335,7 @@ function BasicDetailsAutoCare({
       if (
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
-        !!(autoCareClientTeam[field] && autoCareClientTeam['weeklyCalls'].length === 0) ||
+        !!(autoCareClientTeam[field] && autoCareClientTeam['weeklyCalls'].length !== 0) ||
         !!autoCarePabsAccountingTeam[field]
       ) {
         count++;

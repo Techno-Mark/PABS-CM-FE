@@ -21,6 +21,7 @@ const WhitelabelAccountDetailsForm = ({
   setWhitelabelAccountDetails,
   whitelabelAccountDetailsErrors,
   setWhitelabelAccountDetailsErrors,
+  checkAllFieldsWhiteLabelAccountDetailsForm
 }: WhitelabelAccountDetailsTypes) => {
   const classes = useStyles();
 

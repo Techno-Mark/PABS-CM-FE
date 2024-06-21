@@ -34,6 +34,8 @@ const BasicDetailsWhitelabel = ({
   setWhitelabelBasicDetailCount,
   setWhitelabelBasicDetailsFormSubmit,
   clientInfo,
+  setCheckAllWhiteLabelFields,
+  whiteLabelProgressPercentage,
 }: BasicDetailWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -102,6 +104,10 @@ const BasicDetailsWhitelabel = ({
     whitelabelPABSAccountingTeamCheckStatus,
     setwhitelabelPABSAccountingTeamCheckStatus,
   ] = useState<boolean>(true);
+  const [
+    isFormSubmitWhiteLabelBasicDetails,
+    setIsFormSubmitWhiteLabelBasicDetails,
+  ] = useState<boolean>(false);
 
   const getWhiteLabelBasicDetailsList = async () => {
     const callback = (
@@ -115,17 +121,20 @@ const BasicDetailsWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setIsFormSubmitWhiteLabelBasicDetails(
+              ResponseData?.isSubmited ?? false
+            );
             setWhitelabelAccountDetailsCheckStatus(
-              ResponseData.accountDetailsIsDisplay
+              ResponseData?.accountDetailsIsDisplay ?? true
             );
             setWhitelabelOtherInformationCheckStatus(
-              ResponseData.otherInformationIsDisplay
+              ResponseData?.otherInformationIsDisplay ?? true
             );
             setWhitelabelCpaClientTeamCheckStatus(
-              ResponseData.cpaClientTeamIsDisplay
+              ResponseData?.cpaClientTeamIsDisplay ?? true
             );
             setwhitelabelPABSAccountingTeamCheckStatus(
-              ResponseData.pabsAccountingTeamIsDisplay
+              ResponseData?.pabsAccountingTeamIsDisplay ?? true
             );
             setWhitelabelAccountDetails({
               cpaName: ResponseData.cpaName,
@@ -228,6 +237,12 @@ const BasicDetailsWhitelabel = ({
     return hasErrors;
   };
 
+  const handleWhitelabelBasicDetailRemoveErrors = () => {
+    setWhitelabelAccountDetailsErrors({});
+    setWhitelabelOtherInformationErrors({});
+    setWhitelabelCpaClientTeamErrors({});
+  };
+
   const handleSubmit = (type: number) => {
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -235,7 +250,6 @@ const BasicDetailsWhitelabel = ({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           showToast(Message, ToastType.Success);
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           return;
@@ -268,6 +282,7 @@ const BasicDetailsWhitelabel = ({
       seniorAccountant: whitelabelPABSAccountingTeam.seniorAccountant,
       pabsGroupEmail: whitelabelPABSAccountingTeam.pabsGroupEmail,
       pabsPhone: whitelabelPABSAccountingTeam.pabsPhone,
+      progress: whiteLabelProgressPercentage,
       pocFieldsDetail: whitelabelCpaClientTeam.cpaArray
         .filter(
           (pocField: any) =>
@@ -282,16 +297,23 @@ const BasicDetailsWhitelabel = ({
         })),
     };
 
-    if (type === 1) {
-      validateAccountDetails();
-      validateOtherInformation();
-      validateCpaClientTeam();
-      const isValid =
-        !validateAccountDetails() ||
-        !validateOtherInformation() ||
-        validateCpaClientTeam();
+    const isValidAccountDetails = whitelabelAccountDetailsCheckStatus
+      ? validateAccountDetails()
+      : false;
+    const isValidLegalStructure = whitelabelOtherInformationCheckStatus
+      ? validateOtherInformation()
+      : false;
+    const isValidClientTeam = whitelabelCpaClientTeamCheckStatus
+      ? validateCpaClientTeam()
+      : false;
 
-      if (isValid) {
+    const isValid =
+      !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
+    if (type === 1) {
+      roleId === "4" && setCheckAllWhiteLabelFields(!isValid);
+      const filledFieldsCount = basicDetailWhiteLabelPerStatus();
+      setWhitelabelBasicDetailCount(filledFieldsCount);
+      if (!isFormSubmitWhiteLabelBasicDetails) {
         callAPIwithHeaders(
           onboardingSaveFormUrl,
           "post",
@@ -299,6 +321,9 @@ const BasicDetailsWhitelabel = ({
           whiteLabelformData
         );
       } else {
+        setWhitelabelBasicDetailsFormSubmit(32);
+      }
+      if (!isValid) {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
           ToastType.Error
@@ -311,17 +336,40 @@ const BasicDetailsWhitelabel = ({
         whitelabelCpaClientTeamCheckStatus ||
         whitelabelPABSAccountingTeamCheckStatus;
       if (roleId === "4" ? isValidStatus : true) {
-        showToast(
-          "Mandatory information is not provided. Please fill in to submit the form.",
-          ToastType.Warning
-        );
-        setWhitelabelAccountDetailsErrors({});
-        callAPIwithHeaders(
-          onboardingSaveFormUrl,
-          "post",
-          callback,
-          whiteLabelformData
-        );
+        if (!isValid) {
+          showToast(
+            "Mandatory information is not provided. Please fill in to submit the form.",
+            ToastType.Warning
+          );
+        }
+        if (isFormSubmitWhiteLabelBasicDetails && roleId !== "4") {
+          const isValidAccountDetails = validateAccountDetails();
+          const isValidLegalStructure = validateOtherInformation();
+          const isValidClientTeam = validateCpaClientTeam();
+
+          const isValid =
+            !isValidAccountDetails &&
+            !isValidLegalStructure &&
+            !isValidClientTeam;
+          if (isValid) {
+            callAPIwithHeaders(
+              onboardingSaveFormUrl,
+              "post",
+              callback,
+              whiteLabelformData
+            );
+          }
+        } else {
+          const filledFieldsCount = basicDetailWhiteLabelPerStatus();
+          setWhitelabelBasicDetailCount(filledFieldsCount);
+          handleWhitelabelBasicDetailRemoveErrors();
+          callAPIwithHeaders(
+            onboardingSaveFormUrl,
+            "post",
+            callback,
+            whiteLabelformData
+          );
+        }
       }
     }
   };
@@ -510,6 +558,87 @@ const BasicDetailsWhitelabel = ({
     updatePhaseState(`setPhase${phaseType}Checked`, check);
   };
 
+  useEffect(() => {
+    const count = basicDetailWhiteLabelPerStatus();
+    setWhitelabelBasicDetailCount(count);
+  }, [
+    whitelabelAccountDetails,
+    whitelabelOtherInformation,
+    whitelabelCpaClientTeam,
+    whitelabelPABSAccountingTeam,
+  ]);
+
+  const basicDetailWhiteLabelPerStatus = () => {
+    let relevantFields = [];
+
+    if (whitelabelAccountDetailsCheckStatus) {
+      relevantFields.push(
+        ...[
+          "cpaName",
+          "corporateAddress",
+          "city",
+          "state",
+          "zip",
+          "ownerContact",
+          "ownerEmail",
+          "ownerPhone",
+        ]
+      );
+    }
+
+    if (whitelabelOtherInformationCheckStatus) {
+      relevantFields.push("startDate");
+    }
+
+    if (whitelabelCpaClientTeamCheckStatus) {
+      relevantFields.push("pocDetails");
+      if (whitelabelCpaClientTeam && whitelabelCpaClientTeam.cpaArray) {
+        whitelabelCpaClientTeam.cpaArray.forEach(() => {
+          relevantFields.push("pocEmailId");
+          relevantFields.push("pocContactNo");
+          relevantFields.push("pocName");
+        });
+      }
+    }
+
+    if (
+      !whitelabelAccountDetailsCheckStatus &&
+      !whitelabelOtherInformationCheckStatus &&
+      !whitelabelCpaClientTeamCheckStatus &&
+      whitelabelPABSAccountingTeamCheckStatus
+    ) {
+      relevantFields.push(
+        "implementation",
+        "operationsHead",
+        "teamManager",
+        "teamLeader",
+        "seniorAccountant",
+        "pabsGroupEmail",
+        "pabsPhone"
+      );
+    }
+
+    let count = 0;
+    relevantFields.forEach((field) => {
+      if (
+        !!whitelabelAccountDetails[field] ||
+        !!whitelabelOtherInformation[field] ||
+        !!whitelabelCpaClientTeam.pocDetails ||
+        (whitelabelCpaClientTeam.cpaArray &&
+          whitelabelCpaClientTeam.cpaArray.some((cpa: any) => !!cpa[field]))
+      ) {
+        count++;
+      }
+    });
+
+    let totalFields = relevantFields.length;
+
+    let percentage =
+      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+
+    return percentage;
+  };
+
   return (
     <>
       <div
@@ -521,6 +650,7 @@ const BasicDetailsWhitelabel = ({
           <div className="m-6 flex flex-col gap-6">
             {(roleId === "4" ? whitelabelAccountDetailsCheckStatus : true) && (
               <WhitelabelAccountDetailsForm
+                checkAllFieldsWhiteLabelAccountDetailsForm={isFormSubmitWhiteLabelBasicDetails}
                 whitelabelAccountDetailsCheckStatus={
                   whitelabelAccountDetailsCheckStatus
                 }
@@ -539,6 +669,7 @@ const BasicDetailsWhitelabel = ({
               ? whitelabelOtherInformationCheckStatus
               : true) && (
               <WhitelabelOtherInformationForm
+                checkAllFieldsWhitelabelOtherInformationForm={isFormSubmitWhiteLabelBasicDetails}
                 whitelabelOtherInformationCheckStatus={
                   whitelabelOtherInformationCheckStatus
                 }
@@ -557,6 +688,7 @@ const BasicDetailsWhitelabel = ({
             )}
             {(roleId === "4" ? whitelabelCpaClientTeamCheckStatus : true) && (
               <WhitelabelCpaClientTeamForm
+                checkAllFieldsWhitelabelCpaClientTeamForm={isFormSubmitWhiteLabelBasicDetails}
                 whitelabelCpaClientTeamCheckStatus={
                   whitelabelCpaClientTeamCheckStatus
                 }
@@ -575,6 +707,7 @@ const BasicDetailsWhitelabel = ({
               ? whitelabelPABSAccountingTeamCheckStatus
               : true) && (
               <WhitelabelPabsAccountingTeamForm
+                checkAllFieldsWhitelabelPabsAccountingTeamForm={isFormSubmitWhiteLabelBasicDetails}
                 whitelabelPABSAccountingTeamCheckStatus={
                   whitelabelPABSAccountingTeamCheckStatus
                 }
@@ -617,13 +750,15 @@ const BasicDetailsWhitelabel = ({
               Cancel
             </Button>
           )}
-          <Button
-            onClick={() => handleSubmit(2)}
-            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
-            variant="outlined"
-          >
-            Save
-          </Button>
+          {(roleId === "4" ? !isFormSubmitWhiteLabelBasicDetails : true) && (
+            <Button
+              onClick={() => handleSubmit(2)}
+              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              variant="outlined"
+            >
+              Save
+            </Button>
+          )}
           <Button
             onClick={() => handleSubmit(1)}
             className={`!bg-[#022946] text-white !rounded-full`}

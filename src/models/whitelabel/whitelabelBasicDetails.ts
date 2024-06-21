@@ -6,6 +6,8 @@ export interface BasicDetailWhitelabelType {
   setWhitelabelBasicDetailCount: (value: number) => void;
   setWhitelabelBasicDetailsFormSubmit: (value: number) => void;
   clientInfo?: ClientInfoType;
+  setCheckAllWhiteLabelFields:(value:boolean) => void
+  whiteLabelProgressPercentage:number
 }
 
 export interface ChecklistWhitelabelType {
@@ -41,6 +43,7 @@ export interface WhitelabelAccountDetailsTypes {
   setWhitelabelAccountDetailsErrors: React.Dispatch<
     React.SetStateAction<WhitelabelAccountDetailsFormErrors>
   >;
+  checkAllFieldsWhiteLabelAccountDetailsForm:boolean
 }
 
 export interface WhitelabelOtherInformationTypes {
@@ -67,6 +70,7 @@ export interface WhitelabelOtherInfoTypes {
   setWhitelabelOtherInformationErrors: React.Dispatch<
     React.SetStateAction<WhitelabelOtherInformationErrors>
   >;
+  checkAllFieldsWhitelabelOtherInformationForm:boolean
 }
 
 export interface WhitelabelCpaClientTeamTypes {
@@ -92,6 +96,7 @@ export interface WhitelabelCpaClientTypes {
   handleChange: any;
   handleAddField: any;
   handleRemoveField: any;
+  checkAllFieldsWhitelabelCpaClientTeamForm:boolean
 }
 
 export interface WhitelabelPABSAccountingTeamTypes {
@@ -122,4 +127,5 @@ export interface WhitelabelPABSAccountingTypes {
   setWhitelabelPABSAccountingTeamErrors: React.Dispatch<
     React.SetStateAction<WhitelabelPABSAccountingTeamErrors>
   >;
+  checkAllFieldsWhitelabelPabsAccountingTeamForm:boolean
 }

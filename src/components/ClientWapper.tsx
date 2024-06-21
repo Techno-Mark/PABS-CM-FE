@@ -17,7 +17,10 @@ type WrapperPropsType = {
   perCountBasicDetails?: number;
   perCountChecklist?: number;
   perCountSmbChecklist?: number;
-  setAutoCareProgressPercentage:(value:number) => void
+  perCountWhiteLabelChecklist?: number;
+  perCountWhiteLabelBasicDetails?: number;
+  setAutoCareProgressPercentage: (value: number) => void;
+  setWhiteLabelProgressPercentage: (value: number) => void;
 };
 
 const ClientWrapper = ({
@@ -25,8 +28,11 @@ const ClientWrapper = ({
   perCountBasicDetails,
   perCountChecklist,
   perCountSmbChecklist,
+  perCountWhiteLabelChecklist,
+  perCountWhiteLabelBasicDetails,
   formSubmit,
   setAutoCareProgressPercentage,
+  setWhiteLabelProgressPercentage,
   children,
 }: WrapperPropsType) => {
   const router = useRouter();
@@ -51,11 +57,18 @@ const ClientWrapper = ({
           <CssBaseline />
           <ClientHeader />
           <ClientSidebar
+            perCountWhiteLabelBasicDetails={perCountWhiteLabelBasicDetails}
+            perCountWhiteLabelChecklist={perCountWhiteLabelChecklist}
             perCountBasicDetails={perCountBasicDetails}
             perCountChecklist={perCountChecklist}
             perCountSmbChecklist={perCountSmbChecklist}
             sidebarModule={formSubmit}
-            setAutoCareProgressPercentage={(value:number) => setAutoCareProgressPercentage(value)}
+            setAutoCareProgressPercentage={(value: number) =>
+              setAutoCareProgressPercentage(value)
+            }
+            setWhiteLabelProgressPercentage={(value: number) =>
+              setWhiteLabelProgressPercentage(value)
+            }
           />
           <Box
             component="main"

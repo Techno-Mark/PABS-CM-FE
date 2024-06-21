@@ -445,36 +445,38 @@ const ChecklistWhitelabel = ({
         </div>
       </div>
 
-      <div className="py-5 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+      <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
         <Button
-          onClick={() => setChecklistFormSubmit(1)}
-          className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+          onClick={() => setChecklistFormSubmit(11)}
+          className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
           variant="outlined"
         >
           Back
         </Button>
         <div className="flex gap-5">
-          <Button
-            onClick={() => handleSubmit(3)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
-            variant="outlined"
-          >
-            Cancel
-          </Button>
+          {roleId !== "4" && (
+            <Button
+              onClick={() => {}}
+              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              variant="outlined"
+            >
+              Cancel
+            </Button>
+          )}
           <Button
             onClick={() => handleSubmit(2)}
-            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+            className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
-            Save as Draft
+            Save
           </Button>
           <Button
             onClick={() => handleSubmit(1)}
-            className={`!bg-[#022946] text-white !rounded-lg`}
+            className={`!bg-[#022946] text-white !rounded-full`}
             variant="contained"
           >
-            <span className="uppercase font-semibold text-[16px] whitespace-nowrap">
-              Next: Login Info
+            <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+              Next: Account Details
             </span>
           </Button>
         </div>

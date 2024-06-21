@@ -182,6 +182,7 @@ function ClientModal({
               </Toolbar>
             </AppBar>
             <ClientSidebar
+              setWhiteLabelProgressPercentage={() => {}}
               clientInfo={clientInfo}
               perCountChecklist={perCountChecklist}
               perCountBasicDetails={perCountBasicDetails}
@@ -251,6 +252,8 @@ function ClientModal({
                 <>
                   {formSubmit === 11 ? (
                     <BasicDetailsWhitelabel
+                      setCheckAllWhiteLabelFields={() => {}}
+                      whiteLabelProgressPercentage={0}
                       clientInfo={clientInfo}
                       setWhitelabelBasicDetailsFormSubmit={(value: number) =>
                         setFormSubmit(value)

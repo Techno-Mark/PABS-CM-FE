@@ -47,8 +47,11 @@ interface SidebarModuleTypes {
   perCountBasicDetails?: number;
   sidebarModule?: number;
   perCountChecklist?: number;
-  perCountSmbChecklist?:number;
-  setAutoCareProgressPercentage:any
+  perCountSmbChecklist?: number;
+  perCountWhiteLabelBasicDetails?: number;
+  perCountWhiteLabelChecklist?: number;
+  setAutoCareProgressPercentage: any;
+  setWhiteLabelProgressPercentage:any
 }
 
 const ClientSidebar = ({
@@ -56,8 +59,11 @@ const ClientSidebar = ({
   perCountBasicDetails,
   perCountChecklist,
   perCountSmbChecklist,
+  perCountWhiteLabelBasicDetails,
+  perCountWhiteLabelChecklist,
   sidebarModule,
   setAutoCareProgressPercentage,
+  setWhiteLabelProgressPercentage
 }: SidebarModuleTypes) => {
   const [items, setItems] = useState<ClientSidebarItemsType[]>([]);
   const businessTypeId = Cookies.get("businessTypeId");
@@ -74,27 +80,30 @@ const ClientSidebar = ({
           id: 32,
           module: "Checklist",
           value: perCountChecklist || 0,
-        }
+        },
       ]);
-    } else if (businessTypeId === "2" || clientInfo?.DepartmentId.toString() === "2") {
+    } else if (
+      businessTypeId === "2" ||
+      clientInfo?.DepartmentId.toString() === "2"
+    ) {
       setItems([
         {
           id: 21,
           module: "Checklist",
           value: perCountSmbChecklist || 0,
-        }
+        },
       ]);
     } else {
       setItems([
         {
           id: 11,
           module: "Basic Details",
-          value: 0,
+          value: perCountWhiteLabelBasicDetails || 0,
         },
         {
           id: 12,
           module: "Checklist",
-          value: 0,
+          value: perCountWhiteLabelChecklist || 0,
         },
         {
           id: 13,
@@ -103,11 +112,23 @@ const ClientSidebar = ({
         },
       ]);
     }
-    if(perCountBasicDetails || perCountChecklist){
+    if (perCountBasicDetails || perCountChecklist) {
       const progressPer = (perCountBasicDetails! + perCountChecklist!) / 2;
-      setAutoCareProgressPercentage(Math.floor(progressPer))
+      setAutoCareProgressPercentage(Math.floor(progressPer));
     }
-  }, [businessTypeId, clientInfo, perCountBasicDetails, perCountChecklist,perCountSmbChecklist]);
+    if (perCountWhiteLabelBasicDetails || perCountWhiteLabelChecklist) {
+      const progressPer = (perCountWhiteLabelBasicDetails! + perCountWhiteLabelChecklist!) / 2;
+      setWhiteLabelProgressPercentage(Math.floor(progressPer));
+    }
+  }, [
+    businessTypeId,
+    clientInfo,
+    perCountBasicDetails,
+    perCountChecklist,
+    perCountSmbChecklist,
+    perCountWhiteLabelBasicDetails,
+    perCountWhiteLabelChecklist
+  ]);
 
   return (
     <>
@@ -162,11 +183,11 @@ const ClientSidebar = ({
                     }}
                   ></div>
                 </div>
-                  <span
-                    className={`relative mr-1 pt-[2px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
-                  >
-                    {data.value}%
-                  </span>
+                <span
+                  className={`relative mr-1 pt-[2px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
+                >
+                  {data.value}%
+                </span>
               </div>
             </div>
           ))}
