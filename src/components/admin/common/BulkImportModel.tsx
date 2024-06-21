@@ -17,6 +17,7 @@ import {
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const BulkImportModel = ({
   isOpen,
@@ -26,8 +27,9 @@ const BulkImportModel = ({
   handleClose,
   getAccountList,
 }: BulkModalProps) => {
+  const token = Cookies.get("token");
   const userId = Cookies.get("userId");
-  const [isUploading, setIsUplaoding] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [excelData, setExcelData] = useState<any>(null);
 
@@ -47,25 +49,23 @@ const BulkImportModel = ({
 
           // Transform the JSON data and handle missing fields
           const transformedData = json.map((item: any) => ({
-            clientId: item["Client ID"] || "",
-            organizationName: item["OrganizationName"] || "",
+            clientId: item["Client Id"] || "",
+            organizationName: item["Organization Name"] || "",
             backgroundNatureOfBusiness:
-              item["Background/Nature of Business"] || "",
+              item["Background Nature Of Business"] || "",
             industryType: item["Industry Type"] || "",
             entityType: item["Entity Type"] || "",
             accountingSoftware: item["Accounting Software"] || "",
             documentSharing: item["Document Sharing"] || "",
             bankConnectedWithAccountingSoftware:
-              item["Bank Connected with Accounting Software"] || "",
-            accountingMethodIncTax: item["Accounting Method-Inc Tax"] || "",
-            estimateHoursOfWork: parseInt(item["Estimate Hours of Work"]) || 0,
-            pabsDuties: item["PABS Duties"] || "",
-            bookkeepingPeriod:
-              item["Bookkeeping Monthly or Clean Up (Period - Months/Years)"] ||
-              "",
+              item["Bank Connected With Accounting Software"] || "",
+            accountingMethodIncTax: item["Accounting Method Inc Tax"] || "",
+            estimateHoursOfWork: parseInt(item["Estimate Hours Of Work"]) || 0,
+            pabsDuties: item["Pabs Duties"] || "",
+            bookkeepingPeriod: item["Bookkeeping Period"] || "",
             deadline: item["Deadline"] ? new Date(item["Deadline"]) : "",
             notes1MonthlyTransactions:
-              item["Notes1 - Monthly Transactions"] || "",
+              item["Notes1 Monthly Transactions"] || "",
             notes: item["Notes"] || "",
           }));
 
@@ -78,34 +78,48 @@ const BulkImportModel = ({
 
   const handleSubmit = async () => {
     if (excelData) {
-      setIsUplaoding(true);
-      const callback = (
-        ResponseStatus: string,
-        Message: string,
-        ResponseData: null
-      ) => {
-        switch (ResponseStatus) {
-          case "failure":
-            showToast(Message, ToastType.Error);
-            setIsUplaoding(false);
-            setIsOpen(false);
-            return;
-          case "success":
-            showToast(Message, ToastType.Success);
-            setIsUplaoding(false);
-            setIsOpen(false);
-            getAccountList();
-            return;
+      setIsUploading(true);
+      try {
+        const response = await axios.post(
+          `${process.env.APIDEV_URL}${OnboardingFormAccountDetailsSave}/${userId}`,
+          excelData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+            responseType: "blob",
+          }
+        );
+
+        if (response.status === 200) {
+          showToast("Account Details added successfully", ToastType.Success);
+          setIsUploading(false);
+          setIsOpen(false);
+          getAccountList();
+          return;
+        } else if (response.status === 202) {
+          const url = window.URL.createObjectURL(response.data);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = "Error-file.xlsx";
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        } else {
+          setIsUploading(false);
+          setIsOpen(false);
+          getAccountList();
+          return;
         }
-      };
-      await callAPIwithHeaders(
-        `${OnboardingFormAccountDetailsSave}/${userId}`,
-        "post",
-        callback,
-        excelData
-      );
+      } catch (error) {
+        console.error("Error:", error);
+        setIsUploading(false);
+        setIsOpen(false);
+      }
     }
-    setIsOpen(false);
+    setIsUploading(false);
   };
 
   const downloadSampleFile = () => {
