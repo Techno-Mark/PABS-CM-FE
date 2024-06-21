@@ -87,7 +87,6 @@ function BasicDetailsAutoCare({
     setIsFormSubmitAutoCareBasicDetails,
   ] = useState<boolean>(false);
 
-  console.log("autoCareClientTeam: ", autoCareClientTeam);
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
       ResponseStatus: string,
