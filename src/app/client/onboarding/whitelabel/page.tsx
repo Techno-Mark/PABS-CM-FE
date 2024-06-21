@@ -12,7 +12,7 @@ const Page = () => {
   const router = useRouter();
   const userID = Cookies.get("userId");
   const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(13);
+  const [formSubmit, setFormSubmit] = useState<number>(11);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -20,7 +20,7 @@ const Page = () => {
       router.push("/auth/login");
     }
   }, []);
-  
+
   return (
     <ClientWrapper
       setAutoCareProgressPercentage={() => {}}
@@ -38,10 +38,16 @@ const Page = () => {
           }
         />
       )}
-        <ChecklistWhitelabel
+      <ChecklistWhitelabel
+        setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+        setChecklistCount={(value: number) => setBasicDetailCount(value)}
+      />
+      {formSubmit === 13 && (
+        <AccountDetailsWhitelabel
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
+      )}
     </ClientWrapper>
   );
 };
