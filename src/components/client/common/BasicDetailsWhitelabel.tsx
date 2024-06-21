@@ -236,6 +236,7 @@ const BasicDetailsWhitelabel = ({
           return;
         case "success":
           showToast(Message, ToastType.Success);
+          type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           return;
       }
     };

@@ -244,7 +244,7 @@ function ClientModal({
                     />
                   ) : formSubmit === 12 ? (
                     <ChecklistWhitelabel
-                      // clientInfo={clientInfo}
+                      clientInfo={clientInfo}
                       setChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
