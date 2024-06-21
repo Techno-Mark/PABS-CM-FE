@@ -93,7 +93,7 @@ function ClientModal({
 
   const handleDownload = () => {
    
-    fetch(onboardingDownloadFormUrl, {
+    fetch(`${process.env.APIDEV_URL}/${onboardingDownloadFormUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

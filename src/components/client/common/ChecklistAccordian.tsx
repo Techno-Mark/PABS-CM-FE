@@ -18,6 +18,7 @@ const ChecklistAccordian = ({
   hasError = false,
   checkStatus,
   handleSwitchChange,
+  switchDisabled = false
 }: ChecklistAccordianProps) => {
   const roleId = Cookies.get("roleId");
   return (
@@ -39,7 +40,7 @@ const ChecklistAccordian = ({
           </span>
           {roleId !== "4" && (
             <span className={`!z-0`}>
-              <Switch checked={checkStatus} onChange={handleSwitchChange}/>
+              <Switch checked={checkStatus} onChange={handleSwitchChange} disabled={switchDisabled}/>
             </span>
           )}
         </div>

@@ -27,19 +27,16 @@ const Page = () => {
       perCountBasicDetails={12}
       formSubmit={formSubmit}
     >
-      {formSubmit === 11 ? (
+      {formSubmit === 11 && (
         <BasicDetailsWhitelabel
           setWhitelabelBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
           setWhitelabelBasicDetailCount={(value: number) => setBasicDetailCount(value)}
         />
-      ) : formSubmit === 12 ? (
+      )}
         <ChecklistWhitelabel
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
-      ) : (
-        ""
-      )}
     </ClientWrapper>
   );
 };

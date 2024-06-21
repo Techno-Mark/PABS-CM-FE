@@ -23,7 +23,7 @@ function AutoCareAccountDetails({
   autoCareAccountDetailsErrors,
   setAutoCareAccountDetailsErrors,
   handleAccountDetailsSwitch,
-  finalCheckAllFieldsAccountDetails
+  finalCheckAllFieldsAccountDetails,
 }: AccountDetailsTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -138,7 +138,10 @@ function AutoCareAccountDetails({
       <FormBox
         title="Account Details"
         checkStatus={accountDetailsCheckStatus}
-        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleAccountDetailsSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+          handleAccountDetailsSwitch(e)
+        }
+        switchDisabled={finalCheckAllFieldsAccountDetails}
       >
         <div className="py-3 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -165,7 +168,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
@@ -192,7 +195,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
@@ -221,7 +224,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
@@ -254,7 +257,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
               <div className="text-[12px] flex flex-col">
@@ -275,7 +278,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
@@ -300,21 +303,21 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  No.of Locations<span className="text-[#DC3545]">*</span>
+                  No. of Locations<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField
                   name="noOfLocations"
                   id="outlined-basic"
                   variant="standard"
                   size="small"
-                  placeholder="Please Enter No.of Locations"
+                  placeholder="Please Enter No. of Locations"
                   value={autoCareAccountDetails?.noOfLocations}
                   error={!!autoCareAccountDetailsErrors.noOfLocations}
                   helperText={autoCareAccountDetailsErrors.noOfLocations}
@@ -327,7 +330,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
@@ -354,7 +357,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
@@ -381,7 +384,7 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsAccountDetails}
+                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
                 />
               </div>
             </Grid>
