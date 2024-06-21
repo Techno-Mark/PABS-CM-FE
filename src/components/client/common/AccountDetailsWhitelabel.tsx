@@ -118,7 +118,7 @@ const AccountDetailsWhitelabel = ({
     {
       field: "organizationName",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">OrganizationName</span>
+        <span className="font-semibold text-[13px]">Organization Name</span>
       ),
       minWidth: 150,
       sortable: false,
