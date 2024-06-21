@@ -42,17 +42,6 @@ const Page = () => {
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
           setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
-<<<<<<< HEAD
-=======
-      ) : formSubmit === 13 ? (
-        <AccountDetailsWhitelabel
-          setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setBasicDetailCount(value)}
-        />
-      ) : (
-        ""
-      )}
->>>>>>> e2a49d19fba335b1c8edf72042679649aadb38cf
     </ClientWrapper>
   );
 };
