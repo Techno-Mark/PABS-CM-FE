@@ -1,4 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+// MUI import
 import { Button } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
@@ -48,6 +49,8 @@ import {
   validateAutoCareSystemSoftwareLocationField,
 } from "@/static/autoCareChecklist";
 // Component import
+import { showToast } from "@/components/ToastContainer";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
 import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
 import AutoCareSystemLocationChecklist from "@/components/client/forms/autocare/AutoCareSystemLocationChecklist";
@@ -86,6 +89,7 @@ import {
   SavingsAccountFormTypes,
   ScannerFormTypes,
   SharingFinancialsFormTypes,
+  SwitchRequestBody,
   TireTaxFormTypes,
   TradeAccountFormTypes,
   UseTaxFormTypes,
@@ -96,12 +100,12 @@ import {
   autoCarePayrollSystemErrors,
   autoCareSystemLocationChecklistErrors,
 } from "@/models/autoCareChecklist";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
 import { ChecklistType } from "@/models/autoCareBasicDetails";
-import ConfirmModal from "@/components/admin/common/ConfirmModal";
+// API import
+import { callAPIwithHeaders } from "@/api/commonFunction";
+// Static import
+import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
+import { ToastType } from "@/static/toastType";
 
 function ChecklistAutoCare({
   clientInfo,
@@ -115,167 +119,85 @@ function ChecklistAutoCare({
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
   const businessTypeId = Cookies.get("businessTypeId");
-  const initialAutoCareSystemSoftwareLocationErrors: autoCareSystemLocationChecklistErrors =
-    {};
+  const initialAutoCareSystemSoftwareLocationErrors: autoCareSystemLocationChecklistErrors = {};
   const initialAutoCareCashBankLoansErrors: autoCareCashBankLoansErrors = {};
   const initialAutoCareFrequencyErrors: autoCarePayrollSystemErrors = {};
   const initialAutoCareCompliancesErrors: autoCareCompliancesErrors = {};
-  const initialAutoCarePayableCashPayAccessErrors: autoCarePayableCashPayAccessErrors =
-    {};
+  const initialAutoCarePayableCashPayAccessErrors: autoCarePayableCashPayAccessErrors = {};
   const initialAutoCareFinancialsErrors: LastClosedPeriodFormErrors = {};
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
-  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
-    useState<GroupEmailEstablishedFormTypes>(
-      initialAutoCareGroupEmailEstablished
-    );
-  const [autoCarePreKickOff, setAutoCarePreKickOff] =
-    useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
-  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(
-    initialAutoCareKickOff
-  );
+  const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] = useState<GroupEmailEstablishedFormTypes>(initialAutoCareGroupEmailEstablished);
+  const [autoCarePreKickOff, setAutoCarePreKickOff] = useState<PreKickOffFormTypes>(initialAutoCarePreKickOff);
+  const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(initialAutoCareKickOff);
 
-  const [autoCareITStructureReview, setAutoCareITStructureReview] =
-    useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
-  const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] =
-    useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
-  const [autoCarePosSoftware, setAutoCarePosSoftware] =
-    useState<PosSoftwareFormTypes>(initialAutoCarePosSoftware);
-  const [autoCareEstimatingSoftware, setAutoCareEstimatingSoftware] =
-    useState<EstimatingSoftwareFormTypes>(initialAutoCareEstimatingSoftware);
-  const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] =
-    useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
-  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] =
-    useState<CloudDocumentManagementFormTypes>(
-      initialAutoCareCloudDocumentManagement
-    );
-  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(
-    initialAutoCareScanner
-  );
+  const [autoCareITStructureReview, setAutoCareITStructureReview] = useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
+  const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] = useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
+  const [autoCarePosSoftware, setAutoCarePosSoftware] = useState<PosSoftwareFormTypes>(initialAutoCarePosSoftware);
+  const [autoCareEstimatingSoftware, setAutoCareEstimatingSoftware] = useState<EstimatingSoftwareFormTypes>(initialAutoCareEstimatingSoftware);
+  const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] = useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
+  const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] = useState<CloudDocumentManagementFormTypes>(initialAutoCareCloudDocumentManagement);
+  const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(initialAutoCareScanner);
 
-  const [
-    autoCareOperatingCheckingAccount,
-    setAutoCareOperatingCheckingAccount,
-  ] = useState<OperatingCheckingAccountFormTypes>(
-    initialAutoCareOperatingCheckingAccount
-  );
-  const [autoCareSavingsAccount, setAutoCareSavingsAccount] =
-    useState<SavingsAccountFormTypes>(initialAutoCareSavingsAccount);
-  const [autoCareCreditCard, setAutoCareCreditCard] =
-    useState<CreditCardFormTypes>(initialAutoCareCreditCard);
-  const [autoCareBusinessLoans, setAutoCareBusinessLoans] =
-    useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
-  const [autoCarePropertyLoans, setAutoCarePropertyLoans] =
-    useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
+  const [autoCareOperatingCheckingAccount, setAutoCareOperatingCheckingAccount] = useState<OperatingCheckingAccountFormTypes>(initialAutoCareOperatingCheckingAccount);
+  const [autoCareSavingsAccount, setAutoCareSavingsAccount] = useState<SavingsAccountFormTypes>(initialAutoCareSavingsAccount);
+  const [autoCareCreditCard, setAutoCareCreditCard] = useState<CreditCardFormTypes>(initialAutoCareCreditCard);
+  const [autoCareBusinessLoans, setAutoCareBusinessLoans] = useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
+  const [autoCarePropertyLoans, setAutoCarePropertyLoans] = useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
 
-  const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] =
-    useState<PayrollServiceProviderFormTypes>(
-      initialAutoCarePayrollServiceProvider
-    );
-  const [autoCareFrequency, setAutoCareFrequency] =
-    useState<FrequencyFormTypes>(initialAutoCareFrequency);
-  const [autoCareNoOfEmployee, setAutoCareNoOfEmployee] =
-    useState<NoOfEmployeeFormTypes>(initialAutoCareNoOfEmployee);
+  const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] = useState<PayrollServiceProviderFormTypes>(initialAutoCarePayrollServiceProvider);
+  const [autoCareFrequency, setAutoCareFrequency] = useState<FrequencyFormTypes>(initialAutoCareFrequency);
+  const [autoCareNoOfEmployee, setAutoCareNoOfEmployee] = useState<NoOfEmployeeFormTypes>(initialAutoCareNoOfEmployee);
 
-  const [autoCareSalesTaxAccessWorkPaper, setAutoCareSalesTaxAccessWorkPaper] =
-    useState<SalesTaxAccessWorkPaperFormTypes>(
-      initialAutoCareSalesTaxAccessWorkPaper
-    );
-  const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(
-    initialAutoCareUseTax
-  );
-  const [autoCareTireTax, setAutoCareTireTax] = useState<TireTaxFormTypes>(
-    initialAutoCareTireTax
-  );
-  const [autoCareLastTaxReturnFiledYear, setAutoCareLastTaxReturnFiledYear] =
-    useState<LastTaxReturnFiledYearFormTypes>(
-      initialAutoCareLastTaxReturnFiledYear
-    );
+  const [autoCareSalesTaxAccessWorkPaper, setAutoCareSalesTaxAccessWorkPaper] = useState<SalesTaxAccessWorkPaperFormTypes>(initialAutoCareSalesTaxAccessWorkPaper);
+  const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(initialAutoCareUseTax);
+  const [autoCareTireTax, setAutoCareTireTax] = useState<TireTaxFormTypes>(initialAutoCareTireTax);
+  const [autoCareLastTaxReturnFiledYear, setAutoCareLastTaxReturnFiledYear] = useState<LastTaxReturnFiledYearFormTypes>(initialAutoCareLastTaxReturnFiledYear);
 
-  const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] =
-    useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
-  const [autoCareTradeAccount, setAutoCareTradeAccount] =
-    useState<TradeAccountFormTypes>(initialAutoCareTradeAccount);
-  const [autoCareBillPayAccess, setAutoCareBillPayAccess] =
-    useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
-  const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] =
-    useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
+  const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] = useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
+  const [autoCareTradeAccount, setAutoCareTradeAccount] = useState<TradeAccountFormTypes>(initialAutoCareTradeAccount);
+  const [autoCareBillPayAccess, setAutoCareBillPayAccess] = useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
+  const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] = useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
 
-  const [autoCareLastClosedPeriod, setAutoCareLastClosedPeriod] =
-    useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
-  const [autoCareSharingFinancials, setAutoCareSharingFinancials] =
-    useState<SharingFinancialsFormTypes>(initialAutoCareSharingFinancials);
-  const [autoCaregp_gmnp_nm, setAutoCaregp_gmnp_nm] =
-    useState<GP_GMNP_NMFormTypes>(initialAutoCareGP_GMNP_NM);
+  const [autoCareLastClosedPeriod, setAutoCareLastClosedPeriod] = useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
+  const [autoCareSharingFinancials, setAutoCareSharingFinancials] = useState<SharingFinancialsFormTypes>(initialAutoCareSharingFinancials);
+  const [autoCaregp_gmnp_nm, setAutoCaregp_gmnp_nm] = useState<GP_GMNP_NMFormTypes>(initialAutoCareGP_GMNP_NM);
 
-  const [
-    autoCareSystemSoftwareLocationErrors,
-    setAutoCareSystemSoftwareLocationErrors,
-  ] = useState<autoCareSystemLocationChecklistErrors>(
-    initialAutoCareSystemSoftwareLocationErrors
-  );
-  const [autoCareCashbankLoansErrors, setAutoCareCashbankLoansErrors] =
-    useState<autoCareCashBankLoansErrors>(initialAutoCareCashBankLoansErrors);
-  const [autoCareFrequencyErrors, setAutoCareFrequencyErrors] =
-    useState<autoCarePayrollSystemErrors>(initialAutoCareFrequencyErrors);
-  const [autoCareCompliancesErrors, setAutoCareCompliancesErrors] =
-    useState<autoCareCompliancesErrors>(initialAutoCareCompliancesErrors);
-  const [
-    autoCarePayableCashPayAccessErrors,
-    setAutoCarePayableCashPayAccessErrors,
-  ] = useState<autoCarePayableCashPayAccessErrors>(
-    initialAutoCarePayableCashPayAccessErrors
-  );
-  const [autoCareFinancialsErrors, setAutoCareFinancialsErrors] =
-    useState<LastClosedPeriodFormErrors>(initialAutoCareFinancialsErrors);
+  const [autoCareSystemSoftwareLocationErrors, setAutoCareSystemSoftwareLocationErrors] = useState<autoCareSystemLocationChecklistErrors>(initialAutoCareSystemSoftwareLocationErrors);
+  const [autoCareCashbankLoansErrors, setAutoCareCashbankLoansErrors] = useState<autoCareCashBankLoansErrors>(initialAutoCareCashBankLoansErrors);
+  const [autoCareFrequencyErrors, setAutoCareFrequencyErrors] = useState<autoCarePayrollSystemErrors>(initialAutoCareFrequencyErrors);
+  const [autoCareCompliancesErrors, setAutoCareCompliancesErrors] = useState<autoCareCompliancesErrors>(initialAutoCareCompliancesErrors);
+  const [autoCarePayableCashPayAccessErrors, setAutoCarePayableCashPayAccessErrors] = useState<autoCarePayableCashPayAccessErrors>(initialAutoCarePayableCashPayAccessErrors);
+  const [autoCareFinancialsErrors, setAutoCareFinancialsErrors] = useState<LastClosedPeriodFormErrors>(initialAutoCareFinancialsErrors);
 
-  const [autoCareSystemSoftwareHasErrors, setAutoCareSystemSoftwareHasErrors] =
-    useState<boolean>(false);
-  const [
-    autoCareCashBankingLoansHasErrors,
-    setAutoCareCashBankingLoansHasErrors,
-  ] = useState<boolean>(false);
-  const [
-    autoCarePayrollServiceProviderHasErrors,
-    setAutoCarePayrollServiceProviderHasErrors,
-  ] = useState<boolean>(false);
-  const [autoCareComplaincesHasErrors, setAutoCareComplaincesHasErrors] =
-    useState<boolean>(false);
-  const [autoCareAccessHasErrors, setAutoCareAccessHasErrors] =
-    useState<boolean>(false);
-  const [autoCareFinancialsHasErrors, setAutoCareFinancialsHasErrors] =
-    useState<boolean>(false);
+  const [autoCareSystemSoftwareHasErrors, setAutoCareSystemSoftwareHasErrors] = useState<boolean>(false);
+  const [autoCareCashBankingLoansHasErrors, setAutoCareCashBankingLoansHasErrors] = useState<boolean>(false);
+  const [autoCarePayrollServiceProviderHasErrors, setAutoCarePayrollServiceProviderHasErrors] = useState<boolean>(false);
+  const [autoCareComplaincesHasErrors, setAutoCareComplaincesHasErrors] = useState<boolean>(false);
+  const [autoCareAccessHasErrors, setAutoCareAccessHasErrors] = useState<boolean>(false);
+  const [autoCareFinancialsHasErrors, setAutoCareFinancialsHasErrors] = useState<boolean>(false);
 
-  const [communicationChecked, setCommunicationChecked] =
-    useState<boolean>(true);
-  const [systemSoftwareLocationsChecked, setSystemSoftwareLocationsChecked] =
-    useState<boolean>(true);
-  const [cashBankLoansChecked, setCashBankLoansChecked] =
-    useState<boolean>(true);
-  const [payrollSystemChecked, setPayrollSystemChecked] =
-    useState<boolean>(true);
+  const [communicationChecked, setCommunicationChecked] = useState<boolean>(true);
+  const [systemSoftwareLocationsChecked, setSystemSoftwareLocationsChecked] = useState<boolean>(true);
+  const [cashBankLoansChecked, setCashBankLoansChecked] = useState<boolean>(true);
+  const [payrollSystemChecked, setPayrollSystemChecked] = useState<boolean>(true);
   const [compliancesChecked, setCompliancesChecked] = useState<boolean>(true);
   const [accessChecked, setAccessChecked] = useState<boolean>(true);
   const [financialsChecked, setFinancialsChecked] = useState<boolean>(true);
-  const [isFormSubmitAutoCareChecklist, setIsFormSubmitAutoCareChecklist] =
-    useState<boolean>(false);
-  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] =
-    useState<boolean>(false);
+  const [isFormSubmitAutoCareChecklist, setIsFormSubmitAutoCareChecklist] = useState<boolean>(false);
+  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] = useState<boolean>(false);
 
-  const handleAccordianChange =
-    (arg1: number) => (e: SyntheticEvent, isExpanded: boolean) => {
-      setExpandedAccordian(isExpanded ? arg1 : -1);
-    };
+  const handleAccordianChange = (arg1: number) => (e: SyntheticEvent, isExpanded: boolean) => {
+    setExpandedAccordian(isExpanded ? arg1 : -1);
+  };
 
   const validateAutoCareSystemSoftwareLocation = () => {
     const newErrors: { [key: string]: string } = {};
 
     validateAutoCareSystemSoftwareLocationField.forEach((field) => {
       if (!autoCarePosSoftware[field] && !autoCareAccountingSoftware[field]) {
-        newErrors[
-          field
-        ] = `${fieldDisplayNamesSystemSoftwareLoans[field]} is required`;
+        newErrors[field] = `${fieldDisplayNamesSystemSoftwareLoans[field]} is required`;
       } else {
         newErrors[field] = "";
       }
@@ -296,17 +218,13 @@ function ChecklistAutoCare({
         !autoCareSavingsAccount[field] &&
         !autoCareCreditCard[field]
       ) {
-        newCashBankLoansErrors[
-          field
-        ] = `${fieldDisplayNamesCashBankLoans[field]} is required`;
+        newCashBankLoansErrors[field] = `${fieldDisplayNamesCashBankLoans[field]} is required`;
       } else {
         newCashBankLoansErrors[field] = "";
       }
     });
 
-    const hasErrors = Object.values(newCashBankLoansErrors).some(
-      (error) => !!error
-    );
+    const hasErrors = Object.values(newCashBankLoansErrors).some((error) => !!error);
     setAutoCareCashbankLoansErrors(newCashBankLoansErrors);
     setAutoCareCashBankingLoansHasErrors(hasErrors);
     return hasErrors;
@@ -325,9 +243,7 @@ function ChecklistAutoCare({
       }
     });
 
-    const hasErrors = Object.values(newFrequencyErrors).some(
-      (error) => !!error
-    );
+    const hasErrors = Object.values(newFrequencyErrors).some((error) => !!error);
     setAutoCareFrequencyErrors(newFrequencyErrors);
     setAutoCarePayrollServiceProviderHasErrors(hasErrors);
     return hasErrors;
@@ -343,17 +259,13 @@ function ChecklistAutoCare({
         !autoCareTireTax[field] &&
         !autoCareLastTaxReturnFiledYear[field]
       ) {
-        newCompliancesErrors[
-          field
-        ] = `${fieldDisplayNamesCompliances[field]} is required`;
+        newCompliancesErrors[field] = `${fieldDisplayNamesCompliances[field]} is required`;
       } else {
         newCompliancesErrors[field] = "";
       }
     });
 
-    const hasErrors = Object.values(newCompliancesErrors).some(
-      (error) => !!error
-    );
+    const hasErrors = Object.values(newCompliancesErrors).some((error) => !!error);
     setAutoCareCompliancesErrors(newCompliancesErrors);
     setAutoCareComplaincesHasErrors(hasErrors);
     return hasErrors;
@@ -364,9 +276,7 @@ function ChecklistAutoCare({
 
     validateAutoCarePayableCashPayAccessField.forEach((field) => {
       if (!autoCareVendorPortalAccess[field] && !autoCareBillPayAccess[field]) {
-        newPayableCashPayAccessErrors[
-          field
-        ] = `${fieldDisplayNamesPayableCashPayAccess[field]} is required`;
+        newPayableCashPayAccessErrors[field] = `${fieldDisplayNamesPayableCashPayAccess[field]} is required`;
       } else {
         newPayableCashPayAccessErrors[field] = "";
       }
@@ -385,53 +295,16 @@ function ChecklistAutoCare({
 
     validateAutoCareFinancialsField.forEach((field) => {
       if (!autoCareLastClosedPeriod[field]) {
-        newFinancialsErrors[
-          field
-        ] = `${fieldDisplayNamesFinancials[field]} is required`;
+        newFinancialsErrors[field] = `${fieldDisplayNamesFinancials[field]} is required`;
       } else {
         newFinancialsErrors[field] = "";
       }
     });
 
-    const hasErrors = Object.values(newFinancialsErrors).some(
-      (error) => !!error
-    );
+    const hasErrors = Object.values(newFinancialsErrors).some((error) => !!error);
     setAutoCareFinancialsErrors(newFinancialsErrors);
     setAutoCareFinancialsHasErrors(hasErrors);
     return hasErrors;
-  };
-
-  const handleChecklistInitialValues = () => {
-    setAutoCareGroupEmailEstablished(initialAutoCareGroupEmailEstablished);
-    setAutoCarePreKickOff(initialAutoCarePreKickOff);
-    setAutoCareKickOff(initialAutoCareKickOff);
-    setAutoCareITStructureReview(initialAutoCareITStructureReview);
-    setAutoCareAccessComputerMethod(initialAutoCareAccessComputerMethod);
-    setAutoCarePosSoftware(initialAutoCarePosSoftware);
-    setAutoCareEstimatingSoftware(initialAutoCareEstimatingSoftware);
-    setAutoCareAccountingSoftware(initialAutoCareAccountingSoftware);
-    setAutoCareCloudDocumentManagement(initialAutoCareCloudDocumentManagement);
-    setAutoCareScanner(initialAutoCareScanner);
-    setAutoCareOperatingCheckingAccount(
-      initialAutoCareOperatingCheckingAccount
-    );
-    setAutoCareSavingsAccount(initialAutoCareSavingsAccount);
-    setAutoCareCreditCard(initialAutoCareCreditCard);
-    setAutoCareBusinessLoans(initialAutoCareBusinessLoans);
-    setAutoCarePropertyLoans(initialAutoCarePropertyLoans);
-    setAutoCarePayrollServiceProvider(initialAutoCarePayrollServiceProvider);
-    setAutoCareFrequency(initialAutoCareFrequency);
-    setAutoCareNoOfEmployee(initialAutoCareNoOfEmployee);
-    setAutoCareSalesTaxAccessWorkPaper(initialAutoCareSalesTaxAccessWorkPaper);
-    setAutoCareUseTax(initialAutoCareUseTax);
-    setAutoCareTireTax(initialAutoCareTireTax);
-    setAutoCareLastTaxReturnFiledYear(initialAutoCareLastTaxReturnFiledYear);
-    setAutoCareVendorPortalAccess(initialAutoCareVendorPortalAccess);
-    setAutoCareTradeAccount(initialAutoCareTradeAccount);
-    setAutoCareBillPayAccess(initialAutoCareBillPayAccess);
-    setAutoCareApThresholdLimit(initialAutoCareApThresholdLimit);
-    setAutoCareLastClosedPeriod(initialAutoCareLastClosedPeriod);
-    setAutoCareSharingFinancials(initialAutoCareSharingFinancials);
   };
 
   const handleChecklistRemoveErrors = () => {
@@ -1187,9 +1060,6 @@ function ChecklistAutoCare({
           });
         }
       }
-    } else {
-      handleChecklistInitialValues();
-      handleChecklistRemoveErrors();
     }
   };
 
@@ -1224,7 +1094,7 @@ function ChecklistAutoCare({
       }
     };
 
-    const requestBody: any = {
+    const requestBody: SwitchRequestBody = {
       userId: parseInt(clientInfo?.UserId!),
       businessTypeId: parseInt(clientInfo?.DepartmentId!),
     };
@@ -1449,7 +1319,7 @@ function ChecklistAutoCare({
       id: 1,
       checkStatus: communicationChecked,
       expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 1),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 1),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.COMMUNICATION
       ),
@@ -1474,7 +1344,7 @@ function ChecklistAutoCare({
       errorStatus: autoCareSystemSoftwareHasErrors,
       expandedStatus:
         expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 2),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
       ),
@@ -1507,7 +1377,7 @@ function ChecklistAutoCare({
       checkStatus: cashBankLoansChecked,
       errorStatus: autoCareCashBankingLoansHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 3),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 3),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.CASH_BANKING_LOANS
       ),
@@ -1536,7 +1406,7 @@ function ChecklistAutoCare({
       checkStatus: payrollSystemChecked,
       errorStatus: autoCarePayrollServiceProviderHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 4),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 4),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.PAYROLL_SYSTEM
       ),
@@ -1559,7 +1429,7 @@ function ChecklistAutoCare({
       checkStatus: compliancesChecked,
       errorStatus: autoCareComplaincesHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMPLIANCES,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 5),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 5),
       handleAccordianChange: handleAccordianChange(AccordianExpand.COMPLIANCES),
       title: "Compliances",
       component: (
@@ -1584,7 +1454,7 @@ function ChecklistAutoCare({
       checkStatus: accessChecked,
       errorStatus: autoCareAccessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.AP,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 6),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 6),
       handleAccordianChange: handleAccordianChange(AccordianExpand.AP),
       title: "AP - Payable Cash Payment Access",
       component: (
@@ -1610,7 +1480,7 @@ function ChecklistAutoCare({
       errorStatus: autoCareFinancialsHasErrors,
       expandedStatus:
         expandedAccordian === AccordianExpand.STATUS_CONDITION_FINANCIALS,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 7),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 7),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.STATUS_CONDITION_FINANCIALS
       ),
@@ -1641,11 +1511,7 @@ function ChecklistAutoCare({
   return (
     <>
       {formSubmitId === 32 && (
-        <div
-          className={`flex flex-col ${
-            roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
-        >
+        <div className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"} pt-12`}>
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="m-6 flex flex-col gap-6">
               {updatedPhases.map((phase) => (

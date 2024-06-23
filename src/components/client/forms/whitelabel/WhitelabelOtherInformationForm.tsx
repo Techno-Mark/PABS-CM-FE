@@ -11,7 +11,7 @@ import {
   WhitelabelOtherInfoTypes,
   WhitelabelOtherInformationErrors,
   WhitelabelOtherInformationTypes,
-} from "@/models/whitelabel/whitelabelBasicDetails";
+} from "@/models/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
 import Cookies from "js-cookie";
 

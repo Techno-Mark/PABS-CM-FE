@@ -6,7 +6,7 @@ import {
   WhitelabelPABSAccountingTeamErrors,
   WhitelabelPABSAccountingTeamTypes,
   WhitelabelPABSAccountingTypes,
-} from "@/models/whitelabel/whitelabelBasicDetails";
+} from "@/models/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
 import Cookies from "js-cookie";
 

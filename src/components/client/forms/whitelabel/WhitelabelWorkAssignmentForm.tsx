@@ -4,7 +4,8 @@ import {
   CombinationTypes,
   MonthlyTypes,
   WhitelabelFormTypes,
-} from "@/models/whitelabel/whitelabelChecklist";
+  whitelabelWorkAssignmentType,
+} from "@/models/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import React from "react";
@@ -19,7 +20,7 @@ const WhitelabelWorkAssignmentForm = ({
   setWhitelabelCatchup,
   whitelabelCombination,
   setWhitelabelCombination,
-}: any) => {
+}: whitelabelWorkAssignmentType) => {
   return (
     <div className={`${className}`}>
       <Monthly
@@ -58,9 +59,9 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Monthly
+        Monthly<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -174,9 +175,9 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Clean up
+        Clean up<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -290,9 +291,9 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Catch up
+        Catch up<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -409,9 +410,9 @@ const Combination = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Combination of Monthly/ Clean up/ Catch up
+        Combination of Monthly/ Clean up/ Catch up<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">

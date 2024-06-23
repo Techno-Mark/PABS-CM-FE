@@ -6,14 +6,49 @@ export interface BasicDetailWhitelabelType {
   setWhitelabelBasicDetailCount: (value: number) => void;
   setWhitelabelBasicDetailsFormSubmit: (value: number) => void;
   clientInfo?: ClientInfoType;
-  setCheckAllWhiteLabelFields:(value:boolean) => void
-  whiteLabelProgressPercentage:number
+  setCheckAllWhiteLabelFields: (value: boolean) => void
+  whiteLabelProgressPercentage: number
+  setIsOpenModal:(value: boolean) => void
 }
+
+export const whitelabelOtherInformationfieldDisplayNames: { [key: string]: string | number } = {
+  startDate: "Start Date",
+};
 
 export interface ChecklistWhitelabelType {
   setChecklistCount: (value: number) => void;
   setChecklistFormSubmit: (value: number) => void;
   clientInfo?: ClientInfoType;
+  formSubmitId?:number
+}
+
+export interface WhiteLabelBasicDetailsDataType {
+  isSubmited: boolean;
+  accountDetailsIsDisplay: boolean;
+  otherInformationIsDisplay: boolean;
+  cpaClientTeamIsDisplay: boolean;
+  pabsAccountingTeamIsDisplay: boolean;
+  cpaName: string;
+  city: string;
+  corporateAddress: string;
+  state: string;
+  zip: string;
+  ownerContact: string;
+  ownerEmail: string;
+  ownerPhone: string;
+  noOfAccounts: number;
+  bdm: string;
+  startDate: Dayjs | null | string
+  pocFieldsDetail: any;
+  pocDetails:string;
+  cpaArray: any;
+  implementation: string
+  operationsHead: string
+  teamManager: string
+  teamLeader: string
+  seniorAccountant: string
+  pabsGroupEmail: string
+  pabsPhone: string
 }
 
 export interface WhitelabelAccountDetailsFormTypes {
@@ -29,7 +64,7 @@ export interface WhitelabelAccountDetailsFormTypes {
 }
 
 export interface WhitelabelAccountDetailsFormErrors
-  extends Partial<WhitelabelAccountDetailsFormTypes> {}
+  extends Partial<WhitelabelAccountDetailsFormTypes> { }
 
 export interface WhitelabelAccountDetailsTypes {
   className?: string;
@@ -43,7 +78,7 @@ export interface WhitelabelAccountDetailsTypes {
   setWhitelabelAccountDetailsErrors: React.Dispatch<
     React.SetStateAction<WhitelabelAccountDetailsFormErrors>
   >;
-  checkAllFieldsWhiteLabelAccountDetailsForm:boolean
+  checkAllFieldsWhiteLabelAccountDetailsForm: boolean
 }
 
 export interface WhitelabelOtherInformationTypes {
@@ -54,7 +89,7 @@ export interface WhitelabelOtherInformationTypes {
 }
 
 export interface WhitelabelOtherInformationErrors
-  extends Partial<WhitelabelOtherInformationTypes> {}
+  extends Partial<WhitelabelOtherInformationTypes> { }
 
 export interface WhitelabelOtherInfoTypes {
   className?: string;
@@ -70,7 +105,16 @@ export interface WhitelabelOtherInfoTypes {
   setWhitelabelOtherInformationErrors: React.Dispatch<
     React.SetStateAction<WhitelabelOtherInformationErrors>
   >;
-  checkAllFieldsWhitelabelOtherInformationForm:boolean
+  checkAllFieldsWhitelabelOtherInformationForm: boolean
+}
+
+export interface SwitchRequestBody {
+  userId: number;
+  businessTypeId: number;
+  accountDetailsIsDisplay?: boolean;
+  otherInformationIsDisplay?: boolean;
+  cpaClientTeamIsDisplay?: boolean;
+  pabsAccountingTeamIsDisplay?: boolean;
 }
 
 export interface WhitelabelCpaClientTeamTypes {
@@ -82,7 +126,7 @@ export interface WhitelabelCpaClientTeamTypes {
 }
 
 export interface WhitelabelCpaClientTeamErrors
-  extends Partial<WhitelabelCpaClientTeamTypes> {}
+  extends Partial<WhitelabelCpaClientTeamTypes> { }
 
 export interface WhitelabelCpaClientTypes {
   className?: string;
@@ -96,7 +140,7 @@ export interface WhitelabelCpaClientTypes {
   handleChange: any;
   handleAddField: any;
   handleRemoveField: any;
-  checkAllFieldsWhitelabelCpaClientTeamForm:boolean
+  checkAllFieldsWhitelabelCpaClientTeamForm: boolean
 }
 
 export interface WhitelabelPABSAccountingTeamTypes {
@@ -111,7 +155,7 @@ export interface WhitelabelPABSAccountingTeamTypes {
 }
 
 export interface WhitelabelPABSAccountingTeamErrors
-  extends Partial<WhitelabelPABSAccountingTeamTypes> {}
+  extends Partial<WhitelabelPABSAccountingTeamTypes> { }
 
 export interface WhitelabelPABSAccountingTypes {
   className?: string;
@@ -127,5 +171,5 @@ export interface WhitelabelPABSAccountingTypes {
   setWhitelabelPABSAccountingTeamErrors: React.Dispatch<
     React.SetStateAction<WhitelabelPABSAccountingTeamErrors>
   >;
-  checkAllFieldsWhitelabelPabsAccountingTeamForm:boolean
+  checkAllFieldsWhitelabelPabsAccountingTeamForm: boolean
 }

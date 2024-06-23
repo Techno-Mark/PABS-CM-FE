@@ -5,8 +5,11 @@ import {
   TimeSlotTypes,
   TimeZoneTypes,
   WhitelabelFormTypes,
-} from "@/models/whitelabel/whitelabelChecklist";
+  whitelabelMeetingAvailabilityType,
+} from "@/models/whitelabelChecklist";
 import { useStyles } from "@/utils/useStyles";
+// Cookie import
+import Cookies from "js-cookie";
 
 const WhitelabelMeetingAvailabilityForm = ({
   className,
@@ -16,7 +19,7 @@ const WhitelabelMeetingAvailabilityForm = ({
   setWhitelabelConvenientDay,
   whitelabelTimeSlot,
   setWhitelabelTimeSlot,
-}: any) => {
+}: whitelabelMeetingAvailabilityType) => {
   return (
     <div className={`${className}`}>
       <TimeZone
@@ -42,6 +45,7 @@ const TimeZone = ({
   setWhitelabelTimeZone,
 }: TimeZoneTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,7 +60,7 @@ const TimeZone = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Time Zone
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -161,6 +165,7 @@ const ConvenientDay = ({
   setWhitelabelConvenientDay,
 }: ConvenientDayTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -175,7 +180,7 @@ const ConvenientDay = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Convenient day
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -280,6 +285,7 @@ const TimeSlot = ({
   setWhitelabelTimeSlot,
 }: TimeSlotTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -294,7 +300,7 @@ const TimeSlot = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Time slot availability
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">

@@ -4,11 +4,23 @@ export interface ChecklistAccordianProps {
   title: string;
   children: ReactNode;
   expandedAccordian: boolean;
-  handleChange: any;
+  handleChange: (event: any, isExpanded: boolean) => void;
   hasError?: boolean;
   checkStatus?: boolean;
-  handleSwitchChange?: any;
-  switchDisabled:boolean
+  handleSwitchChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  switchDisabled: boolean;
+}
+
+export interface SwitchRequestBody {
+  userId: number;
+  businessTypeId: number;
+  phase1CommunicationIsDisplay?: boolean;
+  phase2SystemIsDisplay?: boolean;
+  phase3CashIsDisplay?: boolean;
+  phase4PayrollIsDisplay?: boolean;
+  phase5CompliancesIsDisplay?: boolean;
+  phase6ApPayableIsDisplay?: boolean;
+  phase7StatusIsDisplay?: boolean;
 }
 
 export interface autoCareCommmunicationChecklistTypes {

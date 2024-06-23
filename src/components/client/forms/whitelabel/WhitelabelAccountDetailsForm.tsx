@@ -9,7 +9,7 @@ import {
   WhitelabelAccountDetailsFormErrors,
   WhitelabelAccountDetailsFormTypes,
   WhitelabelAccountDetailsTypes,
-} from "@/models/whitelabel/whitelabelBasicDetails";
+} from "@/models/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
 // model import
 

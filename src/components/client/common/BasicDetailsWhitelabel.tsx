@@ -9,17 +9,22 @@ import {
   initialWhitelabelPABSAccountingTeam,
   validateWhitelabelAccountDetails,
   validateWhitelabelOtherInformation,
+  whiteLabelAccountDetailsfieldDisplayNames,
 } from "@/static/whitelabel/whitelabelBasicDetails";
 import {
   BasicDetailWhitelabelType,
+  SwitchRequestBody,
+  WhiteLabelBasicDetailsDataType,
   WhitelabelAccountDetailsFormErrors,
   WhitelabelAccountDetailsFormTypes,
   WhitelabelCpaClientTeamErrors,
+  WhitelabelCpaClientTeamTypes,
   WhitelabelOtherInformationErrors,
   WhitelabelOtherInformationTypes,
   WhitelabelPABSAccountingTeamErrors,
   WhitelabelPABSAccountingTeamTypes,
-} from "@/models/whitelabel/whitelabelBasicDetails";
+  whitelabelOtherInformationfieldDisplayNames,
+} from "@/models/whitelabelBasicDetails";
 import WhitelabelOtherInformationForm from "../forms/whitelabel/WhitelabelOtherInformationForm";
 import WhitelabelCpaClientTeamForm from "../forms/whitelabel/WhitelabelCpaClientTeamForm";
 import WhitelabelPabsAccountingTeamForm from "../forms/whitelabel/WhitelabelPabsAccountingTeamForm";
@@ -36,36 +41,22 @@ const BasicDetailsWhitelabel = ({
   clientInfo,
   setCheckAllWhiteLabelFields,
   whiteLabelProgressPercentage,
+  setIsOpenModal
 }: BasicDetailWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
   const businessTypeId = Cookies.get("businessTypeId");
-  const initialWhitelabelAccountDetailsErrors: WhitelabelAccountDetailsFormErrors =
-    {};
-  const initialWhitelabelOtherInformationErrors: WhitelabelOtherInformationErrors =
-    {};
-  const initialWhitelabelCpaClientTeamErrors: WhitelabelCpaClientTeamErrors =
-    {};
-  const initialWhitelabelPABSAccountingTeamErrors: WhitelabelPABSAccountingTeamErrors =
-    {};
 
-  const [whitelabelAccountDetails, setWhitelabelAccountDetails] =
-    useState<WhitelabelAccountDetailsFormTypes>(initialWhitelabelAccountName);
-  const [whitelabelAccountDetailsErrors, setWhitelabelAccountDetailsErrors] =
-    useState<WhitelabelAccountDetailsFormErrors>(
-      initialWhitelabelAccountDetailsErrors
-    );
+  const initialWhitelabelAccountDetailsErrors: WhitelabelAccountDetailsFormErrors = {};
+  const initialWhitelabelOtherInformationErrors: WhitelabelOtherInformationErrors = {};
+  const initialWhitelabelCpaClientTeamErrors: WhitelabelCpaClientTeamErrors = {};
+  const initialWhitelabelPABSAccountingTeamErrors: WhitelabelPABSAccountingTeamErrors = {};
 
-  const [whitelabelOtherInformation, setWhitelabelOtherInformation] =
-    useState<WhitelabelOtherInformationTypes>(
-      initialWhitelabelOtherInformation
-    );
-  const [
-    whitelabelOtherInformationErrors,
-    setWhitelabelOtherInformationErrors,
-  ] = useState<WhitelabelOtherInformationErrors>(
-    initialWhitelabelOtherInformationErrors
-  );
+  const [whitelabelAccountDetails, setWhitelabelAccountDetails] = useState<WhitelabelAccountDetailsFormTypes>(initialWhitelabelAccountName);
+  const [whitelabelAccountDetailsErrors, setWhitelabelAccountDetailsErrors] = useState<WhitelabelAccountDetailsFormErrors>(initialWhitelabelAccountDetailsErrors);
+
+  const [whitelabelOtherInformation, setWhitelabelOtherInformation] = useState<WhitelabelOtherInformationTypes>(initialWhitelabelOtherInformation);
+  const [whitelabelOtherInformationErrors, setWhitelabelOtherInformationErrors] = useState<WhitelabelOtherInformationErrors>(initialWhitelabelOtherInformationErrors);
 
   const [whitelabelCpaClientTeam, setWhitelabelCpaClientTeam] = useState<any>({
     pocDetails: "",
@@ -77,43 +68,20 @@ const BasicDetailsWhitelabel = ({
       cpaArray: [initialWhitelabelCpaClientTeamErrors],
     });
 
-  const [whitelabelPABSAccountingTeam, setWhitelabelPABSAccountingTeam] =
-    useState<WhitelabelPABSAccountingTeamTypes>(
-      initialWhitelabelPABSAccountingTeam
-    );
-  const [
-    whitelabelPABSAccountingTeamErrors,
-    setWhitelabelPABSAccountingTeamErrors,
-  ] = useState<WhitelabelPABSAccountingTeamErrors>(
-    initialWhitelabelPABSAccountingTeamErrors
-  );
+  const [whitelabelPABSAccountingTeam, setWhitelabelPABSAccountingTeam] = useState<WhitelabelPABSAccountingTeamTypes>(initialWhitelabelPABSAccountingTeam);
+  const [whitelabelPABSAccountingTeamErrors, setWhitelabelPABSAccountingTeamErrors] = useState<WhitelabelPABSAccountingTeamErrors>(initialWhitelabelPABSAccountingTeamErrors);
 
-  const [
-    whitelabelAccountDetailsCheckStatus,
-    setWhitelabelAccountDetailsCheckStatus,
-  ] = useState<boolean>(true);
-  const [
-    whitelabelOtherInformationCheckStatus,
-    setWhitelabelOtherInformationCheckStatus,
-  ] = useState<boolean>(true);
-  const [
-    whitelabelCpaClientTeamCheckStatus,
-    setWhitelabelCpaClientTeamCheckStatus,
-  ] = useState<boolean>(true);
-  const [
-    whitelabelPABSAccountingTeamCheckStatus,
-    setwhitelabelPABSAccountingTeamCheckStatus,
-  ] = useState<boolean>(true);
-  const [
-    isFormSubmitWhiteLabelBasicDetails,
-    setIsFormSubmitWhiteLabelBasicDetails,
-  ] = useState<boolean>(false);
+  const [whitelabelAccountDetailsCheckStatus, setWhitelabelAccountDetailsCheckStatus] = useState<boolean>(true);
+  const [whitelabelOtherInformationCheckStatus, setWhitelabelOtherInformationCheckStatus] = useState<boolean>(true);
+  const [whitelabelCpaClientTeamCheckStatus, setWhitelabelCpaClientTeamCheckStatus] = useState<boolean>(true);
+  const [whitelabelPABSAccountingTeamCheckStatus, setwhitelabelPABSAccountingTeamCheckStatus] = useState<boolean>(true);
+  const [isFormSubmitWhiteLabelBasicDetails, setIsFormSubmitWhiteLabelBasicDetails] = useState<boolean>(false);
 
   const getWhiteLabelBasicDetailsList = async () => {
     const callback = (
       ResponseStatus: string,
       Message: string,
-      ResponseData: any
+      ResponseData: WhiteLabelBasicDetailsDataType
     ) => {
       switch (ResponseStatus) {
         case "failure":
@@ -121,9 +89,7 @@ const BasicDetailsWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
-            setIsFormSubmitWhiteLabelBasicDetails(
-              ResponseData?.isSubmited ?? false
-            );
+            setIsFormSubmitWhiteLabelBasicDetails(ResponseData?.isSubmited ?? false);
             setWhitelabelAccountDetailsCheckStatus(
               ResponseData?.accountDetailsIsDisplay ?? true
             );
@@ -154,7 +120,7 @@ const BasicDetailsWhitelabel = ({
             setWhitelabelCpaClientTeam({
               pocDetails: ResponseData.pocDetails,
               cpaArray: ResponseData.pocFieldsDetail.map(
-                (pocFieldsDetailItem: any) => ({
+                (pocFieldsDetailItem: WhitelabelCpaClientTeamTypes) => ({
                   pocName: pocFieldsDetailItem.pocName,
                   pocEmailId: pocFieldsDetailItem.pocEmailId,
                   pocContactNo: pocFieldsDetailItem.pocContactNo,
@@ -186,22 +152,11 @@ const BasicDetailsWhitelabel = ({
   }, []);
 
   const validateAccountDetails = () => {
-    const fieldDisplayNames: { [key: string]: string } = {
-      cpaName: "CPA Name",
-      corporateAddress: "Corporate Address",
-      city: "City",
-      state: "State",
-      zip: "Zip",
-      ownerContact: "Owner Contact",
-      ownerEmail: "Owner Email",
-      ownerPhone: "Owner Phone",
-    };
-
     const newErrors: { [key: string]: string } = {};
 
     validateWhitelabelAccountDetails.forEach((field) => {
       if (!whitelabelAccountDetails[field]) {
-        newErrors[field] = `${fieldDisplayNames[field]} is required`;
+        newErrors[field] = `${whiteLabelAccountDetailsfieldDisplayNames[field]} is required`;
       } else if (
         field === "ownerEmail" &&
         !!whitelabelAccountDetailsErrors[field]
@@ -218,15 +173,11 @@ const BasicDetailsWhitelabel = ({
   };
 
   const validateOtherInformation = () => {
-    const fieldDisplayNames: { [key: string]: string | number } = {
-      startDate: "Start Date",
-    };
-
     const newErrors: { [key: string]: string | number } = {};
 
     validateWhitelabelOtherInformation.forEach((field) => {
       if (!whitelabelOtherInformation[field]) {
-        newErrors[field] = `${fieldDisplayNames[field]} is required`;
+        newErrors[field] = `${whitelabelOtherInformationfieldDisplayNames[field]} is required`;
       } else {
         newErrors[field] = "";
       }
@@ -285,12 +236,12 @@ const BasicDetailsWhitelabel = ({
       progress: whiteLabelProgressPercentage,
       pocFieldsDetail: whitelabelCpaClientTeam.cpaArray
         .filter(
-          (pocField: any) =>
+          (pocField: WhitelabelCpaClientTeamTypes) =>
             !!pocField.pocName ||
             !!pocField.pocEmailId ||
             !!pocField.pocContactNo
         )
-        .map((pocField: any) => ({
+        .map((pocField: WhitelabelCpaClientTeamTypes) => ({
           pocName: pocField.pocName,
           pocEmailId: pocField.pocEmailId,
           pocContactNo: pocField.pocContactNo,
@@ -300,7 +251,7 @@ const BasicDetailsWhitelabel = ({
     const isValidAccountDetails = whitelabelAccountDetailsCheckStatus
       ? validateAccountDetails()
       : false;
-    const isValidLegalStructure = whitelabelOtherInformationCheckStatus
+    const isValidOtherInformation = whitelabelOtherInformationCheckStatus
       ? validateOtherInformation()
       : false;
     const isValidClientTeam = whitelabelCpaClientTeamCheckStatus
@@ -308,7 +259,7 @@ const BasicDetailsWhitelabel = ({
       : false;
 
     const isValid =
-      !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
+      !isValidAccountDetails && !isValidOtherInformation && !isValidClientTeam;
     if (type === 1) {
       roleId === "4" && setCheckAllWhiteLabelFields(!isValid);
       const filledFieldsCount = basicDetailWhiteLabelPerStatus();
@@ -344,12 +295,12 @@ const BasicDetailsWhitelabel = ({
         }
         if (isFormSubmitWhiteLabelBasicDetails && roleId !== "4") {
           const isValidAccountDetails = validateAccountDetails();
-          const isValidLegalStructure = validateOtherInformation();
+          const isValidOtherInformation = validateOtherInformation();
           const isValidClientTeam = validateCpaClientTeam();
 
           const isValid =
             !isValidAccountDetails &&
-            !isValidLegalStructure &&
+            !isValidOtherInformation &&
             !isValidClientTeam;
           if (isValid) {
             callAPIwithHeaders(
@@ -443,27 +394,27 @@ const BasicDetailsWhitelabel = ({
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
           if (!field[key]) {
             isValid = false;
-            fieldErrors[key] = `${
-              key === "pocName"
-                ? "POC Name"
-                : key === "pocEmailId"
-                ? "Email"
-                : "Contact No"
-            } is required`;
+            fieldErrors[key] = `${key === "pocName" ? "POC Name" : key === "pocEmailId" ? "Email" : "Contact No"} is required`;
           }
         });
         return fieldErrors;
       }),
     };
-
+  
     if (!whitelabelCpaClientTeam.pocDetails) {
       isValid = false;
       newErrors.pocDetails = "POC Details is required";
     }
-
+  
+    const hasCpaArrayErrors = newErrors.cpaArray.some((fieldErrors:any) =>
+      Object.values(fieldErrors).some((error) => !!error)
+    );
+  
+    const hasErrors = !!newErrors.pocDetails || hasCpaArrayErrors;
+    
     setWhitelabelCpaClientTeamErrors(newErrors);
-    return isValid;
-  };
+    return hasErrors;
+  };  
 
   const handleAddField = () => {
     if (validateCpaClientTeam()) {
@@ -484,10 +435,10 @@ const BasicDetailsWhitelabel = ({
 
   const handleRemoveField = (index: number) => {
     const newFields = whitelabelCpaClientTeam.cpaArray.filter(
-      (_: any, i: any) => i !== index
+      (_: { name: string, id: number }, i: number) => i !== index
     );
     const newErrors = whitelabelCpaClientTeamErrors.cpaArray.filter(
-      (_: any, i: any) => i !== index
+      (_: { name: string, id: number }, i: number) => i !== index
     );
 
     setWhitelabelCpaClientTeam({
@@ -529,7 +480,7 @@ const BasicDetailsWhitelabel = ({
       }
     };
 
-    const requestBody: any = {
+    const requestBody: SwitchRequestBody = {
       userId: parseInt(clientInfo?.UserId!),
       businessTypeId: parseInt(clientInfo?.DepartmentId!),
     };
@@ -625,7 +576,7 @@ const BasicDetailsWhitelabel = ({
         !!whitelabelOtherInformation[field] ||
         !!whitelabelCpaClientTeam.pocDetails ||
         (whitelabelCpaClientTeam.cpaArray &&
-          whitelabelCpaClientTeam.cpaArray.some((cpa: any) => !!cpa[field]))
+          whitelabelCpaClientTeam.cpaArray.some((cpa: WhitelabelCpaClientTeamTypes) => !!cpa[field]))
       ) {
         count++;
       }
@@ -642,9 +593,8 @@ const BasicDetailsWhitelabel = ({
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
@@ -668,24 +618,24 @@ const BasicDetailsWhitelabel = ({
             {(roleId === "4"
               ? whitelabelOtherInformationCheckStatus
               : true) && (
-              <WhitelabelOtherInformationForm
-                checkAllFieldsWhitelabelOtherInformationForm={isFormSubmitWhiteLabelBasicDetails}
-                whitelabelOtherInformationCheckStatus={
-                  whitelabelOtherInformationCheckStatus
-                }
-                handleWhitelabelOtherInformationSwitch={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => handleSwitchChange(e, 2)}
-                whitelabelOtherInformation={whitelabelOtherInformation}
-                setWhitelabelOtherInformation={setWhitelabelOtherInformation}
-                whitelabelOtherInformationErrors={
-                  whitelabelOtherInformationErrors
-                }
-                setWhitelabelOtherInformationErrors={
-                  setWhitelabelOtherInformationErrors
-                }
-              />
-            )}
+                <WhitelabelOtherInformationForm
+                  checkAllFieldsWhitelabelOtherInformationForm={isFormSubmitWhiteLabelBasicDetails}
+                  whitelabelOtherInformationCheckStatus={
+                    whitelabelOtherInformationCheckStatus
+                  }
+                  handleWhitelabelOtherInformationSwitch={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => handleSwitchChange(e, 2)}
+                  whitelabelOtherInformation={whitelabelOtherInformation}
+                  setWhitelabelOtherInformation={setWhitelabelOtherInformation}
+                  whitelabelOtherInformationErrors={
+                    whitelabelOtherInformationErrors
+                  }
+                  setWhitelabelOtherInformationErrors={
+                    setWhitelabelOtherInformationErrors
+                  }
+                />
+              )}
             {(roleId === "4" ? whitelabelCpaClientTeamCheckStatus : true) && (
               <WhitelabelCpaClientTeamForm
                 checkAllFieldsWhitelabelCpaClientTeamForm={isFormSubmitWhiteLabelBasicDetails}
@@ -706,26 +656,26 @@ const BasicDetailsWhitelabel = ({
             {(roleId === "4"
               ? whitelabelPABSAccountingTeamCheckStatus
               : true) && (
-              <WhitelabelPabsAccountingTeamForm
-                checkAllFieldsWhitelabelPabsAccountingTeamForm={isFormSubmitWhiteLabelBasicDetails}
-                whitelabelPABSAccountingTeamCheckStatus={
-                  whitelabelPABSAccountingTeamCheckStatus
-                }
-                handleWhitelabelPABSAccountingTeamSwitch={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => handleSwitchChange(e, 4)}
-                whitelabelPABSAccountingTeam={whitelabelPABSAccountingTeam}
-                setWhitelabelPABSAccountingTeam={
-                  setWhitelabelPABSAccountingTeam
-                }
-                whitelabelPABSAccountingTeamErrors={
-                  whitelabelPABSAccountingTeamErrors
-                }
-                setWhitelabelPABSAccountingTeamErrors={
-                  setWhitelabelPABSAccountingTeamErrors
-                }
-              />
-            )}
+                <WhitelabelPabsAccountingTeamForm
+                  checkAllFieldsWhitelabelPabsAccountingTeamForm={isFormSubmitWhiteLabelBasicDetails}
+                  whitelabelPABSAccountingTeamCheckStatus={
+                    whitelabelPABSAccountingTeamCheckStatus
+                  }
+                  handleWhitelabelPABSAccountingTeamSwitch={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => handleSwitchChange(e, 4)}
+                  whitelabelPABSAccountingTeam={whitelabelPABSAccountingTeam}
+                  setWhitelabelPABSAccountingTeam={
+                    setWhitelabelPABSAccountingTeam
+                  }
+                  whitelabelPABSAccountingTeamErrors={
+                    whitelabelPABSAccountingTeamErrors
+                  }
+                  setWhitelabelPABSAccountingTeamErrors={
+                    setWhitelabelPABSAccountingTeamErrors
+                  }
+                />
+              )}
 
             {roleId === "4" &&
               !whitelabelAccountDetailsCheckStatus &&
@@ -743,7 +693,7 @@ const BasicDetailsWhitelabel = ({
         <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-end border-t gap-5 px-6 w-full">
           {roleId !== "4" && (
             <Button
-              onClick={() => handleSubmit(3)}
+              onClick={() => setIsOpenModal(false)}
               className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
             >

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
-import { ChecklistWhitelabelType } from "@/models/whitelabel/whitelabelBasicDetails";
+import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";

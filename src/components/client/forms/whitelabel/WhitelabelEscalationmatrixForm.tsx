@@ -1,12 +1,18 @@
+import React from "react";
+// Models import
 import {
   BdmTypes,
   ClientTypes,
   PabsTypes,
   WhitelabelFormTypes,
-} from "@/models/whitelabel/whitelabelChecklist";
+  whitelabelEscalationmatrixFormType,
+} from "@/models/whitelabelChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+// Cookie import
+import Cookies from "js-cookie";
 
 const WhitelabelEscalationmatrixForm = ({
   className,
@@ -16,7 +22,7 @@ const WhitelabelEscalationmatrixForm = ({
   setWhitelabelPABS,
   whitelabelBDM,
   setWhitelabelBDM,
-}: any) => {
+}: whitelabelEscalationmatrixFormType) => {
   return (
     <div className={`${className}`}>
       <Client
@@ -36,6 +42,7 @@ export default WhitelabelEscalationmatrixForm;
 
 const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,7 +57,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Client
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -152,6 +159,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
 
 const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -166,7 +174,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         PABS
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
@@ -268,6 +276,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
 
 const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -282,7 +291,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         BDM
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">

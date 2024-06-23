@@ -15,7 +15,7 @@ const Page = () => {
     useState<number>(0);
   const [whiteLabelPerCountChecklist, setWhitelabelPerCountChecklist] =
     useState<number>(0);
-    const [whiteLabelProgressPercentage, setWhiteLabelProgressPercentage] =
+  const [whiteLabelProgressPercentage, setWhiteLabelProgressPercentage] =
     useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(11);
   const [checkAllWhitelabelBasicDetails, setCheckAllWhiteLabelBasicDetails] =
@@ -30,7 +30,7 @@ const Page = () => {
 
   return (
     <ClientWrapper
-      setAutoCareProgressPercentage={() => {}}
+      setAutoCareProgressPercentage={() => { }}
       setWhiteLabelProgressPercentage={(value: number) =>
         setWhiteLabelProgressPercentage(value)
       }
@@ -40,6 +40,7 @@ const Page = () => {
     >
       {formSubmit === 11 && (
         <BasicDetailsWhitelabel
+          setIsOpenModal={() => { }}
           setCheckAllWhiteLabelFields={(value: boolean) =>
             setCheckAllWhiteLabelBasicDetails(value)
           }
@@ -53,13 +54,15 @@ const Page = () => {
         />
       )}
       <ChecklistWhitelabel
+        formSubmitId={formSubmit}
         setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-        setChecklistCount={(value: number) => {}}
+        setChecklistCount={(value: number) => { }}
       />
       {formSubmit === 13 && (
         <AccountDetailsWhitelabel
+          // checkAllBasicDetails={checkAllBasicDetails}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => {}}
+          setChecklistCount={(value: number) => { }}
         />
       )}
     </ClientWrapper>

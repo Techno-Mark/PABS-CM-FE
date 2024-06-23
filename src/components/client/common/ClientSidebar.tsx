@@ -51,7 +51,7 @@ interface SidebarModuleTypes {
   perCountWhiteLabelBasicDetails?: number;
   perCountWhiteLabelChecklist?: number;
   setAutoCareProgressPercentage: any;
-  setWhiteLabelProgressPercentage:any
+  setWhiteLabelProgressPercentage: any
 }
 
 const ClientSidebar = ({
@@ -160,35 +160,35 @@ const ClientSidebar = ({
               className="flex items-center justify-between w-full mb-5"
             >
               <span
-                className={` ${
-                  sidebarModule === data.id && "font-semibold"
-                } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
+                className={` ${sidebarModule === data.id && "font-semibold"
+                  } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
               >
                 {data.module}
               </span>
-              <div className="flex justify-start gap-2 w-[50%]">
-                <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
-                  <div
-                    className={`absolute left-0 top-0 h-full ${
-                      data.value < 93
-                        ? "rounded-full"
-                        : "rounded-l-full rounded-r-full"
-                    }`}
-                    style={{
-                      width: `${Math.max(
-                        (data.value / 100) * 100,
-                        data.value > 0 && data.value < 7 ? 6 : 0
-                      )}px`,
-                      backgroundColor: "#022946",
-                    }}
-                  ></div>
+              {data.id !== 13 && (
+                <div className="flex justify-start gap-2 w-[50%]">
+                  <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
+                    <div
+                      className={`absolute left-0 top-0 h-full ${data.value < 93
+                          ? "rounded-full"
+                          : "rounded-l-full rounded-r-full"
+                        }`}
+                      style={{
+                        width: `${Math.max(
+                          (data.value / 100) * 100,
+                          data.value > 0 && data.value < 7 ? 6 : 0
+                        )}px`,
+                        backgroundColor: "#022946",
+                      }}
+                    ></div>
+                  </div>
+                  <span
+                    className={`relative mr-1 pt-[2px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
+                  >
+                    {data.value}%
+                  </span>
                 </div>
-                <span
-                  className={`relative mr-1 pt-[2px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
-                >
-                  {data.value}%
-                </span>
-              </div>
+              )}
             </div>
           ))}
         </div>

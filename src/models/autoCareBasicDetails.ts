@@ -1,15 +1,15 @@
 import { Dayjs } from "dayjs";
-import { ReactNode } from "react";
-import { Option } from "./adminHeader";
+import { ChangeEvent, ReactNode } from "react";
 
 export interface FormBoxProps {
   checkStatus?: boolean;
-  handleChange?: any;
+  handleChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
   title: string;
   children: ReactNode;
   className?: string;
-  switchDisabled?:boolean
+  switchDisabled?: boolean;
 }
+
 export interface LegalStructureFormTypes {
   no_of_Entities: string;
   no_of_Shops: string;
@@ -21,7 +21,7 @@ export interface LegalStructureFormTypes {
 }
 
 export interface LegalStructureFormErrors
-  extends Partial<LegalStructureFormTypes> {}
+  extends Partial<LegalStructureFormTypes> { }
 
 export interface AccountDetailsFormTypes {
   accountName: string;
@@ -37,8 +37,12 @@ export interface AccountDetailsFormTypes {
 }
 
 export interface AccountDetailsFormErrors
-  extends Partial<AccountDetailsFormTypes> {}
+  extends Partial<AccountDetailsFormTypes> { }
 
+export interface DropdownOption {
+  value: string;
+  label: string;
+}
 export interface ClientTeamFormTypes {
   shopManager: string;
   poc1: string;
@@ -51,10 +55,19 @@ export interface ClientTeamFormTypes {
   weeklyCalls: any
   weeklyCallTime: Dayjs | null | string;
   istTime: Dayjs | null | string;
-  [key: string]: string | Dayjs | null;
+  [key: string]: string | Dayjs | null | DropdownOption[];
 }
 
-export interface ClientTeamFormErrors extends Partial<ClientTeamFormTypes> {}
+export interface SwitchRequestBodyType {
+  userId: number;
+  businessTypeId: number;
+  accountDetailsIsDisplay?: boolean;
+  legalStructureIsDisplay?: boolean;
+  cpaClientTeamIsDisplay?: boolean;
+  pabsAccountingTeamIsDisplay?: boolean;
+};
+
+export interface ClientTeamFormErrors extends Partial<ClientTeamFormTypes> { }
 
 export interface PabsAccountingTeamFormTypes {
   implementationManager: string;
@@ -68,11 +81,11 @@ export interface PabsAccountingTeamFormTypes {
 }
 
 export interface PabsAccountingTeamFormErrors
-  extends Partial<PabsAccountingTeamFormTypes> {}
+  extends Partial<PabsAccountingTeamFormTypes> { }
 export interface AccountDetailsTypes {
   className?: string;
   accountDetailsCheckStatus: boolean;
-  handleAccountDetailsSwitch: any;
+  handleAccountDetailsSwitch: (value: ChangeEvent<HTMLInputElement>) => void;
   autoCareAccountDetails: AccountDetailsFormTypes;
   setAutoCareAccountDetails: React.Dispatch<
     React.SetStateAction<AccountDetailsFormTypes>
@@ -81,13 +94,13 @@ export interface AccountDetailsTypes {
   setAutoCareAccountDetailsErrors: React.Dispatch<
     React.SetStateAction<AccountDetailsFormErrors>
   >;
-  finalCheckAllFieldsAccountDetails:boolean
+  finalCheckAllFieldsAccountDetails: boolean
 }
 
 export interface LegalStructureTypes {
   className?: string;
   legalStructureCheckStatus: boolean;
-  handleLegalStructureSwitch: any;
+  handleLegalStructureSwitch: (value: ChangeEvent<HTMLInputElement>) => void;
   autoCareLegalStructure: LegalStructureFormTypes;
   setAutoCareLegalStructure: React.Dispatch<
     React.SetStateAction<LegalStructureFormTypes>
@@ -96,13 +109,13 @@ export interface LegalStructureTypes {
   setAutoCareLegalStructureErrors: React.Dispatch<
     React.SetStateAction<LegalStructureFormErrors>
   >;
-  finalCheckAllFieldsLegalStructure:boolean
+  finalCheckAllFieldsLegalStructure: boolean
 }
 
 export interface ClientTeamTypes {
   className?: string;
   clientTeamCheckStatus: boolean;
-  handleClientTeamSwitch: any;
+  handleClientTeamSwitch: (value: ChangeEvent<HTMLInputElement>) => void;
   autoCareClientTeam: ClientTeamFormTypes;
   setAutoCareClientTeam: React.Dispatch<
     React.SetStateAction<ClientTeamFormTypes>
@@ -111,18 +124,18 @@ export interface ClientTeamTypes {
   setAutoCareClientTeamErrors: React.Dispatch<
     React.SetStateAction<ClientTeamFormErrors>
   >;
-  finalCheckAllFieldsClientTeam:boolean
+  finalCheckAllFieldsClientTeam: boolean
 }
 
 export interface PabsAccountingTeamTypes {
   className?: string;
   pabsAccountingTeamCheckStatus: boolean;
-  handlePabsAccountingTeamSwitch: any;
+  handlePabsAccountingTeamSwitch: (value: ChangeEvent<HTMLInputElement>) => void;
   autoCarePabsAccountingTeam: PabsAccountingTeamFormTypes;
   setAutoCarePabsAccountingTeam: React.Dispatch<
     React.SetStateAction<PabsAccountingTeamFormTypes>
   >;
-  finalCheckAllFieldsPabsAccountingTeam:boolean
+  finalCheckAllFieldsPabsAccountingTeam: boolean
 }
 
 export interface ClientInfoType {
@@ -139,7 +152,7 @@ export interface AutoCareType {
   setBasicDetailCount: (value: number) => void;
   setBasicDetailsFormSubmit: (value: number) => void;
   setIsOpenModal: (value: boolean) => void;
-  autoCareProgressPercentage:number
+  autoCareProgressPercentage: number
   setCheckAllFields: (value: boolean) => void;
 }
 
@@ -147,9 +160,9 @@ export interface ChecklistType extends Partial<AutoCareType> {
   setIsOpenModal: (value: boolean) => void;
   setChecklistCount: (value: number) => void;
   setChecklistFormSubmit: (value: number) => void;
-  autoCareProgressPercentage:number
-  checkAllBasicDetails:boolean
-  formSubmitId:number
+  autoCareProgressPercentage: number
+  checkAllBasicDetails: boolean
+  formSubmitId: number
 }
 
 export interface BasicDetailsResponseDataType {
@@ -179,7 +192,7 @@ export interface BasicDetailsResponseDataType {
   timeZone: string;
   state: string;
   weeklyCalls: string;
-  businessName:string;
+  businessName: string;
   weeklyCallTime: Dayjs | null | string;
   istTime: Dayjs | null | string;
   implementationManager: string;
@@ -193,7 +206,7 @@ export interface BasicDetailsResponseDataType {
   legalStructureIsDisplay: boolean;
   cpaClientTeamIsDisplay: boolean;
   pabsAccountingTeamIsDisplay: boolean;
-  isSubmited:boolean
+  isSubmited: boolean
 }
 
 export interface formChecklistDetails {

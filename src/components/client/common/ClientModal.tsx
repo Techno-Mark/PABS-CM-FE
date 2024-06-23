@@ -54,15 +54,17 @@ function ClientModal({
 }: ClientModalProps) {
   const token = Cookies.get("token");
   const formSubmitId =
-    clientInfo?.DepartmentId === 3
+    clientInfo?.DepartmentId === '3'
       ? 31
-      : clientInfo?.DepartmentId === 2
-      ? 21
-      : 11;
+      : clientInfo?.DepartmentId === '2'
+        ? 21
+        : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
   const [autoCareProgressPer, setAutoCareProgressPer] = useState<number>(0);
+  const [perCounWhiteLabeltBasicDetails, setPerCountWhiteLabelBasicDetails] = useState<number>(0);
+  const [whiteLabelProgressPer, setWhiteLabelProgressPer] = useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
   const [formDetails, setFormDetails] = useState<any>(null);
 
@@ -182,11 +184,12 @@ function ClientModal({
               </Toolbar>
             </AppBar>
             <ClientSidebar
-              setWhiteLabelProgressPercentage={() => {}}
+              setWhiteLabelProgressPercentage={(value: number) => setWhiteLabelProgressPer(value)}
               clientInfo={clientInfo}
               perCountChecklist={perCountChecklist}
               perCountBasicDetails={perCountBasicDetails}
               perCountSmbChecklist={perCountSmbChecklist}
+              perCountWhiteLabelBasicDetails={perCounWhiteLabeltBasicDetails}
               sidebarModule={formSubmit}
               setAutoCareProgressPercentage={(value: number) =>
                 setAutoCareProgressPer(value)
@@ -201,11 +204,11 @@ function ClientModal({
                 height: "calc(100% - 64px)",
               }}
             >
-              {clientInfo.DepartmentId === 3 ? (
+              {clientInfo.DepartmentId === '3' ? (
                 <>
                   {formSubmit === 31 && (
                     <BasicDetailsAutoCare
-                      setCheckAllFields={() => {}}
+                      setCheckAllFields={() => { }}
                       autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -231,7 +234,7 @@ function ClientModal({
                     }
                   />
                 </>
-              ) : clientInfo.DepartmentId === 2 ? (
+              ) : clientInfo.DepartmentId === '2' ? (
                 <>
                   {formSubmit === 21 && (
                     <ChecklistSmb
@@ -250,27 +253,26 @@ function ClientModal({
                 </>
               ) : (
                 <>
-                  {formSubmit === 11 ? (
+                  {formSubmit === 11 && (
                     <BasicDetailsWhitelabel
-                      setCheckAllWhiteLabelFields={() => {}}
-                      whiteLabelProgressPercentage={0}
+                      setCheckAllWhiteLabelFields={() => { }}
+                      whiteLabelProgressPercentage={whiteLabelProgressPer}
                       clientInfo={clientInfo}
                       setWhitelabelBasicDetailsFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setWhitelabelBasicDetailCount={(value: number) => {}}
+                      setWhitelabelBasicDetailCount={(value: number) => setPerCountWhiteLabelBasicDetails(value)}
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                     />
-                  ) : formSubmit === 12 ? (
-                    <ChecklistWhitelabel
-                      clientInfo={clientInfo}
-                      setChecklistFormSubmit={(value: number) =>
-                        setFormSubmit(value)
-                      }
-                      setChecklistCount={(value: number) => {}}
-                    />
-                  ) : (
-                    ""
                   )}
+                  <ChecklistWhitelabel
+                    clientInfo={clientInfo}
+                    setChecklistFormSubmit={(value: number) =>
+                      setFormSubmit(value)
+                    }
+                    setChecklistCount={(value: number) => { }}
+                  />
+
                 </>
               )}
             </Box>

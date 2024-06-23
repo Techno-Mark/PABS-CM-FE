@@ -3,7 +3,7 @@ import FormBox from "@/components/client/common/FormBox";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
-import { WhitelabelCpaClientTypes } from "@/models/whitelabel/whitelabelBasicDetails";
+import { WhitelabelCpaClientTypes } from "@/models/whitelabelBasicDetails";
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import Cookies from "js-cookie";
 
@@ -113,14 +113,14 @@ const WhitelabelCpaClientTeamForm = ({
                       value={
                         whitelabelCpaClientTeam?.cpaArray[index]?.pocEmailId
                       }
-                      error={
-                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
-                          ?.pocEmailId
-                      }
-                      helperText={
-                        whitelabelCpaClientTeamErrors?.cpaArray[index]
-                          ?.pocEmailId
-                      }
+                      // error={
+                      //   !!whitelabelCpaClientTeamErrors?.cpaArray[index]
+                      //     ?.pocEmailId
+                      // }
+                      // helperText={
+                      //   whitelabelCpaClientTeamErrors?.cpaArray[index]
+                      //     ?.pocEmailId
+                      // }
                       onChange={(e) => handleChange(index, e)}
                       InputProps={{
                         classes: {

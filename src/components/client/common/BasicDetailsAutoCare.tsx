@@ -14,9 +14,11 @@ import {
   BasicDetailsResponseDataType,
   ClientTeamFormErrors,
   ClientTeamFormTypes,
+  DropdownOption,
   LegalStructureFormErrors,
   LegalStructureFormTypes,
   PabsAccountingTeamFormTypes,
+  SwitchRequestBodyType,
 } from "@/models/autoCareBasicDetails";
 // Static import
 import {
@@ -34,6 +36,7 @@ import {
   validateAutoCarClientTeam,
   validateAutoCarLegalStructure,
 } from "@/static/carCareBasicDetail";
+//API import
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
@@ -58,34 +61,19 @@ function BasicDetailsAutoCare({
   const initialAutoCareLegalStructureErrors: LegalStructureFormErrors = {};
   const initialAutoCareClientTeamErrors: ClientTeamFormErrors = {};
 
-  const [autoCareAccountDetailsErrors, setAutoCareAccountDetailsErrors] =
-    useState<AccountDetailsFormErrors>(initialAutoCareAccountDetailsErrors);
-  const [autoCareLegalStructureErrors, setAutoCareLegalStructureErrors] =
-    useState<LegalStructureFormErrors>(initialAutoCareLegalStructureErrors);
-  const [autoCareClientTeamErrors, setAutoCareClientTeamErrors] =
-    useState<ClientTeamFormErrors>(initialAutoCareClientTeamErrors);
-  const [autoCareAccountDetails, setAutoCareAccountDetails] =
-    useState<AccountDetailsFormTypes>(initialAutoCareAccountName);
-  const [autoCareLegalStructure, setAutoCareLegalStructure] =
-    useState<LegalStructureFormTypes>(initialAutoCareLegalStructure);
-  const [autoCareClientTeam, setAutoCareClientTeam] = useState<any>(
-    initialAutoCareClientTeam
-  );
-  const [autoCarePabsAccountingTeam, setAutoCarePabsAccountingTeam] =
-    useState<PabsAccountingTeamFormTypes>(initialAutoCarePabsAccountingTeam);
+  const [autoCareAccountDetailsErrors, setAutoCareAccountDetailsErrors] = useState<AccountDetailsFormErrors>(initialAutoCareAccountDetailsErrors);
+  const [autoCareLegalStructureErrors, setAutoCareLegalStructureErrors] = useState<LegalStructureFormErrors>(initialAutoCareLegalStructureErrors);
+  const [autoCareClientTeamErrors, setAutoCareClientTeamErrors] = useState<ClientTeamFormErrors>(initialAutoCareClientTeamErrors);
+  const [autoCareAccountDetails, setAutoCareAccountDetails] = useState<AccountDetailsFormTypes>(initialAutoCareAccountName);
+  const [autoCareLegalStructure, setAutoCareLegalStructure] = useState<LegalStructureFormTypes>(initialAutoCareLegalStructure);
+  const [autoCareClientTeam, setAutoCareClientTeam] = useState<ClientTeamFormTypes>(initialAutoCareClientTeam);
+  const [autoCarePabsAccountingTeam, setAutoCarePabsAccountingTeam] = useState<PabsAccountingTeamFormTypes>(initialAutoCarePabsAccountingTeam);
 
-  const [accountDetailsCheckStatus, setAccountDetailsCheckStatus] =
-    useState<boolean>(true);
-  const [legalStructureCheckStatus, setLegalStructureCheckStatus] =
-    useState<boolean>(true);
-  const [clientTeamCheckStatus, setClientTeamCheckStatus] =
-    useState<boolean>(true);
-  const [pabsAccountingTeamCheckStatus, setPabsAccountingTeamCheckStatus] =
-    useState<boolean>(true);
-  const [
-    isFormSubmitAutoCareBasicDetails,
-    setIsFormSubmitAutoCareBasicDetails,
-  ] = useState<boolean>(false);
+  const [accountDetailsCheckStatus, setAccountDetailsCheckStatus] =useState<boolean>(true);
+  const [legalStructureCheckStatus, setLegalStructureCheckStatus] = useState<boolean>(true);
+  const [clientTeamCheckStatus, setClientTeamCheckStatus] = useState<boolean>(true);
+  const [pabsAccountingTeamCheckStatus, setPabsAccountingTeamCheckStatus] = useState<boolean>(true);
+  const [isFormSubmitAutoCareBasicDetails, setIsFormSubmitAutoCareBasicDetails] = useState<boolean>(false);
 
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
@@ -134,8 +122,8 @@ function BasicDetailsAutoCare({
                 : null,
               probableAcquitionDate: ResponseData?.probableAcquisitionDate
                 ? dayjs(ResponseData?.probableAcquisitionDate).format(
-                    "DD MMM YYYY"
-                  )
+                  "DD MMM YYYY"
+                )
                 : null,
               dba: ResponseData?.dba,
             });
@@ -149,12 +137,12 @@ function BasicDetailsAutoCare({
               timeZone:
                 ResponseData?.timeZone && ResponseData?.timeZone !== "-1"
                   ? TimeZoneList.find(
-                      (time) => time.label === ResponseData?.timeZone
-                    )?.value || "-1"
+                    (time) => time.label === ResponseData?.timeZone
+                  )?.value || "-1"
                   : "-1",
               state: ResponseData?.state
                 ? StateList.find((state) => state.label === ResponseData?.state)
-                    ?.value || "-1"
+                  ?.value || "-1"
                 : "-1",
               weeklyCalls: ResponseData?.weeklyCalls
                 .split(",")
@@ -164,9 +152,9 @@ function BasicDetailsAutoCare({
                   );
                   return matchingItem
                     ? { value: matchingItem.value, label: matchingItem.label }
-                    : null;
+                    : [];
                 })
-                .filter((item) => item !== null),
+                .filter((item): item is DropdownOption => item !== null),
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
             });
@@ -400,20 +388,20 @@ function BasicDetailsAutoCare({
       timeZone:
         autoCareClientTeam.timeZone !== "-1"
           ? TimeZoneList.find(
-              (time) => time.value === autoCareClientTeam.timeZone
-            )?.label
+            (time) => time.value === autoCareClientTeam.timeZone
+          )?.label
           : "",
       state:
         autoCareClientTeam.state !== "-1"
           ? StateList.find((state) => state.value === autoCareClientTeam.state)
-              ?.label
+            ?.label
           : "",
       weeklyCalls:
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
-        autoCareClientTeam.weeklyCalls.length > 0
+          autoCareClientTeam.weeklyCalls.length > 0
           ? autoCareClientTeam.weeklyCalls
-              .map((item: any) => item.value)
-              .join(",")
+            .map((item: { value: string, label: string }) => item.value)
+            .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
@@ -533,7 +521,7 @@ function BasicDetailsAutoCare({
       }
     };
 
-    const requestBody: any = {
+    const requestBody: SwitchRequestBodyType = {
       userId: parseInt(clientInfo?.UserId!),
       businessTypeId: parseInt(clientInfo?.DepartmentId!),
     };
@@ -564,12 +552,8 @@ function BasicDetailsAutoCare({
 
   return (
     <>
-      <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
-      >
-        <div className={`flex-1 overflow-y-scroll`}>
+      <div className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"} pt-12`}>
+        <div className="flex-1 overflow-y-scroll">
           <div className="m-6 flex flex-col gap-6">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
               <AutoCareAccountDetails
