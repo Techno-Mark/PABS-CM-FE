@@ -154,7 +154,7 @@ const UserDrawer = ({
   };
 
   const handleEmailChange = (e: { target: { value: string } }) => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailRegex = /^[\w+.-]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
       setEmail({
         value: e.target.value,
