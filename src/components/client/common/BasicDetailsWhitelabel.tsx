@@ -260,9 +260,6 @@ const BasicDetailsWhitelabel = ({
         case "success":
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
           isValid && showToast(Message, ToastType.Success);
-          isValid
-            ? roleId === "4" && setCheckAllWhiteLabelBasicFields(true)
-            : "";
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
           return;
       }
@@ -322,6 +319,7 @@ const BasicDetailsWhitelabel = ({
     const isValid =
       !isValidAccountDetails && !isValidOtherInformation && !isValidClientTeam;
     if (type === 1) {
+      roleId === "4" && setCheckAllWhiteLabelBasicFields(isValid);
       const filledFieldsCount = basicDetailWhiteLabelPerStatus();
       setWhitelabelBasicDetailCount(filledFieldsCount);
       if (!isFormSubmitWhiteLabelBasicDetails) {

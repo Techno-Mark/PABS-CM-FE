@@ -1,7 +1,7 @@
 import { ClientInfoType } from "@/models/autoCareBasicDetails";
 
 export interface ClientModalProps {
-  clientInfo:ClientInfoType
+  clientInfo:any
   isOpen: boolean;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose: () => void;

@@ -1060,6 +1060,19 @@ function ChecklistAutoCare({
           });
         }
       }
+    } else if(type === 3){
+      if (!isValid) {
+        showToast(
+          "Mandatory information is not provided. Please fill in to submit the form.",
+          ToastType.Warning
+        );
+      }
+      setExpandedAccordian(-1);
+      handleChecklistRemoveErrors();
+      callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+        ...checklistFormData,
+        progress: autoCareProgressPercentage,
+      });
     }
   };
 
@@ -1547,7 +1560,7 @@ function ChecklistAutoCare({
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
               onClick={() => {
-                setChecklistFormSubmit(31);
+                handleSubmit(3)
               }}
               className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
@@ -1566,7 +1579,7 @@ function ChecklistAutoCare({
               )}
               {(roleId === "4" ? !isFormSubmitAutoCareChecklist : true) && (
                 <Button
-                  onClick={() => handleSubmit(2)}
+                  onClick={() => handleSubmit(1)}
                   className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
                 >

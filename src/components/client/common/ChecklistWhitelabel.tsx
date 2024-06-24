@@ -643,8 +643,11 @@ const ChecklistWhitelabel = ({
   };
 
   useEffect(() => {
-    getWhiteLabelChecklistData();
-  }, []);
+    if (formSubmitId === 12) {
+      handleWhiteLabelChecklistRemoveErrors()
+    }
+    getWhiteLabelChecklistData()
+  }, [formSubmitId]);
 
   useEffect(() => {
     const filledFieldsCount = whiteLabelchecklistStatus();
@@ -672,6 +675,9 @@ const ChecklistWhitelabel = ({
     whitelabelClient,
     whitelabelPABS,
     whitelabelBDM,
+    whitelabelTimeSlot,
+    whitelabelTimeZone,
+    whitelabelConvenientDay
   ]);
 
   const whiteLabelchecklistStatus = () => {
@@ -758,9 +764,6 @@ const ChecklistWhitelabel = ({
     }
 
     if (
-      !whiteLabelsystemSoftwareChecked &&
-      !whiteLabelServiceTypeChecked &&
-      !whitelabelWorkAssignmentChecked &&
       whiteLabelMeetingAvailabilityChecked
     ) {
       relevantFields.push(...validateWhiteLabelMeetingAvailabilityField);
@@ -790,7 +793,10 @@ const ChecklistWhitelabel = ({
         !!whitelabelExpectation[field] ||
         !!whitelabelClient[field] ||
         !!whitelabelPABS[field] ||
-        !!whitelabelBDM[field]
+        !!whitelabelBDM[field] ||
+        !!whitelabelTimeZone[field] ||
+        !!whitelabelConvenientDay[field] ||
+        !!whitelabelTimeSlot[field]
       ) {
         count++;
       }
@@ -818,14 +824,13 @@ const ChecklistWhitelabel = ({
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
+          setExpandedAccordian(-1);
           showToast(Message, ToastType.Error);
           return;
         case "success":
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
           isValid && showToast(Message, ToastType.Success);
-          isValid
-            ? roleId === "4" && setCheckAllWhiteLabelCheckist(true)
-            : "";
+          setExpandedAccordian(-1);
           type === 3 && setChecklistFormSubmit(11);
           type === 1 && setChecklistFormSubmit(13);
           return;
@@ -1077,6 +1082,7 @@ const ChecklistWhitelabel = ({
       !isWhiteLabelMeetingAvailabilityValid;
 
     if (type === 1) {
+      roleId === "4" && setCheckAllWhiteLabelCheckist(isValid);
       const filledFieldsCount = whiteLabelchecklistStatus();
       setWhiteLabelChecklistCount(filledFieldsCount);
       if (!isSubmitedWhiteLabelChecklist) {
@@ -1151,11 +1157,17 @@ const ChecklistWhitelabel = ({
           ToastType.Warning
         );
       }
+      setExpandedAccordian(-1);
       handleWhiteLabelChecklistRemoveErrors();
-      callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
-        ...whitelabelChecklistFormData,
-        progress: whiteLabelProgressPercentage,
-      });
+      if (!isSubmitedWhiteLabelChecklist) {
+        callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+          ...whitelabelChecklistFormData,
+          progress: whiteLabelProgressPercentage,
+        });
+      } else {
+        setExpandedAccordian(-1);
+        setChecklistFormSubmit(13);
+      }
     }
   };
 
@@ -1269,7 +1281,7 @@ const ChecklistWhitelabel = ({
       expandedStatus:
         expandedAccordian === AccordianExpand.SYSTEMS_SOFTWARE_SET_UP,
       handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
-        handleSwitchChange(e, 1),
+        handleSwitchChange(e, 2),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.SYSTEMS_SOFTWARE_SET_UP
       ),
@@ -1305,7 +1317,7 @@ const ChecklistWhitelabel = ({
       errorStatus: whiteLabelServiceTypeHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.SERVICE_TYPE,
       handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
-        handleSwitchChange(e, 1),
+        handleSwitchChange(e, 3),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.SERVICE_TYPE
       ),
@@ -1335,7 +1347,7 @@ const ChecklistWhitelabel = ({
       expandedStatus:
         expandedAccordian === AccordianExpand.CHALLENGES_EXPECTATION,
       handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
-        handleSwitchChange(e, 1),
+        handleSwitchChange(e, 4),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.CHALLENGES_EXPECTATION
       ),
@@ -1359,7 +1371,7 @@ const ChecklistWhitelabel = ({
       expandedStatus:
         expandedAccordian === AccordianExpand.TYPE_OF_WORK_ASSIGNMENT,
       handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
-        handleSwitchChange(e, 1),
+        handleSwitchChange(e, 5),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.TYPE_OF_WORK_ASSIGNMENT
       ),
@@ -1386,7 +1398,7 @@ const ChecklistWhitelabel = ({
       checkStatus: whiteLabelEscalationMatrixChecked,
       expandedStatus: expandedAccordian === AccordianExpand.ESCALATION_MATRIX,
       handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
-        handleSwitchChange(e, 1),
+        handleSwitchChange(e, 6),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.ESCALATION_MATRIX
       ),
@@ -1412,7 +1424,7 @@ const ChecklistWhitelabel = ({
       expandedStatus:
         expandedAccordian === AccordianExpand.MEETING_AVAILABILITY,
       handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
-        handleSwitchChange(e, 1),
+        handleSwitchChange(e, 7),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.MEETING_AVAILABILITY
       ),
@@ -1448,9 +1460,8 @@ const ChecklistWhitelabel = ({
     <>
       {formSubmitId === 12 && (
         <div
-          className={`flex flex-col ${
-            roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+          className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+            } pt-12`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="m-6 flex flex-col gap-6">
@@ -1496,7 +1507,7 @@ const ChecklistWhitelabel = ({
             <div className="flex gap-5">
               {roleId !== "4" && (
                 <Button
-                  onClick={() => {}}
+                  onClick={() => { }}
                   className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
                 >

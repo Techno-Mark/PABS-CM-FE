@@ -55,9 +55,9 @@ function ClientModal({
 }: ClientModalProps) {
   const token = Cookies.get("token");
   const formSubmitId =
-    clientInfo?.DepartmentId === "3"
+    clientInfo?.DepartmentId === 3
       ? 31
-      : clientInfo?.DepartmentId === "2"
+      : clientInfo?.DepartmentId === 2
       ? 21
       : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
@@ -100,7 +100,7 @@ function ClientModal({
   }, []);
 
   const handleDownload = () => {
-    fetch(`${process.env.APIDEV_URL}/${onboardingDownloadFormUrl}`, {
+    fetch(`${process.env.APIDEV_URL}${onboardingDownloadFormUrl}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -213,7 +213,7 @@ function ClientModal({
                 height: "calc(100% - 64px)",
               }}
             >
-              {clientInfo.DepartmentId === "3" ? (
+              {clientInfo.DepartmentId === 3 ? (
                 <>
                   {formSubmit === 31 && (
                     <BasicDetailsAutoCare
@@ -243,7 +243,7 @@ function ClientModal({
                     }
                   />
                 </>
-              ) : clientInfo.DepartmentId === "2" ? (
+              ) : clientInfo.DepartmentId === 2 ? (
                 <>
                   {formSubmit === 21 && (
                     <ChecklistSmb
@@ -260,7 +260,7 @@ function ClientModal({
                     />
                   )}
                 </>
-              ) : (
+              ) : clientInfo.DepartmentId === 1 ? (
                 <>
                   {formSubmit === 11 && (
                     <BasicDetailsWhitelabel
@@ -302,6 +302,8 @@ function ClientModal({
                     />
                   )}
                 </>
+              ):(
+                ""
               )}
             </Box>
           </Box>

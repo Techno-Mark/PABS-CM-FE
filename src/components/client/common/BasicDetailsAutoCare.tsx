@@ -344,6 +344,7 @@ function BasicDetailsAutoCare({
   };
 
   const handleSubmit = (type: number) => {
+
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
@@ -352,7 +353,8 @@ function BasicDetailsAutoCare({
         case "success":
           getAutoCareBasicDetailsList();
           type === 1 && setBasicDetailsFormSubmit(32);
-          showToast(Message, ToastType.Success);
+          type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
+          isValid && showToast(Message, ToastType.Success);
           return;
       }
     };
@@ -428,7 +430,7 @@ function BasicDetailsAutoCare({
     const isValid =
       !isValidAccountDetails && !isValidLegalStructure && !isValidClientTeam;
     if (type === 1) {
-      roleId === "4" && setCheckAllFields(!isValid);
+      roleId === "4" && setCheckAllFields(isValid);
       const filledFieldsCount = basicDetailStatus();
       setBasicDetailCount(filledFieldsCount);
       if (!isFormSubmitAutoCareBasicDetails) {
