@@ -1,17 +1,26 @@
+import React from "react";
+// Models import
 import {
+  CatchupFormTypes,
   CatchupTypes,
+  CleanupFormTypes,
   CleanupTypes,
+  CombinationFormTypes,
   CombinationTypes,
+  MonthlyFormTypes,
   MonthlyTypes,
-  WhitelabelFormTypes,
   whitelabelWorkAssignmentType,
 } from "@/models/whitelabelChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+// Cookie import
+import Cookies from "js-cookie";
 
 const WhitelabelWorkAssignmentForm = ({
   className,
+  whitleLabelWorkAssignmentErrors,
   whitelabelMonthly,
   setWhitelabelMonthly,
   whitelabelCleanup,
@@ -26,18 +35,22 @@ const WhitelabelWorkAssignmentForm = ({
       <Monthly
         whitelabelMonthly={whitelabelMonthly}
         setWhitelabelMonthly={setWhitelabelMonthly}
+        whitelabelMonthlyErrors={whitleLabelWorkAssignmentErrors}
       />
       <Cleanup
         whitelabelCleanup={whitelabelCleanup}
         setWhitelabelCleanup={setWhitelabelCleanup}
+        whitelabelCleanupErrors={whitleLabelWorkAssignmentErrors}
       />
       <Catchup
         whitelabelCatchup={whitelabelCatchup}
         setWhitelabelCatchup={setWhitelabelCatchup}
+        whitelabelCatchupErrors={whitleLabelWorkAssignmentErrors}
       />
       <Combination
         whitelabelCombination={whitelabelCombination}
         setWhitelabelCombination={setWhitelabelCombination}
+        whitelabelCombinationErrors={whitleLabelWorkAssignmentErrors}
       />
     </div>
   );
@@ -45,13 +58,14 @@ const WhitelabelWorkAssignmentForm = ({
 
 export default WhitelabelWorkAssignmentForm;
 
-const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
+const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErrors }: MonthlyTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelMonthly((prev: WhitelabelFormTypes) => ({
+    setWhitelabelMonthly((prev: MonthlyFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -67,12 +81,14 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="monthlyComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelMonthly?.Comments}
+                value={whitelabelMonthly?.monthlyComments}
+                error={!!whitelabelMonthlyErrors?.monthlyComments}
+                helperText={whitelabelMonthlyErrors?.monthlyComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -89,12 +105,14 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="monthlyStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelMonthly?.Status}
+                value={whitelabelMonthly?.monthlyStatus}
+                error={!!whitelabelMonthlyErrors?.monthlyStatus}
+                helperText={whitelabelMonthlyErrors?.monthlyStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -113,12 +131,14 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="monthlyActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMonthly?.ActionPABS}
+                value={whitelabelMonthly?.monthlyActionPABS}
+                error={!!whitelabelMonthlyErrors?.monthlyActionPABS}
+                helperText={whitelabelMonthlyErrors?.monthlyActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -137,12 +157,14 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="monthlyActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMonthly?.ActionClient}
+                value={whitelabelMonthly?.monthlyActionClient}
+                error={!!whitelabelMonthlyErrors?.monthlyActionClient}
+                helperText={whitelabelMonthlyErrors?.monthlyActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -161,13 +183,14 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly }: MonthlyTypes) => {
   );
 };
 
-const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
+const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErrors }: CleanupTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCleanup((prev: WhitelabelFormTypes) => ({
+    setWhitelabelCleanup((prev: CleanupFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -183,12 +206,14 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="cleanupComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCleanup?.Comments}
+                value={whitelabelCleanup?.cleanupComments}
+                error={!!whitelabelCleanupErrors?.cleanupComments}
+                helperText={whitelabelCleanupErrors?.cleanupComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -205,12 +230,14 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="cleanupStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCleanup?.Status}
+                value={whitelabelCleanup?.cleanupStatus}
+                error={!!whitelabelCleanupErrors?.cleanupStatus}
+                helperText={whitelabelCleanupErrors?.cleanupStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -229,12 +256,14 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="cleanupActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCleanup?.ActionPABS}
+                value={whitelabelCleanup?.cleanupActionPABS}
+                error={!!whitelabelCleanupErrors?.cleanupActionPABS}
+                helperText={whitelabelCleanupErrors?.cleanupActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -253,12 +282,14 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="cleanupActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCleanup?.ActionClient}
+                value={whitelabelCleanup?.cleanupActionClient}
+                error={!!whitelabelCleanupErrors?.cleanupActionClient}
+                helperText={whitelabelCleanupErrors?.cleanupActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -277,13 +308,14 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup }: CleanupTypes) => {
   );
 };
 
-const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
+const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErrors }: CatchupTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCatchup((prev: WhitelabelFormTypes) => ({
+    setWhitelabelCatchup((prev: CatchupFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -299,12 +331,14 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="catchupComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCatchup?.Comments}
+                value={whitelabelCatchup?.catchupComments}
+                error={!!whitelabelCatchupErrors?.catchupComments}
+                helperText={whitelabelCatchupErrors?.catchupComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -321,12 +355,14 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="catchupStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCatchup?.Status}
+                value={whitelabelCatchup?.catchupStatus}
+                error={!!whitelabelCatchupErrors?.catchupStatus}
+                helperText={whitelabelCatchupErrors?.catchupStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -345,12 +381,14 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="catchupActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCatchup?.ActionPABS}
+                value={whitelabelCatchup?.catchupActionPABS}
+                error={!!whitelabelCatchupErrors?.catchupActionPABS}
+                helperText={whitelabelCatchupErrors?.catchupActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -369,12 +407,14 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="catchupActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCatchup?.ActionClient}
+                value={whitelabelCatchup?.catchupActionClient}
+                error={!!whitelabelCatchupErrors?.catchupActionClient}
+                helperText={whitelabelCatchupErrors?.catchupActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -396,13 +436,15 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup }: CatchupTypes) => {
 const Combination = ({
   whitelabelCombination,
   setWhitelabelCombination,
+  whitelabelCombinationErrors
 }: CombinationTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCombination((prev: WhitelabelFormTypes) => ({
+    setWhitelabelCombination((prev: CombinationFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -418,12 +460,14 @@ const Combination = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="combinationComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCombination?.Comments}
+                value={whitelabelCombination?.combinationComments}
+                error={!!whitelabelCombinationErrors?.combinationComments}
+                helperText={whitelabelCombinationErrors?.combinationComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -440,12 +484,14 @@ const Combination = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="combinationStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCombination?.Status}
+                value={whitelabelCombination?.combinationStatus}
+                error={!!whitelabelCombinationErrors?.combinationStatus}
+                helperText={whitelabelCombinationErrors?.combinationStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -464,12 +510,14 @@ const Combination = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="combinationActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCombination?.ActionPABS}
+                value={whitelabelCombination?.combinationActionPABS}
+                error={!!whitelabelCombinationErrors?.combinationActionPABS}
+                helperText={whitelabelCombinationErrors?.combinationActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -488,12 +536,14 @@ const Combination = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="combinationActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCombination?.ActionClient}
+                value={whitelabelCombination?.combinationActionClient}
+                error={!!whitelabelCombinationErrors?.combinationActionClient}
+                helperText={whitelabelCombinationErrors?.combinationActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

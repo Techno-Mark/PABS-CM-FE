@@ -5,12 +5,19 @@ import { Button } from "@mui/material";
 import ChecklistAccordian from "./ChecklistAccordian";
 import {
   AccordianExpand,
+  fieldDisplayNamesWhiteLabelSystemSoftware,
   initialWhiteLabelIndustry,
   initialWhiteLabelWeekly,
   initialWhitelabeGroupEmailEstablished,
   initialWhitelabelAccounting,
   initialWhitelabelAccountingSoftware,
+  initialWhitelabelBdm,
+  initialWhitelabelCatchup,
+  initialWhitelabelCleanup,
+  initialWhitelabelClient,
   initialWhitelabelCloudDocument,
+  initialWhitelabelCombination,
+  initialWhitelabelConvenientDay,
   initialWhitelabelCurrentChallenges,
   initialWhitelabelException,
   initialWhitelabelFTE,
@@ -18,15 +25,49 @@ import {
   initialWhitelabelItStructure,
   initialWhitelabelKickOff,
   initialWhitelabelMessenger,
+  initialWhitelabelMonthly,
   initialWhitelabelOtherInfo,
+  initialWhitelabelPabs,
   initialWhitelabelRemoteSetup,
   initialWhitelabelSystemAcess,
   initialWhitelabelTax,
   initialWhitelabelTeamOverCall,
-  validateWhiteLabelChecklist,
+  initialWhitelabelTimeSlot,
+  initialWhitelabelTimeZone,
+  validateWhiteLabelSystemSoftwareField,
 } from "@/static/whitelabel/whitelabelChecklist";
 import WhitelabelCommunicationForm from "@/components/client/forms/whitelabel/WhitelabelCommunicationForm";
-import { AccountingFormTypes, AccountingSoftwareWhiteLabelFormTypes, CloudDocumentWhiteLabelFormTypes, CurrentChallengesFormTypes, ExceptionFormTypes, FTEFormTypes, GroupEmailWhiteLabelFormTypes, IndustryFormTypes, ItHelpWhiteLabelFormTypes, ItStructureWhiteLabelFormTypes, KickOffWhiteLabelFormTypes, MessengerWhiteLabelFormTypes, OtherInfoWhiteLabelFormTypes, RemoteSetupWhiteLabelFormTypes, SystemAccessWhiteLabelFormTypes, TaxFormTypes, TeamOverCallWhiteLabelFormTypes, WeeklyFormTypes, WhitelabelFormTypes, whitelabelTeamOverCallTypes } from "@/models/whitelabelChecklist";
+import {
+  AccountingFormTypes,
+  AccountingSoftwareWhiteLabelFormTypes,
+  BdmFormTypes,
+  CatchupFormTypes,
+  CleanupFormTypes,
+  ClientFormTypes,
+  CloudDocumentWhiteLabelFormTypes,
+  CombinationFormTypes,
+  CurrentChallengesFormTypes,
+  ExceptionFormTypes,
+  FTEFormTypes,
+  GroupEmailWhiteLabelFormTypes,
+  IndustryFormTypes,
+  ItHelpWhiteLabelFormTypes,
+  ItStructureWhiteLabelFormTypes,
+  KickOffWhiteLabelFormTypes,
+  MessengerWhiteLabelFormTypes,
+  MonthlyFormTypes,
+  OtherInfoWhiteLabelFormTypes,
+  PabsFormTypes,
+  RemoteSetupWhiteLabelFormTypes,
+  SystemAccessWhiteLabelFormTypes,
+  TaxFormTypes,
+  TeamOverCallWhiteLabelFormTypes,
+  WeeklyFormTypes,
+  WhitelabelConvenientDayFormTypes,
+  WhitelabelTimeSlotFormTypes,
+  WhitelabelTimeZoneFormTypes,
+  whitelabelSystemSoftwareErrorsType,
+} from "@/models/whitelabelChecklist";
 import WhitelabelMeetingAvailabilityForm from "@/components/client/forms/whitelabel/WhitelabelMeetingAvailabilityForm";
 import WhitelabelEscalationmatrixForm from "@/components/client/forms/whitelabel/WhitelabelEscalationmatrixForm";
 import WhitelabelChallengesForm from "@/components/client/forms/whitelabel/WhitelabelChallengesForm";
@@ -49,58 +90,111 @@ const ChecklistWhitelabel = ({
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
+  const initialWhiteLabelSystemSoftwareErrors: any = {};
+  const initialWhiteLabelServiceTypeErrors: any = {};
+  const initialWhiteLabelTypeWorkAssignmentErrors: any = {};
+  const initialWhiteLabelMeetingAvailabilityErrors: any = {};
+
   // 1
-  const [whitelabelGroupEmailEstablished, setWhitelabelGroupEmailEstablished] = useState<GroupEmailWhiteLabelFormTypes>(initialWhitelabeGroupEmailEstablished);
-  const [whitelabelTeamOverCall, setWhitelabelTeamOverCall] = useState<TeamOverCallWhiteLabelFormTypes>(initialWhitelabelTeamOverCall);
-  const [whitelabelKickOff, setWhitelabelKickOff] = useState<KickOffWhiteLabelFormTypes>(initialWhitelabelKickOff);
+  const [whitelabelGroupEmailEstablished, setWhitelabelGroupEmailEstablished] =
+    useState<GroupEmailWhiteLabelFormTypes>(
+      initialWhitelabeGroupEmailEstablished
+    );
+  const [whitelabelTeamOverCall, setWhitelabelTeamOverCall] =
+    useState<TeamOverCallWhiteLabelFormTypes>(initialWhitelabelTeamOverCall);
+  const [whitelabelKickOff, setWhitelabelKickOff] =
+    useState<KickOffWhiteLabelFormTypes>(initialWhitelabelKickOff);
 
   // 2
-  const [whitelabelITStructure, setWhitelabelITStructure] = useState<ItStructureWhiteLabelFormTypes>(initialWhitelabelItStructure);
-  const [whitelabelRemoteSetup, setWhitelabelRemoteSetup] = useState<RemoteSetupWhiteLabelFormTypes>(initialWhitelabelRemoteSetup);
-  const [whitelabelITHelp, setWhitelabelITHelp] = useState<ItHelpWhiteLabelFormTypes>(initialWhitelabelItHelp);
-  const [whitelabelAccountingSoftware, setWhitelabelAccountingSoftware] = useState<AccountingSoftwareWhiteLabelFormTypes>(initialWhitelabelAccountingSoftware);
-  const [whitelabelCloudDocument, setWhitelabelCloudDocument] = useState<CloudDocumentWhiteLabelFormTypes>(initialWhitelabelCloudDocument);
-  const [whitelabelMessenger, setWhitelabelMessenger] = useState<MessengerWhiteLabelFormTypes>(initialWhitelabelMessenger);
-  const [whitelabelSystemAccess, setWhitelabelSystemAccess] = useState<SystemAccessWhiteLabelFormTypes>(initialWhitelabelSystemAcess);
-  const [whitelabelOtherInfo, setWhitelabelOtherInfo] = useState<OtherInfoWhiteLabelFormTypes>(initialWhitelabelOtherInfo);
+  const [whitelabelITStructure, setWhitelabelITStructure] =
+    useState<ItStructureWhiteLabelFormTypes>(initialWhitelabelItStructure);
+  const [whitelabelRemoteSetup, setWhitelabelRemoteSetup] =
+    useState<RemoteSetupWhiteLabelFormTypes>(initialWhitelabelRemoteSetup);
+  const [whitelabelITHelp, setWhitelabelITHelp] =
+    useState<ItHelpWhiteLabelFormTypes>(initialWhitelabelItHelp);
+  const [whitelabelAccountingSoftware, setWhitelabelAccountingSoftware] =
+    useState<AccountingSoftwareWhiteLabelFormTypes>(
+      initialWhitelabelAccountingSoftware
+    );
+  const [whitelabelCloudDocument, setWhitelabelCloudDocument] =
+    useState<CloudDocumentWhiteLabelFormTypes>(initialWhitelabelCloudDocument);
+  const [whitelabelMessenger, setWhitelabelMessenger] =
+    useState<MessengerWhiteLabelFormTypes>(initialWhitelabelMessenger);
+  const [whitelabelSystemAccess, setWhitelabelSystemAccess] =
+    useState<SystemAccessWhiteLabelFormTypes>(initialWhitelabelSystemAcess);
+  const [whitelabelOtherInfo, setWhitelabelOtherInfo] =
+    useState<OtherInfoWhiteLabelFormTypes>(initialWhitelabelOtherInfo);
 
   // 3
-  const [whitelabelFTE, setWhitelabelFTE] = useState<FTEFormTypes>(initialWhitelabelFTE);
-  const [whitelabelAccounting, setWhitelabelAccounting] = useState<AccountingFormTypes>(initialWhitelabelAccounting);
-  const [whitelabelTax, setWhitelabelTax] = useState<TaxFormTypes>(initialWhitelabelTax);
-  const [whitelabelWeekly, setWhitelabelWeekly] = useState<WeeklyFormTypes>(initialWhiteLabelWeekly);
-  const [whitelabelIndustry, setWhitelabelIndustry] = useState<IndustryFormTypes>(initialWhiteLabelIndustry);
+  const [whitelabelFTE, setWhitelabelFTE] =
+    useState<FTEFormTypes>(initialWhitelabelFTE);
+  const [whitelabelAccounting, setWhitelabelAccounting] =
+    useState<AccountingFormTypes>(initialWhitelabelAccounting);
+  const [whitelabelTax, setWhitelabelTax] =
+    useState<TaxFormTypes>(initialWhitelabelTax);
+  const [whitelabelWeekly, setWhitelabelWeekly] = useState<WeeklyFormTypes>(
+    initialWhiteLabelWeekly
+  );
+  const [whitelabelIndustry, setWhitelabelIndustry] =
+    useState<IndustryFormTypes>(initialWhiteLabelIndustry);
 
   // 4
-  const [whitelabelCurrentChallenges, setWhitelabelCurrentChallenges] = useState<CurrentChallengesFormTypes>(initialWhitelabelCurrentChallenges);
-  const [whitelabelExpectation, setWhitelabelExpectation] = useState<ExceptionFormTypes>(initialWhitelabelException);
+  const [whitelabelCurrentChallenges, setWhitelabelCurrentChallenges] =
+    useState<CurrentChallengesFormTypes>(initialWhitelabelCurrentChallenges);
+  const [whitelabelExpectation, setWhitelabelExpectation] =
+    useState<ExceptionFormTypes>(initialWhitelabelException);
 
   // 5
-  // const [whitelabelMonthly, setWhitelabelMonthly] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelCleanup, setWhitelabelCleanup] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelCatchup, setWhitelabelCatchup] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelCombination, setWhitelabelCombination] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelMonthly, setWhitelabelMonthly] = useState<MonthlyFormTypes>(
+    initialWhitelabelMonthly
+  );
+  const [whitelabelCleanup, setWhitelabelCleanup] = useState<CleanupFormTypes>(
+    initialWhitelabelCleanup
+  );
+  const [whitelabelCatchup, setWhitelabelCatchup] = useState<CatchupFormTypes>(
+    initialWhitelabelCatchup
+  );
+  const [whitelabelCombination, setWhitelabelCombination] =
+    useState<CombinationFormTypes>(initialWhitelabelCombination);
 
   // 6
-  // const [whitelabelClient, setWhitelabelClient] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelPABS, setWhitelabelPABS] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelBDM, setWhitelabelBDM] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelClient, setWhitelabelClient] = useState<ClientFormTypes>(
+    initialWhitelabelClient
+  );
+  const [whitelabelPABS, setWhitelabelPABS] = useState<PabsFormTypes>(
+    initialWhitelabelPabs
+  );
+  const [whitelabelBDM, setWhitelabelBDM] =
+    useState<BdmFormTypes>(initialWhitelabelBdm);
 
   // 7
-  // const [whitelabelTimeZone, setWhitelabelTimeZone] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelConvenientDay, setWhitelabelConvenientDay] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
-  // const [whitelabelTimeSlot, setWhitelabelTimeSlot] =
-  //   useState<WhitelabelFormTypes>(initialWhitelabel);
+  const [whitelabelTimeZone, setWhitelabelTimeZone] =
+    useState<WhitelabelTimeZoneFormTypes>(initialWhitelabelTimeZone);
+  const [whitelabelConvenientDay, setWhitelabelConvenientDay] =
+    useState<WhitelabelConvenientDayFormTypes>(initialWhitelabelConvenientDay);
+  const [whitelabelTimeSlot, setWhitelabelTimeSlot] =
+    useState<WhitelabelTimeSlotFormTypes>(initialWhitelabelTimeSlot);
 
+  // validate error state
+  const [whiteLabelSystemSoftwareErrors, setWhiteLabelSystemSoftwareErrors] =
+    useState<whitelabelSystemSoftwareErrorsType>(
+      initialWhiteLabelSystemSoftwareErrors
+    );
+
+  // has errors state
+  const [
+    whiteLabelSystemSoftwareHasErrors,
+    setWhiteLabelSystemSoftwareHasErrors,
+  ] = useState<boolean>(false);
+
+
+  const [whiteLabelCommunicationChecked, setWhiteLabelCommunicationChecked] = useState<boolean>(true);
+  const [whiteLabelsystemSoftwareChecked, setWhiteLabelSystemSoftwareChecked] = useState<boolean>(true);
+  const [whiteLabelServiceTypeChecked, setWhiteLabelServiceTypeChecked] = useState<boolean>(true);
+  const [whitelabelChallengesChecked, setwhitelabelChallengesChecked] = useState<boolean>(true);
+  const [whitelabelWorkAssignmentChecked, setWhiteLabelWorkAssignmentChecked] = useState<boolean>(true);
+  const [whiteLabelEscalationMatrixChecked, setwhiteLabelEscalationMatrixChecked] = useState<boolean>(true);
+  const [whiteLabelMeetingAvailabilityChecked, setwhiteLabelMeetingAvailabilityChecked] = useState<boolean>(true);
   const [isSubmitedWhiteLabelChecklist, setIsSubmitedWhiteLabelChecklist] =
     useState<boolean>(false);
 
@@ -109,9 +203,39 @@ const ChecklistWhitelabel = ({
       setExpandedAccordian(isExpanded ? arg1 : -1);
     };
 
+  const validateWhiteLabelSystemSoftware = () => {
+    const newSystemSoftwareErrors: { [key: string]: string } = {};
+
+    validateWhiteLabelSystemSoftwareField.forEach((field) => {
+      if (
+        !whitelabelAccountingSoftware[field] &&
+        !whitelabelCloudDocument[field] &&
+        !whitelabelMessenger[field] &&
+        !whitelabelSystemAccess[field]
+      ) {
+        newSystemSoftwareErrors[
+          field
+        ] = `${fieldDisplayNamesWhiteLabelSystemSoftware[field]} is required`;
+      } else {
+        newSystemSoftwareErrors[field] = "";
+      }
+    });
+
+    const hasErrors = Object.values(newSystemSoftwareErrors).some(
+      (error) => !!error
+    );
+    setWhiteLabelSystemSoftwareErrors(newSystemSoftwareErrors);
+    setWhiteLabelSystemSoftwareHasErrors(hasErrors);
+    return hasErrors;
+  };
 
   const handleSubmit = (type: number) => {
     if (type === 1 || type === 2) {
+
+      const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
+      ? validateWhiteLabelSystemSoftware()
+      : false;
+
 
       const callBack = (ResponseStatus: string, Message: string) => {
         switch (ResponseStatus) {
@@ -133,17 +257,15 @@ const ChecklistWhitelabel = ({
         businessTypeId: !!clientInfo?.DepartmentId
           ? parseInt(clientInfo?.DepartmentId)
           : parseInt(businessTypeId!),
-        // checkList: checkList,
       });
-
-
     }
   };
 
   return (
     <div
-      className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+      className={`flex flex-col ${
+        roleId !== "4" ? "h-[95vh]" : "h-full"
+      } pt-12`}
     >
       <div className={`flex-1 overflow-y-scroll`}>
         <div className="m-6 flex flex-col gap-6">
@@ -168,6 +290,8 @@ const ChecklistWhitelabel = ({
           </ChecklistAccordian>
 
           <ChecklistAccordian
+
+            hasError={whiteLabelSystemSoftwareHasErrors}
             switchDisabled={isSubmitedWhiteLabelChecklist}
             expandedAccordian={
               expandedAccordian === AccordianExpand.SYSTEMS_SOFTWARE_SET_UP
@@ -249,8 +373,8 @@ const ChecklistWhitelabel = ({
             )}
             title="Phase 5: Type of work assignment"
           >
-            <></>
-            {/* <WhitelabelWorkAssignmentForm
+            <WhitelabelWorkAssignmentForm
+              whitleLabelWorkAssignmentErrors={{}}
               whitelabelMonthly={whitelabelMonthly}
               setWhitelabelMonthly={setWhitelabelMonthly}
               whitelabelCleanup={whitelabelCleanup}
@@ -259,7 +383,7 @@ const ChecklistWhitelabel = ({
               setWhitelabelCatchup={setWhitelabelCatchup}
               whitelabelCombination={whitelabelCombination}
               setWhitelabelCombination={setWhitelabelCombination}
-            /> */}
+            />
           </ChecklistAccordian>
 
           <ChecklistAccordian
@@ -272,15 +396,14 @@ const ChecklistWhitelabel = ({
             )}
             title="Phase 6: Escalation Matrix"
           >
-            <></>
-            {/* <WhitelabelEscalationmatrixForm
+            <WhitelabelEscalationmatrixForm
               whitelabelClient={whitelabelClient}
               setWhitelabelClient={setWhitelabelClient}
               whitelabelPABS={whitelabelPABS}
               setWhitelabelPABS={setWhitelabelPABS}
               whitelabelBDM={whitelabelBDM}
               setWhitelabelBDM={setWhitelabelBDM}
-            /> */}
+            />
           </ChecklistAccordian>
 
           <ChecklistAccordian
@@ -293,15 +416,15 @@ const ChecklistWhitelabel = ({
             )}
             title="Phase 7: Meeting Availability"
           >
-            <></>
-            {/* <WhitelabelMeetingAvailabilityForm
+            <WhitelabelMeetingAvailabilityForm
+              whitelabelMeetingAvailabilityErrors={{}}
               whitelabelTimeZone={whitelabelTimeZone}
               setWhitelabelTimeZone={setWhitelabelTimeZone}
               whitelabelConvenientDay={whitelabelConvenientDay}
               setWhitelabelConvenientDay={setWhitelabelConvenientDay}
               whitelabelTimeSlot={whitelabelTimeSlot}
               setWhitelabelTimeSlot={setWhitelabelTimeSlot}
-            /> */}
+            />
           </ChecklistAccordian>
         </div>
       </div>
@@ -317,7 +440,7 @@ const ChecklistWhitelabel = ({
         <div className="flex gap-5">
           {roleId !== "4" && (
             <Button
-              onClick={() => { }}
+              onClick={() => {}}
               className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
             >

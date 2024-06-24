@@ -1,8 +1,11 @@
 import React from "react";
 // Models import
 import {
+  BdmFormTypes,
   BdmTypes,
+  ClientFormTypes,
   ClientTypes,
+  PabsFormTypes,
   PabsTypes,
   WhitelabelFormTypes,
   whitelabelEscalationmatrixFormType,
@@ -47,7 +50,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelClient((prev: WhitelabelFormTypes) => ({
+    setWhitelabelClient((prev: ClientFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -63,12 +66,12 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="clientComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelClient?.Comments}
+                value={whitelabelClient?.clientComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -85,12 +88,12 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="clientStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelClient?.Status}
+                value={whitelabelClient?.clientStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -109,12 +112,12 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="clientActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelClient?.ActionPABS}
+                value={whitelabelClient?.clientActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -133,12 +136,12 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="clientActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelClient?.ActionClient}
+                value={whitelabelClient?.clientActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -164,7 +167,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelPABS((prev: WhitelabelFormTypes) => ({
+    setWhitelabelPABS((prev: PabsFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -180,12 +183,12 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="pabsComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelPABS?.Comments}
+                value={whitelabelPABS?.pabsComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -202,12 +205,12 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="pabsStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelPABS?.Status}
+                value={whitelabelPABS?.pabsStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -226,12 +229,12 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="pabsActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelPABS?.ActionPABS}
+                value={whitelabelPABS?.pabsActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -250,12 +253,12 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="pabsActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelPABS?.ActionClient}
+                value={whitelabelPABS?.pabsActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -281,7 +284,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelBDM((prev: WhitelabelFormTypes) => ({
+    setWhitelabelBDM((prev: BdmFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -297,12 +300,12 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="bdmComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelBDM?.Comments}
+                value={whitelabelBDM?.bdmComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -319,12 +322,12 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="bdmStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelBDM?.Status}
+                value={whitelabelBDM?.bdmStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -343,12 +346,12 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="bdmActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelBDM?.ActionPABS}
+                value={whitelabelBDM?.bdmActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -367,12 +370,12 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="bdmActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelBDM?.ActionClient}
+                value={whitelabelBDM?.bdmActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
