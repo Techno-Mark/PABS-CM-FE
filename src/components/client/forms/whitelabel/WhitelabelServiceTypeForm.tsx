@@ -34,23 +34,37 @@ const WhitelabelServiceTypeForm = ({
   setWhitelabelWeekly,
   whitelabelIndustry,
   setWhitelabelIndustry,
+  checkAllFieldsWhiteLabelServiceTypeList,
 }: whiteLabelServiceType) => {
   return (
     <div className={`${className}`}>
-      <FTE whitelabelFTE={whitelabelFTE} setWhitelabelFTE={setWhitelabelFTE} whitelabelFTEErrors={whitelabelServiceErrors} />
+      <FTE
+        whitelabelFTE={whitelabelFTE}
+        setWhitelabelFTE={setWhitelabelFTE}
+        whitelabelFTEErrors={whitelabelServiceErrors}
+        checkAllFTE={checkAllFieldsWhiteLabelServiceTypeList}
+      />
       <Accounting
         whitelabelAccounting={whitelabelAccounting}
         setWhitelabelAccounting={setWhitelabelAccounting}
         whitelabelAccountingErrors={whitelabelServiceErrors}
+        checkAllAccounting={checkAllFieldsWhiteLabelServiceTypeList}
       />
-      <Tax whitelabelTax={whitelabelTax} setWhitelabelTax={setWhitelabelTax} whitelabelTaxErrors={whitelabelServiceErrors} />
+      <Tax
+        whitelabelTax={whitelabelTax}
+        setWhitelabelTax={setWhitelabelTax}
+        whitelabelTaxErrors={whitelabelServiceErrors}
+        checkAllTax={checkAllFieldsWhiteLabelServiceTypeList}
+      />
       <Weekly
         whitelabelWeekly={whitelabelWeekly}
         setWhitelabelWeekly={setWhitelabelWeekly}
+        checkAllWeekly={checkAllFieldsWhiteLabelServiceTypeList}
       />
       <Industry
         whitelabelIndustry={whitelabelIndustry}
         setWhitelabelIndustry={setWhitelabelIndustry}
+        checkAllIndustry={checkAllFieldsWhiteLabelServiceTypeList}
       />
     </div>
   );
@@ -58,7 +72,12 @@ const WhitelabelServiceTypeForm = ({
 
 export default WhitelabelServiceTypeForm;
 
-const FTE = ({ whitelabelFTE, setWhitelabelFTE, whitelabelFTEErrors }: FTETypes) => {
+const FTE = ({
+  whitelabelFTE,
+  setWhitelabelFTE,
+  whitelabelFTEErrors,
+  checkAllFTE,
+}: FTETypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -98,6 +117,7 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE, whitelabelFTEErrors }: FTETypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFTE}
               />
             </div>
           </Grid>
@@ -122,6 +142,7 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE, whitelabelFTEErrors }: FTETypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFTE}
               />
             </div>
           </Grid>
@@ -148,6 +169,7 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE, whitelabelFTEErrors }: FTETypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFTE}
               />
             </div>
           </Grid>
@@ -174,6 +196,7 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE, whitelabelFTEErrors }: FTETypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllFTE}
               />
             </div>
           </Grid>
@@ -186,7 +209,8 @@ const FTE = ({ whitelabelFTE, setWhitelabelFTE, whitelabelFTEErrors }: FTETypes)
 const Accounting = ({
   whitelabelAccounting,
   setWhitelabelAccounting,
-  whitelabelAccountingErrors
+  whitelabelAccountingErrors,
+  checkAllAccounting,
 }: AccountingTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -227,6 +251,7 @@ const Accounting = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccounting}
               />
             </div>
           </Grid>
@@ -251,6 +276,7 @@ const Accounting = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccounting}
               />
             </div>
           </Grid>
@@ -277,6 +303,7 @@ const Accounting = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccounting}
               />
             </div>
           </Grid>
@@ -303,6 +330,7 @@ const Accounting = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccounting}
               />
             </div>
           </Grid>
@@ -312,7 +340,12 @@ const Accounting = ({
   );
 };
 
-const Tax = ({ whitelabelTax, setWhitelabelTax, whitelabelTaxErrors }: TaxTypes) => {
+const Tax = ({
+  whitelabelTax,
+  setWhitelabelTax,
+  whitelabelTaxErrors,
+  checkAllTax,
+}: TaxTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -352,6 +385,7 @@ const Tax = ({ whitelabelTax, setWhitelabelTax, whitelabelTaxErrors }: TaxTypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTax}
               />
             </div>
           </Grid>
@@ -376,6 +410,7 @@ const Tax = ({ whitelabelTax, setWhitelabelTax, whitelabelTaxErrors }: TaxTypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTax}
               />
             </div>
           </Grid>
@@ -402,6 +437,7 @@ const Tax = ({ whitelabelTax, setWhitelabelTax, whitelabelTaxErrors }: TaxTypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTax}
               />
             </div>
           </Grid>
@@ -428,6 +464,7 @@ const Tax = ({ whitelabelTax, setWhitelabelTax, whitelabelTaxErrors }: TaxTypes)
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTax}
               />
             </div>
           </Grid>
@@ -437,7 +474,11 @@ const Tax = ({ whitelabelTax, setWhitelabelTax, whitelabelTaxErrors }: TaxTypes)
   );
 };
 
-const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
+const Weekly = ({
+  whitelabelWeekly,
+  setWhitelabelWeekly,
+  checkAllWeekly,
+}: WeeklyTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -475,6 +516,7 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllWeekly}
               />
             </div>
           </Grid>
@@ -497,6 +539,7 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllWeekly}
               />
             </div>
           </Grid>
@@ -521,6 +564,7 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllWeekly}
               />
             </div>
           </Grid>
@@ -545,6 +589,7 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllWeekly}
               />
             </div>
           </Grid>
@@ -557,6 +602,7 @@ const Weekly = ({ whitelabelWeekly, setWhitelabelWeekly }: WeeklyTypes) => {
 const Industry = ({
   whitelabelIndustry,
   setWhitelabelIndustry,
+  checkAllIndustry,
 }: IndustryTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -595,6 +641,7 @@ const Industry = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIndustry}
               />
             </div>
           </Grid>
@@ -617,6 +664,7 @@ const Industry = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIndustry}
               />
             </div>
           </Grid>
@@ -641,6 +689,7 @@ const Industry = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIndustry}
               />
             </div>
           </Grid>
@@ -665,6 +714,7 @@ const Industry = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIndustry}
               />
             </div>
           </Grid>

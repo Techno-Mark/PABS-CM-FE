@@ -22,6 +22,7 @@ const WhitelabelMeetingAvailabilityForm = ({
   setWhitelabelConvenientDay,
   whitelabelTimeSlot,
   setWhitelabelTimeSlot,
+  checkAllFieldsWhiteLabelMeetinAvailabilityList,
 }: whitelabelMeetingAvailabilityType) => {
   return (
     <div className={`${className}`}>
@@ -29,16 +30,19 @@ const WhitelabelMeetingAvailabilityForm = ({
         whitelabelTimeZone={whitelabelTimeZone}
         setWhitelabelTimeZone={setWhitelabelTimeZone}
         whitelabelTimeZoneErrors={whitelabelMeetingAvailabilityErrors}
+        checkAllTimeZone={checkAllFieldsWhiteLabelMeetinAvailabilityList}
       />
       <ConvenientDay
         whitelabelConvenientDay={whitelabelConvenientDay}
         setWhitelabelConvenientDay={setWhitelabelConvenientDay}
         whitelabelConvenientDayErrors={whitelabelMeetingAvailabilityErrors}
+        checkAllConvenientDay={checkAllFieldsWhiteLabelMeetinAvailabilityList}
       />
       <TimeSlot
         whitelabelTimeSlot={whitelabelTimeSlot}
         setWhitelabelTimeSlot={setWhitelabelTimeSlot}
         whitelabelTimeSlotErrors={whitelabelMeetingAvailabilityErrors}
+        checkAllTimeSlot={checkAllFieldsWhiteLabelMeetinAvailabilityList}
       />
     </div>
   );
@@ -49,7 +53,8 @@ export default WhitelabelMeetingAvailabilityForm;
 const TimeZone = ({
   whitelabelTimeZone,
   setWhitelabelTimeZone,
-  whitelabelTimeZoneErrors
+  whitelabelTimeZoneErrors,
+  checkAllTimeZone,
 }: TimeZoneTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -90,6 +95,7 @@ const TimeZone = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeZone}
               />
             </div>
           </Grid>
@@ -114,6 +120,7 @@ const TimeZone = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeZone}
               />
             </div>
           </Grid>
@@ -140,6 +147,7 @@ const TimeZone = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeZone}
               />
             </div>
           </Grid>
@@ -166,6 +174,7 @@ const TimeZone = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeZone}
               />
             </div>
           </Grid>
@@ -178,7 +187,8 @@ const TimeZone = ({
 const ConvenientDay = ({
   whitelabelConvenientDay,
   setWhitelabelConvenientDay,
-  whitelabelConvenientDayErrors
+  whitelabelConvenientDayErrors,
+  checkAllConvenientDay,
 }: ConvenientDayTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -209,7 +219,9 @@ const ConvenientDay = ({
                 placeholder="Please Enter Comments"
                 value={whitelabelConvenientDay?.convenientDayComments}
                 error={!!whitelabelConvenientDayErrors?.convenientDayComments}
-                helperText={whitelabelConvenientDayErrors?.convenientDayComments}
+                helperText={
+                  whitelabelConvenientDayErrors?.convenientDayComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -219,6 +231,7 @@ const ConvenientDay = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllConvenientDay}
               />
             </div>
           </Grid>
@@ -243,6 +256,7 @@ const ConvenientDay = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllConvenientDay}
               />
             </div>
           </Grid>
@@ -259,7 +273,9 @@ const ConvenientDay = ({
                 placeholder="Please Enter Action Items"
                 value={whitelabelConvenientDay?.convenientDayActionPABS}
                 error={!!whitelabelConvenientDayErrors?.convenientDayActionPABS}
-                helperText={whitelabelConvenientDayErrors?.convenientDayActionPABS}
+                helperText={
+                  whitelabelConvenientDayErrors?.convenientDayActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -269,6 +285,7 @@ const ConvenientDay = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllConvenientDay}
               />
             </div>
           </Grid>
@@ -284,8 +301,12 @@ const ConvenientDay = ({
                 size="small"
                 placeholder="Please Enter Action Items"
                 value={whitelabelConvenientDay?.convenientDayActionClient}
-                error={!!whitelabelConvenientDayErrors?.convenientDayActionClient}
-                helperText={whitelabelConvenientDayErrors?.convenientDayActionClient}
+                error={
+                  !!whitelabelConvenientDayErrors?.convenientDayActionClient
+                }
+                helperText={
+                  whitelabelConvenientDayErrors?.convenientDayActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -295,6 +316,7 @@ const ConvenientDay = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllConvenientDay}
               />
             </div>
           </Grid>
@@ -307,7 +329,8 @@ const ConvenientDay = ({
 const TimeSlot = ({
   whitelabelTimeSlot,
   setWhitelabelTimeSlot,
-  whitelabelTimeSlotErrors
+  whitelabelTimeSlotErrors,
+  checkAllTimeSlot,
 }: TimeSlotTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -348,6 +371,7 @@ const TimeSlot = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeSlot}
               />
             </div>
           </Grid>
@@ -372,6 +396,7 @@ const TimeSlot = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeSlot}
               />
             </div>
           </Grid>
@@ -398,6 +423,7 @@ const TimeSlot = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeSlot}
               />
             </div>
           </Grid>
@@ -424,6 +450,7 @@ const TimeSlot = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllTimeSlot}
               />
             </div>
           </Grid>

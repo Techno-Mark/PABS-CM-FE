@@ -11,6 +11,7 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 import {
   OnboardingFormAccountDetailsDelete,
   OnboardingFormAccountDetailsList,
+  onboardingSaveFormUrl,
 } from "@/static/apiUrl";
 import { Button, TablePagination, Tooltip } from "@mui/material";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
@@ -22,10 +23,17 @@ import BulkImportModel from "@/components/admin/common/BulkImportModel";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 
 const AccountDetailsWhitelabel = ({
-  setChecklistCount,
   setChecklistFormSubmit,
-}: ChecklistWhitelabelType) => {
+  checkAllWhitelabelBasicDetails,
+  checkAllWhitelabelChecklist,
+  clientInfo,
+  whiteLabelProgressPercentage,
+  isFormSubmmitWhitelabel,
+}: any) => {
   const userId = Cookies.get("userId");
+  const roleId = Cookies.get("roleId");
+  const businessTypeId = Cookies.get("businessTypeId");
+
   const [loading, setLoading] = useState<boolean>(true);
   const [isBulkLoading, setBulkLoading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -254,6 +262,18 @@ const AccountDetailsWhitelabel = ({
       renderCell: (params) => renderCellFunctionTooltip(params.value),
     },
     {
+      field: "status",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Status</span>
+      ),
+      minWidth: 100,
+      sortable: false,
+      renderCell: (params) =>
+        renderCellFunctionTooltip(
+          params.value === true ? "Active" : "Inactive"
+        ),
+    },
+    {
       field: "action",
       renderHeader: () => (
         <span className="font-semibold text-[13px] flex justify-end items-end">
@@ -373,10 +393,49 @@ const AccountDetailsWhitelabel = ({
     );
   };
 
+  console.log('checkAllWhitelabelBasicDetails : ',checkAllWhitelabelBasicDetails)
+  console.log('checkAllWhitelabelChecklist : ',checkAllWhitelabelChecklist)
+
+  const handleSubmit = () => {
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+
+    if (!checkAllWhitelabelBasicDetails) {
+      setChecklistFormSubmit(11);
+    } else if (!checkAllWhitelabelChecklist) {
+      setChecklistFormSubmit(12);
+    } else {
+      if (!isFormSubmmitWhitelabel) {
+        callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+          userId: !!clientInfo?.UserId
+            ? parseInt(clientInfo?.UserId)
+            : parseInt(userId!),
+          businessTypeId: !!clientInfo?.DepartmentId
+            ? parseInt(clientInfo?.DepartmentId)
+            : parseInt(businessTypeId!),
+          progress: whiteLabelProgressPercentage,
+          isSubmitted: true,
+        });
+      }
+    }
+  };
+
   return (
-    <div className={`flex flex-col overflow-hidden py-4 px-4 w-[95%]`}>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
-        <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+    <div
+      className={`flex flex-col ${
+        roleId !== "4" ? "h-[95vh]" : "h-full w-[95%]"
+      } pt-12`}
+    >
+      <div className="flex justify-between px-4  pt-4 bg-[#F9FBFF]">
+        <div className="bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
           <span className="m-3 flex items-center">
             <SearchIcon />
           </span>
@@ -384,7 +443,7 @@ const AccountDetailsWhitelabel = ({
             type="search"
             id="default-search"
             placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-[80%]"
+            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -411,7 +470,11 @@ const AccountDetailsWhitelabel = ({
       </div>
 
       <div className={`flex flex-col gap-5`}>
-        <div className="w-full h-[68vh] mt-5 scrollbar">
+        <div
+          className={`w-full ${
+            roleId !== "4" ? "h-[65vh]" : "h-[69vh]"
+          } px-4 mt-5 scrollbar`}
+        >
           <DataGrid
             disableColumnMenu
             rows={accountList}
@@ -446,13 +509,20 @@ const AccountDetailsWhitelabel = ({
             }}
           />
         </div>
-        <div className="py-2 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+        <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
           <Button
             onClick={() => setChecklistFormSubmit(12)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
             Back
+          </Button>
+          <Button
+            onClick={() => handleSubmit()}
+            className={`!bg-[#022946] font-semibold text-white !rounded-full text-[14px]`}
+            variant="outlined"
+          >
+            Submit
           </Button>
         </div>
       </div>

@@ -243,6 +243,115 @@ export const fieldDisplayNamesWhiteLabelSystemSoftware: {
   systemAccessWhiteLabelActionClient: "Action Items Client",
 };
 
+export const validateWhiteLabelServiceTypeField = [
+  "FTEStatus",
+  "FTEComments",
+  "FTEActionPABS",
+  "FTEActionClient",
+  "accountingStatus",
+  "accountingComments",
+  "accountingActionPABS",
+  "accountingActionClient",
+  "taxStatus",
+  "taxComments",
+  "taxActionPABS",
+  "taxActionClient",
+];
+
+export const fieldDisplayNamesWhiteLabelServiceType: {
+  [key: string]: string;
+} = {
+  FTEStatus: "Status",
+  FTEComments: "Comments",
+  FTEActionPABS: "Action Items Pabs",
+  FTEActionClient: "Action Items Client",
+  accountingStatus: "Status",
+  accountingComments: "Comments",
+  accountingActionPABS: "Action Items Pabs",
+  accountingActionClient: "Action Items Client",
+  taxStatus: "Status",
+  taxComments: "Comments",
+  taxActionPABS: "Action Items Pabs",
+  taxActionClient: "Action Items Client",
+};
+
+export const validateWhiteLabelWorkAssignmentField = [
+  "monthlyStatus",
+  "monthlyComments",
+  "monthlyActionPABS",
+  "monthlyActionClient",
+  "combinationStatus",
+  "combinationComments",
+  "combinationActionPABS",
+  "combinationActionClient",
+  "cleanupStatus",
+  "cleanupComments",
+  "cleanupActionPABS",
+  "cleanupActionClient",
+  "catchupStatus",
+  "catchupComments",
+  "catchupActionPABS",
+  "catchupActionClient",
+];
+
+export const fieldDisplayNamesWhiteLabelWorkAssignment: {
+  [key: string]: string;
+} = {
+  monthlyStatus: "Status",
+  monthlyComments: "Comments",
+  monthlyActionPABS: "Action Items Pabs",
+  monthlyActionClient: "Action Items Client",
+  combinationStatus: "Status",
+  combinationComments: "Comments",
+  combinationActionPABS: "Action Items Pabs",
+  combinationActionClient: "Action Items Client",
+  cleanupStatus: "Status",
+  cleanupComments: "Comments",
+  cleanupActionPABS: "Action Items Pabs",
+  cleanupActionClient: "Action Items Client",
+  catchupStatus: "Status",
+  catchupComments: "Comments",
+  catchupActionPABS: "Action Items Pabs",
+  catchupActionClient: "Action Items Client",
+};
+
+export const validateWhiteLabelMeetingAvailabilityField = [
+  "timeZoneStatus",
+  "timeZoneComments",
+  "timeZoneActionPABS",
+  "timeZoneActionClient",
+  "convenientDayStatus",
+  "convenientDayComments",
+  "convenientDayActionPABS",
+  "convenientDayActionClient",
+  "timeSlotStatus",
+  "timeSlotComments",
+  "timeSlotActionPABS",
+  "timeSlotActionClient",
+];
+
+export const fieldDisplayNamesWhiteLabelMeetingAvailability: {
+  [key: string]: string;
+} = {
+  timeZoneStatus: "Status",
+  timeZoneComments: "Comments",
+  timeZoneActionPABS: "Action Items Pabs",
+  timeZoneActionClient: "Action Items Client",
+  convenientDayStatus: "Status",
+  convenientDayComments: "Comments",
+  convenientDayActionPABS: "Action Items Pabs",
+  convenientDayActionClient: "Action Items Client",
+  timeSlotStatus: "Status",
+  timeSlotComments: "Comments",
+  timeSlotActionPABS: "Action Items Pabs",
+  timeSlotActionClient: "Action Items Client"
+};
+
+export const statusOptionDrawerAccDetails = [
+  { value: 1, label: "Active" },
+  { value: 0, label: "Inactive" },
+];
+
 export const AccordianExpand = {
   COMMUNICATION: 1,
   SYSTEMS_SOFTWARE_SET_UP: 2,

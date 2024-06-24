@@ -56,7 +56,7 @@ function Page() {
   };
 
   const handleEmailChange = (e: { target: { value: string } }) => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailRegex = /^[\w+.-]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (e.target.value.trim().length === 0) {
       setEmail({
         value: e.target.value,
@@ -146,10 +146,13 @@ function Page() {
           Cookies.set("userName", ResponseData?.Username);
           Cookies.set("roleName", ResponseData?.RoleName);
           Cookies.set("roleId", ResponseData?.RoleId.toString());
-          Cookies.set("businessTypeId", ResponseData?.BusinessTypeId.toString());
+          Cookies.set(
+            "businessTypeId",
+            ResponseData?.BusinessTypeId.toString()
+          );
           Cookies.set("businessTypeName", ResponseData?.BusinessTypeName);
           Cookies.set("clientSFId", ResponseData?.ClientSfId);
-          localStorage.setItem('clientLogo', ResponseData?.ClientLogo);
+          localStorage.setItem("clientLogo", ResponseData?.ClientLogo);
           Cookies.set("permission", JSON.stringify(ResponseData?.Permissions));
           return;
       }
@@ -235,7 +238,7 @@ function Page() {
           disabled={isLoading ? true : false}
         >
           {isLoading ? (
-            <CircularProgress size={20} sx={{color: "white !important"}}/>
+            <CircularProgress size={20} sx={{ color: "white !important" }} />
           ) : (
             <span className="normal-case font-semibold text-[16px]">
               Log In

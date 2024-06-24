@@ -176,7 +176,6 @@ const ClientSidebar = ({
                       style={{
                         width: `${Math.max(
                           (data.value / 100) * 100,
-                          data.value > 0 && data.value < 7 ? 6 : 0
                         )}px`,
                         backgroundColor: "#022946",
                       }}

@@ -7,6 +7,7 @@ export interface WhitelabelFormTypes {
 
 export interface WhiteLabelCommunicationTypes {
   className?: string;
+  checkAllFieldsWhiteLabelCommunicationList: boolean;
   whitelabelGroupEmailEstablished: GroupEmailWhiteLabelFormTypes;
   setWhitelabelGroupEmailEstablished: React.Dispatch<
     React.SetStateAction<GroupEmailWhiteLabelFormTypes>
@@ -23,6 +24,7 @@ export interface WhiteLabelCommunicationTypes {
 
 export interface WhiteLabelSystemSoftwareSetupFormType {
   className?: string;
+  checkAllFieldsWhiteLabelSystemSoftwareList: boolean;
   whitelabelSystemSoftwareErrors: whitelabelSystemSoftwareErrorsType;
   whitelabelITStructure: ItStructureWhiteLabelFormTypes;
   setWhitelabelITStructure: React.Dispatch<
@@ -68,6 +70,7 @@ export interface whitelabelSystemSoftwareErrorsType
 
 export interface whiteLabelServiceType {
   className?: string;
+  checkAllFieldsWhiteLabelServiceTypeList: boolean;
   whitelabelServiceErrors: WhitelabelServiceErrorsTypes;
   whitelabelFTE: FTEFormTypes;
   setWhitelabelFTE: React.Dispatch<React.SetStateAction<FTEFormTypes>>;
@@ -90,6 +93,7 @@ export interface WhitelabelServiceErrorsTypes
 
 export interface whitelabelChallengesFormType {
   className?: string;
+  checkAllFieldsWhiteLabelChallengesExceptionList: boolean;
   whitelabelCurrentChallenges: CurrentChallengesFormTypes;
   setWhitelabelCurrentChallenges: React.Dispatch<
     React.SetStateAction<CurrentChallengesFormTypes>
@@ -102,6 +106,7 @@ export interface whitelabelChallengesFormType {
 
 export interface whitelabelWorkAssignmentType {
   className?: string;
+  checkAllFieldsWhiteLabelWorkAssignmentList: boolean;
   whitleLabelWorkAssignmentErrors: whitleLabelWorkAssignmentErrorsType;
   whitelabelMonthly: MonthlyFormTypes;
   setWhitelabelMonthly: React.Dispatch<React.SetStateAction<MonthlyFormTypes>>;
@@ -125,6 +130,7 @@ export interface whitleLabelWorkAssignmentErrorsType
 
 export interface whitelabelEscalationmatrixFormType {
   className?: string;
+  checkAllFieldsWhiteLabelEscalationMatrixList: boolean;
   whitelabelClient: ClientFormTypes;
   setWhitelabelClient: React.Dispatch<React.SetStateAction<ClientFormTypes>>;
   whitelabelPABS: PabsFormTypes;
@@ -135,6 +141,7 @@ export interface whitelabelEscalationmatrixFormType {
 
 export interface whitelabelMeetingAvailabilityType {
   className?: string;
+  checkAllFieldsWhiteLabelMeetinAvailabilityList: boolean;
   whitelabelMeetingAvailabilityErrors: whitelabelMeetingAvailabilityErrorsType;
   whitelabelTimeZone: WhitelabelTimeZoneFormTypes;
   setWhitelabelTimeZone: React.Dispatch<
@@ -163,6 +170,7 @@ export interface GroupEmailEstablishedTypes {
   setWhitelabelGroupEmailEstablished: React.Dispatch<
     React.SetStateAction<GroupEmailWhiteLabelFormTypes>
   >;
+  checkAllGroupEmailEstablished: boolean;
 }
 
 export interface whitelabelTeamOverCallTypes {
@@ -170,6 +178,7 @@ export interface whitelabelTeamOverCallTypes {
   setWhitelabelTeamOverCall: React.Dispatch<
     React.SetStateAction<TeamOverCallWhiteLabelFormTypes>
   >;
+  checkAllIntroductionTeamOverCall: boolean;
 }
 
 export interface KickOffTypes {
@@ -177,6 +186,7 @@ export interface KickOffTypes {
   setWhitelabelKickOff: React.Dispatch<
     React.SetStateAction<KickOffWhiteLabelFormTypes>
   >;
+  checkAllKickOff: boolean;
 }
 
 export interface GroupEmailWhiteLabelFormTypes {
@@ -184,12 +194,14 @@ export interface GroupEmailWhiteLabelFormTypes {
   groupEmailWhiteLabelComments: string;
   groupEmailWhiteLabelActionPABS: string;
   groupEmailWhiteLabelActionClient: string;
+  [key: string]: string | null;
 }
 export interface TeamOverCallWhiteLabelFormTypes {
   teamOverCallWhiteLabelStatus: string;
   teamOverCallWhiteLabelComments: string;
   teamOverCallWhiteLabelActionPABS: string;
   teamOverCallWhiteLabelActionClient: string;
+  [key: string]: string | null;
 }
 
 export interface KickOffWhiteLabelFormTypes {
@@ -197,6 +209,7 @@ export interface KickOffWhiteLabelFormTypes {
   kickOffWhiteLabelComments: string;
   kickOffWhiteLabelActionPABS: string;
   kickOffWhiteLabelActionClient: string;
+  [key: string]: string | null;
 }
 
 // 2
@@ -205,6 +218,7 @@ export interface ITStructureTypes {
   setWhitelabelITStructure: React.Dispatch<
     React.SetStateAction<ItStructureWhiteLabelFormTypes>
   >;
+  checkAllItStructure: boolean;
 }
 
 export interface RemoteSetupTypes {
@@ -212,6 +226,7 @@ export interface RemoteSetupTypes {
   setWhitelabelRemoteSetup: React.Dispatch<
     React.SetStateAction<RemoteSetupWhiteLabelFormTypes>
   >;
+  checkAllRemoteSetup: boolean;
 }
 
 export interface ITHelpTypes {
@@ -219,6 +234,7 @@ export interface ITHelpTypes {
   setWhitelabelITHelp: React.Dispatch<
     React.SetStateAction<ItHelpWhiteLabelFormTypes>
   >;
+  checkAllITHelp: boolean;
 }
 
 export interface AccountingSoftwareTypes {
@@ -227,6 +243,7 @@ export interface AccountingSoftwareTypes {
     React.SetStateAction<AccountingSoftwareWhiteLabelFormTypes>
   >;
   whitelabelAccountingSoftwareErrors: whitelabelSystemSoftwareErrorsType;
+  checkAllAccountingSoftware: boolean;
 }
 
 export interface CloudDocumentTypes {
@@ -235,6 +252,7 @@ export interface CloudDocumentTypes {
     React.SetStateAction<CloudDocumentWhiteLabelFormTypes>
   >;
   whitelabelCloudDocumentErrors: whitelabelSystemSoftwareErrorsType;
+  checkAllCloudDocument: boolean;
 }
 
 export interface MessengerTypes {
@@ -243,6 +261,7 @@ export interface MessengerTypes {
     React.SetStateAction<MessengerWhiteLabelFormTypes>
   >;
   whitelabelMessengerErrors: whitelabelSystemSoftwareErrorsType;
+  checkAllMessenger: boolean;
 }
 
 export interface SystemAccessTypes {
@@ -251,12 +270,14 @@ export interface SystemAccessTypes {
     React.SetStateAction<SystemAccessWhiteLabelFormTypes>
   >;
   whitelabelSystemAccessErrors: whitelabelSystemSoftwareErrorsType;
+  checkAllSystemAccess: boolean;
 }
 export interface OtherInfoTypes {
   whitelabelOtherInfo: OtherInfoWhiteLabelFormTypes;
   setWhitelabelOtherInfo: React.Dispatch<
     React.SetStateAction<OtherInfoWhiteLabelFormTypes>
   >;
+  checkAllOtherInfo: boolean;
 }
 
 export interface ItStructureWhiteLabelFormTypes {
@@ -324,6 +345,7 @@ export interface FTETypes {
   whitelabelFTE: FTEFormTypes;
   setWhitelabelFTE: React.Dispatch<React.SetStateAction<FTEFormTypes>>;
   whitelabelFTEErrors: WhitelabelServiceErrorsTypes;
+  checkAllFTE: boolean;
 }
 
 export interface AccountingTypes {
@@ -332,17 +354,20 @@ export interface AccountingTypes {
     React.SetStateAction<AccountingFormTypes>
   >;
   whitelabelAccountingErrors: WhitelabelServiceErrorsTypes;
+  checkAllAccounting: boolean;
 }
 
 export interface TaxTypes {
   whitelabelTax: TaxFormTypes;
   setWhitelabelTax: React.Dispatch<React.SetStateAction<TaxFormTypes>>;
   whitelabelTaxErrors: WhitelabelServiceErrorsTypes;
+  checkAllTax: boolean;
 }
 
 export interface WeeklyTypes {
   whitelabelWeekly: WeeklyFormTypes;
   setWhitelabelWeekly: React.Dispatch<React.SetStateAction<WeeklyFormTypes>>;
+  checkAllWeekly: boolean;
 }
 
 export interface IndustryTypes {
@@ -350,6 +375,7 @@ export interface IndustryTypes {
   setWhitelabelIndustry: React.Dispatch<
     React.SetStateAction<IndustryFormTypes>
   >;
+  checkAllIndustry: boolean;
 }
 
 export interface FTEFormTypes {
@@ -396,6 +422,7 @@ export interface CurrentChallengesTypes {
   setWhitelabelCurrentChallenges: React.Dispatch<
     React.SetStateAction<CurrentChallengesFormTypes>
   >;
+  checkAllCurrentChallenges: boolean;
 }
 
 export interface ExpectationTypes {
@@ -403,6 +430,7 @@ export interface ExpectationTypes {
   setWhitelabelExpectation: React.Dispatch<
     React.SetStateAction<ExceptionFormTypes>
   >;
+  checkAllExpectation: boolean;
 }
 
 export interface CurrentChallengesFormTypes {
@@ -410,6 +438,7 @@ export interface CurrentChallengesFormTypes {
   currentChallengesComments: string;
   currentChallengesActionPABS: string;
   currentChallengesActionClient: string;
+  [key: string]: string | null;
 }
 
 export interface ExceptionFormTypes {
@@ -417,6 +446,7 @@ export interface ExceptionFormTypes {
   exceptionComments: string;
   exceptionActionPABS: string;
   exceptionActionClient: string;
+  [key: string]: string | null;
 }
 
 // 5
@@ -424,18 +454,21 @@ export interface MonthlyTypes {
   whitelabelMonthly: MonthlyFormTypes;
   setWhitelabelMonthly: React.Dispatch<React.SetStateAction<MonthlyFormTypes>>;
   whitelabelMonthlyErrors: whitleLabelWorkAssignmentErrorsType;
+  checkAllMonthly: boolean;
 }
 
 export interface CleanupTypes {
   whitelabelCleanup: CleanupFormTypes;
   setWhitelabelCleanup: React.Dispatch<React.SetStateAction<CleanupFormTypes>>;
   whitelabelCleanupErrors: whitleLabelWorkAssignmentErrorsType;
+  checkAllCleanup: boolean;
 }
 
 export interface CatchupTypes {
   whitelabelCatchup: CatchupFormTypes;
   setWhitelabelCatchup: React.Dispatch<React.SetStateAction<CatchupFormTypes>>;
   whitelabelCatchupErrors: whitleLabelWorkAssignmentErrorsType;
+  checkAllCatchup: boolean;
 }
 
 export interface CombinationTypes {
@@ -444,6 +477,7 @@ export interface CombinationTypes {
     React.SetStateAction<CombinationFormTypes>
   >;
   whitelabelCombinationErrors: whitleLabelWorkAssignmentErrorsType;
+  checkAllCombination: boolean;
 }
 
 export interface CombinationFormTypes {
@@ -482,16 +516,19 @@ export interface MonthlyFormTypes {
 export interface ClientTypes {
   whitelabelClient: ClientFormTypes;
   setWhitelabelClient: React.Dispatch<React.SetStateAction<ClientFormTypes>>;
+  checkAllClient: boolean;
 }
 
 export interface PabsTypes {
   whitelabelPABS: PabsFormTypes;
   setWhitelabelPABS: React.Dispatch<React.SetStateAction<PabsFormTypes>>;
+  checkAllPABS: boolean;
 }
 
 export interface BdmTypes {
   whitelabelBDM: BdmFormTypes;
   setWhitelabelBDM: React.Dispatch<React.SetStateAction<BdmFormTypes>>;
+  checkAllBDM: boolean;
 }
 
 export interface ClientFormTypes {
@@ -499,6 +536,7 @@ export interface ClientFormTypes {
   clientComments: string;
   clientActionPABS: string;
   clientActionClient: string;
+  [key: string]: string | null;
 }
 
 export interface PabsFormTypes {
@@ -506,6 +544,7 @@ export interface PabsFormTypes {
   pabsComments: string;
   pabsActionPABS: string;
   pabsActionClient: string;
+  [key: string]: string | null;
 }
 
 export interface BdmFormTypes {
@@ -513,6 +552,7 @@ export interface BdmFormTypes {
   bdmComments: string;
   bdmActionPABS: string;
   bdmActionClient: string;
+  [key: string]: string | null;
 }
 
 // 7
@@ -522,6 +562,7 @@ export interface TimeZoneTypes {
     React.SetStateAction<WhitelabelTimeZoneFormTypes>
   >;
   whitelabelTimeZoneErrors: whitelabelMeetingAvailabilityErrorsType;
+  checkAllTimeZone:boolean;
 }
 
 export interface ConvenientDayTypes {
@@ -530,6 +571,7 @@ export interface ConvenientDayTypes {
     React.SetStateAction<WhitelabelConvenientDayFormTypes>
   >;
   whitelabelConvenientDayErrors: whitelabelMeetingAvailabilityErrorsType;
+  checkAllConvenientDay:boolean
 }
 
 export interface TimeSlotTypes {
@@ -538,6 +580,7 @@ export interface TimeSlotTypes {
     React.SetStateAction<WhitelabelTimeSlotFormTypes>
   >;
   whitelabelTimeSlotErrors: whitelabelMeetingAvailabilityErrorsType;
+  checkAllTimeSlot:boolean;
 }
 
 export interface WhitelabelTimeZoneFormTypes {

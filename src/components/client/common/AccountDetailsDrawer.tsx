@@ -8,12 +8,14 @@ import {
 } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import { TextField } from "@mui/material";
+import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { statusOptionDrawer } from "@/static/usermanage";
+import { statusOptionDrawerAccDetails } from "@/static/whitelabel/whitelabelChecklist";
 
 interface AccountDetailsDrawerProps {
   openDrawer: boolean;
@@ -41,6 +43,7 @@ interface InitialValues {
   deadline: Dayjs | string | null;
   notes1: string | null;
   notes: string | null;
+  status: any;
 }
 
 const initialValues: InitialValues = {
@@ -59,6 +62,7 @@ const initialValues: InitialValues = {
   deadline: "",
   notes1: "",
   notes: "",
+  status: false,
 };
 
 const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
@@ -101,6 +105,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           deadline: string | null;
           notes1MonthlyTransactions: string | null;
           notes: string | null;
+          status: any;
         }
       ) => {
         switch (ResponseStatus) {
@@ -124,6 +129,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               deadline: ResponseData.deadline,
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
+              status: ResponseData.status === true ? 1 : 0,
             });
             setInitialFormValues({
               clientId: ResponseData.clientId,
@@ -141,6 +147,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               deadline: ResponseData.deadline,
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
+              status: ResponseData.status === true ? 1 : 0,
             });
             return;
         }
@@ -177,6 +184,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       deadline: formValues.deadline,
       notes1MonthlyTransactions: formValues.notes1,
       notes: formValues.notes,
+      status: formValues.status,
     };
     const callback = (
       ResponseStatus: string,
@@ -236,6 +244,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
         ...prevValues,
         [field]: value,
       }));
+
     };
 
   const handleDateChange = (date: Dayjs | null) => {
@@ -243,6 +252,14 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
     setFormValues((prevValues) => ({
       ...prevValues,
       deadline: formattedDate,
+    }));
+  };
+
+  const handleSwitchChange = (e: any) => {
+    const value = e.target.value;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      status: value,
     }));
   };
 
@@ -606,6 +623,24 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 className: classes.textSize,
               }}
             />
+          </div>
+          <div className="text-[12px] flex flex-col w-1/2">
+            <label className="text-[#6E6D7A] text-[12px]">Status</label>
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                className={`!text-[14px]`}
+                value={formValues.status}
+                onChange={(e: any) => handleSwitchChange(e)}
+              >
+                {statusOptionDrawerAccDetails.map((type) => (
+                  <MenuItem key={type.value} value={type.value}>
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
         </div>
       </WhitelabelDrawerPanel>

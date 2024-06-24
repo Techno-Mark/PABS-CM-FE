@@ -23,22 +23,30 @@ const WhitelabelCommunicationForm = ({
   whitelabelKickOff,
   setWhitelabelKickOff,
   whitelabelTeamOverCall,
-  setWhitelabelTeamOverCall
+  setWhitelabelTeamOverCall,
+  checkAllFieldsWhiteLabelCommunicationList,
 }: WhiteLabelCommunicationTypes) => {
-
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished
         whitelabelGroupEmailEstablished={whitelabelGroupEmailEstablished}
         setWhitelabelGroupEmailEstablished={setWhitelabelGroupEmailEstablished}
+        checkAllGroupEmailEstablished={
+          checkAllFieldsWhiteLabelCommunicationList
+        }
       />
       <KickOff
         whitelabelKickOff={whitelabelKickOff}
         setWhitelabelKickOff={setWhitelabelKickOff}
+        checkAllKickOff={checkAllFieldsWhiteLabelCommunicationList}
       />
       <IntroductionTeamOverCall
         whitelabelTeamOverCall={whitelabelTeamOverCall}
-        setWhitelabelTeamOverCall={setWhitelabelTeamOverCall} />
+        setWhitelabelTeamOverCall={setWhitelabelTeamOverCall}
+        checkAllIntroductionTeamOverCall={
+          checkAllFieldsWhiteLabelCommunicationList
+        }
+      />
     </div>
   );
 };
@@ -48,6 +56,7 @@ export default WhitelabelCommunicationForm;
 const GroupEmailEstablished = ({
   whitelabelGroupEmailEstablished,
   setWhitelabelGroupEmailEstablished,
+  checkAllGroupEmailEstablished,
 }: GroupEmailEstablishedTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -55,10 +64,12 @@ const GroupEmailEstablished = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelGroupEmailEstablished((prev: GroupEmailWhiteLabelFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setWhitelabelGroupEmailEstablished(
+      (prev: GroupEmailWhiteLabelFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
   };
   return (
     <>
@@ -76,7 +87,9 @@ const GroupEmailEstablished = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelGroupEmailEstablished?.groupEmailWhiteLabelComments}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -86,6 +99,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -98,7 +112,9 @@ const GroupEmailEstablished = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelGroupEmailEstablished?.groupEmailWhiteLabelStatus}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -108,6 +124,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -122,7 +139,9 @@ const GroupEmailEstablished = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionPABS}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -132,6 +151,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -146,7 +166,9 @@ const GroupEmailEstablished = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionClient}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -156,6 +178,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -165,7 +188,11 @@ const GroupEmailEstablished = ({
   );
 };
 
-const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
+const KickOff = ({
+  whitelabelKickOff,
+  setWhitelabelKickOff,
+  checkAllKickOff,
+}: KickOffTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -203,6 +230,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -225,6 +253,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -249,6 +278,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -273,6 +303,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -282,7 +313,11 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
   );
 };
 
-const IntroductionTeamOverCall = ({ whitelabelTeamOverCall, setWhitelabelTeamOverCall }: whitelabelTeamOverCallTypes) => {
+const IntroductionTeamOverCall = ({
+  whitelabelTeamOverCall,
+  setWhitelabelTeamOverCall,
+  checkAllIntroductionTeamOverCall,
+}: whitelabelTeamOverCallTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -320,6 +355,7 @@ const IntroductionTeamOverCall = ({ whitelabelTeamOverCall, setWhitelabelTeamOve
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
               />
             </div>
           </Grid>
@@ -342,6 +378,7 @@ const IntroductionTeamOverCall = ({ whitelabelTeamOverCall, setWhitelabelTeamOve
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
               />
             </div>
           </Grid>
@@ -366,6 +403,7 @@ const IntroductionTeamOverCall = ({ whitelabelTeamOverCall, setWhitelabelTeamOve
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
               />
             </div>
           </Grid>
@@ -380,7 +418,9 @@ const IntroductionTeamOverCall = ({ whitelabelTeamOverCall, setWhitelabelTeamOve
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelTeamOverCall?.teamOverCallWhiteLabelActionClient}
+                value={
+                  whitelabelTeamOverCall?.teamOverCallWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -390,6 +430,7 @@ const IntroductionTeamOverCall = ({ whitelabelTeamOverCall, setWhitelabelTeamOve
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
               />
             </div>
           </Grid>

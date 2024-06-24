@@ -21,16 +21,21 @@ const WhitelabelChallengesForm = ({
   setWhitelabelCurrentChallenges,
   whitelabelExpectation,
   setWhitelabelExpectation,
+  checkAllFieldsWhiteLabelChallengesExceptionList,
 }: whitelabelChallengesFormType) => {
   return (
     <div className={`${className}`}>
       <CurrentChallenges
         whitelabelCurrentChallenges={whitelabelCurrentChallenges}
         setWhitelabelCurrentChallenges={setWhitelabelCurrentChallenges}
+        checkAllCurrentChallenges={
+          checkAllFieldsWhiteLabelChallengesExceptionList
+        }
       />
       <Expectation
         whitelabelExpectation={whitelabelExpectation}
         setWhitelabelExpectation={setWhitelabelExpectation}
+        checkAllExpectation={checkAllFieldsWhiteLabelChallengesExceptionList}
       />
     </div>
   );
@@ -41,6 +46,7 @@ export default WhitelabelChallengesForm;
 const CurrentChallenges = ({
   whitelabelCurrentChallenges,
   setWhitelabelCurrentChallenges,
+  checkAllCurrentChallenges
 }: CurrentChallengesTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -79,6 +85,7 @@ const CurrentChallenges = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllCurrentChallenges}
               />
             </div>
           </Grid>
@@ -101,6 +108,7 @@ const CurrentChallenges = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllCurrentChallenges}
               />
             </div>
           </Grid>
@@ -125,6 +133,7 @@ const CurrentChallenges = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllCurrentChallenges}
               />
             </div>
           </Grid>
@@ -139,7 +148,9 @@ const CurrentChallenges = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCurrentChallenges?.currentChallengesActionClient}
+                value={
+                  whitelabelCurrentChallenges?.currentChallengesActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -149,6 +160,7 @@ const CurrentChallenges = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllCurrentChallenges}
               />
             </div>
           </Grid>
@@ -161,6 +173,7 @@ const CurrentChallenges = ({
 const Expectation = ({
   whitelabelExpectation,
   setWhitelabelExpectation,
+  checkAllExpectation
 }: ExpectationTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -199,6 +212,7 @@ const Expectation = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllExpectation}
               />
             </div>
           </Grid>
@@ -221,6 +235,7 @@ const Expectation = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllExpectation}
               />
             </div>
           </Grid>
@@ -245,6 +260,7 @@ const Expectation = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllExpectation}
               />
             </div>
           </Grid>
@@ -269,6 +285,7 @@ const Expectation = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllExpectation}
               />
             </div>
           </Grid>

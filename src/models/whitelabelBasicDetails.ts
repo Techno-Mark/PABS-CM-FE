@@ -6,7 +6,7 @@ export interface BasicDetailWhitelabelType {
   setWhitelabelBasicDetailCount: (value: number) => void;
   setWhitelabelBasicDetailsFormSubmit: (value: number) => void;
   clientInfo?: ClientInfoType;
-  setCheckAllWhiteLabelFields: (value: boolean) => void
+  setCheckAllWhiteLabelBasicFields: (value: boolean) => void
   whiteLabelProgressPercentage: number
   setIsOpenModal:(value: boolean) => void
 }
@@ -16,10 +16,13 @@ export const whitelabelOtherInformationfieldDisplayNames: { [key: string]: strin
 };
 
 export interface ChecklistWhitelabelType {
-  setChecklistCount: (value: number) => void;
+  setCheckAllWhiteLabelCheckist:(value:boolean) => void;
+  setWhiteLabelChecklistCount: (value: number) => void;
   setChecklistFormSubmit: (value: number) => void;
+  whiteLabelProgressPercentage: number
   clientInfo?: ClientInfoType;
   formSubmitId?:number
+  setWhiteLabelFormIsSubmit:(value:boolean) => void
 }
 
 export interface WhiteLabelBasicDetailsDataType {

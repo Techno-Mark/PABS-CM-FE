@@ -21,7 +21,7 @@ const WhitelabelCpaClientTeamForm = ({
 }: WhitelabelCpaClientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-
+  
   return (
     <div className={`${className}`}>
       <FormBox
@@ -76,13 +76,13 @@ const WhitelabelCpaClientTeamForm = ({
                       size="small"
                       placeholder="Please Enter POC name"
                       value={whitelabelCpaClientTeam?.cpaArray[index]?.pocName}
-                      // error={
-                      //   !!whitelabelCpaClientTeamErrors?.cpaArray[index]
-                      //     ?.pocName
-                      // }
-                      // helperText={
-                      //   whitelabelCpaClientTeamErrors?.cpaArray[index]?.pocName
-                      // }
+                      error={
+                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
+                          ?.pocName
+                      }
+                      helperText={
+                        whitelabelCpaClientTeamErrors?.cpaArray[index]?.pocName
+                      }
                       onChange={(e) => handleChange(index, e)}
                       InputProps={{
                         classes: {
@@ -113,14 +113,14 @@ const WhitelabelCpaClientTeamForm = ({
                       value={
                         whitelabelCpaClientTeam?.cpaArray[index]?.pocEmailId
                       }
-                      // error={
-                      //   !!whitelabelCpaClientTeamErrors?.cpaArray[index]
-                      //     ?.pocEmailId
-                      // }
-                      // helperText={
-                      //   whitelabelCpaClientTeamErrors?.cpaArray[index]
-                      //     ?.pocEmailId
-                      // }
+                      error={
+                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
+                          ?.pocEmailId
+                      }
+                      helperText={
+                        whitelabelCpaClientTeamErrors?.cpaArray[index]
+                          ?.pocEmailId
+                      }
                       onChange={(e) => handleChange(index, e)}
                       InputProps={{
                         classes: {
@@ -151,14 +151,14 @@ const WhitelabelCpaClientTeamForm = ({
                       value={
                         whitelabelCpaClientTeam?.cpaArray[index]?.pocContactNo
                       }
-                      // error={
-                      //   !!whitelabelCpaClientTeamErrors?.cpaArray[index]
-                      //     ?.pocContactNo
-                      // }
-                      // helperText={
-                      //   whitelabelCpaClientTeamErrors?.cpaArray[index]
-                      //     ?.pocContactNo
-                      // }
+                      error={
+                        !!whitelabelCpaClientTeamErrors?.cpaArray[index]
+                          ?.pocContactNo
+                      }
+                      helperText={
+                        whitelabelCpaClientTeamErrors?.cpaArray[index]
+                          ?.pocContactNo
+                      }
                       onChange={(e) => handleChange(index, e)}
                       InputProps={{
                         classes: {

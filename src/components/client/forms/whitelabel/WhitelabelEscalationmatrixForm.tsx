@@ -7,7 +7,6 @@ import {
   ClientTypes,
   PabsFormTypes,
   PabsTypes,
-  WhitelabelFormTypes,
   whitelabelEscalationmatrixFormType,
 } from "@/models/whitelabelChecklist";
 // Utils import
@@ -25,25 +24,32 @@ const WhitelabelEscalationmatrixForm = ({
   setWhitelabelPABS,
   whitelabelBDM,
   setWhitelabelBDM,
+  checkAllFieldsWhiteLabelEscalationMatrixList,
 }: whitelabelEscalationmatrixFormType) => {
   return (
     <div className={`${className}`}>
       <Client
         whitelabelClient={whitelabelClient}
         setWhitelabelClient={setWhitelabelClient}
+        checkAllClient={checkAllFieldsWhiteLabelEscalationMatrixList}
       />
       <PABS
         whitelabelPABS={whitelabelPABS}
         setWhitelabelPABS={setWhitelabelPABS}
+        checkAllPABS={checkAllFieldsWhiteLabelEscalationMatrixList}
       />
-      <BDM whitelabelBDM={whitelabelBDM} setWhitelabelBDM={setWhitelabelBDM} />
+      <BDM
+        whitelabelBDM={whitelabelBDM}
+        setWhitelabelBDM={setWhitelabelBDM}
+        checkAllBDM={checkAllFieldsWhiteLabelEscalationMatrixList}
+      />
     </div>
   );
 };
 
 export default WhitelabelEscalationmatrixForm;
 
-const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
+const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: ClientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -81,6 +87,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllClient}
               />
             </div>
           </Grid>
@@ -103,6 +110,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllClient}
               />
             </div>
           </Grid>
@@ -127,6 +135,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllClient}
               />
             </div>
           </Grid>
@@ -151,6 +160,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllClient}
               />
             </div>
           </Grid>
@@ -160,7 +170,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient }: ClientTypes) => {
   );
 };
 
-const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
+const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -198,6 +208,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllPABS}
               />
             </div>
           </Grid>
@@ -220,6 +231,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllPABS}
               />
             </div>
           </Grid>
@@ -244,6 +256,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllPABS}
               />
             </div>
           </Grid>
@@ -268,6 +281,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllPABS}
               />
             </div>
           </Grid>
@@ -277,7 +291,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS }: PabsTypes) => {
   );
 };
 
-const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
+const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -315,6 +329,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllBDM}
               />
             </div>
           </Grid>
@@ -337,6 +352,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllBDM}
               />
             </div>
           </Grid>
@@ -361,6 +377,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllBDM}
               />
             </div>
           </Grid>
@@ -385,6 +402,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM }: BdmTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === '4' && checkAllBDM}
               />
             </div>
           </Grid>

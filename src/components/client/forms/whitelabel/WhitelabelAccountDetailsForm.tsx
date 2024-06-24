@@ -11,7 +11,8 @@ import {
   WhitelabelAccountDetailsTypes,
 } from "@/models/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
-// model import
+// cookies import
+import Cookies from "js-cookie";
 
 const WhitelabelAccountDetailsForm = ({
   className,
@@ -21,9 +22,10 @@ const WhitelabelAccountDetailsForm = ({
   setWhitelabelAccountDetails,
   whitelabelAccountDetailsErrors,
   setWhitelabelAccountDetailsErrors,
-  checkAllFieldsWhiteLabelAccountDetailsForm
+  checkAllFieldsWhiteLabelAccountDetailsForm,
 }: WhitelabelAccountDetailsTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -153,7 +155,9 @@ const WhitelabelAccountDetailsForm = ({
       <FormBox
         title="Account Details"
         checkStatus={whitelabelAccountDetailsCheckStatus}
-        handleChange={(e: ChangeEvent<HTMLInputElement>) => handleAccountDetailsSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+          handleAccountDetailsSwitch(e)
+        }
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -180,6 +184,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>
@@ -206,6 +213,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>
@@ -233,6 +243,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>
@@ -259,6 +272,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
               <div className="text-[12px] flex flex-col w-full pt-[26px]">
@@ -283,6 +299,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>
@@ -309,6 +328,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>
@@ -335,6 +357,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>
@@ -361,6 +386,9 @@ const WhitelabelAccountDetailsForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
                 />
               </div>
             </Grid>

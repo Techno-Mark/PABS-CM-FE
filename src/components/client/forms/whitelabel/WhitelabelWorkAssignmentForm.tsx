@@ -29,6 +29,7 @@ const WhitelabelWorkAssignmentForm = ({
   setWhitelabelCatchup,
   whitelabelCombination,
   setWhitelabelCombination,
+  checkAllFieldsWhiteLabelWorkAssignmentList,
 }: whitelabelWorkAssignmentType) => {
   return (
     <div className={`${className}`}>
@@ -36,21 +37,25 @@ const WhitelabelWorkAssignmentForm = ({
         whitelabelMonthly={whitelabelMonthly}
         setWhitelabelMonthly={setWhitelabelMonthly}
         whitelabelMonthlyErrors={whitleLabelWorkAssignmentErrors}
+        checkAllMonthly={checkAllFieldsWhiteLabelWorkAssignmentList}
       />
       <Cleanup
         whitelabelCleanup={whitelabelCleanup}
         setWhitelabelCleanup={setWhitelabelCleanup}
         whitelabelCleanupErrors={whitleLabelWorkAssignmentErrors}
+        checkAllCleanup={checkAllFieldsWhiteLabelWorkAssignmentList}
       />
       <Catchup
         whitelabelCatchup={whitelabelCatchup}
         setWhitelabelCatchup={setWhitelabelCatchup}
         whitelabelCatchupErrors={whitleLabelWorkAssignmentErrors}
+        checkAllCatchup={checkAllFieldsWhiteLabelWorkAssignmentList}
       />
       <Combination
         whitelabelCombination={whitelabelCombination}
         setWhitelabelCombination={setWhitelabelCombination}
         whitelabelCombinationErrors={whitleLabelWorkAssignmentErrors}
+        checkAllCombination={checkAllFieldsWhiteLabelWorkAssignmentList}
       />
     </div>
   );
@@ -58,7 +63,12 @@ const WhitelabelWorkAssignmentForm = ({
 
 export default WhitelabelWorkAssignmentForm;
 
-const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErrors }: MonthlyTypes) => {
+const Monthly = ({
+  whitelabelMonthly,
+  setWhitelabelMonthly,
+  whitelabelMonthlyErrors,
+  checkAllMonthly,
+}: MonthlyTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -98,6 +108,7 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErro
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMonthly}
               />
             </div>
           </Grid>
@@ -122,6 +133,7 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErro
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMonthly}
               />
             </div>
           </Grid>
@@ -148,6 +160,7 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErro
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMonthly}
               />
             </div>
           </Grid>
@@ -174,6 +187,7 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErro
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMonthly}
               />
             </div>
           </Grid>
@@ -183,7 +197,12 @@ const Monthly = ({ whitelabelMonthly, setWhitelabelMonthly,whitelabelMonthlyErro
   );
 };
 
-const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErrors }: CleanupTypes) => {
+const Cleanup = ({
+  whitelabelCleanup,
+  setWhitelabelCleanup,
+  whitelabelCleanupErrors,
+  checkAllCleanup,
+}: CleanupTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -223,6 +242,7 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCleanup}
               />
             </div>
           </Grid>
@@ -247,6 +267,7 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCleanup}
               />
             </div>
           </Grid>
@@ -273,6 +294,7 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCleanup}
               />
             </div>
           </Grid>
@@ -299,6 +321,7 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCleanup}
               />
             </div>
           </Grid>
@@ -308,7 +331,12 @@ const Cleanup = ({ whitelabelCleanup, setWhitelabelCleanup, whitelabelCleanupErr
   );
 };
 
-const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErrors }: CatchupTypes) => {
+const Catchup = ({
+  whitelabelCatchup,
+  setWhitelabelCatchup,
+  whitelabelCatchupErrors,
+  checkAllCatchup,
+}: CatchupTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -348,6 +376,7 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCatchup}
               />
             </div>
           </Grid>
@@ -372,6 +401,7 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCatchup}
               />
             </div>
           </Grid>
@@ -398,6 +428,7 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCatchup}
               />
             </div>
           </Grid>
@@ -424,6 +455,7 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErr
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCatchup}
               />
             </div>
           </Grid>
@@ -436,7 +468,8 @@ const Catchup = ({ whitelabelCatchup, setWhitelabelCatchup, whitelabelCatchupErr
 const Combination = ({
   whitelabelCombination,
   setWhitelabelCombination,
-  whitelabelCombinationErrors
+  whitelabelCombinationErrors,
+  checkAllCombination,
 }: CombinationTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -452,7 +485,8 @@ const Combination = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Combination of Monthly/ Clean up/ Catch up<span className="text-[#DC3545]">*</span>
+        Combination of Monthly/ Clean up/ Catch up
+        <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -477,6 +511,7 @@ const Combination = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCombination}
               />
             </div>
           </Grid>
@@ -501,6 +536,7 @@ const Combination = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCombination}
               />
             </div>
           </Grid>
@@ -527,6 +563,7 @@ const Combination = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCombination}
               />
             </div>
           </Grid>
@@ -543,7 +580,9 @@ const Combination = ({
                 placeholder="Please Enter Action Items"
                 value={whitelabelCombination?.combinationActionClient}
                 error={!!whitelabelCombinationErrors?.combinationActionClient}
-                helperText={whitelabelCombinationErrors?.combinationActionClient}
+                helperText={
+                  whitelabelCombinationErrors?.combinationActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -553,6 +592,7 @@ const Combination = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCombination}
               />
             </div>
           </Grid>
