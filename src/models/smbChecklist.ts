@@ -806,4 +806,5 @@ export interface SMBType {
   getFormAutoCareDetials?: any;
   setSMBChecklistCount: (value: number) => void;
   setIsOpenModal?: any;
+  setSmbFormSubmittedStatus:(value:boolean) => void;
 }

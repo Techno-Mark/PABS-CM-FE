@@ -42,6 +42,7 @@ const BasicDetailsWhitelabel = ({
   setCheckAllWhiteLabelBasicFields,
   whiteLabelProgressPercentage,
   setIsOpenModal,
+  setWhiteLabelFormSubmittedStatus
 }: BasicDetailWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -128,6 +129,7 @@ const BasicDetailsWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false)
             setIsFormSubmitWhiteLabelBasicDetails(
               ResponseData?.isSubmited ?? false
             );

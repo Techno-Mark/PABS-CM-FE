@@ -124,6 +124,7 @@ function ChecklistSmb({
   getFormDetials,
   setIsOpenModal,
   responseData,
+  setSmbFormSubmittedStatus
 }: SMBType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -646,6 +647,7 @@ function ChecklistSmb({
         }
       });
     }
+    setSmbFormSubmittedStatus(responseData?.isSubmited ?? false);
     setIsSubmitedSmbChecklist(responseData?.isSubmited ?? false);
     setPeopleBusinessChecked(responseData?.phase1PeopleIsDisplay ?? true);
     setSystemDocumentAccessChecked(responseData?.phase2SystemIsDisplay ?? true);

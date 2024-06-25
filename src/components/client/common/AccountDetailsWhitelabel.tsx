@@ -13,7 +13,7 @@ import {
   OnboardingFormAccountDetailsList,
   onboardingSaveFormUrl,
 } from "@/static/apiUrl";
-import { Button, TablePagination, Tooltip } from "@mui/material";
+import { Button, Chip, Stack, TablePagination, Tooltip } from "@mui/material";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import AccountDetailsDrawer from "./AccountDetailsDrawer";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
@@ -29,6 +29,7 @@ const AccountDetailsWhitelabel = ({
   clientInfo,
   whiteLabelProgressPercentage,
   isFormSubmmitWhitelabel,
+  setWhiteLabelFormSubmittedStatus
 }: any) => {
   const userId = Cookies.get("userId");
   const roleId = Cookies.get("roleId");
@@ -47,7 +48,8 @@ const AccountDetailsWhitelabel = ({
   const [totalCount, setTotalCount] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [accountList, setAccountList] = useState<any>([]);
-  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] = useState<boolean>(false);
+  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] =
+    useState<boolean>(false);
   const [accountListParams, setAccountListParams] = useState<{
     page: number;
     limit: number;
@@ -112,7 +114,7 @@ const AccountDetailsWhitelabel = ({
       width: 100,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-semibold">{params.value}</span>
+        <span className="font-semibold">{params.api.getAllRowIds().indexOf(params.id)+1}</span>
       ),
     },
     {
@@ -271,12 +273,18 @@ const AccountDetailsWhitelabel = ({
       sortable: false,
       renderCell: (params) =>
         renderCellFunctionTooltip(
-          params.value === true ? "Active" : "Inactive"
+          <div className="flex h-full justify-start items-center">
+            <Chip
+              size="small"
+              label={`${params.value === true ? "Active" : "Inactive"}`}
+              color={`${params.value === true ? "success" : "error"}`}
+            />
+          </div>
         ),
     },
-  ]
+  ];
 
-  if (roleId === '4' ? !isFormSubmmitWhitelabel : true) {
+  if (roleId === "4" ? !isFormSubmmitWhitelabel : true) {
     columns.push({
       field: "action",
       renderHeader: () => (
@@ -353,6 +361,7 @@ const AccountDetailsWhitelabel = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       getAccountList();
+      setWhiteLabelFormSubmittedStatus(isFormSubmmitWhitelabel)
     }, 550);
 
     return () => clearTimeout(timer);
@@ -442,7 +451,11 @@ const AccountDetailsWhitelabel = ({
   };
 
   return (
-    <div className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full  w-[95%]"} pt-12`}>
+    <div
+      className={`flex flex-col ${
+        roleId !== "4" ? "h-[95vh]" : "h-full  w-[95%]"
+      } pt-12`}
+    >
       <div className="flex justify-between px-4  pt-4 bg-[#F9FBFF]">
         <div className="w-[30%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
           <span className="m-3 flex items-center">
@@ -457,33 +470,36 @@ const AccountDetailsWhitelabel = ({
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        {roleId === '4' ? isFormSubmmitWhitelabel : true && (
-          <div className="flex gap-5">
-            <button
-              onClick={() => {
-                setBulkOpenDrawer(true);
-              }}
-              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-            >
-              Bulk Upload
-            </button>
-            <button
-              onClick={() => {
-                setOpenDrawer(true);
-                setEdit(false);
-              }}
-              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-            >
-              Add Account Detail
-            </button>
-          </div>
-        )}
+        {roleId === "4"
+          ? isFormSubmmitWhitelabel
+          : true && (
+              <div className="flex gap-5">
+                <button
+                  onClick={() => {
+                    setBulkOpenDrawer(true);
+                  }}
+                  className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+                >
+                  Bulk Upload
+                </button>
+                <button
+                  onClick={() => {
+                    setOpenDrawer(true);
+                    setEdit(false);
+                  }}
+                  className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+                >
+                  Add Account Detail
+                </button>
+              </div>
+            )}
       </div>
 
       <div className={`flex flex-col gap-5`}>
         <div
-          className={` ${roleId !== "4" ? "h-[63vh]" : ""
-            } px-4 mt-5 scrollbar overflow-auto`}
+          className={` ${
+            roleId !== "4" ? "h-[64vh]" : ""
+          } px-4 mt-5 scrollbar overflow-auto`}
         >
           <DataGrid
             disableColumnMenu
@@ -510,13 +526,13 @@ const AccountDetailsWhitelabel = ({
             }}
             sx={{
               [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-              {
-                outline: "none",
-              },
+                {
+                  outline: "none",
+                },
               [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-              {
-                outline: "none",
-              },
+                {
+                  outline: "none",
+                },
             }}
           />
         </div>

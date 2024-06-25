@@ -204,7 +204,7 @@ const ConvenientDay = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Convenient day<span className="text-[#DC3545]">*</span>
+        Convenient Day<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -346,7 +346,7 @@ const TimeSlot = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Time slot availability<span className="text-[#DC3545]">*</span>
+        Time Slot Availability<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>

@@ -21,6 +21,7 @@ type WrapperPropsType = {
   perCountWhiteLabelBasicDetails?: number;
   setAutoCareProgressPercentage: (value: number) => void;
   setWhiteLabelProgressPercentage: (value: number) => void;
+  formSubmittedStatus:boolean;
 };
 
 const ClientWrapper = ({
@@ -34,6 +35,7 @@ const ClientWrapper = ({
   setAutoCareProgressPercentage,
   setWhiteLabelProgressPercentage,
   children,
+  formSubmittedStatus
 }: WrapperPropsType) => {
   const router = useRouter();
 
@@ -55,7 +57,7 @@ const ClientWrapper = ({
           }}
         >
           <CssBaseline />
-          <ClientHeader />
+          <ClientHeader formSubmittedStatus={formSubmittedStatus}/>
           <ClientSidebar
             perCountWhiteLabelBasicDetails={perCountWhiteLabelBasicDetails}
             perCountWhiteLabelChecklist={perCountWhiteLabelChecklist}

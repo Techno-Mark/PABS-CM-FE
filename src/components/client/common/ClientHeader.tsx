@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 // MUI imports
-import { styled, Toolbar, AppBar as MuiAppBar, Tooltip } from "@mui/material";
+import {
+  styled,
+  Toolbar,
+  AppBar as MuiAppBar,
+  Tooltip,
+  Chip,
+} from "@mui/material";
 // Static data import
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
@@ -30,10 +36,15 @@ const AppBar = styled(MuiAppBar, {
   width: `calc(100% - ${open ? drawerWidth : 0}px)`,
 }));
 
-const ClientHeader = () => {
+interface HeaderModuleTypes {
+  formSubmittedStatus: boolean;
+}
+
+const ClientHeader = ({ formSubmittedStatus }: HeaderModuleTypes) => {
   const router = useRouter();
   const userId = Cookies.get("userId");
-  const clientLogo = typeof window !== 'undefined' ? localStorage.getItem("clientLogo") : null;
+  const clientLogo =
+    typeof window !== "undefined" ? localStorage.getItem("clientLogo") : null;
   const userName = Cookies.get("userName");
   const businessTypeName = Cookies.get("businessTypeName");
   const clientSFId = Cookies.get("clientSFId");
@@ -110,15 +121,26 @@ const ClientHeader = () => {
     >
       <Toolbar>
         <div className="flex flex-row w-full justify-between items-center mb-3">
-          <div className={`!text-[#000000] ${!!clientLogo && 'flex gap-4 justify-center items-center'}`}>
+          <div
+            className={`!text-[#000000] ${
+              !!clientLogo && "flex gap-4 justify-center items-center"
+            }`}
+          >
             {!!clientLogo && (
               <span>
-                <img className="w-15 h-10" src={`data:image;base64,${clientLogo}`} alt="client logo" />
+                <img
+                  className="w-15 h-10"
+                  src={`data:image;base64,${clientLogo}`}
+                  alt="client logo"
+                />
               </span>
             )}
             <span className="!font-semibold text-[15px]">
               {clientSFId} &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
-              {businessTypeName}
+              {businessTypeName} &nbsp; &nbsp;
+              {formSubmittedStatus && (
+                <Chip size="small" label="Form Submitted" color="success" style={{ backgroundColor: "#38a169" }} />
+              )}
             </span>
           </div>
           <div className="relative flex">
@@ -136,8 +158,9 @@ const ClientHeader = () => {
                   top: 32,
                   right: -5,
                 }}
-                className={`absolute mt-[5px] bg-[#FFFFFF] ${isOpen ? "block" : "hidden"
-                  }`}
+                className={`absolute mt-[5px] bg-[#FFFFFF] ${
+                  isOpen ? "block" : "hidden"
+                }`}
               >
                 <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
                   {options.map((option) => (

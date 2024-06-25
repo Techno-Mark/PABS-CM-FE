@@ -14,6 +14,8 @@ function Page() {
     useState<number>(0);
   const [checkAllBasicDetails, setCheckAllBasicDetails] =
     useState<boolean>(false);
+  const [autoCareFormSubmittedStatus, setAutoCareFormSubmittedStatus] =
+    useState<boolean>(false);
   const [formSubmit, setFormSubmit] = useState<number>(31);
 
   useEffect(() => {
@@ -25,7 +27,8 @@ function Page() {
 
   return (
     <ClientWrapper
-    setWhiteLabelProgressPercentage={() => {}}
+      formSubmittedStatus={autoCareFormSubmittedStatus}
+      setWhiteLabelProgressPercentage={() => {}}
       perCountBasicDetails={perCountBasicDetails}
       perCountChecklist={perCountChecklist}
       formSubmit={formSubmit}
@@ -35,6 +38,9 @@ function Page() {
     >
       {formSubmit === 31 && (
         <BasicDetailsAutoCare
+          setAutoCareFormSubmittedStatus={(value: boolean) =>
+            setAutoCareFormSubmittedStatus(value)
+          }
           setIsOpenModal={() => {}}
           setCheckAllFields={(value: boolean) => setCheckAllBasicDetails(value)}
           autoCareProgressPercentage={autoCareProgressPercentage}
@@ -45,6 +51,9 @@ function Page() {
         />
       )}
       <ChecklistAutoCare
+        setAutoCareFormSubmittedStatus={(value: boolean) =>
+          setAutoCareFormSubmittedStatus(value)
+        }
         setIsOpenModal={() => {}}
         formSubmitId={formSubmit}
         checkAllBasicDetails={checkAllBasicDetails}

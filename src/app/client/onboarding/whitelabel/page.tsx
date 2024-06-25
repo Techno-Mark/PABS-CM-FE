@@ -23,6 +23,8 @@ const Page = () => {
     useState<boolean>(false);
   const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
     useState<boolean>(false);
+  const [whiteLabelFormSubmittedStatus, setWhiteLabelFormSubmittedStatus] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -40,9 +42,13 @@ const Page = () => {
       perCountWhiteLabelChecklist={whiteLabelPerCountChecklist}
       perCountWhiteLabelBasicDetails={whiteLabelPerCountBasicDetails}
       formSubmit={formSubmit}
+      formSubmittedStatus={whiteLabelFormSubmittedStatus}
     >
       {formSubmit === 11 && (
         <BasicDetailsWhitelabel
+          setWhiteLabelFormSubmittedStatus={(value: boolean) =>
+            setWhiteLabelFormSubmittedStatus(value)
+          }
           setIsOpenModal={() => {}}
           setCheckAllWhiteLabelBasicFields={(value: boolean) =>
             setCheckAllWhiteLabelBasicDetails(value)
@@ -57,6 +63,9 @@ const Page = () => {
         />
       )}
       <ChecklistWhitelabel
+        setWhiteLabelFormSubmittedStatus={(value: boolean) =>
+          setWhiteLabelFormSubmittedStatus(value)
+        }
         setCheckAllWhiteLabelCheckist={(value: boolean) => {
           setCheckAllWhiteLabelCheckist(value);
         }}
@@ -72,6 +81,9 @@ const Page = () => {
       />
       {formSubmit === 13 && (
         <AccountDetailsWhitelabel
+          setWhiteLabelFormSubmittedStatus={(value: boolean) =>
+            setWhiteLabelFormSubmittedStatus(value)
+          }
           isFormSubmmitWhitelabel={isFormSubmmitWhitelabel}
           whiteLabelProgressPercentage={whiteLabelProgressPercentage}
           checkAllWhitelabelBasicDetails={checkAllWhitelabelBasicDetails}

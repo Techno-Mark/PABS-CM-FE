@@ -240,7 +240,7 @@ const AccountingMethod = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Method of accounting
+        Method of Accounting
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -438,7 +438,7 @@ const FiscalYearEnd = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Fiscal Year end
+        Fiscal Year End
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -541,7 +541,7 @@ const LastClosedMonth = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Last Closed month in Accounting Software
+        Last Closed Month in Accounting Software
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
@@ -751,7 +751,7 @@ const TaxReturn = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Last year Tax Return 990<span className="text-[#DC3545]">*</span>
+        Last Year Tax Return 990<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -860,7 +860,7 @@ const DistributionList = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Monthly Financials distribution list
+        Monthly Financials Distribution List
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
