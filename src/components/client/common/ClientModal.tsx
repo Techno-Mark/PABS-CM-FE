@@ -73,6 +73,7 @@ function ClientModal({
   const [formDetails, setFormDetails] = useState<any>(null);
   const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
     useState<boolean>(false);
+  const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
 
   const getFormDetials = async () => {
     const callBack = (
@@ -85,6 +86,7 @@ function ClientModal({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          setIsClientLogoDisplay(ResponseData?.clientLogo ?? "");
           setFormDetails(ResponseData !== null ? ResponseData : null);
           return;
       }
@@ -162,7 +164,20 @@ function ClientModal({
             >
               <Toolbar>
                 <div className="flex flex-row w-full justify-between items-center mb-3">
-                  <div className="!text-[#000000]">
+                  <div
+                    className={`!text-[#000000] ${
+                      !!isClientLogoDisplay && "flex gap-4 justify-center items-center"
+                    }`}
+                  >
+                    {!!isClientLogoDisplay && (
+                      <span>
+                        <img
+                          className="w-15 h-10"
+                          src={`data:image;base64,${isClientLogoDisplay}`}
+                          alt="client logo"
+                        />
+                      </span>
+                    )}
                     <span className="!font-semibold text-[15px]">
                       {clientInfo.SFID} &nbsp;|&nbsp; {clientInfo.clientName}{" "}
                       &nbsp;|&nbsp; {clientInfo.DepartmentType}
@@ -217,6 +232,7 @@ function ClientModal({
                 <>
                   {formSubmit === 31 && (
                     <BasicDetailsAutoCare
+                      setAutoCareFormSubmittedStatus={() => {}}
                       setCheckAllFields={() => {}}
                       autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
@@ -230,6 +246,7 @@ function ClientModal({
                     />
                   )}
                   <ChecklistAutoCare
+                    setAutoCareFormSubmittedStatus={() => {}}
                     formSubmitId={formSubmit}
                     checkAllBasicDetails={false}
                     autoCareProgressPercentage={autoCareProgressPer}
@@ -247,6 +264,7 @@ function ClientModal({
                 <>
                   {formSubmit === 21 && (
                     <ChecklistSmb
+                      setSmbFormSubmittedStatus={() => {}}
                       clientInfo={clientInfo}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       setSMBChecklistCount={(value: number) =>
@@ -264,6 +282,7 @@ function ClientModal({
                 <>
                   {formSubmit === 11 && (
                     <BasicDetailsWhitelabel
+                      setWhiteLabelFormSubmittedStatus={() => {}}
                       setCheckAllWhiteLabelBasicFields={() => {}}
                       whiteLabelProgressPercentage={whiteLabelProgressPer}
                       clientInfo={clientInfo}
@@ -277,7 +296,8 @@ function ClientModal({
                     />
                   )}
                   <ChecklistWhitelabel
-                  setCheckAllWhiteLabelCheckist={() => {}}
+                    setWhiteLabelFormSubmittedStatus={() => {}}
+                    setCheckAllWhiteLabelCheckist={() => {}}
                     setWhiteLabelFormIsSubmit={(value: boolean) =>
                       setIsFormSubmitWhitelabel(value)
                     }
@@ -302,7 +322,7 @@ function ClientModal({
                     />
                   )}
                 </>
-              ):(
+              ) : (
                 ""
               )}
             </Box>

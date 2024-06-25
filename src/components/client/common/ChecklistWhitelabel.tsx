@@ -95,7 +95,8 @@ const ChecklistWhitelabel = ({
   whiteLabelProgressPercentage,
   clientInfo,
   setCheckAllWhiteLabelCheckist,
-  setWhiteLabelFormIsSubmit
+  setWhiteLabelFormIsSubmit,
+  setWhiteLabelFormSubmittedStatus
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -260,6 +261,7 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false)
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false)
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
             setWhiteLabelCommunicationChecked(

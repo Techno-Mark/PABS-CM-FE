@@ -154,6 +154,7 @@ export interface AutoCareType {
   setIsOpenModal: (value: boolean) => void;
   autoCareProgressPercentage: number
   setCheckAllFields: (value: boolean) => void;
+  setAutoCareFormSubmittedStatus:(value:boolean) => void;
 }
 
 export interface ChecklistType extends Partial<AutoCareType> {
@@ -163,6 +164,7 @@ export interface ChecklistType extends Partial<AutoCareType> {
   autoCareProgressPercentage: number
   checkAllBasicDetails: boolean
   formSubmitId: number
+  setAutoCareFormSubmittedStatus:(value:boolean) => void
 }
 
 export interface BasicDetailsResponseDataType {

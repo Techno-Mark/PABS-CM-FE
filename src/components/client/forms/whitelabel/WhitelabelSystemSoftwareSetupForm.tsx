@@ -244,7 +244,7 @@ const RemoteSetup = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        If Remote Set up - Access Computer method (Dedicated)
+        If Remote Set Up - Access Computer Method (Dedicated)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -369,7 +369,7 @@ const ITHelp = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Need your IT teams help?
+        Need your IT Teams Help?
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -810,7 +810,7 @@ const Messenger = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Team/Clickup/Slack/ Other Messenger tool set up
+        Team/Clickup/Slack/ Other Messenger Tool Set Up
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
@@ -957,7 +957,7 @@ const SystemAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Any Other System access<span className="text-[#DC3545]">*</span>
+        Any Other System Access<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -1108,7 +1108,7 @@ const OtherInfo = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Other information
+        Other Information
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>

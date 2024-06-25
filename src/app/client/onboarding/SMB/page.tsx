@@ -15,6 +15,8 @@ function Page() {
   const userId = Cookies.get("userId");
   const [formDetails, setFormDetails] = useState<any>(null);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
+  const [smbFormSubmittedStatus, setSmbFormSubmittedStatus] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -54,8 +56,12 @@ function Page() {
       setAutoCareProgressPercentage={() => {}}
       formSubmit={21}
       perCountSmbChecklist={perCountSmbChecklist}
+      formSubmittedStatus={smbFormSubmittedStatus}
     >
       <ChecklistSmb
+        setSmbFormSubmittedStatus={(value: boolean) =>
+          setSmbFormSubmittedStatus(value)
+        }
         setSMBChecklistCount={(value: number) => setPerCountSmbChecklist(value)}
         formDetails={formDetails !== null ? formDetails?.checkList : false}
         responseData={formDetails !== null ? formDetails : false}

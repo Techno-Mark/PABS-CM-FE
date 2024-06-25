@@ -69,7 +69,7 @@ function Page() {
       width: 70,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-semibold">{params.value}</span>
+        <span className="font-semibold">{params.api.getAllRowIds().indexOf(params.id)+1}</span>
       ),
     },
     {

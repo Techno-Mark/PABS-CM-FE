@@ -495,7 +495,7 @@ const SalesTaxPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Provide Access to Sales Tax portal Access
+        Provide Access to Sales Tax Portal Access
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -597,7 +597,7 @@ const MerchantAccountPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Merchant account portal Access (If any)
+        Merchant account Portal Access (If Any)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -710,7 +710,7 @@ const PayrollServiceAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Payroll service Provider Access<span className="text-[#DC3545]">*</span>
+        Payroll Service Provider Access<span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -828,7 +828,7 @@ const PayrollFrequency = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No. of employees on roll , Payroll Frequency
+        No. of Employees on Roll , Payroll Frequency
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -930,7 +930,7 @@ const ExpensePaymentPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Expense Payment portal Access (If any)
+        Expense Payment Portal Access (If Any)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -1037,7 +1037,7 @@ const ModeOfPayment = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Monthly AP Bills counts & Mode of Payment
+        Monthly AP Bills Counts & Mode of Payment
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
@@ -1144,7 +1144,7 @@ const ApBills = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        AP bills - (mode of receiving bills)
+        AP Bills - (Mode of Receiving Bills)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>

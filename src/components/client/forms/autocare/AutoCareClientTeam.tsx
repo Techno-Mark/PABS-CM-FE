@@ -451,6 +451,7 @@ function AutoCareClientTeam({
                   error={!!autoCareClientTeamErrors?.weeklyCalls}
                 />
               )}
+              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
             {autoCareClientTeamErrors?.weeklyCalls && (
               <span className="text-[#d32f2f]">

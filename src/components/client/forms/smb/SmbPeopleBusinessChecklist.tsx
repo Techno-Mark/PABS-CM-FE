@@ -266,7 +266,7 @@ const TypeOfEntity = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Type of entity
+        Type of Entity
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -368,7 +368,7 @@ const BusinessNature = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Nature of business
+        Nature of Business
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -468,7 +468,7 @@ const Dimensions = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Any other subsidiary/Locations
+        Any Other Subsidiary/Locations
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
