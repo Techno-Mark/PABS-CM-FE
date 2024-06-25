@@ -103,6 +103,7 @@ function ClientModal({
 
   const handleDownload = () => {
     console.log("outside 1");
+    console.log(`${process.env.APIDEV_URL}${onboardingDownloadFormUrl}`)
     fetch(`${process.env.APIDEV_URL}${onboardingDownloadFormUrl}`, {
       method: "POST",
       headers: {
