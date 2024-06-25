@@ -62,7 +62,7 @@ const initialValues: InitialValues = {
   deadline: "",
   notes1: "",
   notes: "",
-  status: false,
+  status: 1,
 };
 
 const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({

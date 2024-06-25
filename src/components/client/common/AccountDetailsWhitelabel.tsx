@@ -482,7 +482,7 @@ const AccountDetailsWhitelabel = ({
 
       <div className={`flex flex-col gap-5`}>
         <div
-          className={` ${roleId !== "4" ? "h-[65vh]" : ""
+          className={` ${roleId !== "4" ? "h-[63vh]" : ""
             } px-4 mt-5 scrollbar overflow-auto`}
         >
           <DataGrid
