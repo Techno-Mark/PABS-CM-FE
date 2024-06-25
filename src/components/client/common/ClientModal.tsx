@@ -102,6 +102,7 @@ function ClientModal({
   }, []);
 
   const handleDownload = () => {
+    console.log("outside 1");
     fetch(`${process.env.APIDEV_URL}${onboardingDownloadFormUrl}`, {
       method: "POST",
       headers: {
@@ -111,13 +112,17 @@ function ClientModal({
       body: JSON.stringify({ userId: Number(clientInfo?.UserId!) }),
     })
       .then((response) => {
+        console.log("inside 1");
         if (response.ok) {
+          console.log("inside 2");
           return response.blob();
         } else {
+          console.log("inside 3");
           throw new Error("Error downloading file");
         }
       })
       .then((blob) => {
+        console.log("inside 4");
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.style.display = "none";
@@ -128,6 +133,7 @@ function ClientModal({
         window.URL.revokeObjectURL(url);
       })
       .catch((error) => {
+        console.log("inside 5");
         console.error("Error:", error);
       });
   };
@@ -166,7 +172,8 @@ function ClientModal({
                 <div className="flex flex-row w-full justify-between items-center mb-3">
                   <div
                     className={`!text-[#000000] ${
-                      !!isClientLogoDisplay && "flex gap-4 justify-center items-center"
+                      !!isClientLogoDisplay &&
+                      "flex gap-4 justify-center items-center"
                     }`}
                   >
                     {!!isClientLogoDisplay && (

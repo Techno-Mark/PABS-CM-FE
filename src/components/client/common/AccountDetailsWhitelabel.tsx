@@ -29,7 +29,7 @@ const AccountDetailsWhitelabel = ({
   clientInfo,
   whiteLabelProgressPercentage,
   isFormSubmmitWhitelabel,
-  setWhiteLabelFormSubmittedStatus
+  setWhiteLabelFormSubmittedStatus,
 }: any) => {
   const userId = Cookies.get("userId");
   const roleId = Cookies.get("roleId");
@@ -107,14 +107,14 @@ const AccountDetailsWhitelabel = ({
 
   const columns: GridColDef[] = [
     {
-      field: "id",
+      field: "srNo",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Sr No.</span>
       ),
       width: 100,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-semibold">{params.api.getAllRowIds().indexOf(params.id)+1}</span>
+        <span className="font-semibold">{params.value}</span>
       ),
     },
     {
@@ -344,7 +344,14 @@ const AccountDetailsWhitelabel = ({
           setLoading(false);
           return;
         case "success":
-          setAccountList(ResponseData.accountDetail);
+          setAccountList(
+            ResponseData.accountDetail.map((item, index) => ({
+              ...item,
+              srNo:
+                (ResponseData.currentPage - 1) * accountListParams.limit +
+                (index + 1),
+            }))
+          );
           setTotalCount(ResponseData.totalAccountDetails);
           setLoading(false);
           return;
@@ -361,7 +368,7 @@ const AccountDetailsWhitelabel = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       getAccountList();
-      setWhiteLabelFormSubmittedStatus(isFormSubmmitWhitelabel)
+      setWhiteLabelFormSubmittedStatus(isFormSubmmitWhitelabel);
     }, 550);
 
     return () => clearTimeout(timer);
@@ -519,7 +526,7 @@ const AccountDetailsWhitelabel = ({
                     onPageChange={handlePageChange}
                     rowsPerPage={rowsPerPage}
                     onRowsPerPageChange={handleRowsPerPageChange}
-                    rowsPerPageOptions={[10, 25, 50, 100]}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
                   />
                 </div>
               ),

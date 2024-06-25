@@ -62,14 +62,14 @@ function Page() {
 
   const columns: GridColDef[] = [
     {
-      field: "ClientId",
+      field: "srNo",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Sr No.</span>
       ),
       width: 70,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-semibold">{params.api.getAllRowIds().indexOf(params.id)+1}</span>
+        <span className="font-semibold">{params.value}</span>
       ),
     },
     {
@@ -104,7 +104,10 @@ function Page() {
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <span>{params.value} {params.row.Progress !== null && `(${params.row.Progress}%)`}</span>
+        <span>
+          {params.value}{" "}
+          {params.row.Progress !== null && `(${params.row.Progress}%)`}
+        </span>
       ),
     },
     {
@@ -279,7 +282,7 @@ function Page() {
                     DepartmentId: params.row.BusinessTypeId,
                     ClientId: params.row.ClientId,
                     clientName: params.row.Clientname,
-                    UserId: params.row.UserId
+                    UserId: params.row.UserId,
                   });
                 }}
               >
@@ -297,7 +300,7 @@ function Page() {
     DepartmentId: "",
     ClientId: "",
     clientName: "",
-    UserId:"",
+    UserId: "",
   });
   const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
   const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
@@ -487,7 +490,14 @@ function Page() {
           setLoading(false);
           return;
         case "success":
-          setClientData(ResponseData.clients);
+          setClientData(
+            ResponseData.clients.map((item, index) => ({
+              ...item,
+              srNo:
+                (ResponseData.currentPage - 1) * clientListParams.limit +
+                (index + 1),
+            }))
+          );
           setTotalCount(ResponseData.totalClients);
           setLoading(false);
           return;
@@ -672,7 +682,7 @@ function Page() {
                     onPageChange={handlePageChange}
                     rowsPerPage={rowsPerPage}
                     onRowsPerPageChange={handleRowsPerPageChange}
-                    rowsPerPageOptions={[10, 25, 50, 100]}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
                   />
                 </div>
               ),
@@ -749,7 +759,7 @@ function Page() {
               DepartmentId: "",
               ClientId: "",
               clientName: "",
-              UserId:"",
+              UserId: "",
             });
           }}
           setIsOpenModal={(value) => {
