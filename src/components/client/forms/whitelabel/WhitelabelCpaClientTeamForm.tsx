@@ -21,13 +21,14 @@ const WhitelabelCpaClientTeamForm = ({
 }: WhitelabelCpaClientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-  
+
   return (
     <div className={`${className}`}>
       <FormBox
         title="CPA Client Team"
         checkStatus={whitelabelCpaClientTeamCheckStatus}
         handleChange={(e: any) => handleWhitelabelCpaClientTeamSwitch(e)}
+        switchDisabled={checkAllFieldsWhitelabelCpaClientTeamForm}
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -176,6 +177,7 @@ const WhitelabelCpaClientTeamForm = ({
                   </div>
                 </Grid>
                 <Grid item xs={1}>
+                  {roleId === "4" ? checkAllFieldsWhitelabelCpaClientTeamForm : true && (
                   <div className="flex justify-end items-center pl-2 mt-6 gap-4">
                     {whitelabelCpaClientTeam.cpaArray.length > 1 && (
                       <span
@@ -191,6 +193,7 @@ const WhitelabelCpaClientTeamForm = ({
                       </span>
                     )}
                   </div>
+                  )}
                 </Grid>
               </Grid>
             )

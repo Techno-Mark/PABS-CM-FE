@@ -1166,7 +1166,7 @@ const ChecklistWhitelabel = ({
         });
       } else {
         setExpandedAccordian(-1);
-        setChecklistFormSubmit(13);
+        setChecklistFormSubmit(11);
       }
     }
   };

@@ -330,7 +330,7 @@ const BasicDetailsWhitelabel = ({
           whiteLabelformData
         );
       } else {
-        setWhitelabelBasicDetailsFormSubmit(32);
+        setWhitelabelBasicDetailsFormSubmit(12);
       }
       if (!isValid) {
         showToast(
@@ -444,14 +444,14 @@ const BasicDetailsWhitelabel = ({
   };
 
   const validateCpaClientTeam = () => {
-    let isValid = true;
+    let isValid = false;
     const newErrors = {
       pocDetails: "",
       cpaArray: whitelabelCpaClientTeam.cpaArray.map((field: any) => {
         const fieldErrors: any = {};
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
           if (!field[key]) {
-            isValid = false;
+            isValid = true;
             fieldErrors[key] = `${
               key === "pocName"
                 ? "POC Name"
@@ -466,18 +466,12 @@ const BasicDetailsWhitelabel = ({
     };
 
     if (!whitelabelCpaClientTeam.pocDetails) {
-      isValid = false;
+      isValid = true;
       newErrors.pocDetails = "POC Details is required";
     }
 
-    const hasCpaArrayErrors = newErrors.cpaArray.some((fieldErrors: any) =>
-      Object.values(fieldErrors).some((error) => !!error)
-    );
-
-    const hasErrors = !!newErrors.pocDetails || hasCpaArrayErrors;
-
     setWhitelabelCpaClientTeamErrors(newErrors);
-    return hasErrors;
+    return isValid;
   };
 
   const handleAddField = () => {

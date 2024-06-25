@@ -274,7 +274,10 @@ const AccountDetailsWhitelabel = ({
           params.value === true ? "Active" : "Inactive"
         ),
     },
-    {
+  ]
+
+  if (roleId === '4' ? !isFormSubmmitWhitelabel : true) {
+    columns.push({
       field: "action",
       renderHeader: () => (
         <span className="font-semibold text-[13px] flex justify-end items-end">
@@ -313,8 +316,8 @@ const AccountDetailsWhitelabel = ({
           </div>
         );
       },
-    },
-  ];
+    });
+  }
 
   const getAccountList = async () => {
     const callback = (
@@ -432,7 +435,7 @@ const AccountDetailsWhitelabel = ({
             ? parseInt(clientInfo?.DepartmentId)
             : parseInt(businessTypeId!),
           progress: whiteLabelProgressPercentage,
-          isSubmitted: true,
+          isSubmited: true,
         });
       }
     }
@@ -454,30 +457,32 @@ const AccountDetailsWhitelabel = ({
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="flex gap-5">
-          <button
-            onClick={() => {
-              setBulkOpenDrawer(true);
-            }}
-            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-          >
-            Bulk Upload
-          </button>
-          <button
-            onClick={() => {
-              setOpenDrawer(true);
-              setEdit(false);
-            }}
-            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-          >
-            Add Account Detail
-          </button>
-        </div>
+        {roleId === '4' ? isFormSubmmitWhitelabel : true && (
+          <div className="flex gap-5">
+            <button
+              onClick={() => {
+                setBulkOpenDrawer(true);
+              }}
+              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+            >
+              Bulk Upload
+            </button>
+            <button
+              onClick={() => {
+                setOpenDrawer(true);
+                setEdit(false);
+              }}
+              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+            >
+              Add Account Detail
+            </button>
+          </div>
+        )}
       </div>
 
       <div className={`flex flex-col gap-5`}>
         <div
-          className={` ${roleId !== "4" ? "h-[65vh]" : "h-[72vh]"
+          className={` ${roleId !== "4" ? "h-[65vh]" : ""
             } px-4 mt-5 scrollbar overflow-auto`}
         >
           <DataGrid
@@ -487,6 +492,7 @@ const AccountDetailsWhitelabel = ({
             getRowId={(i: any) => i.id}
             localeText={noRecordText}
             loading={loading}
+            className="h-[calc(100vh-200px)]"
             slots={{
               loadingOverlay: CustomLoadingOverlay,
               footer: () => (

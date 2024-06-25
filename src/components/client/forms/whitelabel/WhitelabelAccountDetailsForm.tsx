@@ -158,6 +158,7 @@ const WhitelabelAccountDetailsForm = ({
         handleChange={(e: ChangeEvent<HTMLInputElement>) =>
           handleAccountDetailsSwitch(e)
         }
+        switchDisabled={checkAllFieldsWhiteLabelAccountDetailsForm}
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>

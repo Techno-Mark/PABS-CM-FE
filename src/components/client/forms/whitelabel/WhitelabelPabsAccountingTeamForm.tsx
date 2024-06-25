@@ -98,6 +98,7 @@ const WhitelabelPabsAccountingTeamForm = ({
         title="PABS Accounting Team"
         checkStatus={whitelabelPABSAccountingTeamCheckStatus}
         handleChange={(e: any) => handleWhitelabelPABSAccountingTeamSwitch(e)}
+        switchDisabled={checkAllFieldsWhitelabelPabsAccountingTeamForm}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>

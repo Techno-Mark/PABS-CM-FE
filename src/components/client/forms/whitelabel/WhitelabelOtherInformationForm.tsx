@@ -95,6 +95,7 @@ const WhitelabelOtherInformationForm = ({
         title="Other Information"
         checkStatus={whitelabelOtherInformationCheckStatus}
         handleChange={(e: any) => handleWhitelabelOtherInformationSwitch(e)}
+        switchDisabled={checkAllFieldsWhitelabelOtherInformationForm}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
