@@ -648,7 +648,7 @@ function ChecklistAutoCare({
 
   useEffect(() => {
     getAutoCareChecklistData();
-  }, []);
+  }, [formSubmitId]);
 
   useEffect(() => {
     const count = checklistStatus();
