@@ -47,14 +47,14 @@ function Page() {
 
   const columns: GridColDef[] = [
     {
-      field: "UserId",
+      field: "srNo",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Sr No.</span>
       ),
       width: 100,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-semibold">{params.api.getAllRowIds().indexOf(params.id)+1}</span>
+        <span className="font-semibold">{params.value}</span>
       ),
     },
     {
@@ -311,7 +311,14 @@ function Page() {
           setLoading(false);
           return;
         case "success":
-          setUserData(ResponseData.users);
+          setUserData(
+            ResponseData.users.map((item, index) => ({
+              ...item,
+              srNo:
+                (ResponseData.currentPage - 1) * userListParams.limit +
+                (index + 1),
+            }))
+          );
           setTotalCount(ResponseData.totalUsers);
           setLoading(false);
           return;
@@ -431,7 +438,7 @@ function Page() {
                     onPageChange={handlePageChange}
                     rowsPerPage={rowsPerPage}
                     onRowsPerPageChange={handleRowsPerPageChange}
-                    rowsPerPageOptions={[10, 25, 50, 100]}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
                   />
                 </div>
               ),
