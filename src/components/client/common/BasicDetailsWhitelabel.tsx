@@ -42,7 +42,7 @@ const BasicDetailsWhitelabel = ({
   setCheckAllWhiteLabelBasicFields,
   whiteLabelProgressPercentage,
   setIsOpenModal,
-  setWhiteLabelFormSubmittedStatus
+  setWhiteLabelFormSubmittedStatus,
 }: BasicDetailWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -129,7 +129,7 @@ const BasicDetailsWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
-            setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false)
+            setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setIsFormSubmitWhiteLabelBasicDetails(
               ResponseData?.isSubmited ?? false
             );
@@ -158,7 +158,9 @@ const BasicDetailsWhitelabel = ({
             setWhitelabelOtherInformation({
               noOfAccounts: ResponseData.noOfAccounts,
               bdm: ResponseData.bdm,
-              startDate: dayjs(ResponseData.startDate).format("DD MMM YYYY"),
+              startDate: ResponseData?.startDate
+                ? dayjs(ResponseData?.startDate).format("DD MMM YYYY")
+                : null,
             });
             setWhitelabelCpaClientTeam({
               pocDetails: ResponseData.pocDetails,
@@ -198,6 +200,8 @@ const BasicDetailsWhitelabel = ({
         : parseInt(userId!),
     });
   };
+
+  console.log("other information : ", whitelabelOtherInformation);
 
   useEffect(() => {
     getWhiteLabelBasicDetailsList();

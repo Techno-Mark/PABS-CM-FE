@@ -161,16 +161,21 @@ function BasicDetailsAutoCare({
                     ?.value || "-1"
                 : "-1",
               weeklyCalls: ResponseData?.weeklyCalls
-                .split(",")
-                .map((value) => {
-                  const matchingItem = WeeklyCallsList.find(
-                    (item) => item.value === value
-                  );
-                  return matchingItem
-                    ? { value: matchingItem.value, label: matchingItem.label }
-                    : [];
-                })
-                .filter((item): item is DropdownOption => item !== null),
+                ? ResponseData?.weeklyCalls
+                    .split(",")
+                    .map((value) => {
+                      const matchingItem = WeeklyCallsList.find(
+                        (item) => item.value === value
+                      );
+                      return (
+                        matchingItem && {
+                          value: matchingItem.value,
+                          label: matchingItem.label,
+                        }
+                      );
+                    })
+                    .filter((item): item is DropdownOption => item !== null)
+                : [],
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
             });
@@ -193,6 +198,8 @@ function BasicDetailsAutoCare({
         : parseInt(userId!),
     });
   };
+
+  console.log("auto care client : ", autoCareClientTeam);
   useEffect(() => {
     getAutoCareBasicDetailsList();
   }, []);
