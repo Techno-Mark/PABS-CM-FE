@@ -100,7 +100,7 @@ const WhitelabelDrawerPanel = ({
       >
         <div className="p-5 top-0 !h-[9%] flex items-center justify-between border-b">
           <span className="font-bold text-[18px]">
-            {canEdit ? "Edit" : "Add"} {type}
+            {canEdit ? "Edit Account Details" : "Add Account Details"} {type}
           </span>
           <Tooltip title="Close" placement="bottom" arrow>
             <span

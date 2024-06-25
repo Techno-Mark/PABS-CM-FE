@@ -172,13 +172,6 @@ function AutoCareClientTeam({
       case "state":
         setAutoCareClientTeam((prev) => ({ ...prev, state: value }));
         break;
-      case "weeklyCalls":
-        setAutoCareClientTeam((prev) => ({ ...prev, weeklyCalls: value }));
-        setAutoCareClientTeamErrors((prevErrors) => ({
-          ...prevErrors,
-          weeklyCalls: "",
-        }));
-        break;
     }
   };
 

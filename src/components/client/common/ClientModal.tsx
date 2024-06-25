@@ -33,6 +33,7 @@ import {
 import BasicDetailsWhitelabel from "./BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "./ChecklistWhitelabel";
 import Cookies from "js-cookie";
+import AccountDetailsWhitelabel from "./AccountDetailsWhitelabel";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -63,8 +64,15 @@ function ClientModal({
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
   const [autoCareProgressPer, setAutoCareProgressPer] = useState<number>(0);
+  const [perCounWhiteLabeltBasicDetails, setPerCountWhiteLabelBasicDetails] =
+    useState<number>(0);
+  const [whiteLabelPerCountChecklist, setWhitelabelPerCountChecklist] =
+    useState<number>(0);
+  const [whiteLabelProgressPer, setWhiteLabelProgressPer] = useState<number>(0);
   const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
   const [formDetails, setFormDetails] = useState<any>(null);
+  const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
+    useState<boolean>(false);
 
   const getFormDetials = async () => {
     const callBack = (
@@ -92,13 +100,13 @@ function ClientModal({
   }, []);
 
   const handleDownload = () => {
-    fetch(`${process.env.APIDEV_URL}/${onboardingDownloadFormUrl}`, {
+    fetch(`${process.env.APIDEV_URL}${onboardingDownloadFormUrl}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ userId: 89 }),
+      body: JSON.stringify({ userId: Number(clientInfo?.UserId!) }),
     })
       .then((response) => {
         if (response.ok) {
@@ -112,7 +120,7 @@ function ClientModal({
         const a = document.createElement("a");
         a.style.display = "none";
         a.href = url;
-        a.download = "ClientInfo.xlsx"; // The same filename set in the backend
+        a.download = "ClientInfo.xlsx";
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -182,10 +190,15 @@ function ClientModal({
               </Toolbar>
             </AppBar>
             <ClientSidebar
+              setWhiteLabelProgressPercentage={(value: number) =>
+                setWhiteLabelProgressPer(value)
+              }
               clientInfo={clientInfo}
               perCountChecklist={perCountChecklist}
               perCountBasicDetails={perCountBasicDetails}
               perCountSmbChecklist={perCountSmbChecklist}
+              perCountWhiteLabelBasicDetails={perCounWhiteLabeltBasicDetails}
+              perCountWhiteLabelChecklist={whiteLabelPerCountChecklist}
               sidebarModule={formSubmit}
               setAutoCareProgressPercentage={(value: number) =>
                 setAutoCareProgressPer(value)
@@ -247,28 +260,50 @@ function ClientModal({
                     />
                   )}
                 </>
-              ) : (
+              ) : clientInfo.DepartmentId === 1 ? (
                 <>
-                  {formSubmit === 11 ? (
+                  {formSubmit === 11 && (
                     <BasicDetailsWhitelabel
+                      setCheckAllWhiteLabelBasicFields={() => {}}
+                      whiteLabelProgressPercentage={whiteLabelProgressPer}
                       clientInfo={clientInfo}
                       setWhitelabelBasicDetailsFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setWhitelabelBasicDetailCount={(value: number) => {}}
+                      setWhitelabelBasicDetailCount={(value: number) =>
+                        setPerCountWhiteLabelBasicDetails(value)
+                      }
+                      setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                     />
-                  ) : formSubmit === 12 ? (
-                    <ChecklistWhitelabel
+                  )}
+                  <ChecklistWhitelabel
+                  setCheckAllWhiteLabelCheckist={() => {}}
+                    setWhiteLabelFormIsSubmit={(value: boolean) =>
+                      setIsFormSubmitWhitelabel(value)
+                    }
+                    whiteLabelProgressPercentage={whiteLabelProgressPer}
+                    clientInfo={clientInfo}
+                    formSubmitId={formSubmit}
+                    setChecklistFormSubmit={(value: number) =>
+                      setFormSubmit(value)
+                    }
+                    setWhiteLabelChecklistCount={(value: number) =>
+                      setWhitelabelPerCountChecklist(value)
+                    }
+                  />
+                  {formSubmit === 13 && (
+                    <AccountDetailsWhitelabel
+                      isFormSubmmitWhitelabel={isFormSubmmitWhitelabel}
+                      whiteLabelProgressPercentage={whiteLabelProgressPer}
                       clientInfo={clientInfo}
                       setChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
-                      setChecklistCount={(value: number) => {}}
                     />
-                  ) : (
-                    ""
                   )}
                 </>
+              ):(
+                ""
               )}
             </Box>
           </Box>

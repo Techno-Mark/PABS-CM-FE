@@ -54,9 +54,8 @@ const ClientDrawer = ({
     value: -1,
   };
   const classes = useStyles();
-  const [imagePreview, setImagePreview] = useState<any>(null);
+  const [imagePreview, setImagePreview] =  useState<any>(null);
   const [file, setFile] = useState<any>(null);
-  // const [fileErrType, setFileErrType] = useState<0 | 1 | 2>(0);
   const [sFID, setSFID] = useState<StringFieldType>(initialFieldStringValues);
   const [clientFullName, setClientFullName] = useState<StringFieldType>(
     initialFieldStringValues
@@ -591,7 +590,7 @@ const ClientDrawer = ({
           >
             <Dropzone
               multiple={false}
-              onDrop={(e: any) => {
+              onDrop={(e: File[]) => {
                 const file = e[0];
                 const fileType = `${file.name}`;
                 const fileTypeParts = fileType.split(".");
@@ -608,7 +607,7 @@ const ClientDrawer = ({
                       setFileError(false);
                       const reader = new FileReader();
                       reader.onloadend = () => {
-                        const image: any = new Image();
+                        const image = new Image();
                         image.onload = () => {
                           if (image.width <= 150 && image.height <= 100) {
                             setFileError(false);
@@ -623,7 +622,7 @@ const ClientDrawer = ({
                             setFileError(true);
                           }
                         };
-                        image.src = reader.result;
+                        image.src = reader.result as string;
                       };
                       reader.readAsDataURL(file);
                     } else {

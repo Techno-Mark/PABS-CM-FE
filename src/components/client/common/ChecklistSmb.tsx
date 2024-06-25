@@ -1518,7 +1518,7 @@ function ChecklistSmb({
       checkStatus: peopleBusinessChecked,
       errorStatus: smbPeopleBusinessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 1),
+      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 1),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.COMMUNICATION
       ),
@@ -1560,7 +1560,7 @@ function ChecklistSmb({
       errorStatus: smbSystemDocumentAccessHasErrors,
       expandedStatus:
         expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 2),
+      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 2),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
       ),
@@ -1599,7 +1599,7 @@ function ChecklistSmb({
       checkStatus: cashBanksLoansChecked,
       errorStatus: smbCashBankingAccessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 3),
+      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 3),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.CASH_BANKING_LOANS
       ),
@@ -1628,7 +1628,7 @@ function ChecklistSmb({
       checkStatus: conditionExistingFinancialsChecked,
       errorStatus: smbExistingFinancialsChecklistHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 4),
+      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 4),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.PAYROLL_SYSTEM
       ),
@@ -1663,7 +1663,7 @@ function ChecklistSmb({
       checkStatus: meetingAvailabilityChecked,
       errorStatus: smbMeetingChecklistHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMPLIANCES,
-      handleSwitchChange: (e: any) => handleSwitchChange(e, 5),
+      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 5),
       handleAccordianChange: handleAccordianChange(AccordianExpand.COMPLIANCES),
       title: "Meeting Availability",
       component: (

@@ -1,3 +1,5 @@
+import { ClientInfoType } from "@/models/autoCareBasicDetails";
+
 export interface ClientModalProps {
   clientInfo:any
   isOpen: boolean;

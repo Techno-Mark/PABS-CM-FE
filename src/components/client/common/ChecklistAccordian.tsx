@@ -1,12 +1,14 @@
+import React from "react";
+// MUI import
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Switch,
 } from "@mui/material";
-import React from "react";
-import { ChecklistAccordianProps } from "@/models/autoCareChecklist";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// Models import
+import { ChecklistAccordianProps } from "@/models/autoCareChecklist";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -21,6 +23,7 @@ const ChecklistAccordian = ({
   switchDisabled = false
 }: ChecklistAccordianProps) => {
   const roleId = Cookies.get("roleId");
+
   return (
     <Accordion
       expanded={expandedAccordian}

@@ -10,9 +10,19 @@ import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsW
 
 const Page = () => {
   const router = useRouter();
-  const userID = Cookies.get("userId");
-  const [basicDetailsCount, setBasicDetailCount] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(13);
+  const [whiteLabelPerCountBasicDetails, setWhiteLabelPerCountBasicDetails] =
+    useState<number>(0);
+  const [whiteLabelPerCountChecklist, setWhitelabelPerCountChecklist] =
+    useState<number>(0);
+  const [whiteLabelProgressPercentage, setWhiteLabelProgressPercentage] =
+    useState<number>(0);
+  const [formSubmit, setFormSubmit] = useState<number>(11);
+  const [checkAllWhitelabelBasicDetails, setCheckAllWhiteLabelBasicDetails] =
+    useState<boolean>(false);
+  const [checkAllWhitelabelChecklist, setCheckAllWhiteLabelCheckist] =
+    useState<boolean>(false);
+  const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -20,28 +30,55 @@ const Page = () => {
       router.push("/auth/login");
     }
   }, []);
-  
+
   return (
     <ClientWrapper
       setAutoCareProgressPercentage={() => {}}
-      perCountChecklist={50}
-      perCountBasicDetails={12}
+      setWhiteLabelProgressPercentage={(value: number) =>
+        setWhiteLabelProgressPercentage(value)
+      }
+      perCountWhiteLabelChecklist={whiteLabelPerCountChecklist}
+      perCountWhiteLabelBasicDetails={whiteLabelPerCountBasicDetails}
       formSubmit={formSubmit}
     >
       {formSubmit === 11 && (
         <BasicDetailsWhitelabel
+          setIsOpenModal={() => {}}
+          setCheckAllWhiteLabelBasicFields={(value: boolean) =>
+            setCheckAllWhiteLabelBasicDetails(value)
+          }
+          whiteLabelProgressPercentage={whiteLabelProgressPercentage}
           setWhitelabelBasicDetailsFormSubmit={(value: number) =>
             setFormSubmit(value)
           }
           setWhitelabelBasicDetailCount={(value: number) =>
-            setBasicDetailCount(value)
+            setWhiteLabelPerCountBasicDetails(value)
           }
         />
       )}
-        <ChecklistWhitelabel
+      <ChecklistWhitelabel
+        setCheckAllWhiteLabelCheckist={(value: boolean) => {
+          setCheckAllWhiteLabelCheckist(value);
+        }}
+        setWhiteLabelFormIsSubmit={(value: boolean) =>
+          setIsFormSubmitWhitelabel(value)
+        }
+        whiteLabelProgressPercentage={whiteLabelProgressPercentage}
+        formSubmitId={formSubmit}
+        setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+        setWhiteLabelChecklistCount={(value: number) =>
+          setWhitelabelPerCountChecklist(value)
+        }
+      />
+      {formSubmit === 13 && (
+        <AccountDetailsWhitelabel
+          isFormSubmmitWhitelabel={isFormSubmmitWhitelabel}
+          whiteLabelProgressPercentage={whiteLabelProgressPercentage}
+          checkAllWhitelabelBasicDetails={checkAllWhitelabelBasicDetails}
+          checkAllWhitelabelChecklist={checkAllWhitelabelChecklist}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
-          setChecklistCount={(value: number) => setBasicDetailCount(value)}
         />
+      )}
     </ClientWrapper>
   );
 };

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
-import { ChecklistWhitelabelType } from "@/models/whitelabel/whitelabelBasicDetails";
+import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
@@ -11,6 +11,7 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 import {
   OnboardingFormAccountDetailsDelete,
   OnboardingFormAccountDetailsList,
+  onboardingSaveFormUrl,
 } from "@/static/apiUrl";
 import { Button, TablePagination, Tooltip } from "@mui/material";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
@@ -22,10 +23,17 @@ import BulkImportModel from "@/components/admin/common/BulkImportModel";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 
 const AccountDetailsWhitelabel = ({
-  setChecklistCount,
   setChecklistFormSubmit,
-}: ChecklistWhitelabelType) => {
+  checkAllWhitelabelBasicDetails,
+  checkAllWhitelabelChecklist,
+  clientInfo,
+  whiteLabelProgressPercentage,
+  isFormSubmmitWhitelabel,
+}: any) => {
   const userId = Cookies.get("userId");
+  const roleId = Cookies.get("roleId");
+  const businessTypeId = Cookies.get("businessTypeId");
+
   const [loading, setLoading] = useState<boolean>(true);
   const [isBulkLoading, setBulkLoading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,6 +47,7 @@ const AccountDetailsWhitelabel = ({
   const [totalCount, setTotalCount] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [accountList, setAccountList] = useState<any>([]);
+  const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] = useState<boolean>(false);
   const [accountListParams, setAccountListParams] = useState<{
     page: number;
     limit: number;
@@ -118,7 +127,7 @@ const AccountDetailsWhitelabel = ({
     {
       field: "organizationName",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">OrganizationName</span>
+        <span className="font-semibold text-[13px]">Organization Name</span>
       ),
       minWidth: 150,
       sortable: false,
@@ -254,6 +263,21 @@ const AccountDetailsWhitelabel = ({
       renderCell: (params) => renderCellFunctionTooltip(params.value),
     },
     {
+      field: "status",
+      renderHeader: () => (
+        <span className="font-semibold text-[13px]">Status</span>
+      ),
+      minWidth: 100,
+      sortable: false,
+      renderCell: (params) =>
+        renderCellFunctionTooltip(
+          params.value === true ? "Active" : "Inactive"
+        ),
+    },
+  ]
+
+  if (roleId === '4' ? !isFormSubmmitWhitelabel : true) {
+    columns.push({
       field: "action",
       renderHeader: () => (
         <span className="font-semibold text-[13px] flex justify-end items-end">
@@ -292,8 +316,8 @@ const AccountDetailsWhitelabel = ({
           </div>
         );
       },
-    },
-  ];
+    });
+  }
 
   const getAccountList = async () => {
     const callback = (
@@ -373,10 +397,54 @@ const AccountDetailsWhitelabel = ({
     );
   };
 
+  const handleSubmit = () => {
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setIsOpenConfirmationSubmit(false);
+          return;
+        case "success":
+          setIsOpenConfirmationSubmit(false);
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+
+    if (!checkAllWhitelabelBasicDetails) {
+      setChecklistFormSubmit(11);
+      setIsOpenConfirmationSubmit(false);
+      showToast(
+        "Please provide mandatory fields to submit the onboarding form.",
+        ToastType.Error
+      );
+    } else if (!checkAllWhitelabelChecklist) {
+      setChecklistFormSubmit(12);
+      setIsOpenConfirmationSubmit(false);
+      showToast(
+        "Please provide mandatory fields to submit the onboarding form.",
+        ToastType.Error
+      );
+    } else {
+      if (!isFormSubmmitWhitelabel) {
+        callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+          userId: !!clientInfo?.UserId
+            ? parseInt(clientInfo?.UserId)
+            : parseInt(userId!),
+          businessTypeId: !!clientInfo?.DepartmentId
+            ? parseInt(clientInfo?.DepartmentId)
+            : parseInt(businessTypeId!),
+          progress: whiteLabelProgressPercentage,
+          isSubmited: true,
+        });
+      }
+    }
+  };
+
   return (
-    <div className={`flex flex-col overflow-hidden py-4 px-4 w-[95%]`}>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
-        <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+    <div className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full  w-[95%]"} pt-12`}>
+      <div className="flex justify-between px-4  pt-4 bg-[#F9FBFF]">
+        <div className="w-[30%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
           <span className="m-3 flex items-center">
             <SearchIcon />
           </span>
@@ -384,34 +452,39 @@ const AccountDetailsWhitelabel = ({
             type="search"
             id="default-search"
             placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-[80%]"
+            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="flex gap-5">
-          <button
-            onClick={() => {
-              setBulkOpenDrawer(true);
-            }}
-            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-          >
-            Bulk Upload
-          </button>
-          <button
-            onClick={() => {
-              setOpenDrawer(true);
-              setEdit(false);
-            }}
-            className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-          >
-            Add Account Detail
-          </button>
-        </div>
+        {roleId === '4' ? isFormSubmmitWhitelabel : true && (
+          <div className="flex gap-5">
+            <button
+              onClick={() => {
+                setBulkOpenDrawer(true);
+              }}
+              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+            >
+              Bulk Upload
+            </button>
+            <button
+              onClick={() => {
+                setOpenDrawer(true);
+                setEdit(false);
+              }}
+              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+            >
+              Add Account Detail
+            </button>
+          </div>
+        )}
       </div>
 
       <div className={`flex flex-col gap-5`}>
-        <div className="w-full h-[68vh] mt-5 scrollbar">
+        <div
+          className={` ${roleId !== "4" ? "h-[63vh]" : ""
+            } px-4 mt-5 scrollbar overflow-auto`}
+        >
           <DataGrid
             disableColumnMenu
             rows={accountList}
@@ -419,6 +492,7 @@ const AccountDetailsWhitelabel = ({
             getRowId={(i: any) => i.id}
             localeText={noRecordText}
             loading={loading}
+            className="h-[calc(100vh-200px)]"
             slots={{
               loadingOverlay: CustomLoadingOverlay,
               footer: () => (
@@ -436,24 +510,33 @@ const AccountDetailsWhitelabel = ({
             }}
             sx={{
               [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
               [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
             }}
           />
         </div>
-        <div className="py-2 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+        <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6">
           <Button
             onClick={() => setChecklistFormSubmit(12)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-lg font-semibold text-[16px]`}
+            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
             variant="outlined"
           >
             Back
           </Button>
+          {roleId === "4" && !isFormSubmmitWhitelabel && (
+            <Button
+              onClick={() => setIsOpenConfirmationSubmit(true)}
+              className={`!bg-[#022946] font-semibold text-white !rounded-full text-[14px]`}
+              variant="outlined"
+            >
+              Submit
+            </Button>
+          )}
         </div>
       </div>
 
@@ -490,6 +573,19 @@ const AccountDetailsWhitelabel = ({
           handleClose={() => setOpenDelete(false)}
           setIsOpen={(value) => setOpenDelete(value)}
           setId={() => setClientId(0)}
+        />
+      )}
+
+      {isOpenConfirmationSubmit && (
+        <ConfirmModal
+          title="Confirm"
+          isOpen={isOpenConfirmationSubmit}
+          message="After submit you will not be able to update data. Please click confirm to continue."
+          handleModalSubmit={() => handleSubmit()}
+          handleClose={() => setIsOpenConfirmationSubmit(false)}
+          setIsOpen={(value) => {
+            setIsOpenConfirmationSubmit(value);
+          }}
         />
       )}
 

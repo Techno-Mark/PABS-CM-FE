@@ -6,8 +6,9 @@ import {
   WhitelabelPABSAccountingTeamErrors,
   WhitelabelPABSAccountingTeamTypes,
   WhitelabelPABSAccountingTypes,
-} from "@/models/whitelabel/whitelabelBasicDetails";
+} from "@/models/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
+import Cookies from "js-cookie";
 
 const WhitelabelPabsAccountingTeamForm = ({
   className,
@@ -17,8 +18,10 @@ const WhitelabelPabsAccountingTeamForm = ({
   setWhitelabelPABSAccountingTeam,
   whitelabelPABSAccountingTeamErrors,
   setWhitelabelPABSAccountingTeamErrors,
+  checkAllFieldsWhitelabelPabsAccountingTeamForm
 }: WhitelabelPABSAccountingTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -95,6 +98,7 @@ const WhitelabelPabsAccountingTeamForm = ({
         title="PABS Accounting Team"
         checkStatus={whitelabelPABSAccountingTeamCheckStatus}
         handleChange={(e: any) => handleWhitelabelPABSAccountingTeamSwitch(e)}
+        switchDisabled={checkAllFieldsWhitelabelPabsAccountingTeamForm}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
@@ -121,6 +125,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -147,6 +152,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -173,6 +179,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -199,6 +206,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -227,6 +235,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -253,6 +262,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>
@@ -277,6 +287,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
                 />
               </div>
             </Grid>

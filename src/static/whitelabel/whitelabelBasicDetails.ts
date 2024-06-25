@@ -20,6 +20,17 @@ export const validateWhitelabelAccountDetails = [
   "ownerPhone",
 ];
 
+export const whiteLabelAccountDetailsfieldDisplayNames: { [key: string]: string } = {
+  cpaName: "CPA Name",
+  corporateAddress: "Corporate Address",
+  city: "City",
+  state: "State",
+  zip: "Zip",
+  ownerContact: "Owner Contact",
+  ownerEmail: "Owner Email",
+  ownerPhone: "Owner Phone",
+};
+
 export const initialWhitelabelOtherInformation = {
   noOfAccounts: 0,
   bdm: "",

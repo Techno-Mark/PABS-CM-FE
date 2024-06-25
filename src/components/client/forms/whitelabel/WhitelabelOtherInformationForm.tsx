@@ -11,8 +11,9 @@ import {
   WhitelabelOtherInfoTypes,
   WhitelabelOtherInformationErrors,
   WhitelabelOtherInformationTypes,
-} from "@/models/whitelabel/whitelabelBasicDetails";
+} from "@/models/whitelabelBasicDetails";
 import { validateNumber } from "@/utils/validate";
+import Cookies from "js-cookie";
 
 const WhitelabelOtherInformationForm = ({
   className,
@@ -22,8 +23,10 @@ const WhitelabelOtherInformationForm = ({
   setWhitelabelOtherInformation,
   whitelabelOtherInformationErrors,
   setWhitelabelOtherInformationErrors,
+  checkAllFieldsWhitelabelOtherInformationForm,
 }: WhitelabelOtherInfoTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -92,6 +95,7 @@ const WhitelabelOtherInformationForm = ({
         title="Other Information"
         checkStatus={whitelabelOtherInformationCheckStatus}
         handleChange={(e: any) => handleWhitelabelOtherInformationSwitch(e)}
+        switchDisabled={checkAllFieldsWhitelabelOtherInformationForm}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
@@ -120,6 +124,10 @@ const WhitelabelOtherInformationForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" &&
+                    checkAllFieldsWhitelabelOtherInformationForm
+                  }
                 />
               </div>
             </Grid>
@@ -142,6 +150,10 @@ const WhitelabelOtherInformationForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" &&
+                    checkAllFieldsWhitelabelOtherInformationForm
+                  }
                 />
               </div>
             </Grid>
@@ -173,6 +185,10 @@ const WhitelabelOtherInformationForm = ({
                         readOnly: true,
                       } as Record<string, any>,
                     }}
+                    disabled={
+                      roleId === "4" &&
+                      checkAllFieldsWhitelabelOtherInformationForm
+                    }
                   />
                 </LocalizationProvider>
               </div>

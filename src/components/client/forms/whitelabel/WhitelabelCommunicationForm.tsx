@@ -1,35 +1,51 @@
+import React from "react";
+// models import
 import {
   GroupEmailEstablishedTypes,
+  GroupEmailWhiteLabelFormTypes,
   KickOffTypes,
-  PreKickOffTypes,
-  WhitelabelFormTypes,
-} from "@/models/whitelabel/whitelabelChecklist";
+  KickOffWhiteLabelFormTypes,
+  TeamOverCallWhiteLabelFormTypes,
+  WhiteLabelCommunicationTypes,
+  whitelabelTeamOverCallTypes,
+} from "@/models/whitelabelChecklist";
+// Utlis import
 import { useStyles } from "@/utils/useStyles";
+// MUI imports
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+// Cookie import
+import Cookies from "js-cookie";
 
 const WhitelabelCommunicationForm = ({
   className,
   whitelabelGroupEmailEstablished,
   setWhitelabelGroupEmailEstablished,
-  whitelabelPreKickOff,
-  setWhitelabelPreKickOff,
   whitelabelKickOff,
   setWhitelabelKickOff,
-}: any) => {
+  whitelabelTeamOverCall,
+  setWhitelabelTeamOverCall,
+  checkAllFieldsWhiteLabelCommunicationList,
+}: WhiteLabelCommunicationTypes) => {
   return (
     <div className={`${className}`}>
       <GroupEmailEstablished
         whitelabelGroupEmailEstablished={whitelabelGroupEmailEstablished}
         setWhitelabelGroupEmailEstablished={setWhitelabelGroupEmailEstablished}
-      />
-      <PreKickOff
-        whitelabelPreKickOff={whitelabelPreKickOff}
-        setWhitelabelPreKickOff={setWhitelabelPreKickOff}
+        checkAllGroupEmailEstablished={
+          checkAllFieldsWhiteLabelCommunicationList
+        }
       />
       <KickOff
         whitelabelKickOff={whitelabelKickOff}
         setWhitelabelKickOff={setWhitelabelKickOff}
+        checkAllKickOff={checkAllFieldsWhiteLabelCommunicationList}
+      />
+      <IntroductionTeamOverCall
+        whitelabelTeamOverCall={whitelabelTeamOverCall}
+        setWhitelabelTeamOverCall={setWhitelabelTeamOverCall}
+        checkAllIntroductionTeamOverCall={
+          checkAllFieldsWhiteLabelCommunicationList
+        }
       />
     </div>
   );
@@ -40,34 +56,40 @@ export default WhitelabelCommunicationForm;
 const GroupEmailEstablished = ({
   whitelabelGroupEmailEstablished,
   setWhitelabelGroupEmailEstablished,
+  checkAllGroupEmailEstablished,
 }: GroupEmailEstablishedTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelGroupEmailEstablished((prev: WhitelabelFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setWhitelabelGroupEmailEstablished(
+      (prev: GroupEmailWhiteLabelFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
   };
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Group Email Established
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="groupEmailWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelGroupEmailEstablished?.Comments}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -77,6 +99,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -84,12 +107,14 @@ const GroupEmailEstablished = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="groupEmailWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelGroupEmailEstablished?.Status}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -99,6 +124,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -108,12 +134,14 @@ const GroupEmailEstablished = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="groupEmailWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelGroupEmailEstablished?.ActionPABS}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -123,6 +151,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -132,12 +161,14 @@ const GroupEmailEstablished = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="groupEmailWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelGroupEmailEstablished?.ActionClient}
+                value={
+                  whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -147,6 +178,7 @@ const GroupEmailEstablished = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllGroupEmailEstablished}
               />
             </div>
           </Grid>
@@ -156,132 +188,18 @@ const GroupEmailEstablished = ({
   );
 };
 
-const PreKickOff = ({
-  whitelabelPreKickOff,
-  setWhitelabelPreKickOff,
-}: PreKickOffTypes) => {
+const KickOff = ({
+  whitelabelKickOff,
+  setWhitelabelKickOff,
+  checkAllKickOff,
+}: KickOffTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelPreKickOff((prev: WhitelabelFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  return (
-    <>
-      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Pre Kick Off
-      </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Comments</label>
-              <TextField
-                name="Comments"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Comments"
-                value={whitelabelPreKickOff?.Comments}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="Status"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelPreKickOff?.Status}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Items - PABS
-              </label>
-              <TextField
-                name="ActionPABS"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Items"
-                value={whitelabelPreKickOff?.ActionPABS}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col w-full">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Action Items - Client
-              </label>
-              <TextField
-                name="ActionClient"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Action Items"
-                value={whitelabelPreKickOff?.ActionClient}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-              />
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    </>
-  );
-};
-
-const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
-  const classes = useStyles();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setWhitelabelKickOff((prev: WhitelabelFormTypes) => ({
+    setWhitelabelKickOff((prev: KickOffWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -291,18 +209,18 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Kick Off
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="kickOffWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Comments"
-                value={whitelabelKickOff?.Comments}
+                placeholder="Please Enter kickOffWhiteLabelComments"
+                value={whitelabelKickOff?.kickOffWhiteLabelComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -312,6 +230,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -319,12 +238,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="kickOffWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelKickOff?.Status}
+                value={whitelabelKickOff?.kickOffWhiteLabelStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -334,6 +253,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -343,12 +263,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="kickOffWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelKickOff?.ActionPABS}
+                value={whitelabelKickOff?.kickOffWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -358,6 +278,7 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
               />
             </div>
           </Grid>
@@ -367,12 +288,12 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="kickOffWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelKickOff?.ActionClient}
+                value={whitelabelKickOff?.kickOffWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -382,6 +303,134 @@ const KickOff = ({ whitelabelKickOff, setWhitelabelKickOff }: KickOffTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllKickOff}
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+const IntroductionTeamOverCall = ({
+  whitelabelTeamOverCall,
+  setWhitelabelTeamOverCall,
+  checkAllIntroductionTeamOverCall,
+}: whitelabelTeamOverCallTypes) => {
+  const classes = useStyles();
+  const roleId = Cookies.get("roleId");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setWhitelabelTeamOverCall((prev: TeamOverCallWhiteLabelFormTypes) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  return (
+    <>
+      <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
+        Introduction of team over call
+      </div>
+      <div className="py-3 flex flex-col gap-4">
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Comments</label>
+              <TextField
+                name="teamOverCallWhiteLabelComments"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Comments"
+                value={whitelabelTeamOverCall?.teamOverCallWhiteLabelComments}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col">
+              <label className="text-[#6E6D7A] text-[12px]">Status</label>
+              <TextField
+                name="teamOverCallWhiteLabelStatus"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Status"
+                value={whitelabelTeamOverCall?.teamOverCallWhiteLabelStatus}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - PABS
+              </label>
+              <TextField
+                name="teamOverCallWhiteLabelActionPABS"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={whitelabelTeamOverCall?.teamOverCallWhiteLabelActionPABS}
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="text-[12px] flex flex-col w-full">
+              <label className="text-[#6E6D7A] text-[12px]">
+                Action Items - Client
+              </label>
+              <TextField
+                name="teamOverCallWhiteLabelActionClient"
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                placeholder="Please Enter Action Items"
+                value={
+                  whitelabelTeamOverCall?.teamOverCallWhiteLabelActionClient
+                }
+                onChange={handleChange}
+                InputProps={{
+                  classes: {
+                    underline: classes.underline,
+                  },
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+                disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
               />
             </div>
           </Grid>

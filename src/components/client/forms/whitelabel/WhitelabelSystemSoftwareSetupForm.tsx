@@ -1,20 +1,35 @@
+import React from "react";
+// Models import
 import {
   AccountingSoftwareTypes,
+  AccountingSoftwareWhiteLabelFormTypes,
   CloudDocumentTypes,
+  CloudDocumentWhiteLabelFormTypes,
   ITHelpTypes,
   ITStructureTypes,
+  ItHelpWhiteLabelFormTypes,
+  ItStructureWhiteLabelFormTypes,
   MessengerTypes,
+  MessengerWhiteLabelFormTypes,
   OtherInfoTypes,
+  OtherInfoWhiteLabelFormTypes,
   RemoteSetupTypes,
+  RemoteSetupWhiteLabelFormTypes,
   SystemAccessTypes,
+  SystemAccessWhiteLabelFormTypes,
+  WhiteLabelSystemSoftwareSetupFormType,
   WhitelabelFormTypes,
-} from "@/models/whitelabel/whitelabelChecklist";
+} from "@/models/whitelabelChecklist";
+// Utils import
 import { useStyles } from "@/utils/useStyles";
+// MUI import
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+// Cookie import
+import Cookies from "js-cookie";
 
 const WhitelabelSystemSoftwareSetupForm = ({
   className,
+  whitelabelSystemSoftwareErrors,
   whitelabelITStructure,
   setWhitelabelITStructure,
   whitelabelRemoteSetup,
@@ -31,40 +46,53 @@ const WhitelabelSystemSoftwareSetupForm = ({
   setWhitelabelSystemAccess,
   whitelabelOtherInfo,
   setWhitelabelOtherInfo,
-}: any) => {
+  checkAllFieldsWhiteLabelSystemSoftwareList,
+}: WhiteLabelSystemSoftwareSetupFormType) => {
   return (
     <div className={`${className}`}>
       <ITStructure
         whitelabelITStructure={whitelabelITStructure}
         setWhitelabelITStructure={setWhitelabelITStructure}
+        checkAllItStructure={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <RemoteSetup
         whitelabelRemoteSetup={whitelabelRemoteSetup}
         setWhitelabelRemoteSetup={setWhitelabelRemoteSetup}
+        checkAllRemoteSetup={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <ITHelp
         whitelabelITHelp={whitelabelITHelp}
         setWhitelabelITHelp={setWhitelabelITHelp}
+        checkAllITHelp={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <AccountingSoftware
         whitelabelAccountingSoftware={whitelabelAccountingSoftware}
         setWhitelabelAccountingSoftware={setWhitelabelAccountingSoftware}
+        whitelabelAccountingSoftwareErrors={whitelabelSystemSoftwareErrors}
+        checkAllAccountingSoftware={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <CloudDocument
         whitelabelCloudDocument={whitelabelCloudDocument}
         setWhitelabelCloudDocument={setWhitelabelCloudDocument}
+        whitelabelCloudDocumentErrors={whitelabelSystemSoftwareErrors}
+        checkAllCloudDocument={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <Messenger
         whitelabelMessenger={whitelabelMessenger}
         setWhitelabelMessenger={setWhitelabelMessenger}
+        whitelabelMessengerErrors={whitelabelSystemSoftwareErrors}
+        checkAllMessenger={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <SystemAccess
         whitelabelSystemAccess={whitelabelSystemAccess}
         setWhitelabelSystemAccess={setWhitelabelSystemAccess}
+        whitelabelSystemAccessErrors={whitelabelSystemSoftwareErrors}
+        checkAllSystemAccess={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
       <OtherInfo
         whitelabelOtherInfo={whitelabelOtherInfo}
         setWhitelabelOtherInfo={setWhitelabelOtherInfo}
+        checkAllOtherInfo={checkAllFieldsWhiteLabelSystemSoftwareList}
       />
     </div>
   );
@@ -75,13 +103,15 @@ export default WhitelabelSystemSoftwareSetupForm;
 const ITStructure = ({
   whitelabelITStructure,
   setWhitelabelITStructure,
+  checkAllItStructure,
 }: ITStructureTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelITStructure((prev: WhitelabelFormTypes) => ({
+    setWhitelabelITStructure((prev: ItStructureWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -91,18 +121,18 @@ const ITStructure = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         IT Structure Knowledge
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="itStructureWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelITStructure?.Comments}
+                value={whitelabelITStructure?.itStructureWhiteLabelComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -112,6 +142,7 @@ const ITStructure = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllItStructure}
               />
             </div>
           </Grid>
@@ -119,12 +150,12 @@ const ITStructure = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="itStructureWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelITStructure?.Status}
+                value={whitelabelITStructure?.itStructureWhiteLabelStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -134,6 +165,7 @@ const ITStructure = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllItStructure}
               />
             </div>
           </Grid>
@@ -143,12 +175,12 @@ const ITStructure = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="itStructureWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITStructure?.ActionPABS}
+                value={whitelabelITStructure?.itStructureWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -158,6 +190,7 @@ const ITStructure = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllItStructure}
               />
             </div>
           </Grid>
@@ -167,12 +200,12 @@ const ITStructure = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="itStructureWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITStructure?.ActionClient}
+                value={whitelabelITStructure?.itStructureWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -182,6 +215,7 @@ const ITStructure = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllItStructure}
               />
             </div>
           </Grid>
@@ -194,13 +228,15 @@ const ITStructure = ({
 const RemoteSetup = ({
   whitelabelRemoteSetup,
   setWhitelabelRemoteSetup,
+  checkAllRemoteSetup,
 }: RemoteSetupTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelRemoteSetup((prev: WhitelabelFormTypes) => ({
+    setWhitelabelRemoteSetup((prev: RemoteSetupWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -208,20 +244,20 @@ const RemoteSetup = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        If Remote Set up - Access Computer method (dedicated)
+        If Remote Set up - Access Computer method (Dedicated)
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="remoteSetupWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelRemoteSetup?.Comments}
+                value={whitelabelRemoteSetup?.remoteSetupWhiteLabelComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -231,6 +267,7 @@ const RemoteSetup = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllRemoteSetup}
               />
             </div>
           </Grid>
@@ -238,12 +275,12 @@ const RemoteSetup = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="remoteSetupWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelRemoteSetup?.Status}
+                value={whitelabelRemoteSetup?.remoteSetupWhiteLabelStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -253,6 +290,7 @@ const RemoteSetup = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllRemoteSetup}
               />
             </div>
           </Grid>
@@ -262,12 +300,12 @@ const RemoteSetup = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="remoteSetupWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelRemoteSetup?.ActionPABS}
+                value={whitelabelRemoteSetup?.remoteSetupWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -277,6 +315,7 @@ const RemoteSetup = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllRemoteSetup}
               />
             </div>
           </Grid>
@@ -286,12 +325,12 @@ const RemoteSetup = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="remoteSetupWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelRemoteSetup?.ActionClient}
+                value={whitelabelRemoteSetup?.remoteSetupWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -301,6 +340,7 @@ const RemoteSetup = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllRemoteSetup}
               />
             </div>
           </Grid>
@@ -310,13 +350,18 @@ const RemoteSetup = ({
   );
 };
 
-const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
+const ITHelp = ({
+  whitelabelITHelp,
+  setWhitelabelITHelp,
+  checkAllITHelp,
+}: ITHelpTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelITHelp((prev: WhitelabelFormTypes) => ({
+    setWhitelabelITHelp((prev: ItHelpWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -326,18 +371,18 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Need your IT teams help?
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="itHelpWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelITHelp?.Comments}
+                value={whitelabelITHelp?.itHelpWhiteLabelComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -347,6 +392,7 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllITHelp}
               />
             </div>
           </Grid>
@@ -354,12 +400,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="itHelpWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelITHelp?.Status}
+                value={whitelabelITHelp?.itHelpWhiteLabelStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -369,6 +415,7 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllITHelp}
               />
             </div>
           </Grid>
@@ -378,12 +425,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="itHelpWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITHelp?.ActionPABS}
+                value={whitelabelITHelp?.itHelpWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -393,6 +440,7 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllITHelp}
               />
             </div>
           </Grid>
@@ -402,12 +450,12 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="itHelpWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelITHelp?.ActionClient}
+                value={whitelabelITHelp?.itHelpWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -417,6 +465,7 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllITHelp}
               />
             </div>
           </Grid>
@@ -429,34 +478,47 @@ const ITHelp = ({ whitelabelITHelp, setWhitelabelITHelp }: ITHelpTypes) => {
 const AccountingSoftware = ({
   whitelabelAccountingSoftware,
   setWhitelabelAccountingSoftware,
+  whitelabelAccountingSoftwareErrors,
+  checkAllAccountingSoftware,
 }: AccountingSoftwareTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelAccountingSoftware((prev: WhitelabelFormTypes) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setWhitelabelAccountingSoftware(
+      (prev: AccountingSoftwareWhiteLabelFormTypes) => ({
+        ...prev,
+        [name]: value,
+      })
+    );
   };
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Accounting Software
+        Accounting Software<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="accountingSoftwareWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelAccountingSoftware?.Comments}
+                value={
+                  whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelComments
+                }
+                error={
+                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelComments
+                }
+                helperText={
+                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -466,6 +528,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccountingSoftware}
               />
             </div>
           </Grid>
@@ -473,12 +536,20 @@ const AccountingSoftware = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="accountingSoftwareWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelAccountingSoftware?.Status}
+                value={
+                  whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelStatus
+                }
+                error={
+                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus
+                }
+                helperText={
+                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -488,6 +559,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccountingSoftware}
               />
             </div>
           </Grid>
@@ -497,12 +569,20 @@ const AccountingSoftware = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="accountingSoftwareWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelAccountingSoftware?.ActionPABS}
+                value={
+                  whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelActionPABS
+                }
+                error={
+                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionPABS
+                }
+                helperText={
+                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -512,6 +592,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccountingSoftware}
               />
             </div>
           </Grid>
@@ -521,12 +602,20 @@ const AccountingSoftware = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="accountingSoftwareWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelAccountingSoftware?.ActionClient}
+                value={
+                  whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelActionClient
+                }
+                error={
+                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionClient
+                }
+                helperText={
+                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -536,6 +625,7 @@ const AccountingSoftware = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllAccountingSoftware}
               />
             </div>
           </Grid>
@@ -548,13 +638,16 @@ const AccountingSoftware = ({
 const CloudDocument = ({
   whitelabelCloudDocument,
   setWhitelabelCloudDocument,
+  whitelabelCloudDocumentErrors,
+  checkAllCloudDocument,
 }: CloudDocumentTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelCloudDocument((prev: WhitelabelFormTypes) => ({
+    setWhitelabelCloudDocument((prev: CloudDocumentWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -563,19 +656,26 @@ const CloudDocument = ({
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Cloud Document Management Software
+        <span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="cloudDocumentWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelCloudDocument?.Comments}
+                value={whitelabelCloudDocument?.cloudDocumentWhiteLabelComments}
+                error={
+                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelComments
+                }
+                helperText={
+                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -585,6 +685,7 @@ const CloudDocument = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCloudDocument}
               />
             </div>
           </Grid>
@@ -592,12 +693,18 @@ const CloudDocument = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="cloudDocumentWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelCloudDocument?.Status}
+                value={whitelabelCloudDocument?.cloudDocumentWhiteLabelStatus}
+                error={
+                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus
+                }
+                helperText={
+                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -607,6 +714,7 @@ const CloudDocument = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCloudDocument}
               />
             </div>
           </Grid>
@@ -616,12 +724,20 @@ const CloudDocument = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="cloudDocumentWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCloudDocument?.ActionPABS}
+                value={
+                  whitelabelCloudDocument?.cloudDocumentWhiteLabelActionPABS
+                }
+                error={
+                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionPABS
+                }
+                helperText={
+                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -631,6 +747,7 @@ const CloudDocument = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCloudDocument}
               />
             </div>
           </Grid>
@@ -640,12 +757,20 @@ const CloudDocument = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="cloudDocumentWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelCloudDocument?.ActionClient}
+                value={
+                  whitelabelCloudDocument?.cloudDocumentWhiteLabelActionClient
+                }
+                error={
+                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionClient
+                }
+                helperText={
+                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -655,6 +780,7 @@ const CloudDocument = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllCloudDocument}
               />
             </div>
           </Grid>
@@ -667,13 +793,16 @@ const CloudDocument = ({
 const Messenger = ({
   whitelabelMessenger,
   setWhitelabelMessenger,
+  whitelabelMessengerErrors,
+  checkAllMessenger,
 }: MessengerTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelMessenger((prev: WhitelabelFormTypes) => ({
+    setWhitelabelMessenger((prev: MessengerWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -682,19 +811,24 @@ const Messenger = ({
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Team/Clickup/Slack/ Other Messenger tool set up
+        <span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="messengerWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelMessenger?.Comments}
+                value={whitelabelMessenger?.messengerWhiteLabelComments}
+                error={!!whitelabelMessengerErrors?.messengerWhiteLabelComments}
+                helperText={
+                  whitelabelMessengerErrors?.messengerWhiteLabelComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -704,6 +838,7 @@ const Messenger = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMessenger}
               />
             </div>
           </Grid>
@@ -711,12 +846,16 @@ const Messenger = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="messengerWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelMessenger?.Status}
+                value={whitelabelMessenger?.messengerWhiteLabelStatus}
+                error={!!whitelabelMessengerErrors?.messengerWhiteLabelStatus}
+                helperText={
+                  whitelabelMessengerErrors?.messengerWhiteLabelStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -726,6 +865,7 @@ const Messenger = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMessenger}
               />
             </div>
           </Grid>
@@ -735,12 +875,18 @@ const Messenger = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="messengerWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMessenger?.ActionPABS}
+                value={whitelabelMessenger?.messengerWhiteLabelActionPABS}
+                error={
+                  !!whitelabelMessengerErrors?.messengerWhiteLabelActionPABS
+                }
+                helperText={
+                  whitelabelMessengerErrors?.messengerWhiteLabelActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -750,6 +896,7 @@ const Messenger = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMessenger}
               />
             </div>
           </Grid>
@@ -759,12 +906,18 @@ const Messenger = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="messengerWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelMessenger?.ActionClient}
+                value={whitelabelMessenger?.messengerWhiteLabelActionClient}
+                error={
+                  !!whitelabelMessengerErrors?.messengerWhiteLabelActionClient
+                }
+                helperText={
+                  whitelabelMessengerErrors?.messengerWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -774,6 +927,7 @@ const Messenger = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllMessenger}
               />
             </div>
           </Grid>
@@ -786,13 +940,16 @@ const Messenger = ({
 const SystemAccess = ({
   whitelabelSystemAccess,
   setWhitelabelSystemAccess,
+  whitelabelSystemAccessErrors,
+  checkAllSystemAccess,
 }: SystemAccessTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelSystemAccess((prev: WhitelabelFormTypes) => ({
+    setWhitelabelSystemAccess((prev: SystemAccessWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -800,20 +957,26 @@ const SystemAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Any Other System access
+        Any Other System access<span className="text-[#DC3545]">*</span>
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="systemAccessWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelSystemAccess?.Comments}
+                value={whitelabelSystemAccess?.systemAccessWhiteLabelComments}
+                error={
+                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelComments
+                }
+                helperText={
+                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelComments
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -823,6 +986,7 @@ const SystemAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllSystemAccess}
               />
             </div>
           </Grid>
@@ -830,12 +994,18 @@ const SystemAccess = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="systemAccessWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelSystemAccess?.Status}
+                value={whitelabelSystemAccess?.systemAccessWhiteLabelStatus}
+                error={
+                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus
+                }
+                helperText={
+                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -845,6 +1015,7 @@ const SystemAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllSystemAccess}
               />
             </div>
           </Grid>
@@ -854,12 +1025,18 @@ const SystemAccess = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="systemAccessWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelSystemAccess?.ActionPABS}
+                value={whitelabelSystemAccess?.systemAccessWhiteLabelActionPABS}
+                error={
+                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionPABS
+                }
+                helperText={
+                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionPABS
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -869,6 +1046,7 @@ const SystemAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllSystemAccess}
               />
             </div>
           </Grid>
@@ -878,12 +1056,20 @@ const SystemAccess = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="systemAccessWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelSystemAccess?.ActionClient}
+                value={
+                  whitelabelSystemAccess?.systemAccessWhiteLabelActionClient
+                }
+                error={
+                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionClient
+                }
+                helperText={
+                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionClient
+                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -893,6 +1079,7 @@ const SystemAccess = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllSystemAccess}
               />
             </div>
           </Grid>
@@ -905,13 +1092,15 @@ const SystemAccess = ({
 const OtherInfo = ({
   whitelabelOtherInfo,
   setWhitelabelOtherInfo,
+  checkAllOtherInfo,
 }: OtherInfoTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setWhitelabelOtherInfo((prev: WhitelabelFormTypes) => ({
+    setWhitelabelOtherInfo((prev: OtherInfoWhiteLabelFormTypes) => ({
       ...prev,
       [name]: value,
     }));
@@ -921,18 +1110,18 @@ const OtherInfo = ({
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
         Other information
       </div>
-      <div className="py-3 px-2 flex flex-col gap-4">
+      <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Comments</label>
               <TextField
-                name="Comments"
+                name="otherInfoWhiteLabelComments"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Comments"
-                value={whitelabelOtherInfo?.Comments}
+                value={whitelabelOtherInfo?.otherInfoWhiteLabelComments}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -942,6 +1131,7 @@ const OtherInfo = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllOtherInfo}
               />
             </div>
           </Grid>
@@ -949,12 +1139,12 @@ const OtherInfo = ({
             <div className="text-[12px] flex flex-col">
               <label className="text-[#6E6D7A] text-[12px]">Status</label>
               <TextField
-                name="Status"
+                name="otherInfoWhiteLabelStatus"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Status"
-                value={whitelabelOtherInfo?.Status}
+                value={whitelabelOtherInfo?.otherInfoWhiteLabelStatus}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -964,6 +1154,7 @@ const OtherInfo = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllOtherInfo}
               />
             </div>
           </Grid>
@@ -973,12 +1164,12 @@ const OtherInfo = ({
                 Action Items - PABS
               </label>
               <TextField
-                name="ActionPABS"
+                name="otherInfoWhiteLabelActionPABS"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelOtherInfo?.ActionPABS}
+                value={whitelabelOtherInfo?.otherInfoWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -988,6 +1179,7 @@ const OtherInfo = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllOtherInfo}
               />
             </div>
           </Grid>
@@ -997,12 +1189,12 @@ const OtherInfo = ({
                 Action Items - Client
               </label>
               <TextField
-                name="ActionClient"
+                name="otherInfoWhiteLabelActionClient"
                 id="outlined-basic"
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Action Items"
-                value={whitelabelOtherInfo?.ActionClient}
+                value={whitelabelOtherInfo?.otherInfoWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -1012,6 +1204,7 @@ const OtherInfo = ({
                 inputProps={{
                   className: classes.textSize,
                 }}
+                disabled={roleId === "4" && checkAllOtherInfo}
               />
             </div>
           </Grid>

@@ -3,8 +3,9 @@ import FormBox from "@/components/client/common/FormBox";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
-import { WhitelabelCpaClientTypes } from "@/models/whitelabel/whitelabelBasicDetails";
+import { WhitelabelCpaClientTypes } from "@/models/whitelabelBasicDetails";
 import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
+import Cookies from "js-cookie";
 
 const WhitelabelCpaClientTeamForm = ({
   className,
@@ -16,8 +17,10 @@ const WhitelabelCpaClientTeamForm = ({
   handleChange,
   handleAddField,
   handleRemoveField,
+  checkAllFieldsWhitelabelCpaClientTeamForm,
 }: WhitelabelCpaClientTypes) => {
   const classes = useStyles();
+  const roleId = Cookies.get("roleId");
 
   return (
     <div className={`${className}`}>
@@ -25,6 +28,7 @@ const WhitelabelCpaClientTeamForm = ({
         title="CPA Client Team"
         checkStatus={whitelabelCpaClientTeamCheckStatus}
         handleChange={(e: any) => handleWhitelabelCpaClientTeamSwitch(e)}
+        switchDisabled={checkAllFieldsWhitelabelCpaClientTeamForm}
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -51,6 +55,9 @@ const WhitelabelCpaClientTeamForm = ({
                   inputProps={{
                     className: classes.textSize,
                   }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhitelabelCpaClientTeamForm
+                  }
                 />
               </div>
             </Grid>
@@ -86,6 +93,10 @@ const WhitelabelCpaClientTeamForm = ({
                       inputProps={{
                         className: classes.textSize,
                       }}
+                      disabled={
+                        roleId === "4" &&
+                        checkAllFieldsWhitelabelCpaClientTeamForm
+                      }
                     />
                   </div>
                 </Grid>
@@ -120,6 +131,10 @@ const WhitelabelCpaClientTeamForm = ({
                       inputProps={{
                         className: classes.textSize,
                       }}
+                      disabled={
+                        roleId === "4" &&
+                        checkAllFieldsWhitelabelCpaClientTeamForm
+                      }
                     />
                   </div>
                 </Grid>
@@ -154,10 +169,15 @@ const WhitelabelCpaClientTeamForm = ({
                       inputProps={{
                         className: classes.textSize,
                       }}
+                      disabled={
+                        roleId === "4" &&
+                        checkAllFieldsWhitelabelCpaClientTeamForm
+                      }
                     />
                   </div>
                 </Grid>
                 <Grid item xs={1}>
+                  {roleId === "4" ? checkAllFieldsWhitelabelCpaClientTeamForm : true && (
                   <div className="flex justify-end items-center pl-2 mt-6 gap-4">
                     {whitelabelCpaClientTeam.cpaArray.length > 1 && (
                       <span
@@ -173,6 +193,7 @@ const WhitelabelCpaClientTeamForm = ({
                       </span>
                     )}
                   </div>
+                  )}
                 </Grid>
               </Grid>
             )
