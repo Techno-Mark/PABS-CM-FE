@@ -18,6 +18,7 @@ import { usePathname } from "next/navigation";
 // Cookie import
 import Cookies from "js-cookie";
 import { ClientInfoType } from "@/models/autoCareBasicDetails";
+import PABSLogo from "@/assets/Icons/client/PABSLogo";
 
 const openedMixin = (theme: Theme) => ({
   width: clientDrawerWidth,
@@ -144,12 +145,7 @@ const ClientSidebar = ({
                 backgroundColor: "#023963",
               }}
             >
-              <Image
-                alt="PABS_Logo"
-                src={"/PABS.png"}
-                width={160}
-                height={160}
-              />
+              <PABSLogo width="186" height="64"/>
             </ListItemButton>
           </ListItem>
         </List>

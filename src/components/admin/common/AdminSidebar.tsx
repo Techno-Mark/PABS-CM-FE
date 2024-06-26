@@ -31,6 +31,7 @@ import { useStyles } from "@/utils/useStyles";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 // Cookie import
 import Cookies from "js-cookie";
+import PABSLogo from "@/assets/Icons/client/PABSLogo";
 
 const openedMixin = (theme: Theme) => ({
   width: drawerWidth,
@@ -150,12 +151,7 @@ const Sidebar = ({
                 justifyContent: "center",
               }}
             >
-              <Image
-                alt="PABS_Logo"
-                src={"/PABS.png"}
-                width={openSidebar ? 100 : 80}
-                height={openSidebar ? 100 : 80}
-              />
+              <PABSLogo width="100" height="60" />
             </ListItemButton>
           </ListItem>
         </List>
