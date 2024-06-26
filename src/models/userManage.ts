@@ -72,6 +72,7 @@ export interface BulkModalProps {
   isLoading?: boolean;
   handleClose: () => void;
   getAccountList: () => void;
+  clientInfo:any
 }
 
 export interface RoleList {

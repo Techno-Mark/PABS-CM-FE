@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-key */
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
-import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import { noRecordText, renderCellFunction } from "@/utils/commonData";
+import { noRecordText } from "@/utils/commonData";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
@@ -13,7 +12,7 @@ import {
   OnboardingFormAccountDetailsList,
   onboardingSaveFormUrl,
 } from "@/static/apiUrl";
-import { Button, Chip, Stack, TablePagination, Tooltip } from "@mui/material";
+import { Button, Chip, TablePagination, Tooltip } from "@mui/material";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import AccountDetailsDrawer from "@/components/client/common/AccountDetailsDrawer";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
@@ -36,7 +35,6 @@ const AccountDetailsWhitelabel = ({
   const businessTypeId = Cookies.get("businessTypeId");
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [isBulkLoading, setBulkLoading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [clientId, setClientId] = useState<number>(0);
   const [search, setSearch] = useState("");
@@ -358,7 +356,9 @@ const AccountDetailsWhitelabel = ({
       }
     };
     await callAPIwithHeaders(
-      `${OnboardingFormAccountDetailsList}/${userId}`,
+      `${OnboardingFormAccountDetailsList}/${
+        !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`,
       "post",
       callback,
       accountListParams
@@ -403,8 +403,11 @@ const AccountDetailsWhitelabel = ({
           return;
       }
     };
+
     await callAPIwithHeaders(
-      `${OnboardingFormAccountDetailsDelete}/${userId}`,
+      `${OnboardingFormAccountDetailsDelete}/${
+        !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`,
       "post",
       callback,
       {
@@ -456,6 +459,7 @@ const AccountDetailsWhitelabel = ({
       }
     }
   };
+  
 
   return (
     <div
@@ -478,9 +482,9 @@ const AccountDetailsWhitelabel = ({
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          {roleId === "4"
-            ? isFormSubmmitWhitelabel
-            : true && (
+          {(roleId === "4"
+            ? !isFormSubmmitWhitelabel
+            : true) && (
                 <div className="flex gap-5">
                   <button
                     onClick={() => {
@@ -503,9 +507,7 @@ const AccountDetailsWhitelabel = ({
               )}
         </div>
 
-        <div
-          className={`px-4 pt-3 scrollbar overflow-auto`}
-        >
+        <div className={`px-4 pt-3 scrollbar overflow-auto`}>
           <DataGrid
             disableColumnMenu
             rows={accountList}
@@ -513,7 +515,9 @@ const AccountDetailsWhitelabel = ({
             getRowId={(i: any) => i.id}
             localeText={noRecordText}
             loading={loading}
-            className={`${roleId !== '4' ? 'h-[calc(100vh-230px)]' : 'h-[calc(100vh-200px)]'}`}
+            className={`${
+              roleId !== "4" ? "h-[calc(100vh-230px)]" : "h-[calc(100vh-200px)]"
+            }`}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
               footer: () => (
@@ -565,6 +569,7 @@ const AccountDetailsWhitelabel = ({
         <AccountDetailsDrawer
           type=""
           canEdit={openEdit}
+          clientInfo={clientInfo}
           clientID={clientId}
           setId={() => setClientId(0)}
           openDrawer={openDrawer}
@@ -575,8 +580,9 @@ const AccountDetailsWhitelabel = ({
 
       {bulkOpenDrawer && (
         <BulkImportModel
+          clientInfo={clientInfo}
           title="Import Data"
-          isLoading={isBulkLoading}
+          isLoading={false}
           isOpen={bulkOpenDrawer}
           handleClose={() => setBulkOpenDrawer(false)}
           setIsOpen={(value) => setBulkOpenDrawer(value)}
