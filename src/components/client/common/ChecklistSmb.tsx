@@ -106,11 +106,11 @@ import {
   validateSmbPeopleBusinessField,
   validateSmbSystemAccessField,
 } from "@/static/smbChecklist";
-import SmbBankingAccessChecklist from "../forms/smb/SmbBankingAccessChecklist";
-import SmbExistingFinancialsChecklist from "../forms/smb/SmbExistingFinancialsChecklist";
-import SmbMeetingChecklist from "../forms/smb/SmbMeetingChecklist";
-import SmbPeopleBusinessChecklist from "../forms/smb/SmbPeopleBusinessChecklist";
-import SmbSystemAccessChecklist from "../forms/smb/SmbSystemAccessChecklist";
+import SmbBankingAccessChecklist from "@/components/client/forms/smb/SmbBankingAccessChecklist";
+import SmbExistingFinancialsChecklist from "@/components/client/forms/smb/SmbExistingFinancialsChecklist";
+import SmbMeetingChecklist from "@/components/client/forms/smb/SmbMeetingChecklist";
+import SmbPeopleBusinessChecklist from "@/components/client/forms/smb/SmbPeopleBusinessChecklist";
+import SmbSystemAccessChecklist from "@/components/client/forms/smb/SmbSystemAccessChecklist";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";

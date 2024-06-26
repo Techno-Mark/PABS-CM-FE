@@ -1,4 +1,4 @@
-import { RolePermission } from "./roleManage";
+import { RolePermission } from "@/models/roleManage";
 
 export interface userLoginData {
   UserId: number;

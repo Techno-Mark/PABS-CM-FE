@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import WhitelabelAccountDetailsForm from "../forms/whitelabel/WhitelabelAccountDetailsForm";
+
 import {
   initialWhitelabelAccountName,
   initialWhitelabelCpaClientTeam,
@@ -25,9 +25,10 @@ import {
   WhitelabelPABSAccountingTeamTypes,
   whitelabelOtherInformationfieldDisplayNames,
 } from "@/models/whitelabelBasicDetails";
-import WhitelabelOtherInformationForm from "../forms/whitelabel/WhitelabelOtherInformationForm";
-import WhitelabelCpaClientTeamForm from "../forms/whitelabel/WhitelabelCpaClientTeamForm";
-import WhitelabelPabsAccountingTeamForm from "../forms/whitelabel/WhitelabelPabsAccountingTeamForm";
+import WhitelabelAccountDetailsForm from "@/components/client/forms/whitelabel/WhitelabelAccountDetailsForm";
+import WhitelabelOtherInformationForm from "@/components/client/forms/whitelabel/WhitelabelOtherInformationForm";
+import WhitelabelCpaClientTeamForm from "@/components/client/forms/whitelabel/WhitelabelCpaClientTeamForm";
+import WhitelabelPabsAccountingTeamForm from "@/components/client/forms/whitelabel/WhitelabelPabsAccountingTeamForm";
 import { validateNumber } from "@/utils/validate";
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { callAPIwithHeaders } from "@/api/commonFunction";
@@ -200,8 +201,6 @@ const BasicDetailsWhitelabel = ({
         : parseInt(userId!),
     });
   };
-
-  console.log("other information : ", whitelabelOtherInformation);
 
   useEffect(() => {
     getWhiteLabelBasicDetailsList();

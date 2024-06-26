@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
-import { PayrollServiceProviderFormTypes } from "./autoCareChecklist";
+import { PayrollServiceProviderFormTypes } from "@/models/autoCareChecklist";
 
 export interface ChecklistAccordianProps {
   title: string;
   children: ReactNode;
   expandedAccordian: boolean;
   handleChange: any;
-  // setExpandedAccordian:React.Dispatch<React.SetStateAction<number>>
 }
 
 export interface ClientNameFormTypes {

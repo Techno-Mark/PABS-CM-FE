@@ -199,7 +199,6 @@ function BasicDetailsAutoCare({
     });
   };
 
-  console.log("auto care client : ", autoCareClientTeam);
   useEffect(() => {
     getAutoCareBasicDetailsList();
   }, []);
