@@ -459,7 +459,6 @@ const AccountDetailsWhitelabel = ({
       }
     }
   };
-  
 
   return (
     <div
