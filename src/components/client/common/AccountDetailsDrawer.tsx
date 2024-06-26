@@ -301,7 +301,6 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               }}
               inputProps={{
                 className: classes.textSize,
-                maxLength: 6,
               }}
             />
           </div>
