@@ -68,7 +68,6 @@ const BulkImportModel = ({
               item["Notes1 Monthly Transactions"] || "",
             notes: item["Notes"] || "",
           }));
-          console.log(transformedData);
           setExcelData(transformedData);
         }
       };
