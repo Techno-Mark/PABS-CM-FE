@@ -75,7 +75,7 @@ const WhitelabelCpaClientTeamForm = ({
                       name="pocName"
                       variant="standard"
                       size="small"
-                      placeholder="Please Enter POC name"
+                      placeholder="Please Enter POC Name"
                       value={whitelabelCpaClientTeam?.cpaArray[index]?.pocName}
                       error={
                         !!whitelabelCpaClientTeamErrors?.cpaArray[index]
