@@ -617,7 +617,7 @@ const ClientDrawer = ({
                               .catch((err) => console.error(err));
                           } else {
                             setFileErrorText(
-                              "Image dimensions should less than 150x100 pixels"
+                              "Image dimensions should less than or equal 150x100 pixels."
                             );
                             setFileError(true);
                           }

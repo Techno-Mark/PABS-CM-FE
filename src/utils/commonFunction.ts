@@ -1,5 +1,5 @@
 import { Option, StatusOption, StringOption } from "@/models/userManage";
-import { getToken, removeCookies } from "./authFunctions";
+import { getToken, removeCookies } from "@/utils/authFunctions";
 
 export const hasToken = (router: any) => {
   const token = getToken();

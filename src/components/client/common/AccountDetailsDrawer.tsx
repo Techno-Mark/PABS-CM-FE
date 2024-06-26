@@ -14,7 +14,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { statusOptionDrawer } from "@/static/usermanage";
 import { statusOptionDrawerAccDetails } from "@/static/whitelabel/whitelabelChecklist";
 
 interface AccountDetailsDrawerProps {
@@ -25,6 +24,7 @@ interface AccountDetailsDrawerProps {
   canEdit: boolean;
   type: string;
   getAccountList: () => void;
+  clientInfo:any
 }
 
 interface InitialValues {
@@ -73,6 +73,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
   canEdit,
   type,
   getAccountList,
+  clientInfo
 }) => {
   const userId = Cookies.get("userId");
   const classes = useStyles();
@@ -153,7 +154,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
         }
       };
       await callAPIwithHeaders(
-        `${OnboardingFormAccountDetailsGetById}/${userId}`,
+        `${OnboardingFormAccountDetailsGetById}/${
+          !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+        }`,
         "post",
         callback,
         {
@@ -205,8 +208,14 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           return;
       }
     };
-    const save = `${OnboardingFormAccountDetailsSave}/${userId}`;
-    const edit = `${OnboardingFormAccountDetailsEdit}/${userId}`;
+    const save = `${OnboardingFormAccountDetailsSave}/${
+      !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+    }`;
+    const edit = `${OnboardingFormAccountDetailsEdit}/${
+      !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+    }`;
+
+    console.log("edit: ",edit)
     await callAPIwithHeaders(
       clientID > 0 ? edit : save,
       "post",
@@ -244,7 +253,6 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
         ...prevValues,
         [field]: value,
       }));
-
     };
 
   const handleDateChange = (date: Dayjs | null) => {

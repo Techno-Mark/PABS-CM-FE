@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-key */
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
-import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import { noRecordText, renderCellFunction } from "@/utils/commonData";
+import { noRecordText } from "@/utils/commonData";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
@@ -13,9 +12,9 @@ import {
   OnboardingFormAccountDetailsList,
   onboardingSaveFormUrl,
 } from "@/static/apiUrl";
-import { Button, Chip, Stack, TablePagination, Tooltip } from "@mui/material";
+import { Button, Chip, TablePagination, Tooltip } from "@mui/material";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
-import AccountDetailsDrawer from "./AccountDetailsDrawer";
+import AccountDetailsDrawer from "@/components/client/common/AccountDetailsDrawer";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
@@ -36,7 +35,6 @@ const AccountDetailsWhitelabel = ({
   const businessTypeId = Cookies.get("businessTypeId");
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [isBulkLoading, setBulkLoading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [clientId, setClientId] = useState<number>(0);
   const [search, setSearch] = useState("");
@@ -358,7 +356,9 @@ const AccountDetailsWhitelabel = ({
       }
     };
     await callAPIwithHeaders(
-      `${OnboardingFormAccountDetailsList}/${userId}`,
+      `${OnboardingFormAccountDetailsList}/${
+        !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`,
       "post",
       callback,
       accountListParams
@@ -403,8 +403,11 @@ const AccountDetailsWhitelabel = ({
           return;
       }
     };
+
     await callAPIwithHeaders(
-      `${OnboardingFormAccountDetailsDelete}/${userId}`,
+      `${OnboardingFormAccountDetailsDelete}/${
+        !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`,
       "post",
       callback,
       {
@@ -456,58 +459,55 @@ const AccountDetailsWhitelabel = ({
       }
     }
   };
+  
 
   return (
     <div
       className={`flex flex-col ${
-        roleId !== "4" ? "h-[95vh]" : "h-full  w-[95%]"
+        roleId !== "4" ? "h-[95vh]" : "h-full w-[95%]"
       } pt-12`}
     >
-      <div className="flex justify-between px-4  pt-4 bg-[#F9FBFF]">
-        <div className="w-[30%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
-          <span className="m-3 flex items-center">
-            <SearchIcon />
-          </span>
-          <input
-            type="search"
-            id="default-search"
-            placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+      <div className="flex-1">
+        <div className="flex justify-between px-4 pt-4 bg-[#F9FBFF]">
+          <div className="w-[30%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <span className="m-3 flex items-center">
+              <SearchIcon />
+            </span>
+            <input
+              type="search"
+              id="default-search"
+              placeholder="Search"
+              className="p-2 flex items-center text-[13px] outline-none w-[90%]"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          {(roleId === "4"
+            ? !isFormSubmmitWhitelabel
+            : true) && (
+                <div className="flex gap-5">
+                  <button
+                    onClick={() => {
+                      setBulkOpenDrawer(true);
+                    }}
+                    className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+                  >
+                    Bulk Upload
+                  </button>
+                  <button
+                    onClick={() => {
+                      setOpenDrawer(true);
+                      setEdit(false);
+                    }}
+                    className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+                  >
+                    Add Account Detail
+                  </button>
+                </div>
+              )}
         </div>
-        {roleId === "4"
-          ? isFormSubmmitWhitelabel
-          : true && (
-              <div className="flex gap-5">
-                <button
-                  onClick={() => {
-                    setBulkOpenDrawer(true);
-                  }}
-                  className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-                >
-                  Bulk Upload
-                </button>
-                <button
-                  onClick={() => {
-                    setOpenDrawer(true);
-                    setEdit(false);
-                  }}
-                  className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-                >
-                  Add Account Detail
-                </button>
-              </div>
-            )}
-      </div>
 
-      <div className={`flex flex-col gap-5`}>
-        <div
-          className={` ${
-            roleId !== "4" ? "h-[64vh]" : ""
-          } px-4 mt-5 scrollbar overflow-auto`}
-        >
+        <div className={`px-4 pt-3 scrollbar overflow-auto`}>
           <DataGrid
             disableColumnMenu
             rows={accountList}
@@ -515,7 +515,9 @@ const AccountDetailsWhitelabel = ({
             getRowId={(i: any) => i.id}
             localeText={noRecordText}
             loading={loading}
-            className="h-[calc(100vh-200px)]"
+            className={`${
+              roleId !== "4" ? "h-[calc(100vh-230px)]" : "h-[calc(100vh-200px)]"
+            }`}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
               footer: () => (
@@ -543,30 +545,31 @@ const AccountDetailsWhitelabel = ({
             }}
           />
         </div>
-        <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6">
+      </div>
+      <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6">
+        <Button
+          onClick={() => setChecklistFormSubmit(12)}
+          className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+          variant="outlined"
+        >
+          Back
+        </Button>
+        {roleId === "4" && !isFormSubmmitWhitelabel && (
           <Button
-            onClick={() => setChecklistFormSubmit(12)}
-            className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+            onClick={() => setIsOpenConfirmationSubmit(true)}
+            className={`!bg-[#022946] font-semibold text-white !rounded-full text-[14px]`}
             variant="outlined"
           >
-            Back
+            Submit
           </Button>
-          {roleId === "4" && !isFormSubmmitWhitelabel && (
-            <Button
-              onClick={() => setIsOpenConfirmationSubmit(true)}
-              className={`!bg-[#022946] font-semibold text-white !rounded-full text-[14px]`}
-              variant="outlined"
-            >
-              Submit
-            </Button>
-          )}
-        </div>
+        )}
       </div>
 
       {openDrawer && (
         <AccountDetailsDrawer
           type=""
           canEdit={openEdit}
+          clientInfo={clientInfo}
           clientID={clientId}
           setId={() => setClientId(0)}
           openDrawer={openDrawer}
@@ -577,8 +580,9 @@ const AccountDetailsWhitelabel = ({
 
       {bulkOpenDrawer && (
         <BulkImportModel
+          clientInfo={clientInfo}
           title="Import Data"
-          isLoading={isBulkLoading}
+          isLoading={false}
           isOpen={bulkOpenDrawer}
           handleClose={() => setBulkOpenDrawer(false)}
           setIsOpen={(value) => setBulkOpenDrawer(value)}

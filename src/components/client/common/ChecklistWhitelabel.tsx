@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
 import { Button } from "@mui/material";
-import ChecklistAccordian from "./ChecklistAccordian";
+import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
 import {
   AccordianExpand,
   fieldDisplayNamesWhiteLabelMeetingAvailability,

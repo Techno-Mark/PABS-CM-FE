@@ -26,6 +26,7 @@ const BulkImportModel = ({
   setIsOpen,
   handleClose,
   getAccountList,
+  clientInfo
 }: BulkModalProps) => {
   const token = Cookies.get("token");
   const userId = Cookies.get("userId");
@@ -68,7 +69,6 @@ const BulkImportModel = ({
               item["Notes1 Monthly Transactions"] || "",
             notes: item["Notes"] || "",
           }));
-          console.log(transformedData);
           setExcelData(transformedData);
         }
       };
@@ -81,7 +81,9 @@ const BulkImportModel = ({
       setIsUploading(true);
       try {
         const response = await axios.post(
-          `${process.env.APIDEV_URL}${OnboardingFormAccountDetailsSave}/${userId}`,
+          `${process.env.APIDEV_URL}${OnboardingFormAccountDetailsSave}/${
+            !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+          }`,
           excelData,
           {
             headers: {

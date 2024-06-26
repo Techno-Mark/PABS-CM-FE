@@ -6,7 +6,6 @@ import { hasToken } from "@/utils/commonFunction";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
-// import { removeCookies } from "@/utils/authFunctions";
 
 export default function Home() {
   const router = useRouter();

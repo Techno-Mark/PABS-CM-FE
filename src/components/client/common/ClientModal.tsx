@@ -30,10 +30,10 @@ import {
   onboardingDownloadFormUrl,
   onboardingListFormUrl,
 } from "@/static/apiUrl";
-import BasicDetailsWhitelabel from "./BasicDetailsWhitelabel";
-import ChecklistWhitelabel from "./ChecklistWhitelabel";
+import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
+import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 import Cookies from "js-cookie";
-import AccountDetailsWhitelabel from "./AccountDetailsWhitelabel";
+import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",

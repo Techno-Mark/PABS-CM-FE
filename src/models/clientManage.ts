@@ -1,4 +1,4 @@
-import { BusinessList } from "./userManage";
+import { BusinessList } from "@/models/userManage";
 
 export interface ClientDrawerProps {
   openDrawer: boolean;

@@ -18,7 +18,7 @@ import { useStyles } from "@/utils/useStyles";
 import AuthWapper from "@/components/auth/AuthWapper";
 import { callAPIwithoutHeaders } from "@/api/commonFunction";
 import { resetPasswordAPIUrl, tokenVerificationAPIUrl } from "@/static/apiUrl";
-import { showToast } from "../ToastContainer";
+import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { useSearchParams } from "next/navigation";
 import InfoIcon from "@/assets/Icons/InfoIcon";
