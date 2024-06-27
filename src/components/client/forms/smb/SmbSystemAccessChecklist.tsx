@@ -221,7 +221,7 @@ const PABSGroupEmail = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbPABSGroupEmail?.pabsGroupEmailActionItems}
                 onChange={handleChange}
                 InputProps={{
@@ -345,7 +345,7 @@ const AccessAccountingSoftware = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={
                   smbAccessAccountingSoftware?.AccessAccountingSoftwareActionItems
                 }
@@ -395,7 +395,7 @@ const DropboxSetUp = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Dropbox Set-Up
+        Dropbox Set up
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -455,7 +455,7 @@ const DropboxSetUp = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbDropboxSetUp?.DropboxSetUpActionItems}
                 onChange={handleChange}
                 InputProps={{
@@ -555,7 +555,7 @@ const SalesTaxPortalAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbSalesTaxPortalAccess?.salesTaxPortalAccessActionItems}
                 onChange={handleChange}
                 InputProps={{
@@ -597,7 +597,7 @@ const MerchantAccountPortalAccess = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Merchant account Portal Access (If Any)
+        Merchant Account Portal Access (If Any)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -665,7 +665,7 @@ const MerchantAccountPortalAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={
                   smbMerchantAccountPortalAccess?.merchantAccountPortalAccessActionItems
                 }
@@ -782,7 +782,7 @@ const PayrollServiceAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbPayrollServiceAccess?.PayrollServiceAccessActionItems}
                 error={
                   !!smbPayrollServiceAccessErrors?.PayrollServiceAccessActionItems
@@ -888,7 +888,7 @@ const PayrollFrequency = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbPayrollFrequency?.PayrollFrequencyActionItems}
                 onChange={handleChange}
                 InputProps={{
@@ -994,7 +994,7 @@ const ExpensePaymentPortalAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={
                   smbExpensePaymentPortalAccess?.expensePaymentPortalAccessActionItems
                 }
@@ -1102,7 +1102,7 @@ const ModeOfPayment = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbModeOfPayment?.ModeOfPaymentActionItems}
                 error={!!smbModeOfPaymentErrors?.ModeOfPaymentActionItems}
                 helperText={smbModeOfPaymentErrors?.ModeOfPaymentActionItems}
@@ -1204,7 +1204,7 @@ const ApBills = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbApBills?.ApBillsActionItems}
                 onChange={handleChange}
                 InputProps={{
@@ -1309,7 +1309,7 @@ const PointSalesAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbPointSalesAccess?.pointSalesAccessActionItems}
                 error={!!smbPointSalesAccessErrors.pointSalesAccessActionItems}
                 helperText={

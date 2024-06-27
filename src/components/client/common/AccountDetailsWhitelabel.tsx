@@ -499,7 +499,7 @@ const AccountDetailsWhitelabel = ({
                     }}
                     className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
                   >
-                    Add Account Details
+                    Add Account Detail
                   </button>
                 </div>
               )}

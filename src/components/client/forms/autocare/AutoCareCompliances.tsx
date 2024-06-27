@@ -203,7 +203,7 @@ const SalesTaxAccessWorkPaper = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperActionName
                 }
@@ -238,7 +238,7 @@ const SalesTaxAccessWorkPaper = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperActionItems
                 }
@@ -379,7 +379,7 @@ const UseTax = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={autoCareUseTax?.useTaxActionName}
                 error={!!useTaxErrors?.useTaxActionName}
                 helperText={useTaxErrors?.useTaxActionName}
@@ -406,7 +406,7 @@ const UseTax = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={autoCareUseTax?.useTaxActionItems}
                 error={!!useTaxErrors?.useTaxActionItems}
                 helperText={useTaxErrors?.useTaxActionItems}
@@ -538,7 +538,7 @@ const TireTax = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={autoCareTireTax?.tireTaxActionName}
                 error={!!tireTaxErrors?.tireTaxActionName}
                 helperText={tireTaxErrors?.tireTaxActionName}
@@ -565,7 +565,7 @@ const TireTax = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={autoCareTireTax?.tireTaxActionItems}
                 error={!!tireTaxErrors?.tireTaxActionItems}
                 helperText={tireTaxErrors?.tireTaxActionItems}
@@ -721,7 +721,7 @@ const LastTaxReturnFiledYear = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearActionName
                 }
@@ -754,7 +754,7 @@ const LastTaxReturnFiledYear = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearActionItems
                 }

@@ -348,10 +348,8 @@ function BasicDetailsAutoCare({
       if (
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
-        !!(
-          autoCareClientTeam[field] &&
-          autoCareClientTeam["weeklyCalls"].length !== 0
-        ) ||
+        (!!autoCareClientTeam[field] && !(field === 'weeklyCalls')) ||
+        (field === 'weeklyCalls' && Array.isArray(autoCareClientTeam[field]) && autoCareClientTeam[field].length !== 0) ||
         !!autoCarePabsAccountingTeam[field]
       ) {
         count++;
@@ -359,6 +357,7 @@ function BasicDetailsAutoCare({
     });
 
     let totalFields = relevantFields.length;
+
     let percentage =
       totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
 

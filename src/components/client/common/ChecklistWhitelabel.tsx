@@ -1377,7 +1377,7 @@ const ChecklistWhitelabel = ({
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.TYPE_OF_WORK_ASSIGNMENT
       ),
-      title: "Type of work assignment",
+      title: "Type of Work Assignment",
       component: (
         <WhitelabelWorkAssignmentForm
           checkAllFieldsWhiteLabelWorkAssignmentList={

@@ -179,7 +179,7 @@ const ITStructure = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelITStructure?.itStructureWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -204,7 +204,7 @@ const ITStructure = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelITStructure?.itStructureWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
@@ -244,7 +244,7 @@ const RemoteSetup = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        If Remote Set Up - Access Computer Method (Dedicated)
+        If Remote Set up - Access Computer Method (Dedicated)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -304,7 +304,7 @@ const RemoteSetup = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelRemoteSetup?.remoteSetupWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -329,7 +329,7 @@ const RemoteSetup = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelRemoteSetup?.remoteSetupWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
@@ -369,7 +369,7 @@ const ITHelp = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Need your IT Teams Help?
+        Need Your IT Teams Help?
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -429,7 +429,7 @@ const ITHelp = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelITHelp?.itHelpWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -454,7 +454,7 @@ const ITHelp = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelITHelp?.itHelpWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
@@ -573,7 +573,7 @@ const AccountingSoftware = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={
                   whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelActionPABS
                 }
@@ -606,7 +606,7 @@ const AccountingSoftware = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelActionClient
                 }
@@ -728,7 +728,7 @@ const CloudDocument = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={
                   whitelabelCloudDocument?.cloudDocumentWhiteLabelActionPABS
                 }
@@ -761,7 +761,7 @@ const CloudDocument = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelCloudDocument?.cloudDocumentWhiteLabelActionClient
                 }
@@ -810,7 +810,7 @@ const Messenger = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Team/Clickup/Slack/ Other Messenger Tool Set Up
+        Team/Clickup/Slack/ Other Messenger Tool Set up
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
@@ -879,7 +879,7 @@ const Messenger = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelMessenger?.messengerWhiteLabelActionPABS}
                 error={
                   !!whitelabelMessengerErrors?.messengerWhiteLabelActionPABS
@@ -910,7 +910,7 @@ const Messenger = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelMessenger?.messengerWhiteLabelActionClient}
                 error={
                   !!whitelabelMessengerErrors?.messengerWhiteLabelActionClient
@@ -1029,7 +1029,7 @@ const SystemAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelSystemAccess?.systemAccessWhiteLabelActionPABS}
                 error={
                   !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionPABS
@@ -1060,7 +1060,7 @@ const SystemAccess = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelSystemAccess?.systemAccessWhiteLabelActionClient
                 }
@@ -1168,7 +1168,7 @@ const OtherInfo = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelOtherInfo?.otherInfoWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -1193,7 +1193,7 @@ const OtherInfo = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelOtherInfo?.otherInfoWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{

@@ -433,13 +433,13 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           </div>
           <div className="text-[12px] flex flex-col w-1/2">
             <label className="text-[#6E6D7A] text-[12px]">
-              Bank Connected with Accounting Software
+              Bank Connected With Accounting Software
             </label>
             <TextField
               id="bankConnected"
               variant="standard"
               size="small"
-              placeholder="Please Enter Bank Connected with Accounting"
+              placeholder="Please Enter Bank Connected With Accounting Software"
               value={formValues.bankConnected}
               onChange={handleChange("bankConnected")}
               InputProps={{
@@ -542,13 +542,13 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           </div>
           <div className="text-[12px] flex flex-col w-1/2">
             <label className="text-[#6E6D7A] text-[12px]">
-              Book Keeping Monthly or Clean Up
+              Book Keeping Monthly or Clean up
             </label>
             <TextField
               id="bankConnected"
               variant="standard"
               size="small"
-              placeholder="Please Enter Book Keeping Monthly or Clean Up"
+              placeholder="Please Enter Book Keeping Monthly or Clean up"
               value={formValues.bookKeeping}
               onChange={handleChange("bookKeeping")}
               InputProps={{
