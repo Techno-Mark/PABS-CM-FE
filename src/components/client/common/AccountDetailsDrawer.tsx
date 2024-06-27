@@ -215,7 +215,6 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
     }`;
 
-    console.log("edit: ",edit)
     await callAPIwithHeaders(
       clientID > 0 ? edit : save,
       "post",

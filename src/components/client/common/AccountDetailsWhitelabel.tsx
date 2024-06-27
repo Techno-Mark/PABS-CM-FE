@@ -379,7 +379,6 @@ const AccountDetailsWhitelabel = ({
     const callback = (
       ResponseStatus: string,
       Message: string,
-      ResponseData: null
     ) => {
       switch (ResponseStatus) {
         case "failure":
@@ -500,7 +499,7 @@ const AccountDetailsWhitelabel = ({
                     }}
                     className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
                   >
-                    Add Account Detail
+                    Add Account Details
                   </button>
                 </div>
               )}
