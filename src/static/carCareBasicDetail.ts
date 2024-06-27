@@ -23,7 +23,7 @@ export const initialAutoCareClientTeam = {
   shopManager: "",
   poc1: "",
   email: "",
-  cpa:"",
+  cpa: "",
   priorBookkeeper: "",
   itSupport: "",
   timeZone: "-1",
@@ -57,7 +57,7 @@ export const validatePerCountFields = [
   "poc1",
   "email",
   "weeklyCalls",
-  "weeklyCallTime", 
+  "weeklyCallTime",
   "istTime",
   "implementationMa",
   "implementationAnalyst",
@@ -104,35 +104,42 @@ export const fieldDisplayNamesClientTeam: { [key: string]: string } = {
 
 export const validateAutoCarLegalStructure = ["no_of_Entities", "no_of_Shops"];
 
-export const validateAutoCarClientTeam = ["shopManager", "poc1", "email", "weeklyCalls","weeklyCallTime", "istTime"];
+export const validateAutoCarClientTeam = [
+  "shopManager",
+  "poc1",
+  "email",
+  "weeklyCalls",
+  "weeklyCallTime",
+  "istTime",
+];
 
 export const TimeZoneList = [
-  { value: '-1', label: "Please Select Time Zone" },
-  { value: '1', label: "IST" },
-  { value: '2', label: "PST" },
-  { value: '3', label: "Atlantic" },
-  { value: '4', label: "CST" },
-  { value: '5', label: "EST" },
-  { value: '6', label: "GMT" },
+  { value: "-1", label: "Please Select Time Zone" },
+  { value: "1", label: "IST" },
+  { value: "2", label: "PST" },
+  { value: "3", label: "Atlantic" },
+  { value: "4", label: "CST" },
+  { value: "5", label: "EST" },
+  { value: "6", label: "GMT" },
 ];
 
 export const StateList = [
-  { value: '-1', label: "Please Select State" },
-  { value: '1', label: "California" },
-  { value: '2', label: "Texas" },
-  { value: '3', label: "New York" },
-  { value: '4', label: "Florida" },
-  { value: '5', label: "Illinois" },
+  { value: "-1", label: "Please Select State" },
+  { value: "1", label: "California" },
+  { value: "2", label: "Texas" },
+  { value: "3", label: "New York" },
+  { value: "4", label: "Florida" },
+  { value: "5", label: "Illinois" },
 ];
 
 export const WeeklyCallsList = [
-  { value: '1', label: "Monday" },
-  { value: '2', label: "Tuesday" },
-  { value: '3', label: "Wednesday" },
-  { value: '4', label: "Thursday" },
-  { value: '5', label: "Friday" },
+  { value: "1", label: "Monday" },
+  { value: "2", label: "Tuesday" },
+  { value: "3", label: "Wednesday" },
+  { value: "4", label: "Thursday" },
+  { value: "5", label: "Friday" },
 ];
 
 export const WeeklyCallTimeList = [
-  { value: '-1', label: "Please Select Weekly Call Time" },
+  { value: "-1", label: "Please Select Weekly Call Time" },
 ];

@@ -163,9 +163,9 @@ function BasicDetailsAutoCare({
               weeklyCalls: ResponseData?.weeklyCalls
                 ? ResponseData?.weeklyCalls
                     .split(",")
-                    .map((value) => {
+                    .map((label) => {
                       const matchingItem = WeeklyCallsList.find(
-                        (item) => item.value === value
+                        (item) => item.label === label
                       );
                       return (
                         matchingItem && {
@@ -428,7 +428,7 @@ function BasicDetailsAutoCare({
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
         autoCareClientTeam.weeklyCalls.length > 0
           ? autoCareClientTeam.weeklyCalls
-              .map((item: { value: string; label: string }) => item.value)
+              .map((item: { value: string; label: string }) => item.label)
               .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,

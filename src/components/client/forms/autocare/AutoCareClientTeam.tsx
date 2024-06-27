@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI import
@@ -53,6 +53,7 @@ function AutoCareClientTeam({
 }: ClientTeamTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
+  console.log("autoCareClientTeam: : ", autoCareClientTeam);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -192,21 +193,6 @@ function AutoCareClientTeam({
     const utcTime = time.tz(selectedTimeZone).utc();
     return utcTime.tz("Asia/Kolkata");
   };
-
-  const handleWeeklyCallsChange = (event: any, newValue: any) => {
-    setAutoCareClientTeam((prev) => ({
-      ...prev,
-      weeklyCalls: newValue,
-    }));
-  
-    setAutoCareClientTeamErrors((prevErrors) => ({
-      ...prevErrors,
-      weeklyCalls: "",
-    }));
-  };
-
-  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   return (
     <div className={`${className}`}>
@@ -421,24 +407,27 @@ function AutoCareClientTeam({
             </label>
             <Autocomplete
               multiple
-              id="checkboxes-tags-demo"
-              options={WeeklyCallsList}
+              id="tags-standard"
               size="small"
-              value={autoCareClientTeam?.weeklyCalls || []}
-              onChange={handleWeeklyCallsChange}
-              disableCloseOnSelect
-              getOptionLabel={(option) => option?.label}
-              renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option?.label}
-                </li>
+              options={WeeklyCallsList.filter(
+                (option) =>
+                  !autoCareClientTeam.weeklyCalls.find(
+                    (client: any) => client.value === option.value
+                  )
               )}
+              getOptionLabel={(option: any) => option.label}
+              onChange={(e, data: any[]) => {
+                setAutoCareClientTeam((prev) => ({
+                  ...prev,
+                  weeklyCalls: data,
+                }));
+
+                setAutoCareClientTeamErrors((prevErrors) => ({
+                  ...prevErrors,
+                  weeklyCalls: "",
+                }));
+              }}
+              value={autoCareClientTeam.weeklyCalls}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -480,7 +469,7 @@ function AutoCareClientTeam({
                 }}
                 value={
                   autoCareClientTeam?.weeklyCallTime
-                    ? dayjs.tz(
+                    ? dayjs(
                         autoCareClientTeam?.weeklyCallTime,
                         "hh:mm A",
                         autoCareClientTeam?.timeZone
@@ -493,7 +482,8 @@ function AutoCareClientTeam({
                 onError={(error) =>
                   setAutoCareClientTeamErrors((prevErrors) => ({
                     ...prevErrors,
-                    weeklyCallTime: error,
+                    weeklyCallTime:
+                      error === "invalidDate" ? "Invalid Time" : error,
                   }))
                 }
                 disabled={
@@ -546,7 +536,7 @@ function AutoCareClientTeam({
                 onError={(error) =>
                   setAutoCareClientTeamErrors((prevErrors) => ({
                     ...prevErrors,
-                    istTime: error,
+                    istTime: error === "invalidDate" ? "Invalid Time" : error,
                   }))
                 }
                 slotProps={{

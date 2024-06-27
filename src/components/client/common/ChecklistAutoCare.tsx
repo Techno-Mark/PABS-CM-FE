@@ -147,8 +147,6 @@ function ChecklistAutoCare({
     useState<AccessComputerFormTypes>(initialAutoCareAccessComputerMethod);
   const [autoCarePosSoftware, setAutoCarePosSoftware] =
     useState<PosSoftwareFormTypes>(initialAutoCarePosSoftware);
-  const [autoCareEstimatingSoftware, setAutoCareEstimatingSoftware] =
-    useState<EstimatingSoftwareFormTypes>(initialAutoCareEstimatingSoftware);
   const [autoCareAccountingSoftware, setAutoCareAccountingSoftware] =
     useState<AccountingSoftwareFormTypes>(initialAutoCareAccountingSoftware);
   const [autoCareCloudDocumentManagement, setAutoCareCloudDocumentManagement] =
@@ -491,7 +489,7 @@ function ChecklistAutoCare({
                       itStructureActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Access Computer Method":
+                  case "Access Computer Method (Dedicated)":
                     setAutoCareAccessComputerMethod({
                       accessComputerStatus: checklistItem.status,
                       accessComputerComments: checklistItem.comments,
@@ -500,23 +498,13 @@ function ChecklistAutoCare({
                       accessComputerActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "POS Software":
+                  case "POS System":
                     setAutoCarePosSoftware({
                       posSoftwareStatus: checklistItem.status,
                       posSoftwareComments: checklistItem.comments,
                       posSoftwareDetails: checklistItem.details,
                       posSoftwareActionName: checklistItem.actionsOfPabs,
                       posSoftwareActionItems: checklistItem.actionsOfClient,
-                    });
-                    break;
-                  case "Estimating Software":
-                    setAutoCareEstimatingSoftware({
-                      estimatingSoftwareStatus: checklistItem.status,
-                      estimatingSoftwareComments: checklistItem.comments,
-                      estimatingSoftwareDetails: checklistItem.details,
-                      estimatingSoftwareActionName: checklistItem.actionsOfPabs,
-                      estimatingSoftwareActionItems:
-                        checklistItem.actionsOfClient,
                     });
                     break;
                   case "Accounting Software":
@@ -540,7 +528,7 @@ function ChecklistAutoCare({
                         checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Scanner":
+                  case "Scanner (If Any)":
                     setAutoCareScanner({
                       scannerStatus: checklistItem.status,
                       scannerComments: checklistItem.comments,
@@ -549,7 +537,7 @@ function ChecklistAutoCare({
                       scannerActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Operating Checking Account":
+                  case "Operating Checking Account(s)":
                     setAutoCareOperatingCheckingAccount({
                       operatingCheckingAccountStatus: checklistItem.status,
                       operatingCheckingAccountComments: checklistItem.comments,
@@ -560,7 +548,7 @@ function ChecklistAutoCare({
                         checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Savings Account":
+                  case "Savings Account(s)":
                     setAutoCareSavingsAccount({
                       savingsAccountStatus: checklistItem.status,
                       savingsAccountComments: checklistItem.comments,
@@ -569,7 +557,7 @@ function ChecklistAutoCare({
                       savingsAccountActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Credit Card":
+                  case "Credit Card(s)":
                     setAutoCareCreditCard({
                       creditCardStatus: checklistItem.status,
                       creditCardComments: checklistItem.comments,
@@ -578,7 +566,7 @@ function ChecklistAutoCare({
                       creditCardActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Business Loans":
+                  case "Business Loan(s)":
                     setAutoCareBusinessLoans({
                       businessLoansStatus: checklistItem.status,
                       businessLoansComments: checklistItem.comments,
@@ -587,7 +575,7 @@ function ChecklistAutoCare({
                       businessLoansActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Property Loans":
+                  case "Property Loan(s)":
                     setAutoCarePropertyLoans({
                       propertyLoansStatus: checklistItem.status,
                       propertyLoansComments: checklistItem.comments,
@@ -625,7 +613,7 @@ function ChecklistAutoCare({
                       noOfEmployeeActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Sales Tax Frequency":
+                  case "Sales Tax Access & Work Papers":
                     setAutoCareSalesTaxAccessWorkPaper({
                       salesTaxAccessWorkPaperStatus: checklistItem.status,
                       salesTaxAccessWorkPaperComments: checklistItem.comments,
@@ -654,7 +642,7 @@ function ChecklistAutoCare({
                       tireTaxActionItems: checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Last Tax Return Filed Year":
+                  case "Last Tax Return Filed Year (990)":
                     setAutoCareLastTaxReturnFiledYear({
                       lastTaxReturnFiledYearStatus: checklistItem.status,
                       lastTaxReturnFiledYearComments: checklistItem.comments,
@@ -713,7 +701,7 @@ function ChecklistAutoCare({
                         checklistItem.actionsOfClient,
                     });
                     break;
-                  case "Sharing the Financials":
+                  case "Sharing the Financials (POC)":
                     setAutoCareSharingFinancials({
                       sharingFinancialsStatus: checklistItem.status,
                       sharingFinancialsComments: checklistItem.comments,
@@ -836,7 +824,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareITStructureReview.itStructureActionItems,
         },
         {
-          fieldName: "Access Computer Method",
+          fieldName: "Access Computer Method (Dedicated)",
           status: autoCareAccessComputerMethod.accessComputerStatus,
           comments: autoCareAccessComputerMethod.accessComputerComments,
           details: autoCareAccessComputerMethod.accessComputerDetails,
@@ -845,22 +833,12 @@ function ChecklistAutoCare({
             autoCareAccessComputerMethod.accessComputerActionItems,
         },
         {
-          fieldName: "POS Software",
+          fieldName: "POS System",
           status: autoCarePosSoftware.posSoftwareStatus,
           comments: autoCarePosSoftware.posSoftwareComments,
           details: autoCarePosSoftware.posSoftwareDetails,
           actionsOfPabs: autoCarePosSoftware.posSoftwareActionName,
           actionsOfClient: autoCarePosSoftware.posSoftwareActionItems,
-        },
-        {
-          fieldName: "Estimating Software",
-          status: autoCareEstimatingSoftware.estimatingSoftwareStatus,
-          comments: autoCareEstimatingSoftware.estimatingSoftwareComments,
-          details: autoCareEstimatingSoftware.estimatingSoftwareDetails,
-          actionsOfPabs:
-            autoCareEstimatingSoftware.estimatingSoftwareActionName,
-          actionsOfClient:
-            autoCareEstimatingSoftware.estimatingSoftwareActionItems,
         },
         {
           fieldName: "Accounting Software",
@@ -885,7 +863,7 @@ function ChecklistAutoCare({
             autoCareCloudDocumentManagement.cloudDocumentManagementActionItems,
         },
         {
-          fieldName: "Scanner",
+          fieldName: "Scanner (If Any)",
           status: autoCareScanner.scannerStatus,
           comments: autoCareScanner.scannerComments,
           details: autoCareScanner.scannerDetails,
@@ -893,7 +871,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareScanner.scannerActionItems,
         },
         {
-          fieldName: "Operating Checking Account",
+          fieldName: "Operating Checking Account(s)",
           status:
             autoCareOperatingCheckingAccount.operatingCheckingAccountStatus,
           comments:
@@ -906,7 +884,7 @@ function ChecklistAutoCare({
             autoCareOperatingCheckingAccount.operatingCheckingAccountActionItems,
         },
         {
-          fieldName: "Savings Account",
+          fieldName: "Savings Account(s)",
           status: autoCareSavingsAccount.savingsAccountStatus,
           comments: autoCareSavingsAccount.savingsAccountComments,
           details: autoCareSavingsAccount.savingsAccountDetails,
@@ -914,7 +892,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareSavingsAccount.savingsAccountActionItems,
         },
         {
-          fieldName: "Credit Card",
+          fieldName: "Credit Card(s)",
           status: autoCareCreditCard.creditCardStatus,
           comments: autoCareCreditCard.creditCardComments,
           details: autoCareCreditCard.creditCardDetails,
@@ -922,7 +900,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareCreditCard.creditCardActionItems,
         },
         {
-          fieldName: "Business Loans",
+          fieldName: "Business Loan(s)",
           status: autoCareBusinessLoans.businessLoansStatus,
           comments: autoCareBusinessLoans.businessLoansComments,
           details: autoCareBusinessLoans.businessLoansDetails,
@@ -930,7 +908,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareBusinessLoans.businessLoansActionItems,
         },
         {
-          fieldName: "Property Loans",
+          fieldName: "Property Loan(s)",
           status: autoCarePropertyLoans.propertyLoansStatus,
           comments: autoCarePropertyLoans.propertyLoansComments,
           details: autoCarePropertyLoans.propertyLoansDetails,
@@ -965,7 +943,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareNoOfEmployee.noOfEmployeeActionItems,
         },
         {
-          fieldName: "Sales Tax Frequency",
+          fieldName: "Sales Tax Access & Work Papers",
           status: autoCareSalesTaxAccessWorkPaper.salesTaxAccessWorkPaperStatus,
           comments:
             autoCareSalesTaxAccessWorkPaper.salesTaxAccessWorkPaperComments,
@@ -993,7 +971,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareTireTax.tireTaxActionItems,
         },
         {
-          fieldName: "Last Tax Return Filed Year",
+          fieldName: "Last Tax Return Filed Year (990)",
           status: autoCareLastTaxReturnFiledYear.lastTaxReturnFiledYearStatus,
           comments:
             autoCareLastTaxReturnFiledYear.lastTaxReturnFiledYearComments,
@@ -1046,7 +1024,7 @@ function ChecklistAutoCare({
           actionsOfClient: autoCareLastClosedPeriod.lastClosedPeriodActionItems,
         },
         {
-          fieldName: "Sharing the Financials",
+          fieldName: "Sharing the Financials (POC)",
           status: autoCareSharingFinancials.sharingFinancialsStatus,
           comments: autoCareSharingFinancials.sharingFinancialsComments,
           details: autoCareSharingFinancials.sharingFinancialsDetails,
@@ -1479,8 +1457,6 @@ function ChecklistAutoCare({
           setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
           autoCarePosSoftware={autoCarePosSoftware}
           setAutoCarePosSoftware={setAutoCarePosSoftware}
-          autoCareEstimatingSoftware={autoCareEstimatingSoftware}
-          setAutoCareEstimatingSoftware={setAutoCareEstimatingSoftware}
           autoCareAccountingSoftware={autoCareAccountingSoftware}
           setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
           autoCareCloudDocumentManagement={autoCareCloudDocumentManagement}

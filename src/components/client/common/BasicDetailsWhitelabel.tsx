@@ -285,7 +285,7 @@ const BasicDetailsWhitelabel = ({
       state: whitelabelAccountDetails.state,
       city: whitelabelAccountDetails.city,
       zip: whitelabelAccountDetails.zip,
-      noOfAccounts: whitelabelOtherInformation.noOfAccounts,
+      noOfAccounts: Number(whitelabelOtherInformation.noOfAccounts),
       bdm: whitelabelOtherInformation.bdm,
       startDate: whitelabelOtherInformation.startDate,
       pocDetails: whitelabelCpaClientTeam.pocDetails,
