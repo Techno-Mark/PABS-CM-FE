@@ -138,7 +138,7 @@ const GroupEmailEstablished = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={
                   whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionPABS
                 }
@@ -165,7 +165,7 @@ const GroupEmailEstablished = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelGroupEmailEstablished?.groupEmailWhiteLabelActionClient
                 }
@@ -267,7 +267,7 @@ const KickOff = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelKickOff?.kickOffWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -292,7 +292,7 @@ const KickOff = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelKickOff?.kickOffWhiteLabelActionClient}
                 onChange={handleChange}
                 InputProps={{
@@ -392,7 +392,7 @@ const IntroductionTeamOverCall = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelTeamOverCall?.teamOverCallWhiteLabelActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -417,7 +417,7 @@ const IntroductionTeamOverCall = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelTeamOverCall?.teamOverCallWhiteLabelActionClient
                 }

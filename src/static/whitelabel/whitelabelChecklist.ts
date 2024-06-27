@@ -227,20 +227,20 @@ export const fieldDisplayNamesWhiteLabelSystemSoftware: {
 } = {
   accountingSoftwareWhiteLabelStatus: "Status",
   accountingSoftwareWhiteLabelComments: "Comments",
-  accountingSoftwareWhiteLabelActionPABS: "Action Items Pabs",
-  accountingSoftwareWhiteLabelActionClient: "Action Items Client",
+  accountingSoftwareWhiteLabelActionPABS: "Action Items - PABS",
+  accountingSoftwareWhiteLabelActionClient: "Action Items - Client",
   cloudDocumentWhiteLabelStatus: "Status",
   cloudDocumentWhiteLabelComments: "Comments",
-  cloudDocumentWhiteLabelActionPABS: "Action Items Pabs",
-  cloudDocumentWhiteLabelActionClient: "Action Items Client",
+  cloudDocumentWhiteLabelActionPABS: "Action Items - PABS",
+  cloudDocumentWhiteLabelActionClient: "Action Items - Client",
   messengerWhiteLabelStatus: "Status",
   messengerWhiteLabelComments: "Comments",
-  messengerWhiteLabelActionPABS: "Action Items Pabs",
-  messengerWhiteLabelActionClient: "Action Items Client",
+  messengerWhiteLabelActionPABS: "Action Items - PABS",
+  messengerWhiteLabelActionClient: "Action Items - Client",
   systemAccessWhiteLabelStatus: "Status",
   systemAccessWhiteLabelComments: "Comments",
-  systemAccessWhiteLabelActionPABS: "Action Items Pabs",
-  systemAccessWhiteLabelActionClient: "Action Items Client",
+  systemAccessWhiteLabelActionPABS: "Action Items - PABS",
+  systemAccessWhiteLabelActionClient: "Action Items - Client",
 };
 
 export const validateWhiteLabelServiceTypeField = [
@@ -263,16 +263,16 @@ export const fieldDisplayNamesWhiteLabelServiceType: {
 } = {
   FTEStatus: "Status",
   FTEComments: "Comments",
-  FTEActionPABS: "Action Items Pabs",
-  FTEActionClient: "Action Items Client",
+  FTEActionPABS: "Action Items - PABS",
+  FTEActionClient: "Action Items - Client",
   accountingStatus: "Status",
   accountingComments: "Comments",
-  accountingActionPABS: "Action Items Pabs",
-  accountingActionClient: "Action Items Client",
+  accountingActionPABS: "Action Items - PABS",
+  accountingActionClient: "Action Items - Client",
   taxStatus: "Status",
   taxComments: "Comments",
-  taxActionPABS: "Action Items Pabs",
-  taxActionClient: "Action Items Client",
+  taxActionPABS: "Action Items - PABS",
+  taxActionClient: "Action Items - Client",
 };
 
 export const validateWhiteLabelWorkAssignmentField = [
@@ -299,20 +299,20 @@ export const fieldDisplayNamesWhiteLabelWorkAssignment: {
 } = {
   monthlyStatus: "Status",
   monthlyComments: "Comments",
-  monthlyActionPABS: "Action Items Pabs",
-  monthlyActionClient: "Action Items Client",
+  monthlyActionPABS: "Action Items - PABS",
+  monthlyActionClient: "Action Items - Client",
   combinationStatus: "Status",
   combinationComments: "Comments",
-  combinationActionPABS: "Action Items Pabs",
-  combinationActionClient: "Action Items Client",
+  combinationActionPABS: "Action Items - PABS",
+  combinationActionClient: "Action Items - Client",
   cleanupStatus: "Status",
   cleanupComments: "Comments",
-  cleanupActionPABS: "Action Items Pabs",
-  cleanupActionClient: "Action Items Client",
+  cleanupActionPABS: "Action Items - PABS",
+  cleanupActionClient: "Action Items - Client",
   catchupStatus: "Status",
   catchupComments: "Comments",
-  catchupActionPABS: "Action Items Pabs",
-  catchupActionClient: "Action Items Client",
+  catchupActionPABS: "Action Items - PABS",
+  catchupActionClient: "Action Items - Client",
 };
 
 export const validateWhiteLabelMeetingAvailabilityField = [
@@ -335,16 +335,16 @@ export const fieldDisplayNamesWhiteLabelMeetingAvailability: {
 } = {
   timeZoneStatus: "Status",
   timeZoneComments: "Comments",
-  timeZoneActionPABS: "Action Items Pabs",
-  timeZoneActionClient: "Action Items Client",
+  timeZoneActionPABS: "Action Items - PABS",
+  timeZoneActionClient: "Action Items - Client",
   convenientDayStatus: "Status",
   convenientDayComments: "Comments",
-  convenientDayActionPABS: "Action Items Pabs",
-  convenientDayActionClient: "Action Items Client",
+  convenientDayActionPABS: "Action Items - PABS",
+  convenientDayActionClient: "Action Items - Client",
   timeSlotStatus: "Status",
   timeSlotComments: "Comments",
-  timeSlotActionPABS: "Action Items Pabs",
-  timeSlotActionClient: "Action Items Client"
+  timeSlotActionPABS: "Action Items - PABS",
+  timeSlotActionClient: "Action Items - Client"
 };
 
 export const statusOptionDrawerAccDetails = [

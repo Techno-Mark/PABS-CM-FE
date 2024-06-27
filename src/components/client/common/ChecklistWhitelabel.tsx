@@ -1287,7 +1287,7 @@ const ChecklistWhitelabel = ({
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.SYSTEMS_SOFTWARE_SET_UP
       ),
-      title: "Systems & Software Set up",
+      title: "Systems & Software Set Up",
       component: (
         <WhitelabelSystemSoftwareSetupForm
           checkAllFieldsWhiteLabelSystemSoftwareList={
@@ -1377,7 +1377,7 @@ const ChecklistWhitelabel = ({
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.TYPE_OF_WORK_ASSIGNMENT
       ),
-      title: "Type of work assignment",
+      title: "Type of Work Assignment",
       component: (
         <WhitelabelWorkAssignmentForm
           checkAllFieldsWhiteLabelWorkAssignmentList={

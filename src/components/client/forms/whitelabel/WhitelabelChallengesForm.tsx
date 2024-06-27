@@ -122,7 +122,7 @@ const CurrentChallenges = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelCurrentChallenges?.currentChallengesActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -147,7 +147,7 @@ const CurrentChallenges = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelCurrentChallenges?.currentChallengesActionClient
                 }
@@ -189,7 +189,7 @@ const Expectation = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Expectation from PABS
+        Expectation From PABS
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -249,7 +249,7 @@ const Expectation = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS"
                 value={whitelabelExpectation?.exceptionActionPABS}
                 onChange={handleChange}
                 InputProps={{
@@ -274,7 +274,7 @@ const Expectation = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - Client"
                 value={whitelabelExpectation?.exceptionActionClient}
                 onChange={handleChange}
                 InputProps={{

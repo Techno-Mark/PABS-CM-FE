@@ -105,7 +105,7 @@ const SavingAccount = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        No of Checking & Saving Accounts
+        No. of Checking & Saving Accounts
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">
@@ -170,7 +170,7 @@ const SavingAccount = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbSavingAccount?.SavingAccountActionItems}
                 error={!!smbSavingAccountErrors?.SavingAccountActionItems}
                 helperText={smbSavingAccountErrors?.SavingAccountActionItems}
@@ -274,7 +274,7 @@ const AccessSavingAccount = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbAccessSavingAccount?.AccessSavingAccountActionItems}
                 onChange={handleAccessSavingAccountChange}
                 InputProps={{
@@ -380,7 +380,7 @@ const AddCards = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbAddCards?.AddCardsActionItems}
                 error={!!smbAddCardsErrors?.AddCardsActionItems}
                 helperText={smbAddCardsErrors?.AddCardsActionItems}
@@ -484,7 +484,7 @@ const AccessLoanAccount = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={smbAccessLoanAccount?.AccessLoanAccountActionItems}
                 onChange={handleAccessLoanAccountChange}
                 InputProps={{
@@ -586,7 +586,7 @@ const AccessCreditCardPortal = ({
                 id="outlined-basic"
                 variant="standard"
                 size="small"
-                placeholder="Please Enter Action Items"
+                placeholder="Please Enter Action Items - PABS/Client"
                 value={
                   smbAccessCreditCardPortal?.AccessCreditCardPortalActionItems
                 }

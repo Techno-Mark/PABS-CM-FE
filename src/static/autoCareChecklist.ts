@@ -322,44 +322,44 @@ export const fieldDisplayNamesFinancials: { [key: string]: string } = {
   lastClosedPeriodStatus: "Status",
   lastClosedPeriodComments: "Comments",
   lastClosedPeriodDetails: "Details",
-  lastClosedPeriodActionName: "Action Items PABS",
-  lastClosedPeriodActionItems: "Action Items Client"
+  lastClosedPeriodActionName: "Action Items - PABS",
+  lastClosedPeriodActionItems: "Action Items - Client"
 };
 
 export const fieldDisplayNamesPayableCashPayAccess: { [key: string]: string } = {
   vendorPortalAccessStatus: "Status",
   vendorPortalAccessComments: "Comments",
   vendorPortalAccessDetails: "Details",
-  vendorPortalAccessActionName: "Action Items PABS",
-  vendorPortalAccessActionItems: "Action Items Client",
+  vendorPortalAccessActionName: "Action Items - PABS",
+  vendorPortalAccessActionItems: "Action Items - Client",
   billPayAccessStatus: "Status",
   billPayAccessComments: "Comments",
   billPayAccessDetails: "Details",
-  billPayAccessActionName: "Action Items PABS",
-  billPayAccessActionItems: "Action Items Client",
+  billPayAccessActionName: "Action Items - PABS",
+  billPayAccessActionItems: "Action Items - Client",
 };
 
 export const fieldDisplayNamesCompliances: { [key: string]: string } = {
   salesTaxAccessWorkPaperStatus: "Status",
   salesTaxAccessWorkPaperComments: "Comments",
   salesTaxAccessWorkPaperDetails: "Details",
-  salesTaxAccessWorkPaperActionName: "Action Items PABS",
-  salesTaxAccessWorkPaperActionItems: "Action Items Client",
+  salesTaxAccessWorkPaperActionName: "Action Items - PABS",
+  salesTaxAccessWorkPaperActionItems: "Action Items - Client",
   useTaxStatus: "Status",
   useTaxComments: "Comments",
   useTaxDetails: "Details",
-  useTaxActionName: "Action Items PABS",
-  useTaxActionItems: "Action Items Client",
+  useTaxActionName: "Action Items - PABS",
+  useTaxActionItems: "Action Items - Client",
   tireTaxStatus: "Status",
   tireTaxComments: "Comments",
   tireTaxDetails: "Details",
-  tireTaxActionName: "Action Items PABS",
-  tireTaxActionItems: "Action Items Client",
+  tireTaxActionName: "Action Items - PABS",
+  tireTaxActionItems: "Action Items - Client",
   lastTaxReturnFiledYearStatus: "Status",
   lastTaxReturnFiledYearComments: "Comments",
   lastTaxReturnFiledYearDetails: "Details",
-  lastTaxReturnFiledYearActionName: "Action Items PABS",
-  lastTaxReturnFiledYearActionItems: "Action Items Client",
+  lastTaxReturnFiledYearActionName: "Action Items - PABS",
+  lastTaxReturnFiledYearActionItems: "Action Items - Client",
 };
 
 
@@ -367,44 +367,44 @@ export const fieldDisplayNamesCashBankLoans: { [key: string]: string } = {
   operatingCheckingAccountStatus: "Status",
   operatingCheckingAccountComments: "Comments",
   operatingCheckingAccountDetails: "Details",
-  operatingCheckingAccountActionName: "Action Items PABS",
-  operatingCheckingAccountActionItems: "Action Items Client",
+  operatingCheckingAccountActionName: "Action Items - PABS",
+  operatingCheckingAccountActionItems: "Action Items - Client",
   savingsAccountStatus: "Status",
   savingsAccountComments: "Comments",
   savingsAccountDetails: "Details",
-  savingsAccountActionName: "Action Items PABS",
-  savingsAccountActionItems: "Action Items Client",
+  savingsAccountActionName: "Action Items - PABS",
+  savingsAccountActionItems: "Action Items - Client",
   creditCardStatus: "Status",
   creditCardComments: "Comments",
   creditCardDetails: "Details",
-  creditCardActionName: "Action Items PABS",
-  creditCardActionItems: "Action Items Client"
+  creditCardActionName: "Action Items - PABS",
+  creditCardActionItems: "Action Items - Client"
 };
 
 export const fieldDisplayNamesFrequency: { [key: string]: string } = {
   payrollServiceProviderStatus: "Status",
   payrollServiceProviderComments: "Comments",
   payrollServiceProviderDetails: "Details",
-  payrollServiceProviderActionName: "Action Items PABS",
-  payrollServiceProviderActionItems: "Action Items Client",
+  payrollServiceProviderActionName: "Action Items - PABS",
+  payrollServiceProviderActionItems: "Action Items - Client",
   frequencyStatus: "Status",
   frequencyComments: "Comments",
   frequencyDetails: "Details",
-  frequencyActionName: "Action Items PABS",
-  frequencyActionItems: "Action Items Client",
+  frequencyActionName: "Action Items - PABS",
+  frequencyActionItems: "Action Items - Client",
 };
 
 export const fieldDisplayNamesSystemSoftwareLoans: { [key: string]: string } = {
   posSoftwareStatus: "Status",
   posSoftwareComments: "Comments",
   posSoftwareDetails: "Details",
-  posSoftwareActionName: "Action Items PABS",
-  posSoftwareActionItems: "Action Items Client",
+  posSoftwareActionName: "Action Items - PABS",
+  posSoftwareActionItems: "Action Items - Client",
   accountingSoftwareStatus: "Status",
   accountingSoftwareComments: "Comments",
   accountingSoftwareDetails: "Details",
-  accountingSoftwareActionName: "Action Items PABS",
-  accountingSoftwareActionItems: "Action Items Client",
+  accountingSoftwareActionName: "Action Items - PABS",
+  accountingSoftwareActionItems: "Action Items - Client",
 };
 
 

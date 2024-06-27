@@ -100,7 +100,7 @@ const WhitelabelDrawerPanel = ({
       >
         <div className="p-5 top-0 !h-[9%] flex items-center justify-between border-b">
           <span className="font-bold text-[18px]">
-            {canEdit ? "Edit Account Details" : "Add Account Details"} {type}
+            {canEdit ? "Edit Account Detail" : "Add Account Detail"} {type}
           </span>
           <Tooltip title="Close" placement="bottom" arrow>
             <span
@@ -120,7 +120,7 @@ const WhitelabelDrawerPanel = ({
               setOpenDrawer(false);
               setId();
             }}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[16px]`}
+            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[14px]`}
             variant="outlined"
           >
             Cancel
@@ -136,7 +136,7 @@ const WhitelabelDrawerPanel = ({
             {isLoading ? (
               <CircularProgress size={20} sx={{ color: "white !important" }} />
             ) : (
-              <span className="uppercase font-semibold text-[16px]">Save</span>
+              <span className="uppercase font-semibold text-[14px]">Save</span>
             )}
           </Button>
         </div>
