@@ -167,7 +167,7 @@ const BulkImportModel = ({
           </Tooltip>
         </div>
         <Divider />
-        <div className="p-6 mb-5 px-5 h-[235px] w-[40vw]">
+        <div className="p-6 mb-5 px-5 h-[80%] w-[80%]">
           <div className="flex items-center justify-around gap-5">
             <input
               accept=".xls,.xlsx"

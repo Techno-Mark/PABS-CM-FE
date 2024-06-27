@@ -53,7 +53,6 @@ function AutoCareClientTeam({
 }: ClientTeamTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-  console.log("autoCareClientTeam: : ", autoCareClientTeam);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -123,7 +122,15 @@ function AutoCareClientTeam({
   };
 
   const handleTimeChange = (time: any, name: string) => {
-    const formattedTime = time ? time.format("hh:mm A") : null;
+    const formattedTime = time
+      ? dayjs
+          .tz(
+            time,
+            "hh:mm A",
+            time ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"
+          )
+          .format("hh:mm A")
+      : null;
 
     switch (name) {
       case "weeklyCallTime":
@@ -469,7 +476,7 @@ function AutoCareClientTeam({
                 }}
                 value={
                   autoCareClientTeam?.weeklyCallTime
-                    ? dayjs(
+                    ? dayjs.tz(
                         autoCareClientTeam?.weeklyCallTime,
                         "hh:mm A",
                         autoCareClientTeam?.timeZone
