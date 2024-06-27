@@ -244,7 +244,7 @@ const RemoteSetup = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        If Remote Set up - Access Computer Method (Dedicated)
+        If Remote Set Up - Access Computer Method (Dedicated)
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -810,7 +810,7 @@ const Messenger = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-        Team/Clickup/Slack/ Other Messenger Tool Set up
+        Team/Clickup/Slack/ Other Messenger Tool Set Up
         <span className="text-[#DC3545]">*</span>
       </div>
       <div className="py-3 flex flex-col gap-4">

@@ -184,7 +184,7 @@ const AccountDetailsWhitelabel = ({
       field: "bankConnectedWithAccountingSoftware",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">
-          Bank Connected with Accounting Software
+          Bank Connected With Accounting Software
         </span>
       ),
       minWidth: 300,
