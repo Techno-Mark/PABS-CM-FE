@@ -4,6 +4,11 @@ export const validateEmail = (email: string) => {
 };
 
 export const validateNumber = (number: string) => {
-    const numberRegex = /^[0-9]+$/;
-    return numberRegex.test(number);
-  };
+  const numberRegex = /^[0-9]+$/;
+  return numberRegex.test(number);
+};
+
+export const validatePhone = (phone: string) => {
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phone);
+};

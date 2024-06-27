@@ -122,18 +122,19 @@ function AutoCareClientTeam({
   };
 
   const handleTimeChange = (time: any, name: string) => {
-    const formattedTime = time
-      ? dayjs
-          .tz(
-            time,
-            "hh:mm A",
-            time ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"
-          )
-          .format("hh:mm A")
-      : null;
 
     switch (name) {
       case "weeklyCallTime":
+        const formattedTime = time
+          ? dayjs
+            .tz(
+              time,
+              "hh:mm A",
+              time ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"
+            )
+            .format("hh:mm A")
+          : null;
+
         setAutoCareClientTeam({
           ...autoCareClientTeam,
           weeklyCallTime: formattedTime,
@@ -157,9 +158,10 @@ function AutoCareClientTeam({
         }
         break;
       case "istTime":
+        const formattedIstTime = time ? time.format("hh:mm A") : null;
         setAutoCareClientTeam({
           ...autoCareClientTeam,
-          istTime: formattedTime,
+          istTime: formattedIstTime,
         });
         setAutoCareClientTeamErrors((prevErrors) => ({
           ...prevErrors,
@@ -360,11 +362,10 @@ function AutoCareClientTeam({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.timeZone === "-1"
+                className={`${autoCareClientTeam?.timeZone === "-1"
                     ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
-                }`}
+                  }`}
                 value={autoCareClientTeam?.timeZone}
                 onChange={(e) => handleDropdownChange(e, "timeZone")}
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -387,11 +388,10 @@ function AutoCareClientTeam({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.state === "-1"
+                className={`${autoCareClientTeam?.state === "-1"
                     ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
-                }`}
+                  }`}
                 value={autoCareClientTeam?.state}
                 onChange={(e) => handleDropdownChange(e, "state")}
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -476,13 +476,9 @@ function AutoCareClientTeam({
                 }}
                 value={
                   autoCareClientTeam?.weeklyCallTime
-                    ? dayjs.tz(
-                        autoCareClientTeam?.weeklyCallTime,
-                        "hh:mm A",
-                        autoCareClientTeam?.timeZone
-                          ? timeZoneMap[autoCareClientTeam.timeZone]
-                          : "Asia/Kolkata"
-                      )
+                    ? dayjs(
+                      autoCareClientTeam?.weeklyCallTime,
+                      "hh:mm A")
                     : null
                 }
                 onChange={(e) => handleTimeChange(e, "weeklyCallTime")}

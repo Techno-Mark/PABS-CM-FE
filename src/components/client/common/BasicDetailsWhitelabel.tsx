@@ -29,7 +29,7 @@ import WhitelabelAccountDetailsForm from "@/components/client/forms/whitelabel/W
 import WhitelabelOtherInformationForm from "@/components/client/forms/whitelabel/WhitelabelOtherInformationForm";
 import WhitelabelCpaClientTeamForm from "@/components/client/forms/whitelabel/WhitelabelCpaClientTeamForm";
 import WhitelabelPabsAccountingTeamForm from "@/components/client/forms/whitelabel/WhitelabelPabsAccountingTeamForm";
-import { validateNumber } from "@/utils/validate";
+import { validateEmail, validateNumber, validatePhone } from "@/utils/validate";
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
@@ -168,19 +168,19 @@ const BasicDetailsWhitelabel = ({
               cpaArray:
                 ResponseData.pocFieldsDetail.length > 0
                   ? ResponseData.pocFieldsDetail.map(
-                      (pocFieldsDetailItem: WhitelabelCpaClientTeamTypes) => ({
-                        pocName: pocFieldsDetailItem.pocName,
-                        pocEmailId: pocFieldsDetailItem.pocEmailId,
-                        pocContactNo: pocFieldsDetailItem.pocContactNo,
-                      })
-                    )
+                    (pocFieldsDetailItem: WhitelabelCpaClientTeamTypes) => ({
+                      pocName: pocFieldsDetailItem.pocName,
+                      pocEmailId: pocFieldsDetailItem.pocEmailId,
+                      pocContactNo: pocFieldsDetailItem.pocContactNo,
+                    })
+                  )
                   : [
-                      {
-                        pocName: "",
-                        pocEmailId: "",
-                        pocContactNo: "",
-                      },
-                    ],
+                    {
+                      pocName: "",
+                      pocEmailId: "",
+                      pocContactNo: "",
+                    },
+                  ],
             });
             setWhitelabelPABSAccountingTeam({
               implementation: ResponseData.implementation,
@@ -279,9 +279,9 @@ const BasicDetailsWhitelabel = ({
         : parseInt(businessTypeId!),
       cpaName: whitelabelAccountDetails.cpaName,
       corporateAddress: whitelabelAccountDetails.corporateAddress,
-      ownerContact: whitelabelAccountDetails.ownerContact,
-      ownerEmail: whitelabelAccountDetails.ownerEmail,
-      ownerPhone: whitelabelAccountDetails.ownerPhone,
+      ownerContact: validatePhone(whitelabelAccountDetails.ownerContact) ? whitelabelAccountDetails.ownerContact : "",
+      ownerEmail: validateEmail(whitelabelAccountDetails.ownerEmail) ? whitelabelAccountDetails.ownerEmail : "",
+      ownerPhone: validatePhone(whitelabelAccountDetails.ownerPhone) ? whitelabelAccountDetails.ownerPhone : "",
       state: whitelabelAccountDetails.state,
       city: whitelabelAccountDetails.city,
       zip: whitelabelAccountDetails.zip,
@@ -294,8 +294,8 @@ const BasicDetailsWhitelabel = ({
       teamManager: whitelabelPABSAccountingTeam.teamManager,
       teamLeader: whitelabelPABSAccountingTeam.teamLeader,
       seniorAccountant: whitelabelPABSAccountingTeam.seniorAccountant,
-      pabsGroupEmail: whitelabelPABSAccountingTeam.pabsGroupEmail,
-      pabsPhone: whitelabelPABSAccountingTeam.pabsPhone,
+      pabsGroupEmail: validateEmail(whitelabelPABSAccountingTeam.pabsGroupEmail) ? whitelabelPABSAccountingTeam.pabsGroupEmail : "",
+      pabsPhone: validatePhone(whitelabelPABSAccountingTeam.pabsPhone) ? whitelabelPABSAccountingTeam.pabsPhone : "",
       progress: whiteLabelProgressPercentage,
       pocFieldsDetail: whitelabelCpaClientTeam.cpaArray
         .filter(
@@ -405,11 +405,11 @@ const BasicDetailsWhitelabel = ({
             validValue.length < 10
               ? `Contact No must be exactly 10 characters`
               : "";
-          newFields[index][name] = validValue;
-          newErrors[index][name] = errorMessage;
+          newFields[index] = { ...newFields[index], [name]: validValue };
+          newErrors[index] = { ...newErrors[index], [name]: errorMessage };
         } else {
           const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
-          newFields[index][name] = validValue;
+          newFields[index] = { ...newFields[index], [name]: validValue };
         }
         break;
       case "pocEmailId":
@@ -417,12 +417,12 @@ const BasicDetailsWhitelabel = ({
         const emailErrorMessage = !regex.test(value)
           ? `Please provide valid email`
           : "";
-        newFields[index][name] = value;
-        newErrors[index][name] = emailErrorMessage;
+        newFields[index] = { ...newFields[index], [name]: value };
+        newErrors[index] = { ...newErrors[index], [name]: emailErrorMessage };
         break;
       default:
-        newFields[index][name] = value;
-        newErrors[index][name] = "";
+        newFields[index] = { ...newFields[index], [name]: value };
+        newErrors[index] = { ...newErrors[index], [name]: "" };
         break;
     }
 
@@ -437,6 +437,8 @@ const BasicDetailsWhitelabel = ({
     });
   };
 
+  console.log("whitelabelCpaClientTeam : ", whitelabelCpaClientTeam);
+
   const handlePocDetailsChange = (e: any) => {
     setWhitelabelCpaClientTeam({
       ...whitelabelCpaClientTeam,
@@ -449,32 +451,31 @@ const BasicDetailsWhitelabel = ({
   };
 
   const validateCpaClientTeam = () => {
-    let isValid = false;
+    let isValid = true; // Change to true initially
     const newErrors = {
       pocDetails: "",
       cpaArray: whitelabelCpaClientTeam.cpaArray.map((field: any) => {
         const fieldErrors: any = {};
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
           if (!field[key]) {
-            isValid = true;
-            fieldErrors[key] = `${
-              key === "pocName"
-                ? "POC Name"
-                : key === "pocEmailId"
+            isValid = false; // Set to false if there's an error
+            fieldErrors[key] = `${key === "pocName"
+              ? "POC Name"
+              : key === "pocEmailId"
                 ? "Email"
                 : "Contact No"
-            } is required`;
+              } is required`;
           }
         });
         return fieldErrors;
       }),
     };
-
+  
     if (!whitelabelCpaClientTeam.pocDetails) {
-      isValid = true;
+      isValid = false;
       newErrors.pocDetails = "POC Details is required";
     }
-
+  
     setWhitelabelCpaClientTeamErrors(newErrors);
     return isValid;
   };
@@ -658,9 +659,8 @@ const BasicDetailsWhitelabel = ({
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="m-6 flex flex-col gap-6">
@@ -686,26 +686,26 @@ const BasicDetailsWhitelabel = ({
             {(roleId === "4"
               ? whitelabelOtherInformationCheckStatus
               : true) && (
-              <WhitelabelOtherInformationForm
-                checkAllFieldsWhitelabelOtherInformationForm={
-                  isFormSubmitWhiteLabelBasicDetails
-                }
-                whitelabelOtherInformationCheckStatus={
-                  whitelabelOtherInformationCheckStatus
-                }
-                handleWhitelabelOtherInformationSwitch={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => handleSwitchChange(e, 2)}
-                whitelabelOtherInformation={whitelabelOtherInformation}
-                setWhitelabelOtherInformation={setWhitelabelOtherInformation}
-                whitelabelOtherInformationErrors={
-                  whitelabelOtherInformationErrors
-                }
-                setWhitelabelOtherInformationErrors={
-                  setWhitelabelOtherInformationErrors
-                }
-              />
-            )}
+                <WhitelabelOtherInformationForm
+                  checkAllFieldsWhitelabelOtherInformationForm={
+                    isFormSubmitWhiteLabelBasicDetails
+                  }
+                  whitelabelOtherInformationCheckStatus={
+                    whitelabelOtherInformationCheckStatus
+                  }
+                  handleWhitelabelOtherInformationSwitch={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => handleSwitchChange(e, 2)}
+                  whitelabelOtherInformation={whitelabelOtherInformation}
+                  setWhitelabelOtherInformation={setWhitelabelOtherInformation}
+                  whitelabelOtherInformationErrors={
+                    whitelabelOtherInformationErrors
+                  }
+                  setWhitelabelOtherInformationErrors={
+                    setWhitelabelOtherInformationErrors
+                  }
+                />
+              )}
             {(roleId === "4" ? whitelabelCpaClientTeamCheckStatus : true) && (
               <WhitelabelCpaClientTeamForm
                 checkAllFieldsWhitelabelCpaClientTeamForm={
@@ -728,28 +728,28 @@ const BasicDetailsWhitelabel = ({
             {(roleId === "4"
               ? whitelabelPABSAccountingTeamCheckStatus
               : true) && (
-              <WhitelabelPabsAccountingTeamForm
-                checkAllFieldsWhitelabelPabsAccountingTeamForm={
-                  isFormSubmitWhiteLabelBasicDetails
-                }
-                whitelabelPABSAccountingTeamCheckStatus={
-                  whitelabelPABSAccountingTeamCheckStatus
-                }
-                handleWhitelabelPABSAccountingTeamSwitch={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => handleSwitchChange(e, 4)}
-                whitelabelPABSAccountingTeam={whitelabelPABSAccountingTeam}
-                setWhitelabelPABSAccountingTeam={
-                  setWhitelabelPABSAccountingTeam
-                }
-                whitelabelPABSAccountingTeamErrors={
-                  whitelabelPABSAccountingTeamErrors
-                }
-                setWhitelabelPABSAccountingTeamErrors={
-                  setWhitelabelPABSAccountingTeamErrors
-                }
-              />
-            )}
+                <WhitelabelPabsAccountingTeamForm
+                  checkAllFieldsWhitelabelPabsAccountingTeamForm={
+                    isFormSubmitWhiteLabelBasicDetails
+                  }
+                  whitelabelPABSAccountingTeamCheckStatus={
+                    whitelabelPABSAccountingTeamCheckStatus
+                  }
+                  handleWhitelabelPABSAccountingTeamSwitch={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => handleSwitchChange(e, 4)}
+                  whitelabelPABSAccountingTeam={whitelabelPABSAccountingTeam}
+                  setWhitelabelPABSAccountingTeam={
+                    setWhitelabelPABSAccountingTeam
+                  }
+                  whitelabelPABSAccountingTeamErrors={
+                    whitelabelPABSAccountingTeamErrors
+                  }
+                  setWhitelabelPABSAccountingTeamErrors={
+                    setWhitelabelPABSAccountingTeamErrors
+                  }
+                />
+              )}
 
             {roleId === "4" &&
               !whitelabelAccountDetailsCheckStatus &&
