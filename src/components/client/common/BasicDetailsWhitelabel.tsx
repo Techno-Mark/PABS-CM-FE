@@ -306,8 +306,8 @@ const BasicDetailsWhitelabel = ({
         )
         .map((pocField: WhitelabelCpaClientTeamTypes) => ({
           pocName: pocField.pocName,
-          pocEmailId: pocField.pocEmailId,
-          pocContactNo: pocField.pocContactNo,
+          pocEmailId: validateEmail(pocField.pocEmailId) ? pocField.pocEmailId : "",
+          pocContactNo: validatePhone(pocField.pocContactNo) ? pocField.pocContactNo: "",
         })),
     };
 
@@ -436,8 +436,6 @@ const BasicDetailsWhitelabel = ({
       cpaArray: newErrors,
     });
   };
-
-  console.log("whitelabelCpaClientTeam : ", whitelabelCpaClientTeam);
 
   const handlePocDetailsChange = (e: any) => {
     setWhitelabelCpaClientTeam({
