@@ -234,6 +234,7 @@ function AutoCareClientTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -285,6 +286,7 @@ function AutoCareClientTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -306,6 +308,7 @@ function AutoCareClientTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -330,6 +333,7 @@ function AutoCareClientTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -351,6 +355,7 @@ function AutoCareClientTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === "4" && finalCheckAllFieldsClientTeam}

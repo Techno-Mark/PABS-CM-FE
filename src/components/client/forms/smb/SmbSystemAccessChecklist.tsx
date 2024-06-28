@@ -182,6 +182,7 @@ const PABSGroupEmail = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
@@ -205,6 +206,7 @@ const PABSGroupEmail = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
@@ -230,6 +232,7 @@ const PABSGroupEmail = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
@@ -294,6 +297,7 @@ const AccessAccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -327,6 +331,7 @@ const AccessAccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -362,6 +367,7 @@ const AccessAccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -416,6 +422,7 @@ const DropboxSetUp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
@@ -439,6 +446,7 @@ const DropboxSetUp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
@@ -464,6 +472,7 @@ const DropboxSetUp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
@@ -516,6 +525,7 @@ const SalesTaxPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
@@ -539,6 +549,7 @@ const SalesTaxPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
@@ -564,6 +575,7 @@ const SalesTaxPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
@@ -620,6 +632,7 @@ const MerchantAccountPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -647,6 +660,7 @@ const MerchantAccountPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -676,6 +690,7 @@ const MerchantAccountPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -737,6 +752,7 @@ const PayrollServiceAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
@@ -766,6 +782,7 @@ const PayrollServiceAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
@@ -797,6 +814,7 @@ const PayrollServiceAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
@@ -849,6 +867,7 @@ const PayrollFrequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
@@ -872,6 +891,7 @@ const PayrollFrequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
@@ -897,6 +917,7 @@ const PayrollFrequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
@@ -953,6 +974,7 @@ const ExpensePaymentPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
@@ -978,6 +1000,7 @@ const ExpensePaymentPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
@@ -1005,6 +1028,7 @@ const ExpensePaymentPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
@@ -1061,6 +1085,7 @@ const ModeOfPayment = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsModeOfPayment}
@@ -1086,6 +1111,7 @@ const ModeOfPayment = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsModeOfPayment}
@@ -1113,6 +1139,7 @@ const ModeOfPayment = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsModeOfPayment}
@@ -1165,6 +1192,7 @@ const ApBills = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsApBills}
@@ -1188,6 +1216,7 @@ const ApBills = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsApBills}
@@ -1213,6 +1242,7 @@ const ApBills = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsApBills}
@@ -1268,6 +1298,7 @@ const PointSalesAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPointSalesAccess}
@@ -1293,6 +1324,7 @@ const PointSalesAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPointSalesAccess}
@@ -1322,6 +1354,7 @@ const PointSalesAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPointSalesAccess}

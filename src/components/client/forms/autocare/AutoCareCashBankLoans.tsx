@@ -128,6 +128,7 @@ const OperatingCheckingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -161,6 +162,7 @@ const OperatingCheckingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -194,6 +196,7 @@ const OperatingCheckingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -229,6 +232,7 @@ const OperatingCheckingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -264,6 +268,7 @@ const OperatingCheckingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -323,6 +328,7 @@ const SavingsAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingsAccount}
@@ -348,6 +354,7 @@ const SavingsAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingsAccount}
@@ -373,6 +380,7 @@ const SavingsAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingsAccount}
@@ -400,6 +408,7 @@ const SavingsAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingsAccount}
@@ -427,6 +436,7 @@ const SavingsAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingsAccount}
@@ -483,6 +493,7 @@ const CreditCard = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsCreditCard}
@@ -508,6 +519,7 @@ const CreditCard = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsCreditCard}
@@ -533,6 +545,7 @@ const CreditCard = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsCreditCard}
@@ -560,6 +573,7 @@ const CreditCard = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsCreditCard}
@@ -587,6 +601,7 @@ const CreditCard = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsCreditCard}
@@ -641,6 +656,7 @@ const BusinessLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessLoans}
@@ -664,6 +680,7 @@ const BusinessLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessLoans}
@@ -687,6 +704,7 @@ const BusinessLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessLoans}
@@ -712,6 +730,7 @@ const BusinessLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessLoans}
@@ -737,6 +756,7 @@ const BusinessLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessLoans}
@@ -791,6 +811,7 @@ const PropertyLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPropertyLoans}
@@ -814,6 +835,7 @@ const PropertyLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPropertyLoans}
@@ -837,6 +859,7 @@ const PropertyLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPropertyLoans}
@@ -862,6 +885,7 @@ const PropertyLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPropertyLoans}
@@ -887,6 +911,7 @@ const PropertyLoans = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPropertyLoans}

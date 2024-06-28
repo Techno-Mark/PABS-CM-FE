@@ -112,6 +112,7 @@ const PayrollServiceProvider = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
@@ -143,6 +144,7 @@ const PayrollServiceProvider = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
@@ -174,6 +176,7 @@ const PayrollServiceProvider = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
@@ -207,6 +210,7 @@ const PayrollServiceProvider = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
@@ -240,6 +244,7 @@ const PayrollServiceProvider = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
@@ -296,6 +301,7 @@ const Frequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFrequency}
@@ -321,6 +327,7 @@ const Frequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFrequency}
@@ -346,6 +353,7 @@ const Frequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFrequency}
@@ -373,6 +381,7 @@ const Frequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFrequency}
@@ -400,6 +409,7 @@ const Frequency = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFrequency}
@@ -453,6 +463,7 @@ const NoOfEmployees = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
@@ -476,6 +487,7 @@ const NoOfEmployees = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
@@ -499,6 +511,7 @@ const NoOfEmployees = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
@@ -524,6 +537,7 @@ const NoOfEmployees = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
@@ -549,6 +563,7 @@ const NoOfEmployees = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsNoOfEmployees}

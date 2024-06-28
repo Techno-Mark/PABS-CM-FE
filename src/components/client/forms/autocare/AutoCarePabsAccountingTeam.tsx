@@ -70,6 +70,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
@@ -93,6 +94,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
@@ -116,6 +118,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
@@ -139,6 +142,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
@@ -163,6 +167,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
@@ -186,6 +191,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
@@ -207,6 +213,7 @@ function AutoCarePabsAccountingTeam({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
               disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}

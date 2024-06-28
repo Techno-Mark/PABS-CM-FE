@@ -123,6 +123,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
@@ -150,6 +151,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
@@ -177,6 +179,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
@@ -204,6 +207,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
@@ -233,6 +237,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
@@ -260,6 +265,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
@@ -285,6 +291,7 @@ const WhitelabelPabsAccountingTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}

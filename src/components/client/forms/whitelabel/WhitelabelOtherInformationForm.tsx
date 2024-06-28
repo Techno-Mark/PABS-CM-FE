@@ -122,6 +122,7 @@ const WhitelabelOtherInformationForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -148,6 +149,7 @@ const WhitelabelOtherInformationForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={

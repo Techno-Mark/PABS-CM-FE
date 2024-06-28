@@ -321,7 +321,7 @@ function ChecklistSmb({
             actionItems: "ClientNameActionItems",
           },
         },
-        "Type of entity": {
+        "Type of Entity": {
           setter: setSmbTypeOfEntity,
           keys: {
             status: "TypeOfEntityStatus",
@@ -329,7 +329,7 @@ function ChecklistSmb({
             actionItems: "TypeOfEntityActionItems",
           },
         },
-        "Nature of business": {
+        "Nature of Business": {
           setter: setSmbBusinessNature,
           keys: {
             status: "BusinessNatureStatus",
@@ -337,7 +337,7 @@ function ChecklistSmb({
             actionItems: "BusinessNatureActionItems",
           },
         },
-        "Any other subsidiary or verticles or dimensions": {
+        "Any Other Subsidiary or Verticles or Dimensions": {
           setter: setSmbDimensions,
           keys: {
             status: "DimensionsStatus",
@@ -433,7 +433,7 @@ function ChecklistSmb({
             actionItems: "DropboxSetUpActionItems",
           },
         },
-        "Provide access to sales tax portal access": {
+        "Provide Access to Sales Tax Portal Access": {
           setter: setSmbSalesTaxPortalAccess,
           keys: {
             status: "salesTaxPortalAccessStatus",
@@ -441,7 +441,7 @@ function ChecklistSmb({
             actionItems: "salesTaxPortalAccessActionItems",
           },
         },
-        "Merchant account portal access (if any)": {
+        "Merchant Account Portal Access (If Any)": {
           setter: setSmbMerchantAccountPortalAccess,
           keys: {
             status: "merchantAccountPortalAccessStatus",
@@ -457,7 +457,7 @@ function ChecklistSmb({
             actionItems: "PayrollServiceAccessActionItems",
           },
         },
-        "No. of employees on roll, Payroll Frequency": {
+        "No. of Employees on Roll, Payroll Frequency": {
           setter: setSmbPayrollFrequency,
           keys: {
             status: "PayrollFrequencyStatus",
@@ -465,7 +465,7 @@ function ChecklistSmb({
             actionItems: "PayrollFrequencyActionItems",
           },
         },
-        "Expense payment portal access (if any)": {
+        "Expense Payment Portal Access (If Any)": {
           setter: setSmbExpensePaymentPortalAccess,
           keys: {
             status: "expensePaymentPortalAccessStatus",
@@ -473,7 +473,7 @@ function ChecklistSmb({
             actionItems: "expensePaymentPortalAccessActionItems",
           },
         },
-        "Monthly AP Bills counts & Mode of Payment": {
+        "Monthly AP Bills Counts & Mode of Payment": {
           setter: setSmbModeOfPayment,
           keys: {
             status: "ModeOfPaymentStatus",
@@ -481,7 +481,7 @@ function ChecklistSmb({
             actionItems: "ModeOfPaymentActionItems",
           },
         },
-        "AP bills - (mode of receiving bills)": {
+        "AP Bills - (Mode of Receiving Bills)": {
           setter: setSmbApBills,
           keys: {
             status: "ApBillsStatus",
@@ -489,7 +489,7 @@ function ChecklistSmb({
             actionItems: "ApBillsActionItems",
           },
         },
-        "Point of sales access": {
+        "Point of Sales Access": {
           setter: setSmbPointSalesAccess,
           keys: {
             status: "pointSalesAccessStatus",
@@ -497,7 +497,7 @@ function ChecklistSmb({
             actionItems: "pointSalesAccessActionItems",
           },
         },
-        "No of Checking & Saving Accounts": {
+        "No. of Checking & Saving Accounts": {
           setter: setSmbSavingAccount,
           keys: {
             status: "SavingAccountStatus",
@@ -513,7 +513,7 @@ function ChecklistSmb({
             actionItems: "AccessSavingAccountActionItems",
           },
         },
-        "No Credit/Debit Cards Any add on Cards": {
+        "No Credit/Debit Cards Any Add on Cards": {
           setter: setSmbAddCards,
           keys: {
             status: "AddCardsStatus",
@@ -537,14 +537,6 @@ function ChecklistSmb({
             actionItems: "AccessLoanAccountActionItems",
           },
         },
-        "Access for Credit Cards Portal": {
-          setter: setSmbAccessCreditCardPortal,
-          keys: {
-            status: "AccessCreditCardPortalStatus",
-            details: "AccessCreditCardPortalDetails",
-            actionItems: "AccessCreditCardPortalActionItems",
-          },
-        },
         "Go Live Date": {
           setter: setSmbLiveDate,
           keys: {
@@ -553,7 +545,7 @@ function ChecklistSmb({
             actionItems: "LiveDateActionItems",
           },
         },
-        "Method of accounting": {
+        "Method of Accounting": {
           setter: setSmbAccountingMethod,
           keys: {
             status: "AccountingMethodStatus",
@@ -569,7 +561,7 @@ function ChecklistSmb({
             actionItems: "FEINActionItems",
           },
         },
-        "Fiscal Year end": {
+        "Fiscal Year End": {
           setter: setSmbFiscalYearEnd,
           keys: {
             status: "FiscalYearEndStatus",
@@ -577,7 +569,7 @@ function ChecklistSmb({
             actionItems: "FiscalYearEndActionItems",
           },
         },
-        "Last Closed month in Accounting Software": {
+        "Last Closed Month in Accounting Software": {
           setter: setSmbLastClosedMonth,
           keys: {
             status: "LastClosedMonthStatus",
@@ -593,7 +585,7 @@ function ChecklistSmb({
             actionItems: "ContactOfCpaActionItems",
           },
         },
-        "Last year Tax Return": {
+        "Last Year Tax Return 990": {
           setter: setSmbTaxReturn,
           keys: {
             status: "TaxReturnStatus",
@@ -601,7 +593,7 @@ function ChecklistSmb({
             actionItems: "TaxReturnActionItems",
           },
         },
-        "Monthly Financials distribution list": {
+        "Monthly Financials Distribution List": {
           setter: setSmbDistributionList,
           keys: {
             status: "DistributionListStatus",
@@ -617,7 +609,7 @@ function ChecklistSmb({
             actionItems: "TimeZoneActionItems",
           },
         },
-        "Convenient days": {
+        "Convenient Days": {
           setter: setSmbConvenient,
           keys: {
             status: "ConvenientStatus",
@@ -625,7 +617,7 @@ function ChecklistSmb({
             actionItems: "ConvenientActionItems",
           },
         },
-        "Time slot Availability": {
+        "Time Slot Availability": {
           setter: setSmbTimeSlot,
           keys: {
             status: "TimeSlotStatus",
@@ -882,7 +874,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Type of entity",
+        fieldName: "Type of Entity",
         key: "smbTypeOfEntity",
         fields: [
           "TypeOfEntityStatus",
@@ -891,7 +883,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Nature of business",
+        fieldName: "Nature of Business",
         key: "smbBusinessNature",
         fields: [
           "BusinessNatureStatus",
@@ -900,7 +892,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Any other subsidiary or verticles or dimensions",
+        fieldName: "Any Other Subsidiary or Verticles or Dimensions",
         key: "smbDimensions",
         fields: [
           "DimensionsStatus",
@@ -996,7 +988,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Provide access to sales tax portal access",
+        fieldName: "Provide Access to Sales Tax Portal Access",
         key: "smbSalesTaxPortalAccess",
         fields: [
           "salesTaxPortalAccessStatus",
@@ -1005,7 +997,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Merchant account portal access (if any)",
+        fieldName: "Merchant Account Portal Access (If Any)",
         key: "smbMerchantAccountPortalAccess",
         fields: [
           "merchantAccountPortalAccessStatus",
@@ -1023,7 +1015,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "No. of employees on roll, Payroll Frequency",
+        fieldName: "No. of Employees on Roll, Payroll Frequency",
         key: "smbPayrollFrequency",
         fields: [
           "PayrollFrequencyStatus",
@@ -1032,7 +1024,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Expense payment portal access (if any)",
+        fieldName: "Expense Payment Portal Access (If Any)",
         key: "smbExpensePaymentPortalAccess",
         fields: [
           "expensePaymentPortalAccessStatus",
@@ -1041,7 +1033,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Monthly AP Bills counts & Mode of Payment",
+        fieldName: "Monthly AP Bills Counts & Mode of Payment",
         key: "smbModeOfPayment",
         fields: [
           "ModeOfPaymentStatus",
@@ -1050,12 +1042,12 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "AP bills - (mode of receiving bills)",
+        fieldName: "AP Bills - (Mode of Receiving Bills)",
         key: "smbApBills",
         fields: ["ApBillsStatus", "ApBillsDetails", "ApBillsActionItems"],
       },
       {
-        fieldName: "Point of sales access",
+        fieldName: "Point of Sales Access",
         key: "smbPointSalesAccess",
         fields: [
           "pointSalesAccessStatus",
@@ -1064,7 +1056,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "No of Checking & Saving Accounts",
+        fieldName: "No. of Checking & Saving Accounts",
         key: "smbSavingAccount",
         fields: [
           "SavingAccountStatus",
@@ -1082,7 +1074,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "No Credit/Debit Cards Any add on Cards",
+        fieldName: "No Credit/Debit Cards Any Add on Cards",
         key: "smbAddCards",
         fields: ["AddCardsStatus", "AddCardsDetails", "AddCardsActionItems"],
       },
@@ -1105,21 +1097,12 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Access for Credit Cards Portal",
-        key: "smbAccessCreditCardPortal",
-        fields: [
-          "AccessCreditCardPortalStatus",
-          "AccessCreditCardPortalDetails",
-          "AccessCreditCardPortalActionItems",
-        ],
-      },
-      {
         fieldName: "Go Live Date",
         key: "smbLiveDate",
         fields: ["LiveDateStatus", "LiveDateDetails", "LiveDateActionItems"],
       },
       {
-        fieldName: "Method of accounting",
+        fieldName: "Method of Accounting",
         key: "smbAccountingMethod",
         fields: [
           "AccountingMethodStatus",
@@ -1133,7 +1116,7 @@ function ChecklistSmb({
         fields: ["FEINStatus", "FEINDetails", "FEINActionItems"],
       },
       {
-        fieldName: "Fiscal Year end",
+        fieldName: "Fiscal Year End",
         key: "smbFiscalYearEnd",
         fields: [
           "FiscalYearEndStatus",
@@ -1142,7 +1125,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Last Closed month in Accounting Software",
+        fieldName: "Last Closed Month in Accounting Software",
         key: "smbLastClosedMonth",
         fields: [
           "LastClosedMonthStatus",
@@ -1160,12 +1143,12 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Last year Tax Return",
+        fieldName: "Last Year Tax Return 990",
         key: "smbTaxReturn",
         fields: ["TaxReturnStatus", "TaxReturnDetails", "TaxReturnActionItems"],
       },
       {
-        fieldName: "Monthly Financials distribution list",
+        fieldName: "Monthly Financials Distribution List",
         key: "smbDistributionList",
         fields: [
           "DistributionListStatus",
@@ -1179,7 +1162,7 @@ function ChecklistSmb({
         fields: ["TimeZoneStatus", "TimeZoneDetails", "TimeZoneActionItems"],
       },
       {
-        fieldName: "Convenient days",
+        fieldName: "Convenient Days",
         key: "smbConvenient",
         fields: [
           "ConvenientStatus",
@@ -1188,7 +1171,7 @@ function ChecklistSmb({
         ],
       },
       {
-        fieldName: "Time slot Availability",
+        fieldName: "Time Slot Availability",
         key: "smbTimeSlot",
         fields: ["TimeSlotStatus", "TimeSlotDetails", "TimeSlotActionItems"],
       },

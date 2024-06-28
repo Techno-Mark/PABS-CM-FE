@@ -183,6 +183,7 @@ const ClientName = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250, 
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsClientName}
@@ -208,6 +209,7 @@ const ClientName = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsClientName}
@@ -235,6 +237,7 @@ const ClientName = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsClientName}
@@ -287,6 +290,7 @@ const TypeOfEntity = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
@@ -310,6 +314,7 @@ const TypeOfEntity = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
@@ -335,6 +340,7 @@ const TypeOfEntity = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
@@ -389,6 +395,7 @@ const BusinessNature = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessNature}
@@ -412,6 +419,7 @@ const BusinessNature = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessNature}
@@ -437,6 +445,7 @@ const BusinessNature = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsBusinessNature}
@@ -489,6 +498,7 @@ const Dimensions = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsDimensions}
@@ -512,6 +522,7 @@ const Dimensions = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsDimensions}
@@ -537,6 +548,7 @@ const Dimensions = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsDimensions}
@@ -592,6 +604,7 @@ const Poc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPoc}
@@ -617,6 +630,7 @@ const Poc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPoc}
@@ -644,6 +658,7 @@ const Poc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPoc}
@@ -699,6 +714,7 @@ const Email = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsEmail}
@@ -724,6 +740,7 @@ const Email = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsEmail}
@@ -751,6 +768,7 @@ const Email = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsEmail}
@@ -808,6 +826,7 @@ const ContactNumber = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsContactNumber}
@@ -833,6 +852,7 @@ const ContactNumber = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsContactNumber}
@@ -860,6 +880,7 @@ const ContactNumber = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsContactNumber}
@@ -915,6 +936,7 @@ const Address = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAddress}
@@ -940,6 +962,7 @@ const Address = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAddress}
@@ -967,6 +990,7 @@ const Address = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAddress}
@@ -1024,6 +1048,7 @@ const ClientWebsite = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsClientWebsite}
@@ -1049,6 +1074,7 @@ const ClientWebsite = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsClientWebsite}
@@ -1076,6 +1102,7 @@ const ClientWebsite = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsClientWebsite}
@@ -1128,6 +1155,7 @@ const Department = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsDepartment}
@@ -1151,6 +1179,7 @@ const Department = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsDepartment}
@@ -1176,6 +1205,7 @@ const Department = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsDepartment}
@@ -1230,6 +1260,7 @@ const OperationsPoc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsOperationsPoc}
@@ -1253,6 +1284,7 @@ const OperationsPoc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsOperationsPoc}
@@ -1278,6 +1310,7 @@ const OperationsPoc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsOperationsPoc}
@@ -1332,6 +1365,7 @@ const OnboardingPoc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
               />
@@ -1354,6 +1388,7 @@ const OnboardingPoc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsOnboardingPoc}
@@ -1379,6 +1414,7 @@ const OnboardingPoc = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsOnboardingPoc}

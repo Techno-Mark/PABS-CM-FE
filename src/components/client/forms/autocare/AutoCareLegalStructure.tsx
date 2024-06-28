@@ -108,6 +108,7 @@ function AutoCareLegalStructure({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
@@ -135,6 +136,7 @@ function AutoCareLegalStructure({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
@@ -160,6 +162,7 @@ function AutoCareLegalStructure({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
@@ -267,6 +270,7 @@ function AutoCareLegalStructure({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}

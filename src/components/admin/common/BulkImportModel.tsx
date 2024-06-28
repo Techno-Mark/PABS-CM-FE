@@ -26,7 +26,7 @@ const BulkImportModel = ({
   setIsOpen,
   handleClose,
   getAccountList,
-  clientInfo
+  clientInfo,
 }: BulkModalProps) => {
   const token = Cookies.get("token");
   const userId = Cookies.get("userId");
@@ -36,6 +36,7 @@ const BulkImportModel = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     setSelectedFile(file);
 
     if (file) {
@@ -77,64 +78,74 @@ const BulkImportModel = ({
   };
 
   const handleSubmit = async () => {
-    if (excelData.length > 0) {
-      setIsUploading(true);
-      try {
-        const response = await axios.post(
-          `${process.env.APIDEV_URL}${OnboardingFormAccountDetailsSave}/${
-            !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
-          }`,
-          excelData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-            responseType: "blob",
-          }
-        );
-
-        if (response.status === 200) {
-          showToast("Account Details added successfully", ToastType.Success);
-          setIsUploading(false);
-          setIsOpen(false);
-          getAccountList();
-          return;
-        } else if (response.status === 202) {
-          const url = window.URL.createObjectURL(response.data);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = url;
-          a.download = "Error-file.xlsx";
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          showToast(
-            "Something went wrong. Please check downloaded file.",
-            ToastType.Error
+    if (!!excelData) {
+      if (excelData.length > 0) {
+        setIsUploading(true);
+        try {
+          const response = await axios.post(
+            `${process.env.APIDEV_URL}${OnboardingFormAccountDetailsSave}/${
+              !!clientInfo?.UserId
+                ? parseInt(clientInfo?.UserId)
+                : parseInt(userId!)
+            }`,
+            excelData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Access-Control-Allow-Origin": "*",
+              },
+              responseType: "blob",
+            }
           );
-          setSelectedFile(null);
-          setExcelData(null);
-        } else {
+
+          if (response.status === 200) {
+            showToast("Account Details added successfully", ToastType.Success);
+            setIsUploading(false);
+            setIsOpen(false);
+            getAccountList();
+            return;
+          } else if (response.status === 202) {
+            const url = window.URL.createObjectURL(response.data);
+            const a = document.createElement("a");
+            a.style.display = "none";
+            a.href = url;
+            a.download = "Error-file.xlsx";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            showToast(
+              "Something went wrong. Please check downloaded file.",
+              ToastType.Error
+            );
+            setSelectedFile(null);
+            setExcelData(null);
+          } else {
+            setIsUploading(false);
+            setIsOpen(false);
+            setSelectedFile(null);
+            setExcelData(null);
+            getAccountList();
+            return;
+          }
+        } catch (error) {
+          console.error("Error:", error);
           setIsUploading(false);
           setIsOpen(false);
           setSelectedFile(null);
           setExcelData(null);
-          getAccountList();
-          return;
         }
-      } catch (error) {
-        console.error("Error:", error);
+      } else {
         setIsUploading(false);
-        setIsOpen(false);
-        setSelectedFile(null);
         setExcelData(null);
+        setSelectedFile(null);
+        showToast("Please Input Data in Excel.", ToastType.Error);
       }
+    } else {
+      setIsUploading(false);
+      setSelectedFile(null);
+      setExcelData(null);
+      showToast("Please Attach Import Data Excel.", ToastType.Error);
     }
-    showToast("Please attach Import data excel.", ToastType.Error);
-    setIsUploading(false);
-    setSelectedFile(null);
-    setExcelData(null);
   };
 
   const downloadSampleFile = () => {
