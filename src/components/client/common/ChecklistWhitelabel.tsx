@@ -1090,6 +1090,13 @@ const ChecklistWhitelabel = ({
           ...whitelabelChecklistFormData,
           progress: whiteLabelProgressPercentage,
         });
+      } else if (isSubmitedWhiteLabelChecklist && roleId !== "4") {
+        if (isValid) {
+          callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+            ...whitelabelChecklistFormData,
+            progress: whiteLabelProgressPercentage,
+          });
+        }
       } else {
         handleWhiteLabelChecklistRemoveErrors();
         setExpandedAccordian(-1);

@@ -288,10 +288,7 @@ function BasicDetailsAutoCare({
         !!autoCareClientTeamErrors[field]
       ) {
         newClientTeamErrors[field] = `${autoCareClientTeamErrors[field]}`;
-      } else if (
-        field === "email" &&
-        !!autoCareClientTeamErrors[field]
-      ) {
+      } else if (field === "email" && !!autoCareClientTeamErrors[field]) {
         newClientTeamErrors[field] = `${autoCareClientTeamErrors[field]}`;
       } else {
         newClientTeamErrors[field] = "";
@@ -493,6 +490,15 @@ function BasicDetailsAutoCare({
           callback,
           basicDetailsFormData
         );
+      } else if (isFormSubmitAutoCareBasicDetails && roleId !== "4") {
+        if (isValid) {
+          callAPIwithHeaders(
+            onboardingSaveFormUrl,
+            "post",
+            callback,
+            basicDetailsFormData
+          );
+        }
       } else {
         setBasicDetailsFormSubmit(32);
       }

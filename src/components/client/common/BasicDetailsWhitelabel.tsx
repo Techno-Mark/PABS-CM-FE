@@ -29,7 +29,12 @@ import WhitelabelAccountDetailsForm from "@/components/client/forms/whitelabel/W
 import WhitelabelOtherInformationForm from "@/components/client/forms/whitelabel/WhitelabelOtherInformationForm";
 import WhitelabelCpaClientTeamForm from "@/components/client/forms/whitelabel/WhitelabelCpaClientTeamForm";
 import WhitelabelPabsAccountingTeamForm from "@/components/client/forms/whitelabel/WhitelabelPabsAccountingTeamForm";
-import { validateEmail, validateNumber, validatePhone } from "@/utils/validate";
+import {
+  validateEmail,
+  validateNumber,
+  validatePhone,
+  validateZip,
+} from "@/utils/validate";
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
@@ -220,9 +225,11 @@ const BasicDetailsWhitelabel = ({
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
       } else if (
-        (field ===  'ownerPhone' || field === 'ownerContact') &&
+        (field === "ownerPhone" || field === "ownerContact") &&
         !!whitelabelAccountDetailsErrors[field]
       ) {
+        newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
+      } else if (field === "zip" && !!whitelabelAccountDetailsErrors[field]) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
       } else {
         newErrors[field] = "";
@@ -295,7 +302,9 @@ const BasicDetailsWhitelabel = ({
         : "",
       state: whitelabelAccountDetails.state,
       city: whitelabelAccountDetails.city,
-      zip: whitelabelAccountDetails.zip,
+      zip: validateZip(whitelabelAccountDetails.zip)
+        ? whitelabelAccountDetails.zip
+        : "",
       noOfAccounts: Number(whitelabelOtherInformation.noOfAccounts),
       bdm: whitelabelOtherInformation.bdm,
       startDate: whitelabelOtherInformation.startDate,
@@ -353,9 +362,19 @@ const BasicDetailsWhitelabel = ({
           callback,
           whiteLabelformData
         );
+      } else if (isFormSubmitWhiteLabelBasicDetails && roleId !== "4") {
+        if (isValid) {
+          callAPIwithHeaders(
+            onboardingSaveFormUrl,
+            "post",
+            callback,
+            whiteLabelformData
+          );
+        }
       } else {
         setWhitelabelBasicDetailsFormSubmit(12);
       }
+
       if (!isValid) {
         showToast(
           "Please provide mandatory fields to submit the onboarding form.",
