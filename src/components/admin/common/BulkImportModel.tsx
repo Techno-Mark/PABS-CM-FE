@@ -62,7 +62,7 @@ const BulkImportModel = ({
             bankConnectedWithAccountingSoftware:
               item["Bank Connected With Accounting Software"] || "",
             accountingMethodIncTax: item["Accounting Method Inc Tax"] || "",
-            estimateHoursOfWork: parseInt(item["Estimate Hours Of Work"]) || 0,
+            estimateHoursOfWork: parseInt(item["Estimate Hours Of Work"]) || "",
             pabsDuties: item["Pabs Duties"] || "",
             bookkeepingPeriod: item["Bookkeeping Monthly or Clean Up (Period – Months/Years)"] || "",
             deadline: item["Deadline"] ? new Date(item["Deadline"]) : "",
