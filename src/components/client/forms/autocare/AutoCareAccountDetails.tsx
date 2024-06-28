@@ -166,6 +166,7 @@ function AutoCareAccountDetails({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
@@ -222,6 +223,7 @@ function AutoCareAccountDetails({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
@@ -255,6 +257,7 @@ function AutoCareAccountDetails({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
@@ -276,6 +279,7 @@ function AutoCareAccountDetails({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}

@@ -322,8 +322,9 @@ const BasicDetailsWhitelabel = ({
       : false;
 
     const isValid =
-      !isValidAccountDetails && !isValidOtherInformation && !isValidClientTeam;
+      !isValidAccountDetails && !isValidOtherInformation && isValidClientTeam;
     if (type === 1) {
+
       roleId === "4" && setCheckAllWhiteLabelBasicFields(isValid);
       const filledFieldsCount = basicDetailWhiteLabelPerStatus();
       setWhitelabelBasicDetailCount(filledFieldsCount);
@@ -364,7 +365,7 @@ const BasicDetailsWhitelabel = ({
           const isValid =
             !isValidAccountDetails &&
             !isValidOtherInformation &&
-            !isValidClientTeam;
+            isValidClientTeam;
           if (isValid) {
             callAPIwithHeaders(
               onboardingSaveFormUrl,
@@ -449,14 +450,14 @@ const BasicDetailsWhitelabel = ({
   };
 
   const validateCpaClientTeam = () => {
-    let isValid = true; // Change to true initially
+    let isValid = true; 
     const newErrors = {
       pocDetails: "",
       cpaArray: whitelabelCpaClientTeam.cpaArray.map((field: any) => {
         const fieldErrors: any = {};
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
           if (!field[key]) {
-            isValid = false; // Set to false if there's an error
+            isValid = false; 
             fieldErrors[key] = `${key === "pocName"
               ? "POC Name"
               : key === "pocEmailId"

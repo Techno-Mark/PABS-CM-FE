@@ -97,6 +97,7 @@ const LastClosedPeriod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
@@ -122,6 +123,7 @@ const LastClosedPeriod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
@@ -147,6 +149,7 @@ const LastClosedPeriod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
@@ -174,6 +177,7 @@ const LastClosedPeriod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
@@ -201,6 +205,7 @@ const LastClosedPeriod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
@@ -256,6 +261,7 @@ const SharingFinancials = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsSharingFinancials}
@@ -279,6 +285,7 @@ const SharingFinancials = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsSharingFinancials}
@@ -302,6 +309,7 @@ const SharingFinancials = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsSharingFinancials}
@@ -327,6 +335,7 @@ const SharingFinancials = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsSharingFinancials}
@@ -352,6 +361,7 @@ const SharingFinancials = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsSharingFinancials}
@@ -407,6 +417,7 @@ const GP_GMNP_NM = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
@@ -430,6 +441,7 @@ const GP_GMNP_NM = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
@@ -453,6 +465,7 @@ const GP_GMNP_NM = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
@@ -478,6 +491,7 @@ const GP_GMNP_NM = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
@@ -503,6 +517,7 @@ const GP_GMNP_NM = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}

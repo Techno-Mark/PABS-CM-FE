@@ -53,6 +53,7 @@ const WhitelabelCpaClientTeamForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -91,6 +92,7 @@ const WhitelabelCpaClientTeamForm = ({
                         },
                       }}
                       inputProps={{
+                        maxLength: 250,
                         className: classes.textSize,
                       }}
                       disabled={
@@ -129,6 +131,7 @@ const WhitelabelCpaClientTeamForm = ({
                         },
                       }}
                       inputProps={{
+                        maxLength: 250,
                         className: classes.textSize,
                       }}
                       disabled={
@@ -177,7 +180,7 @@ const WhitelabelCpaClientTeamForm = ({
                   </div>
                 </Grid>
                 <Grid item xs={1}>
-                  {roleId === "4" ? checkAllFieldsWhitelabelCpaClientTeamForm : true && (
+                  {(roleId === "4" ? !checkAllFieldsWhitelabelCpaClientTeamForm : true) && (
                   <div className="flex justify-end items-center pl-2 mt-6 gap-4">
                     {whitelabelCpaClientTeam.cpaArray.length > 1 && (
                       <span

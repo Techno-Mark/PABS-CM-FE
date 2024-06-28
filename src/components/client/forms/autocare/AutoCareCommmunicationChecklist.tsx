@@ -99,6 +99,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
@@ -122,6 +123,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
@@ -147,6 +149,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
@@ -174,6 +177,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
@@ -201,6 +205,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
@@ -253,6 +258,7 @@ const PreKickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPreKickOff}
@@ -276,6 +282,7 @@ const PreKickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPreKickOff}
@@ -299,6 +306,7 @@ const PreKickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPreKickOff}
@@ -324,6 +332,7 @@ const PreKickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPreKickOff}
@@ -349,6 +358,7 @@ const PreKickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsPreKickOff}
@@ -397,6 +407,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsKickOff}
@@ -420,6 +431,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsKickOff}
@@ -443,6 +455,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsKickOff}
@@ -468,6 +481,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsKickOff}
@@ -493,6 +507,7 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsKickOff}

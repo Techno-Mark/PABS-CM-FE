@@ -127,6 +127,7 @@ const ITStructureReview = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsITStructureReview}
@@ -150,6 +151,7 @@ const ITStructureReview = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsITStructureReview}
@@ -173,6 +175,7 @@ const ITStructureReview = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsITStructureReview}
@@ -198,6 +201,7 @@ const ITStructureReview = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsITStructureReview}
@@ -223,6 +227,7 @@ const ITStructureReview = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsITStructureReview}
@@ -277,6 +282,7 @@ const AccessComputerMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
@@ -300,6 +306,7 @@ const AccessComputerMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
@@ -323,6 +330,7 @@ const AccessComputerMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
@@ -348,6 +356,7 @@ const AccessComputerMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
@@ -373,6 +382,7 @@ const AccessComputerMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
@@ -428,6 +438,7 @@ const PosSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPosSoftware}
@@ -453,6 +464,7 @@ const PosSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPosSoftware}
@@ -478,6 +490,7 @@ const PosSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPosSoftware}
@@ -505,6 +518,7 @@ const PosSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPosSoftware}
@@ -532,6 +546,7 @@ const PosSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsPosSoftware}
@@ -591,6 +606,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
@@ -616,6 +632,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
@@ -641,6 +658,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
@@ -670,6 +688,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
@@ -703,6 +722,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
@@ -761,6 +781,7 @@ const CloudDocumentManagement = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -788,6 +809,7 @@ const CloudDocumentManagement = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -815,6 +837,7 @@ const CloudDocumentManagement = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -844,6 +867,7 @@ const CloudDocumentManagement = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -873,6 +897,7 @@ const CloudDocumentManagement = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -927,6 +952,7 @@ const Scanner = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsScanner}
@@ -950,6 +976,7 @@ const Scanner = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsScanner}
@@ -973,6 +1000,7 @@ const Scanner = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsScanner}
@@ -998,6 +1026,7 @@ const Scanner = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsScanner}
@@ -1023,6 +1052,7 @@ const Scanner = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsScanner}

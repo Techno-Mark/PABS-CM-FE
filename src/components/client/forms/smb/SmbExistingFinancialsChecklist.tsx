@@ -155,6 +155,7 @@ const LiveDate = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLiveDate}
@@ -180,6 +181,7 @@ const LiveDate = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLiveDate}
@@ -207,6 +209,7 @@ const LiveDate = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLiveDate}
@@ -261,6 +264,7 @@ const AccountingMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAccountingMethod}
@@ -284,6 +288,7 @@ const AccountingMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAccountingMethod}
@@ -309,6 +314,7 @@ const AccountingMethod = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAccountingMethod}
@@ -357,6 +363,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFEIN}
@@ -380,6 +387,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFEIN}
@@ -405,6 +413,7 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFEIN}
@@ -459,6 +468,7 @@ const FiscalYearEnd = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
@@ -482,6 +492,7 @@ const FiscalYearEnd = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
@@ -507,6 +518,7 @@ const FiscalYearEnd = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
@@ -565,6 +577,7 @@ const LastClosedMonth = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
@@ -590,6 +603,7 @@ const LastClosedMonth = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
@@ -619,6 +633,7 @@ const LastClosedMonth = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
@@ -671,6 +686,7 @@ const ContactOfCpa = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsContactOfCpa}
@@ -694,6 +710,7 @@ const ContactOfCpa = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsContactOfCpa}
@@ -719,6 +736,7 @@ const ContactOfCpa = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsContactOfCpa}
@@ -774,6 +792,7 @@ const TaxReturn = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTaxReturn}
@@ -799,6 +818,7 @@ const TaxReturn = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTaxReturn}
@@ -826,6 +846,7 @@ const TaxReturn = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTaxReturn}
@@ -884,6 +905,7 @@ const DistributionList = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId=== '4' && checkAllFieldsDistributionList}
@@ -909,6 +931,7 @@ const DistributionList = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId=== '4' && checkAllFieldsDistributionList}
@@ -938,6 +961,7 @@ const DistributionList = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId=== '4' && checkAllFieldsDistributionList}

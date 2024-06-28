@@ -129,6 +129,7 @@ const SavingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingAccount}
@@ -154,6 +155,7 @@ const SavingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingAccount}
@@ -181,6 +183,7 @@ const SavingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsSavingAccount}
@@ -235,6 +238,7 @@ const AccessSavingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
@@ -258,6 +262,7 @@ const AccessSavingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
@@ -283,6 +288,7 @@ const AccessSavingAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
@@ -339,6 +345,7 @@ const AddCards = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAddCards}
@@ -364,6 +371,7 @@ const AddCards = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAddCards}
@@ -391,6 +399,7 @@ const AddCards = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAddCards}
@@ -445,6 +454,7 @@ const AccessLoanAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
@@ -468,6 +478,7 @@ const AccessLoanAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
@@ -493,6 +504,7 @@ const AccessLoanAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
@@ -547,6 +559,7 @@ const AccessCreditCardPortal = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
@@ -570,6 +583,7 @@ const AccessCreditCardPortal = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
@@ -597,6 +611,7 @@ const AccessCreditCardPortal = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}

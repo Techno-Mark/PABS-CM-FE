@@ -183,6 +183,7 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -212,6 +213,7 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -242,6 +244,7 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -271,6 +274,7 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -298,6 +302,7 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={
@@ -356,6 +361,7 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={

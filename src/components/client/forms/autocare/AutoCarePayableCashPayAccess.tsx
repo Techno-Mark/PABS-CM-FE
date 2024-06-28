@@ -117,6 +117,7 @@ const VendorPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
@@ -142,6 +143,7 @@ const VendorPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
@@ -167,6 +169,7 @@ const VendorPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
@@ -196,6 +199,7 @@ const VendorPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
@@ -229,6 +233,7 @@ const VendorPortalAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
@@ -281,6 +286,7 @@ const TradeAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTradeAccount}
@@ -304,6 +310,7 @@ const TradeAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTradeAccount}
@@ -327,6 +334,7 @@ const TradeAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTradeAccount}
@@ -352,6 +360,7 @@ const TradeAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTradeAccount}
@@ -377,6 +386,7 @@ const TradeAccount = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTradeAccount}
@@ -435,6 +445,7 @@ const BillPayAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsBillPayAccess}
@@ -460,6 +471,7 @@ const BillPayAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsBillPayAccess}
@@ -485,6 +497,7 @@ const BillPayAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsBillPayAccess}
@@ -512,6 +525,7 @@ const BillPayAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsBillPayAccess}
@@ -539,6 +553,7 @@ const BillPayAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsBillPayAccess}
@@ -594,6 +609,7 @@ const APThresholdLimit = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
@@ -617,6 +633,7 @@ const APThresholdLimit = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
@@ -640,6 +657,7 @@ const APThresholdLimit = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
@@ -665,6 +683,7 @@ const APThresholdLimit = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
@@ -690,6 +709,7 @@ const APThresholdLimit = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}

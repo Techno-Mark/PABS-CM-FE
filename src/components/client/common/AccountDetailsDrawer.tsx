@@ -15,6 +15,7 @@ import dayjs, { Dayjs } from "dayjs";
 import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { statusOptionDrawerAccDetails } from "@/static/whitelabel/whitelabelChecklist";
+import { validateNumber } from "@/utils/validate";
 
 interface AccountDetailsDrawerProps {
   openDrawer: boolean;
@@ -191,11 +192,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       notes: formValues.notes,
       status: formValues.status,
     };
-    const callback = (
-      ResponseStatus: string,
-      Message: string,
-      ResponseData: null
-    ) => {
+    const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
           showToast(Message, ToastType.Error);
@@ -247,13 +244,18 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       const value = e.target.value;
 
       if (field === "estimateTime") {
-        if (!/^\d*$/.test(value) || value.length > 4) return;
+        if (value === "" || (validateNumber(value) && value.length <= 4)) {
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            [field]: value,
+          }));
+        }
+      } else {
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          [field]: value,
+        }));
       }
-
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        [field]: value,
-      }));
     };
 
   const handleDateChange = (date: Dayjs | null) => {
@@ -301,6 +303,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -322,6 +325,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -345,6 +349,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -364,6 +369,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -385,6 +391,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -406,6 +413,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -429,6 +437,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -450,6 +459,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -473,6 +483,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -484,7 +495,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
             <TextField
               id="estimateTime"
               variant="standard"
-              type="number"
+              type="text"
               fullWidth
               size="small"
               placeholder="Please Enter Estimate Hours of Work"
@@ -538,6 +549,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -559,6 +571,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -607,6 +620,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />
@@ -628,6 +642,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 },
               }}
               inputProps={{
+                maxLength: 250,
                 className: classes.textSize,
               }}
             />

@@ -119,6 +119,7 @@ const SalesTaxAccessWorkPaper = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -152,6 +153,7 @@ const SalesTaxAccessWorkPaper = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -185,6 +187,7 @@ const SalesTaxAccessWorkPaper = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -220,6 +223,7 @@ const SalesTaxAccessWorkPaper = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -255,6 +259,7 @@ const SalesTaxAccessWorkPaper = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={
@@ -313,6 +318,7 @@ const UseTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsUseTax}
@@ -338,6 +344,7 @@ const UseTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsUseTax}
@@ -363,6 +370,7 @@ const UseTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsUseTax}
@@ -390,6 +398,7 @@ const UseTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsUseTax}
@@ -417,6 +426,7 @@ const UseTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFieldsUseTax}
@@ -472,6 +482,7 @@ const TireTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTireTax}
@@ -497,6 +508,7 @@ const TireTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTireTax}
@@ -522,6 +534,7 @@ const TireTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTireTax}
@@ -549,6 +562,7 @@ const TireTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTireTax}
@@ -576,6 +590,7 @@ const TireTax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsTireTax}
@@ -643,6 +658,7 @@ const LastTaxReturnFiledYear = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
@@ -674,6 +690,7 @@ const LastTaxReturnFiledYear = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
@@ -705,6 +722,7 @@ const LastTaxReturnFiledYear = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
@@ -738,6 +756,7 @@ const LastTaxReturnFiledYear = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
@@ -771,6 +790,7 @@ const LastTaxReturnFiledYear = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
