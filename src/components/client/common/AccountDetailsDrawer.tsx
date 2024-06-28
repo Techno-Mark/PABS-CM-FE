@@ -24,7 +24,7 @@ interface AccountDetailsDrawerProps {
   canEdit: boolean;
   type: string;
   getAccountList: () => void;
-  clientInfo:any
+  clientInfo: any
 }
 
 interface InitialValues {
@@ -154,8 +154,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
         }
       };
       await callAPIwithHeaders(
-        `${OnboardingFormAccountDetailsGetById}/${
-          !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+        `${OnboardingFormAccountDetailsGetById}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
         }`,
         "post",
         callback,
@@ -208,12 +207,10 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           return;
       }
     };
-    const save = `${OnboardingFormAccountDetailsSave}/${
-      !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
-    }`;
-    const edit = `${OnboardingFormAccountDetailsEdit}/${
-      !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
-    }`;
+    const save = `${OnboardingFormAccountDetailsSave}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`;
+    const edit = `${OnboardingFormAccountDetailsEdit}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`;
 
     await callAPIwithHeaders(
       clientID > 0 ? edit : save,
@@ -241,18 +238,28 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
 
   const handleChange =
     (field: keyof InitialValues) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        const validateNumber = (value: string) => {
+          return /^[0-9]+$/.test(value);
+        };
 
-      if (field === "estimateTime") {
-        if (!/^\d*$/.test(value) || value.length > 4) return;
-      }
+        let value = e.target.value;
+        if (field === "estimateTime") {
+          if (validateNumber(value)) {
+            setFormValues((prevValues) => ({
+              ...prevValues,
+              [field]: value,
+            }));
+          } else {
+            const validValue = value.replace(/[^0-9]/g, "").slice(0, 4);
+            setFormValues((prevValues) => ({
+              ...prevValues,
+              [field]: validValue,
+            }));
+          }
+        }
 
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        [field]: value,
-      }));
-    };
+      };
 
   const handleDateChange = (date: Dayjs | null) => {
     const formattedDate = date ? date.format("DD MM YYYY") : null;
@@ -513,9 +520,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                   margin: 0,
                 },
                 "& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button":
-                  {
-                    "-webkit-appearance": "none",
-                  },
+                {
+                  "-webkit-appearance": "none",
+                },
               }}
             />
           </div>

@@ -96,7 +96,7 @@ const ChecklistWhitelabel = ({
   clientInfo,
   setCheckAllWhiteLabelCheckist,
   setWhiteLabelFormIsSubmit,
-  setWhiteLabelFormSubmittedStatus
+  setWhiteLabelFormSubmittedStatus,
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -261,8 +261,8 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
-            setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false)
-            setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false)
+            setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
+            setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
             setWhiteLabelCommunicationChecked(
               ResponseData?.phase1CommunicationIsDisplay ?? true
@@ -296,7 +296,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Kick-Off":
+                case "Kick Off":
                   setWhitelabelKickOff({
                     kickOffWhiteLabelStatus: checklistItem.status,
                     kickOffWhiteLabelComments: checklistItem.comments,
@@ -305,7 +305,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Introduction of team over call":
+                case "Introduction of Team Over Call":
                   setWhitelabelTeamOverCall({
                     teamOverCallWhiteLabelStatus: checklistItem.status,
                     teamOverCallWhiteLabelComments: checklistItem.comments,
@@ -325,7 +325,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "If Remote Set up - Access Computer method (dedicated)":
+                case "If Remote Set Up - Access Computer Method (Dedicated)":
                   setWhitelabelRemoteSetup({
                     remoteSetupWhiteLabelStatus: checklistItem.status,
                     remoteSetupWhiteLabelComments: checklistItem.comments,
@@ -335,7 +335,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Need your IT teams help?":
+                case "Need Your IT Teams Help?":
                   setWhitelabelITHelp({
                     itHelpWhiteLabelStatus: checklistItem.status,
                     itHelpWhiteLabelComments: checklistItem.comments,
@@ -364,7 +364,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Team/Clickup/Slack/ Other Messenger tool set up":
+                case "Team/Clickup/Slack/ Other Messenger Tool Set Up":
                   setWhitelabelMessenger({
                     messengerWhiteLabelStatus: checklistItem.status,
                     messengerWhiteLabelComments: checklistItem.comments,
@@ -373,7 +373,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Any Other System access":
+                case "Any Other System Access":
                   setWhitelabelSystemAccess({
                     systemAccessWhiteLabelStatus: checklistItem.status,
                     systemAccessWhiteLabelComments: checklistItem.comments,
@@ -383,7 +383,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Other information":
+                case "Other Information":
                   setWhitelabelOtherInfo({
                     otherInfoWhiteLabelStatus: checklistItem.status,
                     otherInfoWhiteLabelComments: checklistItem.comments,
@@ -416,7 +416,7 @@ const ChecklistWhitelabel = ({
                     taxActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Biweekly Hours Reporting update":
+                case "Biweekly Hours Reporting Update":
                   setWhitelabelWeekly({
                     weeklyStatus: checklistItem.status,
                     weeklyComments: checklistItem.comments,
@@ -432,7 +432,7 @@ const ChecklistWhitelabel = ({
                     industryActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Current Challenges (If any)":
+                case "Current Challenges (If Any)":
                   setWhitelabelCurrentChallenges({
                     currentChallengesStatus: checklistItem.status,
                     currentChallengesComments: checklistItem.comments,
@@ -441,7 +441,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Expectation from PABS":
+                case "Expectation From PABS":
                   setWhitelabelPABS({
                     pabsStatus: checklistItem.status,
                     pabsComments: checklistItem.comments,
@@ -457,7 +457,7 @@ const ChecklistWhitelabel = ({
                     monthlyActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Clean up":
+                case "Clean Up":
                   setWhitelabelCleanup({
                     cleanupStatus: checklistItem.status,
                     cleanupComments: checklistItem.comments,
@@ -465,7 +465,7 @@ const ChecklistWhitelabel = ({
                     cleanupActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Catch up":
+                case "Catch Up":
                   setWhitelabelCatchup({
                     catchupStatus: checklistItem.status,
                     catchupComments: checklistItem.comments,
@@ -473,7 +473,7 @@ const ChecklistWhitelabel = ({
                     catchupActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Combination of Monthly/ Clean up/ Catch up":
+                case "Combination of Monthly/ Clean Up/ Catch Up":
                   setWhitelabelCombination({
                     combinationStatus: checklistItem.status,
                     combinationComments: checklistItem.comments,
@@ -513,7 +513,7 @@ const ChecklistWhitelabel = ({
                     timeZoneActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Convenient day":
+                case "Convenient Day":
                   setWhitelabelConvenientDay({
                     convenientDayStatus: checklistItem.status,
                     convenientDayComments: checklistItem.comments,
@@ -521,7 +521,7 @@ const ChecklistWhitelabel = ({
                     convenientDayActionClient: checklistItem.actionsOfClient,
                   });
                   break;
-                case "Time slot availability":
+                case "Time Slot Availability":
                   setWhitelabelTimeSlot({
                     timeSlotStatus: checklistItem.status,
                     timeSlotComments: checklistItem.comments,
@@ -646,9 +646,9 @@ const ChecklistWhitelabel = ({
 
   useEffect(() => {
     if (formSubmitId === 12) {
-      handleWhiteLabelChecklistRemoveErrors()
+      handleWhiteLabelChecklistRemoveErrors();
     }
-    getWhiteLabelChecklistData()
+    getWhiteLabelChecklistData();
   }, [formSubmitId]);
 
   useEffect(() => {
@@ -679,7 +679,7 @@ const ChecklistWhitelabel = ({
     whitelabelBDM,
     whitelabelTimeSlot,
     whitelabelTimeZone,
-    whitelabelConvenientDay
+    whitelabelConvenientDay,
   ]);
 
   const whiteLabelchecklistStatus = () => {
@@ -765,9 +765,7 @@ const ChecklistWhitelabel = ({
       );
     }
 
-    if (
-      whiteLabelMeetingAvailabilityChecked
-    ) {
+    if (whiteLabelMeetingAvailabilityChecked) {
       relevantFields.push(...validateWhiteLabelMeetingAvailabilityField);
     }
 
@@ -858,14 +856,14 @@ const ChecklistWhitelabel = ({
             whitelabelGroupEmailEstablished.groupEmailWhiteLabelActionClient,
         },
         {
-          fieldName: "Kick-Off",
+          fieldName: "Kick Off",
           status: whitelabelKickOff.kickOffWhiteLabelStatus,
           comments: whitelabelKickOff.kickOffWhiteLabelComments,
           actionsOfPabs: whitelabelKickOff.kickOffWhiteLabelActionPABS,
           actionsOfClient: whitelabelKickOff.kickOffWhiteLabelActionClient,
         },
         {
-          fieldName: "Introduction of team over call",
+          fieldName: "Introduction of Team Over Call",
           status: whitelabelTeamOverCall.teamOverCallWhiteLabelStatus,
           comments: whitelabelTeamOverCall.teamOverCallWhiteLabelComments,
           actionsOfPabs:
@@ -882,7 +880,7 @@ const ChecklistWhitelabel = ({
             whitelabelITStructure.itStructureWhiteLabelActionClient,
         },
         {
-          fieldName: "If Remote Set up - Access Computer method (dedicated)",
+          fieldName: "If Remote Set Up - Access Computer Method (Dedicated)",
           status: whitelabelRemoteSetup.remoteSetupWhiteLabelStatus,
           comments: whitelabelRemoteSetup.remoteSetupWhiteLabelComments,
           actionsOfPabs: whitelabelRemoteSetup.remoteSetupWhiteLabelActionPABS,
@@ -890,7 +888,7 @@ const ChecklistWhitelabel = ({
             whitelabelRemoteSetup.remoteSetupWhiteLabelActionClient,
         },
         {
-          fieldName: "Need your IT teams help?",
+          fieldName: "Need Your IT Teams Help?",
           status: whitelabelITHelp.itHelpWhiteLabelStatus,
           comments: whitelabelITHelp.itHelpWhiteLabelComments,
           actionsOfPabs: whitelabelITHelp.itHelpWhiteLabelActionPABS,
@@ -917,14 +915,14 @@ const ChecklistWhitelabel = ({
             whitelabelCloudDocument.cloudDocumentWhiteLabelActionClient,
         },
         {
-          fieldName: "Team/Clickup/Slack/ Other Messenger tool set up",
+          fieldName: "Team/Clickup/Slack/ Other Messenger Tool Set Up",
           status: whitelabelMessenger.messengerWhiteLabelStatus,
           comments: whitelabelMessenger.messengerWhiteLabelComments,
           actionsOfPabs: whitelabelMessenger.messengerWhiteLabelActionPABS,
           actionsOfClient: whitelabelMessenger.messengerWhiteLabelActionClient,
         },
         {
-          fieldName: "Any Other System access",
+          fieldName: "Any Other System Access",
           status: whitelabelSystemAccess.systemAccessWhiteLabelStatus,
           comments: whitelabelSystemAccess.systemAccessWhiteLabelComments,
           actionsOfPabs:
@@ -933,7 +931,7 @@ const ChecklistWhitelabel = ({
             whitelabelSystemAccess.systemAccessWhiteLabelActionClient,
         },
         {
-          fieldName: "Other information",
+          fieldName: "Other Information",
           status: whitelabelOtherInfo.otherInfoWhiteLabelStatus,
           comments: whitelabelOtherInfo.otherInfoWhiteLabelComments,
           actionsOfPabs: whitelabelOtherInfo.otherInfoWhiteLabelActionPABS,
@@ -961,7 +959,7 @@ const ChecklistWhitelabel = ({
           actionsOfClient: whitelabelTax.taxActionClient,
         },
         {
-          fieldName: "Biweekly Hours Reporting update",
+          fieldName: "Biweekly Hours Reporting Update",
           status: whitelabelWeekly.weeklyStatus,
           comments: whitelabelWeekly.weeklyComments,
           actionsOfPabs: whitelabelWeekly.weeklyActionPABS,
@@ -975,7 +973,7 @@ const ChecklistWhitelabel = ({
           actionsOfClient: whitelabelIndustry.industryActionClient,
         },
         {
-          fieldName: "Current Challenges (If any)",
+          fieldName: "Current Challenges (If Any)",
           status: whitelabelCurrentChallenges.currentChallengesStatus,
           comments: whitelabelCurrentChallenges.currentChallengesComments,
           actionsOfPabs:
@@ -984,7 +982,7 @@ const ChecklistWhitelabel = ({
             whitelabelCurrentChallenges.currentChallengesActionClient,
         },
         {
-          fieldName: "Expectation from PABS",
+          fieldName: "Expectation From PABS",
           status: whitelabelExpectation.exceptionStatus,
           comments: whitelabelExpectation.exceptionComments,
           actionsOfPabs: whitelabelExpectation.exceptionActionPABS,
@@ -998,21 +996,21 @@ const ChecklistWhitelabel = ({
           actionsOfClient: whitelabelMonthly.monthlyActionClient,
         },
         {
-          fieldName: "Clean up",
-          status: whitelabelMonthly.monthlyStatus,
-          comments: whitelabelMonthly.monthlyComments,
-          actionsOfPabs: whitelabelMonthly.monthlyActionPABS,
-          actionsOfClient: whitelabelMonthly.monthlyActionClient,
+          fieldName: "Clean Up",
+          status: whitelabelCleanup.cleanupStatus,
+          comments: whitelabelCleanup.cleanupComments,
+          actionsOfPabs: whitelabelCleanup.cleanupActionPABS,
+          actionsOfClient: whitelabelCleanup.cleanupActionClient,
         },
         {
-          fieldName: "Catch up",
+          fieldName: "Catch Up",
           status: whitelabelCatchup.catchupStatus,
           comments: whitelabelCatchup.catchupComments,
           actionsOfPabs: whitelabelCatchup.catchupActionPABS,
           actionsOfClient: whitelabelCatchup.catchupActionClient,
         },
         {
-          fieldName: "Combination of Monthly/ Clean up/ Catch up",
+          fieldName: "Combination of Monthly/ Clean Up/ Catch Up",
           status: whitelabelCombination.combinationStatus,
           comments: whitelabelCombination.combinationComments,
           actionsOfPabs: whitelabelCombination.combinationActionPABS,
@@ -1047,14 +1045,14 @@ const ChecklistWhitelabel = ({
           actionsOfClient: whitelabelTimeZone.timeZoneActionClient,
         },
         {
-          fieldName: "Convenient day",
+          fieldName: "Convenient Day",
           status: whitelabelConvenientDay.convenientDayStatus,
           comments: whitelabelConvenientDay.convenientDayComments,
           actionsOfPabs: whitelabelConvenientDay.convenientDayActionPABS,
           actionsOfClient: whitelabelConvenientDay.convenientDayActionClient,
         },
         {
-          fieldName: "Time slot availability",
+          fieldName: "Time Slot Availability",
           status: whitelabelTimeSlot.timeSlotStatus,
           comments: whitelabelTimeSlot.timeSlotComments,
           actionsOfPabs: whitelabelTimeSlot.timeSlotActionPABS,
@@ -1462,8 +1460,9 @@ const ChecklistWhitelabel = ({
     <>
       {formSubmitId === 12 && (
         <div
-          className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-            } pt-12`}
+          className={`flex flex-col ${
+            roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="m-6 flex flex-col gap-6">
@@ -1509,7 +1508,7 @@ const ChecklistWhitelabel = ({
             <div className="flex gap-5">
               {roleId !== "4" && (
                 <Button
-                  onClick={() => { }}
+                  onClick={() => {}}
                   className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
                 >

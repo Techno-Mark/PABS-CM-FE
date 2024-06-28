@@ -20,6 +20,7 @@ import EditIcon from "@/assets/Icons/admin/EditIcon";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import BulkImportModel from "@/components/admin/common/BulkImportModel";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import dayjs from "dayjs";
 
 const AccountDetailsWhitelabel = ({
   setChecklistFormSubmit,
@@ -240,7 +241,19 @@ const AccountDetailsWhitelabel = ({
       ),
       minWidth: 100,
       sortable: false,
-      renderCell: (params) => renderCellFunctionTooltip(params.value),
+      renderCell: (params) => {
+        if (params.value) {
+          const parts = params.value.split(' ');
+          if (parts.length === 3) {
+            const formattedDate = `${parts[0]} ${parts[1]} ${parts[2]}`;
+            const parsedDate = dayjs(formattedDate, 'DD MM YYYY');
+            if (parsedDate.isValid()) {
+              return parsedDate.format('DD MMM YYYY');
+            }
+          }
+        }
+        return '';
+      },
     },
     {
       field: "notes1MonthlyTransactions",

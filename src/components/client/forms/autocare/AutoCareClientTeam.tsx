@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI import
@@ -122,10 +122,19 @@ function AutoCareClientTeam({
   };
 
   const handleTimeChange = (time: any, name: string) => {
-    const formattedTime = time ? time.format("hh:mm A") : null;
 
     switch (name) {
       case "weeklyCallTime":
+        const formattedTime = time
+          ? dayjs
+            .tz(
+              time,
+              "hh:mm A",
+              time ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"
+            )
+            .format("hh:mm A")
+          : null;
+
         setAutoCareClientTeam({
           ...autoCareClientTeam,
           weeklyCallTime: formattedTime,
@@ -149,9 +158,10 @@ function AutoCareClientTeam({
         }
         break;
       case "istTime":
+        const formattedIstTime = time ? time.format("hh:mm A") : null;
         setAutoCareClientTeam({
           ...autoCareClientTeam,
-          istTime: formattedTime,
+          istTime: formattedIstTime,
         });
         setAutoCareClientTeamErrors((prevErrors) => ({
           ...prevErrors,
@@ -192,21 +202,6 @@ function AutoCareClientTeam({
     const utcTime = time.tz(selectedTimeZone).utc();
     return utcTime.tz("Asia/Kolkata");
   };
-
-  const handleWeeklyCallsChange = (event: any, newValue: any) => {
-    setAutoCareClientTeam((prev) => ({
-      ...prev,
-      weeklyCalls: newValue,
-    }));
-  
-    setAutoCareClientTeamErrors((prevErrors) => ({
-      ...prevErrors,
-      weeklyCalls: "",
-    }));
-  };
-
-  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   return (
     <div className={`${className}`}>
@@ -367,11 +362,10 @@ function AutoCareClientTeam({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.timeZone === "-1"
+                className={`${autoCareClientTeam?.timeZone === "-1"
                     ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
-                }`}
+                  }`}
                 value={autoCareClientTeam?.timeZone}
                 onChange={(e) => handleDropdownChange(e, "timeZone")}
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -394,11 +388,10 @@ function AutoCareClientTeam({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.state === "-1"
+                className={`${autoCareClientTeam?.state === "-1"
                     ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
-                }`}
+                  }`}
                 value={autoCareClientTeam?.state}
                 onChange={(e) => handleDropdownChange(e, "state")}
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -421,24 +414,27 @@ function AutoCareClientTeam({
             </label>
             <Autocomplete
               multiple
-              id="checkboxes-tags-demo"
-              options={WeeklyCallsList}
+              id="tags-standard"
               size="small"
-              value={autoCareClientTeam?.weeklyCalls || []}
-              onChange={handleWeeklyCallsChange}
-              disableCloseOnSelect
-              getOptionLabel={(option) => option?.label}
-              renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option?.label}
-                </li>
+              options={WeeklyCallsList.filter(
+                (option) =>
+                  !autoCareClientTeam.weeklyCalls.find(
+                    (client: any) => client.value === option.value
+                  )
               )}
+              getOptionLabel={(option: any) => option.label}
+              onChange={(e, data: any[]) => {
+                setAutoCareClientTeam((prev) => ({
+                  ...prev,
+                  weeklyCalls: data,
+                }));
+
+                setAutoCareClientTeamErrors((prevErrors) => ({
+                  ...prevErrors,
+                  weeklyCalls: "",
+                }));
+              }}
+              value={autoCareClientTeam.weeklyCalls}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -480,20 +476,17 @@ function AutoCareClientTeam({
                 }}
                 value={
                   autoCareClientTeam?.weeklyCallTime
-                    ? dayjs.tz(
-                        autoCareClientTeam?.weeklyCallTime,
-                        "hh:mm A",
-                        autoCareClientTeam?.timeZone
-                          ? timeZoneMap[autoCareClientTeam.timeZone]
-                          : "Asia/Kolkata"
-                      )
+                    ? dayjs(
+                      autoCareClientTeam?.weeklyCallTime,
+                      "hh:mm A")
                     : null
                 }
                 onChange={(e) => handleTimeChange(e, "weeklyCallTime")}
                 onError={(error) =>
                   setAutoCareClientTeamErrors((prevErrors) => ({
                     ...prevErrors,
-                    weeklyCallTime: error,
+                    weeklyCallTime:
+                      error === "invalidDate" ? "Invalid Time" : error,
                   }))
                 }
                 disabled={
@@ -546,7 +539,7 @@ function AutoCareClientTeam({
                 onError={(error) =>
                   setAutoCareClientTeamErrors((prevErrors) => ({
                     ...prevErrors,
-                    istTime: error,
+                    istTime: error === "invalidDate" ? "Invalid Time" : error,
                   }))
                 }
                 slotProps={{

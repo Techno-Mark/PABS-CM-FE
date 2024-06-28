@@ -29,7 +29,7 @@ const WhitelabelAccountDetailsForm = ({
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
 
     switch (name) {
       case "ownerPhone":

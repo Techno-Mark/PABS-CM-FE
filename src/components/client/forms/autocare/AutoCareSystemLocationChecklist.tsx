@@ -33,8 +33,6 @@ function AutoCareSystemLocationChecklist({
   setAutoCareAccessComputerMethod,
   autoCarePosSoftware,
   setAutoCarePosSoftware,
-  autoCareEstimatingSoftware,
-  setAutoCareEstimatingSoftware,
   autoCareAccountingSoftware,
   setAutoCareAccountingSoftware,
   autoCareCloudDocumentManagement,

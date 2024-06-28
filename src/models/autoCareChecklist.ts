@@ -53,10 +53,6 @@ export interface autoCareSystemLocationChecklistTypes {
   setAutoCarePosSoftware: React.Dispatch<
     React.SetStateAction<PosSoftwareFormTypes>
   >;
-  autoCareEstimatingSoftware: EstimatingSoftwareFormTypes;
-  setAutoCareEstimatingSoftware: React.Dispatch<
-    React.SetStateAction<EstimatingSoftwareFormTypes>
-  >;
   autoCareAccountingSoftware: AccountingSoftwareFormTypes;
   setAutoCareAccountingSoftware: React.Dispatch<
     React.SetStateAction<AccountingSoftwareFormTypes>
