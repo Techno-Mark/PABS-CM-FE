@@ -12,3 +12,8 @@ export const validatePhone = (phone: string) => {
   const phoneRegex = /^\d{10}$/;
   return phoneRegex.test(phone);
 };
+
+export const validateZip = (phone: string) => {
+  const phoneRegex = /^\d{6}$/;
+  return phoneRegex.test(phone);
+};
