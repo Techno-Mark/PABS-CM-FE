@@ -160,7 +160,7 @@ const WhitelabelOtherInformationForm = ({
               </div>
             </Grid>
             <Grid item xs={4}>
-              <div
+            <div
                 className={`text-[12px] flex flex-col w-full muiDatepickerCustomizer ${
                   !!whitelabelOtherInformationErrors?.startDate &&
                   "datepickerError"

@@ -120,7 +120,7 @@ const DrawerPanel = ({
               setOpenDrawer(false);
               setId();
             }}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[16px]`}
+            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[14px]`}
             variant="outlined"
           >
             Cancel
@@ -134,7 +134,7 @@ const DrawerPanel = ({
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}} />
             ) : (
-              <span className="uppercase font-semibold text-[16px]">Save</span>
+              <span className="uppercase font-semibold text-[14px]">Save</span>
             )}
           </Button>
         </div>

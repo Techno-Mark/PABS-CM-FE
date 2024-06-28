@@ -64,7 +64,7 @@ const BulkImportModel = ({
             accountingMethodIncTax: item["Accounting Method Inc Tax"] || "",
             estimateHoursOfWork: parseInt(item["Estimate Hours Of Work"]) || 0,
             pabsDuties: item["Pabs Duties"] || "",
-            bookkeepingPeriod: item["Bookkeeping Period"] || "",
+            bookkeepingPeriod: item["Bookkeeping Monthly or Clean Up (Period – Months/Years)"] || "",
             deadline: item["Deadline"] ? new Date(item["Deadline"]) : "",
             notes1MonthlyTransactions:
               item["Notes1 Monthly Transactions"] || "",
@@ -117,6 +117,7 @@ const BulkImportModel = ({
               "Something went wrong. Please check downloaded file.",
               ToastType.Error
             );
+            setIsUploading(false);
             setSelectedFile(null);
             setExcelData(null);
           } else {
@@ -207,10 +208,10 @@ const BulkImportModel = ({
           </div>
         </div>
         <Divider />
-        <div className="flex py-5 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
+        <div className="flex py-3 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
           <Button
             onClick={() => downloadSampleFile()}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-fit px-4 font-semibold text-[16px]`}
+            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-fit px-4 font-semibold text-[14px]`}
             variant="outlined"
           >
             Sample File
@@ -220,7 +221,7 @@ const BulkImportModel = ({
               onClick={() => {
                 setIsOpen(false);
               }}
-              className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] mr-4 !rounded-full !w-fit px-4 font-semibold text-[16px]`}
+              className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] mr-4 !rounded-full !w-fit px-4 font-semibold text-[14px]`}
               variant="outlined"
             >
               Cancel
@@ -236,7 +237,7 @@ const BulkImportModel = ({
                   sx={{ color: "white !important" }}
                 />
               ) : (
-                <span className="uppercase font-semibold text-[16px]">
+                <span className="uppercase font-semibold text-[14px]">
                   Import
                 </span>
               )}
