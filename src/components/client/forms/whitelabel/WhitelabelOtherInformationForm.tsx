@@ -160,19 +160,17 @@ const WhitelabelOtherInformationForm = ({
               </div>
             </Grid>
             <Grid item xs={4}>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">
+            <div
+                className={`text-[12px] flex flex-col w-full muiDatepickerCustomizer ${
+                  !!whitelabelOtherInformationErrors?.startDate &&
+                  "datepickerError"
+                }`}
+              >
+                <label className="text-[#6E6D7A] text-[12px] mb-[-18px]">
                   Start Date<span className="text-[#DC3545]">*</span>
                 </label>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    sx={{
-                      height: "25px !important",
-                      paddingTop: "4px",
-                      flexDirection: "unset",
-                      fontSize: "14px !important",
-                      fontFamily: "'Poppins !important',sans serif",
-                    }}
                     value={
                       whitelabelOtherInformation?.startDate
                         ? dayjs(
@@ -185,15 +183,9 @@ const WhitelabelOtherInformationForm = ({
                     format="D MMM YYYY"
                     slotProps={{
                       textField: {
-                        variant: "standard",
-                        InputProps: {
-                          sx: {
-                            fontSize: "14px !important",
-                            paddingBottom:"4px !important",
-                            width: "100%",
-                          },
-                        },
-                      },
+                        helperText: whitelabelOtherInformationErrors.startDate,
+                        readOnly: true,
+                      } as Record<string, any>,
                     }}
                     disabled={
                       roleId === "4" &&
