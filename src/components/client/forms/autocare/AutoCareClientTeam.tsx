@@ -58,38 +58,6 @@ function AutoCareClientTeam({
     const { name, value } = e.target;
 
     switch (name) {
-      case "contactInfo":
-        if (validateNumber(value)) {
-          const validValue = value.slice(0, 10);
-          const errorMessage =
-            validValue.length < 10
-              ? "Contact Info Phone must be exactly 10 characters"
-              : "";
-          setAutoCareClientTeam((prev: ClientTeamFormTypes) => ({
-            ...prev,
-            [name]: validValue,
-          }));
-          setAutoCareClientTeamErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: errorMessage,
-          }));
-        } else {
-          const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
-          const errorMessage =
-            validValue.length < 10
-              ? "Contact Info Phone must be exactly 10 characters"
-              : "";
-
-          setAutoCareClientTeam((prev: ClientTeamFormTypes) => ({
-            ...prev,
-            [name]: validValue,
-          }));
-          setAutoCareClientTeamErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: errorMessage,
-          }));
-        }
-        break;
       case "email":
         if (!validateEmail(value)) {
           setAutoCareClientTeamErrors((prevErrors) => ({

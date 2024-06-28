@@ -139,8 +139,8 @@ function BasicDetailsAutoCare({
                 : null,
               probableAcquitionDate: ResponseData?.probableAcquisitionDate
                 ? dayjs(ResponseData?.probableAcquisitionDate).format(
-                  "DD MMM YYYY"
-                )
+                    "DD MMM YYYY"
+                  )
                 : null,
               dba: ResponseData?.dba,
             });
@@ -154,28 +154,28 @@ function BasicDetailsAutoCare({
               timeZone:
                 ResponseData?.timeZone && ResponseData?.timeZone !== "-1"
                   ? TimeZoneList.find(
-                    (time) => time.label === ResponseData?.timeZone
-                  )?.value || "-1"
+                      (time) => time.label === ResponseData?.timeZone
+                    )?.value || "-1"
                   : "-1",
               state: ResponseData?.state
                 ? StateList.find((state) => state.label === ResponseData?.state)
-                  ?.value || "-1"
+                    ?.value || "-1"
                 : "-1",
               weeklyCalls: ResponseData?.weeklyCalls
                 ? ResponseData?.weeklyCalls
-                  .split(",")
-                  .map((label) => {
-                    const matchingItem = WeeklyCallsList.find(
-                      (item) => item.label === label
-                    );
-                    return (
-                      matchingItem && {
-                        value: matchingItem.value,
-                        label: matchingItem.label,
-                      }
-                    );
-                  })
-                  .filter((item): item is DropdownOption => item !== null)
+                    .split(",")
+                    .map((label) => {
+                      const matchingItem = WeeklyCallsList.find(
+                        (item) => item.label === label
+                      );
+                      return (
+                        matchingItem && {
+                          value: matchingItem.value,
+                          label: matchingItem.label,
+                        }
+                      );
+                    })
+                    .filter((item): item is DropdownOption => item !== null)
                 : [],
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
@@ -230,6 +230,13 @@ function BasicDetailsAutoCare({
         newAccountDetailsErrors[
           field
         ] = `${autoCareAccountDetailsErrors[field]}`;
+      } else if (
+        (field === "ownerPhone" || field === "ownerContact") &&
+        !!autoCareAccountDetailsErrors[field]
+      ) {
+        newAccountDetailsErrors[
+          field
+        ] = `${autoCareAccountDetailsErrors[field]}`;
       } else {
         newAccountDetailsErrors[field] = "";
       }
@@ -278,6 +285,11 @@ function BasicDetailsAutoCare({
         ] = `${fieldDisplayNamesClientTeam[field]} is required`;
       } else if (
         (field === "weeklyCallTime" || field === "istTime") &&
+        !!autoCareClientTeamErrors[field]
+      ) {
+        newClientTeamErrors[field] = `${autoCareClientTeamErrors[field]}`;
+      } else if (
+        field === "email" &&
         !!autoCareClientTeamErrors[field]
       ) {
         newClientTeamErrors[field] = `${autoCareClientTeamErrors[field]}`;
@@ -349,8 +361,10 @@ function BasicDetailsAutoCare({
       if (
         !!autoCareLegalStructure[field] ||
         !!autoCareAccountDetails[field] ||
-        (!!autoCareClientTeam[field] && !(field === 'weeklyCalls')) ||
-        (field === 'weeklyCalls' && Array.isArray(autoCareClientTeam[field]) && autoCareClientTeam[field].length !== 0) ||
+        (!!autoCareClientTeam[field] && !(field === "weeklyCalls")) ||
+        (field === "weeklyCalls" &&
+          Array.isArray(autoCareClientTeam[field]) &&
+          autoCareClientTeam[field].length !== 0) ||
         !!autoCarePabsAccountingTeam[field]
       ) {
         count++;
@@ -398,9 +412,15 @@ function BasicDetailsAutoCare({
       corporateAddress: autoCareAccountDetails.corporateAddress,
       noOfLocations: parseInt(autoCareAccountDetails.noOfLocations),
       nameOfLocations: autoCareAccountDetails.nameOfLocations,
-      ownerContact: validatePhone(autoCareAccountDetails.ownerContact) ? autoCareAccountDetails.ownerContact : "",
-      ownerEmail: validateEmail(autoCareAccountDetails.ownerEmail) ? autoCareAccountDetails.ownerEmail : "",
-      ownerPhone: validatePhone(autoCareAccountDetails.ownerPhone) ? autoCareAccountDetails.ownerPhone : "",
+      ownerContact: validatePhone(autoCareAccountDetails.ownerContact)
+        ? autoCareAccountDetails.ownerContact
+        : "",
+      ownerEmail: validateEmail(autoCareAccountDetails.ownerEmail)
+        ? autoCareAccountDetails.ownerEmail
+        : "",
+      ownerPhone: validatePhone(autoCareAccountDetails.ownerPhone)
+        ? autoCareAccountDetails.ownerPhone
+        : "",
       noOfEntities: parseInt(autoCareLegalStructure.no_of_Entities),
       noOfShops: parseInt(autoCareLegalStructure.no_of_Shops),
       salesRep: autoCareLegalStructure.salesRep,
@@ -410,27 +430,29 @@ function BasicDetailsAutoCare({
       dba: autoCareLegalStructure.dba,
       shopManager: autoCareClientTeam.shopManager,
       poc1: autoCareClientTeam.poc1,
-      emailId: validateEmail(autoCareClientTeam.email) ? autoCareClientTeam.email : "",
+      emailId: validateEmail(autoCareClientTeam.email)
+        ? autoCareClientTeam.email
+        : "",
       cpa: autoCareClientTeam.cpa,
       priorBookkeeper: autoCareClientTeam.priorBookkeeper,
       itSupport: autoCareClientTeam.itSupport,
       timeZone:
         autoCareClientTeam.timeZone !== "-1"
           ? TimeZoneList.find(
-            (time) => time.value === autoCareClientTeam.timeZone
-          )?.label
+              (time) => time.value === autoCareClientTeam.timeZone
+            )?.label
           : "",
       state:
         autoCareClientTeam.state !== "-1"
           ? StateList.find((state) => state.value === autoCareClientTeam.state)
-            ?.label
+              ?.label
           : "",
       weeklyCalls:
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
-          autoCareClientTeam.weeklyCalls.length > 0
+        autoCareClientTeam.weeklyCalls.length > 0
           ? autoCareClientTeam.weeklyCalls
-            .map((item: { value: string; label: string }) => item.label)
-            .join(",")
+              .map((item: { value: string; label: string }) => item.label)
+              .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
@@ -440,8 +462,12 @@ function BasicDetailsAutoCare({
       operationsManager: autoCarePabsAccountingTeam.operationsManager,
       operationsAccountHandler:
         autoCarePabsAccountingTeam.operationsAccountHolder,
-      pabsGroupEmail: validateEmail(autoCarePabsAccountingTeam.pabsGroupEmail) ? autoCarePabsAccountingTeam.pabsGroupEmail : "",
-      pabsPhone: validatePhone(autoCarePabsAccountingTeam.pabsPhone) ? autoCarePabsAccountingTeam.pabsPhone : "",
+      pabsGroupEmail: validateEmail(autoCarePabsAccountingTeam.pabsGroupEmail)
+        ? autoCarePabsAccountingTeam.pabsGroupEmail
+        : "",
+      pabsPhone: validatePhone(autoCarePabsAccountingTeam.pabsPhone)
+        ? autoCarePabsAccountingTeam.pabsPhone
+        : "",
       progress: autoCareProgressPercentage,
     };
     const isValidAccountDetails = accountDetailsCheckStatus
@@ -582,8 +608,9 @@ function BasicDetailsAutoCare({
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
         <div className="flex-1 overflow-y-scroll">
           <div className="m-6 flex flex-col gap-6">
