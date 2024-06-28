@@ -184,7 +184,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       documentSharing: formValues.document,
       bankConnectedWithAccountingSoftware: formValues.bankConnected,
       accountingMethodIncTax: formValues.accountingMethod,
-      estimateHoursOfWork: Number(formValues.estimateTime),
+      estimateHoursOfWork: formValues.estimateTime,
       pabsDuties: formValues.pabs,
       bookkeepingPeriod: formValues.bookKeeping,
       deadline: formValues.deadline,
