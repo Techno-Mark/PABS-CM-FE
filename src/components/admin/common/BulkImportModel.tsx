@@ -83,7 +83,7 @@ const BulkImportModel = ({
         setIsUploading(true);
         try {
           const response = await axios.post(
-            `${process.env.APIDEV_URL}${OnboardingFormAccountDetailsSave}/${
+            `${process.env.APIDEV_URL}/${OnboardingFormAccountDetailsSave}/${
               !!clientInfo?.UserId
                 ? parseInt(clientInfo?.UserId)
                 : parseInt(userId!)
