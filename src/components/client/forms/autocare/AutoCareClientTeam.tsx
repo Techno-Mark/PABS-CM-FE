@@ -24,7 +24,7 @@ import {
 } from "@/static/carCareBasicDetail";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
-import { validateEmail, validateNumber } from "@/utils/validate";
+import { validateEmail } from "@/utils/validate";
 // Date import
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -32,9 +32,6 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-// Icons imports
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 // Cookie import
 import Cookies from "js-cookie";
 
@@ -90,19 +87,9 @@ function AutoCareClientTeam({
   };
 
   const handleTimeChange = (time: any, name: string) => {
-
+    const formattedTime = time ? time.format("hh:mm A") : null;
     switch (name) {
       case "weeklyCallTime":
-        const formattedTime = time
-          ? dayjs
-            .tz(
-              time,
-              "hh:mm A",
-              time ? timeZoneMap[autoCareClientTeam.timeZone] : "Asia/Kolkata"
-            )
-            .format("hh:mm A")
-          : null;
-
         setAutoCareClientTeam({
           ...autoCareClientTeam,
           weeklyCallTime: formattedTime,
@@ -126,10 +113,9 @@ function AutoCareClientTeam({
         }
         break;
       case "istTime":
-        const formattedIstTime = time ? time.format("hh:mm A") : null;
         setAutoCareClientTeam({
           ...autoCareClientTeam,
-          istTime: formattedIstTime,
+          istTime: formattedTime,
         });
         setAutoCareClientTeamErrors((prevErrors) => ({
           ...prevErrors,
@@ -335,10 +321,11 @@ function AutoCareClientTeam({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${autoCareClientTeam?.timeZone === "-1"
+                className={`${
+                  autoCareClientTeam?.timeZone === "-1"
                     ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
-                  }`}
+                }`}
                 value={autoCareClientTeam?.timeZone}
                 onChange={(e) => handleDropdownChange(e, "timeZone")}
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -361,10 +348,11 @@ function AutoCareClientTeam({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${autoCareClientTeam?.state === "-1"
+                className={`${
+                  autoCareClientTeam?.state === "-1"
                     ? "!text-[12px] !text-[#a1a1a1]"
                     : "!text-[14px]"
-                  }`}
+                }`}
                 value={autoCareClientTeam?.state}
                 onChange={(e) => handleDropdownChange(e, "state")}
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
@@ -435,7 +423,7 @@ function AutoCareClientTeam({
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 timezone={
-                  autoCareClientTeam?.timeZone
+                  autoCareClientTeam.timeZone
                     ? timeZoneMap[autoCareClientTeam.timeZone]
                     : "Asia/Kolkata"
                 }
@@ -449,9 +437,13 @@ function AutoCareClientTeam({
                 }}
                 value={
                   autoCareClientTeam?.weeklyCallTime
-                    ? dayjs(
-                      autoCareClientTeam?.weeklyCallTime,
-                      "hh:mm A")
+                    ? dayjs.tz(
+                        autoCareClientTeam?.weeklyCallTime,
+                        "hh:mm A",
+                        autoCareClientTeam?.timeZone
+                          ? timeZoneMap[autoCareClientTeam.timeZone]
+                          : "Asia/Kolkata"
+                      )
                     : null
                 }
                 onChange={(e) => handleTimeChange(e, "weeklyCallTime")}
@@ -478,6 +470,7 @@ function AutoCareClientTeam({
                         width: "100%",
                       },
                     },
+                    inputProps: { readOnly: true },
                     error: !!autoCareClientTeamErrors.weeklyCallTime,
                   },
                 }}
@@ -524,6 +517,7 @@ function AutoCareClientTeam({
                         width: "100%",
                       },
                     },
+                    inputProps: { readOnly: true },
                     error: !!autoCareClientTeamErrors.istTime,
                   },
                 }}

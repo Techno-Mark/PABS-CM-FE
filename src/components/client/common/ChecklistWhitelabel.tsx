@@ -829,8 +829,9 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
-          isValid && showToast(Message, ToastType.Success);
+          type !== 3 ? isValid && showToast(Message, ToastType.Success) : "";
           setExpandedAccordian(-1);
+          type !== 3 && showToast(Message, ToastType.Success);
           type === 3 && setChecklistFormSubmit(11);
           type === 1 && setChecklistFormSubmit(13);
           return;
@@ -1165,16 +1166,12 @@ const ChecklistWhitelabel = ({
         );
       }
       setExpandedAccordian(-1);
+      setChecklistFormSubmit(11);
       handleWhiteLabelChecklistRemoveErrors();
-      if (!isSubmitedWhiteLabelChecklist) {
-        callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
-          ...whitelabelChecklistFormData,
-          progress: whiteLabelProgressPercentage,
-        });
-      } else {
-        setExpandedAccordian(-1);
-        setChecklistFormSubmit(11);
-      }
+      callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+        ...whitelabelChecklistFormData,
+        progress: whiteLabelProgressPercentage,
+      });
     }
   };
 
