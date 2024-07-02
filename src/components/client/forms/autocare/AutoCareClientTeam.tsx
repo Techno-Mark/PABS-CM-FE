@@ -151,6 +151,7 @@ function AutoCareClientTeam({
     }
   };
   
+
   const timeZoneMap: { [key: string]: string } = {
     "1": "Asia/Kolkata", // IST
     "2": "America/Los_Angeles", // PST
@@ -475,14 +476,15 @@ function AutoCareClientTeam({
                 }
                 slotProps={{
                   textField: {
-                    variant: "standard",             
+                    variant: "standard",
+                    disabled: true,
                     InputProps: {
                       sx: {
                         fontSize: "12px !important",
                         width: "100%",
                       },
                     },
-            
+                    inputProps: { readOnly: true },
                     error: !!autoCareClientTeamErrors.weeklyCallTime,
                   },
                 }}
@@ -523,13 +525,14 @@ function AutoCareClientTeam({
                 slotProps={{
                   textField: {
                     variant: "standard",
+                    disabled: true,
                     InputProps: {
                       sx: {
                         fontSize: "12px !important",
                         width: "100%",
                       },
                     },
-                    
+                    inputProps: { readOnly: true },
                     error: !!autoCareClientTeamErrors.istTime,
                   },
                 }}
