@@ -132,18 +132,18 @@ function AutoCareClientTeam({
     switch (dropdownType) {
       case "timeZone":
         setAutoCareClientTeam((prev) => {
-          const updatedTeam = { ...prev, timeZone: value };
+          const updatedData = { ...prev, timeZone: value };
           if (prev.weeklyCallTime) {
-            const convertedTime = convertToIST(dayjs(prev.weeklyCallTime, "hh:mm A"), value);
-            updatedTeam.istTime = convertedTime.format("hh:mm A");
+            const weeklyCallTime = dayjs.tz(
+              prev.weeklyCallTime,
+              "hh:mm A",
+              timeZoneMap[prev.timeZone] || "Asia/Kolkata"
+            );
+            const convertedTime = convertToIST(weeklyCallTime, value);
+            updatedData.istTime = convertedTime.format("hh:mm A");
           }
-          return updatedTeam;
+          return updatedData;
         });
-        setAutoCareClientTeamErrors((prevErrors) => ({
-          ...prevErrors,
-          timeZone: "",
-          istTime: "",
-        }));
         break;
       case "state":
         setAutoCareClientTeam((prev) => ({ ...prev, state: value }));
@@ -151,7 +151,6 @@ function AutoCareClientTeam({
     }
   };
   
-
   const timeZoneMap: { [key: string]: string } = {
     "1": "Asia/Kolkata", // IST
     "2": "America/Los_Angeles", // PST
@@ -476,15 +475,14 @@ function AutoCareClientTeam({
                 }
                 slotProps={{
                   textField: {
-                    variant: "standard",
-                    disabled: true,
+                    variant: "standard",             
                     InputProps: {
                       sx: {
                         fontSize: "12px !important",
                         width: "100%",
                       },
                     },
-                    inputProps: { readOnly: true },
+            
                     error: !!autoCareClientTeamErrors.weeklyCallTime,
                   },
                 }}
@@ -525,14 +523,13 @@ function AutoCareClientTeam({
                 slotProps={{
                   textField: {
                     variant: "standard",
-                    disabled: true,
                     InputProps: {
                       sx: {
                         fontSize: "12px !important",
                         width: "100%",
                       },
                     },
-                    inputProps: { readOnly: true },
+                    
                     error: !!autoCareClientTeamErrors.istTime,
                   },
                 }}
