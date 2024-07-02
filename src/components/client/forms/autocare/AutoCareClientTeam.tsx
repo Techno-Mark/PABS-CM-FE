@@ -464,6 +464,7 @@ function AutoCareClientTeam({
                 slotProps={{
                   textField: {
                     variant: "standard",
+                    disabled: true,
                     InputProps: {
                       sx: {
                         fontSize: "12px !important",
@@ -511,6 +512,7 @@ function AutoCareClientTeam({
                 slotProps={{
                   textField: {
                     variant: "standard",
+                    disabled: true,
                     InputProps: {
                       sx: {
                         fontSize: "12px !important",
