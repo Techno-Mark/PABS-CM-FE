@@ -128,7 +128,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               estimateTime: ResponseData.estimateHoursOfWork,
               pabs: ResponseData.pabsDuties,
               bookKeeping: ResponseData.bookkeepingPeriod,
-              deadline: ResponseData.deadline,
+              deadline: ResponseData.deadline
+                ? dayjs(ResponseData.deadline).format("D MMM YYYY")
+                : null,
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
               status: ResponseData.status === true ? 1 : 0,
@@ -146,7 +148,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               estimateTime: ResponseData.estimateHoursOfWork,
               pabs: ResponseData.pabsDuties,
               bookKeeping: ResponseData.bookkeepingPeriod,
-              deadline: ResponseData.deadline,
+              deadline: ResponseData.deadline
+                ? dayjs(ResponseData.deadline).format("D MMM YYYY")
+                : null,
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
               status: ResponseData.status === true ? 1 : 0,
@@ -259,7 +263,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
     };
 
   const handleDateChange = (date: Dayjs | null) => {
-    const formattedDate = date ? date.format("DD MM YYYY") : null;
+    const formattedDate = date ? date.format("D MMM YYYY") : null;
     setFormValues((prevValues) => ({
       ...prevValues,
       deadline: formattedDate,
@@ -556,13 +560,13 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           </div>
           <div className="text-[12px] flex flex-col w-1/2">
             <label className="text-[#6E6D7A] text-[12px]">
-              Book Keeping Monthly or Clean Up
+              Bookkeeping Monthly or Clean Up
             </label>
             <TextField
               id="bankConnected"
               variant="standard"
               size="small"
-              placeholder="Please Enter Book Keeping Monthly or Clean Up"
+              placeholder="Please Enter Bookkeeping Monthly or Clean Up"
               value={formValues.bookKeeping}
               onChange={handleChange("bookKeeping")}
               InputProps={{
@@ -589,11 +593,11 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                 <DatePicker
                   value={
                     formValues.deadline
-                      ? dayjs(formValues.deadline, "DD MM YYYY")
+                      ? dayjs(formValues.deadline, "D MMM YYYY")
                       : null
                   }
                   onChange={handleDateChange}
-                  format="DD/MM/YYYY"
+                  format="D MMM YYYY"
                   slotProps={{
                     textField: {
                       readOnly: true,

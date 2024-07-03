@@ -132,6 +132,26 @@ function AutoCareClientTeam({
     switch (dropdownType) {
       case "timeZone":
         setAutoCareClientTeam((prev) => ({ ...prev, timeZone: value }));
+        if (autoCareClientTeam?.weeklyCallTime && value !== "-1") {
+          const convertedTime = convertToIST(
+            dayjs.tz(
+              autoCareClientTeam?.weeklyCallTime,
+              "hh:mm A",
+              value ? timeZoneMap[value] : "Asia/Kolkata"
+            ),
+            value
+          );
+          setAutoCareClientTeam({
+            ...autoCareClientTeam,
+            istTime: convertedTime.format("hh:mm A"),
+          });
+          setAutoCareClientTeam((prev) => ({ ...prev, timeZone: value }));
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            istTime: "",
+            weeklyCallTime: "",
+          }));
+        }
         break;
       case "state":
         setAutoCareClientTeam((prev) => ({ ...prev, state: value }));

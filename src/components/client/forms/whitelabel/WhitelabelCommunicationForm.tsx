@@ -97,6 +97,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllGroupEmailEstablished}
@@ -122,6 +123,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllGroupEmailEstablished}
@@ -149,6 +151,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllGroupEmailEstablished}
@@ -176,6 +179,7 @@ const GroupEmailEstablished = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllGroupEmailEstablished}
@@ -228,6 +232,7 @@ const KickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllKickOff}
@@ -251,6 +256,7 @@ const KickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllKickOff}
@@ -276,6 +282,7 @@ const KickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllKickOff}
@@ -301,6 +308,7 @@ const KickOff = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllKickOff}
@@ -353,6 +361,7 @@ const IntroductionTeamOverCall = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
@@ -376,6 +385,7 @@ const IntroductionTeamOverCall = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
@@ -401,6 +411,7 @@ const IntroductionTeamOverCall = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIntroductionTeamOverCall}
@@ -428,6 +439,7 @@ const IntroductionTeamOverCall = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIntroductionTeamOverCall}

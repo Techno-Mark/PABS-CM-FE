@@ -54,20 +54,22 @@ const BulkImportModel = ({
             clientId: item["Client Id"] || "",
             organizationName: item["Organization Name"] || "",
             backgroundNatureOfBusiness:
-              item["Background Nature Of Business"] || "",
+              item["Background/Nature of Business"] || "",
             industryType: item["Industry Type"] || "",
             entityType: item["Entity Type"] || "",
             accountingSoftware: item["Accounting Software"] || "",
             documentSharing: item["Document Sharing"] || "",
             bankConnectedWithAccountingSoftware:
-              item["Bank Connected With Accounting Software"] || "",
-            accountingMethodIncTax: item["Accounting Method Inc Tax"] || "",
-            estimateHoursOfWork: parseInt(item["Estimate Hours Of Work"]) || "",
-            pabsDuties: item["Pabs Duties"] || "",
-            bookkeepingPeriod: item["Bookkeeping Monthly or Clean Up (Period – Months/Years)"] || "",
-            deadline: item["Deadline"] ? new Date(item["Deadline"]) : "",
+              item["Bank Connected with Accounting Software"] || "",
+            accountingMethodIncTax: item["Accounting Method-Inc Tax"] || "",
+            estimateHoursOfWork: parseInt(item["Estimate Hours of Work"]) || "",
+            pabsDuties: item["PABS Duties"] || "",
+            bookkeepingPeriod:
+              item["Bookkeeping Monthly or Clean Up (Period – Months/Years)"] ||
+              "",
+            deadline: item["Deadline"] ? parseExcelDate(item["Deadline"]) : "",
             notes1MonthlyTransactions:
-              item["Notes1 Monthly Transactions"] || "",
+              item["Notes1 - Monthly Transactions"] || "",
             notes: item["Notes"] || "",
           }));
           setExcelData(transformedData);
@@ -75,6 +77,15 @@ const BulkImportModel = ({
       };
       reader.readAsArrayBuffer(file);
     }
+    const parseExcelDate = (excelDate: any): Date | null => {
+      if (!excelDate) return null;
+      if (typeof excelDate === 'number') {
+        return new Date((excelDate - (25567 + 2)) * 86400 * 1000);
+      }
+      const dateValue = new Date(excelDate);
+      return isNaN(dateValue.getTime()) ? null : dateValue;
+    };
+   
   };
 
   const handleSubmit = async () => {
@@ -179,7 +190,7 @@ const BulkImportModel = ({
           </Tooltip>
         </div>
         <Divider />
-        <div className="p-6 mb-5 px-5 h-[80%] w-[80%]">
+        <div className="p-6 mb-5 px-5 h-[100%] w-[100%]">
           <div className="flex items-center justify-around gap-5">
             <input
               accept=".xls,.xlsx"
@@ -195,8 +206,8 @@ const BulkImportModel = ({
               <div className="flex flex-col items-center gap-3">
                 {isUploading ? (
                   <span>Uploading..</span>
-                ) : !isUploading && selectedFile !== null ? (
-                  selectedFile.name
+                ) : !isUploading && selectedFile !== null && selectedFile?.name !== undefined ? (
+                  selectedFile?.name
                 ) : (
                   <>
                     <ExcelIcon />

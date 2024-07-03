@@ -85,6 +85,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllClient}
@@ -108,6 +109,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllClient}
@@ -133,6 +135,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllClient}
@@ -158,6 +161,7 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllClient}
@@ -206,6 +210,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllPABS}
@@ -229,6 +234,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllPABS}
@@ -254,6 +260,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllPABS}
@@ -279,6 +286,7 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllPABS}
@@ -327,6 +335,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllBDM}
@@ -350,6 +359,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllBDM}
@@ -375,6 +385,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllBDM}
@@ -400,6 +411,7 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllBDM}

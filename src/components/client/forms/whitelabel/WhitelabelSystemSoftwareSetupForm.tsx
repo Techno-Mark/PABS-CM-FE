@@ -140,6 +140,7 @@ const ITStructure = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllItStructure}
@@ -163,6 +164,7 @@ const ITStructure = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllItStructure}
@@ -188,6 +190,7 @@ const ITStructure = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllItStructure}
@@ -213,6 +216,7 @@ const ITStructure = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllItStructure}
@@ -265,6 +269,7 @@ const RemoteSetup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllRemoteSetup}
@@ -288,6 +293,7 @@ const RemoteSetup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllRemoteSetup}
@@ -313,6 +319,7 @@ const RemoteSetup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllRemoteSetup}
@@ -338,6 +345,7 @@ const RemoteSetup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllRemoteSetup}
@@ -390,6 +398,7 @@ const ITHelp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllITHelp}
@@ -413,6 +422,7 @@ const ITHelp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllITHelp}
@@ -438,6 +448,7 @@ const ITHelp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllITHelp}
@@ -463,6 +474,7 @@ const ITHelp = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllITHelp}
@@ -526,6 +538,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccountingSoftware}
@@ -557,6 +570,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccountingSoftware}
@@ -590,6 +604,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccountingSoftware}
@@ -623,6 +638,7 @@ const AccountingSoftware = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccountingSoftware}
@@ -683,6 +699,7 @@ const CloudDocument = ({
                   },
                 }}
                 inputProps={{
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCloudDocument}
@@ -712,6 +729,7 @@ const CloudDocument = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCloudDocument}
@@ -745,6 +763,7 @@ const CloudDocument = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCloudDocument}
@@ -778,6 +797,7 @@ const CloudDocument = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCloudDocument}
@@ -836,6 +856,7 @@ const Messenger = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMessenger}
@@ -863,6 +884,7 @@ const Messenger = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMessenger}
@@ -894,6 +916,7 @@ const Messenger = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMessenger}
@@ -925,6 +948,7 @@ const Messenger = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMessenger}
@@ -984,6 +1008,7 @@ const SystemAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllSystemAccess}
@@ -1013,6 +1038,7 @@ const SystemAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllSystemAccess}
@@ -1044,6 +1070,7 @@ const SystemAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllSystemAccess}
@@ -1077,6 +1104,7 @@ const SystemAccess = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllSystemAccess}
@@ -1129,6 +1157,7 @@ const OtherInfo = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllOtherInfo}
@@ -1152,6 +1181,7 @@ const OtherInfo = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllOtherInfo}
@@ -1177,6 +1207,7 @@ const OtherInfo = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllOtherInfo}
@@ -1202,6 +1233,7 @@ const OtherInfo = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllOtherInfo}

@@ -83,6 +83,7 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllCurrentChallenges}
@@ -106,6 +107,7 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllCurrentChallenges}
@@ -131,6 +133,7 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllCurrentChallenges}
@@ -158,6 +161,7 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllCurrentChallenges}
@@ -210,6 +214,7 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllExpectation}
@@ -233,6 +238,7 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllExpectation}
@@ -258,6 +264,7 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllExpectation}
@@ -283,6 +290,7 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === '4' && checkAllExpectation}
