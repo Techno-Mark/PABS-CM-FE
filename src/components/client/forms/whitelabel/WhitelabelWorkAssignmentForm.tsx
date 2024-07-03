@@ -106,6 +106,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -131,6 +132,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -158,6 +160,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -185,6 +188,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -240,6 +244,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -265,6 +270,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -292,6 +298,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -319,6 +326,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -374,6 +382,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -399,6 +408,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -426,6 +436,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -453,6 +464,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -509,6 +521,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}
@@ -534,6 +547,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}
@@ -561,6 +575,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}
@@ -590,6 +605,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}

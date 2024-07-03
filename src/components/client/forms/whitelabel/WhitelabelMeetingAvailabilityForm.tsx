@@ -93,6 +93,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -118,6 +119,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -145,6 +147,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -172,6 +175,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -229,6 +233,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -254,6 +259,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -283,6 +289,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -314,6 +321,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -369,6 +377,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}
@@ -394,6 +403,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}
@@ -421,6 +431,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}
@@ -448,6 +459,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}

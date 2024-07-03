@@ -115,6 +115,7 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFTE}
@@ -140,6 +141,7 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFTE}
@@ -167,6 +169,7 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFTE}
@@ -194,6 +197,7 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllFTE}
@@ -249,6 +253,7 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccounting}
@@ -274,6 +279,7 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccounting}
@@ -301,6 +307,7 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccounting}
@@ -328,6 +335,7 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllAccounting}
@@ -383,6 +391,7 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTax}
@@ -408,6 +417,7 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTax}
@@ -435,6 +445,7 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTax}
@@ -462,6 +473,7 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTax}
@@ -514,6 +526,7 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllWeekly}
@@ -537,6 +550,7 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllWeekly}
@@ -562,6 +576,7 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllWeekly}
@@ -587,6 +602,7 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllWeekly}
@@ -639,6 +655,7 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIndustry}
@@ -662,6 +679,7 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIndustry}
@@ -687,6 +705,7 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIndustry}
@@ -712,6 +731,7 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllIndustry}

@@ -131,19 +131,27 @@ function AutoCareClientTeam({
     const { value } = e.target;
     switch (dropdownType) {
       case "timeZone":
-        setAutoCareClientTeam((prev) => {
-          const updatedData = { ...prev, timeZone: value };
-          if (prev.weeklyCallTime) {
-            const weeklyCallTime = dayjs.tz(
-              prev.weeklyCallTime,
+        setAutoCareClientTeam((prev) => ({ ...prev, timeZone: value }));
+        if (autoCareClientTeam?.weeklyCallTime && value !== "-1") {
+          const convertedTime = convertToIST(
+            dayjs.tz(
+              autoCareClientTeam?.weeklyCallTime,
               "hh:mm A",
-              timeZoneMap[prev.timeZone] || "Asia/Kolkata"
-            );
-            const convertedTime = convertToIST(weeklyCallTime, value);
-            updatedData.istTime = convertedTime.format("hh:mm A");
-          }
-          return updatedData;
-        });
+              value ? timeZoneMap[value] : "Asia/Kolkata"
+            ),
+            value
+          );
+          setAutoCareClientTeam({
+            ...autoCareClientTeam,
+            istTime: convertedTime.format("hh:mm A"),
+          });
+          setAutoCareClientTeam((prev) => ({ ...prev, timeZone: value }));
+          setAutoCareClientTeamErrors((prevErrors) => ({
+            ...prevErrors,
+            istTime: "",
+            weeklyCallTime: "",
+          }));
+        }
         break;
       case "state":
         setAutoCareClientTeam((prev) => ({ ...prev, state: value }));

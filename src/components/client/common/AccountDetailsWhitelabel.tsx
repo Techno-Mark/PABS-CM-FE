@@ -230,7 +230,7 @@ const AccountDetailsWhitelabel = ({
           Bookkeeping Monthly or Clean Up (Period - Months/Years)
         </span>
       ),
-      minWidth: 240,
+      minWidth: 400,
       sortable: false,
       renderCell: (params) => renderCellFunctionTooltip(params.value),
     },
@@ -239,20 +239,16 @@ const AccountDetailsWhitelabel = ({
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Deadline</span>
       ),
-      minWidth: 100,
+      minWidth: 150,
       sortable: false,
       renderCell: (params) => {
         if (params.value) {
-          const parts = params.value.split(' ');
-          if (parts.length === 3) {
-            const formattedDate = `${parts[0]} ${parts[1]} ${parts[2]}`;
-            const parsedDate = dayjs(formattedDate, 'DD MM YYYY');
-            if (parsedDate.isValid()) {
-              return parsedDate.format('DD MMM YYYY');
-            }
+          const parsedDate = dayjs(params.value);
+          if (parsedDate.isValid()) {
+            return parsedDate.format("D MMM YYYY");
           }
         }
-        return '';
+        return "";
       },
     },
     {
@@ -389,10 +385,7 @@ const AccountDetailsWhitelabel = ({
 
   const handleDelete = async () => {
     setIsLoading(true);
-    const callback = (
-      ResponseStatus: string,
-      Message: string,
-    ) => {
+    const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
           showToast(Message, ToastType.Error);
@@ -493,29 +486,27 @@ const AccountDetailsWhitelabel = ({
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          {(roleId === "4"
-            ? !isFormSubmmitWhitelabel
-            : true) && (
-                <div className="flex gap-5">
-                  <button
-                    onClick={() => {
-                      setBulkOpenDrawer(true);
-                    }}
-                    className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-                  >
-                    Bulk Upload
-                  </button>
-                  <button
-                    onClick={() => {
-                      setOpenDrawer(true);
-                      setEdit(false);
-                    }}
-                    className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
-                  >
-                    Add Account Detail
-                  </button>
-                </div>
-              )}
+          {(roleId === "4" ? !isFormSubmmitWhitelabel : true) && (
+            <div className="flex gap-5">
+              <button
+                onClick={() => {
+                  setBulkOpenDrawer(true);
+                }}
+                className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+              >
+                Bulk Upload
+              </button>
+              <button
+                onClick={() => {
+                  setOpenDrawer(true);
+                  setEdit(false);
+                }}
+                className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+              >
+                Add Account Detail
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={`px-4 pt-3 scrollbar overflow-auto`}>

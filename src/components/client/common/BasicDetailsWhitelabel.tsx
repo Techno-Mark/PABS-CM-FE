@@ -275,6 +275,7 @@ const BasicDetailsWhitelabel = ({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          getWhiteLabelBasicDetailsList()
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
           isValid && showToast(Message, ToastType.Success);
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
