@@ -130,7 +130,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               bookKeeping: ResponseData.bookkeepingPeriod,
               deadline: ResponseData.deadline
                 ? dayjs(ResponseData.deadline).format("D MMM YYYY")
-                : null,
+                : "",
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
               status: ResponseData.status === true ? 1 : 0,
@@ -150,7 +150,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               bookKeeping: ResponseData.bookkeepingPeriod,
               deadline: ResponseData.deadline
                 ? dayjs(ResponseData.deadline).format("D MMM YYYY")
-                : null,
+                : "",
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
               status: ResponseData.status === true ? 1 : 0,
