@@ -88,10 +88,11 @@ const BulkImportModel = ({
   };
 
   const handleSubmit = async () => {
-    if (!!excelData) {
+    if (!!excelData && selectedFile !== undefined) {
+      setIsUploading(true);
       if (excelData.length > 0) {
-        setIsUploading(true);
         try {
+          setIsUploading(true);
           const response = await axios.post(
             `${process.env.APIDEV_URL}/${OnboardingFormAccountDetailsSave}/${
               !!clientInfo?.UserId
@@ -155,10 +156,18 @@ const BulkImportModel = ({
         showToast("Please Input Data in Excel.", ToastType.Error);
       }
     } else {
-      setIsUploading(false);
-      setSelectedFile(null);
-      setExcelData(null);
-      showToast("Please Attach Import Data Excel.", ToastType.Error);
+      if (selectedFile === undefined) {
+        setIsUploading(false);
+        setExcelData(null);
+        setSelectedFile(null);
+        setIsOpen(false);
+        showToast("Please Attach Import Data Excel.", ToastType.Error);
+      }else{
+        setIsUploading(false);
+        setSelectedFile(null);
+        setExcelData(null);
+        showToast("Please Input Data in Excel.", ToastType.Error);
+      }
     }
   };
 
