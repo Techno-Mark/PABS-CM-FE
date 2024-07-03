@@ -195,6 +195,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       notes1MonthlyTransactions: formValues.notes1,
       notes: formValues.notes,
       status: formValues.status,
+      single: true,
     };
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {

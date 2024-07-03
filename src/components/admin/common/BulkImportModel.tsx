@@ -51,7 +51,7 @@ const BulkImportModel = ({
 
           // Transform the JSON data and handle missing fields
           const transformedData = json.map((item: any) => ({
-            clientId: item["Client Id"] || "",
+            clientId: String(item["Client Id"]) || "",
             organizationName: item["Organization Name"] || "",
             backgroundNatureOfBusiness:
               item["Background/Nature of Business"] || "",
@@ -79,13 +79,12 @@ const BulkImportModel = ({
     }
     const parseExcelDate = (excelDate: any): Date | null => {
       if (!excelDate) return null;
-      if (typeof excelDate === 'number') {
+      if (typeof excelDate === "number") {
         return new Date((excelDate - (25567 + 2)) * 86400 * 1000);
       }
       const dateValue = new Date(excelDate);
       return isNaN(dateValue.getTime()) ? null : dateValue;
     };
-   
   };
 
   const handleSubmit = async () => {
@@ -129,6 +128,7 @@ const BulkImportModel = ({
               ToastType.Error
             );
             setIsUploading(false);
+            setIsOpen(false);
             setSelectedFile(null);
             setExcelData(null);
           } else {
@@ -136,6 +136,7 @@ const BulkImportModel = ({
             setIsOpen(false);
             setSelectedFile(null);
             setExcelData(null);
+            setIsOpen(false);
             getAccountList();
             return;
           }
@@ -150,6 +151,7 @@ const BulkImportModel = ({
         setIsUploading(false);
         setExcelData(null);
         setSelectedFile(null);
+        setIsOpen(false);
         showToast("Please Input Data in Excel.", ToastType.Error);
       }
     } else {
@@ -206,7 +208,9 @@ const BulkImportModel = ({
               <div className="flex flex-col items-center gap-3">
                 {isUploading ? (
                   <span>Uploading..</span>
-                ) : !isUploading && selectedFile !== null && selectedFile?.name !== undefined ? (
+                ) : !isUploading &&
+                  selectedFile !== null &&
+                  selectedFile?.name !== undefined ? (
                   selectedFile?.name
                 ) : (
                   <>
