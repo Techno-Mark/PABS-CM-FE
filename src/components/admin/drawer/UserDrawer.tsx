@@ -1,9 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
 // MUI Imports
-import { TextField, Select, FormControl, MenuItem } from "@mui/material";
+import {
+  TextField,
+  Select,
+  FormControl,
+  MenuItem,
+  SelectChangeEvent,
+  Chip,
+  Box,
+  Checkbox,
+  ListItemText,
+} from "@mui/material";
 // Types imports
 import { GetUserByIdResponse, UserDrawerProps } from "@/models/userManage";
 import {
+  NumberArrayFieldType,
   NumberFieldType,
   StringFieldType,
   UserFormFieldType,
@@ -54,9 +65,9 @@ const UserDrawer = ({
     ...initialFieldStringValues,
     value: -1,
   });
-  const [businessType, setBusinessType] = useState<NumberFieldType>({
+  const [businessType, setBusinessType] = useState<NumberArrayFieldType>({
     ...initialFieldStringValues,
-    value: -1,
+    value: [],
   });
   const [status, setStatus] = useState<NumberFieldType>({
     ...initialFieldStringValues,
@@ -71,7 +82,7 @@ const UserDrawer = ({
   const [initialValues, setInitialValues] = useState<UserFormFieldType>({
     fullName: initialFieldStringValues,
     role: initialFieldNumberValues,
-    businessType: initialFieldNumberValues,
+    businessType: { value: [], error: false, errorText: "" },
     status: initialFieldNumberValues,
     email: initialFieldStringValues,
   });
@@ -96,7 +107,9 @@ const UserDrawer = ({
               },
               role: { value: ResponseData.RoleId, error: false, errorText: "" },
               businessType: {
-                value: ResponseData.BusinessTypeId,
+                value: Array.isArray(ResponseData.BusinessTypeId)
+                  ? ResponseData.BusinessTypeId
+                  : [ResponseData.BusinessTypeId],
                 error: false,
                 errorText: "",
               },
@@ -195,22 +208,22 @@ const UserDrawer = ({
     }
   };
 
-  const handleBusinessTypeChange = (e: {
-    target: { value: number | string };
-  }) => {
-    if (
-      e.target.value.toString().trim().length === 0 ||
-      Number(e.target.value) === -1
-    ) {
+  const handleBusinessTypeChange = (event: SelectChangeEvent<number[]>) => {
+    const value = event.target.value;
+    const newValue =
+      typeof value === "string" ? value.split(",").map(Number) : value;
+
+    if (newValue.length === 0) {
       setBusinessType({
-        value: -1,
+        value: [],
         error: true,
         errorText: "Department Type is required",
       });
     } else {
       setBusinessType({
-        ...initialFieldStringValues,
-        value: Number(e.target.value),
+        value: newValue,
+        error: false,
+        errorText: "",
       });
     }
   };
@@ -273,11 +286,14 @@ const UserDrawer = ({
 
     const emailError = validateAndSetField(setEmail, email.value, "Email");
     const roleError = validateAndSetFieldNumber(setRole, role.value, "Role");
-    const businessTypeError = validateAndSetFieldNumber(
-      setBusinessType,
-      businessType.value,
-      "Department Type"
-    );
+    const businessTypeError = businessType.value.length === 0;
+    if (businessTypeError) {
+      setBusinessType({
+        ...businessType,
+        error: true,
+        errorText: "Department Type is required",
+      });
+    }
     const statusError = validateAndSetFieldNumber(
       setStatus,
       status.value,
@@ -322,12 +338,15 @@ const UserDrawer = ({
     } else {
       const statusBool =
         status.value === 1 ? true : status.value === 2 ? false : true;
+      const businessTypeArray = Array.isArray(businessType.value)
+        ? businessType.value
+        : [businessType.value];
       await callAPIwithHeaders(saveUserUrl, "post", callback, {
         userId: userId,
         fullName: fullName.value.trimEnd(),
         email: email.value,
         roleId: role.value,
-        businessTypeId: businessType.value,
+        businessTypeId: businessTypeArray,
         userStatus: userId > 0 ? statusBool : true,
       });
     }
@@ -349,15 +368,20 @@ const UserDrawer = ({
       status,
       email,
     };
-    for (const key in currentValues) {
-      if (
-        currentValues[key as keyof UserFormFieldType].value !==
-        initialValues[key as keyof UserFormFieldType].value
-      ) {
-        return true;
+
+    return Object.keys(currentValues).some((key) => {
+      const currentValue = currentValues[key as keyof UserFormFieldType];
+      const initialValue = initialValues[key as keyof UserFormFieldType];
+
+      if (key === "businessType") {
+        return (
+          JSON.stringify(currentValue.value) !==
+          JSON.stringify(initialValue.value)
+        );
       }
-    }
-    return false;
+
+      return currentValue.value !== initialValue.value;
+    });
   }, [fullName, role, businessType, status, email, initialValues]);
 
   useEffect(() => {
@@ -463,24 +487,69 @@ const UserDrawer = ({
           </label>
           <FormControl variant="standard">
             <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
+              labelId="business-type-select-label"
+              id="business-type-select"
               className={`${
-                businessType.value === -1
+                role.value === -1
                   ? "!text-[12px] text-[#6E6D7A]"
                   : "!text-[14px]"
               }`}
-              value={businessType.value}
-              error={businessType.error}
+              multiple={role.value === 2}
+              value={
+                Array.isArray(businessType.value)
+                  ? businessType.value
+                  : [businessType.value]
+              }
               onChange={handleBusinessTypeChange}
+              renderValue={(selected) => {
+                const selectedArray = Array.isArray(selected)
+                  ? selected
+                  : [selected];
+                if (role.value === 2) {
+                  // Multi-select mode
+                  return (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5}}>
+                      {selectedArray.map((value) => (
+                        <Chip
+                          key={value}
+                          
+                          label={
+                            businessList.find((b) => b.BusinessId === value)
+                              ?.BussinessName
+                          }
+                        />
+                      ))}
+                    </Box>
+                  );
+                } else {
+                  // Single-select mode
+                  const selectedBusiness = businessList.find(
+                    (b) => b.BusinessId === Number(selected)
+                  );
+                  return (
+                  selectedBusiness ? selectedBusiness.BussinessName : "")
+                }
+              }}
+              error={businessType.error}
             >
               {businessList.map((type) => (
                 <MenuItem
                   key={type.BusinessId}
                   value={type.BusinessId}
-                  disabled={type.BusinessId === -1}
+                  disabled={
+                    type.BusinessId === -1 ||
+                    type.BussinessName === "Please Select"
+                  }
                 >
-                  {type.BussinessName}
+                  {role.value === 2 && (
+                      <Checkbox
+                        checked={
+                          Array.isArray(businessType.value) &&
+                          businessType.value.indexOf(type.BusinessId) > -1
+                        }
+                      />
+                    )}
+                  <ListItemText primary={type.BussinessName} />
                 </MenuItem>
               ))}
             </Select>
