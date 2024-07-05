@@ -116,6 +116,7 @@ const BulkImportModel = ({
             getAccountList();
             return;
           } else if (response.status === 202) {
+            showToast("File upload failed. Please refer the error file downloaded", ToastType.Error);
             const url = window.URL.createObjectURL(response.data);
             const a = document.createElement("a");
             a.style.display = "none";
@@ -162,7 +163,7 @@ const BulkImportModel = ({
         setSelectedFile(null);
         setIsOpen(false);
         showToast("Please Attach Import Data Excel.", ToastType.Error);
-      }else{
+      } else {
         setIsUploading(false);
         setSelectedFile(null);
         setExcelData(null);
