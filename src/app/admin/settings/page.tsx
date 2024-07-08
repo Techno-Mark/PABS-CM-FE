@@ -4,11 +4,7 @@ import { useRouter } from "next/navigation";
 // Component import
 import Wrapper from "@/components/Wrapper";
 // MUI import
-import {
-  Switch,
-  TablePagination,
-  Tooltip,
-} from "@mui/material";
+import { Switch, TablePagination, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 //Icons import
 import EditIcon from "@/assets/Icons/admin/EditIcon";
@@ -37,12 +33,15 @@ import Cookies from "js-cookie";
 function Page() {
   const columns: GridColDef[] = [
     {
-      field: "RoleId",
+      field: "srNo",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">Sr No.</span>
       ),
       width: 100,
       sortable: false,
+      renderCell: (params) => {
+        return params.api.getSortedRowIds().indexOf(params.id) + 1;
+      },
     },
     {
       field: "RoleName",

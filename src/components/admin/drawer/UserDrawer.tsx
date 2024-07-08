@@ -67,7 +67,7 @@ const UserDrawer = ({
   });
   const [businessType, setBusinessType] = useState<NumberArrayFieldType>({
     ...initialFieldStringValues,
-    value: [],
+    value: [-1],
   });
   const [status, setStatus] = useState<NumberFieldType>({
     ...initialFieldStringValues,
@@ -339,7 +339,7 @@ const UserDrawer = ({
       const statusBool =
         status.value === 1 ? true : status.value === 2 ? false : true;
       const businessTypeArray = Array.isArray(businessType.value)
-        ? businessType.value
+        ? businessType.value.filter((id) => id !== -1)
         : [businessType.value];
       await callAPIwithHeaders(saveUserUrl, "post", callback, {
         userId: userId,
@@ -508,17 +508,18 @@ const UserDrawer = ({
                 if (role.value === 2) {
                   // Multi-select mode
                   return (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5}}>
-                      {selectedArray.map((value) => (
-                        <Chip
-                          key={value}
-                          
-                          label={
-                            businessList.find((b) => b.BusinessId === value)
-                              ?.BussinessName
-                          }
-                        />
-                      ))}
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selectedArray.map((value) =>
+                        value !== -1 ? (
+                          <Chip
+                            key={value}
+                            label={
+                              businessList.find((b) => b.BusinessId === value)
+                                ?.BussinessName
+                            }
+                          />
+                        ) : null
+                      )}
                     </Box>
                   );
                 } else {
@@ -526,8 +527,7 @@ const UserDrawer = ({
                   const selectedBusiness = businessList.find(
                     (b) => b.BusinessId === Number(selected)
                   );
-                  return (
-                  selectedBusiness ? selectedBusiness.BussinessName : "")
+                  return selectedBusiness ? selectedBusiness.BussinessName : "";
                 }
               }}
               error={businessType.error}
@@ -541,14 +541,14 @@ const UserDrawer = ({
                     type.BussinessName === "Please Select"
                   }
                 >
-                  {role.value === 2 && (
-                      <Checkbox
-                        checked={
-                          Array.isArray(businessType.value) &&
-                          businessType.value.indexOf(type.BusinessId) > -1
-                        }
-                      />
-                    )}
+                  {role.value === 2 && type.BusinessId !== -1 && (
+                    <Checkbox
+                      checked={
+                        Array.isArray(businessType.value) &&
+                        businessType.value.indexOf(type.BusinessId) > -1
+                      }
+                    />
+                  )}
                   <ListItemText primary={type.BussinessName} />
                 </MenuItem>
               ))}
