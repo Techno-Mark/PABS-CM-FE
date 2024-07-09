@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 // MUI Imports
 import {
   TextField,
@@ -47,6 +47,7 @@ const UserDrawer = ({
   roleList,
   businessList,
 }: UserDrawerProps) => {
+  const selectRef = useRef<any>(null);
   const roleId = Cookies.get("roleId");
   const classes = useStyles();
   const initialFieldStringValues = {
@@ -286,7 +287,7 @@ const UserDrawer = ({
 
     const emailError = validateAndSetField(setEmail, email.value, "Email");
     const roleError = validateAndSetFieldNumber(setRole, role.value, "Role");
-    const businessTypeError = businessType.value.length === 0;
+    const businessTypeError = businessType.value.length === 1;
     if (businessTypeError) {
       setBusinessType({
         ...businessType,
@@ -358,6 +359,13 @@ const UserDrawer = ({
       value: 2,
     });
     setInactive(false);
+  };
+
+  const handleDeleteChip = (valueToRemove: number) => {
+    setBusinessType((prevState) => ({
+      ...prevState,
+      value: prevState.value.filter((id) => id !== valueToRemove),
+    }));
   };
 
   const compareValues = useCallback(() => {
@@ -516,6 +524,25 @@ const UserDrawer = ({
                             label={
                               businessList.find((b) => b.BusinessId === value)
                                 ?.BussinessName
+                            }
+                            onDelete={(event) => {
+                              event.stopPropagation();
+                              setBusinessType((prevState) => ({
+                                ...prevState,
+                                value: prevState.value.filter(
+                                  (id) => id !== value
+                                ),
+                              }));
+                            }}
+                            deleteIcon={
+                              <span
+                                style={{ fontSize: "18px" }}
+                                onMouseDown={(event) => {
+                                  event.stopPropagation();
+                                }}
+                              >
+                                &times;
+                              </span>
                             }
                           />
                         ) : null
