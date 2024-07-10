@@ -30,9 +30,10 @@ import {
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI import
-import { Grid, TextField } from "@mui/material";
+import { Grid, SelectChangeEvent, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function SmbPeopleBusinessChecklist({
   className,
@@ -148,7 +149,6 @@ const ClientName = ({
 }: ClientNameTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-
   const handleClientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -165,30 +165,18 @@ const ClientName = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ClientNameStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbClientName?.ClientNameStatus}
-                error={!!smbClientNameErrors?.ClientNameStatus}
-                helperText={smbClientNameErrors?.ClientNameStatus}
-                onChange={handleClientNameChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250, 
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsClientName}
-              />
-            </div>
+            <Status
+              value={smbClientName?.ClientNameStatus}
+              onChange={(value: string) =>
+                setSmbClientName((prev: ClientNameFormTypes) => ({
+                  ...prev,
+                  ClientNameStatus: value,
+                }))
+              }
+              error={smbClientNameErrors?.ClientNameStatus}
+              helperText={smbClientNameErrors?.ClientNameStatus}
+              disabled={roleId === "4" && checkAllFieldsClientName}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -274,28 +262,16 @@ const TypeOfEntity = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="TypeOfEntityStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbTypeOfEntity?.TypeOfEntityStatus}
-                onChange={handleTypeOfEntityChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
-              />
-            </div>
+            <Status
+              value={smbTypeOfEntity?.TypeOfEntityStatus}
+              onChange={(value: string) =>
+                setSmbTypeOfEntity((prev: TypeOfEntityFormTypes) => ({
+                  ...prev,
+                  TypeOfEntityStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -371,6 +347,7 @@ const BusinessNature = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -379,28 +356,16 @@ const BusinessNature = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="BusinessNatureStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbBusinessNature?.BusinessNatureStatus}
-                onChange={handleBusinessNatureChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsBusinessNature}
-              />
-            </div>
+            <Status
+              value={smbBusinessNature?.BusinessNatureStatus}
+              onChange={(value: string) =>
+                setSmbBusinessNature((prev: BusinessNatureFormTypes) => ({
+                  ...prev,
+                  BusinessNatureStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllFieldsBusinessNature}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -474,6 +439,7 @@ const Dimensions = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -482,28 +448,16 @@ const Dimensions = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="DimensionsStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbDimensions?.DimensionsStatus}
-                onChange={handleDimenionsChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsDimensions}
-              />
-            </div>
+            <Status
+              value={smbDimensions?.DimensionsStatus}
+              onChange={(value: string) =>
+                setSmbDimensions((prev: DimensionsFormTypes) => ({
+                  ...prev,
+                  DimensionsStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllFieldsDimensions}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -578,6 +532,7 @@ const Poc = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -586,30 +541,18 @@ const Poc = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="PocStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbPoc?.PocStatus}
-                error={!!smbPocErrors?.PocStatus}
-                helperText={smbPocErrors?.PocStatus}
-                onChange={handlePocChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsPoc}
-              />
-            </div>
+            <Status
+              value={smbPoc?.PocStatus}
+              onChange={(value: string) =>
+                setSmbPoc((prev: PocFormTypes) => ({
+                  ...prev,
+                  PocStatus: value,
+                }))
+              }
+              error={smbPocErrors?.PocStatus}
+              helperText={smbPocErrors?.PocStatus}
+              disabled={roleId === "4" && checkAllFieldsPoc}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -633,7 +576,7 @@ const Poc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPoc}
+                disabled={roleId === "4" && checkAllFieldsPoc}
               />
             </div>
           </Grid>
@@ -661,7 +604,7 @@ const Poc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPoc}
+                disabled={roleId === "4" && checkAllFieldsPoc}
               />
             </div>
           </Grid>
@@ -688,6 +631,7 @@ const Email = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -696,30 +640,18 @@ const Email = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="EmailStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbEmail?.EmailStatus}
-                error={!!smbEmailErrors?.EmailStatus}
-                helperText={smbEmailErrors?.EmailStatus}
-                onChange={handleEmailChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsEmail}
-              />
-            </div>
+            <Status
+              value={smbEmail?.EmailStatus}
+              onChange={(value: string) =>
+                setSmbEmail((prev: EmailFormTypes) => ({
+                  ...prev,
+                  EmailStatus: value,
+                }))
+              }
+              error={smbEmailErrors?.EmailStatus}
+              helperText={smbEmailErrors?.EmailStatus}
+              disabled={roleId === "4" && checkAllFieldsEmail}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -743,7 +675,7 @@ const Email = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsEmail}
+                disabled={roleId === "4" && checkAllFieldsEmail}
               />
             </div>
           </Grid>
@@ -771,7 +703,7 @@ const Email = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsEmail}
+                disabled={roleId === "4" && checkAllFieldsEmail}
               />
             </div>
           </Grid>
@@ -800,6 +732,7 @@ const ContactNumber = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -808,30 +741,18 @@ const ContactNumber = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ContactNumberStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbContactNumber?.ContactNumberStatus}
-                error={!!smbContactNumberErrors?.ContactNumberStatus}
-                helperText={smbContactNumberErrors?.ContactNumberStatus}
-                onChange={handleContactNumberChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsContactNumber}
-              />
-            </div>
+            <Status
+              value={smbContactNumber?.ContactNumberStatus}
+              onChange={(value: string) =>
+                setSmbContactNumber((prev: ContactNumberFormTypes) => ({
+                  ...prev,
+                  ContactNumberStatus: value,
+                }))
+              }
+              error={smbContactNumberErrors?.ContactNumberStatus}
+              helperText={smbContactNumberErrors?.ContactNumberStatus}
+              disabled={roleId === "4" && checkAllFieldsContactNumber}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -855,7 +776,7 @@ const ContactNumber = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsContactNumber}
+                disabled={roleId === "4" && checkAllFieldsContactNumber}
               />
             </div>
           </Grid>
@@ -883,7 +804,7 @@ const ContactNumber = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsContactNumber}
+                disabled={roleId === "4" && checkAllFieldsContactNumber}
               />
             </div>
           </Grid>
@@ -910,6 +831,7 @@ const Address = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -918,30 +840,18 @@ const Address = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="AddressStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbAddress?.AddressStatus}
-                error={!!smbAddressErrors?.AddressStatus}
-                helperText={smbAddressErrors?.AddressStatus}
-                onChange={handleAddressChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsAddress}
-              />
-            </div>
+            <Status
+              value={smbAddress?.AddressStatus}
+              onChange={(value: string) =>
+                setSmbAddress((prev: AddressFormTypes) => ({
+                  ...prev,
+                  AddressStatus: value,
+                }))
+              }
+              error={smbAddressErrors?.AddressStatus}
+              helperText={smbAddressErrors?.AddressStatus}
+              disabled={roleId === "4" && checkAllFieldsAddress}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -965,7 +875,7 @@ const Address = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAddress}
+                disabled={roleId === "4" && checkAllFieldsAddress}
               />
             </div>
           </Grid>
@@ -993,7 +903,7 @@ const Address = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAddress}
+                disabled={roleId === "4" && checkAllFieldsAddress}
               />
             </div>
           </Grid>
@@ -1022,6 +932,7 @@ const ClientWebsite = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -1030,30 +941,18 @@ const ClientWebsite = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ClientWebsiteStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbClientWebsite?.ClientWebsiteStatus}
-                error={!!smbClientWebsiteErrors?.ClientWebsiteStatus}
-                helperText={smbClientWebsiteErrors?.ClientWebsiteStatus}
-                onChange={handleClientWebsiteChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsClientWebsite}
-              />
-            </div>
+            <Status
+              value={smbClientWebsite?.ClientWebsiteStatus}
+              onChange={(value: string) =>
+                setSmbClientWebsite((prev: ClientWebsiteFormTypes) => ({
+                  ...prev,
+                  ClientWebsiteStatus: value,
+                }))
+              }
+              error={smbClientWebsiteErrors?.ClientWebsiteStatus}
+              helperText={smbClientWebsiteErrors?.checkAllFieldsClientWebsite}
+              disabled={roleId === "4" && checkAllFieldsClientWebsite}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -1077,7 +976,7 @@ const ClientWebsite = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsClientWebsite}
+                disabled={roleId === "4" && checkAllFieldsClientWebsite}
               />
             </div>
           </Grid>
@@ -1105,7 +1004,7 @@ const ClientWebsite = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsClientWebsite}
+                disabled={roleId === "4" && checkAllFieldsClientWebsite}
               />
             </div>
           </Grid>
@@ -1131,6 +1030,7 @@ const Department = ({
       [name]: value,
     }));
   };
+
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
@@ -1139,28 +1039,16 @@ const Department = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="DepartmentStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbDepartment?.DepartmentStatus}
-                onChange={handleDepartmentChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsDepartment}
-              />
-            </div>
+            <Status
+              value={smbDepartment?.DepartmentStatus}
+              onChange={(value: string) =>
+                setSmbDepartment((prev: DepartmentFormTypes) => ({
+                  ...prev,
+                  DepartmentStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllFieldsDepartment}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -1182,7 +1070,7 @@ const Department = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsDepartment}
+                disabled={roleId === "4" && checkAllFieldsDepartment}
               />
             </div>
           </Grid>
@@ -1208,7 +1096,7 @@ const Department = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsDepartment}
+                disabled={roleId === "4" && checkAllFieldsDepartment}
               />
             </div>
           </Grid>
@@ -1244,28 +1132,16 @@ const OperationsPoc = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="OperationsPocStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbOperationsPoc?.OperationsPocStatus}
-                onChange={handleOperationsPocChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsOperationsPoc}
-              />
-            </div>
+            <Status
+              value={smbOperationsPoc?.OperationsPocStatus}
+              onChange={(value: string) =>
+                setSmbOperationsPoc((prev: OperationsPocFormTypes) => ({
+                  ...prev,
+                  OperationsPocStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllFieldsOperationsPoc}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -1287,7 +1163,7 @@ const OperationsPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsOperationsPoc}
+                disabled={roleId === "4" && checkAllFieldsOperationsPoc}
               />
             </div>
           </Grid>
@@ -1313,7 +1189,7 @@ const OperationsPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsOperationsPoc}
+                disabled={roleId === "4" && checkAllFieldsOperationsPoc}
               />
             </div>
           </Grid>
@@ -1349,27 +1225,16 @@ const OnboardingPoc = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="OnboardingPocStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbOnboardingPoc?.OnboardingPocStatus}
-                onChange={handleOnboardingPocChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-              />
-            </div>
+            <Status
+              value={smbOnboardingPoc?.OnboardingPocStatus}
+              onChange={(value: string) =>
+                setSmbOnboardingPoc((prev: OnboardingPocFormTypes) => ({
+                  ...prev,
+                  OnboardingPocStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllFieldsOnboardingPoc}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -1391,7 +1256,7 @@ const OnboardingPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsOnboardingPoc}
+                disabled={roleId === "4" && checkAllFieldsOnboardingPoc}
               />
             </div>
           </Grid>
@@ -1417,7 +1282,7 @@ const OnboardingPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsOnboardingPoc}
+                disabled={roleId === "4" && checkAllFieldsOnboardingPoc}
               />
             </div>
           </Grid>

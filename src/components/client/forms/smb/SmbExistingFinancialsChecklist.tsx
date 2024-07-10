@@ -22,6 +22,7 @@ import { Grid, TextField } from "@mui/material";
 import React from "react";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function SmbExistingFinancialsChecklist({
   className,
@@ -136,32 +137,20 @@ const LiveDate = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="LiveDateStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbLiveDate?.LiveDateStatus}
-                error={!!smbLiveDateErrors?.LiveDateStatus}
-                helperText={smbLiveDateErrors?.LiveDateStatus}
-                onChange={handleLiveDateChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsLiveDate}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbLiveDate?.LiveDateStatus}
+            onChange={(value: string) =>
+              setSmbLiveDate((prev: LiveDateFormTypes) => ({
+                  ...prev,
+                  LiveDateStatus: value,
+                }))
+              }
+            error={smbLiveDateErrors?.LiveDateStatus}
+            helperText={smbLiveDateErrors?.LiveDateStatus}
+            disabled={roleId === "4" && checkAllFieldsLiveDate}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -247,30 +236,18 @@ const AccountingMethod = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="AccountingMethodStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbAccountingMethod?.AccountingMethodStatus}
-                onChange={handleAccountingMethodChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsAccountingMethod}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbAccountingMethod?.AccountingMethodStatus}
+            onChange={(value: string) =>
+              setSmbAccountingMethod((prev: AccountingMethodFormTypes) => ({
+                  ...prev,
+                  AccountingMethodStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsAccountingMethod}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -346,30 +323,18 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="FEINStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbFEIN?.FEINStatus}
-                onChange={handlFeinChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsFEIN}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbFEIN?.FEINStatus}
+            onChange={(value: string) =>
+              setSmbFEIN((prev: FEINFormTypes) => ({
+                  ...prev,
+                  FEINStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsFEIN}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -451,30 +416,18 @@ const FiscalYearEnd = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="FiscalYearEndStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbFiscalYearEnd?.FiscalYearEndStatus}
-                onChange={handleFiscalYearEndChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbFiscalYearEnd?.FiscalYearEndStatus}
+            onChange={(value: string) =>
+              setSmbFiscalYearEnd((prev: FiscalYearEndFormTypes) => ({
+                  ...prev,
+                  FiscalYearEndStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsFiscalYearEnd}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -558,32 +511,20 @@ const LastClosedMonth = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="LastClosedMonthStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbLastClosedMonth?.LastClosedMonthStatus}
-                error={!!smbLastClosedMonthErrors?.LastClosedMonthStatus}
-                helperText={smbLastClosedMonthErrors?.LastClosedMonthStatus}
-                onChange={handleLastClosedMonthChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbLastClosedMonth?.LastClosedMonthStatus}
+            onChange={(value: string) =>
+              setSmbLastClosedMonth((prev: LastClosedMonthFormTypes) => ({
+                  ...prev,
+                  LastClosedMonthStatus: value,
+                }))
+              }
+            error={smbLastClosedMonthErrors?.LastClosedMonthStatus}
+            helperText={smbLastClosedMonthErrors?.LastClosedMonthStatus}
+            disabled={roleId === "4" && checkAllFieldsLastClosedMonth}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -669,30 +610,18 @@ const ContactOfCpa = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ContactOfCpaStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbContactOfCpa?.ContactOfCpaStatus}
-                onChange={handleContactOfCpaChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsContactOfCpa}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbContactOfCpa?.ContactOfCpaStatus}
+            onChange={(value: string) =>
+              setSmbContactOfCpa((prev: ContactOfCpaFormTypes) => ({
+                  ...prev,
+                  ContactOfCpaStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsContactOfCpa}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -773,32 +702,20 @@ const TaxReturn = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="TaxReturnStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbTaxReturn?.TaxReturnStatus}
-                error={!!smbTaxReturnErrors?.TaxReturnStatus}
-                helperText={smbTaxReturnErrors?.TaxReturnStatus}
-                onChange={handleTaxReturnChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsTaxReturn}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbTaxReturn?.TaxReturnStatus}
+            onChange={(value: string) =>
+              setSmbTaxReturn((prev: TaxReturnFormTypes) => ({
+                  ...prev,
+                  TaxReturnStatus: value,
+                }))
+              }
+            error={smbTaxReturnErrors?.TaxReturnStatus}
+            helperText={smbTaxReturnErrors?.TaxReturnStatus}
+            disabled={roleId === "4" && checkAllFieldsTaxReturn}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -886,32 +803,21 @@ const DistributionList = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="DistributionListStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbDistributionList?.DistributionListStatus}
-                error={!!smbDistributionListErrors?.DistributionListStatus}
-                helperText={smbDistributionListErrors?.DistributionListStatus}
-                onChange={handleDistributionListChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId=== '4' && checkAllFieldsDistributionList}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbDistributionList?.DistributionListStatus}
+            onChange={(value: string) =>
+              setSmbDistributionList((prev: DistributionListFormTypes) => ({
+                  ...prev,
+                  DistributionListStatus: value,
+                }))
+              }
+            error={smbDistributionListErrors?.DistributionListStatus}
+            helperText={smbDistributionListErrors?.DistributionListStatus}
+            disabled={roleId === "4" && checkAllFieldsDistributionList}
+          />
+        </Grid>
+        
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>

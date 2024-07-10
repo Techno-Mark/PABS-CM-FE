@@ -12,9 +12,10 @@ import {
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI import
-import { Grid, TextField } from "@mui/material";
+import { Grid, SelectChangeEvent, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function SmbMeetingChecklist({
   className,
@@ -57,7 +58,7 @@ const TimeZone = ({
   smbTimeZone,
   setSmbTimeZone,
   smbTimeZoneErrors,
-  checkAllFieldsTimeZone
+  checkAllFieldsTimeZone,
 }: TimeZoneTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -78,30 +79,18 @@ const TimeZone = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="TimeZoneStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbTimeZone?.TimeZoneStatus}
-                error={!!smbTimeZoneErrors?.TimeZoneStatus}
-                helperText={smbTimeZoneErrors?.TimeZoneStatus}
-                onChange={handleTimeZoneChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsTimeZone}
-              />
-            </div>
+            <Status
+              value={smbTimeZone?.TimeZoneStatus}
+              onChange={(value: string) =>
+                setSmbTimeZone((prev: TimeZoneFormTypes) => ({
+                  ...prev,
+                  TimeZoneStatus: value,
+                }))
+              }
+              error={smbTimeZoneErrors?.TimeZoneStatus}
+              helperText={smbTimeZoneErrors?.TimeZoneStatus}
+              disabled={roleId === "4" && checkAllFieldsTimeZone}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -125,7 +114,7 @@ const TimeZone = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTimeZone}
+                disabled={roleId === "4" && checkAllFieldsTimeZone}
               />
             </div>
           </Grid>
@@ -153,7 +142,7 @@ const TimeZone = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTimeZone}
+                disabled={roleId === "4" && checkAllFieldsTimeZone}
               />
             </div>
           </Grid>
@@ -167,7 +156,7 @@ const Convenient = ({
   smbConvenient,
   setSmbConvenient,
   smbConvenientErrors,
-  checkAllFieldsConvenient
+  checkAllFieldsConvenient,
 }: ConvenientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -188,30 +177,18 @@ const Convenient = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ConvenientStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbConvenient?.ConvenientStatus}
-                error={!!smbConvenientErrors?.ConvenientStatus}
-                helperText={smbConvenientErrors?.ConvenientStatus}
-                onChange={handleConvenientChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsConvenient}
-              />
-            </div>
+            <Status
+              value={smbConvenient?.ConvenientStatus}
+              onChange={(value: string) =>
+                setSmbConvenient((prev: ConvenientFormTypes) => ({
+                  ...prev,
+                  ConvenientStatus: value,
+                }))
+              }
+              error={smbConvenientErrors?.ConvenientStatus}
+              helperText={smbConvenientErrors?.ConvenientStatus}
+              disabled={roleId === "4" && checkAllFieldsConvenient}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -235,7 +212,7 @@ const Convenient = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsConvenient}
+                disabled={roleId === "4" && checkAllFieldsConvenient}
               />
             </div>
           </Grid>
@@ -263,7 +240,7 @@ const Convenient = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsConvenient}
+                disabled={roleId === "4" && checkAllFieldsConvenient}
               />
             </div>
           </Grid>
@@ -277,7 +254,7 @@ const TimeSlot = ({
   smbTimeSlot,
   setSmbTimeSlot,
   smbTimeSlotErrors,
-  checkAllFieldsTimeSlot
+  checkAllFieldsTimeSlot,
 }: TimeSlotTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -298,30 +275,18 @@ const TimeSlot = ({
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="TimeSlotStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbTimeSlot?.TimeSlotStatus}
-                error={!!smbTimeSlotErrors?.TimeSlotStatus}
-                helperText={smbTimeSlotErrors?.TimeSlotStatus}
-                onChange={handleTimeSlotChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsTimeSlot}
-              />
-            </div>
+            <Status
+              value={smbTimeSlot?.TimeSlotStatus}
+              onChange={(value: string) =>
+                setSmbTimeSlot((prev: TimeSlotFormTypes) => ({
+                  ...prev,
+                  TimeSlotStatus: value,
+                }))
+              }
+              error={smbTimeSlotErrors?.TimeSlotStatus}
+              helperText={smbTimeSlotErrors?.TimeSlotStatus}
+              disabled={roleId === "4" && checkAllFieldsTimeSlot}
+            />
           </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
@@ -345,7 +310,7 @@ const TimeSlot = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTimeSlot}
+                disabled={roleId === "4" && checkAllFieldsTimeSlot}
               />
             </div>
           </Grid>
@@ -373,7 +338,7 @@ const TimeSlot = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTimeSlot}
+                disabled={roleId === "4" && checkAllFieldsTimeSlot}
               />
             </div>
           </Grid>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 // MUI Imports
 import {
   TextField,
@@ -47,7 +47,6 @@ const UserDrawer = ({
   roleList,
   businessList,
 }: UserDrawerProps) => {
-  const selectRef = useRef<any>(null);
   const roleId = Cookies.get("roleId");
   const classes = useStyles();
   const initialFieldStringValues = {
@@ -361,13 +360,6 @@ const UserDrawer = ({
     setInactive(false);
   };
 
-  const handleDeleteChip = (valueToRemove: number) => {
-    setBusinessType((prevState) => ({
-      ...prevState,
-      value: prevState.value.filter((id) => id !== valueToRemove),
-    }));
-  };
-
   const compareValues = useCallback(() => {
     const currentValues: UserFormFieldType = {
       fullName,
@@ -395,6 +387,19 @@ const UserDrawer = ({
   useEffect(() => {
     setIsSaveButtonEnabled(compareValues());
   }, [fullName, role, businessType, status, email, compareValues]);
+
+  useEffect(() => {
+    if (role.value === 2) {
+      setBusinessType((prevState) => ({
+        ...prevState,
+        value: Array.isArray(prevState.value)
+          ? prevState.value
+          : prevState.value !== -1
+          ? [prevState.value]
+          : [],
+      }));
+    }
+  }, [role.value]);
 
   return (
     <>

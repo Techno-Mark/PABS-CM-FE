@@ -17,6 +17,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function AutoCareCompliances({
   className,
@@ -129,39 +130,20 @@ const SalesTaxAccessWorkPaper = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="salesTaxAccessWorkPaperStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperStatus
-                }
-                error={
-                  !!salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus
-                }
-                helperText={
-                  salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus
-                }
-                onChange={handleSalesTaxAccessWorkPaperChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={
-                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
-                }
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareSalesTaxAccessWorkPaper?.ModeOfPaymentStatus}
+            onChange={(value: string) =>
+              setAutoCareSalesTaxAccessWorkPaper(
+                (prev: SalesTaxAccessWorkPaperFormTypes) => ({
+                  ...prev,
+                  ModeOfPaymentStatus: value,
+                }))
+              }
+            error={salesTaxAccessWorkPaperErrors?.ModeOfPaymentStatus}
+            helperText={salesTaxAccessWorkPaperErrors?.ModeOfPaymentStatus}
+            disabled={roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -326,31 +308,19 @@ const UseTax = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="useTaxStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareUseTax?.useTaxStatus}
-                error={!!useTaxErrors?.useTaxStatus}
-                helperText={useTaxErrors?.useTaxStatus}
-                onChange={handleUseTaxChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsUseTax}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareUseTax?.useTaxStatus}
+            onChange={(value: string) =>
+              setAutoCareUseTax((prev: UseTaxFormTypes) => ({
+                  ...prev,
+                  useTaxStatus: value,
+                }))
+              }
+            error={useTaxErrors?.useTaxStatus}
+            helperText={useTaxErrors?.useTaxStatus}
+            disabled={roleId === "4" && checkAllFieldsUseTax}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -490,31 +460,19 @@ const TireTax = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="tireTaxStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareTireTax?.tireTaxStatus}
-                error={!!tireTaxErrors?.tireTaxStatus}
-                helperText={tireTaxErrors?.tireTaxStatus}
-                onChange={handleTireTaxChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsTireTax}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareTireTax?.tireTaxStatus}
+            onChange={(value: string) =>
+              setAutoCareTireTax((prev: TireTaxFormTypes) => ({
+                  ...prev,
+                  tireTaxStatus: value,
+                }))
+              }
+            error={tireTaxErrors?.tireTaxStatus}
+            helperText={tireTaxErrors?.tireTaxStatus}
+            disabled={roleId === "4" && checkAllFieldsTireTax}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -666,37 +624,20 @@ const LastTaxReturnFiledYear = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="lastTaxReturnFiledYearStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearStatus
-                }
-                error={
-                  !!lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus
-                }
-                helperText={
-                  lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus
-                }
-                onChange={handleLastTaxReturnFiledYearChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearStatus}
+            onChange={(value: string) =>
+              setAutoCareLastTaxReturnFiledYear(
+                (prev: LastTaxReturnFiledYearFormTypes) => ({
+                  ...prev,
+                  lastTaxReturnFiledYearStatus: value,
+                }))
+              }
+            error={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
+            helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
+            disabled={roleId === "4" && checkAllFieldsLastTaxReturnFiledYear}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>

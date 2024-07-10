@@ -14,6 +14,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 const WhitelabelChallengesForm = ({
   className,
@@ -91,29 +92,17 @@ const CurrentChallenges = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="currentChallengesStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelCurrentChallenges?.currentChallengesStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllCurrentChallenges}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelCurrentChallenges?.currentChallengesStatus}
+            onChange={(value: string) =>
+              setWhitelabelCurrentChallenges((prev: CurrentChallengesFormTypes) => ({
+                  ...prev,
+                  currentChallengesStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllCurrentChallenges}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -222,29 +211,17 @@ const Expectation = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="exceptionStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelExpectation?.exceptionStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllExpectation}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelExpectation?.exceptionStatus}
+            onChange={(value: string) =>
+              setWhitelabelExpectation((prev: ExceptionFormTypes) => ({
+                  ...prev,
+                  exceptionStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllExpectation}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
