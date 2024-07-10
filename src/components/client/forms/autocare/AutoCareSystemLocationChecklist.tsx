@@ -23,6 +23,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function AutoCareSystemLocationChecklist({
   className,
@@ -135,29 +136,17 @@ const ITStructureReview = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="itStructureStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareITStructureReview?.itStructureStatus}
-                onChange={handleItStructureReviewChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsITStructureReview}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareITStructureReview?.itStructureStatus}
+            onChange={(value: string) =>
+              setAutoCareITStructureReview((prev: ITStructureReviewFormTypes) => ({
+                  ...prev,
+                  itStructureStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsITStructureReview}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -290,29 +279,17 @@ const AccessComputerMethod = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="accessComputerStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareAccessComputerMethod?.accessComputerStatus}
-                onChange={handleAccessComputerMethodChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareAccessComputerMethod?.accessComputerStatus}
+            onChange={(value: string) =>
+              setAutoCareAccessComputerMethod((prev: AccessComputerFormTypes) => ({
+                  ...prev,
+                  accessComputerStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -446,31 +423,19 @@ const PosSoftware = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="posSoftwareStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCarePosSoftware?.posSoftwareStatus}
-                error={!!posErrors?.posSoftwareStatus}
-                helperText={posErrors?.posSoftwareStatus}
-                onChange={handlePosSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsPosSoftware}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCarePosSoftware?.posSoftwareStatus}
+            onChange={(value: string) =>
+              setAutoCarePosSoftware((prev: PosSoftwareFormTypes) => ({
+                  ...prev,
+                  posSoftwareStatus: value,
+                }))
+              }
+            error={posErrors?.posSoftwareStatus}
+            helperText={posErrors?.posSoftwareStatus}
+            disabled={roleId === "4" && checkAllFieldsPosSoftware}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -614,31 +579,19 @@ const AccountingSoftware = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="accountingSoftwareStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareAccountingSoftware?.accountingSoftwareStatus}
-                error={!!accountingSoftwareErrors?.accountingSoftwareStatus}
-                helperText={accountingSoftwareErrors?.accountingSoftwareStatus}
-                onChange={handleAccountingSoftwareChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareAccountingSoftware?.accountingSoftwareStatus}
+            onChange={(value: string) =>
+              setAutoCareAccountingSoftware((prev: AccountingSoftwareFormTypes) => ({
+                  ...prev,
+                  accountingSoftwareStatus: value,
+                }))
+              }
+            error={accountingSoftwareErrors?.accountingSoftwareStatus}
+            helperText={accountingSoftwareErrors?.accountingSoftwareStatus}
+            disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -791,33 +744,18 @@ const CloudDocumentManagement = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="cloudDocumentManagementStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  autoCareCloudDocumentManagement?.cloudDocumentManagementStatus
-                }
-                onChange={handleCloudDocumentManagementChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={
-                  roleId === "4" && checkAllFieldsCloudDocumentManagement
-                }
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareCloudDocumentManagement?.cloudDocumentManagementStatus}
+            onChange={(value: string) =>
+              setAutoCareCloudDocumentManagement(
+                (prev: CloudDocumentManagementFormTypes) => ({
+                  ...prev,
+                  cloudDocumentManagementStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -960,29 +898,17 @@ const Scanner = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="scannerStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareScanner?.scannerStatus}
-                onChange={handleScannerChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsScanner}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareScanner?.scannerStatus}
+            onChange={(value: string) =>
+              setAutoCareScanner((prev: ScannerFormTypes) => ({
+                  ...prev,
+                  scannerStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsScanner}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>

@@ -19,6 +19,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function AutoCareCashBankLoans({
   className,
@@ -138,39 +139,20 @@ const OperatingCheckingAccount = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="operatingCheckingAccountStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  autoCareOperatingCheckingAccount?.operatingCheckingAccountStatus
-                }
-                error={
-                  !!operatingCheckingAccountErrors?.operatingCheckingAccountStatus
-                }
-                helperText={
-                  operatingCheckingAccountErrors?.operatingCheckingAccountStatus
-                }
-                onChange={handleOperatingCheckingAccountChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={
-                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
-                }
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareOperatingCheckingAccount?.operatingCheckingAccountStatus}
+            onChange={(value: string) =>
+              setAutoCareOperatingCheckingAccount(
+                (prev: OperatingCheckingAccountFormTypes) => ({
+                  ...prev,
+                  operatingCheckingAccountStatus: value,
+                }))
+              }
+            error={operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
+            helperText={operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
+            disabled={roleId === "4" && checkAllFieldsOperatingCheckingAccount}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -336,31 +318,19 @@ const SavingsAccount = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="savingsAccountStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareSavingsAccount?.savingsAccountStatus}
-                error={!!savingsAccountErrors?.savingsAccountStatus}
-                helperText={savingsAccountErrors?.savingsAccountStatus}
-                onChange={handleSavingsAccountChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareSavingsAccount?.savingsAccountStatus}
+            onChange={(value: string) =>
+              setAutoCareSavingsAccount((prev: SavingsAccountFormTypes) => ({
+                  ...prev,
+                  savingsAccountStatus: value,
+                }))
+              }
+            error={savingsAccountErrors?.savingsAccountStatus}
+            helperText={savingsAccountErrors?.savingsAccountStatus}
+            disabled={roleId === "4" && checkAllFieldsSavingsAccount}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -501,31 +471,19 @@ const CreditCard = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="creditCardStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareCreditCard?.creditCardStatus}
-                error={!!creditCardErrors?.creditCardStatus}
-                helperText={creditCardErrors?.creditCardStatus}
-                onChange={handleCreditCardChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsCreditCard}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareCreditCard?.creditCardStatus}
+            onChange={(value: string) =>
+              setAutoCareCreditCard((prev: CreditCardFormTypes) => ({
+                  ...prev,
+                  creditCardStatus: value,
+                }))
+              }
+            error={creditCardErrors?.creditCardStatus}
+            helperText={creditCardErrors?.creditCardStatus}
+            disabled={roleId === "4" && checkAllFieldsCreditCard}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -664,29 +622,17 @@ const BusinessLoans = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="businessLoansStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareBusinessLoans?.businessLoansStatus}
-                onChange={handleBusinessLoansChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareBusinessLoans?.businessLoansStatus}
+            onChange={(value: string) =>
+              setAutoCareBusinessLoans((prev: BusinessLoansFormTypes) => ({
+                  ...prev,
+                  businessLoansStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsBusinessLoans}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -819,29 +765,17 @@ const PropertyLoans = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="propertyLoansStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCarePropertyLoans?.propertyLoansStatus}
-                onChange={handlePropertyLoansChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCarePropertyLoans?.propertyLoansStatus}
+            onChange={(value: string) =>
+              setAutoCarePropertyLoans((prev: PropertyLoansFormTypes) => ({
+                  ...prev,
+                  propertyLoansStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsPropertyLoans}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>

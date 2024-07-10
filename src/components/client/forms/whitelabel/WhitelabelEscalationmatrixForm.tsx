@@ -15,6 +15,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 const WhitelabelEscalationmatrixForm = ({
   className,
@@ -49,7 +50,11 @@ const WhitelabelEscalationmatrixForm = ({
 
 export default WhitelabelEscalationmatrixForm;
 
-const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: ClientTypes) => {
+const Client = ({
+  whitelabelClient,
+  setWhitelabelClient,
+  checkAllClient,
+}: ClientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -85,36 +90,24 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllClient}
+                disabled={roleId === "4" && checkAllClient}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="clientStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelClient?.clientStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllClient}
-              />
-            </div>
+            <Status
+              value={whitelabelClient?.clientStatus}
+              onChange={(value: string) =>
+                setWhitelabelClient((prev: ClientFormTypes) => ({
+                  ...prev,
+                  clientStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllClient}
+            />
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
@@ -135,10 +128,10 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllClient}
+                disabled={roleId === "4" && checkAllClient}
               />
             </div>
           </Grid>
@@ -161,10 +154,10 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllClient}
+                disabled={roleId === "4" && checkAllClient}
               />
             </div>
           </Grid>
@@ -174,7 +167,11 @@ const Client = ({ whitelabelClient, setWhitelabelClient, checkAllClient }: Clien
   );
 };
 
-const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) => {
+const PABS = ({
+  whitelabelPABS,
+  setWhitelabelPABS,
+  checkAllPABS,
+}: PabsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -210,36 +207,24 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllPABS}
+                disabled={roleId === "4" && checkAllPABS}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="pabsStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelPABS?.pabsStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllPABS}
-              />
-            </div>
+            <Status
+              value={whitelabelPABS?.pabsStatus}
+              onChange={(value: string) =>
+                setWhitelabelPABS((prev: PabsFormTypes) => ({
+                  ...prev,
+                  pabsStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllPABS}
+            />
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
@@ -260,10 +245,10 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllPABS}
+                disabled={roleId === "4" && checkAllPABS}
               />
             </div>
           </Grid>
@@ -286,10 +271,10 @@ const PABS = ({ whitelabelPABS, setWhitelabelPABS, checkAllPABS }: PabsTypes) =>
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllPABS}
+                disabled={roleId === "4" && checkAllPABS}
               />
             </div>
           </Grid>
@@ -335,36 +320,24 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllBDM}
+                disabled={roleId === "4" && checkAllBDM}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="bdmStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelBDM?.bdmStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllBDM}
-              />
-            </div>
+            <Status
+              value={whitelabelBDM?.bdmStatus}
+              onChange={(value: string) =>
+                setWhitelabelBDM((prev: BdmFormTypes) => ({
+                  ...prev,
+                  bdmStatus: value,
+                }))
+              }
+              disabled={roleId === "4" && checkAllBDM}
+            />
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
@@ -385,10 +358,10 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllBDM}
+                disabled={roleId === "4" && checkAllBDM}
               />
             </div>
           </Grid>
@@ -411,10 +384,10 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllBDM}
+                disabled={roleId === "4" && checkAllBDM}
               />
             </div>
           </Grid>

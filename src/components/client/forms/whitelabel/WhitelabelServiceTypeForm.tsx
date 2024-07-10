@@ -20,6 +20,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 const WhitelabelServiceTypeForm = ({
   className,
@@ -123,31 +124,19 @@ const FTE = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="FTEStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelFTE?.FTEStatus}
-                error={!!whitelabelFTEErrors?.FTEStatus}
-                helperText={whitelabelFTEErrors?.FTEStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFTE}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelFTE?.FTEStatus}
+            onChange={(value: string) =>
+              setWhitelabelFTE((prev: FTEFormTypes) => ({
+                  ...prev,
+                  FTEStatus: value,
+                }))
+              }
+            error={whitelabelFTEErrors?.FTEStatus}
+            helperText={whitelabelFTEErrors?.FTEStatus}
+            disabled={roleId === "4" && checkAllFTE}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -261,31 +250,19 @@ const Accounting = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="accountingStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelAccounting?.accountingStatus}
-                error={!!whitelabelAccountingErrors?.accountingStatus}
-                helperText={whitelabelAccountingErrors?.accountingStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllAccounting}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelAccounting?.accountingStatus}
+            onChange={(value: string) =>
+              setWhitelabelAccounting((prev: AccountingFormTypes) => ({
+                  ...prev,
+                  accountingStatus: value,
+                }))
+              }
+            error={whitelabelAccountingErrors?.accountingStatus}
+            helperText={whitelabelAccountingErrors?.accountingStatus}
+            disabled={roleId === "4" && checkAllAccounting}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -399,31 +376,19 @@ const Tax = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="taxStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelTax?.taxStatus}
-                error={!!whitelabelTaxErrors?.taxStatus}
-                helperText={whitelabelTaxErrors?.taxStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllTax}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelTax?.taxStatus}
+            onChange={(value: string) =>
+              setWhitelabelTax((prev: TaxFormTypes) => ({
+                  ...prev,
+                  taxStatus: value,
+                }))
+              }
+            error={whitelabelTaxErrors?.taxStatus}
+            helperText={whitelabelTaxErrors?.taxStatus}
+            disabled={roleId === "4" && checkAllTax}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -534,29 +499,17 @@ const Weekly = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="weeklyStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelWeekly?.weeklyStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllWeekly}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelWeekly?.weeklyStatus}
+            onChange={(value: string) =>
+              setWhitelabelWeekly((prev: WeeklyFormTypes) => ({
+                  ...prev,
+                  weeklyStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllWeekly}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -663,29 +616,17 @@ const Industry = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="industryStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelIndustry?.industryStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllIndustry}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelIndustry?.industryStatus}
+            onChange={(value: string) =>
+              setWhitelabelIndustry((prev: IndustryFormTypes) => ({
+                  ...prev,
+                  industryStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllIndustry}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">

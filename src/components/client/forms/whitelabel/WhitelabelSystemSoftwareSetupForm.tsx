@@ -26,6 +26,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 const WhitelabelSystemSoftwareSetupForm = ({
   className,
@@ -148,29 +149,17 @@ const ITStructure = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="itStructureWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelITStructure?.itStructureWhiteLabelStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllItStructure}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelITStructure?.itStructureWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelITStructure((prev: ItStructureWhiteLabelFormTypes) => ({
+                  ...prev,
+                  itStructureWhiteLabelStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllItStructure}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -277,29 +266,17 @@ const RemoteSetup = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="remoteSetupWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelRemoteSetup?.remoteSetupWhiteLabelStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllRemoteSetup}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelRemoteSetup?.remoteSetupWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelRemoteSetup((prev: RemoteSetupWhiteLabelFormTypes) => ({
+                  ...prev,
+                  remoteSetupWhiteLabelStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllRemoteSetup}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -406,29 +383,17 @@ const ITHelp = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="itHelpWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelITHelp?.itHelpWhiteLabelStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllITHelp}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelITHelp?.itHelpWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelITHelp((prev: ItHelpWhiteLabelFormTypes) => ({
+                  ...prev,
+                  itHelpWhiteLabelStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllITHelp}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -546,37 +511,20 @@ const AccountingSoftware = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="accountingSoftwareWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelStatus
-                }
-                error={
-                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus
-                }
-                helperText={
-                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllAccountingSoftware}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelAccountingSoftware(
+                (prev: AccountingSoftwareWhiteLabelFormTypes) => ({
+                  ...prev,
+                  accountingSoftwareWhiteLabelStatus: value,
+                }))
+              }
+            error={whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus}
+            helperText={whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus}
+            disabled={roleId === "4" && checkAllAccountingSoftware}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -707,35 +655,19 @@ const CloudDocument = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="cloudDocumentWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelCloudDocument?.cloudDocumentWhiteLabelStatus}
-                error={
-                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus
-                }
-                helperText={
-                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllCloudDocument}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelCloudDocument?.cloudDocumentWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelCloudDocument((prev: CloudDocumentWhiteLabelFormTypes) => ({
+                  ...prev,
+                  cloudDocumentWhiteLabelStatus: value,
+                }))
+              }
+            error={whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus}
+            helperText={whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus}
+            disabled={roleId === "4" && checkAllCloudDocument}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -864,33 +796,19 @@ const Messenger = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="messengerWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelMessenger?.messengerWhiteLabelStatus}
-                error={!!whitelabelMessengerErrors?.messengerWhiteLabelStatus}
-                helperText={
-                  whitelabelMessengerErrors?.messengerWhiteLabelStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllMessenger}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelMessenger?.messengerWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelMessenger((prev: MessengerWhiteLabelFormTypes) => ({
+                  ...prev,
+                  messengerWhiteLabelStatus: value,
+                }))
+              }
+            error={whitelabelMessengerErrors?.messengerWhiteLabelStatus}
+            helperText={whitelabelMessengerErrors?.messengerWhiteLabelStatus}
+            disabled={roleId === "4" && checkAllMessenger}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -1016,35 +934,19 @@ const SystemAccess = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="systemAccessWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelSystemAccess?.systemAccessWhiteLabelStatus}
-                error={
-                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus
-                }
-                helperText={
-                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllSystemAccess}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelSystemAccess?.systemAccessWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelSystemAccess((prev: SystemAccessWhiteLabelFormTypes) => ({
+                  ...prev,
+                  systemAccessWhiteLabelStatus: value,
+                }))
+              }
+            error={whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus}
+            helperText={whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus}
+            disabled={roleId === "4" && checkAllSystemAccess}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -1165,29 +1067,17 @@ const OtherInfo = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="otherInfoWhiteLabelStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelOtherInfo?.otherInfoWhiteLabelStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength:250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllOtherInfo}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelOtherInfo?.otherInfoWhiteLabelStatus}
+            onChange={(value: string) =>
+              setWhitelabelOtherInfo((prev: OtherInfoWhiteLabelFormTypes) => ({
+                  ...prev,
+                  otherInfoWhiteLabelStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllOtherInfo}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">

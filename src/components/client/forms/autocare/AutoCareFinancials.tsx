@@ -15,6 +15,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "../../common/Status";
 
 function AutoCareFinancials({
   className,
@@ -105,31 +106,20 @@ const LastClosedPeriod = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="lastClosedPeriodStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareLastClosedPeriod?.lastClosedPeriodStatus}
-                error={!!lastClosedPeriodErrors?.lastClosedPeriodStatus}
-                helperText={lastClosedPeriodErrors?.lastClosedPeriodStatus}
-                onChange={handleLastClosedPeriodChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareLastClosedPeriod?.lastClosedPeriodStatus}
+            onChange={(value: string) =>
+              setAutoCareLastClosedPeriod((prev: LastClosedPeriodFormTypes) => ({
+                ...prev,
+                  ...prev,
+                  lastClosedPeriodStatus: value,
+                }))
+              }
+            error={lastClosedPeriodErrors?.lastClosedPeriodStatus}
+            helperText={lastClosedPeriodErrors?.lastClosedPeriodStatus}
+            disabled={roleId === "4" && checkAllFieldsLastClosedPeriod}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -269,29 +259,17 @@ const SharingFinancials = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="sharingFinancialsStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareSharingFinancials?.sharingFinancialsStatus}
-                onChange={handleSharingFinancialsChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareSharingFinancials?.sharingFinancialsStatus}
+            onChange={(value: string) =>
+              setAutoCareSharingFinancials((prev: SharingFinancialsFormTypes) => ({
+                  ...prev,
+                  sharingFinancialsStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsSharingFinancials}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -425,29 +403,17 @@ const GP_GMNP_NM = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="gp_gmnp_nmStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCaregp_gmnp_nm?.gp_gmnp_nmStatus}
-                onChange={handleSharingFinancialsChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCaregp_gmnp_nm?.gp_gmnp_nmStatus}
+            onChange={(value: string) =>
+              setAutoCaregp_gmnp_nm((prev: GP_GMNP_NMFormTypes) => ({
+                  ...prev,
+                  gp_gmnp_nmStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsGP_GMNP_NM}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
