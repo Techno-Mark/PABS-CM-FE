@@ -22,7 +22,7 @@ import { Grid, TextField } from "@mui/material";
 import React from "react";
 // Cookie import
 import Cookies from "js-cookie";
-import Status from "../../common/Status";
+import Status from "@/components/client/common/Status";
 
 function SmbExistingFinancialsChecklist({
   className,

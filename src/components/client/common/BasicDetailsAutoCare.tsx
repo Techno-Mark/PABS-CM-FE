@@ -448,7 +448,7 @@ function BasicDetailsAutoCare({
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
         autoCareClientTeam.weeklyCalls.length > 0
           ? autoCareClientTeam.weeklyCalls
-              .map((item: { value: string; label: string }) => item.label)
+              .map((item: { value: string; label: string }) => item?.label)
               .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,

@@ -33,7 +33,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, SelectChangeEvent, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
-import Status from "../../common/Status";
+import Status from "@/components/client/common/Status";
 
 function SmbPeopleBusinessChecklist({
   className,
