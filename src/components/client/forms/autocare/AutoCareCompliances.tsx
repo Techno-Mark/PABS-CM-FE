@@ -17,7 +17,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
-import Status from "../../common/Status";
+import Status from "@/components/client/common/Status";
 
 function AutoCareCompliances({
   className,
@@ -131,16 +131,16 @@ const SalesTaxAccessWorkPaper = ({
           </Grid>
           <Grid item xs={4}>
           <Status
-            value={autoCareSalesTaxAccessWorkPaper?.ModeOfPaymentStatus}
+            value={autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperStatus}
             onChange={(value: string) =>
               setAutoCareSalesTaxAccessWorkPaper(
                 (prev: SalesTaxAccessWorkPaperFormTypes) => ({
                   ...prev,
-                  ModeOfPaymentStatus: value,
+                  salesTaxAccessWorkPaperStatus: value,
                 }))
               }
-            error={salesTaxAccessWorkPaperErrors?.ModeOfPaymentStatus}
-            helperText={salesTaxAccessWorkPaperErrors?.ModeOfPaymentStatus}
+            error={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus}
+            helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus}
             disabled={roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper}
           />
         </Grid>

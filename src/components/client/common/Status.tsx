@@ -31,6 +31,12 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           return;
         case "success":
           setOptions(ResponseData);
+          const pendingOption = ResponseData.find(
+            (option) => option.name === "Pending"
+          );
+          if (pendingOption && !value) {
+            onChange(pendingOption.name);
+          }
           return;
       }
     };
@@ -59,20 +65,10 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           name="Status"
           value={value || ""}
           onChange={handleStatusChange}
-          displayEmpty
-          renderValue={(selected) => {
-            if (!selected) {
-              return <span className="text-[12px] text-[#A9A9A9]">Please Select</span>;
-            }
-            return selected;
-          }}
           inputProps={{
             className: classes.textSize,
           }}
         >
-          <MenuItem value="" disabled>
-            Please Select
-          </MenuItem>
           {options.map((option) => (
             <MenuItem key={option.id} value={option.name}>
               {option.name}

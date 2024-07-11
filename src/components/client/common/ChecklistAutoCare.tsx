@@ -131,6 +131,7 @@ function ChecklistAutoCare({
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
 
+  //phase 1:
   const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
     useState<GroupEmailEstablishedFormTypes>(
       initialAutoCareGroupEmailEstablished
@@ -140,7 +141,7 @@ function ChecklistAutoCare({
   const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(
     initialAutoCareKickOff
   );
-
+// phase 2:
   const [autoCareITStructureReview, setAutoCareITStructureReview] =
     useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
   const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] =
@@ -156,7 +157,7 @@ function ChecklistAutoCare({
   const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(
     initialAutoCareScanner
   );
-
+// phase 3:
   const [
     autoCareOperatingCheckingAccount,
     setAutoCareOperatingCheckingAccount,
@@ -171,7 +172,7 @@ function ChecklistAutoCare({
     useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
   const [autoCarePropertyLoans, setAutoCarePropertyLoans] =
     useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
-
+//phase 4:
   const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] =
     useState<PayrollServiceProviderFormTypes>(
       initialAutoCarePayrollServiceProvider
@@ -181,10 +182,12 @@ function ChecklistAutoCare({
   const [autoCareNoOfEmployee, setAutoCareNoOfEmployee] =
     useState<NoOfEmployeeFormTypes>(initialAutoCareNoOfEmployee);
 
+  //phase 5:
   const [autoCareSalesTaxAccessWorkPaper, setAutoCareSalesTaxAccessWorkPaper] =
-    useState<SalesTaxAccessWorkPaperFormTypes>(
-      initialAutoCareSalesTaxAccessWorkPaper
-    );
+  useState<SalesTaxAccessWorkPaperFormTypes>(
+    initialAutoCareSalesTaxAccessWorkPaper
+  );
+  console.log("🚀 ~ autoCareSalesTaxAccessWorkPaper:", autoCareSalesTaxAccessWorkPaper)
   const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(
     initialAutoCareUseTax
   );
@@ -195,7 +198,7 @@ function ChecklistAutoCare({
     useState<LastTaxReturnFiledYearFormTypes>(
       initialAutoCareLastTaxReturnFiledYear
     );
-
+//phase 6:
   const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] =
     useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
   const [autoCareTradeAccount, setAutoCareTradeAccount] =
@@ -204,7 +207,7 @@ function ChecklistAutoCare({
     useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
   const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] =
     useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
-
+//phase 7:
   const [autoCareLastClosedPeriod, setAutoCareLastClosedPeriod] =
     useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
   const [autoCareSharingFinancials, setAutoCareSharingFinancials] =
@@ -1236,177 +1239,31 @@ function ChecklistAutoCare({
   };
 
   const checklistStatus = () => {
-    let relevantFields = [];
+    const requiredFields = [autoCarePosSoftware.posSoftwareStatus,
+      autoCareAccountingSoftware.accountingSoftwareStatus,
+      autoCareOperatingCheckingAccount.operatingCheckingAccountStatus,
+      autoCareSavingsAccount.savingsAccountStatus,
+      autoCareCreditCard.creditCardStatus,
+      autoCarePayrollServiceProvider.payrollServiceProviderStatus,
+      autoCareFrequency.frequencyStatus,
+      autoCareSalesTaxAccessWorkPaper.salesTaxAccessWorkPaperStatus,
+      autoCareUseTax.useTaxStatus,
+      autoCareTireTax.tireTaxStatus,
+      autoCareLastTaxReturnFiledYear.lastTaxReturnFiledYearStatus,
+      autoCareVendorPortalAccess.vendorPortalAccessStatus,
+      autoCareBillPayAccess.billPayAccessStatus,
+      autoCareLastClosedPeriod.lastClosedPeriodStatus,];
 
-    if (financialsChecked) {
-      relevantFields.push(
-        ...[
-          "lastClosedPeriodStatus",
-          "lastClosedPeriodComments",
-          "lastClosedPeriodDetails",
-          "lastClosedPeriodActionName",
-          "lastClosedPeriodActionItems",
-        ]
-      );
-    }
+    let completedCount = 0;
+    const totalRequired = requiredFields.length;
 
-    if (systemSoftwareLocationsChecked) {
-      relevantFields.push(
-        ...[
-          "posSoftwareStatus",
-          "posSoftwareComments",
-          "posSoftwareDetails",
-          "posSoftwareActionName",
-          "posSoftwareActionItems",
-          "accountingSoftwareStatus",
-          "accountingSoftwareComments",
-          "accountingSoftwareDetails",
-          "accountingSoftwareActionName",
-          "accountingSoftwareActionItems",
-        ]
-      );
-    }
-
-    if (cashBankLoansChecked) {
-      relevantFields.push(
-        ...[
-          "operatingCheckingAccountStatus",
-          "operatingCheckingAccountComments",
-          "operatingCheckingAccountDetails",
-          "operatingCheckingAccountActionName",
-          "operatingCheckingAccountActionItems",
-          "savingsAccountStatus",
-          "savingsAccountComments",
-          "savingsAccountDetails",
-          "savingsAccountActionName",
-          "savingsAccountActionItems",
-          "creditCardStatus",
-          "creditCardComments",
-          "creditCardDetails",
-          "creditCardActionName",
-          "creditCardActionItems",
-        ]
-      );
-    }
-
-    if (payrollSystemChecked) {
-      relevantFields.push(
-        ...[
-          "payrollServiceProviderStatus",
-          "payrollServiceProviderComments",
-          "payrollServiceProviderDetails",
-          "payrollServiceProviderActionName",
-          "payrollServiceProviderActionItems",
-          "frequencyStatus",
-          "frequencyComments",
-          "frequencyDetails",
-          "frequencyActionName",
-          "frequencyActionItems",
-        ]
-      );
-    }
-
-    if (compliancesChecked) {
-      relevantFields.push(
-        ...[
-          "salesTaxAccessWorkPaperStatus",
-          "salesTaxAccessWorkPaperComments",
-          "salesTaxAccessWorkPaperDetails",
-          "salesTaxAccessWorkPaperActionName",
-          "salesTaxAccessWorkPaperActionItems",
-          "useTaxStatus",
-          "useTaxComments",
-          "useTaxDetails",
-          "useTaxActionName",
-          "useTaxActionItems",
-          "tireTaxStatus",
-          "tireTaxComments",
-          "tireTaxDetails",
-          "tireTaxActionName",
-          "tireTaxActionItems",
-          "lastTaxReturnFiledYearStatus",
-          "lastTaxReturnFiledYearComments",
-          "lastTaxReturnFiledYearDetails",
-          "lastTaxReturnFiledYearActionName",
-          "lastTaxReturnFiledYearActionItems",
-        ]
-      );
-    }
-
-    if (accessChecked) {
-      relevantFields.push(
-        ...[
-          "vendorPortalAccessStatus",
-          "vendorPortalAccessComments",
-          "vendorPortalAccessDetails",
-          "vendorPortalAccessActionName",
-          "vendorPortalAccessActionItems",
-          "billPayAccessStatus",
-          "billPayAccessComments",
-          "billPayAccessDetails",
-          "billPayAccessActionName",
-          "billPayAccessActionItems",
-        ]
-      );
-    }
-
-    if (
-      !financialsChecked &&
-      !systemSoftwareLocationsChecked &&
-      !cashBankLoansChecked &&
-      !payrollSystemChecked &&
-      !compliancesChecked &&
-      !accessChecked &&
-      communicationChecked
-    ) {
-      relevantFields.push(
-        "groupEmailEstablishStatus",
-        "groupEmailEstablishComments",
-        "groupEmailEstablishDetails",
-        "groupEmailEstablishActionName",
-        "groupEmailEstablishActionItems",
-        "preKickOffStatus",
-        "preKickOffComments",
-        "preKickOffDetails",
-        "preKickOffActionName",
-        "preKickOffActionItems",
-        "kickOffStatus",
-        "kickOffComments",
-        "kickOffDetails",
-        "kickOffActionName",
-        "kickOffActionItems"
-      );
-    }
-
-    let count = 0;
-    relevantFields.forEach((field) => {
-      if (
-        !!autoCareGroupEmailEstablished[field] ||
-        !!autoCarePreKickOff[field] ||
-        !!autoCareKickOff[field] ||
-        !!autoCarePosSoftware[field] ||
-        !!autoCareAccountingSoftware[field] ||
-        !!autoCareOperatingCheckingAccount[field] ||
-        !!autoCareSavingsAccount[field] ||
-        !!autoCareCreditCard[field] ||
-        !!autoCarePayrollServiceProvider[field] ||
-        !!autoCareFrequency[field] ||
-        !!autoCareSalesTaxAccessWorkPaper[field] ||
-        !!autoCareUseTax[field] ||
-        !!autoCareTireTax[field] ||
-        !!autoCareLastTaxReturnFiledYear[field] ||
-        !!autoCareVendorPortalAccess[field] ||
-        !!autoCareBillPayAccess[field] ||
-        !!autoCareLastClosedPeriod[field]
-      ) {
-        count++;
+    requiredFields.forEach((field: any) => {
+      if (field === "Completed") {
+        completedCount++;
       }
     });
 
-    let totalFields = relevantFields.length;
-    let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
-
+    const percentage = Math.floor((completedCount / totalRequired) * 100);
     return percentage;
   };
 

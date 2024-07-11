@@ -683,33 +683,129 @@ const ChecklistWhitelabel = ({
   ]);
 
   const whiteLabelchecklistStatus = () => {
-    const requiredFields = [
-      whitelabelAccountingSoftware.accountingSoftwareWhiteLabelStatus,
-      whitelabelCloudDocument.cloudDocumentWhiteLabelStatus,
-      whitelabelMessenger.messengerWhiteLabelStatus,
-      whitelabelSystemAccess.systemAccessWhiteLabelStatus,
-      whitelabelFTE.FTEStatus,
-      whitelabelAccounting.accountingStatus,
-      whitelabelTax.taxStatus,
-      whitelabelMonthly.monthlyStatus,
-      whitelabelCleanup.cleanupStatus,
-      whitelabelCatchup.catchupStatus,
-      whitelabelCombination.combinationStatus,
-      whitelabelTimeZone.timeZoneStatus,
-      whitelabelConvenientDay.convenientDayStatus,
-      whitelabelTimeSlot.timeSlotStatus,
-    ];
+    let relevantFields = [];
 
-    let completedCount = 0;
-    const totalRequired = requiredFields.length;
+    if (
+      !whiteLabelsystemSoftwareChecked &&
+      !whiteLabelServiceTypeChecked &&
+      !whitelabelWorkAssignmentChecked &&
+      whiteLabelCommunicationChecked
+    ) {
+      relevantFields.push(
+        ...[
+          "groupEmailWhiteLabelStatus",
+          "groupEmailWhiteLabelComments",
+          "groupEmailWhiteLabelActionPABS",
+          "groupEmailWhiteLabelActionClient",
+          "teamOverCallWhiteLabelStatus",
+          "teamOverCallWhiteLabelComments",
+          "teamOverCallWhiteLabelActionPABS",
+          "teamOverCallWhiteLabelActionClient",
+          "kickOffWhiteLabelStatus",
+          "kickOffWhiteLabelComments",
+          "kickOffWhiteLabelActionPABS",
+          "kickOffWhiteLabelActionClient",
+        ]
+      );
+    }
 
-    requiredFields.forEach((field: any) => {
-      if (field === "Completed") {
-        completedCount++;
+    if (whiteLabelsystemSoftwareChecked) {
+      relevantFields.push(...validateWhiteLabelSystemSoftwareField);
+    }
+
+    if (whiteLabelServiceTypeChecked) {
+      relevantFields.push(...validateWhiteLabelServiceTypeField);
+    }
+
+    if (
+      !whiteLabelsystemSoftwareChecked &&
+      !whiteLabelServiceTypeChecked &&
+      !whitelabelWorkAssignmentChecked &&
+      whitelabelChallengesChecked
+    ) {
+      relevantFields.push(
+        ...[
+          "currentChallengesStatus",
+          "currentChallengesComments",
+          "currentChallengesActionPABS",
+          "currentChallengesActionClient",
+          "exceptionStatus",
+          "exceptionComments",
+          "exceptionActionPABS",
+          "exceptionActionClient",
+        ]
+      );
+    }
+
+    if (whitelabelWorkAssignmentChecked) {
+      relevantFields.push(...validateWhiteLabelWorkAssignmentField);
+    }
+
+    if (
+      !whiteLabelsystemSoftwareChecked &&
+      !whiteLabelServiceTypeChecked &&
+      !whitelabelWorkAssignmentChecked &&
+      whiteLabelEscalationMatrixChecked
+    ) {
+      relevantFields.push(
+        ...[
+          "clientStatus",
+          "clientComments",
+          "clientActionPABS",
+          "clientActionClient",
+          "pabsStatus",
+          "pabsComments",
+          "pabsActionPABS",
+          "pabsActionClient",
+          "bdmStatus",
+          "bdmComments",
+          "bdmActionPABS",
+          "bdmActionClient",
+        ]
+      );
+    }
+
+    if (whiteLabelMeetingAvailabilityChecked) {
+      relevantFields.push(...validateWhiteLabelMeetingAvailabilityField);
+    }
+
+    let count = 0;
+    relevantFields.forEach((field) => {
+      if (
+        !!whitelabelAccountingSoftware[field] ||
+        !!whitelabelCloudDocument[field] ||
+        !!whitelabelMessenger[field] ||
+        !!whitelabelSystemAccess[field] ||
+        !!whitelabelFTE[field] ||
+        !!whitelabelAccounting[field] ||
+        !!whitelabelTax[field] ||
+        !!whitelabelMonthly[field] ||
+        !!whitelabelCleanup[field] ||
+        !!whitelabelCatchup[field] ||
+        !!whitelabelCombination[field] ||
+        !!whitelabelTimeZone[field] ||
+        !!whitelabelConvenientDay[field] ||
+        !!whitelabelTimeSlot[field] ||
+        !!whitelabelGroupEmailEstablished[field] ||
+        !!whitelabelKickOff[field] ||
+        !!whitelabelTeamOverCall[field] ||
+        !!whitelabelCurrentChallenges[field] ||
+        !!whitelabelExpectation[field] ||
+        !!whitelabelClient[field] ||
+        !!whitelabelPABS[field] ||
+        !!whitelabelBDM[field] ||
+        !!whitelabelTimeZone[field] ||
+        !!whitelabelConvenientDay[field] ||
+        !!whitelabelTimeSlot[field]
+      ) {
+        count++;
       }
     });
 
-    const percentage = Math.floor((completedCount / totalRequired) * 100);
+    let totalFields = relevantFields.length;
+    let percentage =
+      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+
     return percentage;
   };
 
