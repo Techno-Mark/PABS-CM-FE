@@ -165,7 +165,7 @@ const BasicDetailsWhitelabel = ({
               noOfAccounts: ResponseData.noOfAccounts,
               bdm: ResponseData.bdm,
               startDate: ResponseData?.startDate
-                ? dayjs(ResponseData?.startDate).format("DD MMM YYYY")
+                ? dayjs(ResponseData?.startDate).format("MM/DD/YYYY")
                 : null,
             });
             setWhitelabelCpaClientTeam({

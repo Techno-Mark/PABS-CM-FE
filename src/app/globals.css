@@ -91,9 +91,6 @@ input::-ms-clear {
     right: -100%;
   }
 }
-.muiDatepickerCustomizer .MuiIconButton-root {
-  margin-top: 20px;
-}
 
 .muiDatepickerCustomizer fieldset {
   border: none;
@@ -103,8 +100,7 @@ input::-ms-clear {
 
 .muiDatepickerCustomizer input {
   padding: 8px 0 1px;
-  margin-top: 15px;
-  font-size: 14px;
+  font-size: 12px;
   width: 100%;
 }
 
@@ -123,6 +119,10 @@ input::-ms-clear {
   z-index: 0;
 }
 
-.css-jd1zyo-MuiSelect-select-MuiInputBase-input-MuiInput-input{
-  padding-bottom: 2px !important;
+.css-jd1zyo-MuiSelect-select-MuiInputBase-input-MuiInput-input.MuiSelect-select{
+  height: 21px !important;
+}
+
+.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input{
+  padding: 1px 0 5px 0 !important;
 }

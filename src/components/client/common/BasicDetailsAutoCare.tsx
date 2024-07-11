@@ -135,11 +135,11 @@ function BasicDetailsAutoCare({
               no_of_Shops: ResponseData?.noOfShops,
               salesRep: ResponseData?.salesRep,
               agreementDate: ResponseData?.agreementDate
-                ? dayjs(ResponseData?.agreementDate).format("DD MMM YYYY")
+                ? dayjs(ResponseData?.agreementDate).format("MM/DD/YYYY")
                 : null,
               probableAcquitionDate: ResponseData?.probableAcquisitionDate
                 ? dayjs(ResponseData?.probableAcquisitionDate).format(
-                    "DD MMM YYYY"
+                    "MM/DD/YYYY"
                   )
                 : null,
               dba: ResponseData?.dba,
