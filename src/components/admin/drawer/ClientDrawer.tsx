@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 // MUI Imports
-import { TextField, Select, FormControl, MenuItem } from "@mui/material";
+import { TextField, Select, FormControl, MenuItem, Tooltip } from "@mui/material";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 // Types import
@@ -54,7 +54,7 @@ const ClientDrawer = ({
     value: -1,
   };
   const classes = useStyles();
-  const [imagePreview, setImagePreview] =  useState<any>(null);
+  const [imagePreview, setImagePreview] = useState<any>(null);
   const [file, setFile] = useState<any>(null);
   const [sFID, setSFID] = useState<StringFieldType>(initialFieldStringValues);
   const [clientFullName, setClientFullName] = useState<StringFieldType>(
@@ -564,7 +564,20 @@ const ClientDrawer = ({
         </div>
         <label className="text-[#6E6D7A] flex items-center gap-2 font-semibold text-base pb-2">
           Upload Logo
-          <ImgInfoIcon />
+          <Tooltip
+            title={
+              <ul className="custom-tooltip">
+                <li>File type must contain only PNG.</li>
+                <li>Image dimensions should be 150x100 pixels.</li>
+              </ul>
+            }
+            placement="top"
+            arrow
+          >
+            <span>
+              <ImgInfoIcon />
+            </span>
+          </Tooltip>
         </label>
         {imagePreview && (
           <div className="flex flex-col pb-5">
@@ -596,11 +609,7 @@ const ClientDrawer = ({
                 const fileTypeParts = fileType.split(".");
                 const fileTypeExtension =
                   fileTypeParts[fileTypeParts.length - 1];
-                if (
-                  ["png"].includes(
-                    fileTypeExtension.toLowerCase()
-                  )
-                ) {
+                if (["png"].includes(fileTypeExtension.toLowerCase())) {
                   if (file) {
                     setFileError(false);
                     if (Math.round(file.size / 1024) < 500) {

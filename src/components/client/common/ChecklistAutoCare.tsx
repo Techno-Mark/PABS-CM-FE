@@ -187,7 +187,6 @@ function ChecklistAutoCare({
   useState<SalesTaxAccessWorkPaperFormTypes>(
     initialAutoCareSalesTaxAccessWorkPaper
   );
-  console.log("🚀 ~ autoCareSalesTaxAccessWorkPaper:", autoCareSalesTaxAccessWorkPaper)
   const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(
     initialAutoCareUseTax
   );
