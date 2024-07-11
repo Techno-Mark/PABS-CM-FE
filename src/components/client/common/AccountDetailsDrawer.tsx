@@ -8,7 +8,7 @@ import {
 } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import { FormControl, MenuItem, Select, TextField } from "@mui/material";
+import { FormControl, MenuItem, Select, TextField, Tooltip } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
@@ -16,6 +16,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { statusOptionDrawerAccDetails } from "@/static/whitelabel/whitelabelChecklist";
 import { validateNumber } from "@/utils/validate";
+import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
 
 interface AccountDetailsDrawerProps {
   openDrawer: boolean;
@@ -264,7 +265,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
     };
 
   const handleDateChange = (date: Dayjs | null) => {
-    const formattedDate = date ? date.format("D MMM YYYY") : null;
+    const formattedDate = date ? date.format("MM/DD/YYYY") : null;
     setFormValues((prevValues) => ({
       ...prevValues,
       deadline: formattedDate,
@@ -587,18 +588,31 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
             <div
               className={`text-[12px] flex flex-col w-full muiDatepickerCustomizer`}
             >
-              <label className="text-[#6E6D7A] text-[12px] mb-[-18px]">
-                Deadline
+              <label className="flex items-center text-[#6E6D7A] text-[12px]">
+                <div className="mr-1">Deadline</div>
+                <Tooltip
+                  title={
+                    <ul className="custom-tooltip">
+                      <li>MM/DD/YYYY</li>
+                    </ul>
+                  }
+                  placement="top"
+                  arrow
+                >
+                  <span>
+                    <ImgInfoIcon />
+                  </span>
+                </Tooltip>
               </label>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   value={
                     formValues.deadline
-                      ? dayjs(formValues.deadline, "D MMM YYYY")
+                      ? dayjs(formValues.deadline, "MM/DD/YYYY")
                       : null
                   }
-                  onChange={handleDateChange}
-                  format="D MMM YYYY"
+                  onChange={(value: Dayjs | null) => handleDateChange(value)}
+                  format="MM/DD/YYYY"
                   slotProps={{
                     textField: {
                       readOnly: true,
