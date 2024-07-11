@@ -245,7 +245,7 @@ const AccountDetailsWhitelabel = ({
         if (params.value) {
           const parsedDate = dayjs(params.value);
           if (parsedDate.isValid()) {
-            return parsedDate.format("D MMM YYYY");
+            return parsedDate.format("MM/DD/YYYY");
           }
         }
         return "";
