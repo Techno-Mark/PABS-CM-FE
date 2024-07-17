@@ -34,7 +34,7 @@ export interface InActiveProps {
 export interface Option {
   value: number;
   label: string;
-  email: string;
+  email?: string;
 }
 
 export interface StatusOption {
@@ -44,6 +44,11 @@ export interface StatusOption {
 
 export interface StringOption extends Omit<Option, "value"> {
   value: string;
+}
+
+export interface ChecklistStatusOption {
+  value: string;
+  label: string;
 }
 
 export interface DeleteModalProps {
@@ -92,6 +97,7 @@ export interface RoleListResponse {
 export interface BusinessList {
   BusinessId: number;
   BussinessName: string;
+  
 }
 
 export interface BusinessListResponse {
