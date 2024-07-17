@@ -143,5 +143,5 @@ input::-ms-clear {
 }
 
 .MuiAutocomplete-listbox{
-  max-height: 32vh !important;
+  max-height: 28vh !important;
 }
