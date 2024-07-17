@@ -134,51 +134,37 @@ function Page() {
             renderOption={(props, option) => {
               const isSelected = tempSelectedValues.includes(option.value);
               return (
-                <li {...props}>
-                  <Checkbox
-                    checked={isSelected}
-                    onChange={(event) => {
-                      const newSelectedValues = isSelected
-                        ? tempSelectedValues.filter(
-                            (value: Number) => value !== option.value
-                          )
-                        : [...tempSelectedValues, option.value];
-                      setTempSelectedValues(newSelectedValues);
-                    }}
-                  />
-                  <Avatar className={classes.avatarStyle} alt={option.label}>
-                    <AlphabetColor
-                      alphabet={option.label.charAt(0).toUpperCase()}
-                    />
-                  </Avatar>
-                  <div style={{ marginLeft: 8 }}>
-                    <ListItemText
-                      primary={option.label}
-                      primaryTypographyProps={{
-                        sx: {
-                          fontSize: "14px",
-                          textOverflow: "ellipsis",
-                        },
+                <Tooltip title={option.email} arrow placement="top">
+                  <li {...props}>
+                    <Checkbox
+                      checked={isSelected}
+                      onChange={(event) => {
+                        const newSelectedValues = isSelected
+                          ? tempSelectedValues.filter(
+                              (value: Number) => value !== option.value
+                            )
+                          : [...tempSelectedValues, option.value];
+                        setTempSelectedValues(newSelectedValues);
                       }}
                     />
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        fontSize: "10px",
-                        fontStyle: "italic",
-                        color: "text.secondary",
-                        lineHeight: 1,
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        maxWidth: "100px",
-                        textOverflow: "ellipsis",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {option.email}
-                    </Typography>
-                  </div>
-                </li>
+                    <Avatar className={classes.avatarStyle} alt={option.label}>
+                      <AlphabetColor
+                        alphabet={option.label.charAt(0).toUpperCase()}
+                      />
+                    </Avatar>
+                    <div style={{ marginLeft: 8 }}>
+                      <ListItemText
+                        primary={option.label}
+                        primaryTypographyProps={{
+                          sx: {
+                            fontSize: "14px",
+                            textOverflow: "ellipsis",
+                          },
+                        }}
+                      />
+                    </div>
+                  </li>
+                </Tooltip>
               );
             }}
             getOptionLabel={(item) => item.label}
