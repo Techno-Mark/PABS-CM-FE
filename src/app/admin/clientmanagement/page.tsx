@@ -17,13 +17,19 @@ import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 import {
   Autocomplete,
   Avatar,
+  AvatarGroup,
+  Button,
+  Checkbox,
+  Chip,
   CircularProgress,
   InputAdornment,
   ListItem,
   ListItemText,
+  Paper,
   TablePagination,
   TextField,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 // static imports
@@ -119,105 +125,228 @@ function Page() {
       sortable: false,
       renderCell: (params) => {
         if (roleId !== "3") {
-          return (
-            <Autocomplete
-              className={classes.underlineDropdown}
-              options={
-                params.row.BusinessTypeId === 1
-                  ? assignUserList1
-                  : params.row.BusinessTypeId === 2
-                  ? assignUserList2
-                  : assignUserList3
-              }
-              renderOption={(props: any, item: any) => (
-                <ListItem
-                  {...props}
-                  className="flex gap-2 text-ellipsis cursor-pointer"
-                >
-                  <Avatar className={classes.avatarStyle} alt={item.label}>
-                    <AlphabetColor
-                      alphabet={item.label.charAt(0).toUpperCase()}
-                    />
-                  </Avatar>
-                  <ListItemText
-                    primaryTypographyProps={{ sx: { fontSize: "14px" } }}
-                  >
-                    {item.label}
-                  </ListItemText>
-                </ListItem>
-              )}
-              getOptionLabel={(item) => item.label}
-              onChange={(e, record) => {
-                const callBack = (ResponseStatus: string, Message: string) => {
-                  switch (ResponseStatus) {
-                    case "failure":
-                      showToast(Message, ToastType.Error);
-                      return;
-                    case "success":
-                      showToast(Message, ToastType.Success);
-                      getClientList();
-                      return;
-                  }
-                };
+          const selectedValues = Array.isArray(params.value)
+            ? params.value
+            : [params.value].filter(Boolean);
+          const userList =
+            params.row.BusinessTypeId === 1
+              ? assignUserList1
+              : params.row.BusinessTypeId === 2
+              ? assignUserList2
+              : assignUserList3;
 
-                callAPIwithHeaders(saveAssignee, "post", callBack, {
-                  userId: !!record ? record.value : -1,
-                  clientId: params.row.ClientId,
-                });
-              }}
-              value={
-                (params.row.BusinessTypeId === 1
-                  ? assignUserList1
-                  : params.row.BusinessTypeId === 2
-                  ? assignUserList2
-                  : assignUserList3
-                ).filter((item) => item.value === params.value)[0]
+          const [tempSelectedValues, setTempSelectedValues] =
+            React.useState(selectedValues);
+          const [open, setOpen] = React.useState(false);
+          const selectedUsers = userList.filter((item) =>
+            tempSelectedValues.includes(item.value)
+          );
+          const autocompleteRef = React.useRef<HTMLDivElement>(null);
+          const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+          React.useEffect(() => {
+            const handleClickOutside = (event: any) => {
+              if (
+                autocompleteRef.current &&
+                !autocompleteRef.current.contains(event.target) &&
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+              ) {
+                setOpen(false);
               }
-              renderInput={(param) => (
-                <TextField
-                  placeholder="Assign User"
-                  className="h-12 flex items-center justify-center"
-                  variant="standard"
-                  {...param}
-                  InputProps={{
-                    ...param.InputProps,
-                    style: {
-                      fontSize: "14px",
-                    },
-                    startAdornment: param.inputProps.value && (
-                      <InputAdornment position="start">
-                        <Avatar className={classes.avatarStyle}>
-                          <AlphabetColor
-                            alphabet={(params.row.BusinessTypeId === 1
-                              ? assignUserList1
-                              : params.row.BusinessTypeId === 2
-                              ? assignUserList2
-                              : assignUserList3
-                            )
-                              .filter((item) => item.value === params.value)[0]
-                              ?.label.charAt(0)
-                              .toUpperCase()}
-                          />
-                        </Avatar>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
+            };
+
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+              document.removeEventListener("mousedown", handleClickOutside);
+            };
+          }, []);
+
+          const handleAvatarGroupClick = (event: React.MouseEvent) => {
+            event.stopPropagation();
+            setOpen(true);
+          };
+
+          return (
+            <div ref={autocompleteRef}>
+              <Autocomplete
+                className={classes.underlineDropdown}
+                multiple
+                disableCloseOnSelect
+                options={userList}
+                open={open}
+                onOpen={() => setOpen(true)}
+                onClose={(event, reason) => {
+                  if (reason === "toggleInput") {
+                    setOpen(false);
+                  }
+                }}
+                renderOption={(props, option) => {
+                  const isSelected = tempSelectedValues.includes(option.value);
+                  return (
+                    <li {...props}>
+                      <Checkbox
+                        checked={isSelected}
+                        onChange={(event) => {
+                          const newSelectedValues = isSelected
+                            ? tempSelectedValues.filter(
+                                (value) => value !== option.value
+                              )
+                            : [...tempSelectedValues, option.value];
+                          setTempSelectedValues(newSelectedValues);
+                        }}
+                      />
+                      <Avatar
+                        className={classes.avatarStyle}
+                        alt={option.label}
+                      >
+                        <AlphabetColor
+                          alphabet={option.label.charAt(0).toUpperCase()}
+                        />
+                      </Avatar>
+                      <div style={{ marginLeft: 8 }}>
+                        <ListItemText
+                          primary={option.label}
+                          primaryTypographyProps={{
+                            sx: {
+                              fontSize: "14px",
+                              textOverflow: "ellipsis",
+                            },
+                          }}
+                        />
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            fontSize: "10px",
+                            fontStyle: "italic",
+                            color: "text.secondary",
+                            lineHeight: 1,
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            maxWidth: "100px",
+                            textOverflow: "ellipsis",
+                            marginBottom: "4px",
+                          }}
+                        >
+                          {option.email}
+                        </Typography>
+                      </div>
+                    </li>
+                  );
+                }}
+                getOptionLabel={(item) => item.label}
+                onChange={(event, newValue) => {
+                  setTempSelectedValues(newValue.map((item) => item.value));
+                }}
+                value={userList.filter((item) =>
+                  tempSelectedValues.includes(item.value)
+                )}
+                renderInput={(param) => (
+                  <TextField
+                    placeholder={`${
+                      tempSelectedValues.filter((value) => value !== 0).length < 1 ? "Assign Users" : ""
+                    }`}
+                    className="h-12 flex items-center justify-center"
+                    variant="standard"
+                    {...param}
+                    InputProps={{
+                      ...param.InputProps,
+                      style: {
+                        fontSize: "14px",
+                      },
+                      startAdornment: (
+                        <InputAdornment
+                          position="start"
+                          onClick={handleAvatarGroupClick}
+                        >
+                          <AvatarGroup
+                            max={5}
+                            sx={{ marginRight: 1, cursor: "pointer" }}
+                          >
+                            {selectedUsers.map((option) => (
+                              <Tooltip
+                                key={option.value}
+                                title={selectedUsers
+                                  .map((u) => u.label)
+                                  .join(", ")}
+                                arrow
+                                placement="top"
+                              >
+                                <Avatar className={classes.avatarStyle}>
+                                  <AlphabetColor
+                                    alphabet={option.label
+                                      .charAt(0)
+                                      .toUpperCase()}
+                                  />
+                                </Avatar>
+                              </Tooltip>
+                            ))}
+                          </AvatarGroup>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+                PaperComponent={({ children }) => (
+                  <Paper
+                    ref={dropdownRef}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
+                    {children}
+                    <div className="w-full">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className="w-full"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          params.api.setEditCellValue({
+                            id: params.id,
+                            field: params.field,
+                            value: tempSelectedValues,
+                          });
+                          setOpen(false);
+
+                          saveAssignUser(
+                            tempSelectedValues,
+                            params.row.ClientId
+                          );
+                        }}
+                      >
+                        SAVE
+                      </Button>
+                    </div>
+                  </Paper>
+                )}
+              />
+            </div>
           );
         } else {
+          const assignedUsers = Array.isArray(params.row.AssignUser)
+            ? params.row.AssignUser
+            : [params.row.AssignUser];
           return (
-            <div className="flex justify-start items-center text-[14px] gap-2">
-              <Avatar
-                className={classes.avatarStyle}
-                alt={params.row.AssignUser}
-              >
-                <AlphabetColor
-                  alphabet={params.row.AssignUser.charAt(0).toUpperCase()}
-                />
-              </Avatar>
-              <span>{params.row.AssignUser}</span>
+            <div
+              className="flex justify-start  text-[14px] gap-2"
+              style={{ marginTop: 11 }}
+            >
+              <AvatarGroup max={5}>
+                {assignedUsers.map((user: string, index: string) => (
+                  <Tooltip
+                    key={index}
+                    title={assignedUsers.map((u: Option) => u).join(", ")}
+                    arrow
+                    placement="top"
+                  >
+                    <Avatar className={classes.avatarStyle} alt={user}>
+                      <AlphabetColor alphabet={user.charAt(0).toUpperCase()} />
+                    </Avatar>
+                  </Tooltip>
+                ))}
+              </AvatarGroup>
             </div>
           );
         }
@@ -355,7 +484,7 @@ function Page() {
 
   const getAssignUser = async (
     id: number
-  ): Promise<{ label: string; value: number }[]> => {
+  ): Promise<{ label: string; value: number; email: string }[]> => {
     return new Promise((resolve, reject) => {
       const callback = (
         ResponseStatus: string,
@@ -372,6 +501,7 @@ function Page() {
               ResponseData.Users.map((item: any) => ({
                 label: item.UserName,
                 value: item.UserId,
+                email: item.UserEmail,
               }))
             );
             break;
@@ -397,6 +527,25 @@ function Page() {
     } catch (error) {
       console.error("Failed to get assigned user list", error);
     }
+  };
+
+  const saveAssignUser = async (value: number[], ClientId: number) => {
+    const callBack = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          getClientList();
+          return;
+      }
+    };
+
+    callAPIwithHeaders(saveAssignee, "post", callBack, {
+      userId: value.filter((value) => value !== 0),
+      clientId: ClientId,
+    });
   };
 
   const getBusinessList = async () => {

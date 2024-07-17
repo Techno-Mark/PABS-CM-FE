@@ -34,6 +34,7 @@ export interface InActiveProps {
 export interface Option {
   value: number;
   label: string;
+  email: string;
 }
 
 export interface StatusOption {
