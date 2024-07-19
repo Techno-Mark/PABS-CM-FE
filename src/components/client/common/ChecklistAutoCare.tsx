@@ -141,7 +141,7 @@ function ChecklistAutoCare({
   const [autoCareKickOff, setAutoCareKickOff] = useState<KickOffFormTypes>(
     initialAutoCareKickOff
   );
-// phase 2:
+  // phase 2:
   const [autoCareITStructureReview, setAutoCareITStructureReview] =
     useState<ITStructureReviewFormTypes>(initialAutoCareITStructureReview);
   const [autoCareAccessComputerMethod, setAutoCareAccessComputerMethod] =
@@ -157,7 +157,7 @@ function ChecklistAutoCare({
   const [autoCareScanner, setAutoCareScanner] = useState<ScannerFormTypes>(
     initialAutoCareScanner
   );
-// phase 3:
+  // phase 3:
   const [
     autoCareOperatingCheckingAccount,
     setAutoCareOperatingCheckingAccount,
@@ -172,7 +172,7 @@ function ChecklistAutoCare({
     useState<BusinessLoansFormTypes>(initialAutoCareBusinessLoans);
   const [autoCarePropertyLoans, setAutoCarePropertyLoans] =
     useState<PropertyLoansFormTypes>(initialAutoCarePropertyLoans);
-//phase 4:
+  //phase 4:
   const [autoCarePayrollServiceProvider, setAutoCarePayrollServiceProvider] =
     useState<PayrollServiceProviderFormTypes>(
       initialAutoCarePayrollServiceProvider
@@ -184,9 +184,9 @@ function ChecklistAutoCare({
 
   //phase 5:
   const [autoCareSalesTaxAccessWorkPaper, setAutoCareSalesTaxAccessWorkPaper] =
-  useState<SalesTaxAccessWorkPaperFormTypes>(
-    initialAutoCareSalesTaxAccessWorkPaper
-  );
+    useState<SalesTaxAccessWorkPaperFormTypes>(
+      initialAutoCareSalesTaxAccessWorkPaper
+    );
   const [autoCareUseTax, setAutoCareUseTax] = useState<UseTaxFormTypes>(
     initialAutoCareUseTax
   );
@@ -197,7 +197,7 @@ function ChecklistAutoCare({
     useState<LastTaxReturnFiledYearFormTypes>(
       initialAutoCareLastTaxReturnFiledYear
     );
-//phase 6:
+  //phase 6:
   const [autoCareVendorPortalAccess, setAutoCareVendorPortalAccess] =
     useState<VendorPortalAccessFormTypes>(initialAutoCareVendorPortalAccess);
   const [autoCareTradeAccount, setAutoCareTradeAccount] =
@@ -206,7 +206,7 @@ function ChecklistAutoCare({
     useState<BillPayAccessFormTypes>(initialAutoCareBillPayAccess);
   const [autoCareApThresholdLimit, setAutoCareApThresholdLimit] =
     useState<ApThresholdLimitFormTypes>(initialAutoCareApThresholdLimit);
-//phase 7:
+  //phase 7:
   const [autoCareLastClosedPeriod, setAutoCareLastClosedPeriod] =
     useState<LastClosedPeriodFormTypes>(initialAutoCareLastClosedPeriod);
   const [autoCareSharingFinancials, setAutoCareSharingFinancials] =
@@ -1238,33 +1238,76 @@ function ChecklistAutoCare({
   };
 
   const checklistStatus = () => {
-    const requiredFields = [autoCarePosSoftware.posSoftwareStatus,
-      autoCareAccountingSoftware.accountingSoftwareStatus,
-      autoCareOperatingCheckingAccount.operatingCheckingAccountStatus,
-      autoCareSavingsAccount.savingsAccountStatus,
-      autoCareCreditCard.creditCardStatus,
-      autoCarePayrollServiceProvider.payrollServiceProviderStatus,
-      autoCareFrequency.frequencyStatus,
-      autoCareSalesTaxAccessWorkPaper.salesTaxAccessWorkPaperStatus,
-      autoCareUseTax.useTaxStatus,
-      autoCareTireTax.tireTaxStatus,
-      autoCareLastTaxReturnFiledYear.lastTaxReturnFiledYearStatus,
-      autoCareVendorPortalAccess.vendorPortalAccessStatus,
-      autoCareBillPayAccess.billPayAccessStatus,
-      autoCareLastClosedPeriod.lastClosedPeriodStatus,];
+    const sections = {
+      systemSoftwareLocationsChecked: [
+        autoCarePosSoftware.posSoftwareStatus,
+        autoCareAccountingSoftware.accountingSoftwareStatus,
+      ],
+      cashBankLoansChecked: [
+        autoCareOperatingCheckingAccount.operatingCheckingAccountStatus,
+        autoCareSavingsAccount.savingsAccountStatus,
+        autoCareCreditCard.creditCardStatus,
+      ],
+      payrollSystemChecked: [
+        autoCarePayrollServiceProvider.payrollServiceProviderStatus,
+        autoCareFrequency.frequencyStatus,
+      ],
+      compliancesChecked: [
+        autoCareSalesTaxAccessWorkPaper.salesTaxAccessWorkPaperStatus,
+        autoCareUseTax.useTaxStatus,
+        autoCareTireTax.tireTaxStatus,
+        autoCareLastTaxReturnFiledYear.lastTaxReturnFiledYearStatus,
+      ],
+      accessChecked: [
+        autoCareVendorPortalAccess.vendorPortalAccessStatus,
+        autoCareBillPayAccess.billPayAccessStatus,
+      ],
+      financialsChecked: [autoCareLastClosedPeriod.lastClosedPeriodStatus],
+    };
 
-    let completedCount = 0;
-    const totalRequired = requiredFields.length;
+    let requiredFields: string[] = [];
 
-    requiredFields.forEach((field: any) => {
-      if (field === "Completed") {
-        completedCount++;
+    // Only include fields from checked sections
+    Object.entries(sections).forEach(([sectionName, fields]) => {
+      if (eval(sectionName)) {
+        requiredFields = requiredFields.concat(fields);
       }
     });
 
-    const percentage = Math.floor((completedCount / totalRequired) * 100);
+    const totalRequired = requiredFields.length;
+    let completedCount = 0;
+    let inProgressCount = 0;
+
+    requiredFields.forEach((field: string) => {
+      if (field === "Completed") {
+        completedCount++;
+      } else if (field === "In Progress") {
+        inProgressCount++;
+      }
+    });
+
+    if (totalRequired === 0) {
+      return 0;
+    }
+
+    const completedPercentage = (completedCount / totalRequired) * 100;
+    const inProgressPercentage = (inProgressCount / totalRequired) * 50;
+
+    const percentage = Math.floor(completedPercentage + inProgressPercentage);
     return percentage;
   };
+
+  useEffect(() => {
+    const counts = checklistStatus();
+    setChecklistCount(counts);
+  }, [
+    systemSoftwareLocationsChecked,
+    cashBankLoansChecked,
+    payrollSystemChecked,
+    compliancesChecked,
+    accessChecked,
+    financialsChecked,
+  ]);
 
   const phases = [
     {

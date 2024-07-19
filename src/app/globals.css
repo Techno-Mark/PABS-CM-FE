@@ -145,3 +145,11 @@ input::-ms-clear {
 .MuiAutocomplete-listbox{
   max-height: 28vh !important;
 }
+
+.MuiInputAdornment-root {
+  margin-right: 0px !important;
+}
+
+.MuiAvatarGroup-root {
+  margin-right: 2px !important;
+}
