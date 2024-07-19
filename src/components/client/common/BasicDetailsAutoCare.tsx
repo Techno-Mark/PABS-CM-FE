@@ -22,6 +22,7 @@ import {
 } from "@/models/autoCareBasicDetails";
 // Static import
 import {
+  CountryList,
   StateList,
   TimeZoneList,
   WeeklyCallsList,
@@ -74,7 +75,7 @@ function BasicDetailsAutoCare({
   const [autoCareLegalStructure, setAutoCareLegalStructure] =
     useState<LegalStructureFormTypes>(initialAutoCareLegalStructure);
   const [autoCareClientTeam, setAutoCareClientTeam] =
-    useState<ClientTeamFormTypes>(initialAutoCareClientTeam);
+  useState<ClientTeamFormTypes>(initialAutoCareClientTeam);
   const [autoCarePabsAccountingTeam, setAutoCarePabsAccountingTeam] =
     useState<PabsAccountingTeamFormTypes>(initialAutoCarePabsAccountingTeam);
 
@@ -157,10 +158,8 @@ function BasicDetailsAutoCare({
                       (time) => time.label === ResponseData?.timeZone
                     )?.value || "-1"
                   : "-1",
-              state: ResponseData?.state
-                ? StateList.find((state) => state.label === ResponseData?.state)
-                    ?.value || "-1"
-                : "-1",
+              country: ResponseData?.country || "",
+              state: ResponseData?.state || "",
               weeklyCalls: ResponseData?.weeklyCalls
                 ? ResponseData?.weeklyCalls
                     .split(",")
@@ -439,11 +438,8 @@ function BasicDetailsAutoCare({
               (time) => time.value === autoCareClientTeam.timeZone
             )?.label
           : "",
-      state:
-        autoCareClientTeam.state !== "-1"
-          ? StateList.find((state) => state.value === autoCareClientTeam.state)
-              ?.label
-          : "",
+      country: autoCareClientTeam.country,
+      state: autoCareClientTeam.state,
       weeklyCalls:
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
         autoCareClientTeam.weeklyCalls.length > 0

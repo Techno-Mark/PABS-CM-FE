@@ -34,6 +34,8 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 // Cookie import
 import Cookies from "js-cookie";
+import Country from "../../common/Country";
+import State from "../../common/State";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -50,6 +52,8 @@ function AutoCareClientTeam({
 }: ClientTeamTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
+
+  const [countryId, setCountryId] = useState(-1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -153,12 +157,8 @@ function AutoCareClientTeam({
           }));
         }
         break;
-      case "state":
-        setAutoCareClientTeam((prev) => ({ ...prev, state: value }));
-        break;
     }
   };
-  
 
   const timeZoneMap: { [key: string]: string } = {
     "1": "Asia/Kolkata", // IST
@@ -176,6 +176,20 @@ function AutoCareClientTeam({
     // Convert the time to UTC first, then to IST
     const utcTime = time.tz(selectedTimeZone).utc();
     return utcTime.tz("Asia/Kolkata");
+  };
+
+  const handleLocationChange = (
+    type: "country" | "state" | "city",
+    selected: { id: number; name: string }
+  ) => {
+    setAutoCareClientTeam((prev: any) => ({
+      ...prev,
+      [type]: selected.name,
+    }));
+
+    if (type === "country") {
+      setCountryId(selected.id);
+    }
   };
 
   return (
@@ -336,6 +350,19 @@ function AutoCareClientTeam({
               disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
             />
           </div>
+          <Country
+            value={autoCareClientTeam?.country}
+            onChange={(selected: { id: number; name: string }) =>
+              handleLocationChange("country", selected)
+            }
+          />
+          <State
+            value={autoCareClientTeam?.state}
+            onChange={(selected: { id: number; name: string }) =>
+              handleLocationChange("state", selected)
+            }
+            countryId={countryId}
+          />
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">Time Zone</label>
             <FormControl variant="standard">
@@ -352,33 +379,6 @@ function AutoCareClientTeam({
                 disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
               >
                 {TimeZoneList.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === "-1"}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">State</label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.state === "-1"
-                    ? "!text-[12px] !text-[#a1a1a1]"
-                    : "!text-[14px]"
-                }`}
-                value={autoCareClientTeam?.state}
-                onChange={(e) => handleDropdownChange(e, "state")}
-                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
-              >
-                {StateList.map((type) => (
                   <MenuItem
                     key={type.value}
                     value={type.value}

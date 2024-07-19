@@ -115,33 +115,41 @@ input::-ms-clear {
   border-color: #dc3545;
 }
 
-.scrollbar .MuiDataGrid-scrollbar{
+.scrollbar .MuiDataGrid-scrollbar {
   z-index: 0;
 }
 
-.MuiSelect-select{
+.MuiSelect-select {
   height: 21px !important;
 }
 
-.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input{
+.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input {
   padding: 1px 0 5px 0 !important;
 }
 
-.MuiAutocomplete-option{
+.MuiAutocomplete-option {
   min-height: 0px !important;
   padding: 0px !important;
 }
 
-.MuiAvatar-root{
+.MuiAvatar-root {
   font-size: 14px !important;
   width: 24px !important;
   height: 24px !important;
 }
 
-.MuiAutocomplete-inputRoot{
+.MuiAutocomplete-inputRoot {
   padding-right: 0px !important;
 }
 
-.MuiAutocomplete-listbox{
+.MuiAutocomplete-listbox {
   max-height: 28vh !important;
+}
+
+.MuiInputAdornment-root {
+  margin-right: 0px !important;
+}
+
+.MuiAvatarGroup-root {
+  margin-right: 2px !important;
 }
