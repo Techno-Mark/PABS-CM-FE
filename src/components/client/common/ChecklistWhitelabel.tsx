@@ -683,35 +683,73 @@ const ChecklistWhitelabel = ({
   ]);
 
   const whiteLabelchecklistStatus = () => {
-    const requiredFields = [
-      whitelabelAccountingSoftware.accountingSoftwareWhiteLabelStatus,
-      whitelabelCloudDocument.cloudDocumentWhiteLabelStatus,
-      whitelabelMessenger.messengerWhiteLabelStatus,
-      whitelabelSystemAccess.systemAccessWhiteLabelStatus,
-      whitelabelFTE.FTEStatus,
-      whitelabelAccounting.accountingStatus,
-      whitelabelTax.taxStatus,
-      whitelabelMonthly.monthlyStatus,
-      whitelabelCleanup.cleanupStatus,
-      whitelabelCatchup.catchupStatus,
-      whitelabelCombination.combinationStatus,
-      whitelabelTimeZone.timeZoneStatus,
-      whitelabelConvenientDay.convenientDayStatus,
-      whitelabelTimeSlot.timeSlotStatus,
-    ];
+    const sections = {
+      whiteLabelsystemSoftwareChecked: [
+        whitelabelAccountingSoftware.accountingSoftwareWhiteLabelStatus,
+        whitelabelCloudDocument.cloudDocumentWhiteLabelStatus,
+        whitelabelMessenger.messengerWhiteLabelStatus,
+        whitelabelSystemAccess.systemAccessWhiteLabelStatus,
+      ],
+      whiteLabelServiceTypeChecked: [
+        whitelabelFTE.FTEStatus,
+        whitelabelAccounting.accountingStatus,
+        whitelabelTax.taxStatus,
+      ],
 
-    let completedCount = 0;
-    const totalRequired = requiredFields.length;
+      whitelabelWorkAssignmentChecked: [
+        whitelabelMonthly.monthlyStatus,
+        whitelabelCleanup.cleanupStatus,
+        whitelabelCatchup.catchupStatus,
+        whitelabelCombination.combinationStatus,
+      ],
+      whiteLabelMeetingAvailabilityChecked: [
+        whitelabelTimeZone.timeZoneStatus,
+        whitelabelConvenientDay.convenientDayStatus,
+        whitelabelTimeSlot.timeSlotStatus,
+      ],
+    };
 
-    requiredFields.forEach((field: any) => {
-      if (field === "Completed") {
-        completedCount++;
+    let requiredFields: string[] = [];
+
+    // Only include fields from checked sections
+    Object.entries(sections).forEach(([sectionName, fields]) => {
+      if (eval(sectionName)) {
+        requiredFields = requiredFields.concat(fields);
       }
     });
 
-    const percentage = Math.floor((completedCount / totalRequired) * 100);
+    const totalRequired = requiredFields.length;
+    let completedCount = 0;
+    let inProgressCount = 0;
+
+    requiredFields.forEach((field: string) => {
+      if (field === "Completed") {
+        completedCount++;
+      } else if (field === "In Progress") {
+        inProgressCount++;
+      }
+    });
+
+    if (totalRequired === 0) {
+      return 0;
+    }
+
+    const completedPercentage = (completedCount / totalRequired) * 100;
+    const inProgressPercentage = (inProgressCount / totalRequired) * 50;
+
+    const percentage = Math.floor(completedPercentage + inProgressPercentage);
     return percentage;
   };
+
+  useEffect(() => {
+    const counts = whiteLabelchecklistStatus();
+    setWhiteLabelChecklistCount(counts);
+  }, [
+    whiteLabelsystemSoftwareChecked,
+    whiteLabelServiceTypeChecked,
+    whitelabelWorkAssignmentChecked,
+    whiteLabelMeetingAvailabilityChecked,
+  ]);
 
   const handleWhiteLabelChecklistRemoveErrors = () => {
     setWhiteLabelSystemSoftwareErrors({});
@@ -735,7 +773,7 @@ const ChecklistWhitelabel = ({
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
           type !== 3 ? isValid && showToast(Message, ToastType.Success) : "";
           setExpandedAccordian(-1);
-          type !== 3 && showToast(Message, ToastType.Success);
+          // type !== 3 && showToast(Message, ToastType.Success);
           type === 3 && setChecklistFormSubmit(11);
           type === 1 && setChecklistFormSubmit(13);
           return;

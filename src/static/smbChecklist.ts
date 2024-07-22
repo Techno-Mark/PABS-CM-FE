@@ -1,238 +1,238 @@
 export const initialClientName = {
-  ClientNameStatus: "",
+  ClientNameStatus: "Pending",
   ClientNameDetails: "",
   ClientNameActionItems: "",
 };
 
 export const initialTypeOfEntity = {
-  TypeOfEntityStatus: "",
+  TypeOfEntityStatus: "Pending",
   TypeOfEntityDetails: "",
   TypeOfEntityActionItems: "",
 };
 export const initialBusinessNature = {
-  BusinessNatureStatus: "",
+  BusinessNatureStatus: "Pending",
   BusinessNatureDetails: "",
   BusinessNatureActionItems: "",
 };
 
 export const initialDimensions = {
-  DimensionsStatus: "",
+  DimensionsStatus: "Pending",
   DimensionsDetails: "",
   DimensionsActionItems: "",
 };
 
 export const initialPoc = {
-  PocStatus: "",
+  PocStatus: "Pending",
   PocDetails: "",
   PocActionItems: "",
 };
 
 export const initialEmail = {
-  EmailStatus: "",
+  EmailStatus: "Pending",
   EmailDetails: "",
   EmailActionItems: "",
 };
 
 export const initialContactNumber = {
-  ContactNumberStatus: "",
+  ContactNumberStatus: "Pending",
   ContactNumberDetails: "",
   ContactNumberActionItems: "",
 };
 
 export const initialAddress = {
-  AddressStatus: "",
+  AddressStatus: "Pending",
   AddressDetails: "",
   AddressActionItems: "",
 };
 
 export const initialClientWebsite = {
-  ClientWebsiteStatus: "",
+  ClientWebsiteStatus: "Pending",
   ClientWebsiteDetails: "",
   ClientWebsiteActionItems: "",
 };
 
 export const initialDepartment = {
-  DepartmentStatus: "",
+  DepartmentStatus: "Pending",
   DepartmentDetails: "",
   DepartmentActionItems: "",
 };
 
 export const initialOperationsPoc = {
-  OperationsPocStatus: "",
+  OperationsPocStatus: "Pending",
   OperationsPocDetails: "",
   OperationsPocActionItems: "",
 };
 
 export const initialOnboardingPoc = {
-  OnboardingPocStatus: "",
+  OnboardingPocStatus: "Pending",
   OnboardingPocDetails: "",
   OnboardingPocActionItems: "",
 };
 
 export const initialPABSGroupEmail = {
-  pabsGroupEmailStatus: "",
+  pabsGroupEmailStatus: "Pending",
   pabsGroupEmailDetails: "",
   pabsGroupEmailActionItems: "",
 };
 
 export const initialAccessAccountingSoftware = {
-  AccessAccountingSoftwareStatus: "",
+  AccessAccountingSoftwareStatus: "Pending",
   AccessAccountingSoftwareDetails: "",
   AccessAccountingSoftwareActionItems: "",
 };
 
 export const initialDropboxSetUp = {
-  DropboxSetUpStatus: "",
+  DropboxSetUpStatus: "Pending",
   DropboxSetUpDetails: "",
   DropboxSetUpActionItems: "",
 };
 
 export const initialSalesTaxPortalAccess = {
-  salesTaxPortalAccessStatus: "",
+  salesTaxPortalAccessStatus: "Pending",
   salesTaxPortalAccessDetails: "",
   salesTaxPortalAccessActionItems: "",
 };
 
 export const initialMerchantAccountPortalAccess = {
-  merchantAccountPortalAccessStatus: "",
+  merchantAccountPortalAccessStatus: "Pending",
   merchantAccountPortalAccessDetails: "",
   merchantAccountPortalAccessActionItems: "",
 };
 
 export const initialPayrollServiceAccess = {
-  PayrollServiceAccessStatus: "",
+  PayrollServiceAccessStatus: "Pending",
   PayrollServiceAccessDetails: "",
   PayrollServiceAccessActionItems: "",
 };
 
 export const initialPayrollFrequency = {
-  PayrollFrequencyStatus: "",
+  PayrollFrequencyStatus: "Pending",
   PayrollFrequencyDetails: "",
   PayrollFrequencyActionItems: "",
 };
 
 export const initialExpensepaymentPortalAccess = {
-  expensePaymentPortalAccessStatus: "",
+  expensePaymentPortalAccessStatus: "Pending",
   expensePaymentPortalAccessDetails: "",
   expensePaymentPortalAccessActionItems: "",
 };
 
 export const initialModeOfPayment = {
-  ModeOfPaymentStatus: "",
+  ModeOfPaymentStatus: "Pending",
   ModeOfPaymentDetails: "",
   ModeOfPaymentActionItems: "",
 };
 
 export const initialApBills = {
-  ApBillsStatus: "",
+  ApBillsStatus: "Pending",
   ApBillsDetails: "",
   ApBillsActionItems: "",
 };
 
 export const initialPointSalesAccess = {
-  pointSalesAccessStatus: "",
+  pointSalesAccessStatus: "Pending",
   pointSalesAccessDetails: "",
   pointSalesAccessActionItems: "",
 };
 
 export const initialSavingAccount = {
-  SavingAccountStatus: "",
+  SavingAccountStatus: "Pending",
   SavingAccountDetails: "",
   SavingAccountActionItems: "",
 };
 
 export const initialAccessSavingAccount = {
-  AccessSavingAccountStatus: "",
+  AccessSavingAccountStatus: "Pending",
   AccessSavingAccountDetails: "",
   AccessSavingAccountActionItems: "",
 };
 
 export const initialAddCards = {
-  AddCardsStatus: "",
+  AddCardsStatus: "Pending",
   AddCardsDetails: "",
   AddCardsActionItems: "",
 };
 
 export const initialAccessCreditCardPortal = {
-  AccessCreditCardPortalStatus: "",
+  AccessCreditCardPortalStatus: "Pending",
   AccessCreditCardPortalDetails: "",
   AccessCreditCardPortalActionItems: "",
 };
 
 export const initialAccessLoanAccount = {
-  AccessLoanAccountStatus: "",
+  AccessLoanAccountStatus: "Pending",
   AccessLoanAccountDetails: "",
   AccessLoanAccountActionItems: "",
 };
 
 export const initialAccessCreditCard = {
-  AccessCreditCardStatus: "",
+  AccessCreditCardStatus: "Pending",
   AccessCreditCardDetails: "",
   AccessCreditCardActionItems: "",
 };
 
 export const initialLiveDate = {
-  LiveDateStatus: "",
+  LiveDateStatus: "Pending",
   LiveDateDetails: "",
   LiveDateActionItems: "",
 };
 
 export const initialAccountingMethod = {
-  AccountingMethodStatus: "",
+  AccountingMethodStatus: "Pending",
   AccountingMethodDetails: "",
   AccountingMethodActionItems: "",
 };
 
 export const initialFEIN = {
-  FEINStatus: "",
+  FEINStatus: "Pending",
   FEINDetails: "",
   FEINActionItems: "",
 };
 
 export const initialFiscalYearEnd = {
-  FiscalYearEndStatus: "",
+  FiscalYearEndStatus: "Pending",
   FiscalYearEndDetails: "",
   FiscalYearEndActionItems: "",
 };
 
 export const initialLastClosedMonth = {
-  LastClosedMonthStatus: "",
+  LastClosedMonthStatus: "Pending",
   LastClosedMonthDetails: "",
   LastClosedMonthActionItems: "",
 };
 
 export const initialContactOfCpa = {
-  ContactOfCpaStatus: "",
+  ContactOfCpaStatus: "Pending",
   ContactOfCpaDetails: "",
   ContactOfCpaActionItems: "",
 };
 
 export const initialTaxReturn = {
-  TaxReturnStatus: "",
+  TaxReturnStatus: "Pending",
   TaxReturnDetails: "",
   TaxReturnActionItems: "",
 };
 
 export const initialDistributionList = {
-  DistributionListStatus: "",
+  DistributionListStatus: "Pending",
   DistributionListDetails: "",
   DistributionListActionItems: "",
 };
 
 export const initialTimeZone = {
-  TimeZoneStatus: "",
+  TimeZoneStatus: "Pending",
   TimeZoneDetails: "",
   TimeZoneActionItems: "",
 };
 
 export const initialConvenient = {
-  ConvenientStatus: "",
+  ConvenientStatus: "Pending",
   ConvenientDetails: "",
   ConvenientActionItems: "",
 };
 
 export const initialTimeSlot = {
-  TimeSlotStatus: "",
+  TimeSlotStatus: "Pending",
   TimeSlotDetails: "",
   TimeSlotActionItems: "",
 };

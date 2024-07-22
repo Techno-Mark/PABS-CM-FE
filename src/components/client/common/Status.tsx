@@ -31,12 +31,12 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           return;
         case "success":
           setOptions(ResponseData);
-          const pendingOption = ResponseData.find(
-            (option) => option.name === "Pending"
-          );
-          if (pendingOption && !value) {
-            onChange(pendingOption.name);
-          }
+          // const pendingOption = ResponseData.find(
+          //   (option) => option.name === "Pending"
+          // );
+          // if (pendingOption && !value) {
+          //   onChange(pendingOption.name);
+          // }
           return;
       }
     };
@@ -63,7 +63,7 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
       >
         <Select
           name="Status"
-          value={value || ""}
+          value={value}
           onChange={handleStatusChange}
           inputProps={{
             className: classes.textSize,
