@@ -31,12 +31,6 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           return;
         case "success":
           setOptions(ResponseData);
-          // const pendingOption = ResponseData.find(
-          //   (option) => option.name === "Pending"
-          // );
-          // if (pendingOption && !value) {
-          //   onChange(pendingOption.name);
-          // }
           return;
       }
     };
@@ -68,6 +62,7 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           inputProps={{
             className: classes.textSize,
           }}
+          className={classes.select}
         >
           {options.map((option) => (
             <MenuItem key={option.id} value={option.name}>

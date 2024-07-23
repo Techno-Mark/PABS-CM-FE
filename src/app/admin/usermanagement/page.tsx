@@ -121,10 +121,11 @@ function Page() {
                       <Tooltip title="Edit" placement="top" arrow>
                         <span
                           className="cursor-pointer"
-                          onClick={() => {
+                          onClick={async () => {
                             setOpenDrawer(true);
                             setEdit(true);
                             setUserId(params.row.UserId);
+                            getBusinessList(params.row.RoleName);
                           }}
                         >
                           <EditIcon />
@@ -222,7 +223,7 @@ function Page() {
     });
   };
 
-  const getBusinessList = async () => {
+  const getBusinessList = async (editUserRole?: String) => {
     const callback = (
       ResponseStatus: string,
       Message: string,
@@ -237,7 +238,15 @@ function Page() {
           return;
       }
     };
-    await callAPIwithHeaders(businessListUrl, "get", callback, {});
+    await callAPIwithHeaders(
+      editUserRole === "Admin"
+        ? `${businessListUrl}?showAll=1`
+        : 
+        businessListUrl,
+      "get",
+      callback,
+      {}
+    );
   };
 
   useEffect(() => {

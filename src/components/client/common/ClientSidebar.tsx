@@ -115,11 +115,11 @@ const ClientSidebar = ({
     }
     if (perCountBasicDetails || perCountChecklist) {
       const progressPer = (perCountBasicDetails! + perCountChecklist!) / 2;
-      setAutoCareProgressPercentage(Math.floor(progressPer));
+      setAutoCareProgressPercentage(Number(progressPer.toFixed(2)));
     }
     if (perCountWhiteLabelBasicDetails || perCountWhiteLabelChecklist) {
       const progressPer = (perCountWhiteLabelBasicDetails! + perCountWhiteLabelChecklist!) / 2;
-      setWhiteLabelProgressPercentage(Math.floor(progressPer));
+      setWhiteLabelProgressPercentage(Number(progressPer.toFixed(2)));
     }
   }, [
     businessTypeId,

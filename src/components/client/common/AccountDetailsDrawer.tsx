@@ -672,7 +672,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`!text-[14px]`}
+                className={classes.select}
                 value={formValues.status}
                 onChange={(e: any) => handleSwitchChange(e)}
               >
