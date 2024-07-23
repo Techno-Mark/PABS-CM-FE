@@ -689,7 +689,7 @@ const BasicDetailsWhitelabel = ({
     let totalFields = relevantFields.length;
 
     let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+      totalFields > 0 ? Number(((count / totalFields) * 100).toFixed(2)) : 0;
 
     return percentage;
   };

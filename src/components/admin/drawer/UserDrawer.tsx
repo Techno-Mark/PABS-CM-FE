@@ -191,6 +191,12 @@ const UserDrawer = ({
   };
 
   const handleRoleChange = (e: { target: { value: number | string } }) => {
+    if (e.target.value !== 2)
+      setBusinessType({
+        value: [-1],
+        error: false,
+        errorText: "",
+      });
     if (
       e.target.value.toString().trim().length === 0 ||
       Number(e.target.value) === -1
@@ -286,7 +292,10 @@ const UserDrawer = ({
 
     const emailError = validateAndSetField(setEmail, email.value, "Email");
     const roleError = validateAndSetFieldNumber(setRole, role.value, "Role");
-    const businessTypeError = businessType.value.length === 1;
+    const businessvalue = Array.isArray(businessType.value)
+      ? businessType.value.filter((id) => id !== -1)
+      : [businessType.value];
+    const businessTypeError = businessvalue.length === 0;
     if (businessTypeError) {
       setBusinessType({
         ...businessType,
@@ -358,6 +367,24 @@ const UserDrawer = ({
       value: 2,
     });
     setInactive(false);
+  };
+
+  const handleChipDelete = (valueToDelete: number) => {
+    setBusinessType((prevState) => {
+      const newValue = prevState.value.filter((id) => id !== valueToDelete);
+      if (newValue.length === 0) {
+        return {
+          value: [],
+          error: true,
+          errorText: "Department Type is required",
+        };
+      } else {
+        return {
+          ...prevState,
+          value: newValue,
+        };
+      }
+    });
   };
 
   const compareValues = useCallback(() => {
@@ -434,6 +461,9 @@ const UserDrawer = ({
             inputProps={{
               className: classes.textSize,
             }}
+            disabled={
+              role.value == 2 && Number(roleId) === 2 && canEdit ? true : false
+            }
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
@@ -513,6 +543,11 @@ const UserDrawer = ({
                   ? businessType.value
                   : [businessType.value]
               }
+              disabled={
+                role.value == 2 && Number(roleId) === 2 && canEdit
+                  ? true
+                  : false
+              }
               onChange={handleBusinessTypeChange}
               renderValue={(selected) => {
                 const selectedArray = Array.isArray(selected)
@@ -532,12 +567,7 @@ const UserDrawer = ({
                             }
                             onDelete={(event) => {
                               event.stopPropagation();
-                              setBusinessType((prevState) => ({
-                                ...prevState,
-                                value: prevState.value.filter(
-                                  (id) => id !== value
-                                ),
-                              }));
+                              handleChipDelete(value);
                             }}
                             deleteIcon={
                               <span
@@ -545,6 +575,13 @@ const UserDrawer = ({
                                 onMouseDown={(event) => {
                                   event.stopPropagation();
                                 }}
+                                className={`${
+                                  role.value == 2 &&
+                                  Number(roleId) === 2 &&
+                                  canEdit
+                                    ? "hidden"
+                                    : ""
+                                }`}
                               >
                                 &times;
                               </span>
@@ -572,6 +609,7 @@ const UserDrawer = ({
                     type.BusinessId === -1 ||
                     type.BussinessName === "Please Select"
                   }
+                  className={classes.checkbox}
                 >
                   {role.value === 2 && type.BusinessId !== -1 && (
                     <Checkbox
@@ -581,7 +619,7 @@ const UserDrawer = ({
                       }
                     />
                   )}
-                  <ListItemText primary={type.BussinessName} />
+                  <ListItemText primary={type.BussinessName} className="ml-1" />
                 </MenuItem>
               ))}
             </Select>
@@ -604,6 +642,11 @@ const UserDrawer = ({
                     ? "!text-[12px] text-[#6E6D7A]"
                     : "!text-[14px]"
                 }`}
+                disabled={
+                  role.value == 2 && Number(roleId) === 2 && canEdit
+                    ? true
+                    : false
+                }
                 value={status.value}
                 error={status.error}
                 onChange={handleStatusChange}

@@ -737,8 +737,8 @@ const ChecklistWhitelabel = ({
     const completedPercentage = (completedCount / totalRequired) * 100;
     const inProgressPercentage = (inProgressCount / totalRequired) * 50;
 
-    const percentage = Math.floor(completedPercentage + inProgressPercentage);
-    return percentage;
+    const percentage = completedPercentage + inProgressPercentage;
+    return Number(percentage.toFixed(2));;
   };
 
   useEffect(() => {
