@@ -26,8 +26,8 @@ export const initialAutoCareClientTeam = {
   cpa: "",
   priorBookkeeper: "",
   itSupport: "",
-  timeZone: "-1",
-  country: "-1",
+  timeZone: "",
+  country: "",
   state: "",
   weeklyCalls: [],
   weeklyCallTime: null,
@@ -112,6 +112,7 @@ export const validateAutoCarClientTeam = [
   "weeklyCalls",
   "weeklyCallTime",
   "istTime",
+  "state"
 ];
 
 export const TimeZoneList = [

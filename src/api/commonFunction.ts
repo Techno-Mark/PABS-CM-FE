@@ -79,12 +79,14 @@ export const callAPIwithHeaders = async (
   // headerIfAny?: any
 ) => {
   let response;
-  const url = new URL(process.env.APIDEV_URL!);
-  url.pathname = pathName;
+  const baseUrl = new URL(process.env.APIDEV_URL!);
+  // url.pathname = pathName;
+
+  const fullUrl = `${baseUrl}${pathName}`;
 
   try {
     if (method === "get") {
-      response = await axios.get(url.toString(), {
+      response = await axios.get(fullUrl, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
           "Access-Control-Allow-Origin": "*",
@@ -93,7 +95,7 @@ export const callAPIwithHeaders = async (
         },
       });
     } else if (method === "post") {
-      response = await axios.post(url.toString(), params, {
+      response = await axios.post(fullUrl, params, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
           "Access-Control-Allow-Origin": "*",

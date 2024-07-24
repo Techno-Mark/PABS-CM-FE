@@ -22,9 +22,6 @@ import {
 } from "@/models/autoCareBasicDetails";
 // Static import
 import {
-  CountryList,
-  StateList,
-  TimeZoneList,
   WeeklyCallsList,
   fieldDisplayNamesAccountDetails,
   fieldDisplayNamesClientTeam,
@@ -75,7 +72,7 @@ function BasicDetailsAutoCare({
   const [autoCareLegalStructure, setAutoCareLegalStructure] =
     useState<LegalStructureFormTypes>(initialAutoCareLegalStructure);
   const [autoCareClientTeam, setAutoCareClientTeam] =
-  useState<ClientTeamFormTypes>(initialAutoCareClientTeam);
+    useState<ClientTeamFormTypes>(initialAutoCareClientTeam);
   const [autoCarePabsAccountingTeam, setAutoCarePabsAccountingTeam] =
     useState<PabsAccountingTeamFormTypes>(initialAutoCarePabsAccountingTeam);
 
@@ -152,12 +149,7 @@ function BasicDetailsAutoCare({
               cpa: ResponseData?.cpa,
               priorBookkeeper: ResponseData?.priorBookkeeper,
               itSupport: ResponseData?.itSupport,
-              timeZone:
-                ResponseData?.timeZone && ResponseData?.timeZone !== "-1"
-                  ? TimeZoneList.find(
-                      (time) => time.label === ResponseData?.timeZone
-                    )?.value || "-1"
-                  : "-1",
+              timeZone: ResponseData?.timeZone,
               country: ResponseData?.country || "",
               state: ResponseData?.state || "",
               weeklyCalls: ResponseData?.weeklyCalls
@@ -370,7 +362,7 @@ function BasicDetailsAutoCare({
     let totalFields = relevantFields.length;
 
     let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+      totalFields > 0 ? Number(((count / totalFields) * 100).toFixed(2)) : 0;
 
     return percentage;
   };
@@ -432,12 +424,7 @@ function BasicDetailsAutoCare({
       cpa: autoCareClientTeam.cpa,
       priorBookkeeper: autoCareClientTeam.priorBookkeeper,
       itSupport: autoCareClientTeam.itSupport,
-      timeZone:
-        autoCareClientTeam.timeZone !== "-1"
-          ? TimeZoneList.find(
-              (time) => time.value === autoCareClientTeam.timeZone
-            )?.label
-          : "",
+      timeZone: autoCareClientTeam.timeZone,
       country: autoCareClientTeam.country,
       state: autoCareClientTeam.state,
       weeklyCalls:

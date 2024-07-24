@@ -1374,40 +1374,80 @@ function ChecklistSmb({
   };
 
   const smbChecklistStatus = () => {
-    const requiredFields = [
-      smbClientName.ClientNameStatus,
-      smbPoc.PocStatus,
-      smbEmail.EmailStatus,
-      smbContactNumber.ContactNumberStatus,
-      smbAddress.AddressStatus,
-      smbClientWebsite.ClientWebsiteStatus,
-      smbAccessAccountingSoftware.AccessAccountingSoftwareStatus,
-      smbPayrollServiceAccess.PayrollServiceAccessStatus,
-      smbModeOfPayment.ModeOfPaymentStatus,
-      smbPointSalesAccess.pointSalesAccessStatus,
-      smbSavingAccount.SavingAccountStatus,
-      smbAddCards.AddCardsStatus,
-      smbLiveDate.LiveDateStatus,
-      smbLastClosedMonth.LastClosedMonthStatus,
-      smbTaxReturn.TaxReturnStatus,
-      smbDistributionList.DistributionListStatus,
-      smbTimeZone.TimeZoneStatus,
-      smbConvenient.ConvenientStatus,
-      smbTimeSlot.TimeSlotStatus,
-    ];
+    const sections = {
+      peopleBusinessChecked: [
+        smbClientName.ClientNameStatus,
+        smbPoc.PocStatus,
+        smbEmail.EmailStatus,
+        smbContactNumber.ContactNumberStatus,
+        smbAddress.AddressStatus,
+        smbClientWebsite.ClientWebsiteStatus,
+      ],
+      systemDocumentAccessChecked: [
+        smbAccessAccountingSoftware.AccessAccountingSoftwareStatus,
+        smbPayrollServiceAccess.PayrollServiceAccessStatus,
+        smbModeOfPayment.ModeOfPaymentStatus,
+        smbPointSalesAccess.pointSalesAccessStatus,
+      ],
+      cashBanksLoansChecked: [
+        smbSavingAccount.SavingAccountStatus,
+        smbAddCards.AddCardsStatus,
+      ],
+      conditionExistingFinancialsChecked: [
+        smbLiveDate.LiveDateStatus,
+        smbLastClosedMonth.LastClosedMonthStatus,
+        smbTaxReturn.TaxReturnStatus,
+        smbDistributionList.DistributionListStatus,
+      ],
+      meetingAvailabilityChecked: [
+        smbTimeZone.TimeZoneStatus,
+        smbConvenient.ConvenientStatus,
+        smbTimeSlot.TimeSlotStatus,
+      ],
+    };
 
-    let completedCount = 0;
-    const totalRequired = requiredFields.length;
+    let requiredFields: string[] = [];
 
-    requiredFields.forEach((field: any) => {
-      if (field === "Completed") {
-        completedCount++;
+    // Only include fields from checked sections
+    Object.entries(sections).forEach(([sectionName, fields]) => {
+      if (eval(sectionName)) {
+        requiredFields = requiredFields.concat(fields);
       }
     });
 
-    const percentage = Math.floor((completedCount / totalRequired) * 100);
-    return percentage;
+    const totalRequired = requiredFields.length;
+    let completedCount = 0;
+    let inProgressCount = 0;
+
+    requiredFields.forEach((field: string) => {
+      if (field === "Completed") {
+        completedCount++;
+      } else if (field === "In Progress") {
+        inProgressCount++;
+      }
+    });
+
+    if (totalRequired === 0) {
+      return 0;
+    }
+
+    const completedPercentage = (completedCount / totalRequired) * 100;
+    const inProgressPercentage = (inProgressCount / totalRequired) * 50;
+
+    const percentage = completedPercentage + inProgressPercentage;
+    return Number(percentage.toFixed(2));;
   };
+
+  useEffect(() => {
+    const counts = smbChecklistStatus();
+    setSMBChecklistCount(counts);
+  }, [
+    peopleBusinessChecked,
+    systemDocumentAccessChecked,
+    cashBanksLoansChecked,
+    conditionExistingFinancialsChecked,
+    meetingAvailabilityChecked,
+  ]);
 
   const phases = [
     {

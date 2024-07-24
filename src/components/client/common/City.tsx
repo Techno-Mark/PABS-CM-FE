@@ -1,6 +1,6 @@
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
-import { getChecklistStatusUrl } from "@/static/apiUrl";
+import { getCityUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
 import {
@@ -20,6 +20,7 @@ const City = ({
   helperText,
   disabled,
   stateId,
+  required,
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
@@ -41,7 +42,9 @@ const City = ({
           return;
       }
     };
-    await callAPIwithHeaders(getChecklistStatusUrl, "get", callback, {});
+    await callAPIwithHeaders(getCityUrl, "post", callback, {
+      stateId: stateId,
+    });
   };
 
   useEffect(() => {
@@ -62,7 +65,9 @@ const City = ({
 
   return (
     <div className="text-[12px] flex flex-col">
-      <InputLabel className="text-[#6E6D7A] text-[12px]">City</InputLabel>
+      <InputLabel className="text-[#6E6D7A] text-[12px]">
+        City{required && <span className="text-[#DC3545]">*</span>}
+      </InputLabel>
       <FormControl
         variant="standard"
         size="small"
@@ -81,7 +86,7 @@ const City = ({
             if (selected === "") {
               return (
                 <span className="text-[12px] text-[#A3A3A3]">
-                  Please select city
+                  Please Select City
                 </span>
               );
             }
@@ -89,7 +94,7 @@ const City = ({
           }}
         >
           <MenuItem value="" disabled>
-            <span>Please select city</span>
+            <span>Please Select City</span>
           </MenuItem>
           {options.map((option) => (
             <MenuItem key={option.id} value={option.name}>

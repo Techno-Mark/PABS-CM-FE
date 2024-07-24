@@ -13,8 +13,9 @@ export const initialWhitelabelAccountName = {
 export const validateWhitelabelAccountDetails = [
   "cpaName",
   "corporateAddress",
-  "city",
+  "country",
   "state",
+  "city",
   "zip",
   "ownerContact",
   "ownerEmail",

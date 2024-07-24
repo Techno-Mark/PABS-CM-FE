@@ -134,7 +134,7 @@ function Page() {
             renderOption={(props, option) => {
               const isSelected = tempSelectedValues.includes(option.value);
               return (
-                <Tooltip title={option.email} arrow placement="top">
+                <Tooltip title={option.email} arrow placement="right">
                   <li {...props}>
                     <Checkbox
                       checked={isSelected}
@@ -660,6 +660,10 @@ function Page() {
       clientListParams
     );
   };
+
+  useEffect(() => {
+    getClientList();
+  }, [clientOpenModal]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

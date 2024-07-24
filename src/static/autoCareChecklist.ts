@@ -1,5 +1,5 @@
 export const initialAutoCareGroupEmailEstablished = {
-  groupEmailEstablishStatus: "",
+  groupEmailEstablishStatus: "Pending",
   groupEmailEstablishComments: "",
   groupEmailEstablishDetails: "",
   groupEmailEstablishActionName: "",
@@ -7,7 +7,7 @@ export const initialAutoCareGroupEmailEstablished = {
 };
 
 export const initialAutoCarePreKickOff = {
-  preKickOffStatus: "",
+  preKickOffStatus: "Pending",
   preKickOffComments: "",
   preKickOffDetails: "",
   preKickOffActionName: "",
@@ -15,7 +15,7 @@ export const initialAutoCarePreKickOff = {
 };
 
 export const initialAutoCareKickOff = {
-  kickOffStatus: "",
+  kickOffStatus: "Pending",
   kickOffComments: "",
   kickOffDetails: "",
   kickOffActionName: "",
@@ -23,7 +23,7 @@ export const initialAutoCareKickOff = {
 };
 
 export const initialAutoCareAccessComputerMethod = {
-  accessComputerStatus: "",
+  accessComputerStatus: "Pending",
   accessComputerComments: "",
   accessComputerDetails: "",
   accessComputerActionName: "",
@@ -31,7 +31,7 @@ export const initialAutoCareAccessComputerMethod = {
 };
 
 export const initialAutoCareITStructureReview = {
-  itStructureStatus: "",
+  itStructureStatus: "Pending",
   itStructureComments: "",
   itStructureDetails: "",
   itStructureActionName: "",
@@ -39,7 +39,7 @@ export const initialAutoCareITStructureReview = {
 };
 
 export const initialAutoCarePosSoftware = {
-  posSoftwareStatus: "",
+  posSoftwareStatus: "Pending",
   posSoftwareComments: "",
   posSoftwareDetails: "",
   posSoftwareActionName: "",
@@ -47,7 +47,7 @@ export const initialAutoCarePosSoftware = {
 };
 
 export const initialAutoCareEstimatingSoftware = {
-  estimatingSoftwareStatus: "",
+  estimatingSoftwareStatus: "Pending",
   estimatingSoftwareComments: "",
   estimatingSoftwareDetails: "",
   estimatingSoftwareActionName: "",
@@ -55,7 +55,7 @@ export const initialAutoCareEstimatingSoftware = {
 };
 
 export const initialAutoCareAccountingSoftware = {
-  accountingSoftwareStatus: "",
+  accountingSoftwareStatus: "Pending",
   accountingSoftwareComments: "",
   accountingSoftwareDetails: "",
   accountingSoftwareActionName: "",
@@ -63,7 +63,7 @@ export const initialAutoCareAccountingSoftware = {
 };
 
 export const initialAutoCareCloudDocumentManagement = {
-  cloudDocumentManagementStatus: "",
+  cloudDocumentManagementStatus: "Pending",
   cloudDocumentManagementComments: "",
   cloudDocumentManagementDetails: "",
   cloudDocumentManagementActionName: "",
@@ -71,7 +71,7 @@ export const initialAutoCareCloudDocumentManagement = {
 };
 
 export const initialAutoCareScanner = {
-  scannerStatus: "",
+  scannerStatus: "Pending",
   scannerComments: "",
   scannerDetails: "",
   scannerActionName: "",
@@ -79,7 +79,7 @@ export const initialAutoCareScanner = {
 };
 
 export const initialAutoCareOperatingCheckingAccount = {
-  operatingCheckingAccountStatus: "",
+  operatingCheckingAccountStatus: "Pending",
   operatingCheckingAccountComments: "",
   operatingCheckingAccountDetails: "",
   operatingCheckingAccountActionName: "",
@@ -87,7 +87,7 @@ export const initialAutoCareOperatingCheckingAccount = {
 };
 
 export const initialAutoCareSavingsAccount = {
-  savingsAccountStatus: "",
+  savingsAccountStatus: "Pending",
   savingsAccountComments: "",
   savingsAccountDetails: "",
   savingsAccountActionName: "",
@@ -95,7 +95,7 @@ export const initialAutoCareSavingsAccount = {
 };
 
 export const initialAutoCareCreditCard = {
-  creditCardStatus: "",
+  creditCardStatus: "Pending",
   creditCardComments: "",
   creditCardDetails: "",
   creditCardActionName: "",
@@ -103,7 +103,7 @@ export const initialAutoCareCreditCard = {
 };
 
 export const initialAutoCareBusinessLoans = {
-  businessLoansStatus: "",
+  businessLoansStatus: "Pending",
   businessLoansComments: "",
   businessLoansDetails: "",
   businessLoansActionName: "",
@@ -111,7 +111,7 @@ export const initialAutoCareBusinessLoans = {
 };
 
 export const initialAutoCarePropertyLoans = {
-  propertyLoansStatus: "",
+  propertyLoansStatus: "Pending",
   propertyLoansComments: "",
   propertyLoansDetails: "",
   propertyLoansActionName: "",
@@ -119,7 +119,7 @@ export const initialAutoCarePropertyLoans = {
 };
 
 export const initialAutoCarePayrollServiceProvider = {
-  payrollServiceProviderStatus: "",
+  payrollServiceProviderStatus: "Pending",
   payrollServiceProviderComments: "",
   payrollServiceProviderDetails: "",
   payrollServiceProviderActionName: "",
@@ -127,7 +127,7 @@ export const initialAutoCarePayrollServiceProvider = {
 };
 
 export const initialAutoCareFrequency = {
-  frequencyStatus: "",
+  frequencyStatus: "Pending",
   frequencyComments: "",
   frequencyDetails: "",
   frequencyActionName: "",
@@ -135,7 +135,7 @@ export const initialAutoCareFrequency = {
 };
 
 export const initialAutoCareNoOfEmployee = {
-  noOfEmployeeStatus: "",
+  noOfEmployeeStatus: "Pending",
   noOfEmployeeComments: "",
   noOfEmployeeDetails: "",
   noOfEmployeeActionName: "",
@@ -143,7 +143,7 @@ export const initialAutoCareNoOfEmployee = {
 };
 
 export const initialAutoCareSalesTaxAccessWorkPaper = {
-  salesTaxAccessWorkPaperStatus: "",
+  salesTaxAccessWorkPaperStatus: "Pending",
   salesTaxAccessWorkPaperComments: "",
   salesTaxAccessWorkPaperDetails: "",
   salesTaxAccessWorkPaperActionName: "",
@@ -151,7 +151,7 @@ export const initialAutoCareSalesTaxAccessWorkPaper = {
 };
 
 export const initialAutoCareUseTax = {
-  useTaxStatus: "",
+  useTaxStatus: "Pending",
   useTaxComments: "",
   useTaxDetails: "",
   useTaxActionName: "",
@@ -159,7 +159,7 @@ export const initialAutoCareUseTax = {
 };
 
 export const initialAutoCareTireTax = {
-  tireTaxStatus: "",
+  tireTaxStatus: "Pending",
   tireTaxComments: "",
   tireTaxDetails: "",
   tireTaxActionName: "",
@@ -167,7 +167,7 @@ export const initialAutoCareTireTax = {
 };
 
 export const initialAutoCareLastTaxReturnFiledYear = {
-  lastTaxReturnFiledYearStatus: "",
+  lastTaxReturnFiledYearStatus: "Pending",
   lastTaxReturnFiledYearComments: "",
   lastTaxReturnFiledYearDetails: "",
   lastTaxReturnFiledYearActionName: "",
@@ -175,7 +175,7 @@ export const initialAutoCareLastTaxReturnFiledYear = {
 };
 
 export const initialAutoCareVendorPortalAccess = {
-  vendorPortalAccessStatus: "",
+  vendorPortalAccessStatus: "Pending",
   vendorPortalAccessComments: "",
   vendorPortalAccessDetails: "",
   vendorPortalAccessActionName: "",
@@ -183,7 +183,7 @@ export const initialAutoCareVendorPortalAccess = {
 };
 
 export const initialAutoCareTradeAccount = {
-  tradeAccountStatus: "",
+  tradeAccountStatus: "Pending",
   tradeAccountComments: "",
   tradeAccountDetails: "",
   tradeAccountActionName: "",
@@ -191,7 +191,7 @@ export const initialAutoCareTradeAccount = {
 };
 
 export const initialAutoCareBillPayAccess = {
-  billPayAccessStatus: "",
+  billPayAccessStatus: "Pending",
   billPayAccessComments: "",
   billPayAccessDetails: "",
   billPayAccessActionName: "",
@@ -199,7 +199,7 @@ export const initialAutoCareBillPayAccess = {
 };
 
 export const initialAutoCareApThresholdLimit = {
-  apThresholdLimitStatus: "",
+  apThresholdLimitStatus: "Pending",
   apThresholdLimitComments: "",
   apThresholdLimitDetails: "",
   apThresholdLimitActionName: "",
@@ -207,7 +207,7 @@ export const initialAutoCareApThresholdLimit = {
 };
 
 export const initialAutoCareLastClosedPeriod = {
-  lastClosedPeriodStatus: "",
+  lastClosedPeriodStatus: "Pending",
   lastClosedPeriodComments: "",
   lastClosedPeriodDetails: "",
   lastClosedPeriodActionName: "",
@@ -215,7 +215,7 @@ export const initialAutoCareLastClosedPeriod = {
 };
 
 export const initialAutoCareSharingFinancials = {
-  sharingFinancialsStatus: "",
+  sharingFinancialsStatus: "Pending",
   sharingFinancialsComments: "",
   sharingFinancialsDetails: "",
   sharingFinancialsActionName: "",
@@ -223,7 +223,7 @@ export const initialAutoCareSharingFinancials = {
 };
 
 export const initialAutoCareGP_GMNP_NM = {
-  gp_gmnp_nmStatus: "",
+  gp_gmnp_nmStatus: "Pending",
   gp_gmnp_nmComments: "",
   gp_gmnp_nmDetails: "",
   gp_gmnp_nmActionName: "",
@@ -240,7 +240,7 @@ export const validateAutoCareSystemSoftwareLocationField = [
   "accountingSoftwareComments",
   "accountingSoftwareDetails",
   "accountingSoftwareActionName",
-  "accountingSoftwareActionItems"
+  "accountingSoftwareActionItems",
 ];
 
 export const validateAutoCareCashBankLoansField = [
@@ -323,21 +323,22 @@ export const fieldDisplayNamesFinancials: { [key: string]: string } = {
   lastClosedPeriodComments: "Comments",
   lastClosedPeriodDetails: "Details",
   lastClosedPeriodActionName: "Action Items - PABS",
-  lastClosedPeriodActionItems: "Action Items - Client"
+  lastClosedPeriodActionItems: "Action Items - Client",
 };
 
-export const fieldDisplayNamesPayableCashPayAccess: { [key: string]: string } = {
-  vendorPortalAccessStatus: "Status",
-  vendorPortalAccessComments: "Comments",
-  vendorPortalAccessDetails: "Details",
-  vendorPortalAccessActionName: "Action Items - PABS",
-  vendorPortalAccessActionItems: "Action Items - Client",
-  billPayAccessStatus: "Status",
-  billPayAccessComments: "Comments",
-  billPayAccessDetails: "Details",
-  billPayAccessActionName: "Action Items - PABS",
-  billPayAccessActionItems: "Action Items - Client",
-};
+export const fieldDisplayNamesPayableCashPayAccess: { [key: string]: string } =
+  {
+    vendorPortalAccessStatus: "Status",
+    vendorPortalAccessComments: "Comments",
+    vendorPortalAccessDetails: "Details",
+    vendorPortalAccessActionName: "Action Items - PABS",
+    vendorPortalAccessActionItems: "Action Items - Client",
+    billPayAccessStatus: "Status",
+    billPayAccessComments: "Comments",
+    billPayAccessDetails: "Details",
+    billPayAccessActionName: "Action Items - PABS",
+    billPayAccessActionItems: "Action Items - Client",
+  };
 
 export const fieldDisplayNamesCompliances: { [key: string]: string } = {
   salesTaxAccessWorkPaperStatus: "Status",
@@ -362,7 +363,6 @@ export const fieldDisplayNamesCompliances: { [key: string]: string } = {
   lastTaxReturnFiledYearActionItems: "Action Items - Client",
 };
 
-
 export const fieldDisplayNamesCashBankLoans: { [key: string]: string } = {
   operatingCheckingAccountStatus: "Status",
   operatingCheckingAccountComments: "Comments",
@@ -378,7 +378,7 @@ export const fieldDisplayNamesCashBankLoans: { [key: string]: string } = {
   creditCardComments: "Comments",
   creditCardDetails: "Details",
   creditCardActionName: "Action Items - PABS",
-  creditCardActionItems: "Action Items - Client"
+  creditCardActionItems: "Action Items - Client",
 };
 
 export const fieldDisplayNamesFrequency: { [key: string]: string } = {
@@ -406,7 +406,6 @@ export const fieldDisplayNamesSystemSoftwareLoans: { [key: string]: string } = {
   accountingSoftwareActionName: "Action Items - PABS",
   accountingSoftwareActionItems: "Action Items - Client",
 };
-
 
 export const AccordianExpand = {
   COMMUNICATION: 1,

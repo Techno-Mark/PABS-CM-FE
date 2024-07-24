@@ -17,11 +17,7 @@ import {
   ClientTeamTypes,
 } from "@/models/autoCareBasicDetails";
 // Static import
-import {
-  StateList,
-  TimeZoneList,
-  WeeklyCallsList,
-} from "@/static/carCareBasicDetail";
+import { WeeklyCallsList } from "@/static/carCareBasicDetail";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 import { validateEmail } from "@/utils/validate";
@@ -34,8 +30,9 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 // Cookie import
 import Cookies from "js-cookie";
-import Country from "../../common/Country";
-import State from "../../common/State";
+import Country from "@/components/client/common/Country";
+import State from "@/components/client/common/State";
+import TimeZone from "@/components/client/common/TimeZone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -149,7 +146,6 @@ function AutoCareClientTeam({
             ...autoCareClientTeam,
             istTime: convertedTime.format("hh:mm A"),
           });
-          setAutoCareClientTeam((prev) => ({ ...prev, timeZone: value }));
           setAutoCareClientTeamErrors((prevErrors) => ({
             ...prevErrors,
             istTime: "",
@@ -179,7 +175,7 @@ function AutoCareClientTeam({
   };
 
   const handleLocationChange = (
-    type: "country" | "state" | "city",
+    type: "country" | "state" | "city" | "timeZone",
     selected: { id: number; name: string }
   ) => {
     setAutoCareClientTeam((prev: any) => ({
@@ -189,6 +185,26 @@ function AutoCareClientTeam({
 
     if (type === "country") {
       setCountryId(selected.id);
+    }
+    if (type === "timeZone") {
+      const currentTime = dayjs();
+      const newTimeZone = selected.name;
+      const newWeeklyCallTime = currentTime.tz(newTimeZone).format("hh:mm A");
+      const newISTTime = currentTime
+        .tz(newTimeZone)
+        .tz("Asia/Kolkata")
+        .format("hh:mm A");
+        setAutoCareClientTeam((prev: any) => ({
+          ...prev,
+          timeZone: selected.name,
+          weeklyCallTime: newWeeklyCallTime,
+          istTime: newISTTime,
+        }));
+        setAutoCareClientTeamErrors((prevErrors) => ({
+          ...prevErrors,
+          istTime: "",
+          weeklyCallTime: "",
+        }));
     }
   };
 
@@ -355,6 +371,7 @@ function AutoCareClientTeam({
             onChange={(selected: { id: number; name: string }) =>
               handleLocationChange("country", selected)
             }
+            disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
           />
           <State
             value={autoCareClientTeam?.state}
@@ -362,33 +379,23 @@ function AutoCareClientTeam({
               handleLocationChange("state", selected)
             }
             countryId={countryId}
+            disabled={
+              (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+              countryId === -1
+            }
           />
           <div className="text-[12px] flex flex-col">
-            <label className="text-[#6E6D7A] text-[12px]">Time Zone</label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  autoCareClientTeam?.timeZone === "-1"
-                    ? "!text-[12px] !text-[#a1a1a1]"
-                    : "!text-[14px]"
-                }`}
-                value={autoCareClientTeam?.timeZone}
-                onChange={(e) => handleDropdownChange(e, "timeZone")}
-                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
-              >
-                {TimeZoneList.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === "-1"}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <TimeZone
+              value={autoCareClientTeam?.timeZone}
+              onChange={(selected: { id: number; name: string }) =>
+                handleLocationChange("timeZone", selected)
+              }
+              countryId={countryId}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                countryId === -1
+              }
+            />
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">
@@ -476,7 +483,7 @@ function AutoCareClientTeam({
                   }))
                 }
                 disabled={
-                  autoCareClientTeam?.timeZone !== "-1"
+                  autoCareClientTeam?.timeZone !== ""
                     ? roleId === "4" && finalCheckAllFieldsClientTeam
                       ? true
                       : false

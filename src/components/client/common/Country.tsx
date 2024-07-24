@@ -1,6 +1,6 @@
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
-import { getChecklistStatusUrl } from "@/static/apiUrl";
+import { getCountryUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
 import {
@@ -13,7 +13,14 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const Country = ({ value, onChange, error, helperText, disabled }: any) => {
+const Country = ({
+  value,
+  onChange,
+  error,
+  helperText,
+  disabled,
+  required,
+}: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
@@ -34,7 +41,7 @@ const Country = ({ value, onChange, error, helperText, disabled }: any) => {
           return;
       }
     };
-    await callAPIwithHeaders(getChecklistStatusUrl, "get", callback, {});
+    await callAPIwithHeaders(getCountryUrl, "get", callback, {});
   };
 
   useEffect(() => {
@@ -55,7 +62,10 @@ const Country = ({ value, onChange, error, helperText, disabled }: any) => {
 
   return (
     <div className="text-[12px] flex flex-col">
-      <InputLabel className="text-[#6E6D7A] text-[12px]">Country</InputLabel>
+      <InputLabel className="text-[#6E6D7A] text-[12px]">
+        Country
+        {required && <span className="text-[#DC3545]">*</span>}
+      </InputLabel>
       <FormControl
         variant="standard"
         size="small"
@@ -72,13 +82,17 @@ const Country = ({ value, onChange, error, helperText, disabled }: any) => {
           displayEmpty
           renderValue={(selected) => {
             if (selected === "") {
-              return <span className="text-[12px] text-[#A3A3A3]">Please select country</span>;
+              return (
+                <span className="text-[12px] text-[#A3A3A3]">
+                  Please Select Country
+                </span>
+              );
             }
             return selected;
           }}
         >
           <MenuItem value="" disabled>
-            <span>Please select country</span>
+            <span>Please Select Country</span>
           </MenuItem>
           {options.map((option) => (
             <MenuItem key={option.id} value={option.name}>

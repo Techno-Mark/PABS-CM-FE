@@ -20,10 +20,9 @@ import {
 import { validateNumber } from "@/utils/validate";
 // cookies import
 import Cookies from "js-cookie";
-import { CityList, CountryList, StateList } from "@/static/carCareBasicDetail";
-import Country from "../../common/Country";
-import State from "../../common/State";
-import City from "../../common/City";
+import Country from "@/components/client/common/Country";
+import State from "@/components/client/common/State";
+import City from "@/components/client/common/City";
 
 const WhitelabelAccountDetailsForm = ({
   className,
@@ -344,6 +343,12 @@ const WhitelabelAccountDetailsForm = ({
                 onChange={(selected: { id: number; name: string }) =>
                   handleLocationChange("country", selected)
                 }
+                error={whitelabelAccountDetailsErrors.country}
+                helperText={whitelabelAccountDetailsErrors.country}
+                disabled={
+                  roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                }
+                required
               />
             </Grid>
             <Grid item xs={3}>
@@ -353,6 +358,14 @@ const WhitelabelAccountDetailsForm = ({
                   handleLocationChange("state", selected)
                 }
                 countryId={countryId}
+                error={whitelabelAccountDetailsErrors.state}
+                helperText={whitelabelAccountDetailsErrors.state}
+                required
+                disabled={
+                  (roleId === "4" &&
+                    checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                  countryId === -1
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -362,11 +375,19 @@ const WhitelabelAccountDetailsForm = ({
                   handleLocationChange("city", selected)
                 }
                 stateId={stateId}
+                error={whitelabelAccountDetailsErrors.city}
+                helperText={whitelabelAccountDetailsErrors.city}
+                required
+                disabled={
+                  (roleId === "4" &&
+                    checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                  stateId === -1
+                }
               />
             </Grid>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col w-full">
-                <label className="text-[#6E6D7A] text-[12px]">
+                <label className="text-[#6E6D7A] text-[12px] mb-0.5">
                   Zip<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField

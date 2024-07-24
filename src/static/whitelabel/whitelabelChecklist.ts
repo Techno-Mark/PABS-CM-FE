@@ -1,19 +1,19 @@
 export const initialWhitelabeGroupEmailEstablished = {
-  groupEmailWhiteLabelStatus: "",
+  groupEmailWhiteLabelStatus: "Pending",
   groupEmailWhiteLabelComments: "",
   groupEmailWhiteLabelActionPABS: "",
   groupEmailWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelTeamOverCall = {
-  teamOverCallWhiteLabelStatus: "",
+  teamOverCallWhiteLabelStatus: "Pending",
   teamOverCallWhiteLabelComments: "",
   teamOverCallWhiteLabelActionPABS: "",
   teamOverCallWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelKickOff = {
-  kickOffWhiteLabelStatus: "",
+  kickOffWhiteLabelStatus: "Pending",
   kickOffWhiteLabelComments: "",
   kickOffWhiteLabelActionPABS: "",
   kickOffWhiteLabelActionClient: "",
@@ -21,56 +21,56 @@ export const initialWhitelabelKickOff = {
 
 // 2
 export const initialWhitelabelItStructure = {
-  itStructureWhiteLabelStatus: "",
+  itStructureWhiteLabelStatus: "Pending",
   itStructureWhiteLabelComments: "",
   itStructureWhiteLabelActionPABS: "",
   itStructureWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelRemoteSetup = {
-  remoteSetupWhiteLabelStatus: "",
+  remoteSetupWhiteLabelStatus: "Pending",
   remoteSetupWhiteLabelComments: "",
   remoteSetupWhiteLabelActionPABS: "",
   remoteSetupWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelItHelp = {
-  itHelpWhiteLabelStatus: "",
+  itHelpWhiteLabelStatus: "Pending",
   itHelpWhiteLabelComments: "",
   itHelpWhiteLabelActionPABS: "",
   itHelpWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelAccountingSoftware = {
-  accountingSoftwareWhiteLabelStatus: "",
+  accountingSoftwareWhiteLabelStatus: "Pending",
   accountingSoftwareWhiteLabelComments: "",
   accountingSoftwareWhiteLabelActionPABS: "",
   accountingSoftwareWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelCloudDocument = {
-  cloudDocumentWhiteLabelStatus: "",
+  cloudDocumentWhiteLabelStatus: "Pending",
   cloudDocumentWhiteLabelComments: "",
   cloudDocumentWhiteLabelActionPABS: "",
   cloudDocumentWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelMessenger = {
-  messengerWhiteLabelStatus: "",
+  messengerWhiteLabelStatus: "Pending",
   messengerWhiteLabelComments: "",
   messengerWhiteLabelActionPABS: "",
   messengerWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelSystemAcess = {
-  systemAccessWhiteLabelStatus: "",
+  systemAccessWhiteLabelStatus: "Pending",
   systemAccessWhiteLabelComments: "",
   systemAccessWhiteLabelActionPABS: "",
   systemAccessWhiteLabelActionClient: "",
 };
 
 export const initialWhitelabelOtherInfo = {
-  otherInfoWhiteLabelStatus: "",
+  otherInfoWhiteLabelStatus: "Pending",
   otherInfoWhiteLabelComments: "",
   otherInfoWhiteLabelActionPABS: "",
   otherInfoWhiteLabelActionClient: "",
@@ -78,119 +78,119 @@ export const initialWhitelabelOtherInfo = {
 
 // 3
 export const initialWhitelabelFTE = {
-  FTEStatus: "",
+  FTEStatus: "Pending",
   FTEComments: "",
   FTEActionPABS: "",
   FTEActionClient: "",
 };
 
 export const initialWhitelabelAccounting = {
-  accountingStatus: "",
+  accountingStatus: "Pending",
   accountingComments: "",
   accountingActionPABS: "",
   accountingActionClient: "",
 };
 
 export const initialWhitelabelTax = {
-  taxStatus: "",
+  taxStatus: "Pending",
   taxComments: "",
   taxActionPABS: "",
   taxActionClient: "",
 };
 
 export const initialWhiteLabelWeekly = {
-  weeklyStatus: "",
+  weeklyStatus: "Pending",
   weeklyComments: "",
   weeklyActionPABS: "",
   weeklyActionClient: "",
 };
 
 export const initialWhiteLabelIndustry = {
-  industryStatus: "",
+  industryStatus: "Pending",
   industryComments: "",
   industryActionPABS: "",
   industryActionClient: "",
 };
 
 export const initialWhitelabelCurrentChallenges = {
-  currentChallengesStatus: "",
+  currentChallengesStatus: "Pending",
   currentChallengesComments: "",
   currentChallengesActionPABS: "",
   currentChallengesActionClient: "",
 };
 
 export const initialWhitelabelException = {
-  exceptionStatus: "",
+  exceptionStatus: "Pending",
   exceptionComments: "",
   exceptionActionPABS: "",
   exceptionActionClient: "",
 };
 
 export const initialWhitelabelMonthly = {
-  monthlyStatus: "",
+  monthlyStatus: "Pending",
   monthlyComments: "",
   monthlyActionPABS: "",
   monthlyActionClient: "",
 };
 
 export const initialWhitelabelCleanup = {
-  cleanupStatus: "",
+  cleanupStatus: "Pending",
   cleanupComments: "",
   cleanupActionPABS: "",
   cleanupActionClient: "",
 };
 
 export const initialWhitelabelCatchup = {
-  catchupStatus: "",
+  catchupStatus: "Pending",
   catchupComments: "",
   catchupActionPABS: "",
   catchupActionClient: "",
 };
 
 export const initialWhitelabelCombination = {
-  combinationStatus: "",
+  combinationStatus: "Pending",
   combinationComments: "",
   combinationActionPABS: "",
   combinationActionClient: "",
 };
 
 export const initialWhitelabelClient = {
-  clientStatus: "",
+  clientStatus: "Pending",
   clientComments: "",
   clientActionPABS: "",
   clientActionClient: "",
 };
 
 export const initialWhitelabelPabs = {
-  pabsStatus: "",
+  pabsStatus: "Pending",
   pabsComments: "",
   pabsActionPABS: "",
   pabsActionClient: "",
 };
 
 export const initialWhitelabelBdm = {
-  bdmStatus: "",
+  bdmStatus: "Pending",
   bdmComments: "",
   bdmActionPABS: "",
   bdmActionClient: "",
 };
 
 export const initialWhitelabelTimeZone = {
-  timeZoneStatus: "",
+  timeZoneStatus: "Pending",
   timeZoneComments: "",
   timeZoneActionPABS: "",
   timeZoneActionClient: "",
 };
 
 export const initialWhitelabelConvenientDay = {
-  convenientDayStatus: "",
+  convenientDayStatus: "Pending",
   convenientDayComments: "",
   convenientDayActionPABS: "",
   convenientDayActionClient: "",
 };
 
 export const initialWhitelabelTimeSlot = {
-  timeSlotStatus: "",
+  timeSlotStatus: "Pending",
   timeSlotComments: "",
   timeSlotActionPABS: "",
   timeSlotActionClient: "",

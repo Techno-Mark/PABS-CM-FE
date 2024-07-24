@@ -40,7 +40,6 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import dayjs from "dayjs";
-import { CityList, CountryList, StateList } from "@/static/carCareBasicDetail";
 
 const BasicDetailsWhitelabel = ({
   setWhitelabelBasicDetailCount,
@@ -632,8 +631,9 @@ const BasicDetailsWhitelabel = ({
         ...[
           "cpaName",
           "corporateAddress",
-          "city",
+          "country",
           "state",
+          "city",
           "zip",
           "ownerContact",
           "ownerEmail",
@@ -692,7 +692,7 @@ const BasicDetailsWhitelabel = ({
     let totalFields = relevantFields.length;
 
     let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+      totalFields > 0 ? Number(((count / totalFields) * 100).toFixed(2)) : 0;
 
     return percentage;
   };

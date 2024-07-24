@@ -1,6 +1,6 @@
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
-import { getStateUrl } from "@/static/apiUrl";
+import { getTimezoneUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
 import {
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const State = ({
+const TimeZone = ({
   value,
   onChange,
   error,
@@ -27,7 +27,7 @@ const State = ({
     []
   );
 
-  const fetchStateOptions = async () => {
+  const fetchTimezoneOptions = async () => {
     const callback = (
       ResponseStatus: string,
       Message: string,
@@ -42,16 +42,16 @@ const State = ({
           return;
       }
     };
-    await callAPIwithHeaders(getStateUrl, "post", callback, {
+    await callAPIwithHeaders(getTimezoneUrl, "post", callback, {
       countryId: countryId,
     });
   };
 
   useEffect(() => {
-    fetchStateOptions();
+    fetchTimezoneOptions();
   }, [countryId]);
 
-  const handleStateChange = (e: SelectChangeEvent<string>) => {
+  const handleTimezoneChange = (e: SelectChangeEvent<string>) => {
     const selectedValue = e.target.value;
     const selectedOption = options.find(
       (option) => option.name === selectedValue
@@ -66,7 +66,7 @@ const State = ({
   return (
     <div className="text-[12px] flex flex-col">
       <InputLabel className="text-[#6E6D7A] text-[12px]">
-        State{required && <span className="text-[#DC3545]">*</span>}
+        Time Zone{required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
       <FormControl
         variant="standard"
@@ -75,9 +75,9 @@ const State = ({
         disabled={disabled}
       >
         <Select
-          name="State"
+          name="Timezone"
           value={value}
-          onChange={handleStateChange}
+          onChange={handleTimezoneChange}
           inputProps={{
             className: classes.textSize,
           }}
@@ -86,7 +86,7 @@ const State = ({
             if (selected === "") {
               return (
                 <span className="text-[12px] text-[#A3A3A3]">
-                  Please Select State
+                  Please Select Time Zone
                 </span>
               );
             }
@@ -94,7 +94,7 @@ const State = ({
           }}
         >
           <MenuItem value="" disabled>
-            <span>Please Select State</span>
+            <span>Please Select Time Zone</span>
           </MenuItem>
           {options.map((option) => (
             <MenuItem key={option.id} value={option.name}>
@@ -108,4 +108,4 @@ const State = ({
   );
 };
 
-export default State;
+export default TimeZone;

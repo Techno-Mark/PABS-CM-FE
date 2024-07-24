@@ -119,15 +119,7 @@ input::-ms-clear {
   z-index: 0;
 }
 
-.MuiSelect-select {
-  height: 21px !important;
-}
-
-.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input {
-  padding: 1px 0 5px 0 !important;
-}
-
-.MuiAutocomplete-option {
+.MuiAutocomplete-option{
   min-height: 0px !important;
   padding: 0px !important;
 }

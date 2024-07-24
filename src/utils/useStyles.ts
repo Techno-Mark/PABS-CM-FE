@@ -6,8 +6,8 @@ export const useStyles = makeStyles({
     width: "100%",
   },
   avatarStyle: {
-    height: '24px',
-    width: '24px',
+    height: "24px",
+    width: "24px",
     fontSize: "12px",
   },
   textSize: {
@@ -44,6 +44,17 @@ export const useStyles = makeStyles({
   underlineDropdown: {
     "& div::before": {
       borderBottom: "none !important",
+    },
+  },
+  select: {
+    "& .MuiSelect-select": {
+      height: "21px !important",
+      fontSize: "14px !important",
+    },
+  },
+  checkbox: {
+    "& .MuiCheckbox-root": {
+      paddingLeft: "0px !important"
     },
   },
 });
