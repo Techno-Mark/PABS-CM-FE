@@ -8,7 +8,7 @@ export const refreshTokenAPIUrl = "api/auth/refresh-token";
 // UserManagement url
 export const businessListUrl = "api/businesstypes/list";
 export const assigneUserListUrl = "api/users/assignuserlist";
-export const saveAssignee = "/api/users/assignusersave";
+export const saveAssignee = "api/users/assignusersave";
 export const getUserListUrl = "api/users/list";
 export const saveUserUrl = "api/users/save";
 export const getUserDetailsByIdUrl = "api/users/getbyid";
