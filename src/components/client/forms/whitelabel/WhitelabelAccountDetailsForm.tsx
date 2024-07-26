@@ -2,7 +2,14 @@ import React, { ChangeEvent, forwardRef, useEffect, useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI imports
-import { Grid, TextField } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 // utlis import
 import { useStyles } from "@/utils/useStyles";
 import {
@@ -13,6 +20,9 @@ import {
 import { validateNumber } from "@/utils/validate";
 // cookies import
 import Cookies from "js-cookie";
+import Country from "@/components/client/common/Country";
+import State from "@/components/client/common/State";
+import City from "@/components/client/common/City";
 
 const WhitelabelAccountDetailsForm = ({
   className,
@@ -26,6 +36,8 @@ const WhitelabelAccountDetailsForm = ({
 }: WhitelabelAccountDetailsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
+  const [countryId, setCountryId] = useState(-1);
+  const [stateId, setStateId] = useState(-1);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -150,6 +162,22 @@ const WhitelabelAccountDetailsForm = ({
     }
   };
 
+  const handleLocationChange = (
+    type: "country" | "state" | "city",
+    selected: { id: number; name: string }
+  ) => {
+    setWhitelabelAccountDetails((prev: any) => ({
+      ...prev,
+      [type]: selected.name,
+    }));
+
+    if (type === "country") {
+      setCountryId(selected.id);
+    } else if (type === "state") {
+      setStateId(selected.id);
+    }
+  };
+
   return (
     <div className={`${className}`}>
       <FormBox
@@ -176,125 +204,6 @@ const WhitelabelAccountDetailsForm = ({
                   value={whitelabelAccountDetails?.cpaName}
                   error={!!whitelabelAccountDetailsErrors.cpaName}
                   helperText={whitelabelAccountDetailsErrors.cpaName}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  City<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="city"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter City"
-                  value={whitelabelAccountDetails.city}
-                  error={!!whitelabelAccountDetailsErrors.city}
-                  helperText={whitelabelAccountDetailsErrors.city}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={8}>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  Corporate Address<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="corporateAddress"
-                  id="standard-multiline-static"
-                  multiline
-                  rows={4}
-                  variant="standard"
-                  placeholder="Please Enter Corporate Address"
-                  value={whitelabelAccountDetails.corporateAddress}
-                  error={!!whitelabelAccountDetailsErrors.corporateAddress}
-                  helperText={whitelabelAccountDetailsErrors.corporateAddress}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div className="text-[12px] flex flex-col w-full pt-1">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  State<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="state"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter State"
-                  value={whitelabelAccountDetails.state}
-                  error={!!whitelabelAccountDetailsErrors.state}
-                  helperText={whitelabelAccountDetailsErrors.state}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
-                  }
-                />
-              </div>
-              <div className="text-[12px] flex flex-col w-full pt-[26px]">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  Zip<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="zip"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter Zip Code"
-                  value={whitelabelAccountDetails.zip}
-                  error={!!whitelabelAccountDetailsErrors.zip}
-                  helperText={whitelabelAccountDetailsErrors.zip}
                   onChange={handleChange}
                   InputProps={{
                     classes: {
@@ -340,8 +249,39 @@ const WhitelabelAccountDetailsForm = ({
                 />
               </div>
             </Grid>
+            <Grid item xs={8}>
+              <div className="text-[12px] flex flex-col">
+                <label className="text-[#6E6D7A] text-[12px]">
+                  Corporate Address<span className="text-[#DC3545]">*</span>
+                </label>
+                <TextField
+                  name="corporateAddress"
+                  id="standard-multiline-static"
+                  multiline
+                  rows={4}
+                  variant="standard"
+                  placeholder="Please Enter Corporate Address"
+                  value={whitelabelAccountDetails.corporateAddress}
+                  error={!!whitelabelAccountDetailsErrors.corporateAddress}
+                  helperText={whitelabelAccountDetailsErrors.corporateAddress}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    maxLength: 250,
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
+                />
+              </div>
+            </Grid>
             <Grid item xs={4}>
-              <div className="text-[12px] flex flex-col w-full">
+              <div className="text-[12px] flex flex-col pt-1">
                 <label className="text-[#6E6D7A] text-[12px]">
                   Owner Email<span className="text-[#DC3545]">*</span>
                 </label>
@@ -369,9 +309,7 @@ const WhitelabelAccountDetailsForm = ({
                   }
                 />
               </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div className="text-[12px] flex flex-col w-full">
+              <div className="text-[12px] flex flex-col pt-[26px]">
                 <label className="text-[#6E6D7A] text-[12px]">
                   Owner Phone<span className="text-[#DC3545]">*</span>
                 </label>
@@ -391,6 +329,84 @@ const WhitelabelAccountDetailsForm = ({
                     },
                   }}
                   inputProps={{
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  }
+                />
+              </div>
+            </Grid>
+            <Grid item xs={3}>
+              <Country
+                value={whitelabelAccountDetails?.country}
+                onChange={(selected: { id: number; name: string }) =>
+                  handleLocationChange("country", selected)
+                }
+                error={whitelabelAccountDetailsErrors.country}
+                helperText={whitelabelAccountDetailsErrors.country}
+                disabled={
+                  roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                }
+                required
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <State
+                value={whitelabelAccountDetails?.state}
+                onChange={(selected: { id: number; name: string }) =>
+                  handleLocationChange("state", selected)
+                }
+                countryId={countryId}
+                error={whitelabelAccountDetailsErrors.state}
+                helperText={whitelabelAccountDetailsErrors.state}
+                required
+                disabled={
+                  (roleId === "4" &&
+                    checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                  countryId === -1
+                }
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <City
+                value={whitelabelAccountDetails?.city}
+                onChange={(selected: { id: number; name: string }) =>
+                  handleLocationChange("city", selected)
+                }
+                stateId={stateId}
+                error={whitelabelAccountDetailsErrors.city}
+                helperText={whitelabelAccountDetailsErrors.city}
+                required
+                disabled={
+                  (roleId === "4" &&
+                    checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                  stateId === -1
+                }
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col w-full">
+                <label className="text-[#6E6D7A] text-[12px] mb-0.5">
+                  Zip<span className="text-[#DC3545]">*</span>
+                </label>
+                <TextField
+                  name="zip"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Zip Code"
+                  value={whitelabelAccountDetails.zip}
+                  error={!!whitelabelAccountDetailsErrors.zip}
+                  helperText={whitelabelAccountDetailsErrors.zip}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    maxLength: 250,
                     className: classes.textSize,
                   }}
                   disabled={

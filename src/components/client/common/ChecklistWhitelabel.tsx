@@ -1005,8 +1005,9 @@ const ChecklistWhitelabel = ({
     };
 
     const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
-      ? validateWhiteLabelSystemSoftware()
-      : false;
+    ? validateWhiteLabelSystemSoftware()
+    : false;
+    console.log("🚀 ~ handleSubmit ~ isWhiteLabelSystemSoftwareValid:", isWhiteLabelSystemSoftwareValid)
     const isWhiteLabelServiceTypeValid = whiteLabelServiceTypeChecked
       ? validateWhiteLabelServiceType()
       : false;
@@ -1019,10 +1020,10 @@ const ChecklistWhitelabel = ({
         : false;
 
     const isValid =
-      !isWhiteLabelSystemSoftwareValid &&
-      !isWhiteLabelServiceTypeValid &&
-      !isWhiteLabelWorkAssignmentValid &&
-      !isWhiteLabelMeetingAvailabilityValid;
+    !isWhiteLabelSystemSoftwareValid &&
+    !isWhiteLabelServiceTypeValid &&
+    !isWhiteLabelWorkAssignmentValid &&
+    !isWhiteLabelMeetingAvailabilityValid;
 
     if (type === 1) {
       roleId === "4" && setCheckAllWhiteLabelCheckist(isValid);
@@ -1033,7 +1034,9 @@ const ChecklistWhitelabel = ({
           ...whitelabelChecklistFormData,
           progress: whiteLabelProgressPercentage,
         });
-      } else if (isSubmitedWhiteLabelChecklist && roleId !== "4") {
+      } 
+      else if (isSubmitedWhiteLabelChecklist && roleId !== "4") 
+        {
         if (isValid) {
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
             ...whitelabelChecklistFormData,
@@ -1090,10 +1093,17 @@ const ChecklistWhitelabel = ({
               progress: whiteLabelProgressPercentage,
             });
           }
+          if (!isValid) {
+        setExpandedAccordian(-1);
+        showToast(
+          "Please provide mandatory fields to submit the onboarding form.",
+          ToastType.Error
+        );
+      }
         } else {
           const filledFieldsCount = whiteLabelchecklistStatus();
           setWhiteLabelChecklistCount(filledFieldsCount);
-          handleWhiteLabelChecklistRemoveErrors();
+          // handleWhiteLabelChecklistRemoveErrors();
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
             ...whitelabelChecklistFormData,
             progress: whiteLabelProgressPercentage,

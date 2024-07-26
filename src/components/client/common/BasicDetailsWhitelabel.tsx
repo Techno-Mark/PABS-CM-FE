@@ -153,9 +153,10 @@ const BasicDetailsWhitelabel = ({
             );
             setWhitelabelAccountDetails({
               cpaName: ResponseData.cpaName,
-              city: ResponseData.city,
               corporateAddress: ResponseData.corporateAddress,
-              state: ResponseData.state,
+              country: ResponseData?.country || "",
+              state: ResponseData?.state || "",
+              city: ResponseData?.city || "",
               zip: ResponseData.zip,
               ownerContact: ResponseData.ownerContact,
               ownerEmail: ResponseData.ownerEmail,
@@ -275,7 +276,7 @@ const BasicDetailsWhitelabel = ({
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          getWhiteLabelBasicDetailsList()
+          getWhiteLabelBasicDetailsList();
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
           isValid && showToast(Message, ToastType.Success);
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
@@ -301,6 +302,7 @@ const BasicDetailsWhitelabel = ({
       ownerPhone: validatePhone(whitelabelAccountDetails.ownerPhone)
         ? whitelabelAccountDetails.ownerPhone
         : "",
+      country: whitelabelAccountDetails.country,
       state: whitelabelAccountDetails.state,
       city: whitelabelAccountDetails.city,
       zip: validateZip(whitelabelAccountDetails.zip)
@@ -629,8 +631,9 @@ const BasicDetailsWhitelabel = ({
         ...[
           "cpaName",
           "corporateAddress",
-          "city",
+          "country",
           "state",
+          "city",
           "zip",
           "ownerContact",
           "ownerEmail",

@@ -36,6 +36,7 @@ export interface WhiteLabelBasicDetailsDataType {
   cpaName: string;
   city: string;
   corporateAddress: string;
+  country: string;
   state: string;
   zip: string;
   ownerContact: string;
@@ -59,6 +60,7 @@ export interface WhiteLabelBasicDetailsDataType {
 export interface WhitelabelAccountDetailsFormTypes {
   cpaName: string;
   corporateAddress: string;
+  country: string;
   city: string;
   state: string;
   zip: string;

@@ -21,7 +21,6 @@ export const saveClientUrl = "api/clients/save";
 export const getClientDetailsByIdUrl = "api/clients/getbyid";
 export const deleteClientUrl = "api/clients/delete";
 export const InvitaionMailClientUrl = "api/clients/invite-mail";
-export const getChecklistStatusUrl = "api/clients/checklist-status";
 
 // RoleManagement url
 export const roleListUrl = "api/roles/list";
@@ -40,3 +39,11 @@ export const OnboardingFormAccountDetailsSave = "api/accountDetails/create";
 export const OnboardingFormAccountDetailsGetById = "api/accountDetails/getById";
 export const OnboardingFormAccountDetailsEdit = "api/accountDetails/edit";
 export const OnboardingFormAccountDetailsDelete = "api/accountDetails/delete";
+
+// Dropdown url
+export const getChecklistStatusUrl = "api/clients/checklist-status";
+export const getCountryUrl = "api/dropdown/country";
+export const getStateUrl = "api/dropdown/state";
+export const getCityUrl = "api/dropdown/city";
+export const getTimezoneUrl = "api/dropdown/timezone";
+

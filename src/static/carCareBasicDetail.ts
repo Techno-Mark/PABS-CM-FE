@@ -26,8 +26,9 @@ export const initialAutoCareClientTeam = {
   cpa: "",
   priorBookkeeper: "",
   itSupport: "",
-  timeZone: "-1",
-  state: "-1",
+  timeZone: "",
+  country: "",
+  state: "",
   weeklyCalls: [],
   weeklyCallTime: null,
   istTime: null,
@@ -111,6 +112,7 @@ export const validateAutoCarClientTeam = [
   "weeklyCalls",
   "weeklyCallTime",
   "istTime",
+  "state"
 ];
 
 export const TimeZoneList = [
@@ -123,6 +125,13 @@ export const TimeZoneList = [
   { value: "6", label: "GMT" },
 ];
 
+export const CountryList = [
+  { value: "-1", label: "Please Select Country" },
+  { value: "1", label: "India" },
+  { value: "2", label: "Australia" },
+  { value: "3", label: "America" },
+];
+
 export const StateList = [
   { value: "-1", label: "Please Select State" },
   { value: "1", label: "California" },
@@ -130,6 +139,13 @@ export const StateList = [
   { value: "3", label: "New York" },
   { value: "4", label: "Florida" },
   { value: "5", label: "Illinois" },
+];
+
+export const CityList = [
+  { value: "-1", label: "Please Select City" },
+  { value: "1", label: "Rajkot" },
+  { value: "2", label: "Surat" },
+  { value: "3", label: "Ahmdabad" },
 ];
 
 export const WeeklyCallsList = [

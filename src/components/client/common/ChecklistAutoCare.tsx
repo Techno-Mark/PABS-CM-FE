@@ -1137,7 +1137,7 @@ function ChecklistAutoCare({
         } else {
           const filledFieldsCount = checklistStatus();
           setChecklistCount(filledFieldsCount);
-          handleChecklistRemoveErrors();
+          // handleChecklistRemoveErrors();  
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
             ...checklistFormData,
             progress: autoCareProgressPercentage,

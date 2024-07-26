@@ -22,8 +22,6 @@ import {
 } from "@/models/autoCareBasicDetails";
 // Static import
 import {
-  StateList,
-  TimeZoneList,
   WeeklyCallsList,
   fieldDisplayNamesAccountDetails,
   fieldDisplayNamesClientTeam,
@@ -151,16 +149,9 @@ function BasicDetailsAutoCare({
               cpa: ResponseData?.cpa,
               priorBookkeeper: ResponseData?.priorBookkeeper,
               itSupport: ResponseData?.itSupport,
-              timeZone:
-                ResponseData?.timeZone && ResponseData?.timeZone !== "-1"
-                  ? TimeZoneList.find(
-                      (time) => time.label === ResponseData?.timeZone
-                    )?.value || "-1"
-                  : "-1",
-              state: ResponseData?.state
-                ? StateList.find((state) => state.label === ResponseData?.state)
-                    ?.value || "-1"
-                : "-1",
+              timeZone: ResponseData?.timeZone,
+              country: ResponseData?.country || "",
+              state: ResponseData?.state || "",
               weeklyCalls: ResponseData?.weeklyCalls
                 ? ResponseData?.weeklyCalls
                     .split(",")
@@ -433,17 +424,9 @@ function BasicDetailsAutoCare({
       cpa: autoCareClientTeam.cpa,
       priorBookkeeper: autoCareClientTeam.priorBookkeeper,
       itSupport: autoCareClientTeam.itSupport,
-      timeZone:
-        autoCareClientTeam.timeZone !== "-1"
-          ? TimeZoneList.find(
-              (time) => time.value === autoCareClientTeam.timeZone
-            )?.label
-          : "",
-      state:
-        autoCareClientTeam.state !== "-1"
-          ? StateList.find((state) => state.value === autoCareClientTeam.state)
-              ?.label
-          : "",
+      timeZone: autoCareClientTeam.timeZone,
+      country: autoCareClientTeam.country,
+      state: autoCareClientTeam.state,
       weeklyCalls:
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
         autoCareClientTeam.weeklyCalls.length > 0

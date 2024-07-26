@@ -1,8 +1,9 @@
 export const initialWhitelabelAccountName = {
   cpaName: "",
   corporateAddress: "",
-  city: "",
+  country: "",
   state: "",
+  city: "",
   zip: "",
   ownerContact: "",
   ownerEmail: "",
@@ -12,15 +13,18 @@ export const initialWhitelabelAccountName = {
 export const validateWhitelabelAccountDetails = [
   "cpaName",
   "corporateAddress",
-  "city",
+  "country",
   "state",
+  "city",
   "zip",
   "ownerContact",
   "ownerEmail",
   "ownerPhone",
 ];
 
-export const whiteLabelAccountDetailsfieldDisplayNames: { [key: string]: string } = {
+export const whiteLabelAccountDetailsfieldDisplayNames: {
+  [key: string]: string;
+} = {
   cpaName: "CPA Name",
   corporateAddress: "Corporate Address",
   city: "City",
@@ -37,9 +41,7 @@ export const initialWhitelabelOtherInformation = {
   startDate: "",
 };
 
-export const validateWhitelabelOtherInformation = [
-  "startDate",
-];
+export const validateWhitelabelOtherInformation = ["startDate"];
 
 export const initialWhitelabelCpaClientTeam = {
   pocName: "",

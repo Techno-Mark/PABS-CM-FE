@@ -1293,7 +1293,7 @@ function ChecklistSmb({
             });
           }
         } else {
-          handleRemoveErrors();
+          // handleRemoveErrors();
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
             userId: !!clientInfo?.UserId
               ? parseInt(clientInfo?.UserId)
