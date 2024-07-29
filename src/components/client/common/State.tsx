@@ -4,12 +4,10 @@ import { getStateUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
 import {
-  FormControl,
-  FormHelperText,
+  Autocomplete,
   InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
+  TextField,
+  Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -51,59 +49,67 @@ const State = ({
     fetchStateOptions();
   }, [countryId]);
 
-  const handleStateChange = (e: SelectChangeEvent<string>) => {
-    const selectedValue = e.target.value;
-    const selectedOption = options.find(
-      (option) => option.name === selectedValue
-    );
-    onChange(
-      selectedOption
-        ? { id: selectedOption.id, name: selectedOption.name }
-        : { id: 0, name: "" }
-    );
+  const handleStateChange = (
+    event: any,
+    newValue: { id: number; name: string } | null
+  ) => {
+    if (newValue) {
+      onChange({
+        id: newValue.id,
+        name: newValue.name,
+      });
+    } else {
+      onChange({ id: 0, name: "" });
+    }
   };
 
   return (
     <div className="text-[12px] flex flex-col">
       <InputLabel className="text-[#6E6D7A] text-[12px]">
-        State{required && <span className="text-[#DC3545]">*</span>}
+        State
+        {required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
-      <FormControl
-        variant="standard"
-        size="small"
-        error={!!error}
+      <Autocomplete
+        options={options}
+        getOptionLabel={(option) => option.name}
+        value={options.find((option) => option.name === value) || null}
+        onChange={handleStateChange}
         disabled={disabled}
-      >
-        <Select
-          name="State"
-          value={value}
-          onChange={handleStateChange}
-          inputProps={{
-            className: classes.textSize,
-          }}
-          displayEmpty
-          renderValue={(selected) => {
-            if (selected === "") {
-              return (
-                <span className="text-[12px] text-[#A3A3A3]">
-                  Please Select State
-                </span>
-              );
-            }
-            return selected;
-          }}
-        >
-          <MenuItem value="" disabled>
-            <span>Please Select State</span>
-          </MenuItem>
-          {options.map((option) => (
-            <MenuItem key={option.id} value={option.name}>
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            size="small"
+            error={!!error}
+            helperText={error ? helperText : ""}
+            inputProps={{
+              ...params.inputProps,
+              className: classes.textSize,
+            }}
+            placeholder="Please Select State"
+          />
+        )}
+        renderOption={(props, option) => (
+          <li {...props}>
+            <Typography
+              sx={{
+                fontSize: '14px',
+                padding: '8px 16px',
+                color: '#495057',
+                '&[aria-selected="true"]': {
+                  backgroundColor: '#80bdff',
+                  color: '#fff',
+                },
+                '&:hover': {
+                  backgroundColor: '#e9ecef',
+                },
+              }}
+            >
               {option.name}
-            </MenuItem>
-          ))}
-        </Select>
-        {error && <FormHelperText>{helperText}</FormHelperText>}
-      </FormControl>
+            </Typography>
+          </li>
+        )}
+      />
     </div>
   );
 };
