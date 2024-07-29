@@ -202,6 +202,7 @@ const WhitelabelOtherInformationForm = ({
                     slotProps={{
                       textField: {
                         variant: "standard",
+                        error: !!whitelabelOtherInformationErrors?.startDate,
                         InputProps: {
                           sx: {
                             fontSize: "14px !important",
@@ -217,6 +218,12 @@ const WhitelabelOtherInformationForm = ({
                     }
                   />
                 </LocalizationProvider>
+                <span className="text-[#ec2a2a]">
+                  {typeof whitelabelOtherInformationErrors?.startDate ===
+                  "string"
+                    ? whitelabelOtherInformationErrors.startDate
+                    : ""}
+                </span>
               </div>
             </Grid>
           </Grid>

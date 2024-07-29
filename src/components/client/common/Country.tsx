@@ -1,17 +1,11 @@
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { showToast } from "@/components/ToastContainer";
+import { CountryOption } from "@/models/common";
 import { getCountryUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Autocomplete, InputLabel, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const Country = ({
   value,
@@ -22,15 +16,13 @@ const Country = ({
   required,
 }: any) => {
   const classes = useStyles();
-  const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
-    []
-  );
+  const [options, setOptions] = useState<CountryOption[]>([]);
 
   const fetchCountryOptions = async () => {
     const callback = (
       ResponseStatus: string,
       Message: string,
-      ResponseData: Array<{ id: number; name: string }>
+      ResponseData: CountryOption[]
     ) => {
       switch (ResponseStatus) {
         case "failure":
@@ -48,16 +40,16 @@ const Country = ({
     fetchCountryOptions();
   }, []);
 
-  const handleCountryChange = (e: SelectChangeEvent<string>) => {
-    const selectedValue = e.target.value;
-    const selectedOption = options.find(
-      (option) => option.name === selectedValue
-    );
-    onChange(
-      selectedOption
-        ? { id: selectedOption.id, name: selectedOption.name }
-        : { id: 0, name: "" }
-    );
+  const handleCountryChange = (event: any, newValue: CountryOption | null) => {
+    if (newValue) {
+      onChange({
+        id: newValue.id,
+        name: newValue.name,
+        timezones: newValue.timezones,
+      });
+    } else {
+      onChange({ id: 0, name: "", timezones: "" });
+    }
   };
 
   return (
@@ -66,42 +58,47 @@ const Country = ({
         Country
         {required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
-      <FormControl
-        variant="standard"
-        size="small"
-        error={!!error}
-        disabled={disabled}
-      >
-        <Select
-          name="Country"
-          value={value}
-          onChange={handleCountryChange}
-          inputProps={{
-            className: classes.textSize,
-          }}
-          displayEmpty
-          renderValue={(selected) => {
-            if (selected === "") {
-              return (
-                <span className="text-[12px] text-[#A3A3A3]">
-                  Please Select Country
-                </span>
-              );
-            }
-            return selected;
-          }}
-        >
-          <MenuItem value="" disabled>
-            <span>Please Select Country</span>
-          </MenuItem>
-          {options.map((option) => (
-            <MenuItem key={option.id} value={option.name}>
+      <Autocomplete
+        options={options}
+        getOptionLabel={(option) => option.name}
+        value={options.find((option) => option.name === value) || null}
+        onChange={handleCountryChange}
+        disabled={disabled}        
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            size="small"
+            error={!!error}
+            helperText={error ? helperText : ""}
+            inputProps={{
+              ...params.inputProps,
+              className: classes.textSize,
+            }}
+            placeholder="Please Select Country"
+          />
+        )}
+        renderOption={(props, option) => (
+          <li {...props}>
+            <Typography
+              sx={{
+                fontSize: '14px',
+                padding: '8px 16px',
+                color: '#495057',
+                '&[aria-selected="true"]': {
+                  backgroundColor: '#80bdff',
+                  color: '#fff',
+                },
+                '&:hover': {
+                  backgroundColor: '#e9ecef',
+                },
+              }}
+            >
               {option.name}
-            </MenuItem>
-          ))}
-        </Select>
-        {error && <FormHelperText>{helperText}</FormHelperText>}
-      </FormControl>
+            </Typography>
+          </li>
+        )}
+      />
     </div>
   );
 };

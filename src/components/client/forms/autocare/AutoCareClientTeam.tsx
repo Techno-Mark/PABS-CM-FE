@@ -6,6 +6,7 @@ import {
   Autocomplete,
   Checkbox,
   FormControl,
+  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -32,7 +33,6 @@ import timezone from "dayjs/plugin/timezone";
 import Cookies from "js-cookie";
 import Country from "@/components/client/common/Country";
 import State from "@/components/client/common/State";
-import TimeZone from "@/components/client/common/TimeZone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -51,6 +51,9 @@ function AutoCareClientTeam({
   const roleId = Cookies.get("roleId");
 
   const [countryId, setCountryId] = useState(-1);
+  const [timezoneOptions, setTimezoneOptions] = useState<
+    Array<{ id: number; name: string }>
+  >([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -142,7 +145,7 @@ function AutoCareClientTeam({
 
   const handleLocationChange = (
     type: "country" | "state" | "timeZone",
-    selected: { id: number; name: string }
+    selected: { id: number; name: string; timezones?: string }
   ) => {
     setAutoCareClientTeam((prev: any) => ({
       ...prev,
@@ -151,7 +154,25 @@ function AutoCareClientTeam({
 
     if (type === "country") {
       setCountryId(selected.id);
+      if (selected.timezones) {
+        try {
+          const timezonesArray = JSON.parse(selected.timezones);
+          const formattedTimezones = timezonesArray.map(
+            (tz: any, index: number) => ({
+              id: index,
+              name: tz.zoneName,
+            })
+          );
+          setTimezoneOptions(formattedTimezones);
+        } catch (error) {
+          console.error("Error parsing timezones:", error);
+          setTimezoneOptions([]);
+        }
+      } else {
+        setTimezoneOptions([]);
+      }
     }
+
     if (type === "timeZone") {
       const currentTime = dayjs();
       const newTimeZone = selected.name;
@@ -351,17 +372,56 @@ function AutoCareClientTeam({
             }
           />
           <div className="text-[12px] flex flex-col">
-            <TimeZone
-              value={autoCareClientTeam?.timeZone}
-              onChange={(selected: { id: number; name: string }) =>
-                handleLocationChange("timeZone", selected)
-              }
-              countryId={countryId}
+            <InputLabel className="text-[#6E6D7A] text-[12px]">
+              Time Zone
+            </InputLabel>
+            <FormControl
+              variant="standard"
+              size="small"
               disabled={
                 (roleId === "4" && finalCheckAllFieldsClientTeam) ||
                 countryId === -1
               }
-            />
+            >
+              <Select
+                name="Timezone"
+                value={autoCareClientTeam?.timeZone}
+                onChange={(e) => {
+                  const selectedOption = timezoneOptions.find(
+                    (option) => option.name === e.target.value
+                  );
+                  if (selectedOption) {
+                    handleLocationChange("timeZone", {
+                      id: selectedOption.id,
+                      name: selectedOption.name,
+                    });
+                  }
+                }}
+                inputProps={{
+                  className: classes.textSize,
+                }}
+                displayEmpty
+                renderValue={(selected) => {
+                  if (selected === "") {
+                    return (
+                      <span className="text-[12px] text-[#A3A3A3]">
+                        Please Select Time Zone
+                      </span>
+                    );
+                  }
+                  return selected;
+                }}
+              >
+                <MenuItem value="" disabled>
+                  <span>Please Select Time Zone</span>
+                </MenuItem>
+                {timezoneOptions.map((option) => (
+                  <MenuItem key={option.id} value={option.name}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="text-[12px] flex flex-col">
             <label className="text-[#6E6D7A] text-[12px]">

@@ -66,3 +66,10 @@ export interface FilterProps {
   isSaveDisabled: boolean;
   isResetDisabled: boolean;
 }
+
+export interface CountryOption {
+  id: number;
+  name: string;
+  timezones: string;
+}
+

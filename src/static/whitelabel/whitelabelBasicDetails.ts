@@ -27,8 +27,9 @@ export const whiteLabelAccountDetailsfieldDisplayNames: {
 } = {
   cpaName: "CPA Name",
   corporateAddress: "Corporate Address",
-  city: "City",
+  country: "Country",
   state: "State",
+  city: "City",
   zip: "Zip",
   ownerContact: "Owner Contact",
   ownerEmail: "Owner Email",
