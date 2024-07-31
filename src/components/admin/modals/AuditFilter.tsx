@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // MUI imports
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
 // Types import
 import { UserModalProps, Option } from "@/models/userManage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
+import { GetUserAllListResponse } from "@/models/auditlog";
 
 function AuditFilter({
   isOpen,
   setIsOpen,
   moduleList,
-  clientUserList,
+  userList,
   sendFilterData,
   auditListParams,
 }: any) {
@@ -19,7 +20,28 @@ function AuditFilter({
   const [fromDate, setFromDate] = useState<string | null>(null);
   const [toDate, setToDate] = useState<string | null>(null);
   const [module, setModule] = useState<Option[]>([]);
-  const [clientUser, setClientUser] = useState<Option[]>([]);
+  const [users, setUsers] = useState<GetUserAllListResponse[]>([]);
+  console.log("🚀 ~ users:", users);
+
+  useEffect(() => {
+    setFromDate(auditListParams.fromDate);
+    setToDate(auditListParams.toDate);
+
+    const selectedModules =
+      auditListParams.moduleNames.length > 0
+        ? module.filter((m: Option) =>
+            auditListParams.moduleNames.includes(m.label)
+          )
+        : [];
+    setModule(selectedModules);
+    const selectedUsers =
+      auditListParams.userNames.length > 0
+        ? users.filter((u: GetUserAllListResponse) =>
+            auditListParams.userNames.includes(u.UserName)
+          )
+        : [];
+    setUsers(selectedUsers);
+  }, [auditListParams, moduleList, userList]);
 
   const handleModuleChange = (
     event: React.ChangeEvent<{}>,
@@ -30,16 +52,28 @@ function AuditFilter({
 
   const handleClientUserChange = (
     event: React.ChangeEvent<{}>,
-    newValues: Option[]
+    newValues: GetUserAllListResponse[]
   ) => {
-    setClientUser(newValues);
+    setUsers(newValues);
   };
 
   const handleSubmit = () => {
-    const moduleId = module.length > 0 ? module.map((m: Option) => m.value) : [];
-    const clientUserId =
-      clientUser.length > 0 ? clientUser.map((c: Option) => c.value) : [];
-    sendFilterData(fromDate, toDate, moduleId, clientUserId, true);
+    const formattedFromDate = formatDateWithTime(fromDate);
+    const formattedToDate = formatDateWithTime(toDate);
+
+    const moduleNames =
+      module.length > 0 ? module.map((m: Option) => m.label) : [];
+    const userNames =
+      users.length > 0
+        ? users.map((u: GetUserAllListResponse) => u.UserName)
+        : [];
+    sendFilterData(
+      formattedFromDate,
+      formattedToDate,
+      moduleNames,
+      userNames,
+      true
+    );
     handleClose();
   };
 
@@ -48,9 +82,23 @@ function AuditFilter({
     setFromDate(null);
     setToDate(null);
     setModule([]);
-    setClientUser([]);
+    setUsers([]);
     sendFilterData(null, null, [], [], false);
     handleClose();
+  };
+
+  const formatDateWithTime = (date: any) => {
+    if (!date) return null;
+
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    const hours = String(d.getHours()).padStart(2, "0");
+    const minutes = String(d.getMinutes()).padStart(2, "0");
+    const seconds = String(d.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
   return (
@@ -61,9 +109,7 @@ function AuditFilter({
       setIsOpenModal={(value) => setIsOpen(value)}
       handleSubmit={handleSubmit}
       handleResetSubmit={handleResetSubmit}
-      isSaveDisabled={
-        !(fromDate || toDate || module.length || clientUser.length)
-      }
+      isSaveDisabled={!(fromDate || toDate || module.length || users.length)}
       isResetDisabled={!auditListParams.saveClicked}
     >
       <div className="p-5 h-[calc(100%-143px)]">
@@ -71,7 +117,7 @@ function AuditFilter({
           <label className="text-[#6E6D7A] text-[12px]">From Date</label>
           <TextField
             type="date"
-            value={fromDate || ""}
+            value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
             variant="standard"
           />
@@ -80,7 +126,7 @@ function AuditFilter({
           <label className="text-[#6E6D7A] text-[12px]">To Date</label>
           <TextField
             type="date"
-            value={toDate || ""}
+            value={toDate}
             onChange={(e) => setToDate(e.target.value)}
             variant="standard"
           />
@@ -116,15 +162,17 @@ function AuditFilter({
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
-          <label className="text-[#6E6D7A] text-[12px]">Select Client User</label>
+          <label className="text-[#6E6D7A] text-[12px]">
+            Select Client User
+          </label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
-            options={clientUserList}
-            value={clientUser}
+            options={userList}
+            value={users}
             onChange={handleClientUserChange}
             disableCloseOnSelect
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option: GetUserAllListResponse) => option.UserName}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox
@@ -133,14 +181,14 @@ function AuditFilter({
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />
-                {option.label}
+                {option.UserName}
               </li>
             )}
             renderInput={(params) => (
               <TextField
                 {...params}
                 variant="standard"
-                placeholder={clientUser.length <= 0 ? "Please Select" : ""}
+                placeholder={users.length <= 0 ? "Please Select" : ""}
               />
             )}
           />

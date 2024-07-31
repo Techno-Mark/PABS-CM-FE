@@ -49,4 +49,5 @@ export const getTimezoneUrl = "api/dropdown/timezone";
 
 // Audit Logs url
 export const auditLogListUrl = "api/auditlog/list";
+export const userListUrl = "api/auditlog/user-list";
 

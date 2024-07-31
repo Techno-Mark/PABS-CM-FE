@@ -2,12 +2,11 @@ export interface AuditListType {
   page: number;
   limit: number;
   search: string;
-}
-
-export interface RoleList {
-  RoleId: number;
-  RoleName: string;
-  RoleStatus: boolean;
+  fromDate: string;
+  toDate: string;
+  moduleNames: string[];
+  userNames: string[];
+  saveClicked: boolean;
 }
 
 export interface GetAuditLogListResponse {
@@ -15,4 +14,9 @@ export interface GetAuditLogListResponse {
   totalPages: number;
   currentPage: number;
   auditLogs: any[];
+}
+
+export interface GetUserAllListResponse {
+  userId: number;
+  UserName: string;
 }

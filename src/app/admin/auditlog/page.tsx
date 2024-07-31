@@ -20,13 +20,18 @@ import AuditFilter from "@/components/admin/modals/AuditFilter";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 // Cookie import
 import Cookies from "js-cookie";
-import { AuditListType, GetAuditLogListResponse } from "@/models/auditlog";
+import {
+  AuditListType,
+  GetAuditLogListResponse,
+  GetUserAllListResponse,
+} from "@/models/auditlog";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import { auditLogListUrl } from "@/static/apiUrl";
+import { auditLogListUrl, userListUrl } from "@/static/apiUrl";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import dayjs from "dayjs";
+import { moduleList } from "@/static/auditLog";
 
 function Page() {
   const router = useRouter();
@@ -34,27 +39,21 @@ function Page() {
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openAuditModal, setOpenAuditModal] = useState<boolean>(false);
   const [auditLogData, setAuditLogData] = useState<any[]>([]);
+  const [userList, setUserList] = useState<GetUserAllListResponse[]>([]);
   const [selectedAudit, setSelectedAudit] = useState<any>(null);
   const [search, setSearch] = useState("");
   const [pageNo, setPageNo] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [loading, setLoading] = useState<boolean>(true);
-  const [auditListParams, setAuditListParams] = useState<{
-    page: number;
-    limit: number;
-    search: string;
-    roleId: number[];
-    businessTypeId: number[];
-    userStatus: boolean[];
-    saveClicked: boolean;
-  }>({
+  const [auditListParams, setAuditListParams] = useState<AuditListType>({
     page: 1,
     limit: rowsPerPage,
     search: "",
-    roleId: [],
-    businessTypeId: [],
-    userStatus: [],
+    fromDate: "",
+    toDate: "",
+    moduleNames: [],
+    userNames: [],
     saveClicked: false,
   });
 
@@ -118,6 +117,18 @@ function Page() {
         case "success":
           setAuditLogData(ResponseData.auditLogs);
           setTotalCount(ResponseData.totalAuditLogs);
+
+          const uniqueUsers = new Map();
+
+          ResponseData.auditLogs.forEach((log) => {
+            if (!uniqueUsers.has(log.createdBy)) {
+              uniqueUsers.set(log.createdBy, {
+                UserId: log.auditLogId,
+                UserName: log.createdBy,
+              });
+            }
+          });
+          setUserList(Array.from(uniqueUsers.values()));
           setLoading(false);
           return;
       }
@@ -214,32 +225,20 @@ function Page() {
     },
   ];
 
-  const moduleList = [
-    { label: "Module 1", value: 1 },
-    { label: "Module 2", value: 2 },
-    { label: "Module 3", value: 3 },
-  ];
-
-  const clientUserList = [
-    { label: "Client User 1", value: 1 },
-    { label: "Client User 2", value: 2 },
-    { label: "Client User 3", value: 3 },
-  ];
-
-  const handleFilterData = ({
-    fromDate,
-    toDate,
-    moduleIds,
-    clientUserIds,
-    saveClicked,
-  }: any) => {
-    // Handle the filtered data here
-    console.log("Filtered Data:", {
-      fromDate,
-      toDate,
-      moduleIds,
-      clientUserIds,
-      saveClicked,
+  const getFilterData = (
+    fromDate: string,
+    toDate: string,
+    moduleNames: string[],
+    userNames: string[],
+    saveClicked: boolean
+  ) => {
+    setAuditListParams({
+      ...auditListParams,
+      fromDate: fromDate,
+      toDate: toDate,
+      moduleNames: moduleNames,
+      userNames: userNames,
+      saveClicked: saveClicked,
     });
   };
 
@@ -310,8 +309,8 @@ function Page() {
           isOpen={openFilter}
           setIsOpen={(value: any) => setOpenFilter(value)}
           moduleList={moduleList}
-          clientUserList={clientUserList}
-          sendFilterData={handleFilterData}
+          userList={userList}
+          sendFilterData={getFilterData}
           auditListParams={auditListParams}
         />
       )}

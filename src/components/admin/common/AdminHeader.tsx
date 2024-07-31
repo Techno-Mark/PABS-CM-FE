@@ -115,7 +115,9 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
                 ? "User Management"
                 : url.includes("clientmanagement")
                 ? "Client Management"
-                : "Settings"}
+                : url.includes("settings")
+                ? "Settings"
+                : " Audit Logs"}
             </span>
           </div>
           <div className="relative flex">

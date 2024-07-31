@@ -1,6 +1,6 @@
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 import {
-  clientModalstyle,
+  auditLogModalstyle,
   stickyHeaderStyle,
   tableContainerStyle,
 } from "@/utils/modalStyle";
@@ -52,7 +52,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
       onClose={handleClose}
       className="flex justify-center outline-none"
     >
-      <Box sx={clientModalstyle}>
+      <Box sx={auditLogModalstyle}>
         <div className="flex flex-col h-full overflow-hidden p-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold">Event Details</h2>
