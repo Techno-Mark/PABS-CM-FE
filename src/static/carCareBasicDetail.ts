@@ -98,7 +98,7 @@ export const fieldDisplayNamesClientTeam: { [key: string]: string } = {
   istTime: "IST Time",
   shopManager: "Shop Manager",
   poc1: "Poc1",
-  email: "Email",
+  email: "Email-ID",
   weeklyCalls: "Weekly Calls",
   weeklyCallTime: "Weekly Call Time",
 };
