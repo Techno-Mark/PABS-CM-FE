@@ -141,8 +141,28 @@ function Page() {
     );
   };
 
+  const getAuditUserList = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: any
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          setLoading(false);
+          return;
+        case "success":
+          setUserList(ResponseData.Users);
+          return;
+      }
+    };
+    await callAPIwithHeaders(userListUrl, "get", callback, {});
+  };
+
   useEffect(() => {
     getAuditLogList();
+    getAuditUserList();
   }, [auditListParams]);
 
   const handleViewClick = (audit: any) => {

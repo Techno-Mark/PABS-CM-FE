@@ -33,17 +33,16 @@ function AuditFilter({
     );
 
     const selectedModules =
-    auditListParams.moduleNames.length > 0
-    ? moduleList.filter((m: Option) =>
-      auditListParams.moduleNames.some(
-        (module: any) => module.label === m.label
-      )
-    )
-    : [];
-  setModule(selectedModules);
+      auditListParams.moduleNames.length > 0
+        ? moduleList.filter((m: Option) =>
+            auditListParams.moduleNames.includes(m.label)
+          )
+        : [];
+    setModule(selectedModules);
+
     const selectedUsers =
       auditListParams.userNames.length > 0
-        ? users.filter((u: GetUserAllListResponse) =>
+        ? userList.filter((u: GetUserAllListResponse) =>
             auditListParams.userNames.includes(u.UserName)
           )
         : [];
@@ -154,10 +153,7 @@ function AuditFilter({
             getOptionLabel={(option) => option.label}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
-                <Checkbox
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
+                <Checkbox style={{ marginRight: 8 }} checked={selected} />
                 {option.label}
               </li>
             )}
@@ -184,10 +180,7 @@ function AuditFilter({
             getOptionLabel={(option: GetUserAllListResponse) => option.UserName}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
-                <Checkbox
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
+                <Checkbox style={{ marginRight: 8 }} checked={selected} />
                 {option.UserName}
               </li>
             )}
