@@ -365,7 +365,6 @@ function AutoCareClientTeam({
               handleLocationChange("country", selected)
             }
             disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
-            inputmaxwidth="250px"
           />
           <State
             value={autoCareClientTeam?.state}
@@ -377,7 +376,6 @@ function AutoCareClientTeam({
               (roleId === "4" && finalCheckAllFieldsClientTeam) ||
               countryId === -1
             }
-            inputmaxwidth="250px"
           />
           <div className="text-[12px] flex flex-col">
             <InputLabel className="text-[#6E6D7A] text-[12px]">
