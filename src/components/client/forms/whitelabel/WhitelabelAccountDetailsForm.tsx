@@ -173,8 +173,19 @@ const WhitelabelAccountDetailsForm = ({
 
     if (type === "country") {
       setCountryId(selected.id);
+      setWhitelabelAccountDetails((prev: any) => ({
+        ...prev,
+        state: "",
+        city: "",
+        zip: "",
+      }));
     } else if (type === "state") {
       setStateId(selected.id);
+      setWhitelabelAccountDetails((prev: any) => ({
+        ...prev,
+        city: "",
+        zip: "",
+      }));
     }
   };
 
@@ -353,6 +364,7 @@ const WhitelabelAccountDetailsForm = ({
                   roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
                 }
                 required
+                inputmaxwidth="175px"
               />
             </Grid>
             <Grid item xs={3}>
@@ -365,6 +377,7 @@ const WhitelabelAccountDetailsForm = ({
                 error={whitelabelAccountDetailsErrors.state}
                 helperText={whitelabelAccountDetailsErrors.state}
                 required
+                inputmaxwidth="175px"
                 disabled={
                   (roleId === "4" &&
                     checkAllFieldsWhiteLabelAccountDetailsForm) ||
@@ -382,6 +395,7 @@ const WhitelabelAccountDetailsForm = ({
                 error={whitelabelAccountDetailsErrors.city}
                 helperText={whitelabelAccountDetailsErrors.city}
                 required
+                inputmaxwidth="175px"
                 disabled={
                   (roleId === "4" &&
                     checkAllFieldsWhiteLabelAccountDetailsForm) ||
@@ -391,7 +405,7 @@ const WhitelabelAccountDetailsForm = ({
             </Grid>
             <Grid item xs={3}>
               <div className="text-[12px] flex flex-col w-full">
-                <label className="text-[#6E6D7A] text-[12px] mb-0.5">
+                <label className="text-[#6E6D7A] text-[12px]">
                   Zip<span className="text-[#DC3545]">*</span>
                 </label>
                 <TextField

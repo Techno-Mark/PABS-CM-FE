@@ -14,6 +14,7 @@ const Country = ({
   helperText,
   disabled,
   required,
+  inputmaxwidth,
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<CountryOption[]>([]);
@@ -54,7 +55,7 @@ const Country = ({
 
   return (
     <div className="text-[12px] flex flex-col">
-      <InputLabel className="text-[#6E6D7A] text-[12px]">
+      <InputLabel className="text-[#6E6D7A] text-[12px] pb-0.5">
         Country
         {required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
@@ -63,7 +64,7 @@ const Country = ({
         getOptionLabel={(option) => option.name}
         value={options.find((option) => option.name === value) || null}
         onChange={handleCountryChange}
-        disabled={disabled}        
+        disabled={disabled}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -74,6 +75,12 @@ const Country = ({
             inputProps={{
               ...params.inputProps,
               className: classes.textSize,
+              style: {
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                maxWidth: `${inputmaxwidth}`,
+              },
             }}
             placeholder="Please Select Country"
           />
@@ -82,15 +89,15 @@ const Country = ({
           <li {...props}>
             <Typography
               sx={{
-                fontSize: '14px',
-                padding: '8px 16px',
-                color: '#495057',
+                fontSize: "14px",
+                padding: "8px 16px",
+                color: "#495057",
                 '&[aria-selected="true"]': {
-                  backgroundColor: '#80bdff',
-                  color: '#fff',
+                  backgroundColor: "#80bdff",
+                  color: "#fff",
                 },
-                '&:hover': {
-                  backgroundColor: '#e9ecef',
+                "&:hover": {
+                  backgroundColor: "#e9ecef",
                 },
               }}
             >

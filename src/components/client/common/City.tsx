@@ -5,16 +5,11 @@ import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
 import {
   Autocomplete,
-  FormControl,
-  FormHelperText,
   InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const City = ({
   value,
@@ -24,6 +19,7 @@ const City = ({
   disabled,
   stateId,
   required,
+  inputmaxwidth
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
@@ -70,8 +66,8 @@ const City = ({
 
   return (
     <div className="text-[12px] flex flex-col">
-      <InputLabel className="text-[#6E6D7A] text-[12px]">
-        State
+      <InputLabel className="text-[#6E6D7A] text-[12px] pb-0.5">
+        City
         {required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
       <Autocomplete
@@ -90,6 +86,12 @@ const City = ({
             inputProps={{
               ...params.inputProps,
               className: classes.textSize,
+              style: {
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                maxWidth: `${inputmaxwidth}`,
+              },
             }}
             placeholder="Please Select City"
           />
