@@ -364,7 +364,6 @@ const WhitelabelAccountDetailsForm = ({
                   roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
                 }
                 required
-                inputmaxwidth="175px"
               />
             </Grid>
             <Grid item xs={3}>
@@ -377,7 +376,6 @@ const WhitelabelAccountDetailsForm = ({
                 error={whitelabelAccountDetailsErrors.state}
                 helperText={whitelabelAccountDetailsErrors.state}
                 required
-                inputmaxwidth="175px"
                 disabled={
                   (roleId === "4" &&
                     checkAllFieldsWhiteLabelAccountDetailsForm) ||
@@ -395,7 +393,6 @@ const WhitelabelAccountDetailsForm = ({
                 error={whitelabelAccountDetailsErrors.city}
                 helperText={whitelabelAccountDetailsErrors.city}
                 required
-                inputmaxwidth="175px"
                 disabled={
                   (roleId === "4" &&
                     checkAllFieldsWhiteLabelAccountDetailsForm) ||

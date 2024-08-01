@@ -14,7 +14,6 @@ const State = ({
   disabled,
   countryId,
   required,
-  inputmaxwidth,
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
@@ -85,7 +84,7 @@ const State = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                maxWidth: `${inputmaxwidth}`,
+                width: "calc(100% - 52px)",
               },
             }}
             placeholder="Please Select State"

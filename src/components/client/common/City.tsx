@@ -3,12 +3,7 @@ import { showToast } from "@/components/ToastContainer";
 import { getCityUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import {
-  Autocomplete,
-  InputLabel,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Autocomplete, InputLabel, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const City = ({
@@ -19,7 +14,6 @@ const City = ({
   disabled,
   stateId,
   required,
-  inputmaxwidth
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
@@ -90,7 +84,7 @@ const City = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                maxWidth: `${inputmaxwidth}`,
+                width: "calc(100% - 52px)",
               },
             }}
             placeholder="Please Select City"
@@ -100,15 +94,15 @@ const City = ({
           <li {...props}>
             <Typography
               sx={{
-                fontSize: '14px',
-                padding: '8px 16px',
-                color: '#495057',
+                fontSize: "14px",
+                padding: "8px 16px",
+                color: "#495057",
                 '&[aria-selected="true"]': {
-                  backgroundColor: '#80bdff',
-                  color: '#fff',
+                  backgroundColor: "#80bdff",
+                  color: "#fff",
                 },
-                '&:hover': {
-                  backgroundColor: '#e9ecef',
+                "&:hover": {
+                  backgroundColor: "#e9ecef",
                 },
               }}
             >

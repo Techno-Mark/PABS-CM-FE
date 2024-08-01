@@ -14,7 +14,6 @@ const Country = ({
   helperText,
   disabled,
   required,
-  inputmaxwidth,
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<CountryOption[]>([]);
@@ -79,7 +78,7 @@ const Country = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                maxWidth: `${inputmaxwidth}`,
+                width: "calc(100% - 52px)",
               },
             }}
             placeholder="Please Select Country"
