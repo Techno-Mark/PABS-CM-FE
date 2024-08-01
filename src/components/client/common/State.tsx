@@ -3,12 +3,7 @@ import { showToast } from "@/components/ToastContainer";
 import { getStateUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import {
-  Autocomplete,
-  InputLabel,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Autocomplete, InputLabel, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const State = ({
@@ -19,6 +14,7 @@ const State = ({
   disabled,
   countryId,
   required,
+  inputmaxwidth,
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
@@ -65,7 +61,7 @@ const State = ({
 
   return (
     <div className="text-[12px] flex flex-col">
-      <InputLabel className="text-[#6E6D7A] text-[12px]">
+      <InputLabel className="text-[#6E6D7A] text-[12px] pb-0.5">
         State
         {required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
@@ -85,6 +81,12 @@ const State = ({
             inputProps={{
               ...params.inputProps,
               className: classes.textSize,
+              style: {
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                maxWidth: `${inputmaxwidth}`,
+              },
             }}
             placeholder="Please Select State"
           />
@@ -93,15 +95,15 @@ const State = ({
           <li {...props}>
             <Typography
               sx={{
-                fontSize: '14px',
-                padding: '8px 16px',
-                color: '#495057',
+                fontSize: "14px",
+                padding: "8px 16px",
+                color: "#495057",
                 '&[aria-selected="true"]': {
-                  backgroundColor: '#80bdff',
-                  color: '#fff',
+                  backgroundColor: "#80bdff",
+                  color: "#fff",
                 },
-                '&:hover': {
-                  backgroundColor: '#e9ecef',
+                "&:hover": {
+                  backgroundColor: "#e9ecef",
                 },
               }}
             >
