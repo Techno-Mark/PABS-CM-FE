@@ -47,3 +47,7 @@ export const getStateUrl = "api/dropdown/state";
 export const getCityUrl = "api/dropdown/city";
 export const getTimezoneUrl = "api/dropdown/timezone";
 
+// Audit Logs url
+export const auditLogListUrl = "api/auditlog/list";
+export const userListUrl = "api/auditlog/user-list";
+

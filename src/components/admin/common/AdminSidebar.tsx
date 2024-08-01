@@ -26,6 +26,8 @@ import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
 import AccountCircleIcon from "@/assets/Icons/admin/sidebar/AccountCircleIcon";
 import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
+import AuditLogIcon from "@/assets/Icons/admin/sidebar/AuditLogIcon";
+
 // Utlis import
 import { useStyles } from "@/utils/useStyles";
 import { checkPermission } from "@/utils/permissionCheckFunction";
@@ -123,6 +125,11 @@ const Sidebar = ({
           module: "Settings",
           link: "/admin/settings",
           icon: getIcon(pathname, "/admin/settings", SettingsIcon),
+        },
+        {
+          module: "Audit Log",
+          link: "/admin/auditlog",
+          icon: getIcon(pathname, "/admin/auditlog", AuditLogIcon),
         },
       ].filter(Boolean);
       setSidebarItems(items as { module: string; link: string; icon: any }[]);
