@@ -14,7 +14,6 @@ const Country = ({
   helperText,
   disabled,
   required,
-  inputmaxwidth,
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<CountryOption[]>([]);
@@ -55,7 +54,7 @@ const Country = ({
 
   return (
     <div className="text-[12px] flex flex-col">
-      <InputLabel className="text-[#6E6D7A] text-[12px] pb-0.5">
+      <InputLabel className="text-[#6E6D7A] text-[12px] pb-[0.5px]">
         Country
         {required && <span className="text-[#DC3545]">*</span>}
       </InputLabel>
@@ -79,7 +78,7 @@ const Country = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                maxWidth: `${inputmaxwidth}`,
+                width: "calc(100% - 52px)",
               },
             }}
             placeholder="Please Select Country"
