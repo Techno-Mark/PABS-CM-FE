@@ -21,19 +21,26 @@ function AuditFilter({
   const [toDate, setToDate] = useState<string | null>(null);
   const [module, setModule] = useState<Option[]>([]);
   const [users, setUsers] = useState<GetUserAllListResponse[]>([]);
-  console.log("🚀 ~ users:", users);
 
   useEffect(() => {
-    setFromDate(auditListParams.fromDate);
-    setToDate(auditListParams.toDate);
+    setFromDate(
+      auditListParams.fromDate
+        ? formatDateForInput(auditListParams.fromDate)
+        : null
+    );
+    setToDate(
+      auditListParams.toDate ? formatDateForInput(auditListParams.toDate) : null
+    );
 
     const selectedModules =
-      auditListParams.moduleNames.length > 0
-        ? module.filter((m: Option) =>
-            auditListParams.moduleNames.includes(m.label)
-          )
-        : [];
-    setModule(selectedModules);
+    auditListParams.moduleNames.length > 0
+    ? moduleList.filter((m: Option) =>
+      auditListParams.moduleNames.some(
+        (module: any) => module.label === m.label
+      )
+    )
+    : [];
+  setModule(selectedModules);
     const selectedUsers =
       auditListParams.userNames.length > 0
         ? users.filter((u: GetUserAllListResponse) =>
@@ -101,6 +108,10 @@ function AuditFilter({
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
+  const formatDateForInput = (date: string) => {
+    return date.split(" ")[0];
+  };
+
   return (
     <Filter
       isLoading={isLoading}
@@ -144,8 +155,6 @@ function AuditFilter({
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox
-                  // icon={icon}
-                  // checkedIcon={checkedIcon}
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />
@@ -176,8 +185,6 @@ function AuditFilter({
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox
-                  // icon={icon}
-                  // checkedIcon={checkedIcon}
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />

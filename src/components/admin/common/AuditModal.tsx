@@ -31,7 +31,7 @@ interface AuditModalProps {
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
   const parsedDate = dayjs(auditDetails.createdDate);
-  const updatedDate = parsedDate.format("MM/DD/YYYY");
+  const updatedDateTime = parsedDate.format("MM/DD/YYYY HH:mm:ss");
 
   const getSubSectionName = (tableName: string) => {
     switch (tableName) {
@@ -69,7 +69,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
               <div className="flex-1 ">
                 <span className="font-semibold">Update Date/Time : </span>
 
-                <span>{updatedDate}</span>
+                <span>{updatedDateTime}</span>
               </div>
             </div>
             <div className="flex space-x-64">
@@ -103,16 +103,14 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                 <tbody className="bg-white divide-y divide-[#023963]">
                   {auditDetails.data?.map((action: any, index: number) => (
                     <tr key={index}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-6 py-4 max-w-xs text-sm">
                         {auditDetails.performedAction}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {action.fieldName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-6 py-4 max-w-xs text-sm">{action.fieldName}</td>
+                      <td className="px-6 py-4 max-w-xs text-sm break-words">
                         {action.oldValue}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm ">
+                      <td className="px-6 py-4 max-w-xs text-sm break-words">
                         {action.newValue}
                       </td>
                     </tr>
