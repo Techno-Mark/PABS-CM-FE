@@ -1,28 +1,21 @@
-import React, { ChangeEvent, forwardRef, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 // Component import
 import FormBox from "@/components/client/common/FormBox";
 // MUI imports
-import {
-  FormControl,
-  Grid,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 // utlis import
-import { useStyles } from "@/utils/useStyles";
 import {
   WhitelabelAccountDetailsFormErrors,
   WhitelabelAccountDetailsFormTypes,
   WhitelabelAccountDetailsTypes,
 } from "@/models/whitelabelBasicDetails";
+import { useStyles } from "@/utils/useStyles";
 import { validateNumber } from "@/utils/validate";
 // cookies import
-import Cookies from "js-cookie";
+import City from "@/components/client/common/City";
 import Country from "@/components/client/common/Country";
 import State from "@/components/client/common/State";
-import City from "@/components/client/common/City";
+import Cookies from "js-cookie";
 
 const WhitelabelAccountDetailsForm = ({
   className,
@@ -38,6 +31,7 @@ const WhitelabelAccountDetailsForm = ({
   const roleId = Cookies.get("roleId");
   const [countryId, setCountryId] = useState(-1);
   const [stateId, setStateId] = useState(-1);
+  const [cityId, setCityId] = useState(-1);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -184,6 +178,12 @@ const WhitelabelAccountDetailsForm = ({
       setWhitelabelAccountDetails((prev: any) => ({
         ...prev,
         city: "",
+        zip: "",
+      }));
+    } else if (type === "city") {
+      setCityId(selected.id);
+      setWhitelabelAccountDetails((prev: any) => ({
+        ...prev,
         zip: "",
       }));
     }
@@ -428,7 +428,9 @@ const WhitelabelAccountDetailsForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                    cityId === -1
                   }
                 />
               </div>
