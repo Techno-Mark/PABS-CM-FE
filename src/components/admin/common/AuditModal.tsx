@@ -61,7 +61,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
             </span>
           </div>
           <div className="flex flex-col space-y-3 overflow-auto">
-            <div className="flex space-x-64">
+            <div className="flex space-x-48">
               <div className="flex-1">
                 <span className="font-semibold">Section : </span>
                 <span>{auditDetails.moduleName}</span>
@@ -72,7 +72,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                 <span>{updatedDateTime}</span>
               </div>
             </div>
-            <div className="flex space-x-64">
+            <div className="flex space-x-48">
               <div className="flex-1">
                 <span className="font-semibold">Sub Section : </span>
                 <span>{getSubSectionName(auditDetails.tableName)}</span>
@@ -101,20 +101,30 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-[#023963]">
-                  {auditDetails.data?.map((action: any, index: number) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4 max-w-xs text-sm">
-                        {auditDetails.performedAction}
-                      </td>
-                      <td className="px-6 py-4 max-w-xs text-sm">{action.fieldName}</td>
-                      <td className="px-6 py-4 max-w-xs text-sm break-words">
-                        {action.oldValue}
-                      </td>
-                      <td className="px-6 py-4 max-w-xs text-sm break-words">
-                        {action.newValue}
+                  {auditDetails.data && auditDetails.data.length > 0 ? (
+                    auditDetails.data.map((action: any, index: number) => (
+                      <tr key={index}>
+                        <td className="px-6 py-4 max-w-xs text-sm">
+                          {auditDetails.performedAction}
+                        </td>
+                        <td className="px-6 py-4 max-w-xs text-sm">
+                          {action.fieldName}
+                        </td>
+                        <td className="px-6 py-4 max-w-xs text-sm break-words">
+                          {action.oldValue}
+                        </td>
+                        <td className="px-6 py-4 max-w-xs text-sm break-words">
+                          {action.newValue}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={4} className="px-6 py-4 text-center text-sm">
+                        No fields changed
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
