@@ -57,4 +57,9 @@ export const useStyles = makeStyles({
       paddingLeft: "0px !important"
     },
   },
+  date: {
+    "& .MuiInputBase-input": {
+      fontSize: "12px !important"
+    },
+  },
 });

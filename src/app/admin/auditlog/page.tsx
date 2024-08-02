@@ -115,20 +115,12 @@ function Page() {
           setLoading(false);
           return;
         case "success":
-          setAuditLogData(ResponseData.auditLogs);
-          setTotalCount(ResponseData.totalAuditLogs);
+          const filteredAuditLogs = ResponseData.auditLogs.filter(
+            (log) => log.data && log.data.length > 0
+          );
 
-          const uniqueUsers = new Map();
-
-          ResponseData.auditLogs.forEach((log) => {
-            if (!uniqueUsers.has(log.createdBy)) {
-              uniqueUsers.set(log.createdBy, {
-                UserId: log.auditLogId,
-                UserName: log.createdBy,
-              });
-            }
-          });
-          setUserList(Array.from(uniqueUsers.values()));
+          setAuditLogData(filteredAuditLogs);
+          setTotalCount(filteredAuditLogs.length);
           setLoading(false);
           return;
       }

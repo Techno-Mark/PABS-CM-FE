@@ -6,6 +6,7 @@ import { UserModalProps, Option } from "@/models/userManage";
 // Components imports
 import Filter from "@/components/admin/common/Filter";
 import { GetUserAllListResponse } from "@/models/auditlog";
+import { useStyles } from "@/utils/useStyles";
 
 function AuditFilter({
   isOpen,
@@ -15,7 +16,7 @@ function AuditFilter({
   sendFilterData,
   auditListParams,
 }: any) {
-  const handleClose = () => setIsOpen(false);
+  const classes = useStyles();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [fromDate, setFromDate] = useState<string | null>(null);
   const [toDate, setToDate] = useState<string | null>(null);
@@ -80,7 +81,7 @@ function AuditFilter({
       userNames,
       true
     );
-    handleClose();
+    setIsOpen(false);
   };
 
   const handleResetSubmit = () => {
@@ -90,7 +91,7 @@ function AuditFilter({
     setModule([]);
     setUsers([]);
     sendFilterData(null, null, [], [], false);
-    handleClose();
+    setIsOpen(false);
   };
 
   const formatDateWithTime = (date: any) => {
@@ -114,7 +115,7 @@ function AuditFilter({
   return (
     <Filter
       isLoading={isLoading}
-      handleClose={handleClose}
+      handleClose={() => setIsOpen(false)}
       isOpen={isOpen}
       setIsOpenModal={(value) => setIsOpen(value)}
       handleSubmit={handleSubmit}
@@ -130,6 +131,7 @@ function AuditFilter({
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
             variant="standard"
+            className={classes.date}
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
@@ -139,6 +141,7 @@ function AuditFilter({
             value={toDate}
             onChange={(e) => setToDate(e.target.value)}
             variant="standard"
+            className={classes.date}
           />
         </div>
         <div className="text-[12px] flex flex-col">
