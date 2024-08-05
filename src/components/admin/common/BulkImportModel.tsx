@@ -65,7 +65,7 @@ const BulkImportModel = ({
             estimateHoursOfWork: parseInt(item["Estimate Hours of Work"]) || "",
             pabsDuties: item["PABS Duties"] || "",
             bookkeepingPeriod:
-              item["Bookkeeping Monthly or Clean Up (Period – Months/Years)"] ||
+              item["Bookkeeping Monthly/Clean up catch up (Specify Period)"] ||
               "",
             deadline: item["Deadline"] ? parseExcelDate(item["Deadline"]) : "",
             notes1MonthlyTransactions:
