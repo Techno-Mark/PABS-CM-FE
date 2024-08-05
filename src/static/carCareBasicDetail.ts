@@ -76,7 +76,6 @@ export const validateAutoCarAccountDetails = [
   "nameOfLocations",
   "ownerContact",
   "ownerEmail",
-  "ownerPhone",
 ];
 
 export const fieldDisplayNamesAccountDetails: { [key: string]: string } = {
@@ -86,7 +85,6 @@ export const fieldDisplayNamesAccountDetails: { [key: string]: string } = {
   nameOfLocations: "Locations Name",
   ownerContact: "Owner Contact",
   ownerEmail: "Owner Email",
-  ownerPhone: "Owner Phone",
 };
 
 export const fieldDisplayNamesLegalStructure: { [key: string]: string } = {
@@ -112,7 +110,7 @@ export const validateAutoCarClientTeam = [
   "weeklyCalls",
   "weeklyCallTime",
   "istTime",
-  "state"
+  "state",
 ];
 
 export const TimeZoneList = [

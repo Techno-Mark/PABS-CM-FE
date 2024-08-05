@@ -226,7 +226,7 @@ const BasicDetailsWhitelabel = ({
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
       } else if (
-        (field === "ownerPhone" || field === "ownerContact") &&
+        (field === "ownerContact") &&
         !!whitelabelAccountDetailsErrors[field]
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
@@ -637,7 +637,6 @@ const BasicDetailsWhitelabel = ({
           "zip",
           "ownerContact",
           "ownerEmail",
-          "ownerPhone",
         ]
       );
     }
