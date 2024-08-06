@@ -1,10 +1,9 @@
-import React, { ChangeEvent } from "react";
+import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
+import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
 import FormBox from "@/components/client/common/FormBox";
+import { WhitelabelCpaClientTypes } from "@/models/whitelabelBasicDetails";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
-import PlusCircleicon from "@/assets/Icons/client/forms/PlusCircleicon";
-import { WhitelabelCpaClientTypes } from "@/models/whitelabelBasicDetails";
-import MinusCircle from "@/assets/Icons/client/forms/MinusCircle";
 import Cookies from "js-cookie";
 
 const WhitelabelCpaClientTeamForm = ({
@@ -33,33 +32,8 @@ const WhitelabelCpaClientTeamForm = ({
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <div className="text-[12px] flex flex-col w-full">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  POC Details<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  id="outlined-basic"
-                  name="pocDetails"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter POC Details"
-                  value={whitelabelCpaClientTeam?.pocDetails}
-                  error={!!whitelabelCpaClientTeamErrors?.pocDetails}
-                  helperText={whitelabelCpaClientTeamErrors?.pocDetails}
-                  onChange={(e) => handlePocDetailsChange(e)}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    roleId === "4" && checkAllFieldsWhitelabelCpaClientTeamForm
-                  }
-                />
+              <div className="text-[14px] flex flex-col w-full font-medium">
+                POC Details :
               </div>
             </Grid>
           </Grid>
@@ -180,22 +154,28 @@ const WhitelabelCpaClientTeamForm = ({
                   </div>
                 </Grid>
                 <Grid item xs={1}>
-                  {(roleId === "4" ? !checkAllFieldsWhitelabelCpaClientTeamForm : true) && (
-                  <div className="flex justify-end items-center pl-2 mt-6 gap-4">
-                    {whitelabelCpaClientTeam.cpaArray.length > 1 && (
-                      <span
-                        className="cursor-pointer"
-                        onClick={() => handleRemoveField(index)}
-                      >
-                        <MinusCircle />
-                      </span>
-                    )}
-                    {index === whitelabelCpaClientTeam.cpaArray.length - 1 && (
-                      <span className="cursor-pointer" onClick={handleAddField}>
-                        <PlusCircleicon />
-                      </span>
-                    )}
-                  </div>
+                  {(roleId === "4"
+                    ? !checkAllFieldsWhitelabelCpaClientTeamForm
+                    : true) && (
+                    <div className="flex justify-end items-center pl-2 mt-6 gap-4">
+                      {whitelabelCpaClientTeam.cpaArray.length > 1 && (
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => handleRemoveField(index)}
+                        >
+                          <MinusCircle />
+                        </span>
+                      )}
+                      {index ===
+                        whitelabelCpaClientTeam.cpaArray.length - 1 && (
+                        <span
+                          className="cursor-pointer"
+                          onClick={handleAddField}
+                        >
+                          <PlusCircleicon />
+                        </span>
+                      )}
+                    </div>
                   )}
                 </Grid>
               </Grid>
