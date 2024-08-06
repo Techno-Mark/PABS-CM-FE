@@ -1456,7 +1456,9 @@ const ChecklistWhitelabel = ({
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData />
+            <CommentData
+              clientID={!!clientInfo ? Number(clientInfo.ClientId) : 0}
+            />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">

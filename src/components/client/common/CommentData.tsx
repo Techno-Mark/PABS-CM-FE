@@ -1,18 +1,85 @@
+import { callAPIwithHeaders } from "@/api/commonFunction";
 import SendIcon from "@/assets/Icons/client/forms/SendIcon";
+import { showToast } from "@/components/ToastContainer";
+import { getComment, saveComment } from "@/static/apiUrl";
+import { ToastType } from "@/static/toastType";
 import { AlphabetColor } from "@/utils/commonData";
 import { Avatar } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const CommentData = () => {
-  const [comment, setComment] = useState("Good morning everyone!");
-  const [commentDataWorklogs, setCommentDataWorklogs] = useState([
-    {
-      UserName: "John Smith",
-      SubmitedDate: "08/05/2024",
-      SubmitedTime: "07:15",
-      Message: "Good morning everyone!",
-    },
-  ]);
+const CommentData = ({ clientID }: { clientID: number }) => {
+  const [comment, setComment] = useState("");
+  const [commentDataWorklogs, setCommentDataWorklogs] = useState<
+    | {
+        id: number;
+        comment: string;
+        createdById: number;
+        createdBy: string;
+        date: string;
+        time: string;
+      }
+    | []
+  >([]);
+
+  const getCommentData = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: {
+        id: number;
+        comment: string;
+        createdById: number;
+        createdBy: string;
+        date: string;
+        time: string;
+      }
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setComment(!!ResponseData ? ResponseData.comment : "");
+          setCommentDataWorklogs(!!ResponseData ? ResponseData : []);
+          return;
+      }
+    };
+    await callAPIwithHeaders(getComment, "get", callback, {});
+  };
+
+  useEffect(() => {
+    getCommentData();
+  }, []);
+
+  const handleSaveComment = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: {
+        id: number;
+        comment: string;
+        createdById: number;
+        createdBy: string;
+        date: string;
+        time: string;
+      }
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          setComment(!!ResponseData ? ResponseData.comment : "");
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+    await callAPIwithHeaders(saveComment, "post", callback, {
+      comment: comment,
+      clientId: clientID,
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-between w-full">
       <p className="font-bold text-lg">Comments</p>
@@ -76,9 +143,9 @@ const CommentData = () => {
               ? "!cursor-not-allowed"
               : "cursor-pointer"
           } mr-5`}
-          onClick={(e) => {
-            setComment("");
-          }}
+          onClick={() =>
+            comment.trim().length <= 0 ? undefined : handleSaveComment()
+          }
         >
           <SendIcon color={comment.trim().length <= 0 ? "gray" : "black"} />
         </span>
