@@ -44,7 +44,9 @@ const CommentData = ({ clientID }: { clientID: number }) => {
           return;
       }
     };
-    await callAPIwithHeaders(getComment, "get", callback, {});
+    await callAPIwithHeaders(getComment, "post", callback, {
+      clientId: clientID,
+    });
   };
 
   useEffect(() => {
