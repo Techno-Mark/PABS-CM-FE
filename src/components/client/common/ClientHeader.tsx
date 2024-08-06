@@ -23,6 +23,9 @@ import { ToastType } from "@/static/toastType";
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
+import CommentIcon from "@/assets/Icons/client/forms/CommentIcon";
+import CommentModel from "./CommentModel";
+import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -38,9 +41,15 @@ const AppBar = styled(MuiAppBar, {
 
 interface HeaderModuleTypes {
   formSubmittedStatus: boolean;
+  formSubmit?: number;
+  setCommentModelOpen: any;
 }
 
-const ClientHeader = ({ formSubmittedStatus }: HeaderModuleTypes) => {
+const ClientHeader = ({
+  formSubmittedStatus,
+  formSubmit,
+  setCommentModelOpen,
+}: HeaderModuleTypes) => {
   const router = useRouter();
   const userId = Cookies.get("userId");
   const clientLogo =
@@ -139,11 +148,26 @@ const ClientHeader = ({ formSubmittedStatus }: HeaderModuleTypes) => {
               {clientSFId} &nbsp;|&nbsp; {userName} &nbsp;|&nbsp;{" "}
               {businessTypeName} &nbsp; &nbsp;
               {formSubmittedStatus && (
-                <Chip size="small" label="Form Submitted" color="success" style={{ backgroundColor: "#38a169" }} />
+                <Chip
+                  size="small"
+                  label="Form Submitted"
+                  color="success"
+                  style={{ backgroundColor: "#38a169" }}
+                />
               )}
             </span>
           </div>
-          <div className="relative flex">
+          <div className="relative flex gap-5">
+            {/* {formSubmit == 12 && (
+              <Tooltip title="Comments" placement="bottom" arrow>
+                <span
+                  className="flex items-center cursor-pointer"
+                  onClick={() => setCommentModelOpen(true)}
+                >
+                  <CommentIcon />
+                </span>
+              </Tooltip>
+            )} */}
             <div
               className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
               onClick={handleToggle}

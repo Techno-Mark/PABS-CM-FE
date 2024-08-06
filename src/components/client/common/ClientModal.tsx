@@ -34,6 +34,9 @@ import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhite
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 import Cookies from "js-cookie";
 import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
+import CommentIcon from "@/assets/Icons/client/forms/CommentIcon";
+import CommentModel from "./CommentModel";
+import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -74,6 +77,7 @@ function ClientModal({
   const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
     useState<boolean>(false);
   const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
+  const [commentModelOpen, setCommentModelOpen] = useState(false);
 
   const getFormDetials = async () => {
     const callBack = (
@@ -185,6 +189,16 @@ function ClientModal({
                     </span>
                   </div>
                   <div className="relative flex gap-5">
+                    {/* {formSubmit == 12 && (
+                      <Tooltip title="Comments" placement="bottom" arrow>
+                        <span
+                          className="flex items-center cursor-pointer"
+                          onClick={() => setCommentModelOpen(true)}
+                        >
+                          <CommentIcon />
+                        </span>
+                      </Tooltip>
+                    )} */}
                     <Tooltip title="Download" placement="bottom" arrow>
                       <span
                         className="flex items-center cursor-pointer"
@@ -326,6 +340,23 @@ function ClientModal({
               ) : (
                 ""
               )}
+
+              {/* <div className="z-50">
+                {commentModelOpen && (
+                  <CommentModel
+                    commentModelOpen={commentModelOpen}
+                    setCommentModelOpen={(
+                      value: boolean | ((prevState: boolean) => boolean)
+                    ) => {
+                      setCommentModelOpen(value);
+                    }}
+                    handleClose={() => {
+                      setCommentModelOpen(false);
+                    }}
+                  />
+                )}
+              </div>
+              <DrawerOverlay isOpen={commentModelOpen} /> */}
             </Box>
           </Box>
         </div>

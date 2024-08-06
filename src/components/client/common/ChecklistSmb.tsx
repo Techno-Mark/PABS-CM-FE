@@ -116,6 +116,7 @@ import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { onboardingSaveFormUrl } from "@/static/apiUrl";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
+import CommentData from "./CommentData";
 
 function ChecklistSmb({
   clientInfo,
@@ -1435,7 +1436,7 @@ function ChecklistSmb({
     const inProgressPercentage = (inProgressCount / totalRequired) * 50;
 
     const percentage = completedPercentage + inProgressPercentage;
-    return Number(percentage.toFixed(2));;
+    return Number(percentage.toFixed(2));
   };
 
   useEffect(() => {
@@ -1667,6 +1668,12 @@ function ChecklistSmb({
                 </span>
               )}
           </div>
+        </div>
+
+        <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+          <CommentData
+            clientID={!!clientInfo ? Number(clientInfo.ClientId) : 0}
+          />
         </div>
 
         {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
