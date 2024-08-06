@@ -120,7 +120,7 @@ function Page() {
           );
 
           setAuditLogData(filteredAuditLogs);
-          setTotalCount(filteredAuditLogs.length);
+          setTotalCount(ResponseData.totalAuditLogs);
           setLoading(false);
           return;
       }
