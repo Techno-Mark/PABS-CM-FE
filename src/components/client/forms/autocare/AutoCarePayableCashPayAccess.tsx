@@ -17,6 +17,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "@/components/client/common/Status";
 
 function AutoCarePayableCashPayAccess({
   className,
@@ -125,31 +126,19 @@ const VendorPortalAccess = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="vendorPortalAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareVendorPortalAccess?.vendorPortalAccessStatus}
-                error={!!vendorPortalAccessErrors?.vendorPortalAccessStatus}
-                helperText={vendorPortalAccessErrors?.vendorPortalAccessStatus}
-                onChange={handleVendorPortalAccessChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareVendorPortalAccess?.vendorPortalAccessStatus}
+            onChange={(value: string) =>
+              setAutoCareVendorPortalAccess((prev: VendorPortalAccessFormTypes) => ({
+                  ...prev,
+                  vendorPortalAccessStatus: value,
+                }))
+              }
+            error={vendorPortalAccessErrors?.vendorPortalAccessStatus}
+            helperText={vendorPortalAccessErrors?.vendorPortalAccessStatus}
+            disabled={roleId === "4" && checkAllFieldsVendorPortalAccess}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -294,29 +283,17 @@ const TradeAccount = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="tradeAccountStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareTradeAccount?.tradeAccountStatus}
-                onChange={handleTradeAccountChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsTradeAccount}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareTradeAccount?.tradeAccountStatus}
+            onChange={(value: string) =>
+              setAutoCareTradeAccount((prev: TradeAccountFormTypes) => ({
+                  ...prev,
+                  tradeAccountStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsTradeAccount}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -453,31 +430,19 @@ const BillPayAccess = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="billPayAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareBillPayAccess?.billPayAccessStatus}
-                error={!!billPayAccessErrors?.billPayAccessStatus}
-                helperText={billPayAccessErrors?.billPayAccessStatus}
-                onChange={handleBillPayAccessChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareBillPayAccess?.billPayAccessStatus}
+            onChange={(value: string) =>
+              setAutoCareBillPayAccess((prev: BillPayAccessFormTypes) => ({
+                  ...prev,
+                  billPayAccessStatus: value,
+                }))
+              }
+            error={billPayAccessErrors?.billPayAccessStatus}
+            helperText={billPayAccessErrors?.billPayAccessStatus}
+            disabled={roleId === "4" && checkAllFieldsBillPayAccess}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -617,29 +582,17 @@ const APThresholdLimit = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="apThresholdLimitStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareApThresholdLimit?.apThresholdLimitStatus}
-                onChange={handleApThresholdLimitChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareApThresholdLimit?.apThresholdLimitStatus}
+            onChange={(value: string) =>
+              setAutoCareApThresholdLimit((prev: ApThresholdLimitFormTypes) => ({
+                  ...prev,
+                  apThresholdLimitStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsAPThresholdLimit}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>

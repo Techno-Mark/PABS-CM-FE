@@ -115,11 +115,11 @@ const ClientSidebar = ({
     }
     if (perCountBasicDetails || perCountChecklist) {
       const progressPer = (perCountBasicDetails! + perCountChecklist!) / 2;
-      setAutoCareProgressPercentage(Math.floor(progressPer));
+      setAutoCareProgressPercentage(Number(progressPer.toFixed(2)));
     }
     if (perCountWhiteLabelBasicDetails || perCountWhiteLabelChecklist) {
       const progressPer = (perCountWhiteLabelBasicDetails! + perCountWhiteLabelChecklist!) / 2;
-      setWhiteLabelProgressPercentage(Math.floor(progressPer));
+      setWhiteLabelProgressPercentage(Number(progressPer.toFixed(2)));
     }
   }, [
     businessTypeId,
@@ -178,7 +178,7 @@ const ClientSidebar = ({
                     ></div>
                   </div>
                   <span
-                    className={`relative mr-1 pt-[2px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
+                    className={`relative mr-1 pt-[2px] w-[30px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
                   >
                     {data.value}%
                   </span>

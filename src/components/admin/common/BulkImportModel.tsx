@@ -51,23 +51,25 @@ const BulkImportModel = ({
 
           // Transform the JSON data and handle missing fields
           const transformedData = json.map((item: any) => ({
-            clientId: item["Client Id"] || "",
+            clientId: String(item["Client Id"]) || "",
             organizationName: item["Organization Name"] || "",
             backgroundNatureOfBusiness:
-              item["Background Nature Of Business"] || "",
+              item["Background/Nature of Business"] || "",
             industryType: item["Industry Type"] || "",
             entityType: item["Entity Type"] || "",
             accountingSoftware: item["Accounting Software"] || "",
             documentSharing: item["Document Sharing"] || "",
             bankConnectedWithAccountingSoftware:
-              item["Bank Connected With Accounting Software"] || "",
-            accountingMethodIncTax: item["Accounting Method Inc Tax"] || "",
-            estimateHoursOfWork: parseInt(item["Estimate Hours Of Work"]) || "",
-            pabsDuties: item["Pabs Duties"] || "",
-            bookkeepingPeriod: item["Bookkeeping Monthly or Clean Up (Period – Months/Years)"] || "",
-            deadline: item["Deadline"] ? new Date(item["Deadline"]) : "",
+              item["Bank Connected with Accounting Software"] || "",
+            accountingMethodIncTax: item["Accounting Method-Inc Tax"] || "",
+            estimateHoursOfWork: parseInt(item["Estimate Hours of Work"]) || "",
+            pabsDuties: item["PABS Duties"] || "",
+            bookkeepingPeriod:
+              item["Bookkeeping Monthly/Clean up catch up (Specify Period)"] ||
+              "",
+            deadline: item["Deadline"] ? parseExcelDate(item["Deadline"]) : "",
             notes1MonthlyTransactions:
-              item["Notes1 Monthly Transactions"] || "",
+              item["Notes1 - Monthly Transactions"] || "",
             notes: item["Notes"] || "",
           }));
           setExcelData(transformedData);
@@ -75,13 +77,22 @@ const BulkImportModel = ({
       };
       reader.readAsArrayBuffer(file);
     }
+    const parseExcelDate = (excelDate: any): Date | null => {
+      if (!excelDate) return null;
+      if (typeof excelDate === "number") {
+        return new Date((excelDate - (25567 + 2)) * 86400 * 1000);
+      }
+      const dateValue = new Date(excelDate);
+      return isNaN(dateValue.getTime()) ? null : dateValue;
+    };
   };
 
   const handleSubmit = async () => {
-    if (!!excelData) {
+    if (!!excelData && selectedFile !== undefined) {
+      setIsUploading(true);
       if (excelData.length > 0) {
-        setIsUploading(true);
         try {
+          setIsUploading(true);
           const response = await axios.post(
             `${process.env.APIDEV_URL}/${OnboardingFormAccountDetailsSave}/${
               !!clientInfo?.UserId
@@ -105,6 +116,10 @@ const BulkImportModel = ({
             getAccountList();
             return;
           } else if (response.status === 202) {
+            showToast(
+              "File upload failed. Please refer the error file downloaded",
+              ToastType.Error
+            );
             const url = window.URL.createObjectURL(response.data);
             const a = document.createElement("a");
             a.style.display = "none";
@@ -118,6 +133,7 @@ const BulkImportModel = ({
               ToastType.Error
             );
             setIsUploading(false);
+            setIsOpen(false);
             setSelectedFile(null);
             setExcelData(null);
           } else {
@@ -125,6 +141,7 @@ const BulkImportModel = ({
             setIsOpen(false);
             setSelectedFile(null);
             setExcelData(null);
+            setIsOpen(false);
             getAccountList();
             return;
           }
@@ -139,13 +156,22 @@ const BulkImportModel = ({
         setIsUploading(false);
         setExcelData(null);
         setSelectedFile(null);
+        setIsOpen(false);
         showToast("Please Input Data in Excel.", ToastType.Error);
       }
     } else {
-      setIsUploading(false);
-      setSelectedFile(null);
-      setExcelData(null);
-      showToast("Please Attach Import Data Excel.", ToastType.Error);
+      if (selectedFile === undefined) {
+        setIsUploading(false);
+        setExcelData(null);
+        setSelectedFile(null);
+        setIsOpen(false);
+        showToast("Please Attach Import Data Excel.", ToastType.Error);
+      } else {
+        setIsUploading(false);
+        setSelectedFile(null);
+        setExcelData(null);
+        showToast("Please Input Data in Excel.", ToastType.Error);
+      }
     }
   };
 
@@ -179,7 +205,7 @@ const BulkImportModel = ({
           </Tooltip>
         </div>
         <Divider />
-        <div className="p-6 mb-5 px-5 h-[80%] w-[80%]">
+        <div className="p-6 px-5 h-[100%] w-[100%]">
           <div className="flex items-center justify-around gap-5">
             <input
               accept=".xls,.xlsx"
@@ -195,8 +221,10 @@ const BulkImportModel = ({
               <div className="flex flex-col items-center gap-3">
                 {isUploading ? (
                   <span>Uploading..</span>
-                ) : !isUploading && selectedFile !== null ? (
-                  selectedFile.name
+                ) : !isUploading &&
+                  selectedFile !== null &&
+                  selectedFile?.name !== undefined ? (
+                  selectedFile?.name
                 ) : (
                   <>
                     <ExcelIcon />
@@ -208,7 +236,11 @@ const BulkImportModel = ({
           </div>
         </div>
         <Divider />
-        <div className="flex py-3 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
+        <span className="text-[#DC3545] text-[10px] italic ml-4">
+          Please removing sample record while uploading file to avoid junk data
+          upload.
+        </span>
+        <div className="flex py-2 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
           <Button
             onClick={() => downloadSampleFile()}
             className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-fit px-4 font-semibold text-[14px]`}

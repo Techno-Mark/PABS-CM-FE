@@ -15,6 +15,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "@/components/client/common/Status";
 
 function AutoCarePayrollSystem({
   className,
@@ -120,37 +121,20 @@ const PayrollServiceProvider = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="payrollServiceProviderStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  autoCarePayrollServiceProvider?.payrollServiceProviderStatus
-                }
-                error={
-                  !!payrollServiceProviderError?.payrollServiceProviderStatus
-                }
-                helperText={
-                  payrollServiceProviderError?.payrollServiceProviderStatus
-                }
-                onChange={handlePayrollServiceProviderChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCarePayrollServiceProvider?.payrollServiceProviderStatus}
+            onChange={(value: string) =>
+              setAutoCarePayrollServiceProvider(
+                (prev: PayrollServiceProviderFormTypes) => ({
+                  ...prev,
+                  payrollServiceProviderStatus: value,
+                }))
+              }
+            error={payrollServiceProviderError?.payrollServiceProviderStatus}
+            helperText={payrollServiceProviderError?.payrollServiceProviderStatus}
+            disabled={roleId === "4" && checkAllFieldsPayrollServiceProvider}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -309,31 +293,19 @@ const Frequency = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="frequencyStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareFrequency?.frequencyStatus}
-                error={!!frequencyErrors?.frequencyStatus}
-                helperText={frequencyErrors?.frequencyStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsFrequency}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareFrequency?.frequencyStatus}
+            onChange={(value: string) =>
+              setAutoCareFrequency((prev: FrequencyFormTypes) => ({
+                  ...prev,
+                  frequencyStatus: value,
+                }))
+              }
+            error={frequencyErrors?.frequencyStatus}
+            helperText={frequencyErrors?.frequencyStatus}
+            disabled={roleId === "4" && checkAllFieldsFrequency}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -471,29 +443,17 @@ const NoOfEmployees = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="noOfEmployeeStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareNoOfEmployee?.noOfEmployeeStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareNoOfEmployee?.noOfEmployeeStatus}
+            onChange={(value: string) =>
+              setAutoCareNoOfEmployee((prev: NoOfEmployeeFormTypes) => ({
+                  ...prev,
+                  noOfEmployeeStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsNoOfEmployees}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>

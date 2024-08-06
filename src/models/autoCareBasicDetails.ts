@@ -51,6 +51,7 @@ export interface ClientTeamFormTypes {
   priorBookkeeper: string;
   itSupport: string;
   timeZone: string;
+  country: string;
   state: string;
   weeklyCalls: any
   weeklyCallTime: Dayjs | null | string;
@@ -192,6 +193,7 @@ export interface BasicDetailsResponseDataType {
   priorBookkeeper: string;
   itSupport: string;
   timeZone: string;
+  country: string;
   state: string;
   weeklyCalls: string;
   businessName: string;

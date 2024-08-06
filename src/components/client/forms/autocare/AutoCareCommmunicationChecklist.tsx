@@ -15,6 +15,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "@/components/client/common/Status";
 
 function AutoCareCommmunicationChecklist({
   className,
@@ -107,29 +108,18 @@ const GroupEmailEstablished = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="groupEmailEstablishStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareGroupEmailEstablished?.groupEmailEstablishStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCareGroupEmailEstablished?.groupEmailEstablishStatus}
+            onChange={(value: string) =>
+              setAutoCareGroupEmailEstablished(
+                (prev: GroupEmailEstablishedFormTypes) => ({
+                  ...prev,
+                  groupEmailEstablishStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -266,29 +256,17 @@ const PreKickOff = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="preKickOffStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCarePreKickOff?.preKickOffStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsPreKickOff}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={autoCarePreKickOff?.preKickOffStatus}
+            onChange={(value: string) =>
+              setAutoCarePreKickOff((prev: PreKickOffFormTypes) => ({
+                  ...prev,
+                  preKickOffStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsPreKickOff}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -415,28 +393,16 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="kickOffStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={autoCareKickOff?.kickOffStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsKickOff}
-              />
-            </div>
+          <Status
+            value={autoCareKickOff?.kickOffStatus}
+            onChange={(value: string) =>
+              setAutoCareKickOff((prev: KickOffFormTypes) => ({
+                  ...prev,
+                  kickOffStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsKickOff}
+          />
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">

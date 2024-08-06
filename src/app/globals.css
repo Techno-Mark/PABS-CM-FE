@@ -91,9 +91,6 @@ input::-ms-clear {
     right: -100%;
   }
 }
-.muiDatepickerCustomizer .MuiIconButton-root {
-  margin-top: 20px;
-}
 
 .muiDatepickerCustomizer fieldset {
   border: none;
@@ -103,8 +100,7 @@ input::-ms-clear {
 
 .muiDatepickerCustomizer input {
   padding: 8px 0 1px;
-  margin-top: 15px;
-  font-size: 14px;
+  font-size: 12px;
   width: 100%;
 }
 
@@ -119,6 +115,44 @@ input::-ms-clear {
   border-color: #dc3545;
 }
 
-.scrollbar .MuiDataGrid-scrollbar{
+.scrollbar .MuiDataGrid-scrollbar {
   z-index: 0;
+}
+
+.MuiAutocomplete-option {
+  min-height: 0px !important;
+  padding: 0px !important;
+}
+
+.MuiAvatar-root {
+  font-size: 14px !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.MuiAutocomplete-inputRoot {
+  padding-right: 0px !important;
+}
+
+.MuiAutocomplete-listbox {
+  max-height: 28vh !important;
+}
+
+.MuiInputAdornment-root {
+  margin-right: 0px !important;
+}
+
+.MuiAvatarGroup-root {
+  margin-right: 2px !important;
+}
+
+.hide-scrollbar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

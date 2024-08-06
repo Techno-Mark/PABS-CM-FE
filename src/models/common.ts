@@ -6,6 +6,12 @@ export interface StringFieldType {
   errorText: string;
 }
 
+export interface NumberArrayFieldType {
+  value: number[];
+  error: boolean;
+  errorText: string;
+}
+
 export interface NumberFieldType extends Omit<StringFieldType, "value"> {
   value: number;
 }
@@ -13,7 +19,7 @@ export interface NumberFieldType extends Omit<StringFieldType, "value"> {
 export interface UserFormFieldType {
   fullName: StringFieldType;
   role: NumberFieldType;
-  businessType: NumberFieldType;
+  businessType: NumberArrayFieldType;
   status: NumberFieldType;
   email: StringFieldType;
 }
@@ -60,3 +66,10 @@ export interface FilterProps {
   isSaveDisabled: boolean;
   isResetDisabled: boolean;
 }
+
+export interface CountryOption {
+  id: number;
+  name: string;
+  timezones: string;
+}
+

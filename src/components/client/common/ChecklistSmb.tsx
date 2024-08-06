@@ -116,6 +116,7 @@ import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { onboardingSaveFormUrl } from "@/static/apiUrl";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
+import CommentData from "./CommentData";
 
 function ChecklistSmb({
   clientInfo,
@@ -124,7 +125,7 @@ function ChecklistSmb({
   getFormDetials,
   setIsOpenModal,
   responseData,
-  setSmbFormSubmittedStatus
+  setSmbFormSubmittedStatus,
 }: SMBType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -140,6 +141,7 @@ function ChecklistSmb({
     {};
   const initialSmbMeetingChecklistErrors: smbMeetingAvailabilityErrors = {};
 
+  // phase 1
   const [smbClientName, setSmbClientName] =
     useState<ClientNameFormTypes>(initialClientName);
 
@@ -174,6 +176,7 @@ function ChecklistSmb({
   const [smbOnboardingPoc, setSmbOnboardingPoc] =
     useState<OnboardingPocFormTypes>(initialOnboardingPoc);
 
+  // phase 2:
   const [smbPABSGroupEmail, setSmbPABSGroupEmail] =
     useState<PABSGroupEmailFormTypes>(initialPABSGroupEmail);
 
@@ -209,6 +212,7 @@ function ChecklistSmb({
   const [smbPointSalesAccess, setSmbPointSalesAccess] =
     useState<PointSalesAccessFormTypes>(initialPointSalesAccess);
 
+  //phase 3:
   const [smbSavingAccount, setSmbSavingAccount] =
     useState<SavingAccountFormTypes>(initialSavingAccount);
 
@@ -228,6 +232,7 @@ function ChecklistSmb({
   const [smbAccessCreditCardPortal, setSmbAccessCreditCardPortal] =
     useState<AccessCreditCardPortalFormTypes>(initialAccessCreditCardPortal);
 
+  //phase 4:
   const [smbLiveDate, setSmbLiveDate] =
     useState<LiveDateFormTypes>(initialLiveDate);
 
@@ -251,6 +256,7 @@ function ChecklistSmb({
   const [smbDistributionList, setSmbDistributionList] =
     useState<DistributionListFormTypes>(initialDistributionList);
 
+  //phase 5:
   const [smbTimeZone, setSmbTimeZone] =
     useState<TimeZoneFormTypes>(initialTimeZone);
 
@@ -1288,7 +1294,7 @@ function ChecklistSmb({
             });
           }
         } else {
-          handleRemoveErrors();
+          // handleRemoveErrors();
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callBack, {
             userId: !!clientInfo?.UserId
               ? parseInt(clientInfo?.UserId)
@@ -1369,133 +1375,80 @@ function ChecklistSmb({
   };
 
   const smbChecklistStatus = () => {
-    let relevantFields = [];
+    const sections = {
+      peopleBusinessChecked: [
+        smbClientName.ClientNameStatus,
+        smbPoc.PocStatus,
+        smbEmail.EmailStatus,
+        smbContactNumber.ContactNumberStatus,
+        smbAddress.AddressStatus,
+        smbClientWebsite.ClientWebsiteStatus,
+      ],
+      systemDocumentAccessChecked: [
+        smbAccessAccountingSoftware.AccessAccountingSoftwareStatus,
+        smbPayrollServiceAccess.PayrollServiceAccessStatus,
+        smbModeOfPayment.ModeOfPaymentStatus,
+        smbPointSalesAccess.pointSalesAccessStatus,
+      ],
+      cashBanksLoansChecked: [
+        smbSavingAccount.SavingAccountStatus,
+        smbAddCards.AddCardsStatus,
+      ],
+      conditionExistingFinancialsChecked: [
+        smbLiveDate.LiveDateStatus,
+        smbLastClosedMonth.LastClosedMonthStatus,
+        smbTaxReturn.TaxReturnStatus,
+        smbDistributionList.DistributionListStatus,
+      ],
+      meetingAvailabilityChecked: [
+        smbTimeZone.TimeZoneStatus,
+        smbConvenient.ConvenientStatus,
+        smbTimeSlot.TimeSlotStatus,
+      ],
+    };
 
-    if (peopleBusinessChecked) {
-      relevantFields.push(
-        ...[
-          "ClientNameStatus",
-          "ClientNameDetails",
-          "ClientNameActionItems",
-          "PocStatus",
-          "PocDetails",
-          "PocActionItems",
-          "EmailStatus",
-          "EmailDetails",
-          "EmailActionItems",
-          "ContactNumberStatus",
-          "ContactNumberDetails",
-          "ContactNumberActionItems",
-          "AddressStatus",
-          "AddressDetails",
-          "AddressActionItems",
-          "ClientWebsiteStatus",
-          "ClientWebsiteDetails",
-          "ClientWebsiteActionItems",
-        ]
-      );
-    }
+    let requiredFields: string[] = [];
 
-    if (systemDocumentAccessChecked) {
-      relevantFields.push(
-        ...[
-          "AccessAccountingSoftwareStatus",
-          "AccessAccountingSoftwareDetails",
-          "AccessAccountingSoftwareActionItems",
-          "PayrollServiceAccessStatus",
-          "PayrollServiceAccessDetails",
-          "PayrollServiceAccessActionItems",
-          "ModeOfPaymentStatus",
-          "ModeOfPaymentDetails",
-          "ModeOfPaymentActionItems",
-          "pointSalesAccessStatus",
-          "pointSalesAccessDetails",
-          "pointSalesAccessActionItems",
-        ]
-      );
-    }
-
-    if (cashBanksLoansChecked) {
-      relevantFields.push(
-        ...[
-          "SavingAccountStatus",
-          "SavingAccountDetails",
-          "SavingAccountActionItems",
-          "AddCardsStatus",
-          "AddCardsDetails",
-          "AddCardsActionItems",
-        ]
-      );
-    }
-
-    if (conditionExistingFinancialsChecked) {
-      relevantFields.push(
-        ...[
-          "LiveDateStatus",
-          "LiveDateDetails",
-          "LiveDateActionItems",
-          "LastClosedMonthStatus",
-          "LastClosedMonthDetails",
-          "LastClosedMonthActionItems",
-          "TaxReturnStatus",
-          "TaxReturnDetails",
-          "TaxReturnActionItems",
-          "DistributionListStatus",
-          "DistributionListDetails",
-          "DistributionListActionItems",
-        ]
-      );
-    }
-
-    if (meetingAvailabilityChecked) {
-      relevantFields.push(
-        ...[
-          "TimeZoneStatus",
-          "TimeZoneDetails",
-          "TimeZoneActionItems",
-          "ConvenientStatus",
-          "ConvenientDetails",
-          "ConvenientActionItems",
-          "TimeSlotStatus",
-          "TimeSlotDetails",
-          "TimeSlotActionItems",
-        ]
-      );
-    }
-
-    let count = 0;
-    relevantFields.forEach((field) => {
-      if (
-        !!smbClientName[field] ||
-        !!smbPoc[field] ||
-        !!smbEmail[field] ||
-        !!smbContactNumber[field] ||
-        !!smbAddress[field] ||
-        !!smbClientWebsite[field] ||
-        !!smbAccessAccountingSoftware[field] ||
-        !!smbPayrollServiceAccess[field] ||
-        !!smbModeOfPayment[field] ||
-        !!smbPointSalesAccess[field] ||
-        !!smbSavingAccount[field] ||
-        !!smbAddCards[field] ||
-        !!smbLiveDate[field] ||
-        !!smbLastClosedMonth[field] ||
-        !!smbTaxReturn[field] ||
-        !!smbDistributionList[field] ||
-        !!smbTimeZone[field] ||
-        !!smbConvenient[field] ||
-        !!smbTimeSlot[field]
-      ) {
-        count++;
+    // Only include fields from checked sections
+    Object.entries(sections).forEach(([sectionName, fields]) => {
+      if (eval(sectionName)) {
+        requiredFields = requiredFields.concat(fields);
       }
     });
 
-    let totalFields = relevantFields.length;
-    let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+    const totalRequired = requiredFields.length;
+    let completedCount = 0;
+    let inProgressCount = 0;
 
-    return percentage;
+    requiredFields.forEach((field: string) => {
+      if (field === "Completed") {
+        completedCount++;
+      } else if (field === "In Progress") {
+        inProgressCount++;
+      }
+    });
+
+    if (totalRequired === 0) {
+      return 0;
+    }
+
+    const completedPercentage = (completedCount / totalRequired) * 100;
+    const inProgressPercentage = (inProgressCount / totalRequired) * 50;
+
+    const percentage = completedPercentage + inProgressPercentage;
+    return Number(percentage.toFixed(2));
   };
+
+  useEffect(() => {
+    const counts = smbChecklistStatus();
+    setSMBChecklistCount(counts);
+  }, [
+    peopleBusinessChecked,
+    systemDocumentAccessChecked,
+    cashBanksLoansChecked,
+    conditionExistingFinancialsChecked,
+    meetingAvailabilityChecked,
+  ]);
 
   const phases = [
     {
@@ -1503,7 +1456,8 @@ function ChecklistSmb({
       checkStatus: peopleBusinessChecked,
       errorStatus: smbPeopleBusinessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMMUNICATION,
-      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 1),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
+        handleSwitchChange(e, 1),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.COMMUNICATION
       ),
@@ -1545,7 +1499,8 @@ function ChecklistSmb({
       errorStatus: smbSystemDocumentAccessHasErrors,
       expandedStatus:
         expandedAccordian === AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS,
-      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 2),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
+        handleSwitchChange(e, 2),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.SYSTEM_SOFTWARE_LOCATIONS
       ),
@@ -1584,7 +1539,8 @@ function ChecklistSmb({
       checkStatus: cashBanksLoansChecked,
       errorStatus: smbCashBankingAccessHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.CASH_BANKING_LOANS,
-      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 3),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
+        handleSwitchChange(e, 3),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.CASH_BANKING_LOANS
       ),
@@ -1613,7 +1569,8 @@ function ChecklistSmb({
       checkStatus: conditionExistingFinancialsChecked,
       errorStatus: smbExistingFinancialsChecklistHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.PAYROLL_SYSTEM,
-      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 4),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
+        handleSwitchChange(e, 4),
       handleAccordianChange: handleAccordianChange(
         AccordianExpand.PAYROLL_SYSTEM
       ),
@@ -1648,7 +1605,8 @@ function ChecklistSmb({
       checkStatus: meetingAvailabilityChecked,
       errorStatus: smbMeetingChecklistHasErrors,
       expandedStatus: expandedAccordian === AccordianExpand.COMPLIANCES,
-      handleSwitchChange: (e:ChangeEvent<HTMLInputElement>) => handleSwitchChange(e, 5),
+      handleSwitchChange: (e: ChangeEvent<HTMLInputElement>) =>
+        handleSwitchChange(e, 5),
       handleAccordianChange: handleAccordianChange(AccordianExpand.COMPLIANCES),
       title: "Meeting Availability",
       component: (
@@ -1711,6 +1669,12 @@ function ChecklistSmb({
               )}
           </div>
         </div>
+        
+        {!!responseData && (
+          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+            <CommentData clientID={responseData.clientId} />
+          </div>
+        )}
 
         {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">

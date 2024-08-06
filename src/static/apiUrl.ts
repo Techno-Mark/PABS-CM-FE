@@ -8,7 +8,7 @@ export const refreshTokenAPIUrl = "api/auth/refresh-token";
 // UserManagement url
 export const businessListUrl = "api/businesstypes/list";
 export const assigneUserListUrl = "api/users/assignuserlist";
-export const saveAssignee = "/api/users/assignusersave";
+export const saveAssignee = "api/users/assignusersave";
 export const getUserListUrl = "api/users/list";
 export const saveUserUrl = "api/users/save";
 export const getUserDetailsByIdUrl = "api/users/getbyid";
@@ -39,3 +39,18 @@ export const OnboardingFormAccountDetailsSave = "api/accountDetails/create";
 export const OnboardingFormAccountDetailsGetById = "api/accountDetails/getById";
 export const OnboardingFormAccountDetailsEdit = "api/accountDetails/edit";
 export const OnboardingFormAccountDetailsDelete = "api/accountDetails/delete";
+
+// Dropdown url
+export const getChecklistStatusUrl = "api/clients/checklist-status";
+export const getCountryUrl = "api/dropdown/country";
+export const getStateUrl = "api/dropdown/state";
+export const getCityUrl = "api/dropdown/city";
+export const getTimezoneUrl = "api/dropdown/timezone";
+
+// Audit Logs url
+export const auditLogListUrl = "api/auditlog/list";
+export const userListUrl = "api/auditlog/user-list";
+
+// Comment url
+export const saveComment = "api/comment/save";
+export const getComment = "api/comment/latest";

@@ -7,7 +7,7 @@ import { validateNumber } from "@/utils/validate";
 // Date import
 import dayjs, { Dayjs } from "dayjs";
 // MUI import
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Tooltip } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@/models/autoCareBasicDetails";
 // Cookie import
 import Cookies from "js-cookie";
+import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
 
 function AutoCareLegalStructure({
   className,
@@ -59,7 +60,7 @@ function AutoCareLegalStructure({
   };
 
   const handleDateChange = (date: Dayjs | null, type: string) => {
-    const formattedDate = date ? date.format("D MMM YYYY") : null;
+    const formattedDate = date ? date.format("MM/DD/YYYY") : null;
     switch (type) {
       case "AgreementDate":
         setAutoCareLegalStructure({
@@ -111,7 +112,7 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
+                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>
@@ -139,7 +140,7 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
+                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>
@@ -165,14 +166,27 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
+                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Agreement Date
+              <label className="flex items-center text-[#6E6D7A] text-[12px]">
+                <div className="mr-1">Agreement Date</div>
+                <Tooltip
+                  title={
+                    <ul className="custom-tooltip">
+                      <li>MM/DD/YYYY</li>
+                    </ul>
+                  }
+                  placement="top"
+                  arrow
+                >
+                  <span>
+                    <ImgInfoIcon />
+                  </span>
+                </Tooltip>
               </label>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -187,14 +201,14 @@ function AutoCareLegalStructure({
                     autoCareLegalStructure?.agreementDate
                       ? dayjs(
                           autoCareLegalStructure.agreementDate,
-                          "D MMM YYYY"
+                          "MM/DD/YYYY"
                         )
                       : null
                   }
                   onChange={(value: Dayjs | null) =>
                     handleDateChange(value, "AgreementDate")
                   }
-                  format="D MMM YYYY"
+                  format="MM/DD/YYYY"
                   slotProps={{
                     textField: {
                       variant: "standard",
@@ -206,15 +220,28 @@ function AutoCareLegalStructure({
                       },
                     },
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
+                  disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
                 />
               </LocalizationProvider>
             </div>
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">
-                Probable Acquition Date
+              <label className="flex items-center text-[#6E6D7A] text-[12px]">
+                <div className="mr-1">Probable Acquition Date</div>
+                <Tooltip
+                  title={
+                    <ul className="custom-tooltip">
+                      <li>MM/DD/YYYY</li>
+                    </ul>
+                  }
+                  placement="top"
+                  arrow
+                >
+                  <span>
+                    <ImgInfoIcon />
+                  </span>
+                </Tooltip>
               </label>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -229,14 +256,14 @@ function AutoCareLegalStructure({
                     autoCareLegalStructure?.probableAcquitionDate
                       ? dayjs(
                           autoCareLegalStructure.probableAcquitionDate,
-                          "D MMM YYYY"
+                          "MM/DD/YYYY"
                         )
                       : null
                   }
                   onChange={(value: Dayjs | null) =>
                     handleDateChange(value, "probableAcquitionDate")
                   }
-                  format="D MMM YYYY"
+                  format="MM/DD/YYYY"
                   slotProps={{
                     textField: {
                       variant: "standard",
@@ -248,7 +275,7 @@ function AutoCareLegalStructure({
                       },
                     },
                   }}
-                  disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
+                  disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
                 />
               </LocalizationProvider>
             </div>
@@ -273,7 +300,7 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && finalCheckAllFieldsLegalStructure}
+                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
               />
             </div>
           </Grid>

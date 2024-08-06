@@ -22,6 +22,20 @@ export const bulkStyle = {
   outline: "none",
 };
 
+export const auditLogModalstyle = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "70vw",
+  height: "70vh",
+  borderRadius: "5px",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  outline: "none",
+};
+
+
 export const clientModalstyle = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -33,4 +47,16 @@ export const clientModalstyle = {
   bgcolor: "background.paper",
   boxShadow: 24,
   outline: "none",
+};
+
+export const tableContainerStyle = {
+  maxHeight: '46vh',
+  overflowY: 'auto' as React.CSSProperties['overflowY'],
+};
+
+export const stickyHeaderStyle = {
+  position: 'sticky' as React.CSSProperties['position'],
+  top: 0,
+  backgroundColor: '#023963',
+  zIndex: 1 ,
 };

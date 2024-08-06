@@ -12,6 +12,7 @@ import {
 import { useStyles } from "@/utils/useStyles";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "@/components/client/common/Status";
 
 const WhitelabelMeetingAvailabilityForm = ({
   className,
@@ -93,6 +94,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -100,30 +102,19 @@ const TimeZone = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="timeZoneStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelTimeZone?.timeZoneStatus}
-                error={!!whitelabelTimeZoneErrors?.timeZoneStatus}
-                helperText={whitelabelTimeZoneErrors?.timeZoneStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllTimeZone}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelTimeZone?.timeZoneStatus}
+            onChange={(value: string) =>
+              setWhitelabelTimeZone((prev: WhitelabelTimeZoneFormTypes) => ({
+                  ...prev,
+                  timeZoneStatus: value,
+                }))
+              }
+            error={whitelabelTimeZoneErrors?.timeZoneStatus}
+            helperText={whitelabelTimeZoneErrors?.timeZoneStatus}
+            disabled={roleId === "4" && checkAllTimeZone}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -145,6 +136,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -172,6 +164,7 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeZone}
@@ -229,6 +222,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -236,30 +230,19 @@ const ConvenientDay = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="convenientDayStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelConvenientDay?.convenientDayStatus}
-                error={!!whitelabelConvenientDayErrors?.convenientDayStatus}
-                helperText={whitelabelConvenientDayErrors?.convenientDayStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllConvenientDay}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelConvenientDay?.convenientDayStatus}
+            onChange={(value: string) =>
+              setWhitelabelConvenientDay((prev: WhitelabelConvenientDayFormTypes) => ({
+                  ...prev,
+                  convenientDayStatus: value,
+                }))
+              }
+            error={whitelabelConvenientDayErrors?.convenientDayStatus}
+            helperText={whitelabelConvenientDayErrors?.convenientDayStatus}
+            disabled={roleId === "4" && checkAllConvenientDay}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -283,6 +266,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -314,6 +298,7 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllConvenientDay}
@@ -369,6 +354,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}
@@ -376,30 +362,19 @@ const TimeSlot = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="timeSlotStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelTimeSlot?.timeSlotStatus}
-                error={!!whitelabelTimeSlotErrors?.timeSlotStatus}
-                helperText={whitelabelTimeSlotErrors?.timeSlotStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllTimeSlot}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelTimeSlot?.timeSlotStatus}
+            onChange={(value: string) =>
+              setWhitelabelTimeSlot((prev: WhitelabelTimeSlotFormTypes) => ({
+                  ...prev,
+                  timeSlotStatus: value,
+                }))
+              }
+            error={whitelabelTimeSlotErrors?.timeSlotStatus}
+            helperText={whitelabelTimeSlotErrors?.timeSlotStatus}
+            disabled={roleId === "4" && checkAllTimeSlot}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -421,6 +396,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}
@@ -448,6 +424,7 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllTimeSlot}

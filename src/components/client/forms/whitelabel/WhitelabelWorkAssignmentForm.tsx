@@ -17,6 +17,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "@/components/client/common/Status";
 
 const WhitelabelWorkAssignmentForm = ({
   className,
@@ -106,6 +107,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -113,30 +115,19 @@ const Monthly = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="monthlyStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelMonthly?.monthlyStatus}
-                error={!!whitelabelMonthlyErrors?.monthlyStatus}
-                helperText={whitelabelMonthlyErrors?.monthlyStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllMonthly}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelMonthly?.monthlyStatus}
+            onChange={(value: string) =>
+              setWhitelabelMonthly((prev: MonthlyFormTypes) => ({
+                  ...prev,
+                  monthlyStatus: value,
+                }))
+              }
+            error={whitelabelMonthlyErrors?.monthlyStatus}
+            helperText={whitelabelMonthlyErrors?.monthlyStatus}
+            disabled={roleId === "4" && checkAllMonthly}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -158,6 +149,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -185,6 +177,7 @@ const Monthly = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllMonthly}
@@ -240,6 +233,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -247,30 +241,19 @@ const Cleanup = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="cleanupStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelCleanup?.cleanupStatus}
-                error={!!whitelabelCleanupErrors?.cleanupStatus}
-                helperText={whitelabelCleanupErrors?.cleanupStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllCleanup}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelCleanup?.cleanupStatus}
+            onChange={(value: string) =>
+              setWhitelabelCleanup((prev: CleanupFormTypes) => ({
+                  ...prev,
+                  cleanupStatus: value,
+                }))
+              }
+            error={whitelabelCleanupErrors?.cleanupStatus}
+            helperText={whitelabelCleanupErrors?.cleanupStatus}
+            disabled={roleId === "4" && checkAllCleanup}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -292,6 +275,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -319,6 +303,7 @@ const Cleanup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCleanup}
@@ -374,6 +359,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -381,30 +367,19 @@ const Catchup = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="catchupStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelCatchup?.catchupStatus}
-                error={!!whitelabelCatchupErrors?.catchupStatus}
-                helperText={whitelabelCatchupErrors?.catchupStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllCatchup}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelCatchup?.catchupStatus}
+            onChange={(value: string) =>
+              setWhitelabelCatchup((prev: CatchupFormTypes) => ({
+                  ...prev,
+                  catchupStatus: value,
+                }))
+              }
+            error={whitelabelCatchupErrors?.catchupStatus}
+            helperText={whitelabelCatchupErrors?.catchupStatus}
+            disabled={roleId === "4" && checkAllCatchup}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -426,6 +401,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -453,6 +429,7 @@ const Catchup = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCatchup}
@@ -509,6 +486,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}
@@ -516,30 +494,19 @@ const Combination = ({
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="combinationStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={whitelabelCombination?.combinationStatus}
-                error={!!whitelabelCombinationErrors?.combinationStatus}
-                helperText={whitelabelCombinationErrors?.combinationStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllCombination}
-              />
-            </div>
-          </Grid>
+          <Status
+            value={whitelabelCombination?.combinationStatus}
+            onChange={(value: string) =>
+              setWhitelabelCombination((prev: CombinationFormTypes) => ({
+                  ...prev,
+                  combinationStatus: value,
+                }))
+              }
+            error={whitelabelCombinationErrors?.combinationStatus}
+            helperText={whitelabelCombinationErrors?.combinationStatus}
+            disabled={roleId === "4" && checkAllCombination}
+          />
+        </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -561,6 +528,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}
@@ -590,6 +558,7 @@ const Combination = ({
                   },
                 }}
                 inputProps={{
+                  maxLength:250,
                   className: classes.textSize,
                 }}
                 disabled={roleId === "4" && checkAllCombination}

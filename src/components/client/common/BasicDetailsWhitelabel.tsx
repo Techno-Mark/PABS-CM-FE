@@ -82,12 +82,10 @@ const BasicDetailsWhitelabel = ({
   );
 
   const [whitelabelCpaClientTeam, setWhitelabelCpaClientTeam] = useState<any>({
-    pocDetails: "",
     cpaArray: [initialWhitelabelCpaClientTeam],
   });
   const [whitelabelCpaClientTeamErrors, setWhitelabelCpaClientTeamErrors] =
     useState<any>({
-      pocDetails: "",
       cpaArray: [initialWhitelabelCpaClientTeamErrors],
     });
 
@@ -153,9 +151,10 @@ const BasicDetailsWhitelabel = ({
             );
             setWhitelabelAccountDetails({
               cpaName: ResponseData.cpaName,
-              city: ResponseData.city,
               corporateAddress: ResponseData.corporateAddress,
-              state: ResponseData.state,
+              country: ResponseData?.country || "",
+              state: ResponseData?.state || "",
+              city: ResponseData?.city || "",
               zip: ResponseData.zip,
               ownerContact: ResponseData.ownerContact,
               ownerEmail: ResponseData.ownerEmail,
@@ -165,11 +164,10 @@ const BasicDetailsWhitelabel = ({
               noOfAccounts: ResponseData.noOfAccounts,
               bdm: ResponseData.bdm,
               startDate: ResponseData?.startDate
-                ? dayjs(ResponseData?.startDate).format("DD MMM YYYY")
+                ? dayjs(ResponseData?.startDate).format("MM/DD/YYYY")
                 : null,
             });
             setWhitelabelCpaClientTeam({
-              pocDetails: ResponseData.pocDetails,
               cpaArray:
                 ResponseData.pocFieldsDetail.length > 0
                   ? ResponseData.pocFieldsDetail.map(
@@ -225,7 +223,7 @@ const BasicDetailsWhitelabel = ({
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
       } else if (
-        (field === "ownerPhone" || field === "ownerContact") &&
+        (field === "ownerContact") &&
         !!whitelabelAccountDetailsErrors[field]
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
@@ -263,7 +261,6 @@ const BasicDetailsWhitelabel = ({
     setWhitelabelAccountDetailsErrors({});
     setWhitelabelOtherInformationErrors({});
     setWhitelabelCpaClientTeamErrors({
-      pocDetails: "",
       cpaArray: [initialWhitelabelCpaClientTeamErrors],
     });
   };
@@ -275,6 +272,7 @@ const BasicDetailsWhitelabel = ({
           showToast(Message, ToastType.Error);
           return;
         case "success":
+          getWhiteLabelBasicDetailsList();
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
           isValid && showToast(Message, ToastType.Success);
           type === 1 && setWhitelabelBasicDetailsFormSubmit(12);
@@ -300,6 +298,7 @@ const BasicDetailsWhitelabel = ({
       ownerPhone: validatePhone(whitelabelAccountDetails.ownerPhone)
         ? whitelabelAccountDetails.ownerPhone
         : "",
+      country: whitelabelAccountDetails.country,
       state: whitelabelAccountDetails.state,
       city: whitelabelAccountDetails.city,
       zip: validateZip(whitelabelAccountDetails.zip)
@@ -308,7 +307,6 @@ const BasicDetailsWhitelabel = ({
       noOfAccounts: Number(whitelabelOtherInformation.noOfAccounts),
       bdm: whitelabelOtherInformation.bdm,
       startDate: whitelabelOtherInformation.startDate,
-      pocDetails: whitelabelCpaClientTeam.pocDetails,
       implementation: whitelabelPABSAccountingTeam.implementation,
       operationsHead: whitelabelPABSAccountingTeam.operationsHead,
       teamManager: whitelabelPABSAccountingTeam.teamManager,
@@ -478,18 +476,15 @@ const BasicDetailsWhitelabel = ({
   const handlePocDetailsChange = (e: any) => {
     setWhitelabelCpaClientTeam({
       ...whitelabelCpaClientTeam,
-      pocDetails: e.target.value,
     });
     setWhitelabelCpaClientTeamErrors({
       ...whitelabelCpaClientTeamErrors,
-      pocDetails: "",
     });
   };
 
   const validateCpaClientTeam = () => {
     let isValid = true;
     const newErrors = {
-      pocDetails: "",
       cpaArray: whitelabelCpaClientTeam.cpaArray.map((field: any) => {
         const fieldErrors: any = {};
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
@@ -507,12 +502,7 @@ const BasicDetailsWhitelabel = ({
         return fieldErrors;
       }),
     };
-
-    if (!whitelabelCpaClientTeam.pocDetails) {
-      isValid = false;
-      newErrors.pocDetails = "POC Details is required";
-    }
-
+    
     setWhitelabelCpaClientTeamErrors(newErrors);
     return isValid;
   };
@@ -628,12 +618,12 @@ const BasicDetailsWhitelabel = ({
         ...[
           "cpaName",
           "corporateAddress",
-          "city",
+          "country",
           "state",
+          "city",
           "zip",
           "ownerContact",
           "ownerEmail",
-          "ownerPhone",
         ]
       );
     }
@@ -643,7 +633,6 @@ const BasicDetailsWhitelabel = ({
     }
 
     if (whitelabelCpaClientTeamCheckStatus) {
-      relevantFields.push(...["pocDetails"]);
       if (whitelabelCpaClientTeam && whitelabelCpaClientTeam.cpaArray) {
         whitelabelCpaClientTeam.cpaArray.forEach(() => {
           relevantFields.push(...["pocEmailId"]);
@@ -688,7 +677,7 @@ const BasicDetailsWhitelabel = ({
     let totalFields = relevantFields.length;
 
     let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+      totalFields > 0 ? Number(((count / totalFields) * 100).toFixed(2)) : 0;
 
     return percentage;
   };

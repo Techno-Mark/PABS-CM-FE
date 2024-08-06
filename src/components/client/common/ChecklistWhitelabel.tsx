@@ -87,6 +87,7 @@ import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
+import CommentData from "./CommentData";
 
 const ChecklistWhitelabel = ({
   setWhiteLabelChecklistCount,
@@ -103,6 +104,7 @@ const ChecklistWhitelabel = ({
   const businessTypeId = Cookies.get("businessTypeId");
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
+  const [clientId, setClientId] = useState(0);
 
   const initialWhiteLabelSystemSoftwareErrors: any = {};
   const initialWhiteLabelServiceTypeErrors: any = {};
@@ -261,6 +263,7 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setClientId(ResponseData?.clientId);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
@@ -315,7 +318,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "IT Structure Knowledge":
+                case "IT Setup- Cloud based or Remote":
                   setWhitelabelITStructure({
                     itStructureWhiteLabelStatus: checklistItem.status,
                     itStructureWhiteLabelComments: checklistItem.comments,
@@ -325,7 +328,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "If Remote Set Up - Access Computer Method (Dedicated)":
+                case "If remote computer need to be accessed, please share access credentials and instructions":
                   setWhitelabelRemoteSetup({
                     remoteSetupWhiteLabelStatus: checklistItem.status,
                     remoteSetupWhiteLabelComments: checklistItem.comments,
@@ -335,7 +338,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Need Your IT Teams Help?":
+                case "Need PABS IT team help in Set up?":
                   setWhitelabelITHelp({
                     itHelpWhiteLabelStatus: checklistItem.status,
                     itHelpWhiteLabelComments: checklistItem.comments,
@@ -683,131 +686,73 @@ const ChecklistWhitelabel = ({
   ]);
 
   const whiteLabelchecklistStatus = () => {
-    let relevantFields = [];
+    const sections = {
+      whiteLabelsystemSoftwareChecked: [
+        whitelabelAccountingSoftware.accountingSoftwareWhiteLabelStatus,
+        whitelabelCloudDocument.cloudDocumentWhiteLabelStatus,
+        whitelabelMessenger.messengerWhiteLabelStatus,
+        whitelabelSystemAccess.systemAccessWhiteLabelStatus,
+      ],
+      whiteLabelServiceTypeChecked: [
+        whitelabelFTE.FTEStatus,
+        whitelabelAccounting.accountingStatus,
+        whitelabelTax.taxStatus,
+      ],
 
-    if (
-      !whiteLabelsystemSoftwareChecked &&
-      !whiteLabelServiceTypeChecked &&
-      !whitelabelWorkAssignmentChecked &&
-      whiteLabelCommunicationChecked
-    ) {
-      relevantFields.push(
-        ...[
-          "groupEmailWhiteLabelStatus",
-          "groupEmailWhiteLabelComments",
-          "groupEmailWhiteLabelActionPABS",
-          "groupEmailWhiteLabelActionClient",
-          "teamOverCallWhiteLabelStatus",
-          "teamOverCallWhiteLabelComments",
-          "teamOverCallWhiteLabelActionPABS",
-          "teamOverCallWhiteLabelActionClient",
-          "kickOffWhiteLabelStatus",
-          "kickOffWhiteLabelComments",
-          "kickOffWhiteLabelActionPABS",
-          "kickOffWhiteLabelActionClient",
-        ]
-      );
-    }
+      whitelabelWorkAssignmentChecked: [
+        whitelabelMonthly.monthlyStatus,
+        whitelabelCleanup.cleanupStatus,
+        whitelabelCatchup.catchupStatus,
+        whitelabelCombination.combinationStatus,
+      ],
+      whiteLabelMeetingAvailabilityChecked: [
+        whitelabelTimeZone.timeZoneStatus,
+        whitelabelConvenientDay.convenientDayStatus,
+        whitelabelTimeSlot.timeSlotStatus,
+      ],
+    };
 
-    if (whiteLabelsystemSoftwareChecked) {
-      relevantFields.push(...validateWhiteLabelSystemSoftwareField);
-    }
+    let requiredFields: string[] = [];
 
-    if (whiteLabelServiceTypeChecked) {
-      relevantFields.push(...validateWhiteLabelServiceTypeField);
-    }
-
-    if (
-      !whiteLabelsystemSoftwareChecked &&
-      !whiteLabelServiceTypeChecked &&
-      !whitelabelWorkAssignmentChecked &&
-      whitelabelChallengesChecked
-    ) {
-      relevantFields.push(
-        ...[
-          "currentChallengesStatus",
-          "currentChallengesComments",
-          "currentChallengesActionPABS",
-          "currentChallengesActionClient",
-          "exceptionStatus",
-          "exceptionComments",
-          "exceptionActionPABS",
-          "exceptionActionClient",
-        ]
-      );
-    }
-
-    if (whitelabelWorkAssignmentChecked) {
-      relevantFields.push(...validateWhiteLabelWorkAssignmentField);
-    }
-
-    if (
-      !whiteLabelsystemSoftwareChecked &&
-      !whiteLabelServiceTypeChecked &&
-      !whitelabelWorkAssignmentChecked &&
-      whiteLabelEscalationMatrixChecked
-    ) {
-      relevantFields.push(
-        ...[
-          "clientStatus",
-          "clientComments",
-          "clientActionPABS",
-          "clientActionClient",
-          "pabsStatus",
-          "pabsComments",
-          "pabsActionPABS",
-          "pabsActionClient",
-          "bdmStatus",
-          "bdmComments",
-          "bdmActionPABS",
-          "bdmActionClient",
-        ]
-      );
-    }
-
-    if (whiteLabelMeetingAvailabilityChecked) {
-      relevantFields.push(...validateWhiteLabelMeetingAvailabilityField);
-    }
-
-    let count = 0;
-    relevantFields.forEach((field) => {
-      if (
-        !!whitelabelAccountingSoftware[field] ||
-        !!whitelabelCloudDocument[field] ||
-        !!whitelabelMessenger[field] ||
-        !!whitelabelSystemAccess[field] ||
-        !!whitelabelFTE[field] ||
-        !!whitelabelAccounting[field] ||
-        !!whitelabelTax[field] ||
-        !!whitelabelMonthly[field] ||
-        !!whitelabelCleanup[field] ||
-        !!whitelabelCatchup[field] ||
-        !!whitelabelCombination[field] ||
-        !!whitelabelTimeZone[field] ||
-        !!whitelabelConvenientDay[field] ||
-        !!whitelabelTimeSlot[field] ||
-        !!whitelabelGroupEmailEstablished[field] ||
-        !!whitelabelKickOff[field] ||
-        !!whitelabelTeamOverCall[field] ||
-        !!whitelabelCurrentChallenges[field] ||
-        !!whitelabelExpectation[field] ||
-        !!whitelabelClient[field] ||
-        !!whitelabelPABS[field] ||
-        !!whitelabelBDM[field] ||
-        !!whitelabelTimeZone[field] ||
-        !!whitelabelConvenientDay[field] ||
-        !!whitelabelTimeSlot[field]
-      ) {
-        count++;
+    // Only include fields from checked sections
+    Object.entries(sections).forEach(([sectionName, fields]) => {
+      if (eval(sectionName)) {
+        requiredFields = requiredFields.concat(fields);
       }
     });
 
-    let totalFields = relevantFields.length;
-    let percentage =
-      totalFields > 0 ? Math.floor((count / totalFields) * 100) : 0;
+    const totalRequired = requiredFields.length;
+    let completedCount = 0;
+    let inProgressCount = 0;
 
-    return percentage;
+    requiredFields.forEach((field: string) => {
+      if (field === "Completed") {
+        completedCount++;
+      } else if (field === "In Progress") {
+        inProgressCount++;
+      }
+    });
+
+    if (totalRequired === 0) {
+      return 0;
+    }
+
+    const completedPercentage = (completedCount / totalRequired) * 100;
+    const inProgressPercentage = (inProgressCount / totalRequired) * 50;
+
+    const percentage = completedPercentage + inProgressPercentage;
+    return Number(percentage.toFixed(2));
   };
+
+  useEffect(() => {
+    const counts = whiteLabelchecklistStatus();
+    setWhiteLabelChecklistCount(counts);
+  }, [
+    whiteLabelsystemSoftwareChecked,
+    whiteLabelServiceTypeChecked,
+    whitelabelWorkAssignmentChecked,
+    whiteLabelMeetingAvailabilityChecked,
+  ]);
 
   const handleWhiteLabelChecklistRemoveErrors = () => {
     setWhiteLabelSystemSoftwareErrors({});
@@ -829,8 +774,9 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           type === 2 ? !isValid && showToast(Message, ToastType.Success) : "";
-          isValid && showToast(Message, ToastType.Success);
+          type !== 3 ? isValid && showToast(Message, ToastType.Success) : "";
           setExpandedAccordian(-1);
+          // type !== 3 && showToast(Message, ToastType.Success);
           type === 3 && setChecklistFormSubmit(11);
           type === 1 && setChecklistFormSubmit(13);
           return;
@@ -872,7 +818,7 @@ const ChecklistWhitelabel = ({
             whitelabelTeamOverCall.teamOverCallWhiteLabelActionClient,
         },
         {
-          fieldName: "IT Structure Knowledge",
+          fieldName: "IT Setup- Cloud based or Remote",
           status: whitelabelITStructure.itStructureWhiteLabelStatus,
           comments: whitelabelITStructure.itStructureWhiteLabelComments,
           actionsOfPabs: whitelabelITStructure.itStructureWhiteLabelActionPABS,
@@ -880,7 +826,7 @@ const ChecklistWhitelabel = ({
             whitelabelITStructure.itStructureWhiteLabelActionClient,
         },
         {
-          fieldName: "If Remote Set Up - Access Computer Method (Dedicated)",
+          fieldName: "If remote computer need to be accessed, please share access credentials and instructions",
           status: whitelabelRemoteSetup.remoteSetupWhiteLabelStatus,
           comments: whitelabelRemoteSetup.remoteSetupWhiteLabelComments,
           actionsOfPabs: whitelabelRemoteSetup.remoteSetupWhiteLabelActionPABS,
@@ -888,7 +834,7 @@ const ChecklistWhitelabel = ({
             whitelabelRemoteSetup.remoteSetupWhiteLabelActionClient,
         },
         {
-          fieldName: "Need Your IT Teams Help?",
+          fieldName: "Need PABS IT team help in Set up?",
           status: whitelabelITHelp.itHelpWhiteLabelStatus,
           comments: whitelabelITHelp.itHelpWhiteLabelComments,
           actionsOfPabs: whitelabelITHelp.itHelpWhiteLabelActionPABS,
@@ -1062,8 +1008,8 @@ const ChecklistWhitelabel = ({
     };
 
     const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
-      ? validateWhiteLabelSystemSoftware()
-      : false;
+    ? validateWhiteLabelSystemSoftware()
+    : false;
     const isWhiteLabelServiceTypeValid = whiteLabelServiceTypeChecked
       ? validateWhiteLabelServiceType()
       : false;
@@ -1147,10 +1093,17 @@ const ChecklistWhitelabel = ({
               progress: whiteLabelProgressPercentage,
             });
           }
+          if (!isValid) {
+            setExpandedAccordian(-1);
+            showToast(
+              "Please provide mandatory fields to submit the onboarding form.",
+              ToastType.Error
+            );
+          }
         } else {
           const filledFieldsCount = whiteLabelchecklistStatus();
           setWhiteLabelChecklistCount(filledFieldsCount);
-          handleWhiteLabelChecklistRemoveErrors();
+          // handleWhiteLabelChecklistRemoveErrors();
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
             ...whitelabelChecklistFormData,
             progress: whiteLabelProgressPercentage,
@@ -1165,16 +1118,12 @@ const ChecklistWhitelabel = ({
         );
       }
       setExpandedAccordian(-1);
+      setChecklistFormSubmit(11);
       handleWhiteLabelChecklistRemoveErrors();
-      if (!isSubmitedWhiteLabelChecklist) {
-        callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
-          ...whitelabelChecklistFormData,
-          progress: whiteLabelProgressPercentage,
-        });
-      } else {
-        setExpandedAccordian(-1);
-        setChecklistFormSubmit(11);
-      }
+      callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
+        ...whitelabelChecklistFormData,
+        progress: whiteLabelProgressPercentage,
+      });
     }
   };
 
@@ -1462,7 +1411,6 @@ const ChecklistWhitelabel = ({
     ...phase,
     phaseNumber: index + 1,
   }));
-
   return (
     <>
       {formSubmitId === 12 && (
@@ -1502,6 +1450,10 @@ const ChecklistWhitelabel = ({
                   </span>
                 )}
             </div>
+          </div>
+
+          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+            <CommentData clientID={clientId} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">

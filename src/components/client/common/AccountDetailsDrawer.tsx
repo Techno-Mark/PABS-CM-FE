@@ -8,7 +8,13 @@ import {
 } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import { FormControl, MenuItem, Select, TextField } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
@@ -16,6 +22,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { statusOptionDrawerAccDetails } from "@/static/whitelabel/whitelabelChecklist";
 import { validateNumber } from "@/utils/validate";
+import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
 
 interface AccountDetailsDrawerProps {
   openDrawer: boolean;
@@ -128,7 +135,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               estimateTime: ResponseData.estimateHoursOfWork,
               pabs: ResponseData.pabsDuties,
               bookKeeping: ResponseData.bookkeepingPeriod,
-              deadline: ResponseData.deadline,
+              deadline: ResponseData.deadline
+                ? dayjs(ResponseData.deadline).format("MM/DD/YYYY")
+                : "",
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
               status: ResponseData.status === true ? 1 : 0,
@@ -146,7 +155,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               estimateTime: ResponseData.estimateHoursOfWork,
               pabs: ResponseData.pabsDuties,
               bookKeeping: ResponseData.bookkeepingPeriod,
-              deadline: ResponseData.deadline,
+              deadline: ResponseData.deadline
+                ? dayjs(ResponseData.deadline).format("MM/DD/YYYY")
+                : "",
               notes1: ResponseData.notes1MonthlyTransactions,
               notes: ResponseData.notes,
               status: ResponseData.status === true ? 1 : 0,
@@ -191,6 +202,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
       notes1MonthlyTransactions: formValues.notes1,
       notes: formValues.notes,
       status: formValues.status,
+      single: true,
     };
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -259,7 +271,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
     };
 
   const handleDateChange = (date: Dayjs | null) => {
-    const formattedDate = date ? date.format("DD MM YYYY") : null;
+    const formattedDate = date ? date.format("MM/DD/YYYY") : null;
     setFormValues((prevValues) => ({
       ...prevValues,
       deadline: formattedDate,
@@ -534,7 +546,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           </div>
         </div>
         <div className="flex items-center justify-center gap-5 w-full my-4">
-          <div className="text-[12px] flex flex-col w-1/2">
+          <div className="text-[12px] flex flex-col w-1/2 mt-[18px]">
             <label className="text-[#6E6D7A] text-[12px]">PABS Duties</label>
             <TextField
               id="document"
@@ -555,14 +567,17 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
             />
           </div>
           <div className="text-[12px] flex flex-col w-1/2">
-            <label className="text-[#6E6D7A] text-[12px]">
-              Book Keeping Monthly or Clean Up
+            <label className="text-[#6E6D7A] text-[12px] flex flex-col">
+              <span className="whitespace-normal">
+                Bookkeeping Monthly/Clean up catch up
+              </span>
+              <span className="whitespace-normal">(Specify Period)</span>
             </label>
             <TextField
               id="bankConnected"
               variant="standard"
               size="small"
-              placeholder="Please Enter Book Keeping Monthly or Clean Up"
+              placeholder="Please Enter Bookkeeping Monthly/Clean up catch up"
               value={formValues.bookKeeping}
               onChange={handleChange("bookKeeping")}
               InputProps={{
@@ -582,18 +597,31 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
             <div
               className={`text-[12px] flex flex-col w-full muiDatepickerCustomizer`}
             >
-              <label className="text-[#6E6D7A] text-[12px] mb-[-18px]">
-                Deadline
+              <label className="flex items-center text-[#6E6D7A] text-[12px]">
+                <div className="mr-1">Deadline</div>
+                <Tooltip
+                  title={
+                    <ul className="custom-tooltip">
+                      <li>MM/DD/YYYY</li>
+                    </ul>
+                  }
+                  placement="top"
+                  arrow
+                >
+                  <span>
+                    <ImgInfoIcon />
+                  </span>
+                </Tooltip>
               </label>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   value={
                     formValues.deadline
-                      ? dayjs(formValues.deadline, "DD MM YYYY")
+                      ? dayjs(formValues.deadline, "MM/DD/YYYY")
                       : null
                   }
-                  onChange={handleDateChange}
-                  format="DD/MM/YYYY"
+                  onChange={(value: Dayjs | null) => handleDateChange(value)}
+                  format="MM/DD/YYYY"
                   slotProps={{
                     textField: {
                       readOnly: true,
@@ -653,7 +681,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`!text-[14px]`}
+                className={classes.select}
                 value={formValues.status}
                 onChange={(e: any) => handleSwitchChange(e)}
               >

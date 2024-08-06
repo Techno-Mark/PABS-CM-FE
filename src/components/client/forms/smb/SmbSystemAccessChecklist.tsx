@@ -31,6 +31,7 @@ import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
+import Status from "@/components/client/common/Status";
 
 function SmbSystemAccessChecklist({
   className,
@@ -165,30 +166,18 @@ const PABSGroupEmail = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="pabsGroupEmailStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbPABSGroupEmail?.pabsGroupEmailStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbPABSGroupEmail?.pabsGroupEmailStatus}
+            onChange={(value: string) =>
+              setSmbPABSGroupEmail((prev: PABSGroupEmailFormTypes) => ({
+                  ...prev,
+                  pabsGroupEmailStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsPABSGroupEmail}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -272,40 +261,21 @@ const AccessAccountingSoftware = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="AccessAccountingSoftwareStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  smbAccessAccountingSoftware?.AccessAccountingSoftwareStatus
-                }
-                error={
-                  !!smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareStatus
-                }
-                helperText={
-                  smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={
-                  roleId === "4" && checkAllFieldsAccessAccountingSoftware
-                }
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbAccessAccountingSoftware?.AccessAccountingSoftwareStatus}
+            onChange={(value: string) =>
+              setSmbAccessAccountingSoftware(
+                (prev: AccessAccountingSoftwareFormTypes) => ({
+                  ...prev,
+                  AccessAccountingSoftwareStatus: value,
+                }))
+              }
+            error={smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareStatus}
+            helperText={smbAccessAccountingSoftwareErrors?.AccessAccountingSoftwareStatus}
+            disabled={roleId === "4" && checkAllFieldsAccessAccountingSoftware}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -405,30 +375,18 @@ const DropboxSetUp = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="DropboxSetUpStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbDropboxSetUp?.DropboxSetUpStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbDropboxSetUp?.DropboxSetUpStatus}
+            onChange={(value: string) =>
+              setSmbDropboxSetUp((prev: DropboxSetUpFormTypes) => ({
+                  ...prev,
+                  DropboxSetUpStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsDropboxSetUp}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -508,30 +466,18 @@ const SalesTaxPortalAccess = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="salesTaxPortalAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbSalesTaxPortalAccess?.salesTaxPortalAccessStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbSalesTaxPortalAccess?.salesTaxPortalAccessStatus}
+            onChange={(value: string) =>
+              setSmbSalesTaxPortalAccess((prev: SalesTaxPortalAccessFormTypes) => ({
+                  ...prev,
+                  salesTaxPortalAccessStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsSalesTaxPortalAccess}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -613,34 +559,19 @@ const MerchantAccountPortalAccess = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="merchantAccountPortalAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  smbMerchantAccountPortalAccess?.merchantAccountPortalAccessStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={
-                  roleId === "4" && checkAllFieldsMerchantAccountPortalAccess
-                }
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbMerchantAccountPortalAccess?.merchantAccountPortalAccessStatus}
+            onChange={(value: string) =>
+              setSmbMerchantAccountPortalAccess(
+                (prev: MerchantAccountPortalAccessFormTypes) => ({
+                  ...prev,
+                  merchantAccountPortalAccessStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsMerchantAccountPortalAccess}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -729,36 +660,20 @@ const PayrollServiceAccess = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="PayrollServiceAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbPayrollServiceAccess?.PayrollServiceAccessStatus}
-                error={
-                  !!smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus
-                }
-                helperText={
-                  smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbPayrollServiceAccess?.PayrollServiceAccessStatus}
+            onChange={(value: string) =>
+              setSmbPayrollServiceAccess((prev: PayrollServiceAccessFormTypes) => ({
+                  ...prev,
+                  PayrollServiceAccessStatus: value,
+                }))
+              }
+            error={smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus}
+            helperText={smbPayrollServiceAccessErrors?.PayrollServiceAccessStatus}
+            disabled={roleId === "4" && checkAllFieldsPayrollServiceAccess}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -850,30 +765,18 @@ const PayrollFrequency = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="PayrollFrequencyStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbPayrollFrequency?.PayrollFrequencyStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbPayrollFrequency?.PayrollFrequencyStatus}
+            onChange={(value: string) =>
+              setSmbPayrollFrequency((prev: PayrollFrequencyFormTypes) => ({
+                  ...prev,
+                  PayrollFrequencyStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsPayrollFrequency}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -955,32 +858,19 @@ const ExpensePaymentPortalAccess = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="expensePaymentPortalAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={
-                  smbExpensePaymentPortalAccess?.expensePaymentPortalAccessStatus
-                }
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsExpensePaymentPortalAccess}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbExpensePaymentPortalAccess?.expensePaymentPortalAccessStatus}
+            onChange={(value: string) =>
+              setSmbExpensePaymentPortalAccess(
+                (prev: ExpensePaymentPortalAccessFormTypes) => ({
+                  ...prev,
+                  expensePaymentPortalAccessStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && smbExpensePaymentPortalAccess}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -1066,32 +956,20 @@ const ModeOfPayment = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ModeOfPaymentStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbModeOfPayment?.ModeOfPaymentStatus}
-                error={!!smbModeOfPaymentErrors?.ModeOfPaymentStatus}
-                helperText={smbModeOfPaymentErrors?.ModeOfPaymentStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsModeOfPayment}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbModeOfPayment?.ModeOfPaymentStatus}
+            onChange={(value: string) =>
+              setSmbModeOfPayment((prev: ModeOfPaymentFormTypes) => ({
+                  ...prev,
+                  ModeOfPaymentStatus: value,
+                }))
+              }
+            error={smbModeOfPaymentErrors?.ModeOfPaymentStatus}
+            helperText={smbModeOfPaymentErrors?.ModeOfPaymentStatus}
+            disabled={roleId === "4" && checkAllFieldsModeOfPayment}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -1175,30 +1053,18 @@ const ApBills = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="ApBillsStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbApBills?.ApBillsStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsApBills}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbApBills?.ApBillsStatus}
+            onChange={(value: string) =>
+              setSmbApBills((prev: ApBillsFormTypes) => ({
+                  ...prev,
+                  ApBillsStatus: value,
+                }))
+              }
+            disabled={roleId === "4" && checkAllFieldsApBills}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -1279,32 +1145,20 @@ const PointSalesAccess = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <div className="text-[12px] flex flex-col">
-              <label className="text-[#6E6D7A] text-[12px]">Status</label>
-              <TextField
-                name="pointSalesAccessStatus"
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                placeholder="Please Enter Status"
-                value={smbPointSalesAccess?.pointSalesAccessStatus}
-                error={!!smbPointSalesAccessErrors?.pointSalesAccessStatus}
-                helperText={smbPointSalesAccessErrors?.pointSalesAccessStatus}
-                onChange={handleChange}
-                InputProps={{
-                  classes: {
-                    underline: classes.underline,
-                  },
-                }}
-                inputProps={{
-                  maxLength: 250,
-                  className: classes.textSize,
-                }}
-                disabled={roleId === '4' && checkAllFieldsPointSalesAccess}
-              />
-            </div>
-          </Grid>
+        <Grid item xs={3}>
+          <Status
+            value={smbPointSalesAccess?.pointSalesAccessStatus}
+            onChange={(value: string) =>
+              setSmbPointSalesAccess((prev: PointSalesAccessFormTypes) => ({
+                  ...prev,
+                  pointSalesAccessStatus: value,
+                }))
+              }
+            error={smbPointSalesAccessErrors?.pointSalesAccessStatus}
+            helperText={smbPointSalesAccessErrors?.pointSalesAccessStatus}
+            disabled={roleId === "4" && checkAllFieldsPointSalesAccess}
+          />
+        </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
