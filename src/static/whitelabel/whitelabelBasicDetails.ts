@@ -19,7 +19,6 @@ export const validateWhitelabelAccountDetails = [
   "zip",
   "ownerContact",
   "ownerEmail",
-  "ownerPhone",
 ];
 
 export const whiteLabelAccountDetailsfieldDisplayNames: {

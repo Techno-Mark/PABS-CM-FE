@@ -318,7 +318,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "IT Structure Knowledge":
+                case "IT Setup- Cloud based or Remote":
                   setWhitelabelITStructure({
                     itStructureWhiteLabelStatus: checklistItem.status,
                     itStructureWhiteLabelComments: checklistItem.comments,
@@ -328,7 +328,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "If Remote Set Up - Access Computer Method (Dedicated)":
+                case "If remote computer need to be accessed, please share access credentials and instructions":
                   setWhitelabelRemoteSetup({
                     remoteSetupWhiteLabelStatus: checklistItem.status,
                     remoteSetupWhiteLabelComments: checklistItem.comments,
@@ -338,7 +338,7 @@ const ChecklistWhitelabel = ({
                       checklistItem.actionsOfClient,
                   });
                   break;
-                case "Need Your IT Teams Help?":
+                case "Need PABS IT team help in Set up?":
                   setWhitelabelITHelp({
                     itHelpWhiteLabelStatus: checklistItem.status,
                     itHelpWhiteLabelComments: checklistItem.comments,
@@ -818,7 +818,7 @@ const ChecklistWhitelabel = ({
             whitelabelTeamOverCall.teamOverCallWhiteLabelActionClient,
         },
         {
-          fieldName: "IT Structure Knowledge",
+          fieldName: "IT Setup- Cloud based or Remote",
           status: whitelabelITStructure.itStructureWhiteLabelStatus,
           comments: whitelabelITStructure.itStructureWhiteLabelComments,
           actionsOfPabs: whitelabelITStructure.itStructureWhiteLabelActionPABS,
@@ -826,7 +826,7 @@ const ChecklistWhitelabel = ({
             whitelabelITStructure.itStructureWhiteLabelActionClient,
         },
         {
-          fieldName: "If Remote Set Up - Access Computer Method (Dedicated)",
+          fieldName: "If remote computer need to be accessed, please share access credentials and instructions",
           status: whitelabelRemoteSetup.remoteSetupWhiteLabelStatus,
           comments: whitelabelRemoteSetup.remoteSetupWhiteLabelComments,
           actionsOfPabs: whitelabelRemoteSetup.remoteSetupWhiteLabelActionPABS,
@@ -834,7 +834,7 @@ const ChecklistWhitelabel = ({
             whitelabelRemoteSetup.remoteSetupWhiteLabelActionClient,
         },
         {
-          fieldName: "Need Your IT Teams Help?",
+          fieldName: "Need PABS IT team help in Set up?",
           status: whitelabelITHelp.itHelpWhiteLabelStatus,
           comments: whitelabelITHelp.itHelpWhiteLabelComments,
           actionsOfPabs: whitelabelITHelp.itHelpWhiteLabelActionPABS,
@@ -1008,8 +1008,8 @@ const ChecklistWhitelabel = ({
     };
 
     const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
-      ? validateWhiteLabelSystemSoftware()
-      : false;
+    ? validateWhiteLabelSystemSoftware()
+    : false;
     const isWhiteLabelServiceTypeValid = whiteLabelServiceTypeChecked
       ? validateWhiteLabelServiceType()
       : false;

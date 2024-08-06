@@ -115,12 +115,8 @@ function Page() {
           setLoading(false);
           return;
         case "success":
-          const filteredAuditLogs = ResponseData.auditLogs.filter(
-            (log) => log.data && log.data.length > 0
-          );
-
-          setAuditLogData(filteredAuditLogs);
-          setTotalCount(filteredAuditLogs.length);
+          setAuditLogData(ResponseData.auditLogs);
+          setTotalCount(ResponseData.totalAuditLogs);
           setLoading(false);
           return;
       }
@@ -171,7 +167,8 @@ function Page() {
       width: 100,
       sortable: false,
       renderCell: (params) => {
-        return params.api.getSortedRowIds().indexOf(params.id) + 1;
+        const serialNumber = pageNo * rowsPerPage + params.api.getSortedRowIds().indexOf(params.id) + 1;
+        return serialNumber;
       },
     },
     {

@@ -222,7 +222,7 @@ function BasicDetailsAutoCare({
           field
         ] = `${autoCareAccountDetailsErrors[field]}`;
       } else if (
-        (field === "ownerPhone" || field === "ownerContact") &&
+        field === "ownerContact" &&
         !!autoCareAccountDetailsErrors[field]
       ) {
         newAccountDetailsErrors[
@@ -305,7 +305,6 @@ function BasicDetailsAutoCare({
           "nameOfLocations",
           "ownerContact",
           "ownerEmail",
-          "ownerPhone",
         ]
       );
     }
