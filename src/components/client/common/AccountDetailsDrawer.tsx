@@ -8,7 +8,13 @@ import {
 } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import { FormControl, MenuItem, Select, TextField, Tooltip } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
@@ -540,7 +546,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           </div>
         </div>
         <div className="flex items-center justify-center gap-5 w-full my-4">
-          <div className="text-[12px] flex flex-col w-1/2">
+          <div className="text-[12px] flex flex-col w-1/2 mt-[18px]">
             <label className="text-[#6E6D7A] text-[12px]">PABS Duties</label>
             <TextField
               id="document"
@@ -561,14 +567,17 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
             />
           </div>
           <div className="text-[12px] flex flex-col w-1/2">
-            <label className="text-[#6E6D7A] text-[12px]">
-              Bookkeeping Monthly or Clean Up
+            <label className="text-[#6E6D7A] text-[12px] flex flex-col">
+              <span className="whitespace-normal">
+                Bookkeeping Monthly/Clean up catch up
+              </span>
+              <span className="whitespace-normal">(Specify Period)</span>
             </label>
             <TextField
               id="bankConnected"
               variant="standard"
               size="small"
-              placeholder="Please Enter Bookkeeping Monthly or Clean Up"
+              placeholder="Please Enter Bookkeeping Monthly/Clean up catch up"
               value={formValues.bookKeeping}
               onChange={handleChange("bookKeeping")}
               InputProps={{
