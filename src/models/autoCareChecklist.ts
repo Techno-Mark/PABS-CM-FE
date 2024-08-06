@@ -7,7 +7,10 @@ export interface ChecklistAccordianProps {
   handleChange: (event: any, isExpanded: boolean) => void;
   hasError?: boolean;
   checkStatus?: boolean;
-  handleSwitchChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  handleSwitchChange?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void;
   switchDisabled: boolean;
 }
 
@@ -734,4 +737,5 @@ export interface ChecklistResponseDataType {
   phase7StatusIsDisplay: boolean;
   isSubmited: boolean;
   checkList: PhaseFormResponseDataType[];
+  clientId: number;
 }

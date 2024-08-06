@@ -1669,12 +1669,12 @@ function ChecklistSmb({
               )}
           </div>
         </div>
-
-        <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-          <CommentData
-            clientID={!!clientInfo ? Number(clientInfo.ClientId) : 0}
-          />
-        </div>
+        
+        {!!responseData && (
+          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+            <CommentData clientID={responseData.clientId} />
+          </div>
+        )}
 
         {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">
