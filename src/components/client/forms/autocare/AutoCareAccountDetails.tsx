@@ -176,7 +176,7 @@ function AutoCareAccountDetails({
             <Grid item xs={4}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Owner Phone<span className="text-[#DC3545]">*</span>
+                  Owner Phone
                 </label>
                 <TextField
                   name="ownerPhone"
@@ -235,7 +235,7 @@ function AutoCareAccountDetails({
                 className={`text-[12px] flex flex-col ${
                   autoCareAccountDetailsErrors.ownerEmail
                     ? "!mb-2"
-                    : "!mb-[30px]"
+                    : "!mb-[22px] mt-2"
                 }`}
               >
                 <label className="text-[#6E6D7A] text-[12px]">

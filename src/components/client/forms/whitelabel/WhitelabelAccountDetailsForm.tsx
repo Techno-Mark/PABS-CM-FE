@@ -322,11 +322,11 @@ const WhitelabelAccountDetailsForm = ({
               </div>
               <div
                 className={`text-[12px] flex flex-col ${
-                  whitelabelAccountDetailsErrors.ownerEmail ? "" : "pt-[26px]"
+                  whitelabelAccountDetailsErrors.ownerEmail ? "pt-[3px]" : "pt-[26px]"
                 }`}
               >
                 <label className="text-[#6E6D7A] text-[12px]">
-                  Owner Phone<span className="text-[#DC3545]">*</span>
+                  Owner Phone
                 </label>
                 <TextField
                   name="ownerPhone"

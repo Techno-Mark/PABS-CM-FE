@@ -227,7 +227,7 @@ const AccountDetailsWhitelabel = ({
       field: "bookkeepingPeriod",
       renderHeader: () => (
         <span className="font-semibold text-[13px]">
-          Bookkeeping Monthly or Clean Up (Period - Months/Years)
+          Bookkeeping Monthly/Clean up catch up (Specify Period)
         </span>
       ),
       minWidth: 400,

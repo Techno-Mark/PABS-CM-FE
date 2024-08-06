@@ -82,12 +82,10 @@ const BasicDetailsWhitelabel = ({
   );
 
   const [whitelabelCpaClientTeam, setWhitelabelCpaClientTeam] = useState<any>({
-    pocDetails: "",
     cpaArray: [initialWhitelabelCpaClientTeam],
   });
   const [whitelabelCpaClientTeamErrors, setWhitelabelCpaClientTeamErrors] =
     useState<any>({
-      pocDetails: "",
       cpaArray: [initialWhitelabelCpaClientTeamErrors],
     });
 
@@ -170,7 +168,6 @@ const BasicDetailsWhitelabel = ({
                 : null,
             });
             setWhitelabelCpaClientTeam({
-              pocDetails: ResponseData.pocDetails,
               cpaArray:
                 ResponseData.pocFieldsDetail.length > 0
                   ? ResponseData.pocFieldsDetail.map(
@@ -226,7 +223,7 @@ const BasicDetailsWhitelabel = ({
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
       } else if (
-        (field === "ownerPhone" || field === "ownerContact") &&
+        (field === "ownerContact") &&
         !!whitelabelAccountDetailsErrors[field]
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
@@ -264,7 +261,6 @@ const BasicDetailsWhitelabel = ({
     setWhitelabelAccountDetailsErrors({});
     setWhitelabelOtherInformationErrors({});
     setWhitelabelCpaClientTeamErrors({
-      pocDetails: "",
       cpaArray: [initialWhitelabelCpaClientTeamErrors],
     });
   };
@@ -311,7 +307,6 @@ const BasicDetailsWhitelabel = ({
       noOfAccounts: Number(whitelabelOtherInformation.noOfAccounts),
       bdm: whitelabelOtherInformation.bdm,
       startDate: whitelabelOtherInformation.startDate,
-      pocDetails: whitelabelCpaClientTeam.pocDetails,
       implementation: whitelabelPABSAccountingTeam.implementation,
       operationsHead: whitelabelPABSAccountingTeam.operationsHead,
       teamManager: whitelabelPABSAccountingTeam.teamManager,
@@ -481,18 +476,15 @@ const BasicDetailsWhitelabel = ({
   const handlePocDetailsChange = (e: any) => {
     setWhitelabelCpaClientTeam({
       ...whitelabelCpaClientTeam,
-      pocDetails: e.target.value,
     });
     setWhitelabelCpaClientTeamErrors({
       ...whitelabelCpaClientTeamErrors,
-      pocDetails: "",
     });
   };
 
   const validateCpaClientTeam = () => {
     let isValid = true;
     const newErrors = {
-      pocDetails: "",
       cpaArray: whitelabelCpaClientTeam.cpaArray.map((field: any) => {
         const fieldErrors: any = {};
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
@@ -510,12 +502,7 @@ const BasicDetailsWhitelabel = ({
         return fieldErrors;
       }),
     };
-
-    if (!whitelabelCpaClientTeam.pocDetails) {
-      isValid = false;
-      newErrors.pocDetails = "POC Details is required";
-    }
-
+    
     setWhitelabelCpaClientTeamErrors(newErrors);
     return isValid;
   };
@@ -637,7 +624,6 @@ const BasicDetailsWhitelabel = ({
           "zip",
           "ownerContact",
           "ownerEmail",
-          "ownerPhone",
         ]
       );
     }
@@ -647,7 +633,6 @@ const BasicDetailsWhitelabel = ({
     }
 
     if (whitelabelCpaClientTeamCheckStatus) {
-      relevantFields.push(...["pocDetails"]);
       if (whitelabelCpaClientTeam && whitelabelCpaClientTeam.cpaArray) {
         whitelabelCpaClientTeam.cpaArray.forEach(() => {
           relevantFields.push(...["pocEmailId"]);
