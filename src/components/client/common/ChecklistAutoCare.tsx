@@ -131,6 +131,7 @@ function ChecklistAutoCare({
   const initialAutoCareFinancialsErrors: LastClosedPeriodFormErrors = {};
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
+  const [clientId, setClientId] = useState(0);
 
   //phase 1:
   const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
@@ -434,6 +435,7 @@ function ChecklistAutoCare({
           return;
         case "success":
           if (!!ResponseData) {
+            setClientId(ResponseData?.clientId);
             setAutoCareFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setIsFormSubmitAutoCareChecklist(ResponseData?.isSubmited ?? false);
             setCommunicationChecked(
@@ -1550,9 +1552,7 @@ function ChecklistAutoCare({
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData
-              clientID={!!clientInfo ? Number(clientInfo.ClientId) : 0}
-            />
+            <CommentData clientID={clientId} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">

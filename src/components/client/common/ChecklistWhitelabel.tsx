@@ -104,6 +104,7 @@ const ChecklistWhitelabel = ({
   const businessTypeId = Cookies.get("businessTypeId");
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
+  const [clientId, setClientId] = useState(0);
 
   const initialWhiteLabelSystemSoftwareErrors: any = {};
   const initialWhiteLabelServiceTypeErrors: any = {};
@@ -262,6 +263,7 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setClientId(ResponseData?.clientId);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
@@ -1008,10 +1010,6 @@ const ChecklistWhitelabel = ({
     const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
       ? validateWhiteLabelSystemSoftware()
       : false;
-    console.log(
-      "🚀 ~ handleSubmit ~ isWhiteLabelSystemSoftwareValid:",
-      isWhiteLabelSystemSoftwareValid
-    );
     const isWhiteLabelServiceTypeValid = whiteLabelServiceTypeChecked
       ? validateWhiteLabelServiceType()
       : false;
@@ -1413,7 +1411,6 @@ const ChecklistWhitelabel = ({
     ...phase,
     phaseNumber: index + 1,
   }));
-
   return (
     <>
       {formSubmitId === 12 && (
@@ -1456,9 +1453,7 @@ const ChecklistWhitelabel = ({
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData
-              clientID={!!clientInfo ? Number(clientInfo.ClientId) : 0}
-            />
+            <CommentData clientID={clientId} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
