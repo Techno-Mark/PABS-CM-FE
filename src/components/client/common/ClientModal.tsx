@@ -56,6 +56,7 @@ function ClientModal({
   handleClose,
 }: ClientModalProps) {
   const token = Cookies.get("token");
+  const loginUserRole = Cookies.get("roleId");
   const formSubmitId =
     clientInfo?.DepartmentId === 3
       ? 31
@@ -134,12 +135,8 @@ function ClientModal({
       });
   };
 
-  const handleToggleFormLocked = async () => {
-    const callback = (
-      ResponseStatus: string,
-      Message: string,
-      ResponseData: null
-    ) => {
+  const handleToggleFormLocked = async (value: boolean) => {
+    const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
           showToast(Message, ToastType.Error);
@@ -149,10 +146,10 @@ function ClientModal({
           return;
       }
     };
-    await callAPIwithHeaders(toggleFormLockedUrl, "post", callback, {
-      clientId: 1,
-      status: false,
-    });
+    // await callAPIwithHeaders(toggleFormLockedUrl, "post", callback, {
+    //   clientId: clientInfo.clientId,
+    //   status: false,
+    // });
   };
 
   return (
@@ -209,8 +206,17 @@ function ClientModal({
                   </div>
                   <div className="relative flex gap-5">
                     <div className="flex justify-center items-center">
-                      <span className="text-[#000]">want Locked ?</span>
-                      <Switch />
+                      {loginUserRole == "1" && (
+                        <div>
+                          <span className="text-[#000]">want Locked ?</span>
+                          <Switch
+                            checked={clientInfo.IsFormLocked}
+                            onChange={(e) =>
+                              handleToggleFormLocked(e.target.checked)
+                            }
+                          />
+                        </div>
+                      )}
                     </div>
                     <Tooltip title="Download" placement="bottom" arrow>
                       <span
