@@ -1,39 +1,39 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 // MUI imports
+import { Theme } from "@material-ui/core/styles";
 import {
-  List,
-  Drawer,
-  styled,
-  Divider,
-  ListItem,
-  IconButton,
   CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListItemButton,
+  styled,
 } from "@mui/material";
-import { Theme } from "@material-ui/core/styles";
 // Types import
 import { SidebarItemsType, SidebarProps } from "@/models/adminSidebar";
 // Static import
 import { drawerWidth } from "@/static/commonVariables";
 // Icons imports
-import MenuIconOpen from "@/assets/Icons/admin/sidebar/MenuIconOpen";
-import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
 import AccountCircleIcon from "@/assets/Icons/admin/sidebar/AccountCircleIcon";
-import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
-import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
 import AuditLogIcon from "@/assets/Icons/admin/sidebar/AuditLogIcon";
+import MenuIconClose from "@/assets/Icons/admin/sidebar/MenuIconClose";
+import MenuIconOpen from "@/assets/Icons/admin/sidebar/MenuIconOpen";
+import SettingsIcon from "@/assets/Icons/admin/sidebar/SettingsIcon";
+import UserManageIcon from "@/assets/Icons/admin/sidebar/UserManageIcon";
 
 // Utlis import
-import { useStyles } from "@/utils/useStyles";
 import { checkPermission } from "@/utils/permissionCheckFunction";
+import { useStyles } from "@/utils/useStyles";
 // Cookie import
-import Cookies from "js-cookie";
 import PABSLogo from "@/assets/Icons/client/PABSLogo";
+import PabsCollaps from "@/assets/Icons/client/PabsCollaps";
+import Cookies from "js-cookie";
 
 const openedMixin = (theme: Theme) => ({
   width: drawerWidth,
@@ -158,7 +158,11 @@ const Sidebar = ({
                 justifyContent: "center",
               }}
             >
-              <PABSLogo width="100" height="60" />
+              {openSidebar ? (
+                <PABSLogo width="100" height="60" />
+              ) : (
+                <PabsCollaps width="100" height="60" />
+              )}
             </ListItemButton>
           </ListItem>
         </List>
