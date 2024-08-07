@@ -1,17 +1,18 @@
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
+import ClientSidebar from "@/components/client/common/ClientSidebar";
 import { ClientModalProps } from "@/models/clientModal";
-import { clientModalstyle, style } from "@/utils/modalStyle";
+import { clientModalstyle } from "@/utils/modalStyle";
 import {
   Box,
   CssBaseline,
   Modal,
   AppBar as MuiAppBar,
   styled,
+  Switch,
   Toolbar,
   Tooltip,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import ClientSidebar from "@/components/client/common/ClientSidebar";
+import { useEffect, useState } from "react";
 // Types imports
 import { AppBarProps } from "@/models/adminHeader";
 // Static import
@@ -26,17 +27,15 @@ import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import { showToast } from "@/components/ToastContainer";
 
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
+import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
+import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 import {
   onboardingDownloadFormUrl,
   onboardingListFormUrl,
+  toggleFormLockedUrl,
 } from "@/static/apiUrl";
-import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
-import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 import Cookies from "js-cookie";
-import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
-import CommentIcon from "@/assets/Icons/client/forms/CommentIcon";
-import CommentModel from "./CommentModel";
-import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -77,7 +76,6 @@ function ClientModal({
   const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
     useState<boolean>(false);
   const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
-  const [commentModelOpen, setCommentModelOpen] = useState(false);
 
   const getFormDetials = async () => {
     const callBack = (
@@ -136,6 +134,27 @@ function ClientModal({
       });
   };
 
+  const handleToggleFormLocked = async () => {
+    const callback = (
+      ResponseStatus: string,
+      Message: string,
+      ResponseData: null
+    ) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+    await callAPIwithHeaders(toggleFormLockedUrl, "post", callback, {
+      clientId: 1,
+      status: false,
+    });
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -189,16 +208,10 @@ function ClientModal({
                     </span>
                   </div>
                   <div className="relative flex gap-5">
-                    {/* {formSubmit == 12 && (
-                      <Tooltip title="Comments" placement="bottom" arrow>
-                        <span
-                          className="flex items-center cursor-pointer"
-                          onClick={() => setCommentModelOpen(true)}
-                        >
-                          <CommentIcon />
-                        </span>
-                      </Tooltip>
-                    )} */}
+                    <div className="flex justify-center items-center">
+                      <span className="text-[#000]">want Locked ?</span>
+                      <Switch />
+                    </div>
                     <Tooltip title="Download" placement="bottom" arrow>
                       <span
                         className="flex items-center cursor-pointer"
