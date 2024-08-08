@@ -127,7 +127,7 @@ const Sidebar = ({
           icon: getIcon(pathname, "/admin/settings", SettingsIcon),
         },
         {
-          module: "Audit Log",
+          module: "Audit Logs",
           link: "/admin/auditlog",
           icon: getIcon(pathname, "/admin/auditlog", AuditLogIcon),
         },
