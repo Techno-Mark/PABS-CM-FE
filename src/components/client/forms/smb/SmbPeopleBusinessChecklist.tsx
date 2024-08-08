@@ -65,7 +65,6 @@ function SmbPeopleBusinessChecklist({
   checkAllFieldsSmbPeopleBusinessChecklist,
   isFormLocked,
 }: smbPeopleBusinessTypes) {
-  console.log("🚀 ~ isFormLocked:", isFormLocked)
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">General</div>
