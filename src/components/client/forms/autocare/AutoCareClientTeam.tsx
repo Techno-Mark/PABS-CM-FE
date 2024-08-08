@@ -46,6 +46,7 @@ function AutoCareClientTeam({
   setAutoCareClientTeamErrors,
   finalCheckAllFieldsClientTeam,
   handleClientTeamSwitch,
+  isFormLocked,
 }: ClientTeamTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -210,6 +211,7 @@ function AutoCareClientTeam({
           handleClientTeamSwitch(e)
         }
         switchDisabled={finalCheckAllFieldsClientTeam}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col">
@@ -235,7 +237,10 @@ function AutoCareClientTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -260,7 +265,10 @@ function AutoCareClientTeam({
               inputProps={{
                 className: classes.textSize,
               }}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
 
@@ -287,7 +295,10 @@ function AutoCareClientTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -309,7 +320,10 @@ function AutoCareClientTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
 
@@ -334,7 +348,10 @@ function AutoCareClientTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -356,7 +373,10 @@ function AutoCareClientTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <Country
@@ -364,7 +384,10 @@ function AutoCareClientTeam({
             onChange={(selected: { id: number; name: string }) =>
               handleLocationChange("country", selected)
             }
-            disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+            disabled={
+              (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+              (isFormLocked && (roleId == "3" || roleId == "4"))
+            }
           />
           <State
             value={autoCareClientTeam?.state}
@@ -374,7 +397,8 @@ function AutoCareClientTeam({
             countryId={countryId}
             disabled={
               (roleId === "4" && finalCheckAllFieldsClientTeam) ||
-              countryId === -1
+              countryId === -1 ||
+              (isFormLocked && (roleId == "3" || roleId == "4"))
             }
           />
           <div className="text-[12px] flex flex-col">
@@ -386,7 +410,8 @@ function AutoCareClientTeam({
               size="small"
               disabled={
                 (roleId === "4" && finalCheckAllFieldsClientTeam) ||
-                countryId === -1
+                countryId === -1 ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
               }
             >
               <Select
@@ -469,7 +494,10 @@ function AutoCareClientTeam({
                   error={!!autoCareClientTeamErrors?.weeklyCalls}
                 />
               )}
-              disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsClientTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
             {autoCareClientTeamErrors?.weeklyCalls && (
               <span className="text-[#d32f2f]">
@@ -517,7 +545,7 @@ function AutoCareClientTeam({
                     ? roleId === "4" && finalCheckAllFieldsClientTeam
                       ? true
                       : false
-                    : true
+                    : true || (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
                 slotProps={{
                   textField: {
@@ -581,7 +609,8 @@ function AutoCareClientTeam({
                     error: !!autoCareClientTeamErrors.istTime,
                   },
                 }}
-                disabled={roleId === "4" && finalCheckAllFieldsClientTeam}
+                disabled={roleId === "4" && finalCheckAllFieldsClientTeam ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
               {autoCareClientTeamErrors?.istTime && (
                 <span className="text-[#d32f2f]">

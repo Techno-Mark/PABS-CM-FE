@@ -27,6 +27,7 @@ function AutoCareFinancials({
   autoCaregp_gmnp_nm,
   setAutoCaregp_gmnp_nm,
   checkAllFieldsAutoCareFinancials,
+  isFormLocked,
 }: AutoCareFinancialsTypes) {
   return (
     <div className={`${className}`}>
@@ -35,16 +36,19 @@ function AutoCareFinancials({
         autoCareLastClosedPeriod={autoCareLastClosedPeriod}
         setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
         lastClosedPeriodErrors={financialsErrors}
+        isFormLocked={isFormLocked}
       />
       <SharingFinancials
         checkAllFieldsSharingFinancials={checkAllFieldsAutoCareFinancials}
         autoCareSharingFinancials={autoCareSharingFinancials}
         setAutoCareSharingFinancials={setAutoCareSharingFinancials}
+        isFormLocked={isFormLocked}
       />
       <GP_GMNP_NM
         checkAllFieldsGP_GMNP_NM={checkAllFieldsAutoCareFinancials}
         autoCaregp_gmnp_nm={autoCaregp_gmnp_nm}
         setAutoCaregp_gmnp_nm={setAutoCaregp_gmnp_nm}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -56,7 +60,8 @@ const LastClosedPeriod = ({
   autoCareLastClosedPeriod,
   setAutoCareLastClosedPeriod,
   lastClosedPeriodErrors,
-  checkAllFieldsLastClosedPeriod
+  checkAllFieldsLastClosedPeriod,
+  isFormLocked,
 }: LastClosedPeriodTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -101,25 +106,33 @@ const LastClosedPeriod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLastClosedPeriod) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareLastClosedPeriod?.lastClosedPeriodStatus}
-            onChange={(value: string) =>
-              setAutoCareLastClosedPeriod((prev: LastClosedPeriodFormTypes) => ({
-                ...prev,
-                  ...prev,
-                  lastClosedPeriodStatus: value,
-                }))
+            <Status
+              value={autoCareLastClosedPeriod?.lastClosedPeriodStatus}
+              onChange={(value: string) =>
+                setAutoCareLastClosedPeriod(
+                  (prev: LastClosedPeriodFormTypes) => ({
+                    ...prev,
+                    ...prev,
+                    lastClosedPeriodStatus: value,
+                  })
+                )
               }
-            error={lastClosedPeriodErrors?.lastClosedPeriodStatus}
-            helperText={lastClosedPeriodErrors?.lastClosedPeriodStatus}
-            disabled={roleId === "4" && checkAllFieldsLastClosedPeriod}
-          />
-        </Grid>
+              error={lastClosedPeriodErrors?.lastClosedPeriodStatus}
+              helperText={lastClosedPeriodErrors?.lastClosedPeriodStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsLastClosedPeriod) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -142,7 +155,10 @@ const LastClosedPeriod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLastClosedPeriod) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -170,7 +186,10 @@ const LastClosedPeriod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLastClosedPeriod) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -198,7 +217,10 @@ const LastClosedPeriod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedPeriod}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLastClosedPeriod) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -211,7 +233,8 @@ const LastClosedPeriod = ({
 const SharingFinancials = ({
   autoCareSharingFinancials,
   setAutoCareSharingFinancials,
-  checkAllFieldsSharingFinancials
+  checkAllFieldsSharingFinancials,
+  isFormLocked,
 }: SharingFinancialsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -254,22 +277,30 @@ const SharingFinancials = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSharingFinancials) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareSharingFinancials?.sharingFinancialsStatus}
-            onChange={(value: string) =>
-              setAutoCareSharingFinancials((prev: SharingFinancialsFormTypes) => ({
-                  ...prev,
-                  sharingFinancialsStatus: value,
-                }))
+            <Status
+              value={autoCareSharingFinancials?.sharingFinancialsStatus}
+              onChange={(value: string) =>
+                setAutoCareSharingFinancials(
+                  (prev: SharingFinancialsFormTypes) => ({
+                    ...prev,
+                    sharingFinancialsStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsSharingFinancials}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsSharingFinancials) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -290,7 +321,10 @@ const SharingFinancials = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSharingFinancials) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -316,7 +350,10 @@ const SharingFinancials = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSharingFinancials) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -342,7 +379,10 @@ const SharingFinancials = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsSharingFinancials}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSharingFinancials) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -355,7 +395,8 @@ const SharingFinancials = ({
 const GP_GMNP_NM = ({
   autoCaregp_gmnp_nm,
   setAutoCaregp_gmnp_nm,
-  checkAllFieldsGP_GMNP_NM
+  checkAllFieldsGP_GMNP_NM,
+  isFormLocked,
 }: GP_GMNP_NMTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -398,22 +439,28 @@ const GP_GMNP_NM = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGP_GMNP_NM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCaregp_gmnp_nm?.gp_gmnp_nmStatus}
-            onChange={(value: string) =>
-              setAutoCaregp_gmnp_nm((prev: GP_GMNP_NMFormTypes) => ({
+            <Status
+              value={autoCaregp_gmnp_nm?.gp_gmnp_nmStatus}
+              onChange={(value: string) =>
+                setAutoCaregp_gmnp_nm((prev: GP_GMNP_NMFormTypes) => ({
                   ...prev,
                   gp_gmnp_nmStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsGP_GMNP_NM}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsGP_GMNP_NM) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -434,7 +481,10 @@ const GP_GMNP_NM = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGP_GMNP_NM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -460,7 +510,10 @@ const GP_GMNP_NM = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGP_GMNP_NM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -486,7 +539,10 @@ const GP_GMNP_NM = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsGP_GMNP_NM}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGP_GMNP_NM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

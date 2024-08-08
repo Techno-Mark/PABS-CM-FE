@@ -44,16 +44,16 @@ function SmbExistingFinancialsChecklist({
   smbDistributionList,
   setSmbDistributionList,
   checkAllFieldsSmbExistingFinancialsChecklist,
+  isFormLocked,
 }: ExistingFinancialsChecklistType) {
   return (
     <div className={`${className}`}>
       <LiveDate
-        checkAllFieldsLiveDate={
-          checkAllFieldsSmbExistingFinancialsChecklist
-        }
+        checkAllFieldsLiveDate={checkAllFieldsSmbExistingFinancialsChecklist}
         smbLiveDate={smbLiveDate}
         setSmbLiveDate={setSmbLiveDate}
         smbLiveDateErrors={smbExistingFinancialsChecklistErrors}
+        isFormLocked={isFormLocked}
       />
       <AccountingMethod
         checkAllFieldsAccountingMethod={
@@ -61,13 +61,13 @@ function SmbExistingFinancialsChecklist({
         }
         smbAccountingMethod={smbAccountingMethod}
         setSmbAccountingMethod={setSmbAccountingMethod}
+        isFormLocked={isFormLocked}
       />
       <FEIN
         smbFEIN={smbFEIN}
         setSmbFEIN={setSmbFEIN}
-        checkAllFieldsFEIN={
-          checkAllFieldsSmbExistingFinancialsChecklist
-        }
+        checkAllFieldsFEIN={checkAllFieldsSmbExistingFinancialsChecklist}
+        isFormLocked={isFormLocked}
       />
       <FiscalYearEnd
         checkAllFieldsFiscalYearEnd={
@@ -75,6 +75,7 @@ function SmbExistingFinancialsChecklist({
         }
         smbFiscalYearEnd={smbFiscalYearEnd}
         setSmbFiscalYearEnd={setSmbFiscalYearEnd}
+        isFormLocked={isFormLocked}
       />
       <LastClosedMonth
         checkAllFieldsLastClosedMonth={
@@ -83,6 +84,7 @@ function SmbExistingFinancialsChecklist({
         smbLastClosedMonth={smbLastClosedMonth}
         setSmbLastClosedMonth={setSmbLastClosedMonth}
         smbLastClosedMonthErrors={smbExistingFinancialsChecklistErrors}
+        isFormLocked={isFormLocked}
       />
       <ContactOfCpa
         checkAllFieldsContactOfCpa={
@@ -90,14 +92,14 @@ function SmbExistingFinancialsChecklist({
         }
         smbContactOfCpa={smbContactOfCpa}
         setSmbContactOfCpa={setSmbContactOfCpa}
+        isFormLocked={isFormLocked}
       />
       <TaxReturn
-        checkAllFieldsTaxReturn={
-          checkAllFieldsSmbExistingFinancialsChecklist
-        }
+        checkAllFieldsTaxReturn={checkAllFieldsSmbExistingFinancialsChecklist}
         smbTaxReturn={smbTaxReturn}
         setSmbTaxReturn={setSmbTaxReturn}
         smbTaxReturnErrors={smbExistingFinancialsChecklistErrors}
+        isFormLocked={isFormLocked}
       />
       <DistributionList
         checkAllFieldsDistributionList={
@@ -106,6 +108,7 @@ function SmbExistingFinancialsChecklist({
         smbDistributionList={smbDistributionList}
         setSmbDistributionList={setSmbDistributionList}
         smbDistributionListErrors={smbExistingFinancialsChecklistErrors}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -117,7 +120,8 @@ const LiveDate = ({
   smbLiveDate,
   setSmbLiveDate,
   smbLiveDateErrors,
-  checkAllFieldsLiveDate
+  checkAllFieldsLiveDate,
+  isFormLocked,
 }: LiveDateTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -137,20 +141,23 @@ const LiveDate = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbLiveDate?.LiveDateStatus}
-            onChange={(value: string) =>
-              setSmbLiveDate((prev: LiveDateFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbLiveDate?.LiveDateStatus}
+              onChange={(value: string) =>
+                setSmbLiveDate((prev: LiveDateFormTypes) => ({
                   ...prev,
                   LiveDateStatus: value,
                 }))
               }
-            error={smbLiveDateErrors?.LiveDateStatus}
-            helperText={smbLiveDateErrors?.LiveDateStatus}
-            disabled={roleId === "4" && checkAllFieldsLiveDate}
-          />
-        </Grid>
+              error={smbLiveDateErrors?.LiveDateStatus}
+              helperText={smbLiveDateErrors?.LiveDateStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsLiveDate) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -173,7 +180,10 @@ const LiveDate = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLiveDate}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLiveDate) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -201,7 +211,10 @@ const LiveDate = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLiveDate}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLiveDate) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -214,7 +227,8 @@ const LiveDate = ({
 const AccountingMethod = ({
   smbAccountingMethod,
   setSmbAccountingMethod,
-  checkAllFieldsAccountingMethod
+  checkAllFieldsAccountingMethod,
+  isFormLocked,
 }: AccountingMethodTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -236,18 +250,21 @@ const AccountingMethod = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbAccountingMethod?.AccountingMethodStatus}
-            onChange={(value: string) =>
-              setSmbAccountingMethod((prev: AccountingMethodFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbAccountingMethod?.AccountingMethodStatus}
+              onChange={(value: string) =>
+                setSmbAccountingMethod((prev: AccountingMethodFormTypes) => ({
                   ...prev,
                   AccountingMethodStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsAccountingMethod}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsAccountingMethod) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -268,7 +285,10 @@ const AccountingMethod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAccountingMethod}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccountingMethod) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -294,7 +314,10 @@ const AccountingMethod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAccountingMethod}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccountingMethod) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -304,7 +327,12 @@ const AccountingMethod = ({
   );
 };
 
-const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
+const FEIN = ({
+  smbFEIN,
+  setSmbFEIN,
+  checkAllFieldsFEIN,
+  isFormLocked,
+}: FEINTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -323,18 +351,21 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbFEIN?.FEINStatus}
-            onChange={(value: string) =>
-              setSmbFEIN((prev: FEINFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbFEIN?.FEINStatus}
+              onChange={(value: string) =>
+                setSmbFEIN((prev: FEINFormTypes) => ({
                   ...prev,
                   FEINStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsFEIN}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsFEIN) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -355,7 +386,10 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFEIN}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFEIN) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -381,7 +415,10 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFEIN}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFEIN) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -394,7 +431,8 @@ const FEIN = ({ smbFEIN, setSmbFEIN, checkAllFieldsFEIN }: FEINTypes) => {
 const FiscalYearEnd = ({
   smbFiscalYearEnd,
   setSmbFiscalYearEnd,
-  checkAllFieldsFiscalYearEnd
+  checkAllFieldsFiscalYearEnd,
+  isFormLocked,
 }: FiscalYearEndTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -416,18 +454,21 @@ const FiscalYearEnd = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbFiscalYearEnd?.FiscalYearEndStatus}
-            onChange={(value: string) =>
-              setSmbFiscalYearEnd((prev: FiscalYearEndFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbFiscalYearEnd?.FiscalYearEndStatus}
+              onChange={(value: string) =>
+                setSmbFiscalYearEnd((prev: FiscalYearEndFormTypes) => ({
                   ...prev,
                   FiscalYearEndStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsFiscalYearEnd}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsFiscalYearEnd) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -448,7 +489,10 @@ const FiscalYearEnd = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFiscalYearEnd) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -474,7 +518,10 @@ const FiscalYearEnd = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFiscalYearEnd}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFiscalYearEnd) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -488,7 +535,8 @@ const LastClosedMonth = ({
   smbLastClosedMonth,
   setSmbLastClosedMonth,
   smbLastClosedMonthErrors,
-  checkAllFieldsLastClosedMonth
+  checkAllFieldsLastClosedMonth,
+  isFormLocked,
 }: LastClosedMonthTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -511,20 +559,23 @@ const LastClosedMonth = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbLastClosedMonth?.LastClosedMonthStatus}
-            onChange={(value: string) =>
-              setSmbLastClosedMonth((prev: LastClosedMonthFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbLastClosedMonth?.LastClosedMonthStatus}
+              onChange={(value: string) =>
+                setSmbLastClosedMonth((prev: LastClosedMonthFormTypes) => ({
                   ...prev,
                   LastClosedMonthStatus: value,
                 }))
               }
-            error={smbLastClosedMonthErrors?.LastClosedMonthStatus}
-            helperText={smbLastClosedMonthErrors?.LastClosedMonthStatus}
-            disabled={roleId === "4" && checkAllFieldsLastClosedMonth}
-          />
-        </Grid>
+              error={smbLastClosedMonthErrors?.LastClosedMonthStatus}
+              helperText={smbLastClosedMonthErrors?.LastClosedMonthStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsLastClosedMonth) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -547,7 +598,10 @@ const LastClosedMonth = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLastClosedMonth) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -577,7 +631,10 @@ const LastClosedMonth = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastClosedMonth}
+                disabled={
+                  (roleId === "4" && checkAllFieldsLastClosedMonth) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -590,7 +647,8 @@ const LastClosedMonth = ({
 const ContactOfCpa = ({
   smbContactOfCpa,
   setSmbContactOfCpa,
-  checkAllFieldsContactOfCpa
+  checkAllFieldsContactOfCpa,
+  isFormLocked,
 }: ContactOfCpaTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -610,18 +668,21 @@ const ContactOfCpa = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbContactOfCpa?.ContactOfCpaStatus}
-            onChange={(value: string) =>
-              setSmbContactOfCpa((prev: ContactOfCpaFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbContactOfCpa?.ContactOfCpaStatus}
+              onChange={(value: string) =>
+                setSmbContactOfCpa((prev: ContactOfCpaFormTypes) => ({
                   ...prev,
                   ContactOfCpaStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsContactOfCpa}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsContactOfCpa) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -642,7 +703,10 @@ const ContactOfCpa = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsContactOfCpa}
+                disabled={
+                  (roleId === "4" && checkAllFieldsContactOfCpa) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -668,7 +732,10 @@ const ContactOfCpa = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsContactOfCpa}
+                disabled={
+                  (roleId === "4" && checkAllFieldsContactOfCpa) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -682,7 +749,8 @@ const TaxReturn = ({
   smbTaxReturn,
   setSmbTaxReturn,
   smbTaxReturnErrors,
-  checkAllFieldsTaxReturn
+  checkAllFieldsTaxReturn,
+  isFormLocked,
 }: TaxReturnTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -702,20 +770,23 @@ const TaxReturn = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbTaxReturn?.TaxReturnStatus}
-            onChange={(value: string) =>
-              setSmbTaxReturn((prev: TaxReturnFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbTaxReturn?.TaxReturnStatus}
+              onChange={(value: string) =>
+                setSmbTaxReturn((prev: TaxReturnFormTypes) => ({
                   ...prev,
                   TaxReturnStatus: value,
                 }))
               }
-            error={smbTaxReturnErrors?.TaxReturnStatus}
-            helperText={smbTaxReturnErrors?.TaxReturnStatus}
-            disabled={roleId === "4" && checkAllFieldsTaxReturn}
-          />
-        </Grid>
+              error={smbTaxReturnErrors?.TaxReturnStatus}
+              helperText={smbTaxReturnErrors?.TaxReturnStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsTaxReturn) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -738,7 +809,10 @@ const TaxReturn = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTaxReturn}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTaxReturn) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -766,7 +840,10 @@ const TaxReturn = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTaxReturn}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTaxReturn) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -780,7 +857,8 @@ const DistributionList = ({
   smbDistributionList,
   setSmbDistributionList,
   smbDistributionListErrors,
-  checkAllFieldsDistributionList
+  checkAllFieldsDistributionList,
+  isFormLocked,
 }: DistributionListTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -803,21 +881,24 @@ const DistributionList = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbDistributionList?.DistributionListStatus}
-            onChange={(value: string) =>
-              setSmbDistributionList((prev: DistributionListFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbDistributionList?.DistributionListStatus}
+              onChange={(value: string) =>
+                setSmbDistributionList((prev: DistributionListFormTypes) => ({
                   ...prev,
                   DistributionListStatus: value,
                 }))
               }
-            error={smbDistributionListErrors?.DistributionListStatus}
-            helperText={smbDistributionListErrors?.DistributionListStatus}
-            disabled={roleId === "4" && checkAllFieldsDistributionList}
-          />
-        </Grid>
-        
+              error={smbDistributionListErrors?.DistributionListStatus}
+              helperText={smbDistributionListErrors?.DistributionListStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsDistributionList) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
+
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -840,7 +921,10 @@ const DistributionList = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId=== '4' && checkAllFieldsDistributionList}
+                disabled={
+                  (roleId === "4" && checkAllFieldsDistributionList) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -870,7 +954,10 @@ const DistributionList = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId=== '4' && checkAllFieldsDistributionList}
+                disabled={
+                  (roleId === "4" && checkAllFieldsDistributionList) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

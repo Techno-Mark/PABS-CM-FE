@@ -26,6 +26,7 @@ const WhitelabelEscalationmatrixForm = ({
   whitelabelBDM,
   setWhitelabelBDM,
   checkAllFieldsWhiteLabelEscalationMatrixList,
+  isFormLocked,
 }: whitelabelEscalationmatrixFormType) => {
   return (
     <div className={`${className}`}>
@@ -33,16 +34,19 @@ const WhitelabelEscalationmatrixForm = ({
         whitelabelClient={whitelabelClient}
         setWhitelabelClient={setWhitelabelClient}
         checkAllClient={checkAllFieldsWhiteLabelEscalationMatrixList}
+        isFormLocked={isFormLocked}
       />
       <PABS
         whitelabelPABS={whitelabelPABS}
         setWhitelabelPABS={setWhitelabelPABS}
         checkAllPABS={checkAllFieldsWhiteLabelEscalationMatrixList}
+        isFormLocked={isFormLocked}
       />
       <BDM
         whitelabelBDM={whitelabelBDM}
         setWhitelabelBDM={setWhitelabelBDM}
         checkAllBDM={checkAllFieldsWhiteLabelEscalationMatrixList}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -54,6 +58,7 @@ const Client = ({
   whitelabelClient,
   setWhitelabelClient,
   checkAllClient,
+  isFormLocked,
 }: ClientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -93,7 +98,10 @@ const Client = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllClient}
+                disabled={
+                  (roleId === "4" && checkAllClient) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -106,7 +114,10 @@ const Client = ({
                   clientStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllClient}
+              disabled={
+                (roleId === "4" && checkAllClient) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -131,7 +142,10 @@ const Client = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllClient}
+                disabled={
+                  (roleId === "4" && checkAllClient) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -157,7 +171,10 @@ const Client = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllClient}
+                disabled={
+                  (roleId === "4" && checkAllClient) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -171,6 +188,7 @@ const PABS = ({
   whitelabelPABS,
   setWhitelabelPABS,
   checkAllPABS,
+  isFormLocked,
 }: PabsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -210,7 +228,10 @@ const PABS = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllPABS}
+                disabled={
+                  (roleId === "4" && checkAllPABS) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -223,7 +244,10 @@ const PABS = ({
                   pabsStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllPABS}
+              disabled={
+                (roleId === "4" && checkAllPABS) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -248,7 +272,10 @@ const PABS = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllPABS}
+                disabled={
+                  (roleId === "4" && checkAllPABS) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -274,7 +301,10 @@ const PABS = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllPABS}
+                disabled={
+                  (roleId === "4" && checkAllPABS) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -284,7 +314,12 @@ const PABS = ({
   );
 };
 
-const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
+const BDM = ({
+  whitelabelBDM,
+  setWhitelabelBDM,
+  checkAllBDM,
+  isFormLocked,
+}: BdmTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -323,7 +358,10 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllBDM}
+                disabled={
+                  (roleId === "4" && checkAllBDM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -336,7 +374,10 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   bdmStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllBDM}
+              disabled={
+                (roleId === "4" && checkAllBDM) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -361,7 +402,10 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllBDM}
+                disabled={
+                  (roleId === "4" && checkAllBDM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -387,7 +431,10 @@ const BDM = ({ whitelabelBDM, setWhitelabelBDM, checkAllBDM }: BdmTypes) => {
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllBDM}
+                disabled={
+                  (roleId === "4" && checkAllBDM) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

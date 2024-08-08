@@ -31,6 +31,7 @@ function AutoCareCompliances({
   autoCareLastTaxReturnFiledYear,
   setAutoCareLastTaxReturnFiledYear,
   checkAllFieldsAutoCareCompliances,
+  isFormLocked,
 }: autoCareCompliancesTypes) {
   return (
     <div className={`${className}`}>
@@ -41,24 +42,28 @@ function AutoCareCompliances({
         autoCareSalesTaxAccessWorkPaper={autoCareSalesTaxAccessWorkPaper}
         setAutoCareSalesTaxAccessWorkPaper={setAutoCareSalesTaxAccessWorkPaper}
         salesTaxAccessWorkPaperErrors={compliancesErrors}
+        isFormLocked={isFormLocked}
       />
       <UseTax
         checkAllFieldsUseTax={checkAllFieldsAutoCareCompliances}
         autoCareUseTax={autoCareUseTax}
         setAutoCareUseTax={setAutoCareUseTax}
         useTaxErrors={compliancesErrors}
+        isFormLocked={isFormLocked}
       />
       <TireTax
         checkAllFieldsTireTax={checkAllFieldsAutoCareCompliances}
         autoCareTireTax={autoCareTireTax}
         setAutoCareTireTax={setAutoCareTireTax}
         tireTaxErrors={compliancesErrors}
+        isFormLocked={isFormLocked}
       />
       <LastTaxReturnFiledYear
         checkAllFieldsLastTaxReturnFiledYear={checkAllFieldsAutoCareCompliances}
         autoCareLastTaxReturnFiledYear={autoCareLastTaxReturnFiledYear}
         setAutoCareLastTaxReturnFiledYear={setAutoCareLastTaxReturnFiledYear}
         lastTaxReturnFiledYearErrors={compliancesErrors}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -71,6 +76,7 @@ const SalesTaxAccessWorkPaper = ({
   setAutoCareSalesTaxAccessWorkPaper,
   salesTaxAccessWorkPaperErrors,
   checkAllFieldsSalesTaxAccessWorkPaper,
+  isFormLocked,
 }: SalesTaxAccessWorkPaperTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -124,26 +130,37 @@ const SalesTaxAccessWorkPaper = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                  (roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperStatus}
-            onChange={(value: string) =>
-              setAutoCareSalesTaxAccessWorkPaper(
-                (prev: SalesTaxAccessWorkPaperFormTypes) => ({
-                  ...prev,
-                  salesTaxAccessWorkPaperStatus: value,
-                }))
+            <Status
+              value={
+                autoCareSalesTaxAccessWorkPaper?.salesTaxAccessWorkPaperStatus
               }
-            error={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus}
-            helperText={salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus}
-            disabled={roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper}
-          />
-        </Grid>
+              onChange={(value: string) =>
+                setAutoCareSalesTaxAccessWorkPaper(
+                  (prev: SalesTaxAccessWorkPaperFormTypes) => ({
+                    ...prev,
+                    salesTaxAccessWorkPaperStatus: value,
+                  })
+                )
+              }
+              error={
+                salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus
+              }
+              helperText={
+                salesTaxAccessWorkPaperErrors?.salesTaxAccessWorkPaperStatus
+              }
+              disabled={
+                (roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -173,7 +190,8 @@ const SalesTaxAccessWorkPaper = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                  (roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
@@ -209,7 +227,8 @@ const SalesTaxAccessWorkPaper = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                  (roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
@@ -245,7 +264,8 @@ const SalesTaxAccessWorkPaper = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper
+                  (roleId === "4" && checkAllFieldsSalesTaxAccessWorkPaper) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
@@ -261,6 +281,7 @@ const UseTax = ({
   setAutoCareUseTax,
   useTaxErrors,
   checkAllFieldsUseTax,
+  isFormLocked,
 }: UseTaxTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -303,24 +324,30 @@ const UseTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsUseTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsUseTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareUseTax?.useTaxStatus}
-            onChange={(value: string) =>
-              setAutoCareUseTax((prev: UseTaxFormTypes) => ({
+            <Status
+              value={autoCareUseTax?.useTaxStatus}
+              onChange={(value: string) =>
+                setAutoCareUseTax((prev: UseTaxFormTypes) => ({
                   ...prev,
                   useTaxStatus: value,
                 }))
               }
-            error={useTaxErrors?.useTaxStatus}
-            helperText={useTaxErrors?.useTaxStatus}
-            disabled={roleId === "4" && checkAllFieldsUseTax}
-          />
-        </Grid>
+              error={useTaxErrors?.useTaxStatus}
+              helperText={useTaxErrors?.useTaxStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsUseTax) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -343,7 +370,10 @@ const UseTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsUseTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsUseTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -371,7 +401,10 @@ const UseTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsUseTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsUseTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -399,7 +432,10 @@ const UseTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsUseTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsUseTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -414,6 +450,7 @@ const TireTax = ({
   setAutoCareTireTax,
   tireTaxErrors,
   checkAllFieldsTireTax,
+  isFormLocked,
 }: TireTaxTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -455,24 +492,30 @@ const TireTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTireTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTireTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareTireTax?.tireTaxStatus}
-            onChange={(value: string) =>
-              setAutoCareTireTax((prev: TireTaxFormTypes) => ({
+            <Status
+              value={autoCareTireTax?.tireTaxStatus}
+              onChange={(value: string) =>
+                setAutoCareTireTax((prev: TireTaxFormTypes) => ({
                   ...prev,
                   tireTaxStatus: value,
                 }))
               }
-            error={tireTaxErrors?.tireTaxStatus}
-            helperText={tireTaxErrors?.tireTaxStatus}
-            disabled={roleId === "4" && checkAllFieldsTireTax}
-          />
-        </Grid>
+              error={tireTaxErrors?.tireTaxStatus}
+              helperText={tireTaxErrors?.tireTaxStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsTireTax) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -495,7 +538,10 @@ const TireTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTireTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTireTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -523,7 +569,10 @@ const TireTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTireTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTireTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -551,7 +600,10 @@ const TireTax = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTireTax}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTireTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -566,6 +618,7 @@ const LastTaxReturnFiledYear = ({
   setAutoCareLastTaxReturnFiledYear,
   lastTaxReturnFiledYearErrors,
   checkAllFieldsLastTaxReturnFiledYear,
+  isFormLocked
 }: LastTaxReturnFiledYearTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -619,25 +672,34 @@ const LastTaxReturnFiledYear = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
+                disabled={
+                  roleId === "4" && checkAllFieldsLastTaxReturnFiledYear ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearStatus}
-            onChange={(value: string) =>
-              setAutoCareLastTaxReturnFiledYear(
-                (prev: LastTaxReturnFiledYearFormTypes) => ({
-                  ...prev,
-                  lastTaxReturnFiledYearStatus: value,
-                }))
+            <Status
+              value={
+                autoCareLastTaxReturnFiledYear?.lastTaxReturnFiledYearStatus
               }
-            error={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
-            helperText={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
-            disabled={roleId === "4" && checkAllFieldsLastTaxReturnFiledYear}
-          />
-        </Grid>
+              onChange={(value: string) =>
+                setAutoCareLastTaxReturnFiledYear(
+                  (prev: LastTaxReturnFiledYearFormTypes) => ({
+                    ...prev,
+                    lastTaxReturnFiledYearStatus: value,
+                  })
+                )
+              }
+              error={lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus}
+              helperText={
+                lastTaxReturnFiledYearErrors?.lastTaxReturnFiledYearStatus
+              }
+              disabled={roleId === "4" && checkAllFieldsLastTaxReturnFiledYear ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -666,7 +728,10 @@ const LastTaxReturnFiledYear = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
+                disabled={
+                  roleId === "4" && checkAllFieldsLastTaxReturnFiledYear ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -700,7 +765,10 @@ const LastTaxReturnFiledYear = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
+                disabled={
+                  roleId === "4" && checkAllFieldsLastTaxReturnFiledYear ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -734,7 +802,10 @@ const LastTaxReturnFiledYear = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsLastTaxReturnFiledYear}
+                disabled={
+                  roleId === "4" && checkAllFieldsLastTaxReturnFiledYear ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

@@ -665,7 +665,7 @@ function Page() {
 
   useEffect(() => {
     getClientList();
-  }, [clientOpenModal]);
+  }, [clientOpenModal, clientInfo]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

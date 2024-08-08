@@ -27,6 +27,7 @@ function AutoCarePayrollSystem({
   autoCareNoOfEmployee,
   setAutoCareNoOfEmployee,
   checkAllFieldsAutoCarePayrollSystem,
+  isFormLocked,
 }: autoCarePayrollSystemTypes) {
   return (
     <div className={`${className}`}>
@@ -37,21 +38,20 @@ function AutoCarePayrollSystem({
         autoCarePayrollServiceProvider={autoCarePayrollServiceProvider}
         setAutoCarePayrollServiceProvider={setAutoCarePayrollServiceProvider}
         payrollServiceProviderError={payrollSystemError}
+        isFormLocked={isFormLocked}
       />
       <Frequency
-        checkAllFieldsFrequency={
-          checkAllFieldsAutoCarePayrollSystem
-        }
+        checkAllFieldsFrequency={checkAllFieldsAutoCarePayrollSystem}
         autoCareFrequency={autoCareFrequency}
         setAutoCareFrequency={setAutoCareFrequency}
         frequencyErrors={payrollSystemError}
+        isFormLocked={isFormLocked}
       />
       <NoOfEmployees
-        checkAllFieldsNoOfEmployees={
-          checkAllFieldsAutoCarePayrollSystem
-        }
+        checkAllFieldsNoOfEmployees={checkAllFieldsAutoCarePayrollSystem}
         autoCareNoOfEmployee={autoCareNoOfEmployee}
         setAutoCareNoOfEmployee={setAutoCareNoOfEmployee}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -63,7 +63,8 @@ const PayrollServiceProvider = ({
   autoCarePayrollServiceProvider,
   setAutoCarePayrollServiceProvider,
   payrollServiceProviderError,
-  checkAllFieldsPayrollServiceProvider
+  checkAllFieldsPayrollServiceProvider,
+  isFormLocked,
 }: PayrollServiceProviderTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -116,25 +117,36 @@ const PayrollServiceProvider = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPayrollServiceProvider) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCarePayrollServiceProvider?.payrollServiceProviderStatus}
-            onChange={(value: string) =>
-              setAutoCarePayrollServiceProvider(
-                (prev: PayrollServiceProviderFormTypes) => ({
-                  ...prev,
-                  payrollServiceProviderStatus: value,
-                }))
+            <Status
+              value={
+                autoCarePayrollServiceProvider?.payrollServiceProviderStatus
               }
-            error={payrollServiceProviderError?.payrollServiceProviderStatus}
-            helperText={payrollServiceProviderError?.payrollServiceProviderStatus}
-            disabled={roleId === "4" && checkAllFieldsPayrollServiceProvider}
-          />
-        </Grid>
+              onChange={(value: string) =>
+                setAutoCarePayrollServiceProvider(
+                  (prev: PayrollServiceProviderFormTypes) => ({
+                    ...prev,
+                    payrollServiceProviderStatus: value,
+                  })
+                )
+              }
+              error={payrollServiceProviderError?.payrollServiceProviderStatus}
+              helperText={
+                payrollServiceProviderError?.payrollServiceProviderStatus
+              }
+              disabled={
+                (roleId === "4" && checkAllFieldsPayrollServiceProvider) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -163,7 +175,10 @@ const PayrollServiceProvider = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPayrollServiceProvider) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -197,7 +212,10 @@ const PayrollServiceProvider = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPayrollServiceProvider) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -231,7 +249,10 @@ const PayrollServiceProvider = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPayrollServiceProvider}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPayrollServiceProvider) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -245,7 +266,8 @@ const Frequency = ({
   autoCareFrequency,
   setAutoCareFrequency,
   frequencyErrors,
-  checkAllFieldsFrequency
+  checkAllFieldsFrequency,
+  isFormLocked,
 }: FrequencyTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -288,24 +310,30 @@ const Frequency = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFrequency}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFrequency) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareFrequency?.frequencyStatus}
-            onChange={(value: string) =>
-              setAutoCareFrequency((prev: FrequencyFormTypes) => ({
+            <Status
+              value={autoCareFrequency?.frequencyStatus}
+              onChange={(value: string) =>
+                setAutoCareFrequency((prev: FrequencyFormTypes) => ({
                   ...prev,
                   frequencyStatus: value,
                 }))
               }
-            error={frequencyErrors?.frequencyStatus}
-            helperText={frequencyErrors?.frequencyStatus}
-            disabled={roleId === "4" && checkAllFieldsFrequency}
-          />
-        </Grid>
+              error={frequencyErrors?.frequencyStatus}
+              helperText={frequencyErrors?.frequencyStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsFrequency) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -328,7 +356,10 @@ const Frequency = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFrequency}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFrequency) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -356,7 +387,10 @@ const Frequency = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFrequency}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFrequency) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -384,7 +418,10 @@ const Frequency = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsFrequency}
+                disabled={
+                  (roleId === "4" && checkAllFieldsFrequency) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -397,7 +434,8 @@ const Frequency = ({
 const NoOfEmployees = ({
   autoCareNoOfEmployee,
   setAutoCareNoOfEmployee,
-  checkAllFieldsNoOfEmployees
+  checkAllFieldsNoOfEmployees,
+  isFormLocked,
 }: NoOfEmployeeTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -438,22 +476,28 @@ const NoOfEmployees = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
+                disabled={
+                  (roleId === "4" && checkAllFieldsNoOfEmployees) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareNoOfEmployee?.noOfEmployeeStatus}
-            onChange={(value: string) =>
-              setAutoCareNoOfEmployee((prev: NoOfEmployeeFormTypes) => ({
+            <Status
+              value={autoCareNoOfEmployee?.noOfEmployeeStatus}
+              onChange={(value: string) =>
+                setAutoCareNoOfEmployee((prev: NoOfEmployeeFormTypes) => ({
                   ...prev,
                   noOfEmployeeStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsNoOfEmployees}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsNoOfEmployees) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -474,7 +518,10 @@ const NoOfEmployees = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
+                disabled={
+                  (roleId === "4" && checkAllFieldsNoOfEmployees) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -500,7 +547,10 @@ const NoOfEmployees = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
+                disabled={
+                  (roleId === "4" && checkAllFieldsNoOfEmployees) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -526,7 +576,10 @@ const NoOfEmployees = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsNoOfEmployees}
+                disabled={
+                  (roleId === "4" && checkAllFieldsNoOfEmployees) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

@@ -25,6 +25,7 @@ const WhitelabelOtherInformationForm = ({
   whitelabelOtherInformationErrors,
   setWhitelabelOtherInformationErrors,
   checkAllFieldsWhitelabelOtherInformationForm,
+  isFormLocked,
 }: WhitelabelOtherInfoTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -97,6 +98,7 @@ const WhitelabelOtherInformationForm = ({
         checkStatus={whitelabelOtherInformationCheckStatus}
         handleChange={(e: any) => handleWhitelabelOtherInformationSwitch(e)}
         switchDisabled={checkAllFieldsWhitelabelOtherInformationForm}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
@@ -127,8 +129,9 @@ const WhitelabelOtherInformationForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" &&
-                    checkAllFieldsWhitelabelOtherInformationForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelOtherInformationForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
@@ -154,8 +157,9 @@ const WhitelabelOtherInformationForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" &&
-                    checkAllFieldsWhitelabelOtherInformationForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelOtherInformationForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
@@ -213,8 +217,9 @@ const WhitelabelOtherInformationForm = ({
                       },
                     }}
                     disabled={
-                      roleId === "4" &&
-                      checkAllFieldsWhitelabelOtherInformationForm
+                      (roleId === "4" &&
+                        checkAllFieldsWhitelabelOtherInformationForm) ||
+                      (isFormLocked && (roleId == "3" || roleId == "4"))
                     }
                   />
                 </LocalizationProvider>

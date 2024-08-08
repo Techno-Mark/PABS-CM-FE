@@ -39,6 +39,7 @@ function SmbBankingAccessChecklist({
   smbAccessCreditCard,
   setSmbAccessCreditCard,
   checkAllFieldsSmbBankingAccessChecklist,
+  isFormLocked,
 }: CashBankingAccessType) {
   return (
     <div className={`${className}`}>
@@ -48,6 +49,7 @@ function SmbBankingAccessChecklist({
         smbSavingAccount={smbSavingAccount}
         setSmbSavingAccount={setSmbSavingAccount}
         smbSavingAccountErrors={smbCashBankingAccessErrors}
+        isFormLocked={isFormLocked}
       />
       <AccessSavingAccount
         checkAllFieldsAccessSavingAccount={
@@ -55,6 +57,7 @@ function SmbBankingAccessChecklist({
         }
         smbAccessSavingAccount={smbAccessSavingAccount}
         setSmbAccessSavingAccount={setSmbAccessSavingAccount}
+        isFormLocked={isFormLocked}
       />
       <div className="text-[18px] font-medium py-2 w-full">Credit Card</div>
       <AddCards
@@ -62,6 +65,7 @@ function SmbBankingAccessChecklist({
         smbAddCards={smbAddCards}
         setSmbAddCards={setSmbAddCards}
         smbAddCardsErrors={smbCashBankingAccessErrors}
+        isFormLocked={isFormLocked}
       />
       <AccessCreditCardPortal
         checkAllFieldsAccessCreditCardPortal={
@@ -69,6 +73,7 @@ function SmbBankingAccessChecklist({
         }
         smbAccessCreditCardPortal={smbAccessCreditCardPortal}
         setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
+        isFormLocked={isFormLocked}
       />
       <div className="text-[18px] font-medium py-2 w-full">Loan/LOC</div>
       <AccessLoanAccount
@@ -77,6 +82,7 @@ function SmbBankingAccessChecklist({
         }
         smbAccessLoanAccount={smbAccessLoanAccount}
         setSmbAccessLoanAccount={setSmbAccessLoanAccount}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -89,6 +95,7 @@ const SavingAccount = ({
   setSmbSavingAccount,
   smbSavingAccountErrors,
   checkAllFieldsSavingAccount,
+  isFormLocked,
 }: SavingAccountTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -111,20 +118,23 @@ const SavingAccount = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbSavingAccount?.SavingAccountStatus}
-            onChange={(value: string) =>
-              setSmbSavingAccount((prev: SavingAccountFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbSavingAccount?.SavingAccountStatus}
+              onChange={(value: string) =>
+                setSmbSavingAccount((prev: SavingAccountFormTypes) => ({
                   ...prev,
                   SavingAccountStatus: value,
                 }))
               }
-            error={smbSavingAccountErrors?.SavingAccountStatus}
-            helperText={smbSavingAccountErrors?.SavingAccountStatus}
-            disabled={roleId === "4" && checkAllFieldsSavingAccount}
-          />
-        </Grid>
+              error={smbSavingAccountErrors?.SavingAccountStatus}
+              helperText={smbSavingAccountErrors?.SavingAccountStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsSavingAccount) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -147,7 +157,10 @@ const SavingAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsSavingAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSavingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -175,7 +188,10 @@ const SavingAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsSavingAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSavingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -189,6 +205,7 @@ const AccessSavingAccount = ({
   smbAccessSavingAccount,
   setSmbAccessSavingAccount,
   checkAllFieldsAccessSavingAccount,
+  isFormLocked,
 }: AccessSavingAccountTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -210,18 +227,23 @@ const AccessSavingAccount = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbAccessSavingAccount?.AccessSavingAccountStatus}
-            onChange={(value: string) =>
-              setSmbAccessSavingAccount((prev: AccessSavingAccountFormTypes) => ({
-                  ...prev,
-                  AccessSavingAccountStatus: value,
-                }))
+          <Grid item xs={3}>
+            <Status
+              value={smbAccessSavingAccount?.AccessSavingAccountStatus}
+              onChange={(value: string) =>
+                setSmbAccessSavingAccount(
+                  (prev: AccessSavingAccountFormTypes) => ({
+                    ...prev,
+                    AccessSavingAccountStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsAccessSavingAccount) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -242,7 +264,10 @@ const AccessSavingAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccessSavingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -268,7 +293,10 @@ const AccessSavingAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessSavingAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccessSavingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -283,6 +311,7 @@ const AddCards = ({
   setSmbAddCards,
   smbAddCardsErrors,
   checkAllFieldsAddCards,
+  isFormLocked,
 }: AddCardsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -303,20 +332,23 @@ const AddCards = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbAddCards?.AddCardsStatus}
-            onChange={(value: string) =>
-              setSmbAddCards((prev: AddCardsFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbAddCards?.AddCardsStatus}
+              onChange={(value: string) =>
+                setSmbAddCards((prev: AddCardsFormTypes) => ({
                   ...prev,
                   AddCardsStatus: value,
                 }))
               }
-            error={smbAddCardsErrors?.AddCardsStatus}
-            helperText={smbAddCardsErrors?.AddCardsStatus}
-            disabled={roleId === "4" && checkAllFieldsAddCards}
-          />
-        </Grid>
+              error={smbAddCardsErrors?.AddCardsStatus}
+              helperText={smbAddCardsErrors?.AddCardsStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsAddCards) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -339,7 +371,10 @@ const AddCards = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAddCards}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAddCards) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -367,7 +402,10 @@ const AddCards = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAddCards}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAddCards) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -381,6 +419,7 @@ const AccessLoanAccount = ({
   smbAccessLoanAccount,
   setSmbAccessLoanAccount,
   checkAllFieldsAccessLoanAccount,
+  isFormLocked,
 }: AccessLoanAccountTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -402,18 +441,21 @@ const AccessLoanAccount = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbAccessLoanAccount?.AccessLoanAccountStatus}
-            onChange={(value: string) =>
-              setSmbAccessLoanAccount((prev: AccessLoanAccountFormTypes) => ({
+          <Grid item xs={3}>
+            <Status
+              value={smbAccessLoanAccount?.AccessLoanAccountStatus}
+              onChange={(value: string) =>
+                setSmbAccessLoanAccount((prev: AccessLoanAccountFormTypes) => ({
                   ...prev,
                   AccessLoanAccountStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsAccessLoanAccount) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -434,7 +476,10 @@ const AccessLoanAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccessLoanAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -460,7 +505,10 @@ const AccessLoanAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessLoanAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccessLoanAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -474,6 +522,7 @@ const AccessCreditCardPortal = ({
   smbAccessCreditCardPortal,
   setSmbAccessCreditCardPortal,
   checkAllFieldsAccessCreditCardPortal,
+  isFormLocked,
 }: AccessCreditCardPortalTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -495,18 +544,23 @@ const AccessCreditCardPortal = ({
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Status
-            value={smbAccessCreditCardPortal?.AccessCreditCardPortalStatus}
-            onChange={(value: string) =>
-              setSmbAccessCreditCardPortal((prev: AccessCreditCardPortalFormTypes) => ({
-                  ...prev,
-                  AccessCreditCardPortalStatus: value,
-                }))
+          <Grid item xs={3}>
+            <Status
+              value={smbAccessCreditCardPortal?.AccessCreditCardPortalStatus}
+              onChange={(value: string) =>
+                setSmbAccessCreditCardPortal(
+                  (prev: AccessCreditCardPortalFormTypes) => ({
+                    ...prev,
+                    AccessCreditCardPortalStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsAccessCreditCardPortal}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsAccessCreditCardPortal) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Information</label>
@@ -516,7 +570,10 @@ const AccessCreditCardPortal = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Information"
-                value={smbAccessCreditCardPortal?.AccessCreditCardPortalDetails}
+                value={
+                  smbAccessCreditCardPortal?.AccessCreditCardPortalDetails ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
                 onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
@@ -527,7 +584,10 @@ const AccessCreditCardPortal = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccessCreditCardPortal) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -555,7 +615,10 @@ const AccessCreditCardPortal = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAccessCreditCardPortal}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAccessCreditCardPortal) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

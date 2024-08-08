@@ -35,6 +35,7 @@ function AutoCareCashBankLoans({
   autoCarePropertyLoans,
   setAutoCarePropertyLoans,
   checkAllFieldsAutoCareCashBankLoans,
+  isFormLocked,
 }: autoCareCashBankLoansTypes) {
   return (
     <div className={`${className}`}>
@@ -47,28 +48,33 @@ function AutoCareCashBankLoans({
           setAutoCareOperatingCheckingAccount
         }
         operatingCheckingAccountErrors={cashBankLoansErrors}
+        isFormLocked={isFormLocked}
       />
       <SavingsAccount
         checkAllFieldsSavingsAccount={checkAllFieldsAutoCareCashBankLoans}
         autoCareSavingsAccount={autoCareSavingsAccount}
         setAutoCareSavingsAccount={setAutoCareSavingsAccount}
         savingsAccountErrors={cashBankLoansErrors}
+        isFormLocked={isFormLocked}
       />
       <CreditCard
         checkAllFieldsCreditCard={checkAllFieldsAutoCareCashBankLoans}
         autoCareCreditCard={autoCareCreditCard}
         setAutoCareCreditCard={setAutoCareCreditCard}
         creditCardErrors={cashBankLoansErrors}
+        isFormLocked={isFormLocked}
       />
       <BusinessLoans
         checkAllFieldsBusinessLoans={checkAllFieldsAutoCareCashBankLoans}
         autoCareBusinessLoans={autoCareBusinessLoans}
         setAutoCareBusinessLoans={setAutoCareBusinessLoans}
+        isFormLocked={isFormLocked}
       />
       <PropertyLoans
         checkAllFieldsPropertyLoans={checkAllFieldsAutoCareCashBankLoans}
         autoCarePropertyLoans={autoCarePropertyLoans}
         setAutoCarePropertyLoans={setAutoCarePropertyLoans}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -81,6 +87,7 @@ const OperatingCheckingAccount = ({
   setAutoCareOperatingCheckingAccount,
   operatingCheckingAccountErrors,
   checkAllFieldsOperatingCheckingAccount,
+  isFormLocked,
 }: OperatingCheckingAccountTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -133,26 +140,37 @@ const OperatingCheckingAccount = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                  (roleId === "4" && checkAllFieldsOperatingCheckingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareOperatingCheckingAccount?.operatingCheckingAccountStatus}
-            onChange={(value: string) =>
-              setAutoCareOperatingCheckingAccount(
-                (prev: OperatingCheckingAccountFormTypes) => ({
-                  ...prev,
-                  operatingCheckingAccountStatus: value,
-                }))
+            <Status
+              value={
+                autoCareOperatingCheckingAccount?.operatingCheckingAccountStatus
               }
-            error={operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
-            helperText={operatingCheckingAccountErrors?.operatingCheckingAccountStatus}
-            disabled={roleId === "4" && checkAllFieldsOperatingCheckingAccount}
-          />
-        </Grid>
+              onChange={(value: string) =>
+                setAutoCareOperatingCheckingAccount(
+                  (prev: OperatingCheckingAccountFormTypes) => ({
+                    ...prev,
+                    operatingCheckingAccountStatus: value,
+                  })
+                )
+              }
+              error={
+                operatingCheckingAccountErrors?.operatingCheckingAccountStatus
+              }
+              helperText={
+                operatingCheckingAccountErrors?.operatingCheckingAccountStatus
+              }
+              disabled={
+                (roleId === "4" && checkAllFieldsOperatingCheckingAccount) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -182,7 +200,8 @@ const OperatingCheckingAccount = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                  (roleId === "4" && checkAllFieldsOperatingCheckingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
@@ -218,7 +237,8 @@ const OperatingCheckingAccount = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                  (roleId === "4" && checkAllFieldsOperatingCheckingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
@@ -254,7 +274,8 @@ const OperatingCheckingAccount = ({
                   className: classes.textSize,
                 }}
                 disabled={
-                  roleId === "4" && checkAllFieldsOperatingCheckingAccount
+                  (roleId === "4" && checkAllFieldsOperatingCheckingAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>
@@ -270,6 +291,7 @@ const SavingsAccount = ({
   setAutoCareSavingsAccount,
   savingsAccountErrors,
   checkAllFieldsSavingsAccount,
+  isFormLocked,
 }: SavingsAccountTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -313,24 +335,30 @@ const SavingsAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSavingsAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareSavingsAccount?.savingsAccountStatus}
-            onChange={(value: string) =>
-              setAutoCareSavingsAccount((prev: SavingsAccountFormTypes) => ({
+            <Status
+              value={autoCareSavingsAccount?.savingsAccountStatus}
+              onChange={(value: string) =>
+                setAutoCareSavingsAccount((prev: SavingsAccountFormTypes) => ({
                   ...prev,
                   savingsAccountStatus: value,
                 }))
               }
-            error={savingsAccountErrors?.savingsAccountStatus}
-            helperText={savingsAccountErrors?.savingsAccountStatus}
-            disabled={roleId === "4" && checkAllFieldsSavingsAccount}
-          />
-        </Grid>
+              error={savingsAccountErrors?.savingsAccountStatus}
+              helperText={savingsAccountErrors?.savingsAccountStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsSavingsAccount) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -353,7 +381,10 @@ const SavingsAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSavingsAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -381,7 +412,10 @@ const SavingsAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSavingsAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -409,7 +443,10 @@ const SavingsAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsSavingsAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsSavingsAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -424,6 +461,7 @@ const CreditCard = ({
   setAutoCareCreditCard,
   creditCardErrors,
   checkAllFieldsCreditCard,
+  isFormLocked,
 }: CreditCardTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -466,24 +504,30 @@ const CreditCard = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsCreditCard}
+                disabled={
+                  (roleId === "4" && checkAllFieldsCreditCard) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareCreditCard?.creditCardStatus}
-            onChange={(value: string) =>
-              setAutoCareCreditCard((prev: CreditCardFormTypes) => ({
+            <Status
+              value={autoCareCreditCard?.creditCardStatus}
+              onChange={(value: string) =>
+                setAutoCareCreditCard((prev: CreditCardFormTypes) => ({
                   ...prev,
                   creditCardStatus: value,
                 }))
               }
-            error={creditCardErrors?.creditCardStatus}
-            helperText={creditCardErrors?.creditCardStatus}
-            disabled={roleId === "4" && checkAllFieldsCreditCard}
-          />
-        </Grid>
+              error={creditCardErrors?.creditCardStatus}
+              helperText={creditCardErrors?.creditCardStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsCreditCard) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -506,7 +550,10 @@ const CreditCard = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsCreditCard}
+                disabled={
+                  (roleId === "4" && checkAllFieldsCreditCard) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -534,7 +581,10 @@ const CreditCard = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsCreditCard}
+                disabled={
+                  (roleId === "4" && checkAllFieldsCreditCard) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -562,7 +612,10 @@ const CreditCard = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsCreditCard}
+                disabled={
+                  (roleId === "4" && checkAllFieldsCreditCard) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -576,6 +629,7 @@ const BusinessLoans = ({
   autoCareBusinessLoans,
   setAutoCareBusinessLoans,
   checkAllFieldsBusinessLoans,
+  isFormLocked,
 }: BusinessLoansTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -617,22 +671,28 @@ const BusinessLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBusinessLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareBusinessLoans?.businessLoansStatus}
-            onChange={(value: string) =>
-              setAutoCareBusinessLoans((prev: BusinessLoansFormTypes) => ({
+            <Status
+              value={autoCareBusinessLoans?.businessLoansStatus}
+              onChange={(value: string) =>
+                setAutoCareBusinessLoans((prev: BusinessLoansFormTypes) => ({
                   ...prev,
                   businessLoansStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsBusinessLoans}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsBusinessLoans) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -653,7 +713,10 @@ const BusinessLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBusinessLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -679,7 +742,10 @@ const BusinessLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBusinessLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -705,7 +771,10 @@ const BusinessLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsBusinessLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBusinessLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -718,7 +787,8 @@ const BusinessLoans = ({
 const PropertyLoans = ({
   autoCarePropertyLoans,
   setAutoCarePropertyLoans,
-  checkAllFieldsPropertyLoans
+  checkAllFieldsPropertyLoans,
+  isFormLocked,
 }: PropertyLoansTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -760,22 +830,28 @@ const PropertyLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPropertyLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCarePropertyLoans?.propertyLoansStatus}
-            onChange={(value: string) =>
-              setAutoCarePropertyLoans((prev: PropertyLoansFormTypes) => ({
+            <Status
+              value={autoCarePropertyLoans?.propertyLoansStatus}
+              onChange={(value: string) =>
+                setAutoCarePropertyLoans((prev: PropertyLoansFormTypes) => ({
                   ...prev,
                   propertyLoansStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsPropertyLoans}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsPropertyLoans) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -796,7 +872,10 @@ const PropertyLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPropertyLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -822,7 +901,10 @@ const PropertyLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPropertyLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -848,7 +930,10 @@ const PropertyLoans = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPropertyLoans}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPropertyLoans) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

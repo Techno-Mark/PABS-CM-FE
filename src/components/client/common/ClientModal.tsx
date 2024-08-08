@@ -31,11 +31,13 @@ import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsW
 import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 import {
+  getClientDetailsByIdUrl,
   onboardingDownloadFormUrl,
   onboardingListFormUrl,
   toggleFormLockedUrl,
 } from "@/static/apiUrl";
 import Cookies from "js-cookie";
+import { GetClientByIdResponse } from "@/models/clientManage";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -77,6 +79,30 @@ function ClientModal({
   const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
     useState<boolean>(false);
   const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getById = async () => {
+      const callback = (
+        ResponseStatus: string,
+        Message: string,
+        ResponseData: GetClientByIdResponse
+      ) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            setIsChecked(ResponseData?.IsFormLocked ?? false);
+            return;
+        }
+      };
+      await callAPIwithHeaders(getClientDetailsByIdUrl, "post", callback, {
+        clientId: clientInfo.ClientId,
+      });
+    };
+    clientInfo.ClientId > 0 && getById();
+  }, [clientInfo]);
 
   const getFormDetials = async () => {
     const callBack = (
@@ -136,6 +162,7 @@ function ClientModal({
   };
 
   const handleToggleFormLocked = async (value: boolean) => {
+    setIsChecked(value);
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
         case "failure":
@@ -146,10 +173,10 @@ function ClientModal({
           return;
       }
     };
-    // await callAPIwithHeaders(toggleFormLockedUrl, "post", callback, {
-    //   clientId: clientInfo.clientId,
-    //   status: false,
-    // });
+    await callAPIwithHeaders(toggleFormLockedUrl, "post", callback, {
+      clientId: clientInfo.ClientId || 0,
+      status: value,
+    });
   };
 
   return (
@@ -206,11 +233,13 @@ function ClientModal({
                   </div>
                   <div className="relative flex gap-5">
                     <div className="flex justify-center items-center">
-                      {loginUserRole == "1" && (
+                      {(loginUserRole == "1" || loginUserRole == "2") && (
                         <div>
-                          <span className="text-[#000]">want Locked ?</span>
+                          <span className="text-[#000] font-semibold">
+                            Form Lock ?
+                          </span>
                           <Switch
-                            checked={clientInfo.IsFormLocked}
+                            checked={isChecked}
                             onChange={(e) =>
                               handleToggleFormLocked(e.target.checked)
                             }
@@ -223,7 +252,7 @@ function ClientModal({
                         className="flex items-center cursor-pointer"
                         onClick={handleDownload}
                       >
-                        <DownloadIcon />
+                        {clientInfo.IsFormLocked && <DownloadIcon />}
                       </span>
                     </Tooltip>
                     <Tooltip title="Close" placement="bottom" arrow>
@@ -309,6 +338,7 @@ function ClientModal({
                       }
                       responseData={formDetails !== null ? formDetails : false}
                       getFormDetials={getFormDetials}
+                      isFormLocked={isChecked}
                     />
                   )}
                 </>
@@ -327,6 +357,9 @@ function ClientModal({
                         setPerCountWhiteLabelBasicDetails(value)
                       }
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
+                      getFormCheckedValue={(value: boolean) => {
+                        setIsChecked(value);
+                      }}
                     />
                   )}
                   <ChecklistWhitelabel
@@ -359,23 +392,6 @@ function ClientModal({
               ) : (
                 ""
               )}
-
-              {/* <div className="z-50">
-                {commentModelOpen && (
-                  <CommentModel
-                    commentModelOpen={commentModelOpen}
-                    setCommentModelOpen={(
-                      value: boolean | ((prevState: boolean) => boolean)
-                    ) => {
-                      setCommentModelOpen(value);
-                    }}
-                    handleClose={() => {
-                      setCommentModelOpen(false);
-                    }}
-                  />
-                )}
-              </div>
-              <DrawerOverlay isOpen={commentModelOpen} /> */}
             </Box>
           </Box>
         </div>

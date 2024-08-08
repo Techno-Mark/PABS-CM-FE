@@ -31,6 +31,7 @@ function AutoCarePayableCashPayAccess({
   autoCareApThresholdLimit,
   setAutoCareApThresholdLimit,
   checkAllFieldsAutoCarePayableCashPayAccess,
+  isFormLocked,
 }: autoCarePayableCashPayAccessTypes) {
   return (
     <div className={`${className}`}>
@@ -41,21 +42,20 @@ function AutoCarePayableCashPayAccess({
         autoCareVendorPortalAccess={autoCareVendorPortalAccess}
         setAutoCareVendorPortalAccess={setAutoCareVendorPortalAccess}
         vendorPortalAccessErrors={payableCashPayAccessError}
+        isFormLocked={isFormLocked}
       />
       <TradeAccount
-        checkAllFieldsTradeAccount={
-          checkAllFieldsAutoCarePayableCashPayAccess
-        }
+        checkAllFieldsTradeAccount={checkAllFieldsAutoCarePayableCashPayAccess}
         autoCareTradeAccount={autoCareTradeAccount}
         setAutoCareTradeAccount={setAutoCareTradeAccount}
+        isFormLocked={isFormLocked}
       />
       <BillPayAccess
-        checkAllFieldsBillPayAccess={
-          checkAllFieldsAutoCarePayableCashPayAccess
-        }
+        checkAllFieldsBillPayAccess={checkAllFieldsAutoCarePayableCashPayAccess}
         autoCareBillPayAccess={autoCareBillPayAccess}
         setAutoCareBillPayAccess={setAutoCareBillPayAccess}
         billPayAccessErrors={payableCashPayAccessError}
+        isFormLocked={isFormLocked}
       />
       <APThresholdLimit
         checkAllFieldsAPThresholdLimit={
@@ -63,6 +63,7 @@ function AutoCarePayableCashPayAccess({
         }
         autoCareApThresholdLimit={autoCareApThresholdLimit}
         setAutoCareApThresholdLimit={setAutoCareApThresholdLimit}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -74,7 +75,8 @@ const VendorPortalAccess = ({
   autoCareVendorPortalAccess,
   setAutoCareVendorPortalAccess,
   vendorPortalAccessErrors,
-  checkAllFieldsVendorPortalAccess
+  checkAllFieldsVendorPortalAccess,
+  isFormLocked,
 }: VendorPortalAccessTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -121,24 +123,32 @@ const VendorPortalAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsVendorPortalAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareVendorPortalAccess?.vendorPortalAccessStatus}
-            onChange={(value: string) =>
-              setAutoCareVendorPortalAccess((prev: VendorPortalAccessFormTypes) => ({
-                  ...prev,
-                  vendorPortalAccessStatus: value,
-                }))
+            <Status
+              value={autoCareVendorPortalAccess?.vendorPortalAccessStatus}
+              onChange={(value: string) =>
+                setAutoCareVendorPortalAccess(
+                  (prev: VendorPortalAccessFormTypes) => ({
+                    ...prev,
+                    vendorPortalAccessStatus: value,
+                  })
+                )
               }
-            error={vendorPortalAccessErrors?.vendorPortalAccessStatus}
-            helperText={vendorPortalAccessErrors?.vendorPortalAccessStatus}
-            disabled={roleId === "4" && checkAllFieldsVendorPortalAccess}
-          />
-        </Grid>
+              error={vendorPortalAccessErrors?.vendorPortalAccessStatus}
+              helperText={vendorPortalAccessErrors?.vendorPortalAccessStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsVendorPortalAccess) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -161,7 +171,10 @@ const VendorPortalAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsVendorPortalAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -191,7 +204,10 @@ const VendorPortalAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsVendorPortalAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -225,7 +241,10 @@ const VendorPortalAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsVendorPortalAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsVendorPortalAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -238,7 +257,8 @@ const VendorPortalAccess = ({
 const TradeAccount = ({
   autoCareTradeAccount,
   setAutoCareTradeAccount,
-  checkAllFieldsTradeAccount
+  checkAllFieldsTradeAccount,
+  isFormLocked,
 }: TradeAccountTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -278,22 +298,28 @@ const TradeAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTradeAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTradeAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareTradeAccount?.tradeAccountStatus}
-            onChange={(value: string) =>
-              setAutoCareTradeAccount((prev: TradeAccountFormTypes) => ({
+            <Status
+              value={autoCareTradeAccount?.tradeAccountStatus}
+              onChange={(value: string) =>
+                setAutoCareTradeAccount((prev: TradeAccountFormTypes) => ({
                   ...prev,
                   tradeAccountStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsTradeAccount}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsTradeAccount) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -314,7 +340,10 @@ const TradeAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTradeAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTradeAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -340,7 +369,10 @@ const TradeAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTradeAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTradeAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -366,7 +398,10 @@ const TradeAccount = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsTradeAccount}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTradeAccount) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -380,7 +415,8 @@ const BillPayAccess = ({
   autoCareBillPayAccess,
   setAutoCareBillPayAccess,
   billPayAccessErrors,
-  checkAllFieldsBillPayAccess
+  checkAllFieldsBillPayAccess,
+  isFormLocked,
 }: BillPayAccessTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -425,24 +461,30 @@ const BillPayAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBillPayAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareBillPayAccess?.billPayAccessStatus}
-            onChange={(value: string) =>
-              setAutoCareBillPayAccess((prev: BillPayAccessFormTypes) => ({
+            <Status
+              value={autoCareBillPayAccess?.billPayAccessStatus}
+              onChange={(value: string) =>
+                setAutoCareBillPayAccess((prev: BillPayAccessFormTypes) => ({
                   ...prev,
                   billPayAccessStatus: value,
                 }))
               }
-            error={billPayAccessErrors?.billPayAccessStatus}
-            helperText={billPayAccessErrors?.billPayAccessStatus}
-            disabled={roleId === "4" && checkAllFieldsBillPayAccess}
-          />
-        </Grid>
+              error={billPayAccessErrors?.billPayAccessStatus}
+              helperText={billPayAccessErrors?.billPayAccessStatus}
+              disabled={
+                (roleId === "4" && checkAllFieldsBillPayAccess) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -465,7 +507,10 @@ const BillPayAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBillPayAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -493,7 +538,10 @@ const BillPayAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBillPayAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -521,7 +569,10 @@ const BillPayAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsBillPayAccess}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBillPayAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -534,7 +585,8 @@ const BillPayAccess = ({
 const APThresholdLimit = ({
   autoCareApThresholdLimit,
   setAutoCareApThresholdLimit,
-  checkAllFieldsAPThresholdLimit
+  checkAllFieldsAPThresholdLimit,
+  isFormLocked,
 }: ApThresholdLimitTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -577,22 +629,30 @@ const APThresholdLimit = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAPThresholdLimit) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareApThresholdLimit?.apThresholdLimitStatus}
-            onChange={(value: string) =>
-              setAutoCareApThresholdLimit((prev: ApThresholdLimitFormTypes) => ({
-                  ...prev,
-                  apThresholdLimitStatus: value,
-                }))
+            <Status
+              value={autoCareApThresholdLimit?.apThresholdLimitStatus}
+              onChange={(value: string) =>
+                setAutoCareApThresholdLimit(
+                  (prev: ApThresholdLimitFormTypes) => ({
+                    ...prev,
+                    apThresholdLimitStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsAPThresholdLimit}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsAPThresholdLimit) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -613,7 +673,10 @@ const APThresholdLimit = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAPThresholdLimit) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -639,7 +702,10 @@ const APThresholdLimit = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAPThresholdLimit) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -665,7 +731,10 @@ const APThresholdLimit = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsAPThresholdLimit}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAPThresholdLimit) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

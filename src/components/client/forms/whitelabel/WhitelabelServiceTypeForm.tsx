@@ -36,6 +36,7 @@ const WhitelabelServiceTypeForm = ({
   whitelabelIndustry,
   setWhitelabelIndustry,
   checkAllFieldsWhiteLabelServiceTypeList,
+  isFormLocked,
 }: whiteLabelServiceType) => {
   return (
     <div className={`${className}`}>
@@ -44,28 +45,33 @@ const WhitelabelServiceTypeForm = ({
         setWhitelabelFTE={setWhitelabelFTE}
         whitelabelFTEErrors={whitelabelServiceErrors}
         checkAllFTE={checkAllFieldsWhiteLabelServiceTypeList}
+        isFormLocked={isFormLocked}
       />
       <Accounting
         whitelabelAccounting={whitelabelAccounting}
         setWhitelabelAccounting={setWhitelabelAccounting}
         whitelabelAccountingErrors={whitelabelServiceErrors}
         checkAllAccounting={checkAllFieldsWhiteLabelServiceTypeList}
+        isFormLocked={isFormLocked}
       />
       <Tax
         whitelabelTax={whitelabelTax}
         setWhitelabelTax={setWhitelabelTax}
         whitelabelTaxErrors={whitelabelServiceErrors}
         checkAllTax={checkAllFieldsWhiteLabelServiceTypeList}
+        isFormLocked={isFormLocked}
       />
       <Weekly
         whitelabelWeekly={whitelabelWeekly}
         setWhitelabelWeekly={setWhitelabelWeekly}
         checkAllWeekly={checkAllFieldsWhiteLabelServiceTypeList}
+        isFormLocked={isFormLocked}
       />
       <Industry
         whitelabelIndustry={whitelabelIndustry}
         setWhitelabelIndustry={setWhitelabelIndustry}
         checkAllIndustry={checkAllFieldsWhiteLabelServiceTypeList}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -78,6 +84,7 @@ const FTE = ({
   setWhitelabelFTE,
   whitelabelFTEErrors,
   checkAllFTE,
+  isFormLocked,
 }: FTETypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -116,27 +123,33 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFTE}
+                disabled={
+                  (roleId === "4" && checkAllFTE) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelFTE?.FTEStatus}
-            onChange={(value: string) =>
-              setWhitelabelFTE((prev: FTEFormTypes) => ({
+            <Status
+              value={whitelabelFTE?.FTEStatus}
+              onChange={(value: string) =>
+                setWhitelabelFTE((prev: FTEFormTypes) => ({
                   ...prev,
                   FTEStatus: value,
                 }))
               }
-            error={whitelabelFTEErrors?.FTEStatus}
-            helperText={whitelabelFTEErrors?.FTEStatus}
-            disabled={roleId === "4" && checkAllFTE}
-          />
-        </Grid>
+              error={whitelabelFTEErrors?.FTEStatus}
+              helperText={whitelabelFTEErrors?.FTEStatus}
+              disabled={
+                (roleId === "4" && checkAllFTE) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -158,10 +171,13 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFTE}
+                disabled={
+                  (roleId === "4" && checkAllFTE) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -186,10 +202,13 @@ const FTE = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFTE}
+                disabled={
+                  (roleId === "4" && checkAllFTE) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -204,6 +223,7 @@ const Accounting = ({
   setWhitelabelAccounting,
   whitelabelAccountingErrors,
   checkAllAccounting,
+  isFormLocked,
 }: AccountingTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -242,27 +262,33 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllAccounting}
+                disabled={
+                  (roleId === "4" && checkAllAccounting) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelAccounting?.accountingStatus}
-            onChange={(value: string) =>
-              setWhitelabelAccounting((prev: AccountingFormTypes) => ({
+            <Status
+              value={whitelabelAccounting?.accountingStatus}
+              onChange={(value: string) =>
+                setWhitelabelAccounting((prev: AccountingFormTypes) => ({
                   ...prev,
                   accountingStatus: value,
                 }))
               }
-            error={whitelabelAccountingErrors?.accountingStatus}
-            helperText={whitelabelAccountingErrors?.accountingStatus}
-            disabled={roleId === "4" && checkAllAccounting}
-          />
-        </Grid>
+              error={whitelabelAccountingErrors?.accountingStatus}
+              helperText={whitelabelAccountingErrors?.accountingStatus}
+              disabled={
+                (roleId === "4" && checkAllAccounting) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -284,10 +310,13 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllAccounting}
+                disabled={
+                  (roleId === "4" && checkAllAccounting) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -312,10 +341,13 @@ const Accounting = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllAccounting}
+                disabled={
+                  (roleId === "4" && checkAllAccounting) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -330,6 +362,7 @@ const Tax = ({
   setWhitelabelTax,
   whitelabelTaxErrors,
   checkAllTax,
+  isFormLocked,
 }: TaxTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -368,27 +401,33 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTax}
+                disabled={
+                  (roleId === "4" && checkAllTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelTax?.taxStatus}
-            onChange={(value: string) =>
-              setWhitelabelTax((prev: TaxFormTypes) => ({
+            <Status
+              value={whitelabelTax?.taxStatus}
+              onChange={(value: string) =>
+                setWhitelabelTax((prev: TaxFormTypes) => ({
                   ...prev,
                   taxStatus: value,
                 }))
               }
-            error={whitelabelTaxErrors?.taxStatus}
-            helperText={whitelabelTaxErrors?.taxStatus}
-            disabled={roleId === "4" && checkAllTax}
-          />
-        </Grid>
+              error={whitelabelTaxErrors?.taxStatus}
+              helperText={whitelabelTaxErrors?.taxStatus}
+              disabled={
+                (roleId === "4" && checkAllTax) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -410,10 +449,13 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTax}
+                disabled={
+                  (roleId === "4" && checkAllTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -438,10 +480,13 @@ const Tax = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTax}
+                disabled={
+                  (roleId === "4" && checkAllTax) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -455,6 +500,7 @@ const Weekly = ({
   whitelabelWeekly,
   setWhitelabelWeekly,
   checkAllWeekly,
+  isFormLocked,
 }: WeeklyTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -491,25 +537,31 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllWeekly}
+                disabled={
+                  (roleId === "4" && checkAllWeekly) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelWeekly?.weeklyStatus}
-            onChange={(value: string) =>
-              setWhitelabelWeekly((prev: WeeklyFormTypes) => ({
+            <Status
+              value={whitelabelWeekly?.weeklyStatus}
+              onChange={(value: string) =>
+                setWhitelabelWeekly((prev: WeeklyFormTypes) => ({
                   ...prev,
                   weeklyStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllWeekly}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllWeekly) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -529,10 +581,13 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllWeekly}
+                disabled={
+                  (roleId === "4" && checkAllWeekly) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -555,10 +610,13 @@ const Weekly = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllWeekly}
+                disabled={
+                  (roleId === "4" && checkAllWeekly) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -572,6 +630,7 @@ const Industry = ({
   whitelabelIndustry,
   setWhitelabelIndustry,
   checkAllIndustry,
+  isFormLocked,
 }: IndustryTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -608,25 +667,31 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllIndustry}
+                disabled={
+                  (roleId === "4" && checkAllIndustry) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelIndustry?.industryStatus}
-            onChange={(value: string) =>
-              setWhitelabelIndustry((prev: IndustryFormTypes) => ({
+            <Status
+              value={whitelabelIndustry?.industryStatus}
+              onChange={(value: string) =>
+                setWhitelabelIndustry((prev: IndustryFormTypes) => ({
                   ...prev,
                   industryStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllIndustry}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllIndustry) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -646,10 +711,13 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllIndustry}
+                disabled={
+                  (roleId === "4" && checkAllIndustry) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -672,10 +740,13 @@ const Industry = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllIndustry}
+                disabled={
+                  (roleId === "4" && checkAllIndustry) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

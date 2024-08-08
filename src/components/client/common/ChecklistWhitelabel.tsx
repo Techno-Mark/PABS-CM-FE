@@ -245,6 +245,7 @@ const ChecklistWhitelabel = ({
   ] = useState<boolean>(true);
   const [isSubmitedWhiteLabelChecklist, setIsSubmitedWhiteLabelChecklist] =
     useState<boolean>(false);
+  const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
 
   const handleAccordianChange =
     (arg1: number) => (e: any, isExpanded: boolean) => {
@@ -265,6 +266,7 @@ const ChecklistWhitelabel = ({
           if (!!ResponseData) {
             setClientId(ResponseData?.clientId);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
+            setIsFormLocked(ResponseData?.isFormLocked ?? false);
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
             setWhiteLabelCommunicationChecked(
@@ -826,7 +828,8 @@ const ChecklistWhitelabel = ({
             whitelabelITStructure.itStructureWhiteLabelActionClient,
         },
         {
-          fieldName: "If remote computer need to be accessed, please share access credentials and instructions",
+          fieldName:
+            "If remote computer need to be accessed, please share access credentials and instructions",
           status: whitelabelRemoteSetup.remoteSetupWhiteLabelStatus,
           comments: whitelabelRemoteSetup.remoteSetupWhiteLabelComments,
           actionsOfPabs: whitelabelRemoteSetup.remoteSetupWhiteLabelActionPABS,
@@ -1008,8 +1011,8 @@ const ChecklistWhitelabel = ({
     };
 
     const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
-    ? validateWhiteLabelSystemSoftware()
-    : false;
+      ? validateWhiteLabelSystemSoftware()
+      : false;
     const isWhiteLabelServiceTypeValid = whiteLabelServiceTypeChecked
       ? validateWhiteLabelServiceType()
       : false;
@@ -1227,6 +1230,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelTeamOverCall={setWhitelabelTeamOverCall}
           whitelabelKickOff={whitelabelKickOff}
           setWhitelabelKickOff={setWhitelabelKickOff}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1264,6 +1268,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelSystemAccess={setWhitelabelSystemAccess}
           whitelabelOtherInfo={whitelabelOtherInfo}
           setWhitelabelOtherInfo={setWhitelabelOtherInfo}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1294,6 +1299,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelWeekly={setWhitelabelWeekly}
           whitelabelIndustry={whitelabelIndustry}
           setWhitelabelIndustry={setWhitelabelIndustry}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1317,6 +1323,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelCurrentChallenges={setWhitelabelCurrentChallenges}
           whitelabelExpectation={whitelabelExpectation}
           setWhitelabelExpectation={setWhitelabelExpectation}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1346,6 +1353,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelCatchup={setWhitelabelCatchup}
           whitelabelCombination={whitelabelCombination}
           setWhitelabelCombination={setWhitelabelCombination}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1370,6 +1378,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelPABS={setWhitelabelPABS}
           whitelabelBDM={whitelabelBDM}
           setWhitelabelBDM={setWhitelabelBDM}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1399,6 +1408,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelConvenientDay={setWhitelabelConvenientDay}
           whitelabelTimeSlot={whitelabelTimeSlot}
           setWhitelabelTimeSlot={setWhitelabelTimeSlot}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1431,6 +1441,7 @@ const ChecklistWhitelabel = ({
                   handleChange={phase.handleAccordianChange}
                   switchDisabled={isSubmitedWhiteLabelChecklist}
                   title={`Phase ${phase.phaseNumber}: ${phase.title}`}
+                  isFormLocked={isFormLocked}
                 >
                   {phase.component}
                 </ChecklistAccordian>
@@ -1453,14 +1464,19 @@ const ChecklistWhitelabel = ({
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={clientId} />
+            <CommentData clientID={clientId} isFormLocked={isFormLocked}/>
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
               onClick={() => handleSubmit(3)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              className={`${
+                isFormLocked && (roleId === "3" || roleId === "4")
+                  ? "!border-[#666] !text-[#666]"
+                  : "!border-[#023963] !text-[#022946]"
+              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
+              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Back
             </Button>
@@ -1477,16 +1493,22 @@ const ChecklistWhitelabel = ({
               {(roleId === "4" ? !isSubmitedWhiteLabelChecklist : true) && (
                 <Button
                   onClick={() => handleSubmit(2)}
-                  className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                  className={`${
+                    isFormLocked && (roleId === "3" || roleId === "4")
+                      ? "!border-[#666] !text-[#666]"
+                      : "!border-[#023963] !text-[#022946]"
+                  } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
+                  disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
                   Save
                 </Button>
               )}
               <Button
                 onClick={() => handleSubmit(1)}
-                className={`!bg-[#022946] text-white !rounded-full`}
-                variant="contained"
+                className={`${isFormLocked && (roleId === "3" || roleId=== "4") ? "!bg-[#666] !text-white": "!bg-[#022946] text-white"}  !rounded-full`}
+            variant="contained"
+            // disabled={isFormLocked && (roleId === "3" || roleId=== "4")}
               >
                 <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
                   Next: Account Details

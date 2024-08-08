@@ -18,7 +18,8 @@ const WhitelabelPabsAccountingTeamForm = ({
   setWhitelabelPABSAccountingTeam,
   whitelabelPABSAccountingTeamErrors,
   setWhitelabelPABSAccountingTeamErrors,
-  checkAllFieldsWhitelabelPabsAccountingTeamForm
+  checkAllFieldsWhitelabelPabsAccountingTeamForm,
+  isFormLocked,
 }: WhitelabelPABSAccountingTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -99,6 +100,7 @@ const WhitelabelPabsAccountingTeamForm = ({
         checkStatus={whitelabelPABSAccountingTeamCheckStatus}
         handleChange={(e: any) => handleWhitelabelPABSAccountingTeamSwitch(e)}
         switchDisabled={checkAllFieldsWhitelabelPabsAccountingTeamForm}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 px-2 flex grid-cols-3 gap-5">
           <Grid container spacing={2}>
@@ -126,7 +128,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -154,7 +160,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -182,7 +192,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -210,7 +224,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -240,7 +258,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -268,7 +290,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -294,7 +320,11 @@ const WhitelabelPabsAccountingTeamForm = ({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === '4' && checkAllFieldsWhitelabelPabsAccountingTeamForm}
+                  disabled={
+                    (roleId === "4" &&
+                      checkAllFieldsWhitelabelPabsAccountingTeamForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
