@@ -116,7 +116,10 @@ const BulkImportModel = ({
             getAccountList();
             return;
           } else if (response.status === 202) {
-            showToast("File upload failed. Please refer the error file downloaded", ToastType.Error);
+            showToast(
+              "File upload failed. Please refer the error file downloaded",
+              ToastType.Error
+            );
             const url = window.URL.createObjectURL(response.data);
             const a = document.createElement("a");
             a.style.display = "none";
@@ -202,7 +205,7 @@ const BulkImportModel = ({
           </Tooltip>
         </div>
         <Divider />
-        <div className="p-6 mb-5 px-5 h-[100%] w-[100%]">
+        <div className="p-6 px-5 h-[100%] w-[100%]">
           <div className="flex items-center justify-around gap-5">
             <input
               accept=".xls,.xlsx"
@@ -233,7 +236,11 @@ const BulkImportModel = ({
           </div>
         </div>
         <Divider />
-        <div className="flex py-3 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
+        <span className="text-[#DC3545] text-[10px] italic ml-4">
+          Please removing sample record while uploading file to avoid junk data
+          upload.
+        </span>
+        <div className="flex py-2 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
           <Button
             onClick={() => downloadSampleFile()}
             className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-fit px-4 font-semibold text-[14px]`}

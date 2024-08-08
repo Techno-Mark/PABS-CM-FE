@@ -87,6 +87,7 @@ import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
+import CommentData from "./CommentData";
 
 const ChecklistWhitelabel = ({
   setWhiteLabelChecklistCount,
@@ -103,6 +104,7 @@ const ChecklistWhitelabel = ({
   const businessTypeId = Cookies.get("businessTypeId");
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
+  const [clientId, setClientId] = useState(0);
 
   const initialWhiteLabelSystemSoftwareErrors: any = {};
   const initialWhiteLabelServiceTypeErrors: any = {};
@@ -261,6 +263,7 @@ const ChecklistWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setClientId(ResponseData?.clientId);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
@@ -738,7 +741,7 @@ const ChecklistWhitelabel = ({
     const inProgressPercentage = (inProgressCount / totalRequired) * 50;
 
     const percentage = completedPercentage + inProgressPercentage;
-    return Number(percentage.toFixed(2));;
+    return Number(percentage.toFixed(2));
   };
 
   useEffect(() => {
@@ -1019,10 +1022,10 @@ const ChecklistWhitelabel = ({
         : false;
 
     const isValid =
-    !isWhiteLabelSystemSoftwareValid &&
-    !isWhiteLabelServiceTypeValid &&
-    !isWhiteLabelWorkAssignmentValid &&
-    !isWhiteLabelMeetingAvailabilityValid;
+      !isWhiteLabelSystemSoftwareValid &&
+      !isWhiteLabelServiceTypeValid &&
+      !isWhiteLabelWorkAssignmentValid &&
+      !isWhiteLabelMeetingAvailabilityValid;
 
     if (type === 1) {
       roleId === "4" && setCheckAllWhiteLabelCheckist(isValid);
@@ -1033,9 +1036,7 @@ const ChecklistWhitelabel = ({
           ...whitelabelChecklistFormData,
           progress: whiteLabelProgressPercentage,
         });
-      } 
-      else if (isSubmitedWhiteLabelChecklist && roleId !== "4") 
-        {
+      } else if (isSubmitedWhiteLabelChecklist && roleId !== "4") {
         if (isValid) {
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
             ...whitelabelChecklistFormData,
@@ -1093,12 +1094,12 @@ const ChecklistWhitelabel = ({
             });
           }
           if (!isValid) {
-        setExpandedAccordian(-1);
-        showToast(
-          "Please provide mandatory fields to submit the onboarding form.",
-          ToastType.Error
-        );
-      }
+            setExpandedAccordian(-1);
+            showToast(
+              "Please provide mandatory fields to submit the onboarding form.",
+              ToastType.Error
+            );
+          }
         } else {
           const filledFieldsCount = whiteLabelchecklistStatus();
           setWhiteLabelChecklistCount(filledFieldsCount);
@@ -1410,7 +1411,6 @@ const ChecklistWhitelabel = ({
     ...phase,
     phaseNumber: index + 1,
   }));
-
   return (
     <>
       {formSubmitId === 12 && (
@@ -1450,6 +1450,10 @@ const ChecklistWhitelabel = ({
                   </span>
                 )}
             </div>
+          </div>
+
+          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+            <CommentData clientID={clientId} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">

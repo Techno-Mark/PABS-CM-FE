@@ -106,6 +106,7 @@ import { callAPIwithHeaders } from "@/api/commonFunction";
 // Static import
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
+import CommentData from "./CommentData";
 
 function ChecklistAutoCare({
   clientInfo,
@@ -130,6 +131,7 @@ function ChecklistAutoCare({
   const initialAutoCareFinancialsErrors: LastClosedPeriodFormErrors = {};
 
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
+  const [clientId, setClientId] = useState(0);
 
   //phase 1:
   const [autoCareGroupEmailEstablished, setAutoCareGroupEmailEstablished] =
@@ -433,6 +435,7 @@ function ChecklistAutoCare({
           return;
         case "success":
           if (!!ResponseData) {
+            setClientId(ResponseData?.clientId);
             setAutoCareFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setIsFormSubmitAutoCareChecklist(ResponseData?.isSubmited ?? false);
             setCommunicationChecked(
@@ -1137,7 +1140,7 @@ function ChecklistAutoCare({
         } else {
           const filledFieldsCount = checklistStatus();
           setChecklistCount(filledFieldsCount);
-          // handleChecklistRemoveErrors();  
+          // handleChecklistRemoveErrors();
           callAPIwithHeaders(onboardingSaveFormUrl, "post", callback, {
             ...checklistFormData,
             progress: autoCareProgressPercentage,
@@ -1294,7 +1297,7 @@ function ChecklistAutoCare({
     const inProgressPercentage = (inProgressCount / totalRequired) * 50;
 
     const percentage = completedPercentage + inProgressPercentage;
-    return Number(percentage.toFixed(2));;
+    return Number(percentage.toFixed(2));
   };
 
   useEffect(() => {
@@ -1546,6 +1549,10 @@ function ChecklistAutoCare({
                   </span>
                 )}
             </div>
+          </div>
+
+          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
+            <CommentData clientID={clientId} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">

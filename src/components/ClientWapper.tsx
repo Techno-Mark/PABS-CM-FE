@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 //mui components
 import { Box, CssBaseline } from "@mui/material";
@@ -9,6 +9,8 @@ import ClientHeader from "@/components/client/common/ClientHeader";
 import { drawerWidth } from "@/static/commonVariables";
 // Cookie import
 import Cookies from "js-cookie";
+import CommentModel from "./client/common/CommentModel";
+import DrawerOverlay from "./admin/common/DrawerOverlay";
 
 type WrapperPropsType = {
   formSubmit?: number;
@@ -21,7 +23,7 @@ type WrapperPropsType = {
   perCountWhiteLabelBasicDetails?: number;
   setAutoCareProgressPercentage: (value: number) => void;
   setWhiteLabelProgressPercentage: (value: number) => void;
-  formSubmittedStatus:boolean;
+  formSubmittedStatus: boolean;
 };
 
 const ClientWrapper = ({
@@ -35,9 +37,10 @@ const ClientWrapper = ({
   setAutoCareProgressPercentage,
   setWhiteLabelProgressPercentage,
   children,
-  formSubmittedStatus
+  formSubmittedStatus,
 }: WrapperPropsType) => {
   const router = useRouter();
+  const [commentModelOpen, setCommentModelOpen] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -57,7 +60,11 @@ const ClientWrapper = ({
           }}
         >
           <CssBaseline />
-          <ClientHeader formSubmittedStatus={formSubmittedStatus}/>
+          <ClientHeader
+            formSubmittedStatus={formSubmittedStatus}
+            formSubmit={formSubmit}
+            setCommentModelOpen={setCommentModelOpen}
+          />
           <ClientSidebar
             perCountWhiteLabelBasicDetails={perCountWhiteLabelBasicDetails}
             perCountWhiteLabelChecklist={perCountWhiteLabelChecklist}
@@ -81,6 +88,21 @@ const ClientWrapper = ({
             }}
           >
             {children}
+
+            {/* {commentModelOpen && (
+              <CommentModel
+                commentModelOpen={commentModelOpen}
+                setCommentModelOpen={(
+                  value: boolean | ((prevState: boolean) => boolean)
+                ) => {
+                  setCommentModelOpen(value);
+                }}
+                handleClose={() => {
+                  setCommentModelOpen(false);
+                }}
+              />
+            )}
+            <DrawerOverlay isOpen={commentModelOpen} /> */}
           </Box>
         </Box>
       </div>
