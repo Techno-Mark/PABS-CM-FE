@@ -167,7 +167,10 @@ function Page() {
       width: 100,
       sortable: false,
       renderCell: (params) => {
-        const serialNumber = pageNo * rowsPerPage + params.api.getSortedRowIds().indexOf(params.id) + 1;
+        const serialNumber =
+          pageNo * rowsPerPage +
+          params.api.getSortedRowIds().indexOf(params.id) +
+          1;
         return serialNumber;
       },
     },
@@ -206,7 +209,7 @@ function Page() {
         if (params.value) {
           const parsedDate = dayjs(params.value);
           if (parsedDate.isValid()) {
-            return parsedDate.format("MM/DD/YYYY");
+            return parsedDate.format("MM/DD/YYYY HH:mm:ss");
           }
         }
         return "";

@@ -68,7 +68,6 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
               </div>
               <div className="flex-1 ">
                 <span className="font-semibold">Update Date/Time : </span>
-
                 <span>{updatedDateTime}</span>
               </div>
             </div>
@@ -82,42 +81,54 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                 <span>{auditDetails.createdBy}</span>
               </div>
             </div>
+            <div className="flex space-x-48">
+              <div className="flex-1">
+                <span className="font-semibold">Action on event : </span>
+                <span>{auditDetails.performedAction}</span>
+              </div>
+            </div>
             <div style={tableContainerStyle}>
               <table className="min-w-full divide-y divide-[#023963] border border-[#023963]">
                 <thead className="bg-gray-200" style={stickyHeaderStyle}>
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
-                      Action on event
+                      Sr No.
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="px-14 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
                       Field
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="px-14 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
                       Old Value
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="px-14 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
                       New Value
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-[#023963]">
                   {auditDetails.data && auditDetails.data.length > 0 ? (
-                    auditDetails.data.map((action: any, index: number) => (
-                      <tr key={index}>
-                        <td className="px-6 py-4 max-w-xs text-sm">
-                          {auditDetails.performedAction}
-                        </td>
-                        <td className="px-6 py-4 max-w-xs text-sm">
-                          {action.fieldName}
-                        </td>
-                        <td className="px-6 py-4 max-w-xs text-sm break-words">
-                          {action.oldValue}
-                        </td>
-                        <td className="px-6 py-4 max-w-xs text-sm break-words">
-                          {action.newValue}
-                        </td>
-                      </tr>
-                    ))
+                    auditDetails.data
+                      .filter(
+                        (action: any) =>
+                          action.fieldName !== "password" &&
+                          action.fieldName !== "token"
+                      )
+                      .map((action: any, index: number) => (
+                        <tr key={index}>
+                          <td className="px-6 py-4 max-w-xs text-sm">
+                            {index + 1}
+                          </td>
+                          <td className="px-14 py-4 max-w-xs text-sm">
+                            {action.fieldName}
+                          </td>
+                          <td className="px-14 py-4 max-w-xs text-sm break-words">
+                            {action.oldValue}
+                          </td>
+                          <td className="px-14 py-4 max-w-xs text-sm break-words">
+                            {action.newValue}
+                          </td>
+                        </tr>
+                      ))
                   ) : (
                     <tr>
                       <td colSpan={4} className="px-6 py-4 text-center text-sm">
