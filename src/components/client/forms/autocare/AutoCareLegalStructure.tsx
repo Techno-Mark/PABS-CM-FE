@@ -27,6 +27,7 @@ function AutoCareLegalStructure({
   setAutoCareLegalStructureErrors,
   handleLegalStructureSwitch,
   finalCheckAllFieldsLegalStructure,
+  isFormLocked,
 }: LegalStructureTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -85,7 +86,11 @@ function AutoCareLegalStructure({
         handleChange={(e: ChangeEvent<HTMLInputElement>) =>
           handleLegalStructureSwitch(e)
         }
-        switchDisabled={finalCheckAllFieldsLegalStructure}
+        switchDisabled={
+          finalCheckAllFieldsLegalStructure ||
+          (isFormLocked && (roleId == "3" || roleId == "4"))
+        }
+        isFormLocked={isFormLocked}
       >
         <Grid container spacing={2}>
           <Grid item xs={4}>
@@ -112,7 +117,10 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
+                disabled={
+                  (roleId === "4" && finalCheckAllFieldsLegalStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -140,7 +148,10 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
+                disabled={
+                  (roleId === "4" && finalCheckAllFieldsLegalStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -166,7 +177,10 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
+                disabled={
+                  (roleId === "4" && finalCheckAllFieldsLegalStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -220,7 +234,10 @@ function AutoCareLegalStructure({
                       },
                     },
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsLegalStructure) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </LocalizationProvider>
             </div>
@@ -275,7 +292,10 @@ function AutoCareLegalStructure({
                       },
                     },
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsLegalStructure) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </LocalizationProvider>
             </div>
@@ -300,7 +320,10 @@ function AutoCareLegalStructure({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && finalCheckAllFieldsLegalStructure}
+                disabled={
+                  (roleId === "4" && finalCheckAllFieldsLegalStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

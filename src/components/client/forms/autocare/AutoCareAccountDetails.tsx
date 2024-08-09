@@ -24,6 +24,7 @@ function AutoCareAccountDetails({
   setAutoCareAccountDetailsErrors,
   handleAccountDetailsSwitch,
   finalCheckAllFieldsAccountDetails,
+  isFormLocked,
 }: AccountDetailsTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -142,6 +143,7 @@ function AutoCareAccountDetails({
           handleAccountDetailsSwitch(e)
         }
         switchDisabled={finalCheckAllFieldsAccountDetails}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -169,7 +171,10 @@ function AutoCareAccountDetails({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -196,7 +201,10 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -226,7 +234,10 @@ function AutoCareAccountDetails({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -260,7 +271,10 @@ function AutoCareAccountDetails({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
               <div className="text-[12px] flex flex-col">
@@ -282,7 +296,10 @@ function AutoCareAccountDetails({
                     maxLength: 250,
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -307,7 +324,10 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -334,7 +354,10 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -361,7 +384,10 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>
@@ -388,7 +414,10 @@ function AutoCareAccountDetails({
                   inputProps={{
                     className: classes.textSize,
                   }}
-                  disabled={roleId === "4" && finalCheckAllFieldsAccountDetails}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
                 />
               </div>
             </Grid>

@@ -26,6 +26,7 @@ function AutoCareCommmunicationChecklist({
   autoCareKickOff,
   setAutoCareKickOff,
   checkAllFieldsAutoCareCommunicationList,
+  isFormLocked,
 }: autoCareCommmunicationChecklistTypes) {
   return (
     <div className={`${className}`}>
@@ -35,20 +36,19 @@ function AutoCareCommmunicationChecklist({
         }
         autoCareGroupEmailEstablished={autoCareGroupEmailEstablished}
         setAutoCareGroupEmailEstablished={setAutoCareGroupEmailEstablished}
+        isFormLocked={isFormLocked}
       />
       <PreKickOff
-        checkAllFieldsPreKickOff={
-          checkAllFieldsAutoCareCommunicationList
-        }
+        checkAllFieldsPreKickOff={checkAllFieldsAutoCareCommunicationList}
         autoCarePreKickOff={autoCarePreKickOff}
         setAutoCarePreKickOff={setAutoCarePreKickOff}
+        isFormLocked={isFormLocked}
       />
       <KickOff
-        checkAllFieldsKickOff={
-          checkAllFieldsAutoCareCommunicationList
-        }
+        checkAllFieldsKickOff={checkAllFieldsAutoCareCommunicationList}
         autoCareKickOff={autoCareKickOff}
         setAutoCareKickOff={setAutoCareKickOff}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -60,6 +60,7 @@ const GroupEmailEstablished = ({
   autoCareGroupEmailEstablished,
   setAutoCareGroupEmailEstablished,
   checkAllFieldsGroupEmailEstablished,
+  isFormLocked,
 }: GroupEmailEstablishedTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -103,23 +104,30 @@ const GroupEmailEstablished = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGroupEmailEstablished) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareGroupEmailEstablished?.groupEmailEstablishStatus}
-            onChange={(value: string) =>
-              setAutoCareGroupEmailEstablished(
-                (prev: GroupEmailEstablishedFormTypes) => ({
-                  ...prev,
-                  groupEmailEstablishStatus: value,
-                }))
+            <Status
+              value={autoCareGroupEmailEstablished?.groupEmailEstablishStatus}
+              onChange={(value: string) =>
+                setAutoCareGroupEmailEstablished(
+                  (prev: GroupEmailEstablishedFormTypes) => ({
+                    ...prev,
+                    groupEmailEstablishStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsGroupEmailEstablished) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -142,7 +150,10 @@ const GroupEmailEstablished = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGroupEmailEstablished) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -170,7 +181,10 @@ const GroupEmailEstablished = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGroupEmailEstablished) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -198,7 +212,10 @@ const GroupEmailEstablished = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsGroupEmailEstablished}
+                disabled={
+                  (roleId === "4" && checkAllFieldsGroupEmailEstablished) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -211,7 +228,8 @@ const GroupEmailEstablished = ({
 const PreKickOff = ({
   autoCarePreKickOff,
   setAutoCarePreKickOff,
-  checkAllFieldsPreKickOff
+  checkAllFieldsPreKickOff,
+  isFormLocked,
 }: PreKickOffTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -251,22 +269,28 @@ const PreKickOff = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPreKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPreKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCarePreKickOff?.preKickOffStatus}
-            onChange={(value: string) =>
-              setAutoCarePreKickOff((prev: PreKickOffFormTypes) => ({
+            <Status
+              value={autoCarePreKickOff?.preKickOffStatus}
+              onChange={(value: string) =>
+                setAutoCarePreKickOff((prev: PreKickOffFormTypes) => ({
                   ...prev,
                   preKickOffStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsPreKickOff}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllFieldsPreKickOff) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -287,7 +311,10 @@ const PreKickOff = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPreKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPreKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -313,7 +340,10 @@ const PreKickOff = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPreKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPreKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -339,7 +369,10 @@ const PreKickOff = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsPreKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPreKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -349,7 +382,12 @@ const PreKickOff = ({
   );
 };
 
-const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: KickOffTypes) => {
+const KickOff = ({
+  autoCareKickOff,
+  setAutoCareKickOff,
+  checkAllFieldsKickOff,
+  isFormLocked,
+}: KickOffTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
@@ -388,21 +426,27 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareKickOff?.kickOffStatus}
-            onChange={(value: string) =>
-              setAutoCareKickOff((prev: KickOffFormTypes) => ({
+            <Status
+              value={autoCareKickOff?.kickOffStatus}
+              onChange={(value: string) =>
+                setAutoCareKickOff((prev: KickOffFormTypes) => ({
                   ...prev,
                   kickOffStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsKickOff}
-          />
+              disabled={
+                (roleId === "4" && checkAllFieldsKickOff) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
           </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
@@ -424,7 +468,10 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -450,7 +497,10 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -476,7 +526,10 @@ const KickOff = ({ autoCareKickOff, setAutoCareKickOff,checkAllFieldsKickOff }: 
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllFieldsKickOff}
+                disabled={
+                  (roleId === "4" && checkAllFieldsKickOff) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

@@ -23,6 +23,7 @@ const WhitelabelChallengesForm = ({
   whitelabelExpectation,
   setWhitelabelExpectation,
   checkAllFieldsWhiteLabelChallengesExceptionList,
+  isFormLocked,
 }: whitelabelChallengesFormType) => {
   return (
     <div className={`${className}`}>
@@ -32,11 +33,13 @@ const WhitelabelChallengesForm = ({
         checkAllCurrentChallenges={
           checkAllFieldsWhiteLabelChallengesExceptionList
         }
+        isFormLocked={isFormLocked}
       />
       <Expectation
         whitelabelExpectation={whitelabelExpectation}
         setWhitelabelExpectation={setWhitelabelExpectation}
         checkAllExpectation={checkAllFieldsWhiteLabelChallengesExceptionList}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -47,7 +50,8 @@ export default WhitelabelChallengesForm;
 const CurrentChallenges = ({
   whitelabelCurrentChallenges,
   setWhitelabelCurrentChallenges,
-  checkAllCurrentChallenges
+  checkAllCurrentChallenges,
+  isFormLocked
 }: CurrentChallengesTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -84,25 +88,33 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllCurrentChallenges}
+                disabled={
+                  (roleId === "4" && checkAllCurrentChallenges) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelCurrentChallenges?.currentChallengesStatus}
-            onChange={(value: string) =>
-              setWhitelabelCurrentChallenges((prev: CurrentChallengesFormTypes) => ({
-                  ...prev,
-                  currentChallengesStatus: value,
-                }))
+            <Status
+              value={whitelabelCurrentChallenges?.currentChallengesStatus}
+              onChange={(value: string) =>
+                setWhitelabelCurrentChallenges(
+                  (prev: CurrentChallengesFormTypes) => ({
+                    ...prev,
+                    currentChallengesStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllCurrentChallenges}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllCurrentChallenges) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -122,10 +134,13 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllCurrentChallenges}
+                disabled={
+                  (roleId === "4" && checkAllCurrentChallenges) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -150,10 +165,13 @@ const CurrentChallenges = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllCurrentChallenges}
+                disabled={
+                  (roleId === "4" && checkAllCurrentChallenges) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -166,7 +184,8 @@ const CurrentChallenges = ({
 const Expectation = ({
   whitelabelExpectation,
   setWhitelabelExpectation,
-  checkAllExpectation
+  checkAllExpectation,
+  isFormLocked
 }: ExpectationTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -203,25 +222,31 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllExpectation}
+                disabled={
+                  (roleId === "4" && checkAllExpectation) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelExpectation?.exceptionStatus}
-            onChange={(value: string) =>
-              setWhitelabelExpectation((prev: ExceptionFormTypes) => ({
+            <Status
+              value={whitelabelExpectation?.exceptionStatus}
+              onChange={(value: string) =>
+                setWhitelabelExpectation((prev: ExceptionFormTypes) => ({
                   ...prev,
                   exceptionStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllExpectation}
-          />
-        </Grid>
+              disabled={
+                (roleId === "4" && checkAllExpectation) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -241,10 +266,13 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllExpectation}
+                disabled={
+                  (roleId === "4" && checkAllExpectation) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -267,10 +295,13 @@ const Expectation = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === '4' && checkAllExpectation}
+                disabled={
+                  (roleId === "4" && checkAllExpectation) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

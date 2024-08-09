@@ -26,6 +26,7 @@ const WhitelabelAccountDetailsForm = ({
   whitelabelAccountDetailsErrors,
   setWhitelabelAccountDetailsErrors,
   checkAllFieldsWhiteLabelAccountDetailsForm,
+  isFormLocked,
 }: WhitelabelAccountDetailsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -198,6 +199,7 @@ const WhitelabelAccountDetailsForm = ({
           handleAccountDetailsSwitch(e)
         }
         switchDisabled={checkAllFieldsWhiteLabelAccountDetailsForm}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -226,7 +228,9 @@ const WhitelabelAccountDetailsForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
@@ -255,7 +259,9 @@ const WhitelabelAccountDetailsForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
@@ -286,7 +292,9 @@ const WhitelabelAccountDetailsForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
@@ -316,13 +324,17 @@ const WhitelabelAccountDetailsForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
               <div
                 className={`text-[12px] flex flex-col ${
-                  whitelabelAccountDetailsErrors.ownerEmail ? "pt-[3px]" : "pt-[26px]"
+                  whitelabelAccountDetailsErrors.ownerEmail
+                    ? "pt-[3px]"
+                    : "pt-[26px]"
                 }`}
               >
                 <label className="text-[#6E6D7A] text-[12px]">
@@ -347,7 +359,9 @@ const WhitelabelAccountDetailsForm = ({
                     className: classes.textSize,
                   }}
                   disabled={
-                    roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                    (roleId === "4" &&
+                      checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>
@@ -361,7 +375,9 @@ const WhitelabelAccountDetailsForm = ({
                 error={whitelabelAccountDetailsErrors.country}
                 helperText={whitelabelAccountDetailsErrors.country}
                 disabled={
-                  roleId === "4" && checkAllFieldsWhiteLabelAccountDetailsForm
+                  (roleId === "4" &&
+                    checkAllFieldsWhiteLabelAccountDetailsForm) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
                 required
               />
@@ -379,7 +395,8 @@ const WhitelabelAccountDetailsForm = ({
                 disabled={
                   (roleId === "4" &&
                     checkAllFieldsWhiteLabelAccountDetailsForm) ||
-                  countryId === -1
+                  countryId === -1 ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </Grid>
@@ -396,7 +413,8 @@ const WhitelabelAccountDetailsForm = ({
                 disabled={
                   (roleId === "4" &&
                     checkAllFieldsWhiteLabelAccountDetailsForm) ||
-                  stateId === -1
+                  stateId === -1 ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </Grid>
@@ -427,7 +445,8 @@ const WhitelabelAccountDetailsForm = ({
                   disabled={
                     (roleId === "4" &&
                       checkAllFieldsWhiteLabelAccountDetailsForm) ||
-                    cityId === -1
+                    cityId === -1 ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
                   }
                 />
               </div>

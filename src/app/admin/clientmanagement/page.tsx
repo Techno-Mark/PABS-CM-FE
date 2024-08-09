@@ -413,6 +413,7 @@ function Page() {
                     ClientId: params.row.ClientId,
                     clientName: params.row.Clientname,
                     UserId: params.row.UserId,
+                    IsFormLocked : params.row.IsFormLocked,
                   });
                 }}
               >
@@ -431,6 +432,7 @@ function Page() {
     ClientId: "",
     clientName: "",
     UserId: "",
+    IsFormLocked : false,
   });
   const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
   const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
@@ -663,7 +665,7 @@ function Page() {
 
   useEffect(() => {
     getClientList();
-  }, [clientOpenModal]);
+  }, [clientOpenModal, clientInfo]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -914,6 +916,7 @@ function Page() {
               ClientId: "",
               clientName: "",
               UserId: "",
+              IsFormLocked : false,
             });
           }}
           setIsOpenModal={(value) => {

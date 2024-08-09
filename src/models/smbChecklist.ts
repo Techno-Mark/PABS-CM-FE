@@ -211,6 +211,7 @@ export interface SystemDocumentInformationAccessTypes {
     React.SetStateAction<PointSalesAccessFormTypes>
   >;
   checkAllFieldsSmbSystemAccessChecklist: boolean;
+  isFormLocked: boolean;
 }
 
 export interface smbPeopleBusinessTypes {
@@ -253,6 +254,7 @@ export interface smbPeopleBusinessTypes {
     React.SetStateAction<OnboardingPocFormTypes>
   >;
   checkAllFieldsSmbPeopleBusinessChecklist: boolean;
+  isFormLocked: boolean;
 }
 
 export interface SavingAccountFormTypes {
@@ -322,6 +324,7 @@ export interface CashBankingAccessType {
     React.SetStateAction<AccessCreditCardFormTypes>
   >;
   checkAllFieldsSmbBankingAccessChecklist: boolean;
+  isFormLocked:boolean;
 }
 
 export interface LiveDateFormTypes {
@@ -410,6 +413,7 @@ export interface ExistingFinancialsChecklistType {
     React.SetStateAction<DistributionListFormTypes>
   >;
   checkAllFieldsSmbExistingFinancialsChecklist: boolean;
+  isFormLocked: boolean;
 }
 
 export interface TimeZoneFormTypes {
@@ -443,6 +447,7 @@ export interface MeetingChecklistType {
   smbTimeSlot: TimeSlotFormTypes;
   setSmbTimeSlot: React.Dispatch<React.SetStateAction<TimeSlotFormTypes>>;
   checkAllFieldsSmbMeetingChecklist: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ClientNameTypes {
@@ -450,6 +455,7 @@ export interface ClientNameTypes {
   setSmbClientName: React.Dispatch<React.SetStateAction<ClientNameFormTypes>>;
   smbClientNameErrors: smbPeopleBusinessErrors;
   checkAllFieldsClientName: boolean;
+  isFormLocked: boolean;
 }
 export interface TypeOfEntityTypes {
   smbTypeOfEntity: TypeOfEntityFormTypes;
@@ -457,6 +463,7 @@ export interface TypeOfEntityTypes {
     React.SetStateAction<TypeOfEntityFormTypes>
   >;
   checkAllFieldsTypeOfEntity: boolean;
+  isFormLocked: boolean;
 }
 export interface BusinessNatureTypes {
   smbBusinessNature: BusinessNatureFormTypes;
@@ -464,23 +471,27 @@ export interface BusinessNatureTypes {
     React.SetStateAction<BusinessNatureFormTypes>
   >;
   checkAllFieldsBusinessNature: boolean;
+  isFormLocked: boolean;
 }
 export interface DimensionsTypes {
   smbDimensions: DimensionsFormTypes;
   setSmbDimensions: React.Dispatch<React.SetStateAction<DimensionsFormTypes>>;
   checkAllFieldsDimensions: boolean;
+  isFormLocked: boolean;
 }
 export interface PocTypes {
   smbPoc: PocFormTypes;
   setSmbPoc: React.Dispatch<React.SetStateAction<PocFormTypes>>;
   smbPocErrors: smbPeopleBusinessErrors;
   checkAllFieldsPoc: boolean;
+  isFormLocked: boolean;
 }
 export interface EmailTypes {
   smbEmail: EmailFormTypes;
   setSmbEmail: React.Dispatch<React.SetStateAction<EmailFormTypes>>;
   smbEmailErrors: smbPeopleBusinessErrors;
   checkAllFieldsEmail: boolean;
+  isFormLocked: boolean;
 }
 export interface ContactNumberTypes {
   smbContactNumber: ContactNumberFormTypes;
@@ -489,12 +500,14 @@ export interface ContactNumberTypes {
   >;
   smbContactNumberErrors: smbPeopleBusinessErrors;
   checkAllFieldsContactNumber: boolean;
+  isFormLocked: boolean;
 }
 export interface AddressTypes {
   smbAddress: AddressFormTypes;
   setSmbAddress: React.Dispatch<React.SetStateAction<AddressFormTypes>>;
   smbAddressErrors: smbPeopleBusinessErrors;
   checkAllFieldsAddress: boolean;
+  isFormLocked: boolean;
 }
 export interface ClientWebsiteTypes {
   smbClientWebsite: ClientWebsiteFormTypes;
@@ -503,11 +516,13 @@ export interface ClientWebsiteTypes {
   >;
   smbClientWebsiteErrors: smbPeopleBusinessErrors;
   checkAllFieldsClientWebsite: boolean;
+  isFormLocked: boolean;
 }
 export interface DepartmentTypes {
   smbDepartment: DepartmentFormTypes;
   setSmbDepartment: React.Dispatch<React.SetStateAction<DepartmentFormTypes>>;
   checkAllFieldsDepartment: boolean;
+  isFormLocked: boolean;
 }
 
 export interface OperationsPocTypes {
@@ -516,6 +531,7 @@ export interface OperationsPocTypes {
     React.SetStateAction<OperationsPocFormTypes>
   >;
   checkAllFieldsOperationsPoc: boolean;
+  isFormLocked: boolean;
 }
 
 export interface OnboardingPocTypes {
@@ -525,6 +541,7 @@ export interface OnboardingPocTypes {
   >;
 
   checkAllFieldsOnboardingPoc: boolean;
+  isFormLocked: boolean;
 }
 
 export interface smbPeopleBusinessErrors
@@ -542,7 +559,8 @@ export interface PABSGroupEmailTypes {
   setSmbPABSGroupEmail: React.Dispatch<
     React.SetStateAction<PABSGroupEmailFormTypes>
   >;
-  checkAllFieldsPABSGroupEmail:boolean
+  checkAllFieldsPABSGroupEmail: boolean;
+  isFormLocked: boolean;
 }
 
 export interface AccessAccountingSoftwareTypes {
@@ -551,7 +569,8 @@ export interface AccessAccountingSoftwareTypes {
     React.SetStateAction<AccessAccountingSoftwareFormTypes>
   >;
   smbAccessAccountingSoftwareErrors: smbSystemDocumentAccessErrors;
-  checkAllFieldsAccessAccountingSoftware:boolean
+  checkAllFieldsAccessAccountingSoftware: boolean;
+  isFormLocked: boolean;
 }
 
 export interface DropboxSetUpTypes {
@@ -559,7 +578,8 @@ export interface DropboxSetUpTypes {
   setSmbDropboxSetUp: React.Dispatch<
     React.SetStateAction<DropboxSetUpFormTypes>
   >;
-  checkAllFieldsDropboxSetUp:boolean
+  checkAllFieldsDropboxSetUp: boolean;
+  isFormLocked: boolean;
 }
 
 export interface SalesTaxPortalAccessTypes {
@@ -567,7 +587,8 @@ export interface SalesTaxPortalAccessTypes {
   setSmbSalesTaxPortalAccess: React.Dispatch<
     React.SetStateAction<SalesTaxPortalAccessFormTypes>
   >;
-  checkAllFieldsSalesTaxPortalAccess:boolean
+  checkAllFieldsSalesTaxPortalAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface MerchantAccountPortalAccessTypes {
@@ -575,7 +596,8 @@ export interface MerchantAccountPortalAccessTypes {
   setSmbMerchantAccountPortalAccess: React.Dispatch<
     React.SetStateAction<MerchantAccountPortalAccessFormTypes>
   >;
-  checkAllFieldsMerchantAccountPortalAccess:boolean
+  checkAllFieldsMerchantAccountPortalAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PayrollServiceAccessTypes {
@@ -584,7 +606,8 @@ export interface PayrollServiceAccessTypes {
     React.SetStateAction<PayrollServiceAccessFormTypes>
   >;
   smbPayrollServiceAccessErrors: smbSystemDocumentAccessErrors;
-  checkAllFieldsPayrollServiceAccess:boolean
+  checkAllFieldsPayrollServiceAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PayrollFrequencyTypes {
@@ -592,7 +615,8 @@ export interface PayrollFrequencyTypes {
   setSmbPayrollFrequency: React.Dispatch<
     React.SetStateAction<PayrollFrequencyFormTypes>
   >;
-  checkAllFieldsPayrollFrequency:boolean
+  checkAllFieldsPayrollFrequency: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ExpensePaymentPortalAccessTypes {
@@ -600,7 +624,8 @@ export interface ExpensePaymentPortalAccessTypes {
   setSmbExpensePaymentPortalAccess: React.Dispatch<
     React.SetStateAction<ExpensePaymentPortalAccessFormTypes>
   >;
-  checkAllFieldsExpensePaymentPortalAccess:boolean
+  checkAllFieldsExpensePaymentPortalAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ModeOfPaymentTypes {
@@ -609,13 +634,15 @@ export interface ModeOfPaymentTypes {
     React.SetStateAction<ModeOfPaymentFormTypes>
   >;
   smbModeOfPaymentErrors: smbSystemDocumentAccessErrors;
-  checkAllFieldsModeOfPayment:boolean
+  checkAllFieldsModeOfPayment: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ApBillsTypes {
   smbApBills: ApBillsFormTypes;
   setSmbApBills: React.Dispatch<React.SetStateAction<ApBillsFormTypes>>;
-  checkAllFieldsApBills:boolean
+  checkAllFieldsApBills: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PointSalesAccessTypes {
@@ -624,7 +651,8 @@ export interface PointSalesAccessTypes {
     React.SetStateAction<PointSalesAccessFormTypes>
   >;
   smbPointSalesAccessErrors: smbSystemDocumentAccessErrors;
-  checkAllFieldsPointSalesAccess:boolean
+  checkAllFieldsPointSalesAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface smbSystemDocumentAccessErrors
@@ -641,7 +669,8 @@ export interface SavingAccountTypes {
     React.SetStateAction<SavingAccountFormTypes>
   >;
   smbSavingAccountErrors: smbCashBankingAccessErrors;
-  checkAllFieldsSavingAccount:boolean
+  checkAllFieldsSavingAccount: boolean;
+   isFormLocked: boolean;
 }
 
 export interface AccessSavingAccountTypes {
@@ -649,14 +678,16 @@ export interface AccessSavingAccountTypes {
   setSmbAccessSavingAccount: React.Dispatch<
     React.SetStateAction<AccessSavingAccountFormTypes>
   >;
-  checkAllFieldsAccessSavingAccount:boolean
+  checkAllFieldsAccessSavingAccount: boolean;
+   isFormLocked: boolean;
 }
 
 export interface AddCardsTypes {
   smbAddCards: AddCardsFormTypes;
   setSmbAddCards: React.Dispatch<React.SetStateAction<AddCardsFormTypes>>;
   smbAddCardsErrors: smbCashBankingAccessErrors;
-  checkAllFieldsAddCards:boolean
+  checkAllFieldsAddCards: boolean;
+   isFormLocked: boolean;
 }
 
 export interface AccessCreditCardPortalTypes {
@@ -664,7 +695,8 @@ export interface AccessCreditCardPortalTypes {
   setSmbAccessCreditCardPortal: React.Dispatch<
     React.SetStateAction<AccessCreditCardPortalFormTypes>
   >;
-  checkAllFieldsAccessCreditCardPortal:boolean
+  checkAllFieldsAccessCreditCardPortal: boolean;
+   isFormLocked: boolean;
 }
 
 export interface AccessLoanAccountTypes {
@@ -672,7 +704,8 @@ export interface AccessLoanAccountTypes {
   setSmbAccessLoanAccount: React.Dispatch<
     React.SetStateAction<AccessLoanAccountFormTypes>
   >;
-  checkAllFieldsAccessLoanAccount:boolean
+  checkAllFieldsAccessLoanAccount: boolean;
+   isFormLocked: boolean;
 }
 
 export interface AccessCreditCardTypes {
@@ -689,7 +722,8 @@ export interface LiveDateTypes {
   smbLiveDate: LiveDateFormTypes;
   setSmbLiveDate: React.Dispatch<React.SetStateAction<LiveDateFormTypes>>;
   smbLiveDateErrors: smbExistingFinancialsChecklistErrors;
-  checkAllFieldsLiveDate:boolean
+  checkAllFieldsLiveDate: boolean;
+  isFormLocked: boolean;
 }
 
 export interface AccountingMethodTypes {
@@ -697,13 +731,15 @@ export interface AccountingMethodTypes {
   setSmbAccountingMethod: React.Dispatch<
     React.SetStateAction<AccountingMethodFormTypes>
   >;
-  checkAllFieldsAccountingMethod:boolean
+  checkAllFieldsAccountingMethod: boolean;
+  isFormLocked: boolean;
 }
 
 export interface FEINTypes {
   smbFEIN: FEINFormTypes;
   setSmbFEIN: React.Dispatch<React.SetStateAction<FEINFormTypes>>;
-  checkAllFieldsFEIN:boolean
+  checkAllFieldsFEIN: boolean;
+  isFormLocked: boolean;
 }
 
 export interface FiscalYearEndTypes {
@@ -711,7 +747,8 @@ export interface FiscalYearEndTypes {
   setSmbFiscalYearEnd: React.Dispatch<
     React.SetStateAction<FiscalYearEndFormTypes>
   >;
-  checkAllFieldsFiscalYearEnd:boolean
+  checkAllFieldsFiscalYearEnd: boolean;
+  isFormLocked: boolean;
 }
 
 export interface LastClosedMonthTypes {
@@ -720,7 +757,8 @@ export interface LastClosedMonthTypes {
     React.SetStateAction<LastClosedMonthFormTypes>
   >;
   smbLastClosedMonthErrors: smbExistingFinancialsChecklistErrors;
-  checkAllFieldsLastClosedMonth:boolean
+  checkAllFieldsLastClosedMonth: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ContactOfCpaTypes {
@@ -728,14 +766,16 @@ export interface ContactOfCpaTypes {
   setSmbContactOfCpa: React.Dispatch<
     React.SetStateAction<ContactOfCpaFormTypes>
   >;
-  checkAllFieldsContactOfCpa:boolean
+  checkAllFieldsContactOfCpa: boolean;
+  isFormLocked: boolean;
 }
 
 export interface TaxReturnTypes {
   smbTaxReturn: TaxReturnFormTypes;
   setSmbTaxReturn: React.Dispatch<React.SetStateAction<TaxReturnFormTypes>>;
   smbTaxReturnErrors: smbExistingFinancialsChecklistErrors;
-  checkAllFieldsTaxReturn:boolean
+  checkAllFieldsTaxReturn: boolean;
+  isFormLocked: boolean;
 }
 
 export interface DistributionListTypes {
@@ -744,7 +784,8 @@ export interface DistributionListTypes {
     React.SetStateAction<DistributionListFormTypes>
   >;
   smbDistributionListErrors: smbExistingFinancialsChecklistErrors;
-  checkAllFieldsDistributionList:boolean
+  checkAllFieldsDistributionList: boolean;
+  isFormLocked: boolean;
 }
 
 export interface smbExistingFinancialsChecklistErrors
@@ -759,21 +800,24 @@ export interface TimeZoneTypes {
   smbTimeZone: TimeZoneFormTypes;
   setSmbTimeZone: React.Dispatch<React.SetStateAction<TimeZoneFormTypes>>;
   smbTimeZoneErrors: smbMeetingAvailabilityErrors;
-  checkAllFieldsTimeZone:boolean
+  checkAllFieldsTimeZone: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ConvenientTypes {
   smbConvenient: ConvenientFormTypes;
   setSmbConvenient: React.Dispatch<React.SetStateAction<ConvenientFormTypes>>;
   smbConvenientErrors: smbMeetingAvailabilityErrors;
-  checkAllFieldsConvenient:boolean
+  checkAllFieldsConvenient: boolean;
+  isFormLocked: boolean;
 }
 
 export interface TimeSlotTypes {
   smbTimeSlot: TimeSlotFormTypes;
   setSmbTimeSlot: React.Dispatch<React.SetStateAction<TimeSlotFormTypes>>;
   smbTimeSlotErrors: smbMeetingAvailabilityErrors;
-  checkAllFieldsTimeSlot:boolean
+  checkAllFieldsTimeSlot: boolean;
+  isFormLocked: boolean;
 }
 
 export interface smbMeetingAvailabilityErrors
@@ -805,5 +849,6 @@ export interface SMBType {
   getFormAutoCareDetials?: any;
   setSMBChecklistCount: (value: number) => void;
   setIsOpenModal?: any;
-  setSmbFormSubmittedStatus:(value:boolean) => void;
+  setSmbFormSubmittedStatus: (value: boolean) => void;
+  isFormLocked?: boolean
 }

@@ -3,11 +3,11 @@ import SendIcon from "@/assets/Icons/client/forms/SendIcon";
 import { showToast } from "@/components/ToastContainer";
 import { getComment, saveComment } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
-import { AlphabetColor } from "@/utils/commonData";
-import { Avatar } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
-const CommentData = ({ clientID }: { clientID: number }) => {
+const CommentData = ({ clientID, isFormLocked }: any) => {
+  const roleId = Cookies.get("roleId");
   const [comment, setComment] = useState("");
   const [commentDataWorklogs, setCommentDataWorklogs] = useState<
     | {
@@ -83,7 +83,13 @@ const CommentData = ({ clientID }: { clientID: number }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between w-full">
+    <div
+      className={`flex flex-col items-center justify-between w-full ${
+        isFormLocked &&
+        (roleId == "3" || roleId == "4") &&
+        "pointer-events-none"
+      }`}
+    >
       <p className="font-bold text-lg">Comments</p>
       {/* <div className="pt-2 top-0 flex flex-col justify-start overflow-y-auto !h-full w-full">
         <div className="px-4 h-full hide-scrollbar w-full">

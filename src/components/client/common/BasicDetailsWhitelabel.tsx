@@ -120,6 +120,7 @@ const BasicDetailsWhitelabel = ({
     isFormSubmitWhiteLabelBasicDetails,
     setIsFormSubmitWhiteLabelBasicDetails,
   ] = useState<boolean>(false);
+  const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
 
   const getWhiteLabelBasicDetailsList = async () => {
     const callback = (
@@ -133,6 +134,7 @@ const BasicDetailsWhitelabel = ({
           return;
         case "success":
           if (!!ResponseData) {
+            setIsFormLocked(ResponseData?.isFormLocked ?? false);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setIsFormSubmitWhiteLabelBasicDetails(
               ResponseData?.isSubmited ?? false
@@ -207,7 +209,7 @@ const BasicDetailsWhitelabel = ({
 
   useEffect(() => {
     getWhiteLabelBasicDetailsList();
-  }, []);
+  }, [isFormLocked]);
 
   const validateAccountDetails = () => {
     const newErrors: { [key: string]: string } = {};
@@ -223,7 +225,7 @@ const BasicDetailsWhitelabel = ({
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
       } else if (
-        (field === "ownerContact") &&
+        field === "ownerContact" &&
         !!whitelabelAccountDetailsErrors[field]
       ) {
         newErrors[field] = `${whitelabelAccountDetailsErrors[field]}`;
@@ -502,7 +504,7 @@ const BasicDetailsWhitelabel = ({
         return fieldErrors;
       }),
     };
-    
+
     setWhitelabelCpaClientTeamErrors(newErrors);
     return isValid;
   };
@@ -708,6 +710,7 @@ const BasicDetailsWhitelabel = ({
                 setWhitelabelAccountDetailsErrors={
                   setWhitelabelAccountDetailsErrors
                 }
+                isFormLocked={isFormLocked}
               />
             )}
             {(roleId === "4"
@@ -731,6 +734,7 @@ const BasicDetailsWhitelabel = ({
                 setWhitelabelOtherInformationErrors={
                   setWhitelabelOtherInformationErrors
                 }
+                isFormLocked={isFormLocked}
               />
             )}
             {(roleId === "4" ? whitelabelCpaClientTeamCheckStatus : true) && (
@@ -750,6 +754,7 @@ const BasicDetailsWhitelabel = ({
                 handleChange={handleChange}
                 handleAddField={handleAddField}
                 handleRemoveField={handleRemoveField}
+                isFormLocked={isFormLocked}
               />
             )}
             {(roleId === "4"
@@ -775,6 +780,7 @@ const BasicDetailsWhitelabel = ({
                 setWhitelabelPABSAccountingTeamErrors={
                   setWhitelabelPABSAccountingTeamErrors
                 }
+                isFormLocked={isFormLocked}
               />
             )}
 
@@ -795,8 +801,13 @@ const BasicDetailsWhitelabel = ({
           {roleId !== "4" && (
             <Button
               onClick={() => setIsOpenModal(false)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              className={`${
+                isFormLocked && (roleId === "3" || roleId === "4")
+                  ? "!border-[#666] !text-[#666]"
+                  : "!border-[#023963] !text-[#022946]"
+              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
+              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Cancel
             </Button>
@@ -804,16 +815,26 @@ const BasicDetailsWhitelabel = ({
           {(roleId === "4" ? !isFormSubmitWhiteLabelBasicDetails : true) && (
             <Button
               onClick={() => handleSubmit(2)}
-              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              className={`${
+                isFormLocked && (roleId === "3" || roleId === "4")
+                  ? "!border-[#666] !text-[#666]"
+                  : "!border-[#023963] !text-[#022946]"
+              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
+              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Save
             </Button>
           )}
           <Button
             onClick={() => handleSubmit(1)}
-            className={`!bg-[#022946] text-white !rounded-full`}
+            className={`${
+              isFormLocked && (roleId === "3" || roleId === "4")
+                ? "!bg-[#666] !text-white"
+                : "!bg-[#022946] text-white"
+            }  !rounded-full`}
             variant="contained"
+            disabled={isFormLocked && (roleId === "3" || roleId === "4")}
           >
             <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
               Next: Check List

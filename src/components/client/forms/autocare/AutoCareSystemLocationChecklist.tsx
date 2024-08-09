@@ -41,6 +41,7 @@ function AutoCareSystemLocationChecklist({
   autoCareScanner,
   setAutoCareScanner,
   checkAllFieldsAutoCareSystemLocation,
+  isFormLocked,
 }: autoCareSystemLocationChecklistTypes) {
   return (
     <div className={`${className}`}>
@@ -48,6 +49,7 @@ function AutoCareSystemLocationChecklist({
         checkAllFieldsITStructureReview={checkAllFieldsAutoCareSystemLocation}
         autoCareITStructureReview={autoCareITStructureReview}
         setAutoCareITStructureReview={setAutoCareITStructureReview}
+        isFormLocked={isFormLocked}
       />
       <AccessComputerMethod
         checkAllFieldsAccessComputerMethod={
@@ -55,18 +57,21 @@ function AutoCareSystemLocationChecklist({
         }
         autoCareAccessComputerMethod={autoCareAccessComputerMethod}
         setAutoCareAccessComputerMethod={setAutoCareAccessComputerMethod}
+        isFormLocked={isFormLocked}
       />
       <PosSoftware
         checkAllFieldsPosSoftware={checkAllFieldsAutoCareSystemLocation}
         autoCarePosSoftware={autoCarePosSoftware}
         setAutoCarePosSoftware={setAutoCarePosSoftware}
         posErrors={systemSoftwareLocationErrors}
+        isFormLocked={isFormLocked}
       />
       <AccountingSoftware
         checkAllFieldsAccountingSoftware={checkAllFieldsAutoCareSystemLocation}
         autoCareAccountingSoftware={autoCareAccountingSoftware}
         setAutoCareAccountingSoftware={setAutoCareAccountingSoftware}
         accountingSoftwareErrors={systemSoftwareLocationErrors}
+        isFormLocked={isFormLocked}
       />
       <CloudDocumentManagement
         checkAllFieldsCloudDocumentManagement={
@@ -74,11 +79,13 @@ function AutoCareSystemLocationChecklist({
         }
         autoCareCloudDocumentManagement={autoCareCloudDocumentManagement}
         setAutoCareCloudDocumentManagement={setAutoCareCloudDocumentManagement}
+        isFormLocked={isFormLocked}
       />
       <Scanner
         checkAllFieldsScanner={checkAllFieldsAutoCareSystemLocation}
         autoCareScanner={autoCareScanner}
         setAutoCareScanner={setAutoCareScanner}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -89,7 +96,7 @@ export default AutoCareSystemLocationChecklist;
 const ITStructureReview = ({
   autoCareITStructureReview,
   setAutoCareITStructureReview,
-  checkAllFieldsITStructureReview,
+  checkAllFieldsITStructureReview,isFormLocked
 }: ITStructureReviewTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -131,22 +138,26 @@ const ITStructureReview = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsITStructureReview}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareITStructureReview?.itStructureStatus}
-            onChange={(value: string) =>
-              setAutoCareITStructureReview((prev: ITStructureReviewFormTypes) => ({
-                  ...prev,
-                  itStructureStatus: value,
-                }))
+            <Status
+              value={autoCareITStructureReview?.itStructureStatus}
+              onChange={(value: string) =>
+                setAutoCareITStructureReview(
+                  (prev: ITStructureReviewFormTypes) => ({
+                    ...prev,
+                    itStructureStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsITStructureReview}
-          />
-        </Grid>
+              disabled={roleId === "4" && checkAllFieldsITStructureReview ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -167,7 +178,8 @@ const ITStructureReview = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsITStructureReview}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -193,7 +205,8 @@ const ITStructureReview = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsITStructureReview}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -219,7 +232,8 @@ const ITStructureReview = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsITStructureReview}
+                disabled={roleId === "4" && checkAllFieldsITStructureReview ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -232,7 +246,7 @@ const ITStructureReview = ({
 const AccessComputerMethod = ({
   autoCareAccessComputerMethod,
   setAutoCareAccessComputerMethod,
-  checkAllFieldsAccessComputerMethod,
+  checkAllFieldsAccessComputerMethod,isFormLocked
 }: AccessComputerMethodTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -274,22 +288,26 @@ const AccessComputerMethod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareAccessComputerMethod?.accessComputerStatus}
-            onChange={(value: string) =>
-              setAutoCareAccessComputerMethod((prev: AccessComputerFormTypes) => ({
-                  ...prev,
-                  accessComputerStatus: value,
-                }))
+            <Status
+              value={autoCareAccessComputerMethod?.accessComputerStatus}
+              onChange={(value: string) =>
+                setAutoCareAccessComputerMethod(
+                  (prev: AccessComputerFormTypes) => ({
+                    ...prev,
+                    accessComputerStatus: value,
+                  })
+                )
               }
-            disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
-          />
-        </Grid>
+              disabled={roleId === "4" && checkAllFieldsAccessComputerMethod ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -310,7 +328,8 @@ const AccessComputerMethod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -336,7 +355,8 @@ const AccessComputerMethod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -362,7 +382,8 @@ const AccessComputerMethod = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod}
+                disabled={roleId === "4" && checkAllFieldsAccessComputerMethod ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -376,7 +397,7 @@ const PosSoftware = ({
   autoCarePosSoftware,
   setAutoCarePosSoftware,
   posErrors,
-  checkAllFieldsPosSoftware,
+  checkAllFieldsPosSoftware,isFormLocked
 }: PosSoftwareTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -418,24 +439,26 @@ const PosSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPosSoftware}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCarePosSoftware?.posSoftwareStatus}
-            onChange={(value: string) =>
-              setAutoCarePosSoftware((prev: PosSoftwareFormTypes) => ({
+            <Status
+              value={autoCarePosSoftware?.posSoftwareStatus}
+              onChange={(value: string) =>
+                setAutoCarePosSoftware((prev: PosSoftwareFormTypes) => ({
                   ...prev,
                   posSoftwareStatus: value,
                 }))
               }
-            error={posErrors?.posSoftwareStatus}
-            helperText={posErrors?.posSoftwareStatus}
-            disabled={roleId === "4" && checkAllFieldsPosSoftware}
-          />
-        </Grid>
+              error={posErrors?.posSoftwareStatus}
+              helperText={posErrors?.posSoftwareStatus}
+              disabled={roleId === "4" && checkAllFieldsPosSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -458,7 +481,8 @@ const PosSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPosSoftware}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -486,7 +510,8 @@ const PosSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPosSoftware}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -514,7 +539,8 @@ const PosSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPosSoftware}
+                disabled={roleId === "4" && checkAllFieldsPosSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -528,7 +554,7 @@ const AccountingSoftware = ({
   autoCareAccountingSoftware,
   setAutoCareAccountingSoftware,
   accountingSoftwareErrors,
-  checkAllFieldsAccountingSoftware,
+  checkAllFieldsAccountingSoftware,isFormLocked
 }: AccountingSoftwareTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -574,24 +600,28 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareAccountingSoftware?.accountingSoftwareStatus}
-            onChange={(value: string) =>
-              setAutoCareAccountingSoftware((prev: AccountingSoftwareFormTypes) => ({
-                  ...prev,
-                  accountingSoftwareStatus: value,
-                }))
+            <Status
+              value={autoCareAccountingSoftware?.accountingSoftwareStatus}
+              onChange={(value: string) =>
+                setAutoCareAccountingSoftware(
+                  (prev: AccountingSoftwareFormTypes) => ({
+                    ...prev,
+                    accountingSoftwareStatus: value,
+                  })
+                )
               }
-            error={accountingSoftwareErrors?.accountingSoftwareStatus}
-            helperText={accountingSoftwareErrors?.accountingSoftwareStatus}
-            disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
-          />
-        </Grid>
+              error={accountingSoftwareErrors?.accountingSoftwareStatus}
+              helperText={accountingSoftwareErrors?.accountingSoftwareStatus}
+              disabled={roleId === "4" && checkAllFieldsAccountingSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -614,7 +644,8 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -644,7 +675,8 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -678,7 +710,8 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAccountingSoftware}
+                disabled={roleId === "4" && checkAllFieldsAccountingSoftware ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -691,7 +724,7 @@ const AccountingSoftware = ({
 const CloudDocumentManagement = ({
   autoCareCloudDocumentManagement,
   setAutoCareCloudDocumentManagement,
-  checkAllFieldsCloudDocumentManagement,
+  checkAllFieldsCloudDocumentManagement,isFormLocked
 }: CloudDocumentManagementTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -737,25 +770,28 @@ const CloudDocumentManagement = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={
-                  roleId === "4" && checkAllFieldsCloudDocumentManagement
-                }
+                disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareCloudDocumentManagement?.cloudDocumentManagementStatus}
-            onChange={(value: string) =>
-              setAutoCareCloudDocumentManagement(
-                (prev: CloudDocumentManagementFormTypes) => ({
-                  ...prev,
-                  cloudDocumentManagementStatus: value,
-                }))
+            <Status
+              value={
+                autoCareCloudDocumentManagement?.cloudDocumentManagementStatus
               }
-            disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement}
-          />
-        </Grid>
+              onChange={(value: string) =>
+                setAutoCareCloudDocumentManagement(
+                  (prev: CloudDocumentManagementFormTypes) => ({
+                    ...prev,
+                    cloudDocumentManagementStatus: value,
+                  })
+                )
+              }
+              disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -778,9 +814,8 @@ const CloudDocumentManagement = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={
-                  roleId === "4" && checkAllFieldsCloudDocumentManagement
-                }
+                disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -808,9 +843,8 @@ const CloudDocumentManagement = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={
-                  roleId === "4" && checkAllFieldsCloudDocumentManagement
-                }
+                disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -838,9 +872,9 @@ const CloudDocumentManagement = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={
-                  roleId === "4" && checkAllFieldsCloudDocumentManagement
-                }
+
+                disabled={roleId === "4" && checkAllFieldsCloudDocumentManagement ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -853,7 +887,7 @@ const CloudDocumentManagement = ({
 const Scanner = ({
   autoCareScanner,
   setAutoCareScanner,
-  checkAllFieldsScanner,
+  checkAllFieldsScanner,isFormLocked
 }: ScannerTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -893,22 +927,24 @@ const Scanner = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsScanner}
+                disabled={roleId === "4" && checkAllFieldsScanner ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={autoCareScanner?.scannerStatus}
-            onChange={(value: string) =>
-              setAutoCareScanner((prev: ScannerFormTypes) => ({
+            <Status
+              value={autoCareScanner?.scannerStatus}
+              onChange={(value: string) =>
+                setAutoCareScanner((prev: ScannerFormTypes) => ({
                   ...prev,
                   scannerStatus: value,
                 }))
               }
-            disabled={roleId === "4" && checkAllFieldsScanner}
-          />
-        </Grid>
+              disabled={roleId === "4" && checkAllFieldsScanner ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">Details</label>
@@ -929,7 +965,8 @@ const Scanner = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsScanner}
+                disabled={roleId === "4" && checkAllFieldsScanner ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -955,7 +992,8 @@ const Scanner = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsScanner}
+                disabled={roleId === "4" && checkAllFieldsScanner ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>
@@ -981,7 +1019,8 @@ const Scanner = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsScanner}
+                disabled={roleId === "4" && checkAllFieldsScanner ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))}
               />
             </div>
           </Grid>

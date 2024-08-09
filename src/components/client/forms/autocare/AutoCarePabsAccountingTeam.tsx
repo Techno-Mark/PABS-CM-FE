@@ -13,19 +13,20 @@ function AutoCarePabsAccountingTeam({
   autoCarePabsAccountingTeam,
   setAutoCarePabsAccountingTeam,
   handlePabsAccountingTeamSwitch,
-  finalCheckAllFieldsPabsAccountingTeam
+  finalCheckAllFieldsPabsAccountingTeam,
+  isFormLocked,
 }: PabsAccountingTeamTypes) {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     switch (name) {
       case "pabsPhone":
         const cleanedValue = value.replace(/[^0-9]/g, "");
         const validValue = cleanedValue.slice(0, 10);
-        
+
         if (validateNumber(validValue) || validValue === "") {
           setAutoCarePabsAccountingTeam({
             ...autoCarePabsAccountingTeam,
@@ -33,7 +34,7 @@ function AutoCarePabsAccountingTeam({
           });
         }
         break;
-        
+
       default:
         setAutoCarePabsAccountingTeam({
           ...autoCarePabsAccountingTeam,
@@ -48,8 +49,11 @@ function AutoCarePabsAccountingTeam({
       <FormBox
         title="PABS Accounting Team"
         checkStatus={pabsAccountingTeamCheckStatus}
-        handleChange={(e: ChangeEvent<HTMLInputElement>) => handlePabsAccountingTeamSwitch(e)}
+        handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+          handlePabsAccountingTeamSwitch(e)
+        }
         switchDisabled={finalCheckAllFieldsPabsAccountingTeam}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 grid grid-cols-3 gap-4">
           <div className="text-[12px] flex flex-col ">
@@ -73,7 +77,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col ">
@@ -97,7 +104,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -121,7 +131,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col">
@@ -145,7 +158,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
 
@@ -170,7 +186,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col ">
@@ -194,7 +213,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
           <div className="text-[12px] flex flex-col ">
@@ -216,7 +238,10 @@ function AutoCarePabsAccountingTeam({
                 maxLength: 250,
                 className: classes.textSize,
               }}
-              disabled={roleId === '4' && finalCheckAllFieldsPabsAccountingTeam}
+              disabled={
+                (roleId === "4" && finalCheckAllFieldsPabsAccountingTeam) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </div>
         </div>

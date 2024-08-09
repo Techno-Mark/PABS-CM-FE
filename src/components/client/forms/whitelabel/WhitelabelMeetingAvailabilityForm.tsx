@@ -24,6 +24,7 @@ const WhitelabelMeetingAvailabilityForm = ({
   whitelabelTimeSlot,
   setWhitelabelTimeSlot,
   checkAllFieldsWhiteLabelMeetinAvailabilityList,
+  isFormLocked,
 }: whitelabelMeetingAvailabilityType) => {
   return (
     <div className={`${className}`}>
@@ -32,18 +33,21 @@ const WhitelabelMeetingAvailabilityForm = ({
         setWhitelabelTimeZone={setWhitelabelTimeZone}
         whitelabelTimeZoneErrors={whitelabelMeetingAvailabilityErrors}
         checkAllTimeZone={checkAllFieldsWhiteLabelMeetinAvailabilityList}
+        isFormLocked={isFormLocked}
       />
       <ConvenientDay
         whitelabelConvenientDay={whitelabelConvenientDay}
         setWhitelabelConvenientDay={setWhitelabelConvenientDay}
         whitelabelConvenientDayErrors={whitelabelMeetingAvailabilityErrors}
         checkAllConvenientDay={checkAllFieldsWhiteLabelMeetinAvailabilityList}
+        isFormLocked={isFormLocked}
       />
       <TimeSlot
         whitelabelTimeSlot={whitelabelTimeSlot}
         setWhitelabelTimeSlot={setWhitelabelTimeSlot}
         whitelabelTimeSlotErrors={whitelabelMeetingAvailabilityErrors}
         checkAllTimeSlot={checkAllFieldsWhiteLabelMeetinAvailabilityList}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -56,6 +60,7 @@ const TimeZone = ({
   setWhitelabelTimeZone,
   whitelabelTimeZoneErrors,
   checkAllTimeZone,
+  isFormLocked,
 }: TimeZoneTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -94,27 +99,33 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTimeZone}
+                disabled={
+                  (roleId === "4" && checkAllTimeZone) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelTimeZone?.timeZoneStatus}
-            onChange={(value: string) =>
-              setWhitelabelTimeZone((prev: WhitelabelTimeZoneFormTypes) => ({
+            <Status
+              value={whitelabelTimeZone?.timeZoneStatus}
+              onChange={(value: string) =>
+                setWhitelabelTimeZone((prev: WhitelabelTimeZoneFormTypes) => ({
                   ...prev,
                   timeZoneStatus: value,
                 }))
               }
-            error={whitelabelTimeZoneErrors?.timeZoneStatus}
-            helperText={whitelabelTimeZoneErrors?.timeZoneStatus}
-            disabled={roleId === "4" && checkAllTimeZone}
-          />
-        </Grid>
+              error={whitelabelTimeZoneErrors?.timeZoneStatus}
+              helperText={whitelabelTimeZoneErrors?.timeZoneStatus}
+              disabled={
+                (roleId === "4" && checkAllTimeZone) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -136,10 +147,13 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTimeZone}
+                disabled={
+                  (roleId === "4" && checkAllTimeZone) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -164,10 +178,13 @@ const TimeZone = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTimeZone}
+                disabled={
+                  (roleId === "4" && checkAllTimeZone) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -182,6 +199,7 @@ const ConvenientDay = ({
   setWhitelabelConvenientDay,
   whitelabelConvenientDayErrors,
   checkAllConvenientDay,
+  isFormLocked
 }: ConvenientDayTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -222,27 +240,35 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllConvenientDay}
+                disabled={
+                  (roleId === "4" && checkAllConvenientDay) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelConvenientDay?.convenientDayStatus}
-            onChange={(value: string) =>
-              setWhitelabelConvenientDay((prev: WhitelabelConvenientDayFormTypes) => ({
-                  ...prev,
-                  convenientDayStatus: value,
-                }))
+            <Status
+              value={whitelabelConvenientDay?.convenientDayStatus}
+              onChange={(value: string) =>
+                setWhitelabelConvenientDay(
+                  (prev: WhitelabelConvenientDayFormTypes) => ({
+                    ...prev,
+                    convenientDayStatus: value,
+                  })
+                )
               }
-            error={whitelabelConvenientDayErrors?.convenientDayStatus}
-            helperText={whitelabelConvenientDayErrors?.convenientDayStatus}
-            disabled={roleId === "4" && checkAllConvenientDay}
-          />
-        </Grid>
+              error={whitelabelConvenientDayErrors?.convenientDayStatus}
+              helperText={whitelabelConvenientDayErrors?.convenientDayStatus}
+              disabled={
+                (roleId === "4" && checkAllConvenientDay) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -266,10 +292,13 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllConvenientDay}
+                disabled={
+                  (roleId === "4" && checkAllConvenientDay) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -298,10 +327,13 @@ const ConvenientDay = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllConvenientDay}
+                disabled={
+                  (roleId === "4" && checkAllConvenientDay) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -316,6 +348,7 @@ const TimeSlot = ({
   setWhitelabelTimeSlot,
   whitelabelTimeSlotErrors,
   checkAllTimeSlot,
+  isFormLocked
 }: TimeSlotTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -354,27 +387,33 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTimeSlot}
+                disabled={
+                  (roleId === "4" && checkAllTimeSlot) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
           <Grid item xs={4}>
-          <Status
-            value={whitelabelTimeSlot?.timeSlotStatus}
-            onChange={(value: string) =>
-              setWhitelabelTimeSlot((prev: WhitelabelTimeSlotFormTypes) => ({
+            <Status
+              value={whitelabelTimeSlot?.timeSlotStatus}
+              onChange={(value: string) =>
+                setWhitelabelTimeSlot((prev: WhitelabelTimeSlotFormTypes) => ({
                   ...prev,
                   timeSlotStatus: value,
                 }))
               }
-            error={whitelabelTimeSlotErrors?.timeSlotStatus}
-            helperText={whitelabelTimeSlotErrors?.timeSlotStatus}
-            disabled={roleId === "4" && checkAllTimeSlot}
-          />
-        </Grid>
+              error={whitelabelTimeSlotErrors?.timeSlotStatus}
+              helperText={whitelabelTimeSlotErrors?.timeSlotStatus}
+              disabled={
+                (roleId === "4" && checkAllTimeSlot) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
+            />
+          </Grid>
           <Grid item xs={4}>
             <div className="text-[12px] flex flex-col w-full">
               <label className="text-[#6E6D7A] text-[12px]">
@@ -396,10 +435,13 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTimeSlot}
+                disabled={
+                  (roleId === "4" && checkAllTimeSlot) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -424,10 +466,13 @@ const TimeSlot = ({
                   },
                 }}
                 inputProps={{
-                  maxLength:250,
+                  maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllTimeSlot}
+                disabled={
+                  (roleId === "4" && checkAllTimeSlot) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

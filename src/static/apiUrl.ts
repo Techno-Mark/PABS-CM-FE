@@ -21,6 +21,7 @@ export const saveClientUrl = "api/clients/save";
 export const getClientDetailsByIdUrl = "api/clients/getbyid";
 export const deleteClientUrl = "api/clients/delete";
 export const InvitaionMailClientUrl = "api/clients/invite-mail";
+export const toggleFormLockedUrl = "api/clients/formlock-status";
 
 // RoleManagement url
 export const roleListUrl = "api/roles/list";

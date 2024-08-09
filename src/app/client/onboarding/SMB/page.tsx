@@ -37,6 +37,7 @@ function Page() {
           return;
         case "success":
           setFormDetails(ResponseData !== null ? ResponseData : null);
+          console.log("🚀 ~ getFormDetials ~ ResponseData:", ResponseData)
           return;
       }
     };
@@ -66,6 +67,7 @@ function Page() {
         formDetails={formDetails !== null ? formDetails?.checkList : false}
         responseData={formDetails !== null ? formDetails : false}
         getFormDetials={getFormDetials}
+        isFormLocked={formDetails?.isFormLocked ?? false}
       />
     </ClientWrapper>
   );
