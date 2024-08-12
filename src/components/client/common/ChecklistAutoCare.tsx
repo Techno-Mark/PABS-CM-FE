@@ -772,6 +772,12 @@ function ChecklistAutoCare({
     autoCareLastClosedPeriod,
   ]);
 
+  const handleSubmitwithOutApi = () => {
+    handleChecklistRemoveErrors();
+    setChecklistFormSubmit(31);
+    setExpandedAccordian(-1);
+  };
+
   const handleSubmit = (type: number) => {
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -1567,16 +1573,13 @@ function ChecklistAutoCare({
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
-              onClick={() => {
-                handleSubmit(3);
-              }}
-              className={`${
+              onClick={() =>
                 isFormLocked && (roleId === "3" || roleId === "4")
-                  ? "!border-[#666] !text-[#666]"
-                  : "!border-[#023963] !text-[#022946]"
-              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+                  ? handleSubmitwithOutApi()
+                  : handleSubmit(3)
+              }
+              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
-              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Back
             </Button>

@@ -1,12 +1,15 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // Cookie import
-import Cookies from "js-cookie";
 import ClientWrapper from "@/components/ClientWapper";
+import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
 import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
-import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
+import Cookies from "js-cookie";
+import { showToast } from "@/components/ToastContainer";
+import { ToastType } from "@/static/toastType";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 
 const Page = () => {
   const router = useRouter();
@@ -25,6 +28,7 @@ const Page = () => {
     useState<boolean>(false);
   const [whiteLabelFormSubmittedStatus, setWhiteLabelFormSubmittedStatus] =
     useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -78,6 +82,9 @@ const Page = () => {
         setWhiteLabelChecklistCount={(value: number) =>
           setWhitelabelPerCountChecklist(value)
         }
+        setIsChecked ={(value: boolean) =>
+          setIsChecked(value)
+        }
       />
       {formSubmit === 13 && (
         <AccountDetailsWhitelabel
@@ -89,6 +96,7 @@ const Page = () => {
           checkAllWhitelabelBasicDetails={checkAllWhitelabelBasicDetails}
           checkAllWhitelabelChecklist={checkAllWhitelabelChecklist}
           setChecklistFormSubmit={(value: number) => setFormSubmit(value)}
+          isFormLocked={isChecked}
         />
       )}
     </ClientWrapper>

@@ -30,6 +30,7 @@ const AccountDetailsWhitelabel = ({
   whiteLabelProgressPercentage,
   isFormSubmmitWhitelabel,
   setWhiteLabelFormSubmittedStatus,
+  isFormLocked,
 }: any) => {
   const userId = Cookies.get("userId");
   const roleId = Cookies.get("roleId");
@@ -303,7 +304,13 @@ const AccountDetailsWhitelabel = ({
       width: 100,
       renderCell: (params) => {
         return (
-          <div className="flex gap-8 justify-start h-full items-center">
+          <div
+            className={`flex gap-8 justify-start h-full items-center ${
+              isFormLocked && (roleId === "3" || roleId === "4")
+                ? "pointer-events-none"
+                : ""
+            }`}
+          >
             <Tooltip title="Edit" placement="top" arrow>
               <span
                 className="cursor-pointer"
@@ -492,7 +499,11 @@ const AccountDetailsWhitelabel = ({
                 onClick={() => {
                   setBulkOpenDrawer(true);
                 }}
-                className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+                className={`${
+                  isFormLocked && (roleId === "3" || roleId === "4")
+                    ? "!border-[#666] !text-[#666] pointer-events-none"
+                    : "!border-[#023963] !text-[#022946]"
+                } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
               >
                 Bulk Upload
               </button>
@@ -501,7 +512,11 @@ const AccountDetailsWhitelabel = ({
                   setOpenDrawer(true);
                   setEdit(false);
                 }}
-                className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+                className={`${
+                  isFormLocked && (roleId === "3" || roleId === "4")
+                    ? "!border-[#666] !text-[#666] pointer-events-none"
+                    : "!border-[#023963] !text-[#022946]"
+                } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
               >
                 Add Account Detail
               </button>
@@ -559,8 +574,12 @@ const AccountDetailsWhitelabel = ({
         {roleId === "4" && !isFormSubmmitWhitelabel && (
           <Button
             onClick={() => setIsOpenConfirmationSubmit(true)}
-            className={`!bg-[#022946] font-semibold text-white !rounded-full text-[14px]`}
-            variant="outlined"
+            className={`${
+              isFormLocked && (roleId === "4" || roleId === "3")
+                ? "!bg-[#666] pointer-events-none"
+                : "!bg-[#023963]"
+            } !text-[#fff] !rounded-full font-semibold text-[14px]`}
+            variant="contained"
           >
             Submit
           </Button>

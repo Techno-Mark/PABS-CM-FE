@@ -426,6 +426,12 @@ const BasicDetailsWhitelabel = ({
     }
   };
 
+  const handleSubmitwithOutApi = () => {
+    handleWhitelabelBasicDetailRemoveErrors();
+    setWhitelabelBasicDetailsFormSubmit(12);
+    getWhiteLabelBasicDetailsList();
+  };
+
   const handleChange = (index: number, e: any) => {
     const { name, value } = e.target;
     const newFields = whitelabelCpaClientTeam.cpaArray.map(
@@ -801,13 +807,8 @@ const BasicDetailsWhitelabel = ({
           {roleId !== "4" && (
             <Button
               onClick={() => setIsOpenModal(false)}
-              className={`${
-                isFormLocked && (roleId === "3" || roleId === "4")
-                  ? "!border-[#666] !text-[#666]"
-                  : "!border-[#023963] !text-[#022946]"
-              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
-              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Cancel
             </Button>
@@ -827,14 +828,13 @@ const BasicDetailsWhitelabel = ({
             </Button>
           )}
           <Button
-            onClick={() => handleSubmit(1)}
-            className={`${
+            onClick={() =>
               isFormLocked && (roleId === "3" || roleId === "4")
-                ? "!bg-[#666] !text-white"
-                : "!bg-[#022946] text-white"
-            }  !rounded-full`}
+                ? handleSubmitwithOutApi()
+                : handleSubmit(1)
+            }
+            className={`!bg-[#022946] !text-white !rounded-full`}
             variant="contained"
-            disabled={isFormLocked && (roleId === "3" || roleId === "4")}
           >
             <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
               Next: Check List
