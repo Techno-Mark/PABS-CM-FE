@@ -11,6 +11,7 @@ import {
   Switch,
   Toolbar,
   Tooltip,
+  SwitchProps
 } from "@mui/material";
 import { useEffect, useState } from "react";
 // Types imports
@@ -57,6 +58,45 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
+  const CustomSwitch = styled((props: SwitchProps) => (
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
+  ))(({ theme }) => ({
+    width: 68,
+    height: 30,
+    padding: 0,
+    "& .MuiSwitch-switchBase": {
+      padding: 0,
+      margin: 4,
+      transitionDuration: "600ms",
+    transitionTimingFunction: "ease-in-out",
+      "&.Mui-checked": {
+        transform: "translateX(38px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor: "#1976d2",
+          opacity: 1,
+          border: 0,
+          transition: "background-color 600ms ease-in-out",
+        },
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
+      width: 22,
+      height: 22,
+    },
+    "& .MuiSwitch-track": {
+      borderRadius: 34 / 2,
+      backgroundColor: "#787878",
+      opacity: 1,
+      transition: "background-color 600ms ease-in-out",
+    },
+  }));
+
   const token = Cookies.get("token");
   const loginUserRole = Cookies.get("roleId");
   const formSubmitId =
@@ -234,16 +274,24 @@ function ClientModal({
                   <div className="relative flex gap-5">
                     <div className="flex justify-center items-center">
                       {(loginUserRole == "1" || loginUserRole == "2") && (
-                        <div>
-                          <span className="text-[#000] font-semibold">
-                            Form Lock ?
-                          </span>
-                          <Switch
-                            checked={isChecked}
-                            onChange={(e) =>
-                              handleToggleFormLocked(e.target.checked)
-                            }
-                          />
+                        <div className="flex items-center">
+                          <div className="relative">
+                            <CustomSwitch
+                              checked={isChecked}
+                              onChange={(e: any) =>
+                                handleToggleFormLocked(e.target.checked)
+                              }
+                            />
+                            <span
+                              className={`absolute ${
+                                isChecked
+                                  ? "left-2.5 text-[11px]"
+                                  : "right-[3px] text-[11px]"
+                              } font-bold top-1/2 transform -translate-y-1/2 text-white`}
+                            >
+                              {isChecked ? "Lock" : "Unlock"}
+                            </span>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -252,7 +300,7 @@ function ClientModal({
                         className="flex items-center cursor-pointer"
                         onClick={handleDownload}
                       >
-                        {clientInfo.IsFormLocked && <DownloadIcon />}
+                        <DownloadIcon />
                       </span>
                     </Tooltip>
                     <Tooltip title="Close" placement="bottom" arrow>
@@ -386,6 +434,7 @@ function ClientModal({
                       setChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
+                      isFormLocked={isChecked}
                     />
                   )}
                 </>

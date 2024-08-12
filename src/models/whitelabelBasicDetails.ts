@@ -10,7 +10,7 @@ export interface BasicDetailWhitelabelType {
   whiteLabelProgressPercentage: number;
   setIsOpenModal: (value: boolean) => void;
   setWhiteLabelFormSubmittedStatus: (value: boolean) => void;
-  getFormCheckedValue?:any;
+  getFormCheckedValue?: any;
 }
 
 export const whitelabelOtherInformationfieldDisplayNames: {
@@ -27,8 +27,8 @@ export interface ChecklistWhitelabelType {
   clientInfo?: ClientInfoType;
   formSubmitId?: number;
   setWhiteLabelFormIsSubmit: (value: boolean) => void;
+  setIsChecked?: (value: boolean) => void;
   setWhiteLabelFormSubmittedStatus: (value: boolean) => void;
-
 }
 
 export interface WhiteLabelBasicDetailsDataType {

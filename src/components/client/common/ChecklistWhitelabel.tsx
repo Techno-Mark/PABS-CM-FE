@@ -98,6 +98,7 @@ const ChecklistWhitelabel = ({
   setCheckAllWhiteLabelCheckist,
   setWhiteLabelFormIsSubmit,
   setWhiteLabelFormSubmittedStatus,
+  setIsChecked,
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -267,6 +268,7 @@ const ChecklistWhitelabel = ({
             setClientId(ResponseData?.clientId);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
             setIsFormLocked(ResponseData?.isFormLocked ?? false);
+            setIsChecked && setIsChecked(ResponseData?.isFormLocked ?? false);
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
             setWhiteLabelCommunicationChecked(
@@ -1130,6 +1132,12 @@ const ChecklistWhitelabel = ({
     }
   };
 
+  const handleSubmitwithOutApi = (type: number) => {
+    handleWhiteLabelChecklistRemoveErrors();
+    setChecklistFormSubmit(type == 1 ? 13 : 11);
+    setExpandedAccordian(-1);
+  };
+
   const handleSwitchChange = async (
     e: ChangeEvent<HTMLInputElement>,
     phaseType: number
@@ -1464,19 +1472,18 @@ const ChecklistWhitelabel = ({
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={clientId} isFormLocked={isFormLocked}/>
+            <CommentData clientID={clientId} isFormLocked={isFormLocked} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
-              onClick={() => handleSubmit(3)}
-              className={`${
+              onClick={() =>
                 isFormLocked && (roleId === "3" || roleId === "4")
-                  ? "!border-[#666] !text-[#666]"
-                  : "!border-[#023963] !text-[#022946]"
-              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+                  ? handleSubmitwithOutApi(3)
+                  : handleSubmit(3)
+              }
+              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
-              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Back
             </Button>
@@ -1505,10 +1512,13 @@ const ChecklistWhitelabel = ({
                 </Button>
               )}
               <Button
-                onClick={() => handleSubmit(1)}
-                className={`${isFormLocked && (roleId === "3" || roleId=== "4") ? "!bg-[#666] !text-white": "!bg-[#022946] text-white"}  !rounded-full`}
-            variant="contained"
-            // disabled={isFormLocked && (roleId === "3" || roleId=== "4")}
+                onClick={() =>
+                  isFormLocked && (roleId === "3" || roleId === "4")
+                    ? handleSubmitwithOutApi(1)
+                    : handleSubmit(1)
+                }
+                className={`!bg-[#022946] !text-white !rounded-full`}
+                variant="contained"
               >
                 <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
                   Next: Account Details
