@@ -9,9 +9,9 @@ import {
   AppBar as MuiAppBar,
   styled,
   Switch,
+  SwitchProps,
   Toolbar,
   Tooltip,
-  SwitchProps
 } from "@mui/material";
 import { useEffect, useState } from "react";
 // Types imports
@@ -28,9 +28,13 @@ import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import { showToast } from "@/components/ToastContainer";
 
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import CommentIcon from "@/assets/Icons/admin/CommentIcon";
+import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
 import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
 import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
+import { GetClientByIdResponse } from "@/models/clientManage";
 import {
   getClientDetailsByIdUrl,
   onboardingDownloadFormUrl,
@@ -38,7 +42,6 @@ import {
   toggleFormLockedUrl,
 } from "@/static/apiUrl";
 import Cookies from "js-cookie";
-import { GetClientByIdResponse } from "@/models/clientManage";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -72,7 +75,7 @@ function ClientModal({
       padding: 0,
       margin: 4,
       transitionDuration: "600ms",
-    transitionTimingFunction: "ease-in-out",
+      transitionTimingFunction: "ease-in-out",
       "&.Mui-checked": {
         transform: "translateX(38px)",
         color: "#fff",
@@ -120,6 +123,7 @@ function ClientModal({
     useState<boolean>(false);
   const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
 
   useEffect(() => {
     const getById = async () => {
@@ -295,6 +299,18 @@ function ClientModal({
                         </div>
                       )}
                     </div>
+                    {(formSubmit === 12 ||
+                      formSubmit === 21 ||
+                      formSubmit === 32) && (
+                      <Tooltip title="Comment" placement="bottom" arrow>
+                        <span
+                          className="flex items-center cursor-pointer"
+                          onClick={() => setOpenCommentModal(true)}
+                        >
+                          <CommentIcon />
+                        </span>
+                      </Tooltip>
+                    )}
                     <Tooltip title="Download" placement="bottom" arrow>
                       <span
                         className="flex items-center cursor-pointer"
@@ -441,6 +457,15 @@ function ClientModal({
               ) : (
                 ""
               )}
+
+              {openCommentModal && (
+                <CommentDrawer
+                  isOpen={openCommentModal}
+                  setIsOpen={(value: boolean) => setOpenCommentModal(value)}
+                  clientId={clientInfo.ClientId}
+                />
+              )}
+              <DrawerOverlay isOpen={openCommentModal} />
             </Box>
           </Box>
         </div>

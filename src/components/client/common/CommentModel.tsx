@@ -59,7 +59,6 @@ const MyDrawer = styled(Drawer, {
 function CommentModel({
   commentModelOpen,
   setCommentModelOpen,
-  handleClose,
 }: any) {
   const [commentDataWorklogs, setCommentDataWorklogs] = useState([
     {

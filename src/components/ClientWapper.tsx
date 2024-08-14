@@ -1,16 +1,14 @@
-import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ReactNode, useEffect, useState } from "react";
 //mui components
 import { Box, CssBaseline } from "@mui/material";
 //custom components
-import ClientSidebar from "@/components/client/common/ClientSidebar";
 import ClientHeader from "@/components/client/common/ClientHeader";
+import ClientSidebar from "@/components/client/common/ClientSidebar";
 // Static import
 import { drawerWidth } from "@/static/commonVariables";
 // Cookie import
 import Cookies from "js-cookie";
-import CommentModel from "./client/common/CommentModel";
-import DrawerOverlay from "./admin/common/DrawerOverlay";
 
 type WrapperPropsType = {
   formSubmit?: number;
@@ -40,7 +38,6 @@ const ClientWrapper = ({
   formSubmittedStatus,
 }: WrapperPropsType) => {
   const router = useRouter();
-  const [commentModelOpen, setCommentModelOpen] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -63,7 +60,6 @@ const ClientWrapper = ({
           <ClientHeader
             formSubmittedStatus={formSubmittedStatus}
             formSubmit={formSubmit}
-            setCommentModelOpen={setCommentModelOpen}
           />
           <ClientSidebar
             perCountWhiteLabelBasicDetails={perCountWhiteLabelBasicDetails}
@@ -88,21 +84,6 @@ const ClientWrapper = ({
             }}
           >
             {children}
-
-            {/* {commentModelOpen && (
-              <CommentModel
-                commentModelOpen={commentModelOpen}
-                setCommentModelOpen={(
-                  value: boolean | ((prevState: boolean) => boolean)
-                ) => {
-                  setCommentModelOpen(value);
-                }}
-                handleClose={() => {
-                  setCommentModelOpen(false);
-                }}
-              />
-            )}
-            <DrawerOverlay isOpen={commentModelOpen} /> */}
           </Box>
         </Box>
       </div>
