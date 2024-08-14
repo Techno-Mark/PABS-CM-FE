@@ -31,7 +31,7 @@ interface AuditModalProps {
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
   const formatDateTime = (dateTime: string) => {
-    return dateTime ? dayjs(dateTime).format("YYYY-MM-DD HH:mm:ss") : "N/A";
+    return dateTime ? dayjs(dateTime).format("MM/DD/YYYY HH:mm:ss") : "N/A";
   };
 
   const getSubSectionName = (tableName: string) => {
