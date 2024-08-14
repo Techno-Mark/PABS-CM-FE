@@ -164,14 +164,14 @@ function AuditFilter({
               <TextField
                 {...params}
                 variant="standard"
-                placeholder={module.length <= 0 ? "Please Select" : ""}
+                placeholder={module.length <= 0 ? "Please Select Module" : ""}
               />
             )}
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
           <label className="text-[#6E6D7A] text-[12px]">
-            Select Client User
+            Select Username
           </label>
           <Autocomplete
             multiple
@@ -191,7 +191,7 @@ function AuditFilter({
               <TextField
                 {...params}
                 variant="standard"
-                placeholder={users.length <= 0 ? "Please Select" : ""}
+                placeholder={users.length <= 0 ? "Please Select Username" : ""}
               />
             )}
           />

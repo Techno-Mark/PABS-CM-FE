@@ -30,8 +30,9 @@ interface AuditModalProps {
 }
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
-  const parsedDate = dayjs(auditDetails.createdDate);
-  const updatedDateTime = parsedDate.format("MM/DD/YYYY HH:mm:ss");
+  const formatDateTime = (dateTime: string) => {
+    return dateTime ? dayjs(dateTime).format("MM/DD/YYYY HH:mm:ss") : "N/A";
+  };
 
   const getSubSectionName = (tableName: string) => {
     switch (tableName) {
@@ -45,6 +46,22 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
         return "Other";
     }
   };
+
+  const formatFieldName = (fieldName: string) => {
+    return fieldName
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/^./, (str) => str.toUpperCase());
+  };
+
+  const RenamedDateFields = [
+    "createdAt",
+    "updatedAt",
+    "tokenExpiryDate",
+    "verifyDate",
+    "tokenCreatedTime",
+    "accessTokenExpiryTime",
+    "refreshTokenExpiryTime",
+  ];
 
   return (
     <Modal
@@ -68,7 +85,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
               </div>
               <div className="flex-1 ">
                 <span className="font-semibold">Update Date/Time : </span>
-                <span>{updatedDateTime}</span>
+                <span>{formatDateTime(auditDetails.createdDate)}</span>
               </div>
             </div>
             <div className="flex space-x-48">
@@ -119,13 +136,17 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                             {index + 1}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm">
-                            {action.fieldName}
+                            {formatFieldName(action.fieldName)}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
-                            {action.oldValue}
+                            {RenamedDateFields.includes(action.fieldName)
+                              ? formatDateTime(action.oldValue)
+                              : action.oldValue}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
-                            {action.newValue}
+                            {RenamedDateFields.includes(action.fieldName)
+                              ? formatDateTime(action.newValue)
+                              : action.newValue}
                           </td>
                         </tr>
                       ))
