@@ -7,7 +7,7 @@ import { ToastType } from "@/static/toastType";
 import { AlphabetColor } from "@/utils/commonData";
 import { Avatar, Tooltip } from "@mui/material";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type Comment = {
   id: number;
@@ -20,6 +20,7 @@ type Comment = {
 const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
   const [comment, setComment] = useState("");
   const [commentsList, setCommentsList] = useState<Comment[]>([]);
+  const commentListRef = useRef<HTMLDivElement>(null);
   const handleClose = () => setIsOpen(false);
 
   const formatDateTime = (dateTime: string) => {
@@ -38,7 +39,6 @@ const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
           return;
         case "success":
           setCommentsList(ResponseData || []);
-
           return;
       }
     };
@@ -73,6 +73,13 @@ const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
     getCommentList();
   }, []);
 
+  useEffect(() => {
+    // Scroll to the bottom when commentsList changes
+    if (commentListRef.current) {
+      commentListRef.current.scrollTop = commentListRef.current.scrollHeight;
+    }
+  }, [commentsList]);
+
   return (
     <div
       className={`fixed right-0 top-0 z-30 w-[420px] h-full transform border-l border-lightSilver bg-white text-black ${
@@ -90,10 +97,16 @@ const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
           </span>
         </Tooltip>
       </div>
-      <div className="flex-grow overflow-y-auto px-4">
+      <div
+        className="flex-grow overflow-y-auto px-4 flex flex-col-reverse"
+        ref={commentListRef}
+      >
         {commentsList.length > 0 ? (
           commentsList.map((comment) => (
-            <div key={comment.id} className="py-4 last:mb-0 border-b border-[#d4d2d2]">
+            <div
+              key={comment.id}
+              className="py-4 last:mb-0 border-b border-[#d4d2d2]"
+            >
               <div className="flex justify-between items-center mb-1">
                 <div className="flex items-center">
                   {comment.createdBy.length > 0 ? (
@@ -117,7 +130,7 @@ const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
                   {formatDateTime(comment.createdDate)}
                 </span>
               </div>
-              <p className="text-gray-700 ml-[37px] text-sm">
+              <p className="text-gray-700 ml-[37px] text-sm break-words whitespace-pre-wrap">
                 {comment.comment}
               </p>
             </div>
@@ -136,6 +149,7 @@ const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             rows={2}
+            maxLength={500}
           />
           <span
             className={`p-2 ${
