@@ -131,7 +131,7 @@ const CommentDrawer = ({ isOpen, setIsOpen, clientId }: any) => {
       <div className="p-5 border-t">
         <div className="border border-gray-300 rounded-lg flex items-center">
           <textarea
-            className="flex-grow p-3 text-base resize-none outline-none"
+            className="flex-grow p-3 text-base resize-none outline-none rounded-lg"
             placeholder="Add a Comment..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
