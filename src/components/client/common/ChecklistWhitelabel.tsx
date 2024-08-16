@@ -1,8 +1,50 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
-import { Button } from "@mui/material";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
+import WhitelabelChallengesForm from "@/components/client/forms/whitelabel/WhitelabelChallengesForm";
+import WhitelabelCommunicationForm from "@/components/client/forms/whitelabel/WhitelabelCommunicationForm";
+import WhitelabelEscalationmatrixForm from "@/components/client/forms/whitelabel/WhitelabelEscalationmatrixForm";
+import WhitelabelMeetingAvailabilityForm from "@/components/client/forms/whitelabel/WhitelabelMeetingAvailabilityForm";
+import WhitelabelServiceTypeForm from "@/components/client/forms/whitelabel/WhitelabelServiceTypeForm";
+import WhitelabelSystemSoftwareSetupForm from "@/components/client/forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
+import WhitelabelWorkAssignmentForm from "@/components/client/forms/whitelabel/WhitelabelWorkAssignmentForm";
+import { showToast } from "@/components/ToastContainer";
+import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
+import {
+  AccountingFormTypes,
+  AccountingSoftwareWhiteLabelFormTypes,
+  BdmFormTypes,
+  CatchupFormTypes,
+  CleanupFormTypes,
+  ClientFormTypes,
+  CloudDocumentWhiteLabelFormTypes,
+  CombinationFormTypes,
+  CurrentChallengesFormTypes,
+  ExceptionFormTypes,
+  FTEFormTypes,
+  GroupEmailWhiteLabelFormTypes,
+  IndustryFormTypes,
+  ItHelpWhiteLabelFormTypes,
+  ItStructureWhiteLabelFormTypes,
+  KickOffWhiteLabelFormTypes,
+  MessengerWhiteLabelFormTypes,
+  MonthlyFormTypes,
+  OtherInfoWhiteLabelFormTypes,
+  PabsFormTypes,
+  RemoteSetupWhiteLabelFormTypes,
+  SystemAccessWhiteLabelFormTypes,
+  TaxFormTypes,
+  TeamOverCallWhiteLabelFormTypes,
+  WeeklyFormTypes,
+  WhitelabelConvenientDayFormTypes,
+  WhitelabelServiceErrorsTypes,
+  WhitelabelTimeSlotFormTypes,
+  WhitelabelTimeZoneFormTypes,
+  whitelabelMeetingAvailabilityErrorsType,
+  whitelabelSystemSoftwareErrorsType,
+  whitleLabelWorkAssignmentErrorsType,
+} from "@/models/whitelabelChecklist";
+import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
+import { ToastType } from "@/static/toastType";
 import {
   AccordianExpand,
   fieldDisplayNamesWhiteLabelMeetingAvailability,
@@ -42,52 +84,9 @@ import {
   validateWhiteLabelSystemSoftwareField,
   validateWhiteLabelWorkAssignmentField,
 } from "@/static/whitelabel/whitelabelChecklist";
-import WhitelabelCommunicationForm from "@/components/client/forms/whitelabel/WhitelabelCommunicationForm";
-import {
-  AccountingFormTypes,
-  AccountingSoftwareWhiteLabelFormTypes,
-  BdmFormTypes,
-  CatchupFormTypes,
-  CleanupFormTypes,
-  ClientFormTypes,
-  CloudDocumentWhiteLabelFormTypes,
-  CombinationFormTypes,
-  CurrentChallengesFormTypes,
-  ExceptionFormTypes,
-  FTEFormTypes,
-  GroupEmailWhiteLabelFormTypes,
-  IndustryFormTypes,
-  ItHelpWhiteLabelFormTypes,
-  ItStructureWhiteLabelFormTypes,
-  KickOffWhiteLabelFormTypes,
-  MessengerWhiteLabelFormTypes,
-  MonthlyFormTypes,
-  OtherInfoWhiteLabelFormTypes,
-  PabsFormTypes,
-  RemoteSetupWhiteLabelFormTypes,
-  SystemAccessWhiteLabelFormTypes,
-  TaxFormTypes,
-  TeamOverCallWhiteLabelFormTypes,
-  WeeklyFormTypes,
-  WhitelabelConvenientDayFormTypes,
-  WhitelabelServiceErrorsTypes,
-  WhitelabelTimeSlotFormTypes,
-  WhitelabelTimeZoneFormTypes,
-  whitelabelMeetingAvailabilityErrorsType,
-  whitelabelSystemSoftwareErrorsType,
-  whitleLabelWorkAssignmentErrorsType,
-} from "@/models/whitelabelChecklist";
-import WhitelabelMeetingAvailabilityForm from "@/components/client/forms/whitelabel/WhitelabelMeetingAvailabilityForm";
-import WhitelabelEscalationmatrixForm from "@/components/client/forms/whitelabel/WhitelabelEscalationmatrixForm";
-import WhitelabelChallengesForm from "@/components/client/forms/whitelabel/WhitelabelChallengesForm";
-import WhitelabelWorkAssignmentForm from "@/components/client/forms/whitelabel/WhitelabelWorkAssignmentForm";
-import WhitelabelServiceTypeForm from "@/components/client/forms/whitelabel/WhitelabelServiceTypeForm";
-import WhitelabelSystemSoftwareSetupForm from "@/components/client/forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
-import CommentData from "./CommentData";
+import { Button } from "@mui/material";
+import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const ChecklistWhitelabel = ({
   setWhiteLabelChecklistCount,
@@ -1470,11 +1469,6 @@ const ChecklistWhitelabel = ({
                 )}
             </div>
           </div>
-
-          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={clientId} isFormLocked={isFormLocked} />
-          </div>
-
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
               onClick={() =>

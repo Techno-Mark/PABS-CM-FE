@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 // MUI import
 import { Button } from "@mui/material";
 // Cookie import
@@ -19,7 +19,6 @@ import {
   initialAutoCareBusinessLoans,
   initialAutoCareCloudDocumentManagement,
   initialAutoCareCreditCard,
-  initialAutoCareEstimatingSoftware,
   initialAutoCareFrequency,
   initialAutoCareGP_GMNP_NM,
   initialAutoCareGroupEmailEstablished,
@@ -52,14 +51,15 @@ import {
 import { showToast } from "@/components/ToastContainer";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
-import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
-import AutoCareSystemLocationChecklist from "@/components/client/forms/autocare/AutoCareSystemLocationChecklist";
 import AutoCareCashBankLoans from "@/components/client/forms/autocare/AutoCareCashBankLoans";
-import AutoCarePayrollSystem from "@/components/client/forms/autocare/AutoCarePayrollSystem";
+import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
 import AutoCareCompliances from "@/components/client/forms/autocare/AutoCareCompliances";
-import AutoCarePayableCashPayAccess from "@/components/client/forms/autocare/AutoCarePayableCashPayAccess";
 import AutoCareFinancials from "@/components/client/forms/autocare/AutoCareFinancials";
+import AutoCarePayableCashPayAccess from "@/components/client/forms/autocare/AutoCarePayableCashPayAccess";
+import AutoCarePayrollSystem from "@/components/client/forms/autocare/AutoCarePayrollSystem";
+import AutoCareSystemLocationChecklist from "@/components/client/forms/autocare/AutoCareSystemLocationChecklist";
 // Models import
+import { ChecklistType } from "@/models/autoCareBasicDetails";
 import {
   AccessComputerFormTypes,
   AccountingSoftwareFormTypes,
@@ -69,7 +69,6 @@ import {
   ChecklistResponseDataType,
   CloudDocumentManagementFormTypes,
   CreditCardFormTypes,
-  EstimatingSoftwareFormTypes,
   FrequencyFormTypes,
   GP_GMNP_NMFormTypes,
   GroupEmailEstablishedFormTypes,
@@ -100,13 +99,11 @@ import {
   autoCarePayrollSystemErrors,
   autoCareSystemLocationChecklistErrors,
 } from "@/models/autoCareChecklist";
-import { ChecklistType } from "@/models/autoCareBasicDetails";
 // API import
 import { callAPIwithHeaders } from "@/api/commonFunction";
 // Static import
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
-import CommentData from "./CommentData";
 
 function ChecklistAutoCare({
   clientInfo,
@@ -1565,10 +1562,6 @@ function ChecklistAutoCare({
                   </span>
                 )}
             </div>
-          </div>
-
-          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={clientId} isFormLocked={isFormLocked} />
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">

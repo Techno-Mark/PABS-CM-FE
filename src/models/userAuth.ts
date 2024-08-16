@@ -11,6 +11,7 @@ export interface userLoginData {
   RoleName: string;
   BusinessTypeId:number;
   BusinessTypeName:string;
+  ClientId:string;
   ClientSfId:string;
   ClientLogo:string;
   Permissions: RolePermission[];

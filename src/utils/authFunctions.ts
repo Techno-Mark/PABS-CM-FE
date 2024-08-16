@@ -13,6 +13,7 @@ export const removeCookies = () => {
   Cookies.remove("businessTypeId");
   Cookies.remove("businessTypeName");
   Cookies.remove("clientSFId");
+  Cookies.remove("clientId");
   localStorage.removeItem('clientLogo');
   Cookies.remove("permission");
 };

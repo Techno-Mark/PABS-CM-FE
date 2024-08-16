@@ -1,31 +1,30 @@
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 // MUI imports
 import {
+  Chip,
+  AppBar as MuiAppBar,
   styled,
   Toolbar,
-  AppBar as MuiAppBar,
   Tooltip,
-  Chip,
 } from "@mui/material";
 // Static data import
 import { drawerWidth } from "@/static/commonVariables";
 // Types imports
 import { AppBarProps, Option } from "@/models/adminHeader";
 // Icons import
-import UserIcon from "@/assets/Icons/admin/header/UserIcon";
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import UserIcon from "@/assets/Icons/admin/header/UserIcon";
 import { signoutAPIUrl } from "@/static/apiUrl";
 // Toast import
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 // Cookie import
-import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
-import CloseIcon from "@/assets/Icons/admin/CloseIcon";
-import CommentIcon from "@/assets/Icons/client/forms/CommentIcon";
-import CommentModel from "./CommentModel";
+import Cookies from "js-cookie";
+import CommentIcon from "@/assets/Icons/admin/CommentIcon";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -42,16 +41,15 @@ const AppBar = styled(MuiAppBar, {
 interface HeaderModuleTypes {
   formSubmittedStatus: boolean;
   formSubmit?: number;
-  setCommentModelOpen: any;
 }
 
 const ClientHeader = ({
   formSubmittedStatus,
   formSubmit,
-  setCommentModelOpen,
 }: HeaderModuleTypes) => {
   const router = useRouter();
   const userId = Cookies.get("userId");
+  const clientId = Cookies.get("clientId");
   const clientLogo =
     typeof window !== "undefined" ? localStorage.getItem("clientLogo") : null;
   const userName = Cookies.get("userName");
@@ -59,6 +57,7 @@ const ClientHeader = ({
   const clientSFId = Cookies.get("clientSFId");
 
   const [isOpen, setOpen] = useState(false);
+  const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const selectRefNavbar = useRef<HTMLDivElement>(null);
 
@@ -157,17 +156,17 @@ const ClientHeader = ({
               )}
             </span>
           </div>
-          <div className="relative flex gap-5">
-            {/* {formSubmit == 12 && (
-              <Tooltip title="Comments" placement="bottom" arrow>
+          <div className="relative flex gap-4">
+            {(formSubmit === 12 || formSubmit === 21 || formSubmit === 32) && (
+              <Tooltip title="Comment" placement="bottom" arrow>
                 <span
                   className="flex items-center cursor-pointer"
-                  onClick={() => setCommentModelOpen(true)}
+                  onClick={() => setOpenCommentModal(true)}
                 >
                   <CommentIcon />
                 </span>
               </Tooltip>
-            )} */}
+            )}
             <div
               className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
               onClick={handleToggle}
@@ -209,6 +208,14 @@ const ClientHeader = ({
           </div>
         </div>
       </Toolbar>
+      {openCommentModal && (
+        <CommentDrawer
+          isOpen={openCommentModal}
+          setIsOpen={(value: boolean) => setOpenCommentModal(value)}
+          clientId={Number(clientId)}
+        />
+      )}
+      <DrawerOverlay isOpen={openCommentModal} />
     </AppBar>
   );
 };
