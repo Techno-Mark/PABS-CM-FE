@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 // MUI imports
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 // Types import
 import { UserModalProps, Option } from "@/models/userManage";
 // Components imports
@@ -94,22 +98,15 @@ function AuditFilter({
     setIsOpen(false);
   };
 
-  const formatDateWithTime = (date: any) => {
+  const formatDateWithTime = (date: string | null) => {
     if (!date) return null;
 
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    const hours = String(d.getHours()).padStart(2, "0");
-    const minutes = String(d.getMinutes()).padStart(2, "0");
-    const seconds = String(d.getSeconds()).padStart(2, "0");
-
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const d = dayjs(date);
+    return d.format("YYYY-MM-DD HH:mm:ss");
   };
 
   const formatDateForInput = (date: string) => {
-    return date.split(" ")[0];
+    return dayjs(date).format("YYYY-MM-DD");
   };
 
   return (
@@ -126,23 +123,43 @@ function AuditFilter({
       <div className="p-5 h-[calc(100%-143px)]">
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">From Date</label>
-          <TextField
-            type="date"
-            value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)}
-            variant="standard"
-            className={classes.date}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              value={fromDate ? dayjs(fromDate) : null}
+              onChange={(value) =>
+                setFromDate(value ? value.format("YYYY-MM-DD") : null)
+              }
+              maxDate={dayjs()}
+              format="MM/DD/YYYY"
+              slotProps={{
+                textField: {
+                  variant: "standard",
+                  className: classes.date,
+                  readOnly: true,
+                } as Record<string, any>,
+              }}
+            />
+          </LocalizationProvider>
         </div>
         <div className="text-[12px] flex flex-col py-5">
           <label className="text-[#6E6D7A] text-[12px]">To Date</label>
-          <TextField
-            type="date"
-            value={toDate}
-            onChange={(e) => setToDate(e.target.value)}
-            variant="standard"
-            className={classes.date}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              value={toDate ? dayjs(toDate) : null}
+              onChange={(value) =>
+                setToDate(value ? value.format("YYYY-MM-DD") : null)
+              }
+              maxDate={dayjs()}
+              format="MM/DD/YYYY"
+              slotProps={{
+                textField: {
+                  variant: "standard",
+                  className: classes.date,
+                  readOnly: true,
+                } as Record<string, any>,
+              }}
+            />
+          </LocalizationProvider>
         </div>
         <div className="text-[12px] flex flex-col">
           <label className="text-[#6E6D7A] text-[12px]">Select Module</label>
@@ -170,9 +187,7 @@ function AuditFilter({
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
-          <label className="text-[#6E6D7A] text-[12px]">
-            Select Username
-          </label>
+          <label className="text-[#6E6D7A] text-[12px]">Select Username</label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
