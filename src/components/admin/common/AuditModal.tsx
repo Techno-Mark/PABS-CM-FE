@@ -30,8 +30,16 @@ interface AuditModalProps {
 }
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
-  const formatDateTime = (dateTime: string) => {
+  const updatedDateTime = (dateTime: string) => {
     return dateTime ? dayjs(dateTime).format("MM/DD/YYYY HH:mm:ss") : "N/A";
+  };
+
+  const formatDateTime = (dateTime: string) => {
+    if (!dateTime) return "N/A";
+    return dayjs(dateTime)
+      .add(5, "hour")
+      .add(30, "minute")
+      .format("MM/DD/YYYY HH:mm:ss");
   };
 
   const getSubSectionName = (tableName: string) => {
@@ -85,7 +93,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
               </div>
               <div className="flex-1 ">
                 <span className="font-semibold">Update Date/Time : </span>
-                <span>{formatDateTime(auditDetails.createdDate)}</span>
+                <span>{updatedDateTime(auditDetails.createdDate)}</span>
               </div>
             </div>
             <div className="flex space-x-48">
