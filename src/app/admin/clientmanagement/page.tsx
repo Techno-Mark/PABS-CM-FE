@@ -388,6 +388,7 @@ function Page() {
             },
             ".MuiSvgIcon-root": {
               top: 0,
+              right: 0,
             },
             fontSize: 14,
           }}
