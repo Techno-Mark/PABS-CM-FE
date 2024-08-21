@@ -384,8 +384,9 @@ function Page() {
             ".MuiSelect-select": {
               padding: 0,
               width: 50,
+              marginBottom: 1,
             },
-            ".MuiSvgIcon-root":{
+            ".MuiSvgIcon-root": {
               top: 0,
             },
             fontSize: 14,
