@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Models import
 import {
-  AccessCreditCardFormTypes,
   AccessCreditCardPortalFormTypes,
   AccessCreditCardPortalTypes,
-  AccessCreditCardTypes,
   AccessLoanAccountFormTypes,
   AccessLoanAccountTypes,
   AccessSavingAccountFormTypes,
@@ -20,8 +18,9 @@ import { useStyles } from "@/utils/useStyles";
 // MUI import
 import { Grid, TextField } from "@mui/material";
 // Cookie import
-import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
+import Cookies from "js-cookie";
 
 function SmbBankingAccessChecklist({
   className,
@@ -41,6 +40,45 @@ function SmbBankingAccessChecklist({
   checkAllFieldsSmbBankingAccessChecklist,
   isFormLocked,
 }: CashBankingAccessType) {
+  useEffect(() => {
+    updateStatus(
+      smbSavingAccount.SavingAccountDetails,
+      setSmbSavingAccount,
+      "SavingAccountStatus"
+    );
+
+    updateStatus(
+      smbAccessSavingAccount.AccessSavingAccountDetails,
+      setSmbAccessSavingAccount,
+      "AccessSavingAccountStatus"
+    );
+
+    updateStatus(smbAddCards.AddCardsDetails, setSmbAddCards, "AddCardsStatus");
+
+    updateStatus(
+      smbAccessCreditCardPortal.AccessCreditCardPortalDetails,
+      setSmbAccessCreditCardPortal,
+      "AccessCreditCardPortalStatus"
+    );
+
+    updateStatus(
+      smbAccessLoanAccount.AccessLoanAccountDetails,
+      setSmbAccessLoanAccount,
+      "AccessLoanAccountStatus"
+    );
+  }, [
+    smbSavingAccount.SavingAccountDetails,
+    setSmbSavingAccount,
+    smbAccessSavingAccount.AccessSavingAccountDetails,
+    setSmbAccessSavingAccount,
+    smbAddCards.AddCardsDetails,
+    setSmbAddCards,
+    smbAccessCreditCardPortal.AccessCreditCardPortalDetails,
+    setSmbAccessCreditCardPortal,
+    smbAccessLoanAccount.AccessLoanAccountDetails,
+    setSmbAccessLoanAccount,
+  ]);
+
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">Banking</div>

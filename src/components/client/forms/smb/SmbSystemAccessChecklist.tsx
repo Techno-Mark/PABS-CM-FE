@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Models import
 import {
   AccessAccountingSoftwareFormTypes,
@@ -32,6 +32,7 @@ import { Grid, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
 
 function SmbSystemAccessChecklist({
   className,
@@ -61,6 +62,93 @@ function SmbSystemAccessChecklist({
   checkAllFieldsSmbSystemAccessChecklist,
   isFormLocked,
 }: SystemDocumentInformationAccessTypes) {
+  useEffect(() => {
+    updateStatus(
+      smbPABSGroupEmail.pabsGroupEmailDetails,
+      setSmbPABSGroupEmail,
+      "pabsGroupEmailStatus"
+    );
+
+    updateStatus(
+      smbAccessAccountingSoftware.AccessAccountingSoftwareDetails,
+      setSmbAccessAccountingSoftware,
+      "AccessAccountingSoftwareStatus"
+    );
+
+    updateStatus(
+      smbDropboxSetUp.DropboxSetUpDetails,
+      setSmbDropboxSetUp,
+      "DropboxSetUpStatus"
+    );
+
+    updateStatus(
+      smbSalesTaxPortalAccess.salesTaxPortalAccessDetails,
+      setSmbSalesTaxPortalAccess,
+      "salesTaxPortalAccessStatus"
+    );
+
+    updateStatus(
+      smbMerchantAccountPortalAccess.merchantAccountPortalAccessDetails,
+      setSmbMerchantAccountPortalAccess,
+      "merchantAccountPortalAccessStatus"
+    );
+
+    updateStatus(
+      smbPayrollServiceAccess.PayrollServiceAccessDetails,
+      setSmbPayrollServiceAccess,
+      "PayrollServiceAccessStatus"
+    );
+
+    updateStatus(
+      smbPayrollFrequency.PayrollFrequencyDetails,
+      setSmbPayrollFrequency,
+      "PayrollFrequencyStatus"
+    );
+
+    updateStatus(
+      smbModeOfPayment.ModeOfPaymentDetails,
+      setSmbModeOfPayment,
+      "ModeOfPaymentStatus"
+    );
+
+    updateStatus(smbApBills.ApBillsDetails, setSmbApBills, "ApBillsStatus");
+
+    updateStatus(
+      smbExpensePaymentPortalAccess.expensePaymentPortalAccessDetails,
+      setSmbExpensePaymentPortalAccess,
+      "expensePaymentPortalAccessStatus"
+    );
+
+    updateStatus(
+      smbPointSalesAccess.pointSalesAccessDetails,
+      setSmbPointSalesAccess,
+      "pointSalesAccessStatus"
+    );
+  }, [
+    smbPABSGroupEmail.pabsGroupEmailDetails,
+    setSmbPABSGroupEmail,
+    smbAccessAccountingSoftware.AccessAccountingSoftwareDetails,
+    setSmbAccessAccountingSoftware,
+    smbDropboxSetUp.DropboxSetUpDetails,
+    setSmbDropboxSetUp,
+    smbSalesTaxPortalAccess.salesTaxPortalAccessDetails,
+    setSmbSalesTaxPortalAccess,
+    smbMerchantAccountPortalAccess.merchantAccountPortalAccessDetails,
+    setSmbMerchantAccountPortalAccess,
+    smbPayrollServiceAccess.PayrollServiceAccessDetails,
+    setSmbPayrollServiceAccess,
+    smbPayrollFrequency.PayrollFrequencyDetails,
+    setSmbPayrollFrequency,
+    smbModeOfPayment.ModeOfPaymentDetails,
+    setSmbModeOfPayment,
+    smbApBills.ApBillsDetails,
+    setSmbApBills,
+    smbExpensePaymentPortalAccess.expensePaymentPortalAccessDetails,
+    setSmbExpensePaymentPortalAccess,
+    smbPointSalesAccess.pointSalesAccessDetails,
+    setSmbPointSalesAccess,
+  ]);
+
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">General</div>

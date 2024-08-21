@@ -83,7 +83,6 @@ const UserDrawer = ({
     fullName: initialFieldStringValues,
     role: initialFieldNumberValues,
     businessType: { value: [], error: false, errorText: "" },
-    status: initialFieldNumberValues,
     email: initialFieldStringValues,
   });
 
@@ -392,7 +391,6 @@ const UserDrawer = ({
       fullName,
       role,
       businessType,
-      status,
       email,
     };
 

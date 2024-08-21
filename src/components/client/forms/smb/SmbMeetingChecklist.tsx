@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Models import
 import {
   ConvenientFormTypes,
@@ -16,6 +16,7 @@ import { Grid, SelectChangeEvent, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
 
 function SmbMeetingChecklist({
   className,
@@ -29,6 +30,24 @@ function SmbMeetingChecklist({
   checkAllFieldsSmbMeetingChecklist,
   isFormLocked,
 }: MeetingChecklistType) {
+  useEffect(() => {
+    updateStatus(smbTimeZone.TimeZoneDetails, setSmbTimeZone, "TimeZoneStatus");
+
+    updateStatus(
+      smbConvenient.ConvenientDetails,
+      setSmbConvenient,
+      "ConvenientStatus"
+    );
+
+    updateStatus(smbTimeSlot.TimeSlotDetails, setSmbTimeSlot, "TimeSlotStatus");
+  }, [
+    smbTimeZone.TimeZoneDetails,
+    setSmbTimeZone,
+    smbConvenient.ConvenientDetails,
+    setSmbConvenient,
+    smbTimeSlot.TimeSlotDetails,
+    setSmbTimeSlot,
+  ]);
   return (
     <div className={`${className}`}>
       <TimeZone

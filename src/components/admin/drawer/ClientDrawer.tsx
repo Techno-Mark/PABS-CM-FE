@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 // MUI Imports
-import { TextField, Select, FormControl, MenuItem, Tooltip } from "@mui/material";
+import {
+  TextField,
+  Select,
+  FormControl,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 // Types import
@@ -64,14 +70,9 @@ const ClientDrawer = ({
     ...initialFieldStringValues,
     value: -1,
   });
-  const [status, setStatus] = useState<NumberFieldType>({
-    ...initialFieldStringValues,
-    value: -1,
-  });
 
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [isInactive, setInactive] = useState<boolean>(false);
   const [isFileError, setFileError] = useState<boolean>(false);
   const [fileErrorText, setFileErrorText] = useState<string>("");
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
@@ -79,7 +80,6 @@ const ClientDrawer = ({
     sFID: initialFieldStringValues,
     clientFullName: initialFieldStringValues,
     businessType: initialFieldNumberValues,
-    status: initialFieldNumberValues,
     email: initialFieldStringValues,
     file: file,
   });
@@ -112,11 +112,6 @@ const ClientDrawer = ({
                 error: false,
                 errorText: "",
               },
-              status: {
-                value: ResponseData.Status ? 1 : 2,
-                error: false,
-                errorText: "",
-              },
               businessType: {
                 value: ResponseData.BusinessTypeId,
                 error: false,
@@ -131,7 +126,6 @@ const ClientDrawer = ({
             setClientFullName(newInitialValues.clientFullName);
             setEmail(newInitialValues.email);
             setBusinessType(newInitialValues.businessType);
-            setStatus(newInitialValues.status);
             setFile(newInitialValues.file);
             setInitialValues(newInitialValues);
             setImagePreview(
@@ -248,26 +242,6 @@ const ClientDrawer = ({
     }
   };
 
-  const handleStatusChange = (e: { target: { value: number | string } }) => {
-    if (
-      e.target.value.toString().trim().length === 0 ||
-      Number(e.target.value) === -1
-    ) {
-      setStatus({
-        value: -1,
-        error: true,
-        errorText: "Status is required",
-      });
-    } else if (Number(e.target.value) === 2) {
-      setInactive(true);
-    } else {
-      setStatus({
-        ...initialFieldStringValues,
-        value: Number(e.target.value),
-      });
-    }
-  };
-
   const validateAndSetField = (
     field: React.Dispatch<React.SetStateAction<StringFieldType>>,
     value: string,
@@ -316,11 +290,6 @@ const ClientDrawer = ({
       businessType.value,
       "Department Type"
     );
-    const statusError = validateAndSetFieldNumber(
-      setStatus,
-      status.value,
-      "Status"
-    );
 
     const callback = (
       ResponseStatus: string,
@@ -350,32 +319,20 @@ const ClientDrawer = ({
       businessTypeError ||
       email.error ||
       sFID.error ||
-      clientFullName.error ||
-      (canEdit && statusError)
+      clientFullName.error
     ) {
       setLoading(false);
     } else {
-      const statusBool =
-        status.value === 1 ? true : status.value === 2 ? false : true;
       await callAPIwithHeaders(saveClientUrl, "post", callback, {
         clientId: clientId,
         sfId: sFID.value,
         fullName: clientFullName.value,
         email: email.value,
         businessTypeId: businessType.value,
-        status: clientId > 0 ? statusBool : true,
         checkListStatus: 1,
         clientLogoUrl: imagePreview !== null ? file : "",
       });
     }
-  };
-
-  const handleApplyChange = () => {
-    setStatus({
-      ...initialFieldStringValues,
-      value: 2,
-    });
-    setInactive(false);
   };
 
   const compareValues = useCallback(() => {
@@ -383,7 +340,6 @@ const ClientDrawer = ({
       sFID,
       clientFullName,
       businessType,
-      status,
       email,
       file,
     };
@@ -405,11 +361,11 @@ const ClientDrawer = ({
       }
     }
     return false;
-  }, [sFID, clientFullName, businessType, status, email, file, initialValues]);
+  }, [sFID, clientFullName, businessType, email, file, initialValues]);
 
   useEffect(() => {
     setIsSaveButtonEnabled(compareValues());
-  }, [sFID, clientFullName, businessType, status, email, file, compareValues]);
+  }, [sFID, clientFullName, businessType, email, file, compareValues]);
 
   return (
     <>
@@ -505,40 +461,6 @@ const ClientDrawer = ({
             )}
           </FormControl>
         </div>
-        {canEdit && (
-          <div className="text-[12px] flex flex-col pb-5">
-            <label className="text-[#6E6D7A] text-[12px]">
-              Select Status<span className="text-[#DC3545]">*</span>
-            </label>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                className={`${
-                  status.value === -1
-                    ? "!text-[12px] text-[#6E6D7A]"
-                    : "!text-[14px]"
-                }`}
-                value={status.value}
-                error={status.error}
-                onChange={handleStatusChange}
-              >
-                {statusOptionDrawer.map((type) => (
-                  <MenuItem
-                    key={type.value}
-                    value={type.value}
-                    disabled={type.value === -1}
-                  >
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              {status.error && (
-                <span className="text-[#d32f2f]">{status.errorText}</span>
-              )}
-            </FormControl>
-          </div>
-        )}
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6E6D7A] text-[12px]">
             Email<span className="text-[#DC3545]">*</span>
@@ -670,17 +592,6 @@ const ClientDrawer = ({
           )}
         </div>
       </DrawerPanel>
-
-      {isInactive && (
-        <ConfirmModal
-          title="Inactive"
-          isOpen={isInactive}
-          message="Are you sure you want to inactive the user?"
-          handleModalSubmit={handleApplyChange}
-          handleClose={() => setInactive(false)}
-          setIsOpen={(value) => setInactive(value)}
-        />
-      )}
     </>
   );
 };

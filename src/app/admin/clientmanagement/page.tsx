@@ -26,15 +26,18 @@ import {
   ListItem,
   ListItemText,
   Paper,
+  Select,
   TablePagination,
   TextField,
   Tooltip,
-  Typography,
+  MenuItem,
 } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
+import { styled } from "@mui/material/styles";
 // static imports
 import { ToastType } from "@/static/toastType";
 import {
+  ClientStatusUpdateUrl,
   InvitaionMailClientUrl,
   assigneUserListUrl,
   businessListUrl,
@@ -360,6 +363,32 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => (
+        <Select
+          value={params.value}
+          onChange={(e) =>
+            handleStatusChange(e.target.value as string, params.row.ClientId)
+          }
+          displayEmpty
+          size="small"
+          sx={{
+            boxShadow: "none",
+            ".MuiOutlinedInput-notchedOutline": { border: 0 },
+            "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+              border: 0,
+            },
+            "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                border: 0,
+              },
+            fontSize: 14,
+          }}
+        >
+          <MenuItem value="Active">Active</MenuItem>
+          <MenuItem value="Inactive">Inactive</MenuItem>
+        </Select>
+        
+      ),
     },
     {
       field: "actions",
@@ -413,7 +442,7 @@ function Page() {
                     ClientId: params.row.ClientId,
                     clientName: params.row.Clientname,
                     UserId: params.row.UserId,
-                    IsFormLocked : params.row.IsFormLocked,
+                    IsFormLocked: params.row.IsFormLocked,
                   });
                 }}
               >
@@ -432,7 +461,7 @@ function Page() {
     ClientId: "",
     clientName: "",
     UserId: "",
-    IsFormLocked : false,
+    IsFormLocked: false,
   });
   const [assignUserList1, setAssignUserList1] = useState<Option[]>([]);
   const [assignUserList2, setAssignUserList2] = useState<Option[]>([]);
@@ -746,6 +775,25 @@ function Page() {
     });
   };
 
+  const handleStatusChange = async (newStatus: string, clientId: number) => {
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          getClientList();
+          return;
+      }
+    };
+
+    await callAPIwithHeaders(ClientStatusUpdateUrl, "post", callback, {
+      clientId: clientId,
+      status: newStatus === "Active" ? true : false,
+    });
+  };
+
   return (
     <Wrapper>
       <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
@@ -916,7 +964,7 @@ function Page() {
               ClientId: "",
               clientName: "",
               UserId: "",
-              IsFormLocked : false,
+              IsFormLocked: false,
             });
           }}
           setIsOpenModal={(value) => {
