@@ -381,13 +381,21 @@ function Page() {
               {
                 border: 0,
               },
+            ".MuiSelect-select": {
+              padding: 0,
+              width: 50,
+              marginBottom: 1,
+            },
+            ".MuiSvgIcon-root": {
+              top: 0,
+              right: 0,
+            },
             fontSize: 14,
           }}
         >
           <MenuItem value="Active">Active</MenuItem>
           <MenuItem value="Inactive">Inactive</MenuItem>
         </Select>
-        
       ),
     },
     {
