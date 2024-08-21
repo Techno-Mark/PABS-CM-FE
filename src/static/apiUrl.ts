@@ -22,6 +22,7 @@ export const getClientDetailsByIdUrl = "api/clients/getbyid";
 export const deleteClientUrl = "api/clients/delete";
 export const InvitaionMailClientUrl = "api/clients/invite-mail";
 export const toggleFormLockedUrl = "api/clients/formlock-status";
+export const ClientStatusUpdateUrl = "api/clients/status";
 
 // RoleManagement url
 export const roleListUrl = "api/roles/list";

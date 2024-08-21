@@ -20,7 +20,6 @@ export interface UserFormFieldType {
   fullName: StringFieldType;
   role: NumberFieldType;
   businessType: NumberArrayFieldType;
-  status: NumberFieldType;
   email: StringFieldType;
 }
 
@@ -28,7 +27,6 @@ export interface ClientFormFieldType {
   clientFullName: StringFieldType;
   sFID: StringFieldType;
   businessType: NumberFieldType;
-  status: NumberFieldType;
   email: StringFieldType;
   file: any;
 }

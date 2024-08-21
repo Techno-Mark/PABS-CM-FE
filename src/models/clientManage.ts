@@ -52,7 +52,6 @@ export interface GetClientByIdResponse {
   Email: string;
   BusinessTypeId: number;
   BusinessTypeName: string;
-  Status: boolean;
   ClientLogo: string;
   IsFormLocked?: boolean;
 }

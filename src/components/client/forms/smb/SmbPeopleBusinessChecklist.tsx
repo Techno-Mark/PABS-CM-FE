@@ -1,39 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Models import
 import {
-  TypeOfEntityFormTypes,
-  TypeOfEntityTypes,
-  ContactNumberFormTypes,
-  ContactNumberTypes,
   AddressFormTypes,
   AddressTypes,
-  EmailFormTypes,
-  EmailTypes,
-  ClientWebsiteFormTypes,
-  ClientWebsiteTypes,
-  DepartmentFormTypes,
-  DepartmentTypes,
+  BusinessNatureFormTypes,
+  BusinessNatureTypes,
   ClientNameFormTypes,
   ClientNameTypes,
-  PocFormTypes,
-  PocTypes,
+  ClientWebsiteFormTypes,
+  ClientWebsiteTypes,
+  ContactNumberFormTypes,
+  ContactNumberTypes,
+  DepartmentFormTypes,
+  DepartmentTypes,
   DimensionsFormTypes,
   DimensionsTypes,
-  BusinessNatureTypes,
-  BusinessNatureFormTypes,
-  OperationsPocTypes,
-  OperationsPocFormTypes,
+  EmailFormTypes,
+  EmailTypes,
   OnboardingPocFormTypes,
   OnboardingPocTypes,
+  OperationsPocFormTypes,
+  OperationsPocTypes,
+  PocFormTypes,
+  PocTypes,
   smbPeopleBusinessTypes,
+  TypeOfEntityFormTypes,
+  TypeOfEntityTypes,
 } from "@/models/smbChecklist";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI import
-import { Grid, SelectChangeEvent, TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 // Cookie import
-import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
+import Cookies from "js-cookie";
 
 function SmbPeopleBusinessChecklist({
   className,
@@ -65,6 +66,95 @@ function SmbPeopleBusinessChecklist({
   checkAllFieldsSmbPeopleBusinessChecklist,
   isFormLocked,
 }: smbPeopleBusinessTypes) {
+
+
+  useEffect(() => {
+    updateStatus(
+      smbClientName.ClientNameDetails,
+      setSmbClientName,
+      "ClientNameStatus"
+    );
+
+    updateStatus(
+      smbTypeOfEntity.TypeOfEntityDetails,
+      setSmbTypeOfEntity,
+      "TypeOfEntityStatus"
+    );
+
+    updateStatus(
+      smbBusinessNature.BusinessNatureDetails,
+      setSmbBusinessNature,
+      "BusinessNatureStatus"
+    );
+
+    updateStatus(
+      smbDimensions.DimensionsDetails,
+      setSmbDimensions,
+      "DimensionsStatus"
+    );
+
+    updateStatus(smbPoc.PocDetails, setSmbPoc, "PocStatus");
+
+    updateStatus(smbEmail.EmailDetails, setSmbEmail, "EmailStatus");
+
+    updateStatus(
+      smbContactNumber.ContactNumberDetails,
+      setSmbContactNumber,
+      "ContactNumberStatus"
+    );
+
+    updateStatus(smbAddress.AddressDetails, setSmbAddress, "AddressStatus");
+
+    updateStatus(
+      smbClientWebsite.ClientWebsiteDetails,
+      setSmbClientWebsite,
+      "ClientWebsiteStatus"
+    );
+
+    updateStatus(
+      smbDepartment.DepartmentDetails,
+      setSmbDepartment,
+      "DepartmentStatus"
+    );
+
+    updateStatus(
+      smbOnboardingPoc.OnboardingPocDetails,
+      setSmbOnboardingPoc,
+      "OnboardingPocStatus"
+    );
+
+    updateStatus(
+      smbOperationsPoc.OperationsPocDetails,
+      setSmbOperationsPoc,
+      "OperationsPocStatus"
+    );
+  }, [
+    smbClientName.ClientNameDetails,
+    setSmbClientName,
+    smbTypeOfEntity.TypeOfEntityDetails,
+    setSmbTypeOfEntity,
+    smbBusinessNature.BusinessNatureDetails,
+    setSmbBusinessNature,
+    smbDimensions.DimensionsDetails,
+    setSmbDimensions,
+    smbPoc.PocDetails,
+    setSmbPoc,
+    smbEmail.EmailDetails,
+    setSmbEmail,
+    smbContactNumber.ContactNumberDetails,
+    setSmbContactNumber,
+    smbAddress.AddressDetails,
+    setSmbAddress,
+    smbClientWebsite.ClientWebsiteDetails,
+    setSmbClientWebsite,
+    smbDepartment.DepartmentDetails,
+    setSmbDepartment,
+    smbOnboardingPoc.OnboardingPocDetails,
+    setSmbOnboardingPoc,
+    smbOperationsPoc.OperationsPocDetails,
+    setSmbOperationsPoc,
+  ]);
+
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">General</div>
@@ -161,6 +251,7 @@ const ClientName = ({
   checkAllFieldsClientName,
   isFormLocked,
 }: ClientNameTypes) => {
+  console.log("🚀 ~ smbClientName:", smbClientName);
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
   const handleClientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,7 +310,7 @@ const ClientName = ({
                 }}
                 disabled={
                   (roleId === "4" && checkAllFieldsClientName) ||
-                  (isFormLocked && (roleId == "3" || roleId == "4")) 
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
                 }
               />
             </div>

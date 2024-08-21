@@ -19,10 +19,11 @@ import {
 } from "@/models/smbChecklist";
 import { useStyles } from "@/utils/useStyles";
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 // Cookie import
 import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
 
 function SmbExistingFinancialsChecklist({
   className,
@@ -46,6 +47,65 @@ function SmbExistingFinancialsChecklist({
   checkAllFieldsSmbExistingFinancialsChecklist,
   isFormLocked,
 }: ExistingFinancialsChecklistType) {
+  useEffect(() => {
+    updateStatus(smbLiveDate.LiveDateDetails, setSmbLiveDate, "LiveDateStatus");
+
+    updateStatus(
+      smbAccountingMethod.AccountingMethodDetails,
+      setSmbAccountingMethod,
+      "AccountingMethodStatus"
+    );
+
+    updateStatus(smbFEIN.FEINDetails, setSmbFEIN, "FEINStatus");
+
+    updateStatus(
+      smbFiscalYearEnd.FiscalYearEndDetails,
+      setSmbFiscalYearEnd,
+      "FiscalYearEndStatus"
+    );
+
+    updateStatus(
+      smbLastClosedMonth.LastClosedMonthDetails,
+      setSmbLastClosedMonth,
+      "LastClosedMonthStatus"
+    );
+
+    updateStatus(
+      smbContactOfCpa.ContactOfCpaDetails,
+      setSmbContactOfCpa,
+      "ContactOfCpaStatus"
+    );
+
+    updateStatus(
+      smbTaxReturn.TaxReturnDetails,
+      setSmbTaxReturn,
+      "TaxReturnStatus"
+    );
+
+    updateStatus(
+      smbDistributionList.DistributionListDetails,
+      setSmbDistributionList,
+      "DistributionListStatus"
+    );
+  }, [
+    smbLiveDate.LiveDateDetails,
+    setSmbLiveDate,
+    smbAccountingMethod.AccountingMethodDetails,
+    setSmbAccountingMethod,
+    smbFEIN.FEINDetails,
+    setSmbFEIN,
+    smbFiscalYearEnd.FiscalYearEndDetails,
+    setSmbFiscalYearEnd,
+    smbLastClosedMonth.LastClosedMonthDetails,
+    setSmbLastClosedMonth,
+    smbContactOfCpa.ContactOfCpaDetails,
+    setSmbContactOfCpa,
+    smbTaxReturn.TaxReturnDetails,
+    setSmbTaxReturn,
+    smbDistributionList.DistributionListDetails,
+    setSmbDistributionList,
+  ]);
+
   return (
     <div className={`${className}`}>
       <LiveDate
