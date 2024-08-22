@@ -84,6 +84,7 @@ const UserDrawer = ({
     role: initialFieldNumberValues,
     businessType: { value: [], error: false, errorText: "" },
     email: initialFieldStringValues,
+    status: initialFieldNumberValues,
   });
 
   useEffect(() => {
@@ -392,6 +393,7 @@ const UserDrawer = ({
       role,
       businessType,
       email,
+      status,
     };
 
     return Object.keys(currentValues).some((key) => {
