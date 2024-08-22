@@ -251,7 +251,6 @@ const ClientName = ({
   checkAllFieldsClientName,
   isFormLocked,
 }: ClientNameTypes) => {
-  console.log("🚀 ~ smbClientName:", smbClientName);
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
   const handleClientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

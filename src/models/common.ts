@@ -21,6 +21,7 @@ export interface UserFormFieldType {
   role: NumberFieldType;
   businessType: NumberArrayFieldType;
   email: StringFieldType;
+  status: NumberFieldType
 }
 
 export interface ClientFormFieldType {
