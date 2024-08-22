@@ -40,6 +40,7 @@ function SmbBankingAccessChecklist({
   checkAllFieldsSmbBankingAccessChecklist,
   isFormLocked,
 }: CashBankingAccessType) {
+  console.log("🚀 ~ smbAccessCreditCardPortal:", smbAccessCreditCardPortal);
   useEffect(() => {
     updateStatus(
       smbSavingAccount.SavingAccountDetails,
@@ -608,10 +609,7 @@ const AccessCreditCardPortal = ({
                 variant="standard"
                 size="small"
                 placeholder="Please Enter Information"
-                value={
-                  smbAccessCreditCardPortal?.AccessCreditCardPortalDetails ||
-                  (isFormLocked && (roleId == "3" || roleId == "4"))
-                }
+                value={smbAccessCreditCardPortal?.AccessCreditCardPortalDetails}
                 onChange={handleAccessCreditCardChange}
                 InputProps={{
                   classes: {
