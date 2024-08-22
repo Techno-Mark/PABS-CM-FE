@@ -40,7 +40,6 @@ function SmbBankingAccessChecklist({
   checkAllFieldsSmbBankingAccessChecklist,
   isFormLocked,
 }: CashBankingAccessType) {
-  console.log("🚀 ~ smbAccessCreditCardPortal:", smbAccessCreditCardPortal);
   useEffect(() => {
     updateStatus(
       smbSavingAccount.SavingAccountDetails,
