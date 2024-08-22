@@ -1053,7 +1053,7 @@ const ExpensePaymentPortalAccess = ({
                 )
               }
               disabled={
-                (roleId === "4" && smbExpensePaymentPortalAccess) ||
+                (roleId === "4" && checkAllFieldsExpensePaymentPortalAccess) ||
                 (isFormLocked && (roleId == "3" || roleId == "4"))
               }
             />
