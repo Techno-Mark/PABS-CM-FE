@@ -1,39 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Models import
 import {
-  TypeOfEntityFormTypes,
-  TypeOfEntityTypes,
-  ContactNumberFormTypes,
-  ContactNumberTypes,
   AddressFormTypes,
   AddressTypes,
-  EmailFormTypes,
-  EmailTypes,
-  ClientWebsiteFormTypes,
-  ClientWebsiteTypes,
-  DepartmentFormTypes,
-  DepartmentTypes,
+  BusinessNatureFormTypes,
+  BusinessNatureTypes,
   ClientNameFormTypes,
   ClientNameTypes,
-  PocFormTypes,
-  PocTypes,
+  ClientWebsiteFormTypes,
+  ClientWebsiteTypes,
+  ContactNumberFormTypes,
+  ContactNumberTypes,
+  DepartmentFormTypes,
+  DepartmentTypes,
   DimensionsFormTypes,
   DimensionsTypes,
-  BusinessNatureTypes,
-  BusinessNatureFormTypes,
-  OperationsPocTypes,
-  OperationsPocFormTypes,
+  EmailFormTypes,
+  EmailTypes,
   OnboardingPocFormTypes,
   OnboardingPocTypes,
+  OperationsPocFormTypes,
+  OperationsPocTypes,
+  PocFormTypes,
+  PocTypes,
   smbPeopleBusinessTypes,
+  TypeOfEntityFormTypes,
+  TypeOfEntityTypes,
 } from "@/models/smbChecklist";
 // Utils import
 import { useStyles } from "@/utils/useStyles";
 // MUI import
-import { Grid, SelectChangeEvent, TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 // Cookie import
-import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
+import Cookies from "js-cookie";
 
 function SmbPeopleBusinessChecklist({
   className,
@@ -63,7 +64,97 @@ function SmbPeopleBusinessChecklist({
   smbAddress,
   setSmbAddress,
   checkAllFieldsSmbPeopleBusinessChecklist,
+  isFormLocked,
 }: smbPeopleBusinessTypes) {
+
+
+  useEffect(() => {
+    updateStatus(
+      smbClientName.ClientNameDetails,
+      setSmbClientName,
+      "ClientNameStatus"
+    );
+
+    updateStatus(
+      smbTypeOfEntity.TypeOfEntityDetails,
+      setSmbTypeOfEntity,
+      "TypeOfEntityStatus"
+    );
+
+    updateStatus(
+      smbBusinessNature.BusinessNatureDetails,
+      setSmbBusinessNature,
+      "BusinessNatureStatus"
+    );
+
+    updateStatus(
+      smbDimensions.DimensionsDetails,
+      setSmbDimensions,
+      "DimensionsStatus"
+    );
+
+    updateStatus(smbPoc.PocDetails, setSmbPoc, "PocStatus");
+
+    updateStatus(smbEmail.EmailDetails, setSmbEmail, "EmailStatus");
+
+    updateStatus(
+      smbContactNumber.ContactNumberDetails,
+      setSmbContactNumber,
+      "ContactNumberStatus"
+    );
+
+    updateStatus(smbAddress.AddressDetails, setSmbAddress, "AddressStatus");
+
+    updateStatus(
+      smbClientWebsite.ClientWebsiteDetails,
+      setSmbClientWebsite,
+      "ClientWebsiteStatus"
+    );
+
+    updateStatus(
+      smbDepartment.DepartmentDetails,
+      setSmbDepartment,
+      "DepartmentStatus"
+    );
+
+    updateStatus(
+      smbOnboardingPoc.OnboardingPocDetails,
+      setSmbOnboardingPoc,
+      "OnboardingPocStatus"
+    );
+
+    updateStatus(
+      smbOperationsPoc.OperationsPocDetails,
+      setSmbOperationsPoc,
+      "OperationsPocStatus"
+    );
+  }, [
+    smbClientName.ClientNameDetails,
+    setSmbClientName,
+    smbTypeOfEntity.TypeOfEntityDetails,
+    setSmbTypeOfEntity,
+    smbBusinessNature.BusinessNatureDetails,
+    setSmbBusinessNature,
+    smbDimensions.DimensionsDetails,
+    setSmbDimensions,
+    smbPoc.PocDetails,
+    setSmbPoc,
+    smbEmail.EmailDetails,
+    setSmbEmail,
+    smbContactNumber.ContactNumberDetails,
+    setSmbContactNumber,
+    smbAddress.AddressDetails,
+    setSmbAddress,
+    smbClientWebsite.ClientWebsiteDetails,
+    setSmbClientWebsite,
+    smbDepartment.DepartmentDetails,
+    setSmbDepartment,
+    smbOnboardingPoc.OnboardingPocDetails,
+    setSmbOnboardingPoc,
+    smbOperationsPoc.OperationsPocDetails,
+    setSmbOperationsPoc,
+  ]);
+
   return (
     <div className={`${className}`}>
       <div className="text-[18px] font-medium py-2 w-full">General</div>
@@ -72,27 +163,32 @@ function SmbPeopleBusinessChecklist({
         smbClientName={smbClientName}
         setSmbClientName={setSmbClientName}
         smbClientNameErrors={smbPeopleBusinessErrors}
+        isFormLocked={isFormLocked}
       />
       <TypeOfEntity
         checkAllFieldsTypeOfEntity={checkAllFieldsSmbPeopleBusinessChecklist}
         smbTypeOfEntity={smbTypeOfEntity}
         setSmbTypeOfEntity={setSmbTypeOfEntity}
+        isFormLocked={isFormLocked}
       />
       <BusinessNature
         checkAllFieldsBusinessNature={checkAllFieldsSmbPeopleBusinessChecklist}
         smbBusinessNature={smbBusinessNature}
         setSmbBusinessNature={setSmbBusinessNature}
+        isFormLocked={isFormLocked}
       />
       <Dimensions
         checkAllFieldsDimensions={checkAllFieldsSmbPeopleBusinessChecklist}
         smbDimensions={smbDimensions}
         setSmbDimensions={setSmbDimensions}
+        isFormLocked={isFormLocked}
       />
       <Poc
         checkAllFieldsPoc={checkAllFieldsSmbPeopleBusinessChecklist}
         smbPoc={smbPoc}
         setSmbPoc={setSmbPoc}
         smbPocErrors={smbPeopleBusinessErrors}
+        isFormLocked={isFormLocked}
       />
       <div className="text-[18px] font-medium py-2 w-full">Contact Details</div>
       <Email
@@ -100,40 +196,47 @@ function SmbPeopleBusinessChecklist({
         smbEmail={smbEmail}
         setSmbEmail={setSmbEmail}
         smbEmailErrors={smbPeopleBusinessErrors}
+        isFormLocked={isFormLocked}
       />
       <ContactNumber
         checkAllFieldsContactNumber={checkAllFieldsSmbPeopleBusinessChecklist}
         smbContactNumber={smbContactNumber}
         setSmbContactNumber={setSmbContactNumber}
         smbContactNumberErrors={smbPeopleBusinessErrors}
+        isFormLocked={isFormLocked}
       />
       <Address
         checkAllFieldsAddress={checkAllFieldsSmbPeopleBusinessChecklist}
         smbAddress={smbAddress}
         setSmbAddress={setSmbAddress}
         smbAddressErrors={smbPeopleBusinessErrors}
+        isFormLocked={isFormLocked}
       />
       <ClientWebsite
         checkAllFieldsClientWebsite={checkAllFieldsSmbPeopleBusinessChecklist}
         smbClientWebsite={smbClientWebsite}
         setSmbClientWebsite={setSmbClientWebsite}
         smbClientWebsiteErrors={smbPeopleBusinessErrors}
+        isFormLocked={isFormLocked}
       />
       <div className="text-[18px] font-medium py-2 w-full">POC Details</div>
       <Department
         checkAllFieldsDepartment={checkAllFieldsSmbPeopleBusinessChecklist}
         smbDepartment={smbDepartment}
         setSmbDepartment={setSmbDepartment}
+        isFormLocked={isFormLocked}
       />
       <OnboardingPoc
         checkAllFieldsOnboardingPoc={checkAllFieldsSmbPeopleBusinessChecklist}
         smbOnboardingPoc={smbOnboardingPoc}
         setSmbOnboardingPoc={setSmbOnboardingPoc}
+        isFormLocked={isFormLocked}
       />
       <OperationsPoc
         checkAllFieldsOperationsPoc={checkAllFieldsSmbPeopleBusinessChecklist}
         smbOperationsPoc={smbOperationsPoc}
         setSmbOperationsPoc={setSmbOperationsPoc}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -146,6 +249,7 @@ const ClientName = ({
   setSmbClientName,
   smbClientNameErrors,
   checkAllFieldsClientName,
+  isFormLocked,
 }: ClientNameTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -175,7 +279,10 @@ const ClientName = ({
               }
               error={smbClientNameErrors?.ClientNameStatus}
               helperText={smbClientNameErrors?.ClientNameStatus}
-              disabled={roleId === "4" && checkAllFieldsClientName}
+              disabled={
+                (roleId === "4" && checkAllFieldsClientName) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -200,7 +307,10 @@ const ClientName = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsClientName}
+                disabled={
+                  (roleId === "4" && checkAllFieldsClientName) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -228,7 +338,10 @@ const ClientName = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsClientName}
+                disabled={
+                  (roleId === "4" && checkAllFieldsClientName) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -242,6 +355,7 @@ const TypeOfEntity = ({
   smbTypeOfEntity,
   setSmbTypeOfEntity,
   checkAllFieldsTypeOfEntity,
+  isFormLocked,
 }: TypeOfEntityTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -270,7 +384,10 @@ const TypeOfEntity = ({
                   TypeOfEntityStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
+              disabled={
+                (roleId === "4" && checkAllFieldsTypeOfEntity) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -293,7 +410,10 @@ const TypeOfEntity = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTypeOfEntity) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -319,7 +439,10 @@ const TypeOfEntity = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsTypeOfEntity}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTypeOfEntity) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -333,6 +456,7 @@ const BusinessNature = ({
   smbBusinessNature,
   setSmbBusinessNature,
   checkAllFieldsBusinessNature,
+  isFormLocked,
 }: BusinessNatureTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -364,7 +488,10 @@ const BusinessNature = ({
                   BusinessNatureStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllFieldsBusinessNature}
+              disabled={
+                (roleId === "4" && checkAllFieldsBusinessNature) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -387,7 +514,10 @@ const BusinessNature = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsBusinessNature}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBusinessNature) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -413,7 +543,10 @@ const BusinessNature = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsBusinessNature}
+                disabled={
+                  (roleId === "4" && checkAllFieldsBusinessNature) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -427,6 +560,7 @@ const Dimensions = ({
   smbDimensions,
   setSmbDimensions,
   checkAllFieldsDimensions,
+  isFormLocked,
 }: DimensionsTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -456,7 +590,10 @@ const Dimensions = ({
                   DimensionsStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllFieldsDimensions}
+              disabled={
+                (roleId === "4" && checkAllFieldsDimensions) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -479,7 +616,10 @@ const Dimensions = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsDimensions}
+                disabled={
+                  (roleId === "4" && checkAllFieldsDimensions) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -505,7 +645,10 @@ const Dimensions = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsDimensions}
+                disabled={
+                  (roleId === "4" && checkAllFieldsDimensions) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -520,6 +663,7 @@ const Poc = ({
   setSmbPoc,
   smbPocErrors,
   checkAllFieldsPoc,
+  isFormLocked,
 }: PocTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -551,7 +695,10 @@ const Poc = ({
               }
               error={smbPocErrors?.PocStatus}
               helperText={smbPocErrors?.PocStatus}
-              disabled={roleId === "4" && checkAllFieldsPoc}
+              disabled={
+                (roleId === "4" && checkAllFieldsPoc) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -576,7 +723,10 @@ const Poc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPoc}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPoc) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -604,7 +754,10 @@ const Poc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsPoc}
+                disabled={
+                  (roleId === "4" && checkAllFieldsPoc) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -619,6 +772,7 @@ const Email = ({
   setSmbEmail,
   smbEmailErrors,
   checkAllFieldsEmail,
+  isFormLocked,
 }: EmailTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -650,7 +804,10 @@ const Email = ({
               }
               error={smbEmailErrors?.EmailStatus}
               helperText={smbEmailErrors?.EmailStatus}
-              disabled={roleId === "4" && checkAllFieldsEmail}
+              disabled={
+                (roleId === "4" && checkAllFieldsEmail) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -675,7 +832,10 @@ const Email = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsEmail}
+                disabled={
+                  (roleId === "4" && checkAllFieldsEmail) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -703,7 +863,10 @@ const Email = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsEmail}
+                disabled={
+                  (roleId === "4" && checkAllFieldsEmail) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -718,6 +881,7 @@ const ContactNumber = ({
   setSmbContactNumber,
   smbContactNumberErrors,
   checkAllFieldsContactNumber,
+  isFormLocked,
 }: ContactNumberTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -751,7 +915,10 @@ const ContactNumber = ({
               }
               error={smbContactNumberErrors?.ContactNumberStatus}
               helperText={smbContactNumberErrors?.ContactNumberStatus}
-              disabled={roleId === "4" && checkAllFieldsContactNumber}
+              disabled={
+                (roleId === "4" && checkAllFieldsContactNumber) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -776,7 +943,10 @@ const ContactNumber = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsContactNumber}
+                disabled={
+                  (roleId === "4" && checkAllFieldsContactNumber) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -804,7 +974,10 @@ const ContactNumber = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsContactNumber}
+                disabled={
+                  (roleId === "4" && checkAllFieldsContactNumber) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -819,6 +992,7 @@ const Address = ({
   setSmbAddress,
   smbAddressErrors,
   checkAllFieldsAddress,
+  isFormLocked,
 }: AddressTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -850,7 +1024,10 @@ const Address = ({
               }
               error={smbAddressErrors?.AddressStatus}
               helperText={smbAddressErrors?.AddressStatus}
-              disabled={roleId === "4" && checkAllFieldsAddress}
+              disabled={
+                (roleId === "4" && checkAllFieldsAddress) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -875,7 +1052,10 @@ const Address = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAddress}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAddress) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -903,7 +1083,10 @@ const Address = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsAddress}
+                disabled={
+                  (roleId === "4" && checkAllFieldsAddress) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -918,6 +1101,7 @@ const ClientWebsite = ({
   setSmbClientWebsite,
   smbClientWebsiteErrors,
   checkAllFieldsClientWebsite,
+  isFormLocked,
 }: ClientWebsiteTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -951,7 +1135,10 @@ const ClientWebsite = ({
               }
               error={smbClientWebsiteErrors?.ClientWebsiteStatus}
               helperText={smbClientWebsiteErrors?.checkAllFieldsClientWebsite}
-              disabled={roleId === "4" && checkAllFieldsClientWebsite}
+              disabled={
+                (roleId === "4" && checkAllFieldsClientWebsite) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -976,7 +1163,10 @@ const ClientWebsite = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsClientWebsite}
+                disabled={
+                  (roleId === "4" && checkAllFieldsClientWebsite) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1004,7 +1194,10 @@ const ClientWebsite = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsClientWebsite}
+                disabled={
+                  (roleId === "4" && checkAllFieldsClientWebsite) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1018,6 +1211,7 @@ const Department = ({
   smbDepartment,
   setSmbDepartment,
   checkAllFieldsDepartment,
+  isFormLocked,
 }: DepartmentTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -1047,7 +1241,10 @@ const Department = ({
                   DepartmentStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllFieldsDepartment}
+              disabled={
+                (roleId === "4" && checkAllFieldsDepartment) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -1070,7 +1267,10 @@ const Department = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsDepartment}
+                disabled={
+                  (roleId === "4" && checkAllFieldsDepartment) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1096,7 +1296,10 @@ const Department = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsDepartment}
+                disabled={
+                  (roleId === "4" && checkAllFieldsDepartment) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1110,6 +1313,7 @@ const OperationsPoc = ({
   smbOperationsPoc,
   setSmbOperationsPoc,
   checkAllFieldsOperationsPoc,
+  isFormLocked,
 }: OperationsPocTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -1140,7 +1344,10 @@ const OperationsPoc = ({
                   OperationsPocStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllFieldsOperationsPoc}
+              disabled={
+                (roleId === "4" && checkAllFieldsOperationsPoc) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -1163,7 +1370,10 @@ const OperationsPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsOperationsPoc}
+                disabled={
+                  (roleId === "4" && checkAllFieldsOperationsPoc) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1189,7 +1399,10 @@ const OperationsPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsOperationsPoc}
+                disabled={
+                  (roleId === "4" && checkAllFieldsOperationsPoc) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1203,6 +1416,7 @@ const OnboardingPoc = ({
   smbOnboardingPoc,
   setSmbOnboardingPoc,
   checkAllFieldsOnboardingPoc,
+  isFormLocked,
 }: OnboardingPocTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -1233,7 +1447,10 @@ const OnboardingPoc = ({
                   OnboardingPocStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllFieldsOnboardingPoc}
+              disabled={
+                (roleId === "4" && checkAllFieldsOnboardingPoc) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -1256,7 +1473,10 @@ const OnboardingPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsOnboardingPoc}
+                disabled={
+                  (roleId === "4" && checkAllFieldsOnboardingPoc) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1282,7 +1502,10 @@ const OnboardingPoc = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsOnboardingPoc}
+                disabled={
+                  (roleId === "4" && checkAllFieldsOnboardingPoc) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

@@ -21,6 +21,8 @@ export const saveClientUrl = "api/clients/save";
 export const getClientDetailsByIdUrl = "api/clients/getbyid";
 export const deleteClientUrl = "api/clients/delete";
 export const InvitaionMailClientUrl = "api/clients/invite-mail";
+export const toggleFormLockedUrl = "api/clients/formlock-status";
+export const ClientStatusUpdateUrl = "api/clients/status";
 
 // RoleManagement url
 export const roleListUrl = "api/roles/list";
@@ -45,7 +47,6 @@ export const getChecklistStatusUrl = "api/clients/checklist-status";
 export const getCountryUrl = "api/dropdown/country";
 export const getStateUrl = "api/dropdown/state";
 export const getCityUrl = "api/dropdown/city";
-export const getTimezoneUrl = "api/dropdown/timezone";
 
 // Audit Logs url
 export const auditLogListUrl = "api/auditlog/list";
@@ -53,4 +54,4 @@ export const userListUrl = "api/auditlog/user-list";
 
 // Comment url
 export const saveComment = "api/comment/save";
-export const getComment = "api/comment/latest";
+export const getComment = "api/comment/list";

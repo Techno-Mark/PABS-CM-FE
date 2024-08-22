@@ -48,6 +48,7 @@ const WhitelabelSystemSoftwareSetupForm = ({
   whitelabelOtherInfo,
   setWhitelabelOtherInfo,
   checkAllFieldsWhiteLabelSystemSoftwareList,
+  isFormLocked,
 }: WhiteLabelSystemSoftwareSetupFormType) => {
   return (
     <div className={`${className}`}>
@@ -55,45 +56,53 @@ const WhitelabelSystemSoftwareSetupForm = ({
         whitelabelITStructure={whitelabelITStructure}
         setWhitelabelITStructure={setWhitelabelITStructure}
         checkAllItStructure={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <RemoteSetup
         whitelabelRemoteSetup={whitelabelRemoteSetup}
         setWhitelabelRemoteSetup={setWhitelabelRemoteSetup}
         checkAllRemoteSetup={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <ITHelp
         whitelabelITHelp={whitelabelITHelp}
         setWhitelabelITHelp={setWhitelabelITHelp}
         checkAllITHelp={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <AccountingSoftware
         whitelabelAccountingSoftware={whitelabelAccountingSoftware}
         setWhitelabelAccountingSoftware={setWhitelabelAccountingSoftware}
         whitelabelAccountingSoftwareErrors={whitelabelSystemSoftwareErrors}
         checkAllAccountingSoftware={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <CloudDocument
         whitelabelCloudDocument={whitelabelCloudDocument}
         setWhitelabelCloudDocument={setWhitelabelCloudDocument}
         whitelabelCloudDocumentErrors={whitelabelSystemSoftwareErrors}
         checkAllCloudDocument={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <Messenger
         whitelabelMessenger={whitelabelMessenger}
         setWhitelabelMessenger={setWhitelabelMessenger}
         whitelabelMessengerErrors={whitelabelSystemSoftwareErrors}
         checkAllMessenger={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <SystemAccess
         whitelabelSystemAccess={whitelabelSystemAccess}
         setWhitelabelSystemAccess={setWhitelabelSystemAccess}
         whitelabelSystemAccessErrors={whitelabelSystemSoftwareErrors}
         checkAllSystemAccess={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
       <OtherInfo
         whitelabelOtherInfo={whitelabelOtherInfo}
         setWhitelabelOtherInfo={setWhitelabelOtherInfo}
         checkAllOtherInfo={checkAllFieldsWhiteLabelSystemSoftwareList}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -105,6 +114,7 @@ const ITStructure = ({
   whitelabelITStructure,
   setWhitelabelITStructure,
   checkAllItStructure,
+  isFormLocked,
 }: ITStructureTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -144,7 +154,10 @@ const ITStructure = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllItStructure}
+                disabled={
+                  (roleId === "4" && checkAllItStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -159,7 +172,10 @@ const ITStructure = ({
                   })
                 )
               }
-              disabled={roleId === "4" && checkAllItStructure}
+              disabled={
+                (roleId === "4" && checkAllItStructure) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -184,7 +200,10 @@ const ITStructure = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllItStructure}
+                disabled={
+                  (roleId === "4" && checkAllItStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -210,7 +229,10 @@ const ITStructure = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllItStructure}
+                disabled={
+                  (roleId === "4" && checkAllItStructure) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -224,6 +246,7 @@ const RemoteSetup = ({
   whitelabelRemoteSetup,
   setWhitelabelRemoteSetup,
   checkAllRemoteSetup,
+  isFormLocked,
 }: RemoteSetupTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -264,7 +287,10 @@ const RemoteSetup = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllRemoteSetup}
+                disabled={
+                  (roleId === "4" && checkAllRemoteSetup) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -279,7 +305,10 @@ const RemoteSetup = ({
                   })
                 )
               }
-              disabled={roleId === "4" && checkAllRemoteSetup}
+              disabled={
+                (roleId === "4" && checkAllRemoteSetup) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -304,7 +333,10 @@ const RemoteSetup = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllRemoteSetup}
+                disabled={
+                  (roleId === "4" && checkAllRemoteSetup) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -330,7 +362,10 @@ const RemoteSetup = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllRemoteSetup}
+                disabled={
+                  (roleId === "4" && checkAllRemoteSetup) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -344,6 +379,7 @@ const ITHelp = ({
   whitelabelITHelp,
   setWhitelabelITHelp,
   checkAllITHelp,
+  isFormLocked,
 }: ITHelpTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -359,7 +395,7 @@ const ITHelp = ({
   return (
     <>
       <div className="text-[15px] font-medium py-2 border-b border-[#D8D8D8] w-full">
-      Need PABS IT team help in Set up?
+        Need PABS IT team help in Set up?
       </div>
       <div className="py-3 flex flex-col gap-4">
         <Grid container spacing={2}>
@@ -383,7 +419,10 @@ const ITHelp = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllITHelp}
+                disabled={
+                  (roleId === "4" && checkAllITHelp) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -396,7 +435,10 @@ const ITHelp = ({
                   itHelpWhiteLabelStatus: value,
                 }))
               }
-              disabled={roleId === "4" && checkAllITHelp}
+              disabled={
+                (roleId === "4" && checkAllITHelp) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -421,7 +463,10 @@ const ITHelp = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllITHelp}
+                disabled={
+                  (roleId === "4" && checkAllITHelp) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -447,7 +492,10 @@ const ITHelp = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllITHelp}
+                disabled={
+                  (roleId === "4" && checkAllITHelp) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -462,6 +510,7 @@ const AccountingSoftware = ({
   setWhitelabelAccountingSoftware,
   whitelabelAccountingSoftwareErrors,
   checkAllAccountingSoftware,
+  isFormLocked,
 }: AccountingSoftwareTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -511,7 +560,10 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllAccountingSoftware}
+                disabled={
+                  (roleId === "4" && checkAllAccountingSoftware) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -534,7 +586,10 @@ const AccountingSoftware = ({
               helperText={
                 whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelStatus
               }
-              disabled={roleId === "4" && checkAllAccountingSoftware}
+              disabled={
+                (roleId === "4" && checkAllAccountingSoftware) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -567,7 +622,10 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllAccountingSoftware}
+                disabled={
+                  (roleId === "4" && checkAllAccountingSoftware) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -601,7 +659,10 @@ const AccountingSoftware = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllAccountingSoftware}
+                disabled={
+                  (roleId === "4" && checkAllAccountingSoftware) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -616,6 +677,7 @@ const CloudDocument = ({
   setWhitelabelCloudDocument,
   whitelabelCloudDocumentErrors,
   checkAllCloudDocument,
+  isFormLocked,
 }: CloudDocumentTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -662,7 +724,10 @@ const CloudDocument = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllCloudDocument}
+                disabled={
+                  (roleId === "4" && checkAllCloudDocument) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -683,7 +748,10 @@ const CloudDocument = ({
               helperText={
                 whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelStatus
               }
-              disabled={roleId === "4" && checkAllCloudDocument}
+              disabled={
+                (roleId === "4" && checkAllCloudDocument) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -716,7 +784,10 @@ const CloudDocument = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllCloudDocument}
+                disabled={
+                  (roleId === "4" && checkAllCloudDocument) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -750,7 +821,10 @@ const CloudDocument = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllCloudDocument}
+                disabled={
+                  (roleId === "4" && checkAllCloudDocument) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -765,6 +839,7 @@ const Messenger = ({
   setWhitelabelMessenger,
   whitelabelMessengerErrors,
   checkAllMessenger,
+  isFormLocked,
 }: MessengerTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -809,7 +884,10 @@ const Messenger = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllMessenger}
+                disabled={
+                  (roleId === "4" && checkAllMessenger) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -826,7 +904,10 @@ const Messenger = ({
               }
               error={whitelabelMessengerErrors?.messengerWhiteLabelStatus}
               helperText={whitelabelMessengerErrors?.messengerWhiteLabelStatus}
-              disabled={roleId === "4" && checkAllMessenger}
+              disabled={
+                (roleId === "4" && checkAllMessenger) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -857,7 +938,10 @@ const Messenger = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllMessenger}
+                disabled={
+                  (roleId === "4" && checkAllMessenger) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -889,7 +973,10 @@ const Messenger = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllMessenger}
+                disabled={
+                  (roleId === "4" && checkAllMessenger) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -904,6 +991,7 @@ const SystemAccess = ({
   setWhitelabelSystemAccess,
   whitelabelSystemAccessErrors,
   checkAllSystemAccess,
+  isFormLocked,
 }: SystemAccessTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -949,7 +1037,10 @@ const SystemAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllSystemAccess}
+                disabled={
+                  (roleId === "4" && checkAllSystemAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -968,7 +1059,10 @@ const SystemAccess = ({
               helperText={
                 whitelabelSystemAccessErrors?.systemAccessWhiteLabelStatus
               }
-              disabled={roleId === "4" && checkAllSystemAccess}
+              disabled={
+                (roleId === "4" && checkAllSystemAccess) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -999,7 +1093,10 @@ const SystemAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllSystemAccess}
+                disabled={
+                  (roleId === "4" && checkAllSystemAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1033,7 +1130,10 @@ const SystemAccess = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllSystemAccess}
+                disabled={
+                  (roleId === "4" && checkAllSystemAccess) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1047,6 +1147,7 @@ const OtherInfo = ({
   whitelabelOtherInfo,
   setWhitelabelOtherInfo,
   checkAllOtherInfo,
+  isFormLocked,
 }: OtherInfoTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -1086,7 +1187,10 @@ const OtherInfo = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllOtherInfo}
+                disabled={
+                  (roleId === "4" && checkAllOtherInfo) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1101,7 +1205,10 @@ const OtherInfo = ({
                   })
                 )
               }
-              disabled={roleId === "4" && checkAllOtherInfo}
+              disabled={
+                (roleId === "4" && checkAllOtherInfo) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -1126,7 +1233,10 @@ const OtherInfo = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllOtherInfo}
+                disabled={
+                  (roleId === "4" && checkAllOtherInfo) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -1152,7 +1262,10 @@ const OtherInfo = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllOtherInfo}
+                disabled={
+                  (roleId === "4" && checkAllOtherInfo) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

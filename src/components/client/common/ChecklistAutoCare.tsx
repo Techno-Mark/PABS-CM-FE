@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 // MUI import
 import { Button } from "@mui/material";
 // Cookie import
@@ -19,7 +19,6 @@ import {
   initialAutoCareBusinessLoans,
   initialAutoCareCloudDocumentManagement,
   initialAutoCareCreditCard,
-  initialAutoCareEstimatingSoftware,
   initialAutoCareFrequency,
   initialAutoCareGP_GMNP_NM,
   initialAutoCareGroupEmailEstablished,
@@ -52,14 +51,15 @@ import {
 import { showToast } from "@/components/ToastContainer";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
-import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
-import AutoCareSystemLocationChecklist from "@/components/client/forms/autocare/AutoCareSystemLocationChecklist";
 import AutoCareCashBankLoans from "@/components/client/forms/autocare/AutoCareCashBankLoans";
-import AutoCarePayrollSystem from "@/components/client/forms/autocare/AutoCarePayrollSystem";
+import AutoCareCommmunicationChecklist from "@/components/client/forms/autocare/AutoCareCommmunicationChecklist";
 import AutoCareCompliances from "@/components/client/forms/autocare/AutoCareCompliances";
-import AutoCarePayableCashPayAccess from "@/components/client/forms/autocare/AutoCarePayableCashPayAccess";
 import AutoCareFinancials from "@/components/client/forms/autocare/AutoCareFinancials";
+import AutoCarePayableCashPayAccess from "@/components/client/forms/autocare/AutoCarePayableCashPayAccess";
+import AutoCarePayrollSystem from "@/components/client/forms/autocare/AutoCarePayrollSystem";
+import AutoCareSystemLocationChecklist from "@/components/client/forms/autocare/AutoCareSystemLocationChecklist";
 // Models import
+import { ChecklistType } from "@/models/autoCareBasicDetails";
 import {
   AccessComputerFormTypes,
   AccountingSoftwareFormTypes,
@@ -69,7 +69,6 @@ import {
   ChecklistResponseDataType,
   CloudDocumentManagementFormTypes,
   CreditCardFormTypes,
-  EstimatingSoftwareFormTypes,
   FrequencyFormTypes,
   GP_GMNP_NMFormTypes,
   GroupEmailEstablishedFormTypes,
@@ -100,13 +99,11 @@ import {
   autoCarePayrollSystemErrors,
   autoCareSystemLocationChecklistErrors,
 } from "@/models/autoCareChecklist";
-import { ChecklistType } from "@/models/autoCareBasicDetails";
 // API import
 import { callAPIwithHeaders } from "@/api/commonFunction";
 // Static import
 import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
-import CommentData from "./CommentData";
 
 function ChecklistAutoCare({
   clientInfo,
@@ -269,6 +266,7 @@ function ChecklistAutoCare({
     useState<boolean>(false);
   const [isOpenConfirmationSubmit, setIsOpenConfirmationSubmit] =
     useState<boolean>(false);
+  const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
 
   const handleAccordianChange =
     (arg1: number) => (e: SyntheticEvent, isExpanded: boolean) => {
@@ -437,6 +435,7 @@ function ChecklistAutoCare({
           if (!!ResponseData) {
             setClientId(ResponseData?.clientId);
             setAutoCareFormSubmittedStatus(ResponseData?.isSubmited ?? false);
+            setIsFormLocked(ResponseData?.isFormLocked ?? false);
             setIsFormSubmitAutoCareChecklist(ResponseData?.isSubmited ?? false);
             setCommunicationChecked(
               ResponseData?.phase1CommunicationIsDisplay ?? true
@@ -769,6 +768,12 @@ function ChecklistAutoCare({
     autoCareBillPayAccess,
     autoCareLastClosedPeriod,
   ]);
+
+  const handleSubmitwithOutApi = () => {
+    handleChecklistRemoveErrors();
+    setChecklistFormSubmit(31);
+    setExpandedAccordian(-1);
+  };
 
   const handleSubmit = (type: number) => {
     const callback = (ResponseStatus: string, Message: string) => {
@@ -1334,6 +1339,7 @@ function ChecklistAutoCare({
           setAutoCarePreKickOff={setAutoCarePreKickOff}
           autoCareKickOff={autoCareKickOff}
           setAutoCareKickOff={setAutoCareKickOff}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1367,6 +1373,7 @@ function ChecklistAutoCare({
           }
           autoCareScanner={autoCareScanner}
           setAutoCareScanner={setAutoCareScanner}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1397,6 +1404,7 @@ function ChecklistAutoCare({
           setAutoCareBusinessLoans={setAutoCareBusinessLoans}
           autoCarePropertyLoans={autoCarePropertyLoans}
           setAutoCarePropertyLoans={setAutoCarePropertyLoans}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1421,6 +1429,7 @@ function ChecklistAutoCare({
           setAutoCareFrequency={setAutoCareFrequency}
           autoCareNoOfEmployee={autoCareNoOfEmployee}
           setAutoCareNoOfEmployee={setAutoCareNoOfEmployee}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1447,6 +1456,7 @@ function ChecklistAutoCare({
           setAutoCareTireTax={setAutoCareTireTax}
           autoCareLastTaxReturnFiledYear={autoCareLastTaxReturnFiledYear}
           setAutoCareLastTaxReturnFiledYear={setAutoCareLastTaxReturnFiledYear}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1473,6 +1483,7 @@ function ChecklistAutoCare({
           setAutoCareBillPayAccess={setAutoCareBillPayAccess}
           autoCareApThresholdLimit={autoCareApThresholdLimit}
           setAutoCareApThresholdLimit={setAutoCareApThresholdLimit}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1498,6 +1509,7 @@ function ChecklistAutoCare({
           setAutoCareLastClosedPeriod={setAutoCareLastClosedPeriod}
           autoCaregp_gmnp_nm={autoCaregp_gmnp_nm}
           setAutoCaregp_gmnp_nm={setAutoCaregp_gmnp_nm}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1531,6 +1543,7 @@ function ChecklistAutoCare({
                   handleChange={phase.handleAccordianChange}
                   switchDisabled={isFormSubmitAutoCareChecklist}
                   title={`Phase ${phase.phaseNumber}: ${phase.title}`}
+                  isFormLocked={isFormLocked}
                 >
                   {phase.component}
                 </ChecklistAccordian>
@@ -1552,15 +1565,13 @@ function ChecklistAutoCare({
           </div>
 
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={clientId} />
-          </div>
-
-          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
-              onClick={() => {
-                handleSubmit(3);
-              }}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              onClick={() =>
+                isFormLocked && (roleId === "3" || roleId === "4")
+                  ? handleSubmitwithOutApi()
+                  : handleSubmit(3)
+              }
+              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
             >
               Back
@@ -1578,8 +1589,13 @@ function ChecklistAutoCare({
               {(roleId === "4" ? !isFormSubmitAutoCareChecklist : true) && (
                 <Button
                   onClick={() => handleSubmit(2)}
-                  className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                  className={`${
+                    isFormLocked && (roleId === "3" || roleId === "4")
+                      ? "!border-[#666] !text-[#666]"
+                      : "!border-[#023963] !text-[#022946]"
+                  } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
+                  disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
                   Save
                 </Button>
@@ -1587,8 +1603,13 @@ function ChecklistAutoCare({
               {roleId === "4" && !isFormSubmitAutoCareChecklist && (
                 <Button
                   onClick={() => setIsOpenConfirmationSubmit(true)}
-                  className={`!bg-[#022946] text-white !rounded-full`}
+                  className={`${
+                    isFormLocked && (roleId === "4" || roleId === "3")
+                      ? "!bg-[#666] !text-white"
+                      : "!bg-[#022946] text-white"
+                  }  !rounded-full`}
                   variant="contained"
+                  disabled={isFormLocked && (roleId === "4" || roleId === "3")}
                 >
                   <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
                     Submit

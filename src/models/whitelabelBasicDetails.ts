@@ -6,29 +6,34 @@ export interface BasicDetailWhitelabelType {
   setWhitelabelBasicDetailCount: (value: number) => void;
   setWhitelabelBasicDetailsFormSubmit: (value: number) => void;
   clientInfo?: ClientInfoType;
-  setCheckAllWhiteLabelBasicFields: (value: boolean) => void
-  whiteLabelProgressPercentage: number
-  setIsOpenModal:(value: boolean) => void
-  setWhiteLabelFormSubmittedStatus:(value:boolean) => void
+  setCheckAllWhiteLabelBasicFields: (value: boolean) => void;
+  whiteLabelProgressPercentage: number;
+  setIsOpenModal: (value: boolean) => void;
+  setWhiteLabelFormSubmittedStatus: (value: boolean) => void;
+  getFormCheckedValue?: any;
 }
 
-export const whitelabelOtherInformationfieldDisplayNames: { [key: string]: string | number } = {
+export const whitelabelOtherInformationfieldDisplayNames: {
+  [key: string]: string | number;
+} = {
   startDate: "Start Date",
 };
 
 export interface ChecklistWhitelabelType {
-  setCheckAllWhiteLabelCheckist:(value:boolean) => void;
+  setCheckAllWhiteLabelCheckist: (value: boolean) => void;
   setWhiteLabelChecklistCount: (value: number) => void;
   setChecklistFormSubmit: (value: number) => void;
-  whiteLabelProgressPercentage: number
+  whiteLabelProgressPercentage: number;
   clientInfo?: ClientInfoType;
-  formSubmitId?:number
-  setWhiteLabelFormIsSubmit:(value:boolean) => void
-  setWhiteLabelFormSubmittedStatus:(value:boolean) => void
+  formSubmitId?: number;
+  setWhiteLabelFormIsSubmit: (value: boolean) => void;
+  setIsChecked?: (value: boolean) => void;
+  setWhiteLabelFormSubmittedStatus: (value: boolean) => void;
 }
 
 export interface WhiteLabelBasicDetailsDataType {
   isSubmited: boolean;
+  isFormLocked: boolean;
   accountDetailsIsDisplay: boolean;
   otherInformationIsDisplay: boolean;
   cpaClientTeamIsDisplay: boolean;
@@ -44,17 +49,17 @@ export interface WhiteLabelBasicDetailsDataType {
   ownerPhone: string;
   noOfAccounts: number;
   bdm: string;
-  startDate: Dayjs | null | string
+  startDate: Dayjs | null | string;
   pocFieldsDetail: any;
-  pocDetails:string;
+  pocDetails: string;
   cpaArray: any;
-  implementation: string
-  operationsHead: string
-  teamManager: string
-  teamLeader: string
-  seniorAccountant: string
-  pabsGroupEmail: string
-  pabsPhone: string
+  implementation: string;
+  operationsHead: string;
+  teamManager: string;
+  teamLeader: string;
+  seniorAccountant: string;
+  pabsGroupEmail: string;
+  pabsPhone: string;
 }
 
 export interface WhitelabelAccountDetailsFormTypes {
@@ -71,7 +76,7 @@ export interface WhitelabelAccountDetailsFormTypes {
 }
 
 export interface WhitelabelAccountDetailsFormErrors
-  extends Partial<WhitelabelAccountDetailsFormTypes> { }
+  extends Partial<WhitelabelAccountDetailsFormTypes> {}
 
 export interface WhitelabelAccountDetailsTypes {
   className?: string;
@@ -85,7 +90,8 @@ export interface WhitelabelAccountDetailsTypes {
   setWhitelabelAccountDetailsErrors: React.Dispatch<
     React.SetStateAction<WhitelabelAccountDetailsFormErrors>
   >;
-  checkAllFieldsWhiteLabelAccountDetailsForm: boolean
+  checkAllFieldsWhiteLabelAccountDetailsForm: boolean;
+  isFormLocked: boolean;
 }
 
 export interface WhitelabelOtherInformationTypes {
@@ -96,7 +102,7 @@ export interface WhitelabelOtherInformationTypes {
 }
 
 export interface WhitelabelOtherInformationErrors
-  extends Partial<WhitelabelOtherInformationTypes> { }
+  extends Partial<WhitelabelOtherInformationTypes> {}
 
 export interface WhitelabelOtherInfoTypes {
   className?: string;
@@ -112,7 +118,8 @@ export interface WhitelabelOtherInfoTypes {
   setWhitelabelOtherInformationErrors: React.Dispatch<
     React.SetStateAction<WhitelabelOtherInformationErrors>
   >;
-  checkAllFieldsWhitelabelOtherInformationForm: boolean
+  checkAllFieldsWhitelabelOtherInformationForm: boolean;
+  isFormLocked: boolean;
 }
 
 export interface SwitchRequestBody {
@@ -133,7 +140,7 @@ export interface WhitelabelCpaClientTeamTypes {
 }
 
 export interface WhitelabelCpaClientTeamErrors
-  extends Partial<WhitelabelCpaClientTeamTypes> { }
+  extends Partial<WhitelabelCpaClientTeamTypes> {}
 
 export interface WhitelabelCpaClientTypes {
   className?: string;
@@ -147,7 +154,8 @@ export interface WhitelabelCpaClientTypes {
   handleChange: any;
   handleAddField: any;
   handleRemoveField: any;
-  checkAllFieldsWhitelabelCpaClientTeamForm: boolean
+  checkAllFieldsWhitelabelCpaClientTeamForm: boolean;
+  isFormLocked: boolean;
 }
 
 export interface WhitelabelPABSAccountingTeamTypes {
@@ -162,7 +170,7 @@ export interface WhitelabelPABSAccountingTeamTypes {
 }
 
 export interface WhitelabelPABSAccountingTeamErrors
-  extends Partial<WhitelabelPABSAccountingTeamTypes> { }
+  extends Partial<WhitelabelPABSAccountingTeamTypes> {}
 
 export interface WhitelabelPABSAccountingTypes {
   className?: string;
@@ -178,5 +186,6 @@ export interface WhitelabelPABSAccountingTypes {
   setWhitelabelPABSAccountingTeamErrors: React.Dispatch<
     React.SetStateAction<WhitelabelPABSAccountingTeamErrors>
   >;
-  checkAllFieldsWhitelabelPabsAccountingTeamForm: boolean
+  checkAllFieldsWhitelabelPabsAccountingTeamForm: boolean;
+  isFormLocked: boolean;
 }

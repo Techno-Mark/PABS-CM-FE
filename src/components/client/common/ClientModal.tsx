@@ -1,17 +1,19 @@
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
+import ClientSidebar from "@/components/client/common/ClientSidebar";
 import { ClientModalProps } from "@/models/clientModal";
-import { clientModalstyle, style } from "@/utils/modalStyle";
+import { clientModalstyle } from "@/utils/modalStyle";
 import {
   Box,
   CssBaseline,
   Modal,
   AppBar as MuiAppBar,
   styled,
+  Switch,
+  SwitchProps,
   Toolbar,
   Tooltip,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import ClientSidebar from "@/components/client/common/ClientSidebar";
+import { useEffect, useState } from "react";
 // Types imports
 import { AppBarProps } from "@/models/adminHeader";
 // Static import
@@ -26,17 +28,20 @@ import ChecklistSmb from "@/components/client/common/ChecklistSmb";
 import { showToast } from "@/components/ToastContainer";
 
 import { callAPIwithHeaders } from "@/api/commonFunction";
-import {
-  onboardingDownloadFormUrl,
-  onboardingListFormUrl,
-} from "@/static/apiUrl";
+import CommentIcon from "@/assets/Icons/admin/CommentIcon";
+import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
+import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
 import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
+import { GetClientByIdResponse } from "@/models/clientManage";
+import {
+  getClientDetailsByIdUrl,
+  onboardingDownloadFormUrl,
+  onboardingListFormUrl,
+  toggleFormLockedUrl,
+} from "@/static/apiUrl";
 import Cookies from "js-cookie";
-import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
-import CommentIcon from "@/assets/Icons/client/forms/CommentIcon";
-import CommentModel from "./CommentModel";
-import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -56,7 +61,47 @@ function ClientModal({
   setIsOpenModal,
   handleClose,
 }: ClientModalProps) {
+  const CustomSwitch = styled((props: SwitchProps) => (
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
+  ))(({ theme }) => ({
+    width: 68,
+    height: 30,
+    padding: 0,
+    "& .MuiSwitch-switchBase": {
+      padding: 0,
+      margin: 4,
+      transitionDuration: "600ms",
+      transitionTimingFunction: "ease-in-out",
+      "&.Mui-checked": {
+        transform: "translateX(38px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor: "#1976d2",
+          opacity: 1,
+          border: 0,
+          transition: "background-color 600ms ease-in-out",
+        },
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
+      width: 22,
+      height: 22,
+    },
+    "& .MuiSwitch-track": {
+      borderRadius: 34 / 2,
+      backgroundColor: "#787878",
+      opacity: 1,
+      transition: "background-color 600ms ease-in-out",
+    },
+  }));
+
   const token = Cookies.get("token");
+  const loginUserRole = Cookies.get("roleId");
   const formSubmitId =
     clientInfo?.DepartmentId === 3
       ? 31
@@ -77,7 +122,31 @@ function ClientModal({
   const [isFormSubmmitWhitelabel, setIsFormSubmitWhitelabel] =
     useState<boolean>(false);
   const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
-  const [commentModelOpen, setCommentModelOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getById = async () => {
+      const callback = (
+        ResponseStatus: string,
+        Message: string,
+        ResponseData: GetClientByIdResponse
+      ) => {
+        switch (ResponseStatus) {
+          case "failure":
+            showToast(Message, ToastType.Error);
+            return;
+          case "success":
+            setIsChecked(ResponseData?.IsFormLocked ?? false);
+            return;
+        }
+      };
+      await callAPIwithHeaders(getClientDetailsByIdUrl, "post", callback, {
+        clientId: clientInfo.ClientId,
+      });
+    };
+    clientInfo.ClientId > 0 && getById();
+  }, [clientInfo]);
 
   const getFormDetials = async () => {
     const callBack = (
@@ -136,6 +205,24 @@ function ClientModal({
       });
   };
 
+  const handleToggleFormLocked = async (value: boolean) => {
+    setIsChecked(value);
+    const callback = (ResponseStatus: string, Message: string) => {
+      switch (ResponseStatus) {
+        case "failure":
+          showToast(Message, ToastType.Error);
+          return;
+        case "success":
+          showToast(Message, ToastType.Success);
+          return;
+      }
+    };
+    await callAPIwithHeaders(toggleFormLockedUrl, "post", callback, {
+      clientId: clientInfo.ClientId || 0,
+      status: value,
+    });
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -189,16 +276,41 @@ function ClientModal({
                     </span>
                   </div>
                   <div className="relative flex gap-5">
-                    {/* {formSubmit == 12 && (
-                      <Tooltip title="Comments" placement="bottom" arrow>
+                    <div className="flex justify-center items-center">
+                      {(loginUserRole == "1" || loginUserRole == "2") && (
+                        <div className="flex items-center">
+                          <div className="relative">
+                            <CustomSwitch
+                              checked={isChecked}
+                              onChange={(e: any) =>
+                                handleToggleFormLocked(e.target.checked)
+                              }
+                            />
+                            <span
+                              className={`absolute ${
+                                isChecked
+                                  ? "left-2.5 text-[11px]"
+                                  : "right-[3px] text-[11px]"
+                              } font-bold top-1/2 transform -translate-y-1/2 text-white`}
+                            >
+                              {isChecked ? "Lock" : "Unlock"}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    {(formSubmit === 12 ||
+                      formSubmit === 21 ||
+                      formSubmit === 32) && (
+                      <Tooltip title="Comment" placement="bottom" arrow>
                         <span
                           className="flex items-center cursor-pointer"
-                          onClick={() => setCommentModelOpen(true)}
+                          onClick={() => setOpenCommentModal(true)}
                         >
                           <CommentIcon />
                         </span>
                       </Tooltip>
-                    )} */}
+                    )}
                     <Tooltip title="Download" placement="bottom" arrow>
                       <span
                         className="flex items-center cursor-pointer"
@@ -290,6 +402,7 @@ function ClientModal({
                       }
                       responseData={formDetails !== null ? formDetails : false}
                       getFormDetials={getFormDetials}
+                      isFormLocked={isChecked}
                     />
                   )}
                 </>
@@ -308,6 +421,9 @@ function ClientModal({
                         setPerCountWhiteLabelBasicDetails(value)
                       }
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
+                      getFormCheckedValue={(value: boolean) => {
+                        setIsChecked(value);
+                      }}
                     />
                   )}
                   <ChecklistWhitelabel
@@ -334,6 +450,7 @@ function ClientModal({
                       setChecklistFormSubmit={(value: number) =>
                         setFormSubmit(value)
                       }
+                      isFormLocked={isChecked}
                     />
                   )}
                 </>
@@ -341,22 +458,14 @@ function ClientModal({
                 ""
               )}
 
-              {/* <div className="z-50">
-                {commentModelOpen && (
-                  <CommentModel
-                    commentModelOpen={commentModelOpen}
-                    setCommentModelOpen={(
-                      value: boolean | ((prevState: boolean) => boolean)
-                    ) => {
-                      setCommentModelOpen(value);
-                    }}
-                    handleClose={() => {
-                      setCommentModelOpen(false);
-                    }}
-                  />
-                )}
-              </div>
-              <DrawerOverlay isOpen={commentModelOpen} /> */}
+              {openCommentModal && (
+                <CommentDrawer
+                  isOpen={openCommentModal}
+                  setIsOpen={(value: boolean) => setOpenCommentModal(value)}
+                  clientId={clientInfo.ClientId}
+                />
+              )}
+              <DrawerOverlay isOpen={openCommentModal} />
             </Box>
           </Box>
         </div>

@@ -3,7 +3,15 @@ import { ChangeEvent, useEffect, useState } from "react";
 // Cookie import
 import Cookies from "js-cookie";
 // Types import
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
+import SmbBankingAccessChecklist from "@/components/client/forms/smb/SmbBankingAccessChecklist";
+import SmbExistingFinancialsChecklist from "@/components/client/forms/smb/SmbExistingFinancialsChecklist";
+import SmbMeetingChecklist from "@/components/client/forms/smb/SmbMeetingChecklist";
+import SmbPeopleBusinessChecklist from "@/components/client/forms/smb/SmbPeopleBusinessChecklist";
+import SmbSystemAccessChecklist from "@/components/client/forms/smb/SmbSystemAccessChecklist";
+import { showToast } from "@/components/ToastContainer";
 import {
   AccessAccountingSoftwareFormTypes,
   AccessCreditCardFormTypes,
@@ -53,6 +61,7 @@ import {
   smbPeopleBusinessErrors,
   smbSystemDocumentAccessErrors,
 } from "@/models/smbChecklist";
+import { onboardingSaveFormUrl } from "@/static/apiUrl";
 import { AccordianExpand } from "@/static/autoCareChecklist";
 import {
   fieldDisplayNamesSmbBankingAccess,
@@ -106,17 +115,7 @@ import {
   validateSmbPeopleBusinessField,
   validateSmbSystemAccessField,
 } from "@/static/smbChecklist";
-import SmbBankingAccessChecklist from "@/components/client/forms/smb/SmbBankingAccessChecklist";
-import SmbExistingFinancialsChecklist from "@/components/client/forms/smb/SmbExistingFinancialsChecklist";
-import SmbMeetingChecklist from "@/components/client/forms/smb/SmbMeetingChecklist";
-import SmbPeopleBusinessChecklist from "@/components/client/forms/smb/SmbPeopleBusinessChecklist";
-import SmbSystemAccessChecklist from "@/components/client/forms/smb/SmbSystemAccessChecklist";
-import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { onboardingSaveFormUrl } from "@/static/apiUrl";
-import ConfirmModal from "@/components/admin/common/ConfirmModal";
-import CommentData from "./CommentData";
 
 function ChecklistSmb({
   clientInfo,
@@ -126,6 +125,7 @@ function ChecklistSmb({
   setIsOpenModal,
   responseData,
   setSmbFormSubmittedStatus,
+  isFormLocked,
 }: SMBType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -1490,6 +1490,7 @@ function ChecklistSmb({
           setSmbContactNumber={setSmbContactNumber}
           smbAddress={smbAddress}
           setSmbAddress={setSmbAddress}
+          isFormLocked={!!isFormLocked}
         />
       ),
     },
@@ -1531,6 +1532,7 @@ function ChecklistSmb({
           setSmbApBills={setSmbApBills}
           smbPointSalesAccess={smbPointSalesAccess}
           setSmbPointSalesAccess={setSmbPointSalesAccess}
+          isFormLocked={!!isFormLocked}
         />
       ),
     },
@@ -1561,6 +1563,7 @@ function ChecklistSmb({
           setSmbAccessLoanAccount={setSmbAccessLoanAccount}
           smbAccessCreditCardPortal={smbAccessCreditCardPortal}
           setSmbAccessCreditCardPortal={setSmbAccessCreditCardPortal}
+          isFormLocked={!!isFormLocked}
         />
       ),
     },
@@ -1597,6 +1600,7 @@ function ChecklistSmb({
           setSmbTaxReturn={setSmbTaxReturn}
           smbDistributionList={smbDistributionList}
           setSmbDistributionList={setSmbDistributionList}
+          isFormLocked={!!isFormLocked}
         />
       ),
     },
@@ -1619,6 +1623,7 @@ function ChecklistSmb({
           setSmbConvenient={setSmbConvenient}
           smbTimeSlot={smbTimeSlot}
           setSmbTimeSlot={setSmbTimeSlot}
+          isFormLocked={!!isFormLocked}
         />
       ),
     },
@@ -1651,6 +1656,7 @@ function ChecklistSmb({
                 expandedAccordian={phase.expandedStatus}
                 handleChange={phase.handleAccordianChange}
                 title={`Phase ${phase.phaseNumber}: ${phase.title}`}
+                isFormLocked={isFormLocked ?? false}
               >
                 {phase.component}
               </ChecklistAccordian>
@@ -1669,12 +1675,6 @@ function ChecklistSmb({
               )}
           </div>
         </div>
-        
-        {!!responseData && (
-          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={responseData.clientId} />
-          </div>
-        )}
 
         {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex gap-5 items-center justify-end border-t px-6 w-full">
@@ -1690,8 +1690,13 @@ function ChecklistSmb({
             {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
               <Button
                 onClick={() => handleSubmit(2)}
-                className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                className={`${
+                  isFormLocked && (roleId === "3" || roleId === "4")
+                    ? "!border-[#666] !text-[#666]"
+                    : "!border-[#023963] !text-[#022946]"
+                } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
                 variant="outlined"
+                disabled={isFormLocked && (roleId === "3" || roleId === "4")}
               >
                 Save
               </Button>
@@ -1699,8 +1704,13 @@ function ChecklistSmb({
             {roleId === "4" && !isSubmitedSmbChecklist && (
               <Button
                 onClick={() => setIsOpenConfirmationSubmit(true)}
-                className={`!bg-[#022946] text-white !rounded-full`}
+                className={`${
+                  isFormLocked && (roleId === "4" || roleId === "3")
+                    ? "!bg-[#666] !text-white"
+                    : "!bg-[#022946] text-white"
+                }  !rounded-full`}
                 variant="contained"
+                disabled={isFormLocked && (roleId === "4" || roleId === "3")}
               >
                 <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
                   Submit

@@ -12,6 +12,7 @@ export interface ChecklistAccordianProps {
     checked: boolean
   ) => void;
   switchDisabled: boolean;
+  isFormLocked:boolean;
 }
 
 export interface SwitchRequestBody {
@@ -39,6 +40,7 @@ export interface autoCareCommmunicationChecklistTypes {
   autoCareKickOff: KickOffFormTypes;
   setAutoCareKickOff: React.Dispatch<React.SetStateAction<KickOffFormTypes>>;
   checkAllFieldsAutoCareCommunicationList: boolean;
+  isFormLocked: boolean;
 }
 
 export interface autoCareSystemLocationChecklistTypes {
@@ -67,6 +69,7 @@ export interface autoCareSystemLocationChecklistTypes {
   autoCareScanner: ScannerFormTypes;
   setAutoCareScanner: React.Dispatch<React.SetStateAction<ScannerFormTypes>>;
   checkAllFieldsAutoCareSystemLocation: boolean;
+  isFormLocked: boolean;
 }
 
 export interface autoCareSystemLocationChecklistErrors
@@ -96,6 +99,7 @@ export interface autoCareCashBankLoansTypes {
     React.SetStateAction<PropertyLoansFormTypes>
   >;
   checkAllFieldsAutoCareCashBankLoans: boolean;
+  isFormLocked: boolean;
 }
 
 export interface autoCareCashBankLoansErrors
@@ -121,6 +125,7 @@ export interface autoCarePayrollSystemTypes {
     React.SetStateAction<NoOfEmployeeFormTypes>
   >;
   checkAllFieldsAutoCarePayrollSystem: boolean;
+  isFormLocked: boolean;
 }
 
 export interface autoCarePayrollSystemErrors
@@ -142,6 +147,7 @@ export interface autoCareCompliancesTypes {
     React.SetStateAction<LastTaxReturnFiledYearFormTypes>
   >;
   checkAllFieldsAutoCareCompliances: boolean;
+  isFormLocked: boolean;
 }
 
 export interface autoCareCompliancesErrors
@@ -172,6 +178,7 @@ export interface autoCarePayableCashPayAccessTypes {
     React.SetStateAction<ApThresholdLimitFormTypes>
   >;
   checkAllFieldsAutoCarePayableCashPayAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface autoCarePayableCashPayAccessErrors
@@ -193,6 +200,7 @@ export interface AutoCareFinancialsTypes {
     React.SetStateAction<GP_GMNP_NMFormTypes>
   >;
   checkAllFieldsAutoCareFinancials: boolean;
+  isFormLocked: boolean;
 }
 
 export interface GroupEmailEstablishedFormTypes {
@@ -450,6 +458,7 @@ export interface GroupEmailEstablishedTypes {
     React.SetStateAction<GroupEmailEstablishedFormTypes>
   >;
   checkAllFieldsGroupEmailEstablished: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PreKickOffTypes {
@@ -458,12 +467,14 @@ export interface PreKickOffTypes {
     React.SetStateAction<PreKickOffFormTypes>
   >;
   checkAllFieldsPreKickOff: boolean;
+  isFormLocked: boolean;
 }
 
 export interface KickOffTypes {
   autoCareKickOff: KickOffFormTypes;
   setAutoCareKickOff: React.Dispatch<React.SetStateAction<KickOffFormTypes>>;
   checkAllFieldsKickOff: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ITStructureReviewTypes {
@@ -472,6 +483,7 @@ export interface ITStructureReviewTypes {
     React.SetStateAction<ITStructureReviewFormTypes>
   >;
   checkAllFieldsITStructureReview: boolean;
+  isFormLocked: boolean;
 }
 
 export interface AccessComputerMethodTypes {
@@ -480,6 +492,7 @@ export interface AccessComputerMethodTypes {
     React.SetStateAction<AccessComputerFormTypes>
   >;
   checkAllFieldsAccessComputerMethod: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PosSoftwareTypes {
@@ -489,6 +502,7 @@ export interface PosSoftwareTypes {
   >;
   posErrors: autoCareSystemLocationChecklistErrors;
   checkAllFieldsPosSoftware: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PosFormErrors extends Partial<PosSoftwareFormTypes> {}
@@ -507,6 +521,7 @@ export interface AccountingSoftwareTypes {
   >;
   accountingSoftwareErrors: autoCareSystemLocationChecklistErrors;
   checkAllFieldsAccountingSoftware: boolean;
+  isFormLocked: boolean;
 }
 
 export interface AccountingSoftwareFormErrors
@@ -518,12 +533,14 @@ export interface CloudDocumentManagementTypes {
     React.SetStateAction<CloudDocumentManagementFormTypes>
   >;
   checkAllFieldsCloudDocumentManagement: boolean;
+  isFormLocked: boolean;
 }
 
 export interface ScannerTypes {
   autoCareScanner: ScannerFormTypes;
   setAutoCareScanner: React.Dispatch<React.SetStateAction<ScannerFormTypes>>;
   checkAllFieldsScanner: boolean;
+  isFormLocked: boolean;
 }
 
 export interface OperatingCheckingAccountTypes {
@@ -533,6 +550,7 @@ export interface OperatingCheckingAccountTypes {
   >;
   operatingCheckingAccountErrors: autoCareCashBankLoansErrors;
   checkAllFieldsOperatingCheckingAccount: boolean;
+  isFormLocked: boolean;
 }
 
 export interface OperatingCheckingAccountFormErrors
@@ -545,6 +563,7 @@ export interface SavingsAccountTypes {
   >;
   savingsAccountErrors: autoCareCashBankLoansErrors;
   checkAllFieldsSavingsAccount: boolean;
+  isFormLocked: boolean;
 }
 
 export interface SavingsAccountFormErrors
@@ -557,6 +576,7 @@ export interface CreditCardTypes {
   >;
   creditCardErrors: autoCareCashBankLoansErrors;
   checkAllFieldsCreditCard: boolean;
+  isFormLocked: boolean;
 }
 
 export interface CreditCardFormErrors extends Partial<CreditCardFormTypes> {}
@@ -567,6 +587,7 @@ export interface BusinessLoansTypes {
     React.SetStateAction<BusinessLoansFormTypes>
   >;
   checkAllFieldsBusinessLoans: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PropertyLoansTypes {
@@ -575,6 +596,7 @@ export interface PropertyLoansTypes {
     React.SetStateAction<PropertyLoansFormTypes>
   >;
   checkAllFieldsPropertyLoans: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PayrollServiceProviderTypes {
@@ -584,6 +606,7 @@ export interface PayrollServiceProviderTypes {
   >;
   payrollServiceProviderError: autoCarePayrollSystemErrors;
   checkAllFieldsPayrollServiceProvider: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PayrollServiceProviderFormErrors
@@ -596,6 +619,7 @@ export interface FrequencyTypes {
   >;
   frequencyErrors: autoCarePayrollSystemErrors;
   checkAllFieldsFrequency: boolean;
+  isFormLocked: boolean;
 }
 
 export interface FrequencyFormErrors extends Partial<FrequencyFormTypes> {}
@@ -606,6 +630,7 @@ export interface NoOfEmployeeTypes {
     React.SetStateAction<NoOfEmployeeFormTypes>
   >;
   checkAllFieldsNoOfEmployees: boolean;
+  isFormLocked: boolean;
 }
 
 export interface SalesTaxAccessWorkPaperTypes {
@@ -615,6 +640,7 @@ export interface SalesTaxAccessWorkPaperTypes {
   >;
   salesTaxAccessWorkPaperErrors: autoCareCompliancesErrors;
   checkAllFieldsSalesTaxAccessWorkPaper: boolean;
+  isFormLocked: boolean;
 }
 
 export interface SalesTaxAccessWorkPaperFormErrors
@@ -625,6 +651,7 @@ export interface UseTaxTypes {
   setAutoCareUseTax: React.Dispatch<React.SetStateAction<UseTaxFormTypes>>;
   useTaxErrors: autoCareCompliancesErrors;
   checkAllFieldsUseTax: boolean;
+  isFormLocked: boolean;
 }
 
 export interface UseTaxFormErrors extends Partial<UseTaxFormTypes> {}
@@ -634,6 +661,7 @@ export interface TireTaxTypes {
   setAutoCareTireTax: React.Dispatch<React.SetStateAction<TireTaxFormTypes>>;
   tireTaxErrors: autoCareCompliancesErrors;
   checkAllFieldsTireTax: boolean;
+  isFormLocked: boolean;
 }
 
 export interface TireTaxFormErrors extends Partial<TireTaxFormTypes> {}
@@ -645,6 +673,7 @@ export interface LastTaxReturnFiledYearTypes {
   >;
   lastTaxReturnFiledYearErrors: autoCareCompliancesErrors;
   checkAllFieldsLastTaxReturnFiledYear: boolean;
+  isFormLocked: boolean;
 }
 
 export interface LastTaxReturnFiledYearFormErrors
@@ -657,6 +686,7 @@ export interface VendorPortalAccessTypes {
   >;
   vendorPortalAccessErrors: autoCarePayableCashPayAccessErrors;
   checkAllFieldsVendorPortalAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface VendorPortalAccessFormErrors
@@ -668,6 +698,7 @@ export interface TradeAccountTypes {
     React.SetStateAction<TradeAccountFormTypes>
   >;
   checkAllFieldsTradeAccount: boolean;
+  isFormLocked: boolean;
 }
 
 export interface BillPayAccessTypes {
@@ -677,6 +708,7 @@ export interface BillPayAccessTypes {
   >;
   billPayAccessErrors: autoCarePayableCashPayAccessErrors;
   checkAllFieldsBillPayAccess: boolean;
+  isFormLocked: boolean;
 }
 
 export interface BillPayAccessFormErrors
@@ -688,6 +720,7 @@ export interface ApThresholdLimitTypes {
     React.SetStateAction<ApThresholdLimitFormTypes>
   >;
   checkAllFieldsAPThresholdLimit: boolean;
+  isFormLocked: boolean;
 }
 
 export interface LastClosedPeriodTypes {
@@ -697,6 +730,7 @@ export interface LastClosedPeriodTypes {
   >;
   lastClosedPeriodErrors: LastClosedPeriodFormErrors;
   checkAllFieldsLastClosedPeriod: boolean;
+  isFormLocked: boolean;
 }
 
 export interface LastClosedPeriodFormErrors
@@ -708,6 +742,7 @@ export interface SharingFinancialsTypes {
     React.SetStateAction<SharingFinancialsFormTypes>
   >;
   checkAllFieldsSharingFinancials: boolean;
+  isFormLocked: boolean;
 }
 
 export interface GP_GMNP_NMTypes {
@@ -716,6 +751,7 @@ export interface GP_GMNP_NMTypes {
     React.SetStateAction<GP_GMNP_NMFormTypes>
   >;
   checkAllFieldsGP_GMNP_NM: boolean;
+  isFormLocked: boolean;
 }
 
 export interface PhaseFormResponseDataType {
@@ -736,6 +772,7 @@ export interface ChecklistResponseDataType {
   phase6ApPayableIsDisplay: boolean;
   phase7StatusIsDisplay: boolean;
   isSubmited: boolean;
+  isFormLocked: boolean;
   checkList: PhaseFormResponseDataType[];
   clientId: number;
 }

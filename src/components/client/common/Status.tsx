@@ -3,6 +3,7 @@ import { showToast } from "@/components/ToastContainer";
 import { getChecklistStatusUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
+import Cookies from "js-cookie";
 import {
   FormControl,
   FormHelperText,
@@ -14,6 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 const Status = ({ value, onChange, error, helperText, disabled }: any) => {
+  const roleId = Cookies.get("roleId");
   const classes = useStyles();
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
@@ -30,7 +32,13 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           showToast(Message, ToastType.Error);
           return;
         case "success":
-          setOptions(ResponseData);
+          let filteredOptions = ResponseData;
+          if (roleId === "4") {
+            filteredOptions = ResponseData.filter(
+              (option) => option.id === 1 || option.id === 2
+            );
+          }
+          setOptions(filteredOptions);
           return;
       }
     };

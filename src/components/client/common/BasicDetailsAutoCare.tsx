@@ -88,6 +88,7 @@ function BasicDetailsAutoCare({
     isFormSubmitAutoCareBasicDetails,
     setIsFormSubmitAutoCareBasicDetails,
   ] = useState<boolean>(false);
+  const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
 
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
@@ -102,6 +103,7 @@ function BasicDetailsAutoCare({
         case "success":
           if (!!ResponseData) {
             setAutoCareFormSubmittedStatus(ResponseData?.isSubmited ?? false);
+            setIsFormLocked(ResponseData?.isFormLocked ?? false);
             setIsFormSubmitAutoCareBasicDetails(
               ResponseData?.isSubmited ?? false
             );
@@ -372,6 +374,12 @@ function BasicDetailsAutoCare({
     setAutoCareClientTeamErrors({});
   };
 
+  const handleSubmitwithOutApi = () => {
+    handleBasicDetailRemoveErrors();
+    setBasicDetailsFormSubmit(32);
+    getAutoCareBasicDetailsList();
+  };
+
   const handleSubmit = (type: number) => {
     const callback = (ResponseStatus: string, Message: string) => {
       switch (ResponseStatus) {
@@ -617,6 +625,7 @@ function BasicDetailsAutoCare({
                 setAutoCareAccountDetailsErrors={
                   setAutoCareAccountDetailsErrors
                 }
+                isFormLocked={isFormLocked}
               />
             )}
             {(roleId === "4" ? legalStructureCheckStatus : true) && (
@@ -634,6 +643,7 @@ function BasicDetailsAutoCare({
                 setAutoCareLegalStructureErrors={
                   setAutoCareLegalStructureErrors
                 }
+                isFormLocked={isFormLocked}
               />
             )}
             {(roleId === "4" ? clientTeamCheckStatus : true) && (
@@ -647,6 +657,7 @@ function BasicDetailsAutoCare({
                 setAutoCareClientTeam={setAutoCareClientTeam}
                 autoCareClientTeamErrors={autoCareClientTeamErrors}
                 setAutoCareClientTeamErrors={setAutoCareClientTeamErrors}
+                isFormLocked={isFormLocked}
               />
             )}
             {(roleId === "4" ? pabsAccountingTeamCheckStatus : true) && (
@@ -660,6 +671,7 @@ function BasicDetailsAutoCare({
                 ) => handleSwitchChange(e, 4)}
                 autoCarePabsAccountingTeam={autoCarePabsAccountingTeam}
                 setAutoCarePabsAccountingTeam={setAutoCarePabsAccountingTeam}
+                isFormLocked={isFormLocked}
               />
             )}
 
@@ -689,16 +701,25 @@ function BasicDetailsAutoCare({
           {(roleId === "4" ? !isFormSubmitAutoCareBasicDetails : true) && (
             <Button
               onClick={() => handleSubmit(2)}
-              className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              className={`${
+                isFormLocked && (roleId === "3" || roleId === "4")
+                  ? "!border-[#666] !text-[#666]"
+                  : "!border-[#023963] !text-[#022946]"
+              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
+              disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
               Save
             </Button>
           )}
 
           <Button
-            onClick={() => handleSubmit(1)}
-            className={`!bg-[#022946] text-white !rounded-full`}
+            onClick={() =>
+              isFormLocked && (roleId === "3" || roleId === "4")
+                ? handleSubmitwithOutApi()
+                : handleSubmit(1)
+            }
+            className={`!bg-[#022946] !text-white !rounded-full`}
             variant="contained"
           >
             <span className="uppercase font-semibold text-[14px] whitespace-nowrap">

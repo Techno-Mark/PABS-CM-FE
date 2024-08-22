@@ -1,8 +1,50 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
-import { Button } from "@mui/material";
+import { callAPIwithHeaders } from "@/api/commonFunction";
 import ChecklistAccordian from "@/components/client/common/ChecklistAccordian";
+import WhitelabelChallengesForm from "@/components/client/forms/whitelabel/WhitelabelChallengesForm";
+import WhitelabelCommunicationForm from "@/components/client/forms/whitelabel/WhitelabelCommunicationForm";
+import WhitelabelEscalationmatrixForm from "@/components/client/forms/whitelabel/WhitelabelEscalationmatrixForm";
+import WhitelabelMeetingAvailabilityForm from "@/components/client/forms/whitelabel/WhitelabelMeetingAvailabilityForm";
+import WhitelabelServiceTypeForm from "@/components/client/forms/whitelabel/WhitelabelServiceTypeForm";
+import WhitelabelSystemSoftwareSetupForm from "@/components/client/forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
+import WhitelabelWorkAssignmentForm from "@/components/client/forms/whitelabel/WhitelabelWorkAssignmentForm";
+import { showToast } from "@/components/ToastContainer";
+import { ChecklistWhitelabelType } from "@/models/whitelabelBasicDetails";
+import {
+  AccountingFormTypes,
+  AccountingSoftwareWhiteLabelFormTypes,
+  BdmFormTypes,
+  CatchupFormTypes,
+  CleanupFormTypes,
+  ClientFormTypes,
+  CloudDocumentWhiteLabelFormTypes,
+  CombinationFormTypes,
+  CurrentChallengesFormTypes,
+  ExceptionFormTypes,
+  FTEFormTypes,
+  GroupEmailWhiteLabelFormTypes,
+  IndustryFormTypes,
+  ItHelpWhiteLabelFormTypes,
+  ItStructureWhiteLabelFormTypes,
+  KickOffWhiteLabelFormTypes,
+  MessengerWhiteLabelFormTypes,
+  MonthlyFormTypes,
+  OtherInfoWhiteLabelFormTypes,
+  PabsFormTypes,
+  RemoteSetupWhiteLabelFormTypes,
+  SystemAccessWhiteLabelFormTypes,
+  TaxFormTypes,
+  TeamOverCallWhiteLabelFormTypes,
+  WeeklyFormTypes,
+  WhitelabelConvenientDayFormTypes,
+  WhitelabelServiceErrorsTypes,
+  WhitelabelTimeSlotFormTypes,
+  WhitelabelTimeZoneFormTypes,
+  whitelabelMeetingAvailabilityErrorsType,
+  whitelabelSystemSoftwareErrorsType,
+  whitleLabelWorkAssignmentErrorsType,
+} from "@/models/whitelabelChecklist";
+import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
+import { ToastType } from "@/static/toastType";
 import {
   AccordianExpand,
   fieldDisplayNamesWhiteLabelMeetingAvailability,
@@ -42,52 +84,9 @@ import {
   validateWhiteLabelSystemSoftwareField,
   validateWhiteLabelWorkAssignmentField,
 } from "@/static/whitelabel/whitelabelChecklist";
-import WhitelabelCommunicationForm from "@/components/client/forms/whitelabel/WhitelabelCommunicationForm";
-import {
-  AccountingFormTypes,
-  AccountingSoftwareWhiteLabelFormTypes,
-  BdmFormTypes,
-  CatchupFormTypes,
-  CleanupFormTypes,
-  ClientFormTypes,
-  CloudDocumentWhiteLabelFormTypes,
-  CombinationFormTypes,
-  CurrentChallengesFormTypes,
-  ExceptionFormTypes,
-  FTEFormTypes,
-  GroupEmailWhiteLabelFormTypes,
-  IndustryFormTypes,
-  ItHelpWhiteLabelFormTypes,
-  ItStructureWhiteLabelFormTypes,
-  KickOffWhiteLabelFormTypes,
-  MessengerWhiteLabelFormTypes,
-  MonthlyFormTypes,
-  OtherInfoWhiteLabelFormTypes,
-  PabsFormTypes,
-  RemoteSetupWhiteLabelFormTypes,
-  SystemAccessWhiteLabelFormTypes,
-  TaxFormTypes,
-  TeamOverCallWhiteLabelFormTypes,
-  WeeklyFormTypes,
-  WhitelabelConvenientDayFormTypes,
-  WhitelabelServiceErrorsTypes,
-  WhitelabelTimeSlotFormTypes,
-  WhitelabelTimeZoneFormTypes,
-  whitelabelMeetingAvailabilityErrorsType,
-  whitelabelSystemSoftwareErrorsType,
-  whitleLabelWorkAssignmentErrorsType,
-} from "@/models/whitelabelChecklist";
-import WhitelabelMeetingAvailabilityForm from "@/components/client/forms/whitelabel/WhitelabelMeetingAvailabilityForm";
-import WhitelabelEscalationmatrixForm from "@/components/client/forms/whitelabel/WhitelabelEscalationmatrixForm";
-import WhitelabelChallengesForm from "@/components/client/forms/whitelabel/WhitelabelChallengesForm";
-import WhitelabelWorkAssignmentForm from "@/components/client/forms/whitelabel/WhitelabelWorkAssignmentForm";
-import WhitelabelServiceTypeForm from "@/components/client/forms/whitelabel/WhitelabelServiceTypeForm";
-import WhitelabelSystemSoftwareSetupForm from "@/components/client/forms/whitelabel/WhitelabelSystemSoftwareSetupForm";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
-import CommentData from "./CommentData";
+import { Button } from "@mui/material";
+import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const ChecklistWhitelabel = ({
   setWhiteLabelChecklistCount,
@@ -98,6 +97,7 @@ const ChecklistWhitelabel = ({
   setCheckAllWhiteLabelCheckist,
   setWhiteLabelFormIsSubmit,
   setWhiteLabelFormSubmittedStatus,
+  setIsChecked,
 }: ChecklistWhitelabelType) => {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
@@ -245,6 +245,7 @@ const ChecklistWhitelabel = ({
   ] = useState<boolean>(true);
   const [isSubmitedWhiteLabelChecklist, setIsSubmitedWhiteLabelChecklist] =
     useState<boolean>(false);
+  const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
 
   const handleAccordianChange =
     (arg1: number) => (e: any, isExpanded: boolean) => {
@@ -265,6 +266,8 @@ const ChecklistWhitelabel = ({
           if (!!ResponseData) {
             setClientId(ResponseData?.clientId);
             setWhiteLabelFormSubmittedStatus(ResponseData?.isSubmited ?? false);
+            setIsFormLocked(ResponseData?.isFormLocked ?? false);
+            setIsChecked && setIsChecked(ResponseData?.isFormLocked ?? false);
             setWhiteLabelFormIsSubmit(ResponseData?.isSubmited ?? false);
             setIsSubmitedWhiteLabelChecklist(ResponseData?.isSubmited ?? false);
             setWhiteLabelCommunicationChecked(
@@ -826,7 +829,8 @@ const ChecklistWhitelabel = ({
             whitelabelITStructure.itStructureWhiteLabelActionClient,
         },
         {
-          fieldName: "If remote computer need to be accessed, please share access credentials and instructions",
+          fieldName:
+            "If remote computer need to be accessed, please share access credentials and instructions",
           status: whitelabelRemoteSetup.remoteSetupWhiteLabelStatus,
           comments: whitelabelRemoteSetup.remoteSetupWhiteLabelComments,
           actionsOfPabs: whitelabelRemoteSetup.remoteSetupWhiteLabelActionPABS,
@@ -1008,8 +1012,8 @@ const ChecklistWhitelabel = ({
     };
 
     const isWhiteLabelSystemSoftwareValid = whiteLabelsystemSoftwareChecked
-    ? validateWhiteLabelSystemSoftware()
-    : false;
+      ? validateWhiteLabelSystemSoftware()
+      : false;
     const isWhiteLabelServiceTypeValid = whiteLabelServiceTypeChecked
       ? validateWhiteLabelServiceType()
       : false;
@@ -1127,6 +1131,12 @@ const ChecklistWhitelabel = ({
     }
   };
 
+  const handleSubmitwithOutApi = (type: number) => {
+    handleWhiteLabelChecklistRemoveErrors();
+    setChecklistFormSubmit(type == 1 ? 13 : 11);
+    setExpandedAccordian(-1);
+  };
+
   const handleSwitchChange = async (
     e: ChangeEvent<HTMLInputElement>,
     phaseType: number
@@ -1227,6 +1237,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelTeamOverCall={setWhitelabelTeamOverCall}
           whitelabelKickOff={whitelabelKickOff}
           setWhitelabelKickOff={setWhitelabelKickOff}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1264,6 +1275,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelSystemAccess={setWhitelabelSystemAccess}
           whitelabelOtherInfo={whitelabelOtherInfo}
           setWhitelabelOtherInfo={setWhitelabelOtherInfo}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1294,6 +1306,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelWeekly={setWhitelabelWeekly}
           whitelabelIndustry={whitelabelIndustry}
           setWhitelabelIndustry={setWhitelabelIndustry}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1317,6 +1330,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelCurrentChallenges={setWhitelabelCurrentChallenges}
           whitelabelExpectation={whitelabelExpectation}
           setWhitelabelExpectation={setWhitelabelExpectation}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1346,6 +1360,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelCatchup={setWhitelabelCatchup}
           whitelabelCombination={whitelabelCombination}
           setWhitelabelCombination={setWhitelabelCombination}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1370,6 +1385,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelPABS={setWhitelabelPABS}
           whitelabelBDM={whitelabelBDM}
           setWhitelabelBDM={setWhitelabelBDM}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1399,6 +1415,7 @@ const ChecklistWhitelabel = ({
           setWhitelabelConvenientDay={setWhitelabelConvenientDay}
           whitelabelTimeSlot={whitelabelTimeSlot}
           setWhitelabelTimeSlot={setWhitelabelTimeSlot}
+          isFormLocked={isFormLocked}
         />
       ),
     },
@@ -1431,6 +1448,7 @@ const ChecklistWhitelabel = ({
                   handleChange={phase.handleAccordianChange}
                   switchDisabled={isSubmitedWhiteLabelChecklist}
                   title={`Phase ${phase.phaseNumber}: ${phase.title}`}
+                  isFormLocked={isFormLocked}
                 >
                   {phase.component}
                 </ChecklistAccordian>
@@ -1451,15 +1469,14 @@ const ChecklistWhitelabel = ({
                 )}
             </div>
           </div>
-
-          <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
-            <CommentData clientID={clientId} />
-          </div>
-
           <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6 w-full">
             <Button
-              onClick={() => handleSubmit(3)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              onClick={() =>
+                isFormLocked && (roleId === "3" || roleId === "4")
+                  ? handleSubmitwithOutApi(3)
+                  : handleSubmit(3)
+              }
+              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
             >
               Back
@@ -1477,15 +1494,24 @@ const ChecklistWhitelabel = ({
               {(roleId === "4" ? !isSubmitedWhiteLabelChecklist : true) && (
                 <Button
                   onClick={() => handleSubmit(2)}
-                  className={`!border-[#023963] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                  className={`${
+                    isFormLocked && (roleId === "3" || roleId === "4")
+                      ? "!border-[#666] !text-[#666]"
+                      : "!border-[#023963] !text-[#022946]"
+                  } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
+                  disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
                   Save
                 </Button>
               )}
               <Button
-                onClick={() => handleSubmit(1)}
-                className={`!bg-[#022946] text-white !rounded-full`}
+                onClick={() =>
+                  isFormLocked && (roleId === "3" || roleId === "4")
+                    ? handleSubmitwithOutApi(1)
+                    : handleSubmit(1)
+                }
+                className={`!bg-[#022946] !text-white !rounded-full`}
                 variant="contained"
               >
                 <span className="uppercase font-semibold text-[14px] whitespace-nowrap">

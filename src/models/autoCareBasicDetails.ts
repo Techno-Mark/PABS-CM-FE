@@ -8,6 +8,7 @@ export interface FormBoxProps {
   children: ReactNode;
   className?: string;
   switchDisabled?: boolean;
+  isFormLocked?: boolean;
 }
 
 export interface LegalStructureFormTypes {
@@ -96,6 +97,7 @@ export interface AccountDetailsTypes {
     React.SetStateAction<AccountDetailsFormErrors>
   >;
   finalCheckAllFieldsAccountDetails: boolean
+  isFormLocked: boolean
 }
 
 export interface LegalStructureTypes {
@@ -111,6 +113,7 @@ export interface LegalStructureTypes {
     React.SetStateAction<LegalStructureFormErrors>
   >;
   finalCheckAllFieldsLegalStructure: boolean
+  isFormLocked: boolean
 }
 
 export interface ClientTeamTypes {
@@ -126,6 +129,7 @@ export interface ClientTeamTypes {
     React.SetStateAction<ClientTeamFormErrors>
   >;
   finalCheckAllFieldsClientTeam: boolean
+  isFormLocked: boolean
 }
 
 export interface PabsAccountingTeamTypes {
@@ -137,6 +141,7 @@ export interface PabsAccountingTeamTypes {
     React.SetStateAction<PabsAccountingTeamFormTypes>
   >;
   finalCheckAllFieldsPabsAccountingTeam: boolean
+  isFormLocked: boolean
 }
 
 export interface ClientInfoType {
@@ -211,6 +216,7 @@ export interface BasicDetailsResponseDataType {
   cpaClientTeamIsDisplay: boolean;
   pabsAccountingTeamIsDisplay: boolean;
   isSubmited: boolean
+  isFormLocked: boolean
 }
 
 export interface formChecklistDetails {

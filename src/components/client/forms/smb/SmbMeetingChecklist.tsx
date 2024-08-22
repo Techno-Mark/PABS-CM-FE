@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Models import
 import {
   ConvenientFormTypes,
@@ -16,6 +16,7 @@ import { Grid, SelectChangeEvent, TextField } from "@mui/material";
 // Cookie import
 import Cookies from "js-cookie";
 import Status from "@/components/client/common/Status";
+import { updateStatus } from "@/utils/statusChangeFunction";
 
 function SmbMeetingChecklist({
   className,
@@ -27,7 +28,26 @@ function SmbMeetingChecklist({
   smbTimeSlot,
   setSmbTimeSlot,
   checkAllFieldsSmbMeetingChecklist,
+  isFormLocked,
 }: MeetingChecklistType) {
+  useEffect(() => {
+    updateStatus(smbTimeZone.TimeZoneDetails, setSmbTimeZone, "TimeZoneStatus");
+
+    updateStatus(
+      smbConvenient.ConvenientDetails,
+      setSmbConvenient,
+      "ConvenientStatus"
+    );
+
+    updateStatus(smbTimeSlot.TimeSlotDetails, setSmbTimeSlot, "TimeSlotStatus");
+  }, [
+    smbTimeZone.TimeZoneDetails,
+    setSmbTimeZone,
+    smbConvenient.ConvenientDetails,
+    setSmbConvenient,
+    smbTimeSlot.TimeSlotDetails,
+    setSmbTimeSlot,
+  ]);
   return (
     <div className={`${className}`}>
       <TimeZone
@@ -35,18 +55,21 @@ function SmbMeetingChecklist({
         smbTimeZone={smbTimeZone}
         setSmbTimeZone={setSmbTimeZone}
         smbTimeZoneErrors={smbMeetingChecklistErrors}
+        isFormLocked={isFormLocked}
       />
       <Convenient
         checkAllFieldsConvenient={checkAllFieldsSmbMeetingChecklist}
         smbConvenient={smbConvenient}
         setSmbConvenient={setSmbConvenient}
         smbConvenientErrors={smbMeetingChecklistErrors}
+        isFormLocked={isFormLocked}
       />
       <TimeSlot
         checkAllFieldsTimeSlot={checkAllFieldsSmbMeetingChecklist}
         smbTimeSlot={smbTimeSlot}
         setSmbTimeSlot={setSmbTimeSlot}
         smbTimeSlotErrors={smbMeetingChecklistErrors}
+        isFormLocked={isFormLocked}
       />
     </div>
   );
@@ -59,6 +82,7 @@ const TimeZone = ({
   setSmbTimeZone,
   smbTimeZoneErrors,
   checkAllFieldsTimeZone,
+  isFormLocked,
 }: TimeZoneTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -89,7 +113,10 @@ const TimeZone = ({
               }
               error={smbTimeZoneErrors?.TimeZoneStatus}
               helperText={smbTimeZoneErrors?.TimeZoneStatus}
-              disabled={roleId === "4" && checkAllFieldsTimeZone}
+              disabled={
+                (roleId === "4" && checkAllFieldsTimeZone) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -114,7 +141,10 @@ const TimeZone = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsTimeZone}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTimeZone) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -142,7 +172,10 @@ const TimeZone = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsTimeZone}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTimeZone) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -157,6 +190,7 @@ const Convenient = ({
   setSmbConvenient,
   smbConvenientErrors,
   checkAllFieldsConvenient,
+  isFormLocked,
 }: ConvenientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -187,7 +221,10 @@ const Convenient = ({
               }
               error={smbConvenientErrors?.ConvenientStatus}
               helperText={smbConvenientErrors?.ConvenientStatus}
-              disabled={roleId === "4" && checkAllFieldsConvenient}
+              disabled={
+                (roleId === "4" && checkAllFieldsConvenient) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -212,7 +249,10 @@ const Convenient = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsConvenient}
+                disabled={
+                  (roleId === "4" && checkAllFieldsConvenient) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -240,7 +280,10 @@ const Convenient = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsConvenient}
+                disabled={
+                  (roleId === "4" && checkAllFieldsConvenient) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -255,6 +298,7 @@ const TimeSlot = ({
   setSmbTimeSlot,
   smbTimeSlotErrors,
   checkAllFieldsTimeSlot,
+  isFormLocked,
 }: TimeSlotTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -285,7 +329,10 @@ const TimeSlot = ({
               }
               error={smbTimeSlotErrors?.TimeSlotStatus}
               helperText={smbTimeSlotErrors?.TimeSlotStatus}
-              disabled={roleId === "4" && checkAllFieldsTimeSlot}
+              disabled={
+                (roleId === "4" && checkAllFieldsTimeSlot) ||
+                (isFormLocked && (roleId == "3" || roleId == "4"))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -310,7 +357,10 @@ const TimeSlot = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsTimeSlot}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTimeSlot) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>
@@ -338,7 +388,10 @@ const TimeSlot = ({
                   maxLength: 250,
                   className: classes.textSize,
                 }}
-                disabled={roleId === "4" && checkAllFieldsTimeSlot}
+                disabled={
+                  (roleId === "4" && checkAllFieldsTimeSlot) ||
+                  (isFormLocked && (roleId == "3" || roleId == "4"))
+                }
               />
             </div>
           </Grid>

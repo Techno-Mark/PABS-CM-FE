@@ -17,6 +17,7 @@ const WhitelabelCpaClientTeamForm = ({
   handleAddField,
   handleRemoveField,
   checkAllFieldsWhitelabelCpaClientTeamForm,
+  isFormLocked,
 }: WhitelabelCpaClientTypes) => {
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
@@ -28,6 +29,7 @@ const WhitelabelCpaClientTeamForm = ({
         checkStatus={whitelabelCpaClientTeamCheckStatus}
         handleChange={(e: any) => handleWhitelabelCpaClientTeamSwitch(e)}
         switchDisabled={checkAllFieldsWhitelabelCpaClientTeamForm}
+        isFormLocked={isFormLocked}
       >
         <div className="py-3 px-2 flex flex-col gap-4">
           <Grid container spacing={2}>
@@ -70,8 +72,9 @@ const WhitelabelCpaClientTeamForm = ({
                         className: classes.textSize,
                       }}
                       disabled={
-                        roleId === "4" &&
-                        checkAllFieldsWhitelabelCpaClientTeamForm
+                        (roleId === "4" &&
+                          checkAllFieldsWhitelabelCpaClientTeamForm) ||
+                        (isFormLocked && (roleId == "3" || roleId == "4"))
                       }
                     />
                   </div>
@@ -109,8 +112,9 @@ const WhitelabelCpaClientTeamForm = ({
                         className: classes.textSize,
                       }}
                       disabled={
-                        roleId === "4" &&
-                        checkAllFieldsWhitelabelCpaClientTeamForm
+                        (roleId === "4" &&
+                          checkAllFieldsWhitelabelCpaClientTeamForm) ||
+                        (isFormLocked && (roleId == "3" || roleId == "4"))
                       }
                     />
                   </div>
@@ -147,8 +151,9 @@ const WhitelabelCpaClientTeamForm = ({
                         className: classes.textSize,
                       }}
                       disabled={
-                        roleId === "4" &&
-                        checkAllFieldsWhitelabelCpaClientTeamForm
+                        (roleId === "4" &&
+                          checkAllFieldsWhitelabelCpaClientTeamForm) ||
+                        (isFormLocked && (roleId == "3" || roleId == "4"))
                       }
                     />
                   </div>
@@ -160,7 +165,11 @@ const WhitelabelCpaClientTeamForm = ({
                     <div className="flex justify-end items-center pl-2 mt-6 gap-4">
                       {whitelabelCpaClientTeam.cpaArray.length > 1 && (
                         <span
-                          className="cursor-pointer"
+                          className={`${
+                            isFormLocked && (roleId == "3" || roleId == "4")
+                              ? "pointer-events-none"
+                              : "cursor-pointer"
+                          }`}
                           onClick={() => handleRemoveField(index)}
                         >
                           <MinusCircle />
@@ -169,7 +178,11 @@ const WhitelabelCpaClientTeamForm = ({
                       {index ===
                         whitelabelCpaClientTeam.cpaArray.length - 1 && (
                         <span
-                          className="cursor-pointer"
+                        className={`${
+                          isFormLocked && (roleId == "3" || roleId == "4")
+                            ? "pointer-events-none"
+                            : "cursor-pointer"
+                        }`}
                           onClick={handleAddField}
                         >
                           <PlusCircleicon />

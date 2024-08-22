@@ -8,6 +8,7 @@ export const initialWhitelabelAccountName = {
   ownerContact: "",
   ownerEmail: "",
   ownerPhone: "",
+  isFormLocked: false || null,
 };
 
 export const validateWhitelabelAccountDetails = [
