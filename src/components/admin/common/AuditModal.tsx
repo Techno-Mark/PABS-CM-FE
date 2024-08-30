@@ -143,17 +143,22 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                           <td className="px-6 py-4 max-w-xs text-sm">
                             {index + 1}
                           </td>
-                          <td className="px-14 py-4 max-w-xs text-sm">
-                            {formatFieldName(action.fieldName)}
-                          </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
                             {RenamedDateFields.includes(action.fieldName)
                               ? formatDateTime(action.oldValue)
+                              : action.fieldName === "isFormLocked"
+                              ? action.oldValue == 0
+                                ? "false"
+                                : "true"
                               : action.oldValue}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
                             {RenamedDateFields.includes(action.fieldName)
                               ? formatDateTime(action.newValue)
+                              : action.fieldName === "isFormLocked"
+                              ? action.newValue == 0
+                                ? "false"
+                                : "true"
                               : action.newValue}
                           </td>
                         </tr>
