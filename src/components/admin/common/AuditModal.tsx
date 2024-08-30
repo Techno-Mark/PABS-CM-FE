@@ -30,6 +30,7 @@ interface AuditModalProps {
 }
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
+  console.log("🚀 ~ AuditModal ~ auditDetails:", auditDetails);
   const updatedDateTime = (dateTime: string) => {
     return dateTime ? dayjs(dateTime).format("MM/DD/YYYY HH:mm:ss") : "N/A";
   };
@@ -142,6 +143,9 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                         <tr key={index}>
                           <td className="px-6 py-4 max-w-xs text-sm">
                             {index + 1}
+                          </td>
+                          <td className="px-14 py-4 max-w-xs text-sm">
+                            {formatFieldName(action.fieldName)}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
                             {RenamedDateFields.includes(action.fieldName)
