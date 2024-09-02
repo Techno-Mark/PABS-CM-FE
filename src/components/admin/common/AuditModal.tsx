@@ -30,7 +30,6 @@ interface AuditModalProps {
 }
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
-  console.log("🚀 ~ AuditModal ~ auditDetails:", auditDetails);
   const updatedDateTime = (dateTime: string) => {
     return dateTime ? dayjs(dateTime).format("MM/DD/YYYY HH:mm:ss") : "N/A";
   };
