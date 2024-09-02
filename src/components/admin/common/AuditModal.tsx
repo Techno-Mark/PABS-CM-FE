@@ -169,7 +169,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                   ) : (
                     <tr>
                       <td colSpan={4} className="px-6 py-4 text-center text-sm">
-                        No fields changed
+                        No fields changed 
                       </td>
                     </tr>
                   )}
