@@ -152,8 +152,8 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                               ? formatDateTime(action.oldValue)
                               : action.fieldName === "isFormLocked"
                               ? action.oldValue == 0
-                                ? "false"
-                                : "true"
+                                ? "Unlock"
+                                : "Lock"
                               : action.oldValue}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
@@ -161,8 +161,8 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                               ? formatDateTime(action.newValue)
                               : action.fieldName === "isFormLocked"
                               ? action.newValue == 0
-                                ? "false"
-                                : "true"
+                                ? "Unlock"
+                                : "Lock"
                               : action.newValue}
                           </td>
                         </tr>
