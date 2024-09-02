@@ -30,7 +30,6 @@ interface AuditModalProps {
 }
 
 function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
-  console.log("🚀 ~ AuditModal ~ auditDetails:", auditDetails);
   const updatedDateTime = (dateTime: string) => {
     return dateTime ? dayjs(dateTime).format("MM/DD/YYYY HH:mm:ss") : "N/A";
   };
@@ -152,8 +151,8 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                               ? formatDateTime(action.oldValue)
                               : action.fieldName === "isFormLocked"
                               ? action.oldValue == 0
-                                ? "false"
-                                : "true"
+                                ? "Unlock"
+                                : "Lock"
                               : action.oldValue}
                           </td>
                           <td className="px-14 py-4 max-w-xs text-sm break-words">
@@ -161,8 +160,8 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                               ? formatDateTime(action.newValue)
                               : action.fieldName === "isFormLocked"
                               ? action.newValue == 0
-                                ? "false"
-                                : "true"
+                                ? "Unlock"
+                                : "Lock"
                               : action.newValue}
                           </td>
                         </tr>
