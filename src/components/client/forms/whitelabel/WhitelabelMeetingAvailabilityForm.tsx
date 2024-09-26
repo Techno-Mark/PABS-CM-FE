@@ -138,8 +138,6 @@ const TimeZone = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelTimeZone?.timeZoneActionPABS}
-                error={!!whitelabelTimeZoneErrors?.timeZoneActionPABS}
-                helperText={whitelabelTimeZoneErrors?.timeZoneActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -169,8 +167,6 @@ const TimeZone = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelTimeZone?.timeZoneActionClient}
-                error={!!whitelabelTimeZoneErrors?.timeZoneActionClient}
-                helperText={whitelabelTimeZoneErrors?.timeZoneActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -281,10 +277,6 @@ const ConvenientDay = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelConvenientDay?.convenientDayActionPABS}
-                error={!!whitelabelConvenientDayErrors?.convenientDayActionPABS}
-                helperText={
-                  whitelabelConvenientDayErrors?.convenientDayActionPABS
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -314,12 +306,6 @@ const ConvenientDay = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelConvenientDay?.convenientDayActionClient}
-                error={
-                  !!whitelabelConvenientDayErrors?.convenientDayActionClient
-                }
-                helperText={
-                  whitelabelConvenientDayErrors?.convenientDayActionClient
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -426,8 +412,6 @@ const TimeSlot = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelTimeSlot?.timeSlotActionPABS}
-                error={!!whitelabelTimeSlotErrors?.timeSlotActionPABS}
-                helperText={whitelabelTimeSlotErrors?.timeSlotActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -457,8 +441,6 @@ const TimeSlot = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelTimeSlot?.timeSlotActionClient}
-                error={!!whitelabelTimeSlotErrors?.timeSlotActionClient}
-                helperText={whitelabelTimeSlotErrors?.timeSlotActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {

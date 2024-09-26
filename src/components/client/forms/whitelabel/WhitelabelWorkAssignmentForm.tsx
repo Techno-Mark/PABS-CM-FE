@@ -152,8 +152,6 @@ const Monthly = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelMonthly?.monthlyActionPABS}
-                error={!!whitelabelMonthlyErrors?.monthlyActionPABS}
-                helperText={whitelabelMonthlyErrors?.monthlyActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -183,8 +181,6 @@ const Monthly = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelMonthly?.monthlyActionClient}
-                error={!!whitelabelMonthlyErrors?.monthlyActionClient}
-                helperText={whitelabelMonthlyErrors?.monthlyActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -291,8 +287,6 @@ const Cleanup = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelCleanup?.cleanupActionPABS}
-                error={!!whitelabelCleanupErrors?.cleanupActionPABS}
-                helperText={whitelabelCleanupErrors?.cleanupActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -322,8 +316,6 @@ const Cleanup = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelCleanup?.cleanupActionClient}
-                error={!!whitelabelCleanupErrors?.cleanupActionClient}
-                helperText={whitelabelCleanupErrors?.cleanupActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -430,8 +422,6 @@ const Catchup = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelCatchup?.catchupActionPABS}
-                error={!!whitelabelCatchupErrors?.catchupActionPABS}
-                helperText={whitelabelCatchupErrors?.catchupActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -461,8 +451,6 @@ const Catchup = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelCatchup?.catchupActionClient}
-                error={!!whitelabelCatchupErrors?.catchupActionClient}
-                helperText={whitelabelCatchupErrors?.catchupActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -570,8 +558,6 @@ const Combination = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelCombination?.combinationActionPABS}
-                error={!!whitelabelCombinationErrors?.combinationActionPABS}
-                helperText={whitelabelCombinationErrors?.combinationActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -601,10 +587,6 @@ const Combination = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelCombination?.combinationActionClient}
-                error={!!whitelabelCombinationErrors?.combinationActionClient}
-                helperText={
-                  whitelabelCombinationErrors?.combinationActionClient
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {

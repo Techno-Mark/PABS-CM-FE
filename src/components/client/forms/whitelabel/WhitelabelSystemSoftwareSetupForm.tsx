@@ -606,12 +606,6 @@ const AccountingSoftware = ({
                 value={
                   whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelActionPABS
                 }
-                error={
-                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionPABS
-                }
-                helperText={
-                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionPABS
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -642,12 +636,6 @@ const AccountingSoftware = ({
                 placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelAccountingSoftware?.accountingSoftwareWhiteLabelActionClient
-                }
-                error={
-                  !!whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionClient
-                }
-                helperText={
-                  whitelabelAccountingSoftwareErrors?.accountingSoftwareWhiteLabelActionClient
                 }
                 onChange={handleChange}
                 InputProps={{
@@ -768,12 +756,6 @@ const CloudDocument = ({
                 value={
                   whitelabelCloudDocument?.cloudDocumentWhiteLabelActionPABS
                 }
-                error={
-                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionPABS
-                }
-                helperText={
-                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionPABS
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -804,12 +786,6 @@ const CloudDocument = ({
                 placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelCloudDocument?.cloudDocumentWhiteLabelActionClient
-                }
-                error={
-                  !!whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionClient
-                }
-                helperText={
-                  whitelabelCloudDocumentErrors?.cloudDocumentWhiteLabelActionClient
                 }
                 onChange={handleChange}
                 InputProps={{
@@ -922,12 +898,6 @@ const Messenger = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelMessenger?.messengerWhiteLabelActionPABS}
-                error={
-                  !!whitelabelMessengerErrors?.messengerWhiteLabelActionPABS
-                }
-                helperText={
-                  whitelabelMessengerErrors?.messengerWhiteLabelActionPABS
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -957,12 +927,6 @@ const Messenger = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelMessenger?.messengerWhiteLabelActionClient}
-                error={
-                  !!whitelabelMessengerErrors?.messengerWhiteLabelActionClient
-                }
-                helperText={
-                  whitelabelMessengerErrors?.messengerWhiteLabelActionClient
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -1077,12 +1041,6 @@ const SystemAccess = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelSystemAccess?.systemAccessWhiteLabelActionPABS}
-                error={
-                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionPABS
-                }
-                helperText={
-                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionPABS
-                }
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -1113,12 +1071,6 @@ const SystemAccess = ({
                 placeholder="Please Enter Action Items - Client"
                 value={
                   whitelabelSystemAccess?.systemAccessWhiteLabelActionClient
-                }
-                error={
-                  !!whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionClient
-                }
-                helperText={
-                  whitelabelSystemAccessErrors?.systemAccessWhiteLabelActionClient
                 }
                 onChange={handleChange}
                 InputProps={{
