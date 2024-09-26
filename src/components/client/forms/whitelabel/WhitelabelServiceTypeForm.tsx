@@ -162,8 +162,6 @@ const FTE = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelFTE?.FTEActionPABS}
-                error={!!whitelabelFTEErrors?.FTEActionPABS}
-                helperText={whitelabelFTEErrors?.FTEActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -193,8 +191,6 @@ const FTE = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelFTE?.FTEActionClient}
-                error={!!whitelabelFTEErrors?.FTEActionClient}
-                helperText={whitelabelFTEErrors?.FTEActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -301,8 +297,6 @@ const Accounting = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelAccounting?.accountingActionPABS}
-                error={!!whitelabelAccountingErrors?.accountingActionPABS}
-                helperText={whitelabelAccountingErrors?.accountingActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -332,8 +326,6 @@ const Accounting = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelAccounting?.accountingActionClient}
-                error={!!whitelabelAccountingErrors?.accountingActionClient}
-                helperText={whitelabelAccountingErrors?.accountingActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -440,8 +432,6 @@ const Tax = ({
                 size="small"
                 placeholder="Please Enter Action Items - PABS"
                 value={whitelabelTax?.taxActionPABS}
-                error={!!whitelabelTaxErrors?.taxActionPABS}
-                helperText={whitelabelTaxErrors?.taxActionPABS}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
@@ -471,8 +461,6 @@ const Tax = ({
                 size="small"
                 placeholder="Please Enter Action Items - Client"
                 value={whitelabelTax?.taxActionClient}
-                error={!!whitelabelTaxErrors?.taxActionClient}
-                helperText={whitelabelTaxErrors?.taxActionClient}
                 onChange={handleChange}
                 InputProps={{
                   classes: {
