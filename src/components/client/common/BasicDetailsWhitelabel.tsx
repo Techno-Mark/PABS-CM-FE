@@ -291,7 +291,7 @@ const BasicDetailsWhitelabel = ({
         : parseInt(businessTypeId!),
       cpaName: whitelabelAccountDetails.cpaName,
       corporateAddress: whitelabelAccountDetails.corporateAddress,
-      ownerContact: validatePhone(whitelabelAccountDetails.ownerContact)
+      ownerContact: whitelabelAccountDetails.ownerContact
         ? whitelabelAccountDetails.ownerContact
         : "",
       ownerEmail: validateEmail(whitelabelAccountDetails.ownerEmail)

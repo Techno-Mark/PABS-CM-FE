@@ -40,15 +40,12 @@ const WhitelabelAccountDetailsForm = ({
 
     switch (name) {
       case "ownerPhone":
-      case "ownerContact":
         if (validateNumber(value)) {
           const validValue = value.slice(0, 10);
           const errorMessage =
-            validValue.length < 10
-              ? `${
-                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
-                } must be exactly ${10} characters`
-              : "";
+          validValue.length < 10
+            ? "Owner Phone must be exactly 10 characters"
+            : "";
 
           setWhitelabelAccountDetails(
             (prev: WhitelabelAccountDetailsFormTypes) => ({
@@ -65,11 +62,9 @@ const WhitelabelAccountDetailsForm = ({
         } else {
           const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
           const errorMessage =
-            validValue.length < 10
-              ? `${
-                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
-                } must be exactly ${10} characters`
-              : "";
+          validValue.length < 10
+            ? "Owner Phone must be exactly 10 characters"
+            : "";
 
           setWhitelabelAccountDetails(
             (prev: WhitelabelAccountDetailsFormTypes) => ({
