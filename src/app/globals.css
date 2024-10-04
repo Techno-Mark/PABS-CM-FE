@@ -1,7 +1,19 @@
+@font-face {
+  font-family: 'proximanova';
+  src: url('/fonts/Fontspring-DEMO-proximanova-bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+body{
+  font-family: 'proximanova', sans-serif ;
+}
 .MuiInput-root input::placeholder {
   font-size: 12px !important;
 }
@@ -16,7 +28,7 @@ input::-ms-clear {
   display: none;
 }
 
-.borderClass::before {
+/* .borderClass::before {
   content: "";
   position: absolute;
   top: 0;
@@ -44,7 +56,7 @@ input::-ms-clear {
   );
   background: var(--main-bg) padding-box, var(--gradient-border) border-box,
     var(--main-bg) border-box;
-}
+} */
 
 .MuiInputBase-input[type="password"] {
   color: #023963 !important;

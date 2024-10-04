@@ -199,12 +199,13 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
 
   return (
     <AuthWapper>
-      <span className="text-[32px] !font-light pt-24">
+    <div className="mx-auto w-[65%]">
+      <span className="text-[40px] !font-medium">
         {passwordType} Password
       </span>
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-14">
-          <label className="text-[#6E6D7A] text-[14px] flex items-center">
+          <label className="text-[#6E6D7A] font-normal text-[12px] flex items-center">
             {isReset ? "New Password" : "Password"}
             <span className="text-[#DC3545]">*</span>&nbsp;
             <InfoIcon />
@@ -218,6 +219,9 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
               onChange={handleNewPasswordChange}
               error={newPassword.error}
               value={newPassword.value}
+              inputProps={{
+                className: 'text-[14px] font-normal', 
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -237,7 +241,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
         </div>
 
         <div className="text-[12px] flex flex-col pt-8">
-          <label className="text-[#6E6D7A] text-[14px] flex items-center">
+          <label className="text-[#6E6D7A] font-normal text-[12px] flex items-center">
             Confirm Password<span className="text-[#DC3545]">*</span>&nbsp;
             <InfoIcon />
           </label>
@@ -250,6 +254,9 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
               onChange={handleConfirmPasswordChange}
               error={confirmPassword.error}
               value={confirmPassword.value}
+              inputProps={{
+                className: 'text-[14px] font-normal', 
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -270,19 +277,20 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
 
         <Button
           type="submit"
-          className={`!bg-[#023963] !mt-14 !mb-20 text-white !h-[38px] !rounded-md w-full`}
+          className={`!bg-[#0078C8] hover:!bg-[#023963] !mt-14 !mb-5 text-white !h-[38px] !rounded-md w-full !shadow-none`}
           variant="contained"
           disabled={isLoading ? true : false}
         >
           {isLoading ? (
             <CircularProgress size={20} sx={{color: "white !important"}}/>
           ) : (
-            <span className="normal-case font-semibold text-[16px]">
+            <span className="normal-case font-normal text-[16px]">
               {passwordType} Password
             </span>
           )}
         </Button>
       </form>
+      </div>    
     </AuthWapper>
   );
 };

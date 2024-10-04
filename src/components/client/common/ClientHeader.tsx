@@ -25,6 +25,7 @@ import Cookies from "js-cookie";
 import CommentIcon from "@/assets/Icons/admin/CommentIcon";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -60,6 +61,7 @@ const ClientHeader = ({
   const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const selectRefNavbar = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -128,8 +130,8 @@ const ClientHeader = ({
       }}
     >
       <Toolbar>
-        <div className="flex flex-row w-full justify-between items-center mb-3">
-          <div
+        <div className="flex flex-row w-full justify-end items-center mb-3">
+          {/* <div
             className={`!text-[#000000] ${
               !!clientLogo && "flex gap-4 justify-center items-center"
             }`}
@@ -155,7 +157,7 @@ const ClientHeader = ({
                 />
               )}
             </span>
-          </div>
+          </div> */}
           <div className="relative flex gap-4">
             {(formSubmit === 12 || formSubmit === 21 || formSubmit === 32) && (
               <Tooltip title="Comment" placement="bottom" arrow>
@@ -171,9 +173,14 @@ const ClientHeader = ({
               className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
               onClick={handleToggle}
               ref={selectRefNavbar}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
-              {userName}
               <UserIcon />
+              {userName}
+              <div className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                <DropDownArrow fillColor={isHovered ? "#0078C8" : "#333333"} />
+              </div>
               <div
                 style={{
                   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",

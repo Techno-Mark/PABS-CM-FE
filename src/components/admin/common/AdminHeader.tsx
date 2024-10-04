@@ -17,6 +17,7 @@ import { ToastType } from "@/static/toastType";
 // Cookie import
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -40,6 +41,7 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
   const token = Cookies.get("token");
   const userName = Cookies.get("userName");
   const selectRefNavbar = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -108,8 +110,8 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
       }}
     >
       <Toolbar>
-        <div className="flex flex-row w-full justify-between items-center mb-3">
-          <div className="!text-[#000000]">
+        <div className="flex flex-row w-full justify-end items-center mb-3">
+          {/* <div className="!text-[#000000]">
             <span className="!font-bold text-[15px]">
               {url.includes("usermanagement")
                 ? "User Management"
@@ -119,15 +121,20 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
                 ? "Settings"
                 : " Audit Logs"}
             </span>
-          </div>
+          </div> */}
           <div className="relative flex">
             <div
-              className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
+              className="cursor-pointer text-black hover:text-[#0078C8] !text-[14px] font-normal relative flex gap-2.5 items-center"
               onClick={handleToggle}
               ref={selectRefNavbar}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
-              {userName}
               <UserIcon />
+              {userName}
+              <div className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                <DropDownArrow fillColor={isHovered ? "#0078C8" : "#333333"} />
+              </div>
               <div
                 style={{
                   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",

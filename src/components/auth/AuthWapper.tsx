@@ -17,17 +17,17 @@ function AuthWapper({ children }: childPropsType) {
     }
   }, []);
   return (
-    <div className="flex justify-center items-center w-full min-h-[100vh] py-8 bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
-      <div className="relative flex w-[70%] max-w-[1000px]">
-        <div className="w-[50%] hidden lg:flex justify-center items-center borderClass bg-[#002641]">
+    <div className="flex justify-center items-center w-full h-[100vh] bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
+      <div className="relative flex w-[100%] h-[100%]">
+        <div className="w-[50%] hidden lg:flex justify-center items-center bg-[#023963]">
           <span className="flex absolute">
             <PABSIcon />
           </span>
-          <span className="absolute bottom-[2px] left-[2px] blur-sm">
+          <span className="absolute bottom-[2px] left-[2px]">
             <PABSHalfIcon />
           </span>
         </div>
-        <div className="w-[90%] lg:w-[50%] flex flex-col bg-white px-14 h-fit">
+        <div className="w-[100%] lg:w-[50%] flex flex-col justify-center bg-white px-14 h-[100%]">
           {children}
         </div>
       </div>

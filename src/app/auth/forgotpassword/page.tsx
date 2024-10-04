@@ -28,6 +28,7 @@ function Page() {
     errorText: "",
   };
 
+  const [isHovered, setIsHovered] = useState(false);
   const [email, setEmail] = useState<StringFieldType>(initialFieldStringValues);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -94,18 +95,19 @@ function Page() {
 
   return (
     <AuthWapper>
-      <span
+    <div className="mx-auto w-[65%]">
+      {/* <span
         className="flex items-center w-fit gap-2 text-[14px] font-medium  pt-14 cursor-pointer"
         onClick={() => router.push("/")}
       >
         <BackIcon /> Back
-      </span>
-      <span className="text-[32px] !font-light  pt-14">
-        Reset your password
+      </span> */}
+      <span className="text-[24px] !font-semibold pt-14">
+      Please enter email to reset password.
       </span>
       <form onSubmit={handleSubmit}>
-        <div className="text-[12px] flex flex-col pt-14">
-          <label className="text-[#6E6D7A] text-[14px]">
+        <div className="text-[12px] flex flex-col pt-12">
+          <label className="text-[#6E6D7A] font-normal text-[12px]">
             Email Address<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -120,26 +122,35 @@ function Page() {
             InputProps={{
               classes: {
                 underline: classes.underlineWithPlaceholderColor,
+                input: 'text-[14px] font-normal',
               },
             }}
           />
         </div>
-
         <Button
           type="submit"
-          className={`!bg-[#023963] !mt-16 mb-24 text-white !h-[38px] !rounded-md w-full`}
+          className={`!bg-[#0078C8] hover:!bg-[#023963] !mt-12 mb-5 text-white !h-[38px] !rounded-md w-full !shadow-none`}
           variant="contained"
           disabled={isLoading ? true : false}
         >
           {isLoading ? (
             <CircularProgress size={20} sx={{color: "white !important"}}/>
           ) : (
-            <span className="normal-case font-semibold text-[16px]">
-              Reset Password
+            <span className="normal-case font-normal text-[16px]">
+              Confirm
             </span>
           )}
         </Button>
       </form>
+      <span
+        className="flex items-center justify-center h-[36px] w-[100%] gap-2 text-[14px] font-medium cursor-pointer !bg-[#ffffff] !rounded-[4px] border border-[#0078C8] hover:border-[#023963] text-[#0078C8] hover:text-[#023963]"
+        onClick={() => router.push("/")}
+        onMouseEnter={() => setIsHovered(true)} // Set hover state
+        onMouseLeave={() => setIsHovered(false)} // Reset hover state
+      >
+        <BackIcon fillColor={isHovered ? "#023963" : "#0078C8"}/> Back to Login
+      </span>
+    </div>  
     </AuthWapper>
   );
 }

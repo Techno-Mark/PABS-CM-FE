@@ -172,89 +172,94 @@ function Page() {
 
   return (
     <AuthWapper>
-      <span className="text-[32px] !font-light pt-20">Welcome</span>
-      <form onSubmit={handleSubmit}>
-        <div
-          className={`text-[12px] flex flex-col ${
-            email.error ? "pt-8" : "pt-14"
-          }`}
-        >
-          <label className="text-[#6E6D7A] text-[14px]">
-            Email<span className="text-[#DC3545]">*</span>
-          </label>
-          <TextField
-            id="outlined-basic"
-            variant="standard"
-            size="small"
-            placeholder="Please Enter Email Address"
-            value={email.value}
-            error={email.error}
-            helperText={email.errorText}
-            onChange={handleEmailChange}
-            InputProps={{
-              classes: {
-                underline: classes.underlineWithPlaceholderColor,
-              },
-            }}
-          />
-        </div>
-        <div
-          className={`text-[12px] flex flex-col ${
-            email.error ? "pt-4" : "pt-8"
-          }`}
-        >
-          <label className="text-[#6E6D7A] text-[14px]">
-            Password<span className="text-[#DC3545]">*</span>
-          </label>
-          <FormControl variant="standard">
-            <Input
-              classes={{ underline: classes.underlineWithPlaceholderColor }}
-              id="outlined-adornment-password"
-              placeholder="Please Enter Password"
-              type={showPassword ? "text" : "password"}
-              onChange={handlePasswordChange}
-              error={password.error}
-              value={password.value}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                    tabIndex={-1}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
+      <div className="mx-auto w-[65%]">
+        <span className="text-[40px] !font-medium">Log In</span>
+        <form onSubmit={handleSubmit}>
+          <div
+            className={`text-[12px] flex flex-col ${
+              email.error ? "pt-8" : "pt-14"
+            }`}
+          >
+            <label className="text-[#6C6C6C] font-normal text-[12px]">
+              Email<span className="text-[#DC3545]">*</span>
+            </label>
+            <TextField
+              id="outlined-basic"
+              variant="standard"
+              size="small"
+              placeholder="Please Enter Email Address"
+              value={email.value}
+              error={email.error}
+              helperText={email.errorText}
+              onChange={handleEmailChange}
+              InputProps={{
+                classes: {
+                  underline: classes.underlineWithPlaceholderColor,
+                  input: 'text-[14px] font-normal',
+                },
+              }}
             />
-            <span className="text-[#d32f2f]">{password.errorText}</span>
-          </FormControl>
+          </div>
+          <div
+            className={`text-[12px] flex flex-col ${
+              email.error ? "pt-4" : "pt-8"
+            }`}
+          >
+            <label className="text-[#6C6C6C] font-normal text-[12px]">
+              Password<span className="text-[#DC3545]">*</span>
+            </label>
+            <FormControl variant="standard">
+              <Input
+                classes={{ underline: classes.underlineWithPlaceholderColor }}
+                id="outlined-adornment-password"
+                placeholder="Please Enter Password"
+                type={showPassword ? "text" : "password"}
+                onChange={handlePasswordChange}
+                error={password.error}
+                value={password.value}
+                inputProps={{
+                  className: 'text-[14px] font-normal', 
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              <span className="text-[#d32f2f]">{password.errorText}</span>
+            </FormControl>
+          </div>
+          <div className="flex items-center justify-end">
+          <span
+            className="pt-4 text-[#0078C8] w-fit text-[14px] font-semibold underline flex justify-end items-end cursor-pointer"
+            onClick={() => router.push("/auth/forgotpassword")}
+          >
+            Forgot Password?
+          </span>
         </div>
-        <Button
-          type="submit"
-          className="!bg-[#023963] !mt-12 text-white !h-[38px] !rounded-md w-full"
-          variant="contained"
-          disabled={isLoading ? true : false}
-        >
-          {isLoading ? (
-            <CircularProgress size={20} sx={{ color: "white !important" }} />
-          ) : (
-            <span className="normal-case font-semibold text-[16px]">
-              Log In
-            </span>
-          )}
-        </Button>
-      </form>
-
-      <div className="flex items-center justify-end !pb-20">
-        <span
-          className="pt-4 text-[#023963] w-fit text-[14px] flex justify-end items-end cursor-pointer"
-          onClick={() => router.push("/auth/forgotpassword")}
-        >
-          Forgot Password?
-        </span>
+          <Button
+            type="submit"
+            className="!bg-[#0078C8] hover:!bg-[#023963] !mt-12 text-white !h-[36px] !rounded-md w-full !shadow-none"
+            variant="contained"
+            disabled={isLoading ? true : false}
+          >
+            {isLoading ? (
+              <CircularProgress size={20} sx={{ color: "white !important" }} />
+            ) : (
+              <span className="normal-case font-normal text-[16px]">
+                Log In
+              </span>
+            )}
+          </Button>
+        </form>
       </div>
     </AuthWapper>
   );
