@@ -37,9 +37,9 @@ function AutoCareAccountDetails({
         if (validateNumber(value)) {
           const validValue = value.slice(0, 10);
           const errorMessage =
-          validValue.length < 10
-          ? "Owner Phone must be exactly 10 characters"
-          : "";
+            validValue.length < 10
+              ? "Owner Phone must be exactly 10 characters"
+              : "";
           setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
             ...prev,
             [name]: validValue,
@@ -53,9 +53,9 @@ function AutoCareAccountDetails({
         } else {
           const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
           const errorMessage =
-          validValue.length < 10
-          ? "Owner Phone must be exactly 10 characters"
-          : "";
+            validValue.length < 10
+              ? "Owner Phone must be exactly 10 characters"
+              : "";
           setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
             ...prev,
             [name]: validValue,
@@ -67,6 +67,24 @@ function AutoCareAccountDetails({
             })
           );
         }
+        break;
+      case "ownerContact":
+        const validContactValue = value.slice(0, 10);
+        const contactErrorMessage =
+          validContactValue.length < 10
+            ? `Owner Contact must be exactly 10 characters`
+            : "";
+
+        setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
+          ...prev,
+          [name]: validContactValue,
+        }));
+        setAutoCareAccountDetailsErrors(
+          (prevErrors: AccountDetailsFormErrors) => ({
+            ...prevErrors,
+            [name]: contactErrorMessage,
+          })
+        );
         break;
       case "ownerEmail":
         if (!validateEmail(value)) {
