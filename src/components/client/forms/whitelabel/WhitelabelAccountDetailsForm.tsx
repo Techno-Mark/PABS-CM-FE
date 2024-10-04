@@ -40,14 +40,11 @@ const WhitelabelAccountDetailsForm = ({
 
     switch (name) {
       case "ownerPhone":
-      case "ownerContact":
         if (validateNumber(value)) {
           const validValue = value.slice(0, 10);
           const errorMessage =
             validValue.length < 10
-              ? `${
-                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
-                } must be exactly ${10} characters`
+              ? "Owner Phone must be exactly 10 characters"
               : "";
 
           setWhitelabelAccountDetails(
@@ -66,9 +63,7 @@ const WhitelabelAccountDetailsForm = ({
           const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
           const errorMessage =
             validValue.length < 10
-              ? `${
-                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
-                } must be exactly ${10} characters`
+              ? "Owner Phone must be exactly 10 characters"
               : "";
 
           setWhitelabelAccountDetails(
@@ -85,6 +80,29 @@ const WhitelabelAccountDetailsForm = ({
           );
         }
         break;
+
+      case "ownerContact":
+        // Allow any text but enforce length validation
+        const validContactValue = value.slice(0, 10);
+        const contactErrorMessage =
+          validContactValue.length < 10
+            ? "Owner Contact must be exactly 10 characters"
+            : "";
+
+        setWhitelabelAccountDetails(
+          (prev: WhitelabelAccountDetailsFormTypes) => ({
+            ...prev,
+            [name]: validContactValue,
+          })
+        );
+        setWhitelabelAccountDetailsErrors(
+          (prevErrors: WhitelabelAccountDetailsFormErrors) => ({
+            ...prevErrors,
+            [name]: contactErrorMessage,
+          })
+        );
+        break;
+
       case "zip":
         if (validateNumber(value)) {
           const validValue = value.slice(0, 6);
