@@ -101,7 +101,7 @@ const Sidebar = ({
     IconComponent: React.ComponentType<{ fill: string }>
   ) => {
     const isActive = pathname === activePath;
-    const fillColor = isActive ? "#FFFFFF" : "#D8D8D8";
+    const fillColor = isActive ? "#333333" : "#333333";
     return <IconComponent fill={fillColor} />;
   };
 
@@ -152,14 +152,15 @@ const Sidebar = ({
         <List>
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+              className="py-1 border-b border-[#d3d3d3] mb-3"
               sx={{
-                minHeight: 80,
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "start",
               }}
             >
               {openSidebar ? (
-                <PABSLogo width="100" height="60" />
+                <PABSLogo />
+                // width="100" height="60" 
               ) : (
                 <PabsCollaps width="100" height="60" />
               )}
@@ -169,25 +170,24 @@ const Sidebar = ({
 
         {sidebarItems.map((item, index) => (
           <div key={index}>
-            <List className="flex items-center w-[100%] my-1 p-0">
+            <List className="flex items-center w-full my-1 p-0">
               <Link
                 href={item.link}
                 passHref
                 key={item.module}
-                className={`flex items-center w-[90%] mx-2 p-0  ${
-                  pathname === item.link
-                    ? "!bg-[#212121] !rounded-full !bg-opacity-10"
-                    : "transparent"
-                }`}
+                className={`flex w-full items-center p-0 ${pathname === item.link
+                  ? "!bg-[#212121] !bg-opacity-10 border-l-[4px] border-l-[#0078C8]"
+                  : "transparent"
+                  }`}
               >
+                {/* mx-2 w-[90%] */}
                 <ListItemButton
                   disableRipple
                   onClick={() => {
                     item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
                   }}
-                  className={`sidebar-custom ${
-                    pathname === item.link ? "activeLabel" : "transparent"
-                  }`}
+                  className={`sidebar-custom ${pathname === item.link ? "activeLabel" : "transparent"
+                    }`}
                   sx={{
                     height: 40,
                     justifyContent: openSidebar ? "initial" : "center",
@@ -214,7 +214,7 @@ const Sidebar = ({
                     primary={item.module}
                     sx={{
                       opacity: openSidebar ? 1 : 0,
-                      color: pathname === item.link ? "#FFFFFF" : "#D8D8D8",
+                      color: pathname === item.link ? "#333333" : "#333333",
                     }}
                   />
                 </ListItemButton>

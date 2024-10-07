@@ -18,7 +18,7 @@ export const useStyles = makeStyles({
     height: "100%",
   },
   sidebarDrawer: {
-    background: "#023963 !important",
+    // background: "#023963 !important",
     height: "100%",
   },
   underlineWithPlaceholderColor: {
@@ -54,12 +54,12 @@ export const useStyles = makeStyles({
   },
   checkbox: {
     "& .MuiCheckbox-root": {
-      paddingLeft: "0px !important"
+      paddingLeft: "0px !important",
     },
   },
   date: {
     "& .MuiInputBase-input": {
-      fontSize: "12px !important"
+      fontSize: "12px !important",
     },
   },
 });
