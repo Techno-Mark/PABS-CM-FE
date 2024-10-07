@@ -34,50 +34,62 @@ function Filter({
     >
       <Box sx={style}>
         <div className="p-5 top-0 flex justify-between outline-none">
-          <span className="font-bold text-[18px]"> Filter</span>
-          <Tooltip title="Close" placement="bottom" arrow>
-            <span
-              className="flex items-center cursor-pointer"
-              onClick={() => setIsOpenModal(false)}
+          <span className="font-bold text-[18px]">Filter</span>
+          <div className="flex gap-4 items-center">
+            <Button
+              disabled={isResetDisabled}
+              onClick={handleResetSubmit}
+              className={`${
+                !isResetDisabled && "!bg-[#023963]"
+              } text-white !h-[36px] !!rounded !w-[90px] `}
+              variant="contained"
             >
-              <CloseIcon />
-            </span>
-          </Tooltip>
+              <span className="uppercase font-semibold text-[16px] capitalize">Reset</span>
+            </Button>
+            <Tooltip title="Close" placement="bottom" arrow>
+              <span
+                className="flex items-center cursor-pointer"
+                onClick={() => setIsOpenModal(false)}
+              >
+                <CloseIcon />
+              </span>
+            </Tooltip>
+          </div>
         </div>
         <Divider />
         {children}
         <Divider />
         <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0">
-          <Button
-            onClick={() => setIsOpenModal(false)}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-[90px] font-semibold text-[16px]`}
-            variant="outlined"
-          >
-            Cancel
-          </Button>
-          <Button
+          {/* <Button
             disabled={isResetDisabled}
             onClick={handleResetSubmit}
             className={`${
               !isResetDisabled && "!bg-[#023963]"
-            } text-white !h-[36px] !rounded-full !w-[90px]`}
+            } text-white !h-[36px] !!rounded !w-[90px] `}
             variant="contained"
           >
-            <span className="uppercase font-semibold text-[16px]">Reset</span>
-          </Button>
+            <span className="uppercase font-semibold text-[16px] capitalize">Reset</span>
+          </Button> */}
           <Button
             disabled={isSaveDisabled}
             onClick={handleSubmit}
             className={`${
               !isSaveDisabled && "!bg-[#023963]"
-            } text-white !h-[36px] !rounded-full !w-[71px]`}
+            } text-white !h-[36px] !!rounded !w-[71px]`}
             variant="contained"
           >
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}}/>
             ) : (
-              <span className="uppercase font-semibold text-[16px]">Save</span>
+              <span className="uppercase font-semibold text-[16px] capitalize">Save</span>
             )}
+          </Button>
+          <Button
+            onClick={() => setIsOpenModal(false)}
+            className={`!border-[#0078C8] !bg-[#FFFFFF] hover:!border-[#023963] !text-[#0078C8] hover:!text-[#023963] h-[36px] !rounded !w-[90px] font-normal text-[16px] capitalize`}
+            variant="outlined"
+          >
+            Cancel
           </Button>
         </div>
       </Box>

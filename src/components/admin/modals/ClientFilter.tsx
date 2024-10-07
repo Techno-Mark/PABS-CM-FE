@@ -125,8 +125,8 @@ function ClientFilter({
       }
       isResetDisabled={!clientListParams.saveClicked}
     >
-      <div className="p-5 h-[calc(100%-143px)]">
-        <div className="text-[12px] flex flex-col">
+      <div className="p-8 h-[calc(100%-143px)] flex items-center gap-5">
+        <div className="text-[12px] flex flex-col w-[260px]">
           <label className="text-[#6E6D7A] text-[12px]">
             Select Department Type
           </label>
@@ -158,7 +158,7 @@ function ClientFilter({
             )}
           />
         </div>
-        <div className="text-[12px] flex flex-col py-5">
+        <div className="text-[12px] flex flex-col w-[260px]">
           <label className="text-[#6E6D7A] text-[12px]">Select Status</label>
           <Autocomplete
             multiple
@@ -188,7 +188,7 @@ function ClientFilter({
             )}
           />
         </div>
-        <div className="text-[12px] flex flex-col">
+        <div className="text-[12px] flex flex-col w-[260px]">
           <label className="text-[#6E6D7A] text-[12px]">
             Select Checklist Status
           </label>

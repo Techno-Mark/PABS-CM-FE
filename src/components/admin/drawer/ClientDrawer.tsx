@@ -383,7 +383,7 @@ const ClientDrawer = ({
         setId={setClientId}
       >
         <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             SF ID<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -398,6 +398,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
+                input: 'text-[14px] font-normal text-[#333333]',
               },
             }}
             inputProps={{
@@ -406,7 +407,7 @@ const ClientDrawer = ({
           />
         </div>
         <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Client Full Name<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -421,6 +422,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
+                input: 'text-[14px] font-normal text-[#333333]',
               },
             }}
             inputProps={{
@@ -430,7 +432,7 @@ const ClientDrawer = ({
         </div>
 
         <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Department Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
@@ -462,7 +464,7 @@ const ClientDrawer = ({
           </FormControl>
         </div>
         <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Email<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -477,6 +479,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
+                input: 'text-[14px] font-normal text-[#333333]',
               },
             }}
             inputProps={{
@@ -484,7 +487,7 @@ const ClientDrawer = ({
             }}
           />
         </div>
-        <label className="text-[#6E6D7A] flex items-center gap-2 font-semibold text-base pb-2">
+        <label className="text-[#333333] text-[12px] flex items-center gap-2 font-normal pb-2">
           Upload Logo
           <Tooltip
             title={

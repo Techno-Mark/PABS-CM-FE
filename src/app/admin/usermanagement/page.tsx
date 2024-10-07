@@ -385,29 +385,30 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
-        {checkPermission("User Management", "view") ? (
-          <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
-            <span className="m-3 flex items-center">
-              <SearchIcon />
-            </span>
-            <input
-              type="search"
-              id="default-search"
-              placeholder="Search"
-              className="p-2 flex items-center text-[13px] outline-none w-[90%]"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-        ) : (
-          <div>&nbsp;</div>
-        )}
-        <div className="flex gap-5">
+      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF] items-center px-6">
+        <h3 className="font-semibold text-base tracking-wide">User Management</h3>
+        <div className="flex items-center gap-1 justify-between">
+          {checkPermission("User Management", "view") ? (
+            <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+              <span className="m-3 flex items-center">
+                <SearchIcon />
+              </span>
+              <input
+                type="search"
+                id="default-search"
+                placeholder="Search"
+                className="p-2 flex items-center text-[13px] outline-none w-full max-w-[230px] bg-transparent"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div>&nbsp;</div>
+          )}
           {checkPermission("User Management", "view") && (
             <Tooltip title="Filter" placement="top" arrow>
               <span
-                className="border-[#023963] !bg-[#FFFFFF] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
+                className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
                 onClick={() => setOpenFilter(true)}
               >
                 <FilterIcon />
@@ -420,12 +421,12 @@ function Page() {
                 setOpenDrawer(true);
                 setEdit(false);
               }}
-              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+              className={`px-5 py-2 !normal-case !text-[16px] !bg-[#0078C8] !text-[#fff] !rounded-md font-normal`}
             >
               Add User
             </button>
           )}
-        </div>
+        </div>  
       </div>
 
       {checkPermission("User Management", "view") && (

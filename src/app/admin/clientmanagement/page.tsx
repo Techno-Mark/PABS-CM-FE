@@ -63,11 +63,31 @@ import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import Cookies from "js-cookie";
 import ClientModal from "@/components/client/common/ClientModal";
 import FormIcon from "@/assets/Icons/client/FormIcon";
+import { makeStyles } from "@mui/styles";
+
+const useCustomTooltipStyles = makeStyles({
+  tooltipStyle: {
+    backgroundColor: "#E7F4FD", 
+    color: "#333333",
+    fontSize: "14px",
+    border: "1px solid #0078C8",
+    padding: "9px 12px", 
+  },
+  arrowStyle: {
+    Color: "#E7F4FD", 
+    "&::before": {
+      border: "1px solid #0078C8",
+      backgroundColor: "#E7F4FD", 
+      boxSizing: "border-box",
+    },
+  },
+});
 
 function Page() {
   const router = useRouter();
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
+  const customTooltipClasses = useCustomTooltipStyles();
 
   const AssignUserCell = ({
     params,
@@ -289,18 +309,18 @@ function Page() {
     {
       field: "srNo",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Sr No.</span>
+        <span className="font-bold text-[14px] uppercase">Sr No.</span>
       ),
       width: 70,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-semibold">{params.value}</span>
+        <span className="font-normal text-[14px]">{params.value}</span>
       ),
     },
     {
       field: "SfId",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">SF ID</span>
+        <span className="font-bold text-[14px] uppercase">SF ID</span>
       ),
       flex: 1,
       sortable: false,
@@ -308,7 +328,7 @@ function Page() {
     {
       field: "Clientname",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Client Name</span>
+        <span className="font-bold text-[14px] uppercase">Client Name</span>
       ),
       flex: 1,
       sortable: false,
@@ -316,7 +336,7 @@ function Page() {
     {
       field: "BusinessType",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Department Type</span>
+        <span className="font-bold text-[14px] uppercase">Department Type</span>
       ),
       flex: 1,
       sortable: false,
@@ -324,12 +344,12 @@ function Page() {
     {
       field: "CheckListStatus",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Checklist Status</span>
+        <span className="font-bold text-[14px] uppercase">Checklist Status</span>
       ),
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <span>
+        <span className="font-normal text-[14px]">
           {params.value}{" "}
           {params.row.Progress !== null && `(${params.row.Progress}%)`}
         </span>
@@ -338,7 +358,7 @@ function Page() {
     {
       field: "AssignUserId",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Assigning User</span>
+        <span className="font-bold text-[14px] uppercase">Assigning User</span>
       ),
       width: 200,
       sortable: false,
@@ -358,7 +378,7 @@ function Page() {
     {
       field: "Status",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Status</span>
+        <span className="font-bold text-[14px] uppercase">Status</span>
       ),
       flex: 1,
       sortable: false,
@@ -400,7 +420,7 @@ function Page() {
     {
       field: "actions",
       renderHeader: () => (
-        <span className="font-semibold text-[13px] flex justify-end items-end">
+        <span className="font-bold text-[14px] uppercase flex justify-end items-end">
           Actions
         </span>
       ),
@@ -823,7 +843,10 @@ function Page() {
             <div>&nbsp;</div>
           )}
           {checkPermission("Client Management", "view") && (
-            <Tooltip title="Filter" placement="top" arrow>
+            <Tooltip title="Filter" placement="top" arrow classes={{
+              tooltip: customTooltipClasses.tooltipStyle,
+              arrow: customTooltipClasses.arrowStyle,
+            }}>
               <span
                 className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
                 onClick={() => setOpenFilter(true)}
@@ -860,7 +883,7 @@ function Page() {
                 setOpenDrawer(true);
                 setEdit(false);
               }}
-              className={`px-5 py-2 !normal-case !text-[16px] !bg-[#0078C8] !text-[#fff] !rounded-md font-normal`}
+              className={`px-5 py-2 !normal-case !text-[16px] !bg-[#0078C8] hover:!bg-[#023963] !text-[#fff] !rounded-md font-normal`}
             >
               Add Client
             </button>

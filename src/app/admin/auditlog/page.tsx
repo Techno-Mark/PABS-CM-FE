@@ -256,7 +256,9 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
+      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF] items-center px-6">
+      <h3 className="font-semibold text-base tracking-wide">Audit Logs</h3>
+      <div className="flex items-center gap-1 justify-between">
         <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
           <span className="m-3 flex items-center">
             <SearchIcon />
@@ -265,19 +267,20 @@ function Page() {
             type="search"
             id="default-search"
             placeholder="Search"
-            className="p-2 flex items-center text-[13px] outline-none w-[90%]"
+            className="p-2 flex items-center text-[13px] outline-none w-full max-w-[230px] bg-transparent"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <Tooltip title="Filter" placement="top" arrow>
           <span
-            className="border-[#023963] !bg-[#FFFFFF] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
+            className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
             onClick={() => setOpenFilter(true)}
           >
             <FilterIcon />
           </span>
         </Tooltip>
+      </div>  
       </div>
 
       <div className="w-full h-[78vh] mt-5">
