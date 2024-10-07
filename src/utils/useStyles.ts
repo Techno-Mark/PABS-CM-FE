@@ -20,6 +20,7 @@ export const useStyles = makeStyles({
   sidebarDrawer: {
     // background: "#023963 !important",
     height: "100%",
+    justifyContent:"space-between"
   },
   underlineWithPlaceholderColor: {
     "&:after": {

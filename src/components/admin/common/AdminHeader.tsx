@@ -97,12 +97,12 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
       position="fixed"
       sx={{
         zIndex: 0,
-        backgroundColor: "white !important",
+        backgroundColor: "#F6F6F6 !important",
         borderBottom: "0.5px solid lightgrey !important",
         boxShadow: "none !important",
         height: "50.5px !important",
         width: {
-          sm: openSidebar ? `calc(100% - 224px)` : `calc(100% - 65px)`,
+          sm: openSidebar ? `calc(100% - 256px)` : `calc(100% - 65px)`,
         },
         ml: { sm: openSidebar ? drawerWidth : `65px` },
       }}
