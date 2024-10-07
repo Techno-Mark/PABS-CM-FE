@@ -78,11 +78,11 @@ const MyDrawer = styled(Drawer, {
 const DrawerFooter = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: "flex-start",
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
-  position: "absolute",
-  bottom: 0,
+  // position: "absolute",
+  // bottom: 0,
 }));
 
 const Sidebar = ({
@@ -101,7 +101,7 @@ const Sidebar = ({
     IconComponent: React.ComponentType<{ fill: string }>
   ) => {
     const isActive = pathname === activePath;
-    const fillColor = isActive ? "#FFFFFF" : "#D8D8D8";
+    const fillColor = isActive ? "#333333" : "#333333";
     return <IconComponent fill={fillColor} />;
   };
 
@@ -145,83 +145,85 @@ const Sidebar = ({
       <CssBaseline />
       <MyDrawer
         classes={{ paper: classes.sidebarDrawer }}
-        className="z-0"
+        className="z-0 >div:justify-between"
         variant="permanent"
         open={openSidebar}
       >
-        <List>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 80,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {openSidebar ? (
-                <PABSLogo width="100" height="60" />
-              ) : (
-                <PabsCollaps width="100" height="60" />
-              )}
-            </ListItemButton>
-          </ListItem>
-        </List>
-
-        {sidebarItems.map((item, index) => (
-          <div key={index}>
-            <List className="flex items-center w-[100%] my-1 p-0">
-              <Link
-                href={item.link}
-                passHref
-                key={item.module}
-                className={`flex items-center w-[90%] mx-2 p-0  ${
-                  pathname === item.link
-                    ? "!bg-[#212121] !rounded-full !bg-opacity-10"
-                    : "transparent"
-                }`}
+        <div className="">
+          <List>
+            <ListItem disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                className="py-1 border-b border-[#d3d3d3] mb-3"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "start",
+                }}
               >
-                <ListItemButton
-                  disableRipple
-                  onClick={() => {
-                    item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
-                  }}
-                  className={`sidebar-custom ${
-                    pathname === item.link ? "activeLabel" : "transparent"
-                  }`}
-                  sx={{
-                    height: 40,
-                    justifyContent: openSidebar ? "initial" : "center",
-                    px: 1.5,
-                    py: 2,
-                    "&:hover": {
-                      textDecoration: "none",
-                      backgroundColor: "transparent",
-                    },
-                  }}
+                {openSidebar ? (
+                  <PABSLogo />
+                  // width="100" height="60" 
+                ) : (
+                  <PabsCollaps width="100" height="60" />
+                )}
+              </ListItemButton>
+            </ListItem>
+          </List>
+
+          {sidebarItems.map((item, index) => (
+            <div key={index}>
+              <List className="flex items-center w-full my-2 p-0">
+                <Link
+                  href={item.link}
+                  passHref
+                  key={item.module}
+                  className={`flex w-full items-center p-0 ${pathname === item.link
+                    ? "!bg-[#212121] !bg-opacity-10 border-l-[4px] border-l-[#0078C8]"
+                    : "transparent"
+                    }`}
                 >
-                  <ListItemIcon
+                  {/* mx-2 w-[90%] */}
+                  <ListItemButton
+                    disableRipple
+                    onClick={() => {
+                      item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
+                    }}
+                    className={`sidebar-custom ${pathname === item.link ? "activeLabel" : "transparent"
+                      }`}
                     sx={{
-                      minWidth: 0,
-                      mr: openSidebar ? 3 : "auto",
-                      justifyContent: "center",
+                      height: 40,
+                      justifyContent: openSidebar ? "initial" : "center",
+                      px: 1.5,
+                      py: 2,
+                      "&:hover": {
+                        textDecoration: "none",
+                        backgroundColor: "transparent",
+                      },
                     }}
                   >
-                    {item.icon}
-                  </ListItemIcon>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: openSidebar ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
 
-                  <ListItemText
-                    classes={{ primary: classes.textSize }}
-                    primary={item.module}
-                    sx={{
-                      opacity: openSidebar ? 1 : 0,
-                      color: pathname === item.link ? "#FFFFFF" : "#D8D8D8",
-                    }}
-                  />
-                </ListItemButton>
-              </Link>
-            </List>
-          </div>
-        ))}
+                    <ListItemText
+                      classes={{ primary: classes.textSize }}
+                      primary={item.module}
+                      sx={{
+                        opacity: openSidebar ? 1 : 0,
+                        color: pathname === item.link ? "#333333" : "#333333",
+                      }}
+                    />
+                  </ListItemButton>
+                </Link>
+              </List>
+            </div>
+          ))}
+        </div>
         <DrawerFooter>
           <Divider sx={{ mb: 1 }} />
           <IconButton onClick={() => setOpenSidebar(!openSidebar)}>

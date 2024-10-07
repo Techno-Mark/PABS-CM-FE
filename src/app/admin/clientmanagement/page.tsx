@@ -84,8 +84,8 @@ function Page() {
       params.row.BusinessTypeId === 1
         ? assignUserList1
         : params.row.BusinessTypeId === 2
-        ? assignUserList2
-        : assignUserList3;
+          ? assignUserList2
+          : assignUserList3;
 
     const [tempSelectedValues, setTempSelectedValues] =
       useState(selectedValues);
@@ -144,8 +144,8 @@ function Page() {
                       onChange={(event) => {
                         const newSelectedValues = isSelected
                           ? tempSelectedValues.filter(
-                              (value: Number) => value !== option.value
-                            )
+                            (value: Number) => value !== option.value
+                          )
                           : [...tempSelectedValues, option.value];
                         setTempSelectedValues(newSelectedValues);
                       }}
@@ -179,12 +179,11 @@ function Page() {
             )}
             renderInput={(param) => (
               <TextField
-                placeholder={`${
-                  tempSelectedValues.filter((value: Number) => value !== 0)
-                    .length < 1
-                    ? "Assign Users"
-                    : ""
-                }`}
+                placeholder={`${tempSelectedValues.filter((value: Number) => value !== 0)
+                  .length < 1
+                  ? "Assign Users"
+                  : ""
+                  }`}
                 className="h-12 flex items-center justify-center"
                 variant="standard"
                 {...param}
@@ -378,9 +377,9 @@ function Page() {
               border: 0,
             },
             "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                border: 0,
-              },
+            {
+              border: 0,
+            },
             ".MuiSelect-select": {
               padding: 0,
               width: 50,
@@ -562,8 +561,8 @@ function Page() {
       id === 1
         ? setAssignUserList1(users)
         : id === 2
-        ? setAssignUserList2(users)
-        : setAssignUserList3(users);
+          ? setAssignUserList2(users)
+          : setAssignUserList3(users);
     } catch (error) {
       console.error("Failed to get assigned user list", error);
     }
@@ -804,28 +803,29 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF]">
-        {checkPermission("Client Management", "view") ? (
-          <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
-            <span className="m-3 flex items-center">
-              <SearchIcon />
-            </span>
-            <input
-              type="search"
-              placeholder="Search"
-              className="p-2 flex items-center text-[13px] outline-none w-[90%]"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-        ) : (
-          <div>&nbsp;</div>
-        )}
-        <div className="flex gap-5">
+      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF] items-center px-6">
+        <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
+        <div className="flex items-center gap-1 justify-between">
+          {checkPermission("Client Management", "view") ? (
+            <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+              <span className="m-3 flex items-center">
+                <SearchIcon />
+              </span>
+              <input
+                type="search"
+                placeholder="Search"
+                className="p-2 flex items-center text-[13px] outline-none w-full max-w-[230px] bg-transparent"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div>&nbsp;</div>
+          )}
           {checkPermission("Client Management", "view") && (
             <Tooltip title="Filter" placement="top" arrow>
               <span
-                className="border-[#023963] !bg-[#FFFFFF] w-[38px] h-[36px] flex items-center justify-center border rounded-lg cursor-pointer"
+                className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
                 onClick={() => setOpenFilter(true)}
               >
                 <FilterIcon />
@@ -836,15 +836,13 @@ function Page() {
             <button
               disabled={selectedIds.length <= 0}
               onClick={() => SendInvitation()}
-              className={`${
-                selectedIds.length <= 0
-                  ? "!border-[#636363] !text-[#636363] cursor-not-allowed"
-                  : "!border-[#023963] !text-[#023963]"
-              } px-3 border !normal-case !text-[16px] ${
-                invitaionLoading
+              className={`${selectedIds.length <= 0
+                ? "!border-[#636363] !text-[#636363] cursor-not-allowed"
+                : "!border-[#023963] !text-[#023963]"
+                } px-3 border !normal-case !text-[16px] ${invitaionLoading
                   ? "flex items-center justify-center bg-[#023963]"
                   : "!bg-[#FFFFFF]"
-              } !h-[36px] !rounded-md`}
+                } !h-[36px] !rounded-md`}
             >
               {invitaionLoading ? (
                 <CircularProgress
@@ -862,7 +860,7 @@ function Page() {
                 setOpenDrawer(true);
                 setEdit(false);
               }}
-              className={`!border-[#023963] px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !text-[#023963] !h-[36px] !rounded-md`}
+              className={`px-5 py-2 !normal-case !text-[16px] !bg-[#0078C8] !text-[#fff] !rounded-md font-normal`}
             >
               Add Client
             </button>
@@ -901,13 +899,13 @@ function Page() {
             }}
             sx={{
               [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
               [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
             }}
           />
         </div>
