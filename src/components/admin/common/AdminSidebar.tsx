@@ -163,7 +163,7 @@ const Sidebar = ({
                   <PABSLogo />
                   // width="100" height="60" 
                 ) : (
-                  <PabsCollaps width="100" height="60" />
+                  <PabsCollaps width="50" height="35" />
                 )}
               </ListItemButton>
             </ListItem>
