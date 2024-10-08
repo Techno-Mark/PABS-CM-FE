@@ -398,7 +398,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#333333]',
+                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
               },
             }}
             inputProps={{
@@ -422,7 +422,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#333333]',
+                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
               },
             }}
             inputProps={{
@@ -441,8 +441,8 @@ const ClientDrawer = ({
               id="demo-simple-select-standard"
               className={`${
                 businessType.value === -1
-                  ? "!text-[12px] text-[#6E6D7A]"
-                  : "!text-[14px]"
+                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                  : "!text-[14px] font-proximanova"
               }`}
               value={businessType.value}
               error={businessType.error}
@@ -479,7 +479,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#333333]',
+                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
               },
             }}
             inputProps={{
@@ -523,8 +523,8 @@ const ClientDrawer = ({
         <div className="text-[12px] flex flex-col">
           <div
             className={`py-1 border-2 border-dotted ${
-              isFileError ? "border-[#DC3545]" : "border-gray-400"
-            } bg-gray-100 rounded-full w-full overflow-hidden flex justify-center items-center`}
+              isFileError ? "border-[#DC3545]" : "border-[#D8D8D8]"
+            } bg-[#FFFFFF] rounded-full w-full overflow-hidden flex justify-center items-center`}
           >
             <Dropzone
               multiple={false}
@@ -577,11 +577,12 @@ const ClientDrawer = ({
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
 
-                    <span className="select-none cursor-pointer justify-center items-center text-center text-xs font-normal text-[#333] p-2">
+                    <span className="select-none cursor-pointer justify-center items-center text-center text-xs font-normal text-[#6C6C6C] text-[14px] p-2">
                       <FileUploadOutlinedIcon className="text-[#6e6d7aad] mr-2" />
-                      Drag and drop or&nbsp;
+                      {/* Drag and drop or&nbsp;
                       <span className="text-[#223E99]">browse</span>
-                      &nbsp;to upload
+                      &nbsp;to upload */}
+                      Drag and drop or browse to upload
                     </span>
                   </div>
                 </section>

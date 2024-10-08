@@ -18,6 +18,9 @@ const config: Config = {
         md: "768px", // Tablet
         lg: "1024px", // Laptop
       },
+      fontFamily: {
+        proximanova: ['proximanova', 'sans-serif'],
+      },
     },
   },
   plugins: [],

@@ -120,21 +120,21 @@ const DrawerPanel = ({
               setOpenDrawer(false);
               setId();
             }}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[14px]`}
+            className={`border-[#0078C8] hover:border-[#023963] !bg-[#FFFFFF] text-[#0078C8] hover:text-[#023963] rounded !w-[90px] font-normal text-[16px] capitalize`}
             variant="outlined"
           >
             Cancel
           </Button>
           <Button
             onClick={handleSubmit}
-            className={`${isSaveEnabled && '!bg-[#023963]'} text-white !rounded-full !w-[71px]`}
+            className={`${isSaveEnabled ? '!bg-[#0078C8] hover:!bg-[#023963] !text-[#FFFFFF]' : '!bg-[#D8D8D8] text-[#6C6C6C]' } !rounded`}
             variant="contained"
             disabled={!isSaveEnabled}
           >
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}} />
             ) : (
-              <span className="uppercase font-semibold text-[14px]">Save</span>
+              <span className="font-normal text-[14px] capitalize">Add Client</span>
             )}
           </Button>
         </div>

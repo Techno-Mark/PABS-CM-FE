@@ -63,4 +63,19 @@ export const useStyles = makeStyles({
       fontSize: "12px !important",
     },
   },
+  tooltipStyle: {
+    backgroundColor: "#E7F4FD", 
+    color: "#333333",
+    fontSize: "14px",
+    border: "1px solid #0078C8",
+    padding: "9px 12px", 
+  },
+  arrowStyle: {
+    Color: "#E7F4FD", 
+    "&::before": {
+      border: "1px solid #0078C8",
+      backgroundColor: "#E7F4FD", 
+      boxSizing: "border-box",
+    },
+  },
 });

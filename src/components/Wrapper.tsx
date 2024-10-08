@@ -46,7 +46,7 @@ const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
             sx={{
               flexGrow: 1,
               py: 3,
-              backgroundColor: "#F9FBFF",
+              backgroundColor: "#F6F6F6",
               width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >

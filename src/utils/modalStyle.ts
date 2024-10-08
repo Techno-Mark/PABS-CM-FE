@@ -4,7 +4,7 @@ export const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "auto",
-  border: "1px solid #023963",
+  border: "1px solid #D8D8D8",
   bgcolor: "background.paper",
   boxShadow: 24,
   outline: "none",

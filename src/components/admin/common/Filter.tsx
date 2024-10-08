@@ -33,27 +33,26 @@ function Filter({
       className="h-[100vh] flex justify-center outline-none"
     >
       <Box sx={style}>
-        <div className="p-5 top-0 flex justify-between outline-none">
+        <div className="p-4 top-0 flex justify-between items-center">
           <span className="font-bold text-[18px]">Filter</span>
           <div className="flex gap-4 items-center">
             <Button
-              disabled={isResetDisabled}
+              // disabled={isResetDisabled}
               onClick={handleResetSubmit}
-              className={`${
-                !isResetDisabled && "!bg-[#023963]"
-              } text-white !h-[36px] !!rounded !w-[90px] `}
-              variant="contained"
+              // className={`${ !isResetDisabled && "!bg-[#023963]"} text-white !h-[36px] !!rounded !w-[90px] `}
+              // variant="contained"
+              className={`!bg-transparent hover:!bg-[#F8D7DA] !text-[#DC3545] !h-[36px] !!rounded`}
             >
-              <span className="uppercase font-semibold text-[16px] capitalize">Reset</span>
+              <span className="font-normal text-[16px] capitalize">Reset All</span>
             </Button>
-            <Tooltip title="Close" placement="bottom" arrow>
+            {/* <Tooltip title="Close" placement="bottom" arrow>
               <span
                 className="flex items-center cursor-pointer"
                 onClick={() => setIsOpenModal(false)}
               >
                 <CloseIcon />
               </span>
-            </Tooltip>
+            </Tooltip> */}
           </div>
         </div>
         <Divider />

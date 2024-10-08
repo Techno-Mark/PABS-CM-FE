@@ -127,8 +127,8 @@ function ClientFilter({
     >
       <div className="p-8 h-[calc(100%-143px)] flex items-center gap-5">
         <div className="text-[12px] flex flex-col w-[260px]">
-          <label className="text-[#6E6D7A] text-[12px]">
-            Select Department Type
+          <label className="text-[#6E6D7A] text-[12px] tracking-[0.24px]">
+            Department Type
           </label>
           <Autocomplete
             multiple
@@ -159,7 +159,7 @@ function ClientFilter({
           />
         </div>
         <div className="text-[12px] flex flex-col w-[260px]">
-          <label className="text-[#6E6D7A] text-[12px]">Select Status</label>
+          <label className="text-[#6E6D7A] text-[12px] tracking-[0.24px]">Status</label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
@@ -189,8 +189,8 @@ function ClientFilter({
           />
         </div>
         <div className="text-[12px] flex flex-col w-[260px]">
-          <label className="text-[#6E6D7A] text-[12px]">
-            Select Checklist Status
+          <label className="text-[#6E6D7A] text-[12px] tracking-[0.24px]">
+            Checklist Status
           </label>
           <Autocomplete
             multiple

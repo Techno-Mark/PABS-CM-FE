@@ -56,20 +56,20 @@ function ConfirmModal({
               setIsOpen(false);
               safeSetUserId();
             }}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-[60px] font-semibold text-[16px]`}
+            className={`border-[#6C6C6C] bg-[#FFFFFF] text-[#6C6C6C] hover:border-[#023963] hover:text-[#023963] !h-[36px] !rounded font-normal text-[16px] capitalize`}
             variant="outlined"
           >
-            No
+            Cancel
           </Button>
           <Button
             onClick={handleModalSubmit}
-            className={`!bg-[#023963] text-white !h-[36px] !rounded-full !w-[60px]`}
+            className={`bg-[#DC3545] px-4 hover:bg-[#AF2633] text-white !h-[36px] !rounded`}
             variant="contained"
           >
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}}/>
             ) : (
-              <span className="uppercase font-semibold text-[16px]">Yes</span>
+              <span className="capitalize font-normal text-[16px]">Delete</span>
             )}
           </Button>
         </div>

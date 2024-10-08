@@ -63,31 +63,11 @@ import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import Cookies from "js-cookie";
 import ClientModal from "@/components/client/common/ClientModal";
 import FormIcon from "@/assets/Icons/client/FormIcon";
-import { makeStyles } from "@mui/styles";
-
-const useCustomTooltipStyles = makeStyles({
-  tooltipStyle: {
-    backgroundColor: "#E7F4FD", 
-    color: "#333333",
-    fontSize: "14px",
-    border: "1px solid #0078C8",
-    padding: "9px 12px", 
-  },
-  arrowStyle: {
-    Color: "#E7F4FD", 
-    "&::before": {
-      border: "1px solid #0078C8",
-      backgroundColor: "#E7F4FD", 
-      boxSizing: "border-box",
-    },
-  },
-});
 
 function Page() {
   const router = useRouter();
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-  const customTooltipClasses = useCustomTooltipStyles();
 
   const AssignUserCell = ({
     params,
@@ -428,55 +408,129 @@ function Page() {
       sortable: false,
       renderCell: (params) => {
         return (
-          <div className="flex gap-9 justify-start h-full items-center">
+          // <div className="flex gap-9 justify-start h-full items-center">
+          //   {checkPermission("Client Management", "edit") && (
+          //     <Tooltip title="Edit" placement="top" arrow>
+          //       <span
+          //         className="cursor-pointer"
+          //         onClick={() => {
+          //           setOpenDrawer(true);
+          //           setEdit(true);
+          //           setClientId(params.row.ClientId);
+          //         }}
+          //       >
+          //         <EditIcon />
+          //       </span>
+          //     </Tooltip>
+          //   )}
+          //   {checkPermission("Client Management", "delete") && (
+          //     <Tooltip title="Delete" placement="top" arrow>
+          //       <span
+          //         className="cursor-pointer"
+          //         onClick={() => {
+          //           setIsLoading(false);
+          //           setOpenDelete(true);
+          //           setClientId(params.row.ClientId);
+          //         }}
+          //       >
+          //         <DeleteIcon />
+          //       </span>
+          //     </Tooltip>
+          //   )}
+          //   <Tooltip title="Form Type" placement="top" arrow>
+          //     <span
+          //       className="cursor-pointer"
+          //       onClick={() => {
+          //         setClientOpenModal(true);
+          //         setClientInfo({
+          //           SFID: params.row.SfId,
+          //           DepartmentType: params.row.BusinessType,
+          //           DepartmentId: params.row.BusinessTypeId,
+          //           ClientId: params.row.ClientId,
+          //           clientName: params.row.Clientname,
+          //           UserId: params.row.UserId,
+          //           IsFormLocked: params.row.IsFormLocked,
+          //         });
+          //       }}
+          //     >
+          //       <FormIcon />
+          //     </span>
+          //   </Tooltip>
+          // </div>
+          <Select
+            value=""
+            displayEmpty
+            size="small"
+            sx={{
+              boxShadow: "none",
+              ".MuiOutlinedInput-notchedOutline": { border: 0 },
+              "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                border: 0,
+              },
+              "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                border: 0,
+              },
+              ".MuiSelect-select": {
+                padding: 0,
+                width: 50,
+              },
+              ".MuiSvgIcon-root": {
+                top: 0,
+                right: 0,
+              },
+              fontSize: 14,
+            }}
+            renderValue={() => (
+              <div className="flex items-center">
+                Select 
+              </div>
+            )}
+          >
             {checkPermission("Client Management", "edit") && (
-              <Tooltip title="Edit" placement="top" arrow>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setOpenDrawer(true);
-                    setEdit(true);
-                    setClientId(params.row.ClientId);
-                  }}
-                >
-                  <EditIcon />
-                </span>
-              </Tooltip>
+              <MenuItem
+                value="edit"
+                onClick={() => {
+                  setOpenDrawer(true);
+                  setEdit(true);
+                  setClientId(params.row.ClientId);
+                }}
+                className="text-[14px] font-normal text-[#333]"
+              >
+                Edit
+              </MenuItem>
             )}
             {checkPermission("Client Management", "delete") && (
-              <Tooltip title="Delete" placement="top" arrow>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setIsLoading(false);
-                    setOpenDelete(true);
-                    setClientId(params.row.ClientId);
-                  }}
-                >
-                  <DeleteIcon />
-                </span>
-              </Tooltip>
-            )}
-            <Tooltip title="Form Type" placement="top" arrow>
-              <span
-                className="cursor-pointer"
+              <MenuItem
+                value="delete"
                 onClick={() => {
-                  setClientOpenModal(true);
-                  setClientInfo({
-                    SFID: params.row.SfId,
-                    DepartmentType: params.row.BusinessType,
-                    DepartmentId: params.row.BusinessTypeId,
-                    ClientId: params.row.ClientId,
-                    clientName: params.row.Clientname,
-                    UserId: params.row.UserId,
-                    IsFormLocked: params.row.IsFormLocked,
-                  });
+                  setIsLoading(false);
+                  setOpenDelete(true);
+                  setClientId(params.row.ClientId);
                 }}
+                className="text-[14px] font-normal text-[#333]"
               >
-                <FormIcon />
-              </span>
-            </Tooltip>
-          </div>
+                Delete
+              </MenuItem>
+            )}
+            <MenuItem
+              value="formType"
+              onClick={() => {
+                setClientOpenModal(true);
+                setClientInfo({
+                  SFID: params.row.SfId,
+                  DepartmentType: params.row.BusinessType,
+                  DepartmentId: params.row.BusinessTypeId,
+                  ClientId: params.row.ClientId,
+                  clientName: params.row.Clientname,
+                  UserId: params.row.UserId,
+                  IsFormLocked: params.row.IsFormLocked,
+                });
+              }}
+              className="text-[14px] font-normal text-[#333]"
+            >
+              Form Type
+            </MenuItem>
+          </Select>
         );
       },
     },
@@ -823,7 +877,7 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF] items-center px-6">
+      <div className="flex justify-between w-full mt-12 bg-[#F6F6F6] items-center px-6">
         <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
         <div className="flex items-center gap-1 justify-between">
           {checkPermission("Client Management", "view") ? (
@@ -843,9 +897,10 @@ function Page() {
             <div>&nbsp;</div>
           )}
           {checkPermission("Client Management", "view") && (
-            <Tooltip title="Filter" placement="top" arrow classes={{
-              tooltip: customTooltipClasses.tooltipStyle,
-              arrow: customTooltipClasses.arrowStyle,
+            <Tooltip title="Filter" placement="top" arrow 
+            classes={{
+              tooltip: classes.tooltipStyle,
+              arrow: classes.arrowStyle,
             }}>
               <span
                 className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
@@ -892,7 +947,7 @@ function Page() {
       </div>
 
       {checkPermission("Client Management", "view") && (
-        <div className="w-full h-[78vh] mt-5">
+        <div className="w-full h-[78vh] mt-5 bg-[#FFFFFF]">
           <DataGrid
             disableRowSelectionOnClick
             disableColumnMenu
@@ -928,6 +983,10 @@ function Page() {
               [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
               {
                 outline: "none",
+              },
+              [`& .${gridClasses.columnHeaders}`]: {
+                borderTop: "1px solid #6C6C6C", 
+                borderBottom: "2px solid #6C6C6C",
               },
             }}
           />
