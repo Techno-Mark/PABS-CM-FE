@@ -193,7 +193,7 @@ const BasicDetailsWhitelabel = ({
               teamManager: ResponseData.teamManager,
               teamLeader: ResponseData.teamLeader,
               seniorAccountant: ResponseData.seniorAccountant,
-              pabsGroupEmail: ResponseData.pabsPhone,
+              pabsGroupEmail: ResponseData.pabsGroupEmail,
               pabsPhone: ResponseData.pabsPhone,
             });
           }
@@ -291,7 +291,7 @@ const BasicDetailsWhitelabel = ({
         : parseInt(businessTypeId!),
       cpaName: whitelabelAccountDetails.cpaName,
       corporateAddress: whitelabelAccountDetails.corporateAddress,
-      ownerContact: validatePhone(whitelabelAccountDetails.ownerContact)
+      ownerContact: whitelabelAccountDetails.ownerContact
         ? whitelabelAccountDetails.ownerContact
         : "",
       ownerEmail: validateEmail(whitelabelAccountDetails.ownerEmail)

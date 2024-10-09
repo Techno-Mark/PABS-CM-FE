@@ -426,7 +426,7 @@ function BasicDetailsAutoCare({
       corporateAddress: autoCareAccountDetails.corporateAddress,
       noOfLocations: parseInt(autoCareAccountDetails.noOfLocations),
       nameOfLocations: autoCareAccountDetails.nameOfLocations,
-      ownerContact: validatePhone(autoCareAccountDetails.ownerContact)
+      ownerContact: autoCareAccountDetails.ownerContact
         ? autoCareAccountDetails.ownerContact
         : "",
       ownerEmail: validateEmail(autoCareAccountDetails.ownerEmail)
