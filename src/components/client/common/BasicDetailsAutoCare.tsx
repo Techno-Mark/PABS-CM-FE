@@ -139,8 +139,8 @@ function BasicDetailsAutoCare({
                 : null,
               probableAcquitionDate: ResponseData?.probableAcquisitionDate
                 ? dayjs(ResponseData?.probableAcquisitionDate).format(
-                  "MM/DD/YYYY"
-                )
+                    "MM/DD/YYYY"
+                  )
                 : null,
               dba: ResponseData?.dba,
             });
@@ -156,19 +156,19 @@ function BasicDetailsAutoCare({
               state: ResponseData?.state || "",
               weeklyCalls: ResponseData?.weeklyCalls
                 ? ResponseData?.weeklyCalls
-                  .split(",")
-                  .map((label) => {
-                    const matchingItem = WeeklyCallsList.find(
-                      (item) => item.label === label
-                    );
-                    return (
-                      matchingItem && {
-                        value: matchingItem.value,
-                        label: matchingItem.label,
-                      }
-                    );
-                  })
-                  .filter((item): item is DropdownOption => item !== null)
+                    .split(",")
+                    .map((label) => {
+                      const matchingItem = WeeklyCallsList.find(
+                        (item) => item.label === label
+                      );
+                      return (
+                        matchingItem && {
+                          value: matchingItem.value,
+                          label: matchingItem.label,
+                        }
+                      );
+                    })
+                    .filter((item): item is DropdownOption => item !== null)
                 : [],
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
@@ -436,10 +436,10 @@ function BasicDetailsAutoCare({
       state: autoCareClientTeam.state,
       weeklyCalls:
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
-          autoCareClientTeam.weeklyCalls.length > 0
+        autoCareClientTeam.weeklyCalls.length > 0
           ? autoCareClientTeam.weeklyCalls
-            .map((item: { value: string; label: string }) => item?.label)
-            .join(",")
+              .map((item: { value: string; label: string }) => item?.label)
+              .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
@@ -604,10 +604,11 @@ function BasicDetailsAutoCare({
   return (
     <>
       <div
-        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+        className={`flex flex-col ${
+          roleId !== "4" ? "h-[95vh]" : "h-full"
+        } pt-12`}
       >
-        hello
+        {/* hello */}
         <div className="flex-1 overflow-y-scroll">
           <div className="flex flex-col gap-6 bg-white">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
@@ -701,10 +702,11 @@ function BasicDetailsAutoCare({
           {(roleId === "4" ? !isFormSubmitAutoCareBasicDetails : true) && (
             <Button
               onClick={() => handleSubmit(2)}
-              className={`${isFormLocked && (roleId === "3" || roleId === "4")
+              className={`${
+                isFormLocked && (roleId === "3" || roleId === "4")
                   ? "!border-[#666] !text-[#666]"
                   : "!border-[#023963] !text-[#022946]"
-                } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
               variant="outlined"
               disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
