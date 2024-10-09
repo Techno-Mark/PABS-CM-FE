@@ -133,7 +133,7 @@ const ClientSidebar = ({
 
   return (
     <>
-      <CssBaseline />
+      {/* <CssBaseline />
       <MyDrawer className="z-0 h-screen" variant="permanent" open={true}>
         <List className="m-0 p-0 min-h-[80px] !bg-[#091D36]">
           <ListItem disablePadding sx={{ display: "block" }}>
@@ -148,46 +148,46 @@ const ClientSidebar = ({
               <PABSLogo width="186" height="64"/>
             </ListItemButton>
           </ListItem>
-        </List>
-        <div className="mt-8">
-          {items.map((data: ClientSidebarItemsType, index: number) => (
-            <div
-              key={index}
-              className="flex items-center justify-between w-full mb-5"
+        </List>*/}
+      <div className="mt-8 w-full">
+        {items.map((data: ClientSidebarItemsType, index: number) => (
+          <div
+            key={index}
+            className="flex items-center justify-between w-full mb-5"
+          >
+            <span
+              className={` ${sidebarModule === data.id && "font-semibold"
+                } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
             >
-              <span
-                className={` ${sidebarModule === data.id && "font-semibold"
-                  } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
-              >
-                {data.module}
-              </span>
-              {data.id !== 13 && (
-                <div className="flex justify-start gap-2 w-[50%]">
-                  <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
-                    <div
-                      className={`absolute left-0 top-0 h-full ${data.value < 93
-                          ? "rounded-full"
-                          : "rounded-l-full rounded-r-full"
-                        }`}
-                      style={{
-                        width: `${Math.max(
-                          (data.value / 100) * 100,
-                        )}px`,
-                        backgroundColor: "#022946",
-                      }}
-                    ></div>
-                  </div>
-                  <span
-                    className={`relative mr-1 pt-[2px] w-[30px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
-                  >
-                    {data.value}%
-                  </span>
+              {data.module}
+            </span>
+            {data.id !== 13 && (
+              <div className="flex justify-start gap-2 w-[50%]">
+                <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
+                  <div
+                    className={`absolute left-0 top-0 h-full ${data.value < 93
+                      ? "rounded-full"
+                      : "rounded-l-full rounded-r-full"
+                      }`}
+                    style={{
+                      width: `${Math.max(
+                        (data.value / 100) * 100,
+                      )}px`,
+                      backgroundColor: "#022946",
+                    }}
+                  ></div>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </MyDrawer>
+                <span
+                  className={`relative mr-1 pt-[2px] w-[30px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
+                >
+                  {data.value}%
+                </span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      {/* </MyDrawer>  */}
     </>
   );
 };

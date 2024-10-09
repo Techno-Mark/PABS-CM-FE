@@ -608,8 +608,9 @@ function BasicDetailsAutoCare({
           roleId !== "4" ? "h-[95vh]" : "h-full"
         } pt-12`}
       >
+        {/* hello */}
         <div className="flex-1 overflow-y-scroll">
-          <div className="m-6 flex flex-col gap-6">
+          <div className="flex flex-col gap-6 bg-white">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
               <AutoCareAccountDetails
                 finalCheckAllFieldsAccountDetails={
