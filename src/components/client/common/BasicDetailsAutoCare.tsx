@@ -44,6 +44,7 @@ import Cookies from "js-cookie";
 import AutoCareAccountDetails from "@/components/client/forms/autocare/AutoCareAccountDetails";
 import dayjs from "dayjs";
 import { validateEmail, validateNumber, validatePhone } from "@/utils/validate";
+import ClientSidebar from "./ClientSidebar";
 
 function BasicDetailsAutoCare({
   clientInfo,
@@ -56,6 +57,12 @@ function BasicDetailsAutoCare({
 }: AutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
+  const formSubmitId =
+    clientInfo?.DepartmentId === "3"
+      ? 31
+      : clientInfo?.DepartmentId === "2"
+        ? 21
+        : 11;
   const businessTypeId = Cookies.get("businessTypeId");
   const initialAutoCareAccountDetailsErrors: AccountDetailsFormErrors = {};
   const initialAutoCareLegalStructureErrors: LegalStructureFormErrors = {};
@@ -89,6 +96,18 @@ function BasicDetailsAutoCare({
     setIsFormSubmitAutoCareBasicDetails,
   ] = useState<boolean>(false);
   const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
+
+  const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
+  const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
+  const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
+  const [autoCareProgressPer, setAutoCareProgressPer] = useState<number>(0);
+  const [perCounWhiteLabeltBasicDetails, setPerCountWhiteLabelBasicDetails] =
+    useState<number>(0);
+  const [whiteLabelPerCountChecklist, setWhitelabelPerCountChecklist] =
+    useState<number>(0);
+  const [whiteLabelProgressPer, setWhiteLabelProgressPer] = useState<number>(0);
+  const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
+
 
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
@@ -139,8 +158,8 @@ function BasicDetailsAutoCare({
                 : null,
               probableAcquitionDate: ResponseData?.probableAcquisitionDate
                 ? dayjs(ResponseData?.probableAcquisitionDate).format(
-                    "MM/DD/YYYY"
-                  )
+                  "MM/DD/YYYY"
+                )
                 : null,
               dba: ResponseData?.dba,
             });
@@ -156,19 +175,19 @@ function BasicDetailsAutoCare({
               state: ResponseData?.state || "",
               weeklyCalls: ResponseData?.weeklyCalls
                 ? ResponseData?.weeklyCalls
-                    .split(",")
-                    .map((label) => {
-                      const matchingItem = WeeklyCallsList.find(
-                        (item) => item.label === label
-                      );
-                      return (
-                        matchingItem && {
-                          value: matchingItem.value,
-                          label: matchingItem.label,
-                        }
-                      );
-                    })
-                    .filter((item): item is DropdownOption => item !== null)
+                  .split(",")
+                  .map((label) => {
+                    const matchingItem = WeeklyCallsList.find(
+                      (item) => item.label === label
+                    );
+                    return (
+                      matchingItem && {
+                        value: matchingItem.value,
+                        label: matchingItem.label,
+                      }
+                    );
+                  })
+                  .filter((item): item is DropdownOption => item !== null)
                 : [],
               weeklyCallTime: ResponseData?.weeklyCallTime,
               istTime: ResponseData?.istTime,
@@ -436,10 +455,10 @@ function BasicDetailsAutoCare({
       state: autoCareClientTeam.state,
       weeklyCalls:
         Array.isArray(autoCareClientTeam.weeklyCalls) &&
-        autoCareClientTeam.weeklyCalls.length > 0
+          autoCareClientTeam.weeklyCalls.length > 0
           ? autoCareClientTeam.weeklyCalls
-              .map((item: { value: string; label: string }) => item?.label)
-              .join(",")
+            .map((item: { value: string; label: string }) => item?.label)
+            .join(",")
           : "",
       weeklyCallTime: autoCareClientTeam.weeklyCallTime,
       istTime: autoCareClientTeam.istTime,
@@ -604,11 +623,25 @@ function BasicDetailsAutoCare({
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        } pt-12`}
+        className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
+          } pt-12`}
       >
-        {/* hello */}
+        <ClientSidebar
+          setWhiteLabelProgressPercentage={(value: number) =>
+            setWhiteLabelProgressPer(value)
+          }
+          clientInfo={clientInfo}
+          perCountChecklist={perCountChecklist}
+          perCountBasicDetails={perCountBasicDetails}
+          perCountSmbChecklist={perCountSmbChecklist}
+          perCountWhiteLabelBasicDetails={perCounWhiteLabeltBasicDetails}
+          perCountWhiteLabelChecklist={whiteLabelPerCountChecklist}
+          sidebarModule={formSubmit}
+          setAutoCareProgressPercentage={(value: number) =>
+            setAutoCareProgressPer(value)
+          }
+        />
+
         <div className="flex-1 overflow-y-scroll">
           <div className="flex flex-col gap-6 bg-white">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (
@@ -690,23 +723,22 @@ function BasicDetailsAutoCare({
         </div>
 
         <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-end border-t gap-5 px-6 w-full">
-          {roleId !== "4" && (
+          {/* {roleId !== "4" && (
             <Button
               onClick={() => setIsOpenModal(false)}
-              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+              className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-md font-semibold text-[14px]`}
               variant="outlined"
             >
               Cancel
             </Button>
-          )}
+          )} */}
           {(roleId === "4" ? !isFormSubmitAutoCareBasicDetails : true) && (
             <Button
               onClick={() => handleSubmit(2)}
-              className={`${
-                isFormLocked && (roleId === "3" || roleId === "4")
-                  ? "!border-[#666] !text-[#666]"
-                  : "!border-[#023963] !text-[#022946]"
-              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+              className={`${isFormLocked && (roleId === "3" || roleId === "4")
+                ? "border-[#666] text-[#666]"
+                : "border-[#0078C8] text-[#0078C8] hover:border-[#666] hover:text-[#666]"
+                } bg-[#FFFFFF] rounded-md text-[14px]`}
               variant="outlined"
               disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
@@ -720,10 +752,10 @@ function BasicDetailsAutoCare({
                 ? handleSubmitwithOutApi()
                 : handleSubmit(1)
             }
-            className={`!bg-[#022946] !text-white !rounded-full`}
+            className={`bg-[#0078C8] !text-white !rounded-md hover:bg-[#023963] text-white shadow-none`}
             variant="contained"
           >
-            <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+            <span className="uppercase text-[14px] whitespace-nowrap">
               Next: Check List
             </span>
           </Button>

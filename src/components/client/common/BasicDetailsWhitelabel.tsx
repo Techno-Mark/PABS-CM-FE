@@ -698,7 +698,7 @@ const BasicDetailsWhitelabel = ({
         } pt-12`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
-          <div className="m-6 flex flex-col gap-6">
+          <div className="m-6 flex flex-col gap-6 bg-white">
             {(roleId === "4" ? whitelabelAccountDetailsCheckStatus : true) && (
               <WhitelabelAccountDetailsForm
                 checkAllFieldsWhiteLabelAccountDetailsForm={
