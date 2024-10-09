@@ -173,14 +173,14 @@ function Page() {
   return (
     <AuthWapper>
       <div className="mx-auto w-[65%]">
-        <span className="text-[40px] !font-medium">Log In</span>
+        <span className="text-[40px] !font-medium tracking-[0.8px]">Log In</span>
         <form onSubmit={handleSubmit}>
           <div
             className={`text-[12px] flex flex-col ${
-              email.error ? "pt-8" : "pt-14"
+              email.error ? "pt-8" : "pt-12"
             }`}
           >
-            <label className="text-[#6C6C6C] font-normal text-[12px]">
+            <label className="text-[#6C6C6C] font-normal text-[12px] tracking-[0.24px]">
               Email<span className="text-[#DC3545]">*</span>
             </label>
             <TextField
@@ -194,8 +194,8 @@ function Page() {
               onChange={handleEmailChange}
               InputProps={{
                 classes: {
-                  underline: classes.underlineWithPlaceholderColor,
-                  input: 'text-[14px] font-normal',
+                  // underline: classes.underlineWithPlaceholderColor,
+                  input: 'text-[14px] font-normal tracking-[0.28px]',
                 },
               }}
             />
@@ -205,7 +205,7 @@ function Page() {
               email.error ? "pt-4" : "pt-8"
             }`}
           >
-            <label className="text-[#6C6C6C] font-normal text-[12px]">
+            <label className="text-[#6C6C6C] font-normal text-[12px] tracking-[0.24px]">
               Password<span className="text-[#DC3545]">*</span>
             </label>
             <FormControl variant="standard">
@@ -218,7 +218,7 @@ function Page() {
                 error={password.error}
                 value={password.value}
                 inputProps={{
-                  className: 'text-[14px] font-normal', 
+                  className: 'text-[14px] font-normal tracking-[0.28px]', 
                 }}
                 endAdornment={
                   <InputAdornment position="end">

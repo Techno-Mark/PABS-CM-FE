@@ -23,7 +23,7 @@ function AuthWapper({ children }: childPropsType) {
           <span className="flex absolute">
             <PABSIcon />
           </span>
-          <span className="absolute bottom-[2px] left-[2px]">
+          <span className="absolute bottom-[-10px] left-[2px]">
             <PABSHalfIcon />
           </span>
         </div>

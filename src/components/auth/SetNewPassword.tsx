@@ -205,7 +205,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
       </span>
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-14">
-          <label className="text-[#6E6D7A] font-normal text-[12px] flex items-center">
+          <label className="text-[#6E6D7A] font-normal text-[12px] flex items-center tracking-[0.24px]">
             {isReset ? "New Password" : "Password"}
             <span className="text-[#DC3545]">*</span>&nbsp;
             <InfoIcon />
@@ -241,7 +241,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
         </div>
 
         <div className="text-[12px] flex flex-col pt-8">
-          <label className="text-[#6E6D7A] font-normal text-[12px] flex items-center">
+          <label className="text-[#6E6D7A] font-normal text-[12px] flex items-center tracking-[0.24px]">
             Confirm Password<span className="text-[#DC3545]">*</span>&nbsp;
             <InfoIcon />
           </label>

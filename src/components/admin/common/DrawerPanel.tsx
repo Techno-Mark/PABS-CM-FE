@@ -98,11 +98,16 @@ const DrawerPanel = ({
         variant="permanent"
         open={openDrawer}
       >
-        <div className="p-5 top-0 !h-[9%] flex items-center justify-between border-b">
+        <div className="p-5 top-0 !h-[9%] flex items-center justify-between border-b border-[#D8D8D8] bg-[#F6F6F6]">
           <span className="font-bold text-[18px]">
             {canEdit ? "Edit" : "Add"} {type}
           </span>
-          <Tooltip title="Close" placement="bottom" arrow>
+          <Tooltip title="Close" placement="bottom" 
+            classes={{
+              tooltip: classes.tooltipStyle,
+              arrow: classes.arrowStyle,
+            }}
+          arrow>
             <span
               className="flex items-center cursor-pointer"
               onClick={() => closeDrawerPanel()}
@@ -114,20 +119,20 @@ const DrawerPanel = ({
         <div className="p-5 top-0 flex flex-col justify-start overflow-y-auto !h-[82%]">
           {children}
         </div>
-        <div className="!h-[9%] !bg-[#FFFFFF] flex items-center justify-end border-t pr-6 gap-5 w-[100%]">
+        <div className="!h-[9%] !bg-[#FFFFFF] flex items-center justify-end border-t pr-6 gap-5 w-[100%] border-[#D8D8D8]">
           <Button
             onClick={() => {
               setOpenDrawer(false);
               setId();
             }}
-            className={`border-[#0078C8] hover:border-[#023963] !bg-[#FFFFFF] text-[#0078C8] hover:text-[#023963] rounded !w-[90px] font-normal text-[16px] capitalize`}
+            className={`py-1.5 px-5 border-[#0078C8] hover:border-[#023963] !bg-[#FFFFFF] hover:!bg-[#FFFFFF] text-[#0078C8] hover:text-[#023963] rounded h-[36px] font-normal text-[16px] capitalize`}
             variant="outlined"
           >
-            Cancel
+            Close
           </Button>
           <Button
             onClick={handleSubmit}
-            className={`${isSaveEnabled ? '!bg-[#0078C8] hover:!bg-[#023963] !text-[#FFFFFF]' : '!bg-[#D8D8D8] text-[#6C6C6C]' } !rounded`}
+            className={`${isSaveEnabled ? '!bg-[#0078C8] hover:!bg-[#023963] !text-[#FFFFFF]' : '!bg-[#D8D8D8] text-[#6C6C6C]' } !rounded h-[36px] py-1.5 px-5 `}
             variant="contained"
             disabled={!isSaveEnabled}
           >

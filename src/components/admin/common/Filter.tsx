@@ -33,7 +33,7 @@ function Filter({
       className="h-[100vh] flex justify-center outline-none"
     >
       <Box sx={style}>
-        <div className="p-4 top-0 flex justify-between items-center">
+        <div className="p-4 top-0 flex justify-between items-center border-[#D8D8D8]">
           <span className="font-bold text-[18px]">Filter</span>
           <div className="flex gap-4 items-center">
             <Button
@@ -58,7 +58,7 @@ function Filter({
         <Divider />
         {children}
         <Divider />
-        <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0">
+        <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0 border-[#D8D8D8]">
           {/* <Button
             disabled={isResetDisabled}
             onClick={handleResetSubmit}
@@ -73,14 +73,14 @@ function Filter({
             disabled={isSaveDisabled}
             onClick={handleSubmit}
             className={`${
-              !isSaveDisabled && "!bg-[#023963]"
+              !isSaveDisabled && "!bg-[#0078C8] hover:!bg-[#023963]"
             } text-white !h-[36px] !!rounded !w-[71px]`}
             variant="contained"
           >
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}}/>
             ) : (
-              <span className="uppercase font-semibold text-[16px] capitalize">Save</span>
+              <span className="capitalize font-normal text-[16px] capitalize">Save</span>
             )}
           </Button>
           <Button

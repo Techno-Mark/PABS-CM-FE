@@ -14,6 +14,7 @@ import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 import { style } from "@/utils/modalStyle";
 // Types import
 import { ConfirmModalProps } from "@/models/userManage";
+import { useStyles } from "@/utils/useStyles";
 
 function ConfirmModal({
   isOpen,
@@ -25,6 +26,7 @@ function ConfirmModal({
   handleModalSubmit,
   setId,
 }: ConfirmModalProps) {
+  const classes = useStyles();
   const safeSetUserId = setId || (() => {});
   return (
     <Modal
@@ -33,9 +35,14 @@ function ConfirmModal({
       className="h-[100vh] flex justify-center"
     >
       <Box sx={style}>
-        <div className="p-5 top-0 flex justify-between">
+        <div className="p-5 top-0 flex justify-between border-[#D8D8D8]">
           <span className="font-bold text-[18px]"> {title}</span>
-          <Tooltip title="Close" placement="bottom" arrow>
+          <Tooltip title="Close" placement="bottom" 
+          classes={{
+            tooltip: classes.tooltipStyle,
+            arrow: classes.arrowStyle,
+          }}
+          arrow>
             <span
               className="flex items-center cursor-pointer"
               onClick={() => {
@@ -50,7 +57,7 @@ function ConfirmModal({
         <Divider />
         <div className="p-5 h-[calc(100%-143px)]">{message}</div>
         <Divider />
-        <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0">
+        <div className="flex py-5 px-4 gap-5 w-full justify-end !items-end right-0 bottom-0 border-[#D8D8D8]">
           <Button
             onClick={() => {
               setIsOpen(false);

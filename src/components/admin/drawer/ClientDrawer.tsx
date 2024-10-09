@@ -38,6 +38,7 @@ import { convertFileToBase64 } from "@/utils/convertFileToBase64";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 // Icons import
 import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
+import dropdownarrow from "@/assets/Icons/dropdownarrow";
 
 const ClientDrawer = ({
   openDrawer,
@@ -445,6 +446,7 @@ const ClientDrawer = ({
                   : "!text-[14px] font-proximanova"
               }`}
               value={businessType.value}
+              IconComponent={dropdownarrow}
               error={businessType.error}
               onChange={handleBusinessTypeChange}
             >
@@ -498,6 +500,10 @@ const ClientDrawer = ({
             }
             placement="top"
             arrow
+            classes={{
+              tooltip: classes.tooltipStyle,
+              arrow: classes.arrowStyle,
+            }}
           >
             <span>
               <ImgInfoIcon />

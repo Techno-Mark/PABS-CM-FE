@@ -63,6 +63,8 @@ import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import Cookies from "js-cookie";
 import ClientModal from "@/components/client/common/ClientModal";
 import FormIcon from "@/assets/Icons/client/FormIcon";
+import ThreeDot from "@/assets/Icons/threedot";
+import dropdownarrow from "@/assets/Icons/dropdownarrow";
 
 function Page() {
   const router = useRouter();
@@ -137,7 +139,12 @@ function Page() {
             renderOption={(props, option) => {
               const isSelected = tempSelectedValues.includes(option.value);
               return (
-                <Tooltip title={option.email} arrow placement="right">
+                <Tooltip title={option.email} arrow 
+                  classes={{
+                    tooltip: classes.tooltipStyle,
+                    arrow: classes.arrowStyle,
+                  }}
+                placement="right">
                   <li {...props}>
                     <Checkbox
                       checked={isSelected}
@@ -208,6 +215,10 @@ function Page() {
                               .map((u: Option) => u.label)
                               .join(", ")}
                             arrow
+                            classes={{
+                              tooltip: classes.tooltipStyle,
+                              arrow: classes.arrowStyle,
+                            }}
                             placement="top"
                           >
                             <Avatar className={classes.avatarStyle}>
@@ -289,7 +300,7 @@ function Page() {
     {
       field: "srNo",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Sr No.</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Sr No.</span>
       ),
       width: 70,
       sortable: false,
@@ -300,7 +311,7 @@ function Page() {
     {
       field: "SfId",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">SF ID</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">SF ID</span>
       ),
       flex: 1,
       sortable: false,
@@ -308,155 +319,12 @@ function Page() {
     {
       field: "Clientname",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Client Name</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Client Name</span>
       ),
       flex: 1,
-      sortable: false,
-    },
-    {
-      field: "BusinessType",
-      renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Department Type</span>
-      ),
-      flex: 1,
-      sortable: false,
-    },
-    {
-      field: "CheckListStatus",
-      renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Checklist Status</span>
-      ),
-      flex: 1,
-      sortable: false,
-      renderCell: (params) => (
-        <span className="font-normal text-[14px]">
-          {params.value}{" "}
-          {params.row.Progress !== null && `(${params.row.Progress}%)`}
-        </span>
-      ),
-    },
-    {
-      field: "AssignUserId",
-      renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Assigning User</span>
-      ),
-      width: 200,
       sortable: false,
       renderCell: (params) => {
         return (
-          <AssignUserCell
-            params={params}
-            roleId={roleId}
-            assignUserList1={assignUserList1}
-            assignUserList2={assignUserList2}
-            assignUserList3={assignUserList3}
-            saveAssignUser={saveAssignUser}
-          />
-        );
-      },
-    },
-    {
-      field: "Status",
-      renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Status</span>
-      ),
-      flex: 1,
-      sortable: false,
-      renderCell: (params) => (
-        <Select
-          value={params.value}
-          onChange={(e) =>
-            handleStatusChange(e.target.value as string, params.row.ClientId)
-          }
-          displayEmpty
-          size="small"
-          sx={{
-            boxShadow: "none",
-            ".MuiOutlinedInput-notchedOutline": { border: 0 },
-            "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-              border: 0,
-            },
-            "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-            {
-              border: 0,
-            },
-            ".MuiSelect-select": {
-              padding: 0,
-              width: 50,
-              marginBottom: 1,
-            },
-            ".MuiSvgIcon-root": {
-              top: 0,
-              right: 0,
-            },
-            fontSize: 14,
-          }}
-        >
-          <MenuItem value="Active">Active</MenuItem>
-          <MenuItem value="Inactive">Inactive</MenuItem>
-        </Select>
-      ),
-    },
-    {
-      field: "actions",
-      renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase flex justify-end items-end">
-          Actions
-        </span>
-      ),
-      width: 160,
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          // <div className="flex gap-9 justify-start h-full items-center">
-          //   {checkPermission("Client Management", "edit") && (
-          //     <Tooltip title="Edit" placement="top" arrow>
-          //       <span
-          //         className="cursor-pointer"
-          //         onClick={() => {
-          //           setOpenDrawer(true);
-          //           setEdit(true);
-          //           setClientId(params.row.ClientId);
-          //         }}
-          //       >
-          //         <EditIcon />
-          //       </span>
-          //     </Tooltip>
-          //   )}
-          //   {checkPermission("Client Management", "delete") && (
-          //     <Tooltip title="Delete" placement="top" arrow>
-          //       <span
-          //         className="cursor-pointer"
-          //         onClick={() => {
-          //           setIsLoading(false);
-          //           setOpenDelete(true);
-          //           setClientId(params.row.ClientId);
-          //         }}
-          //       >
-          //         <DeleteIcon />
-          //       </span>
-          //     </Tooltip>
-          //   )}
-          //   <Tooltip title="Form Type" placement="top" arrow>
-          //     <span
-          //       className="cursor-pointer"
-          //       onClick={() => {
-          //         setClientOpenModal(true);
-          //         setClientInfo({
-          //           SFID: params.row.SfId,
-          //           DepartmentType: params.row.BusinessType,
-          //           DepartmentId: params.row.BusinessTypeId,
-          //           ClientId: params.row.ClientId,
-          //           clientName: params.row.Clientname,
-          //           UserId: params.row.UserId,
-          //           IsFormLocked: params.row.IsFormLocked,
-          //         });
-          //       }}
-          //     >
-          //       <FormIcon />
-          //     </span>
-          //   </Tooltip>
-          // </div>
           <Select
             value=""
             displayEmpty
@@ -471,18 +339,17 @@ function Page() {
                 border: 0,
               },
               ".MuiSelect-select": {
-                padding: 0,
-                width: 50,
+                padding: '0 !important',
+                width: 'auto',
               },
               ".MuiSvgIcon-root": {
-                top: 0,
-                right: 0,
+               display: 'none',
               },
               fontSize: 14,
             }}
             renderValue={() => (
-              <div className="flex items-center">
-                Select 
+              <div>
+                {params.value}
               </div>
             )}
           >
@@ -534,6 +401,227 @@ function Page() {
         );
       },
     },
+    {
+      field: "BusinessType",
+      renderHeader: () => (
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Department Type</span>
+      ),
+      flex: 1,
+      sortable: false,
+    },
+    {
+      field: "CheckListStatus",
+      renderHeader: () => (
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Checklist Status</span>
+      ),
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <span className="font-normal text-[14px]">
+          {params.value}{" "}
+          {params.row.Progress !== null && `(${params.row.Progress}%)`}
+        </span>
+      ),
+    },
+    {
+      field: "AssignUserId",
+      renderHeader: () => (
+        <span className="font-bold text-[14px] uppercase">Assigning User</span>
+      ),
+      width: 200,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <AssignUserCell
+            params={params}
+            roleId={roleId}
+            assignUserList1={assignUserList1}
+            assignUserList2={assignUserList2}
+            assignUserList3={assignUserList3}
+            saveAssignUser={saveAssignUser}
+          />
+        );
+      },
+    },
+    {
+      field: "Status",
+      renderHeader: () => (
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Status</span>
+      ),
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <Select
+          value={params.value}
+          onChange={(e) =>
+            handleStatusChange(e.target.value as string, params.row.ClientId)
+          }
+          displayEmpty
+          size="small"
+          IconComponent={dropdownarrow}
+          sx={{
+            boxShadow: "none",
+            ".MuiOutlinedInput-notchedOutline": { border: 0 },
+            "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+              border: 0,
+            },
+            "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+              border: 0,
+            },
+            ".MuiSelect-select": {
+              padding: 0,
+              width: 50,
+              marginBottom: 1,
+            },
+            ".MuiSvgIcon-root": {
+              top: 0,
+              right: 0,
+            },
+            fontSize: 14,
+          }}
+        >
+          <MenuItem value="Active">Active</MenuItem>
+          <MenuItem value="Inactive">Inactive</MenuItem>
+        </Select>
+      ),
+    },
+    // {
+    //   field: "actions",
+    //   renderHeader: () => (
+    //     <span className="font-bold text-[14px] uppercase flex justify-end items-end">
+    //       Actions
+    //     </span>
+    //   ),
+    //   width: 160,
+    //   sortable: false,
+    //   renderCell: (params) => {
+    //     return (
+    //       // <div className="flex gap-9 justify-start h-full items-center">
+    //       //   {checkPermission("Client Management", "edit") && (
+    //       //     <Tooltip title="Edit" placement="top" arrow>
+    //       //       <span
+    //       //         className="cursor-pointer"
+    //       //         onClick={() => {
+    //       //           setOpenDrawer(true);
+    //       //           setEdit(true);
+    //       //           setClientId(params.row.ClientId);
+    //       //         }}
+    //       //       >
+    //       //         <EditIcon />
+    //       //       </span>
+    //       //     </Tooltip>
+    //       //   )}
+    //       //   {checkPermission("Client Management", "delete") && (
+    //       //     <Tooltip title="Delete" placement="top" arrow>
+    //       //       <span
+    //       //         className="cursor-pointer"
+    //       //         onClick={() => {
+    //       //           setIsLoading(false);
+    //       //           setOpenDelete(true);
+    //       //           setClientId(params.row.ClientId);
+    //       //         }}
+    //       //       >
+    //       //         <DeleteIcon />
+    //       //       </span>
+    //       //     </Tooltip>
+    //       //   )}
+    //       //   <Tooltip title="Form Type" placement="top" arrow>
+    //       //     <span
+    //       //       className="cursor-pointer"
+    //       //       onClick={() => {
+    //       //         setClientOpenModal(true);
+    //       //         setClientInfo({
+    //       //           SFID: params.row.SfId,
+    //       //           DepartmentType: params.row.BusinessType,
+    //       //           DepartmentId: params.row.BusinessTypeId,
+    //       //           ClientId: params.row.ClientId,
+    //       //           clientName: params.row.Clientname,
+    //       //           UserId: params.row.UserId,
+    //       //           IsFormLocked: params.row.IsFormLocked,
+    //       //         });
+    //       //       }}
+    //       //     >
+    //       //       <FormIcon />
+    //       //     </span>
+    //       //   </Tooltip>
+    //       // </div>
+    //       <Select
+    //         value=""
+    //         displayEmpty
+    //         size="small"
+    //         sx={{
+    //           boxShadow: "none",
+    //           ".MuiOutlinedInput-notchedOutline": { border: 0 },
+    //           "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+    //             border: 0,
+    //           },
+    //           "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    //             border: 0,
+    //           },
+    //           ".MuiSelect-select": {
+    //             padding: 0,
+    //             width: 50,
+    //           },
+    //           ".MuiSvgIcon-root": {
+    //            display: 'none',
+    //           },
+    //           fontSize: 14,
+    //         }}
+    //         renderValue={() => (
+    //           <div className="flex items-center justify-center">
+    //             <ThreeDot />
+    //           </div>
+    //         )}
+    //       >
+    //         {checkPermission("Client Management", "edit") && (
+    //           <MenuItem
+    //             value="edit"
+    //             onClick={() => {
+    //               setOpenDrawer(true);
+    //               setEdit(true);
+    //               setClientId(params.row.ClientId);
+    //             }}
+    //             className="text-[14px] font-normal text-[#333]"
+    //           >
+    //             Edit
+    //           </MenuItem>
+    //         )}
+    //         {checkPermission("Client Management", "delete") && (
+    //           <MenuItem
+    //             value="delete"
+    //             onClick={() => {
+    //               setIsLoading(false);
+    //               setOpenDelete(true);
+    //               setClientId(params.row.ClientId);
+    //             }}
+    //             className="text-[14px] font-normal text-[#333]"
+    //           >
+    //             Delete
+    //           </MenuItem>
+    //         )}
+    //         <MenuItem
+    //           value="formType"
+    //           onClick={() => {
+    //             setClientOpenModal(true);
+    //             setClientInfo({
+    //               SFID: params.row.SfId,
+    //               DepartmentType: params.row.BusinessType,
+    //               DepartmentId: params.row.BusinessTypeId,
+    //               ClientId: params.row.ClientId,
+    //               clientName: params.row.Clientname,
+    //               UserId: params.row.UserId,
+    //               IsFormLocked: params.row.IsFormLocked,
+    //             });
+    //           }}
+    //           className="text-[14px] font-normal text-[#333]"
+    //         >
+    //           Form Type
+    //         </MenuItem>
+    //       </Select>
+    //     );
+    //   },
+    // },
   ];
   const [clientInfo, setClientInfo] = useState<any>({
     SFID: "",
@@ -881,7 +969,7 @@ function Page() {
         <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
         <div className="flex items-center gap-1 justify-between">
           {checkPermission("Client Management", "view") ? (
-            <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
               <span className="m-3 flex items-center">
                 <SearchIcon />
               </span>
@@ -916,11 +1004,11 @@ function Page() {
               onClick={() => SendInvitation()}
               className={`${selectedIds.length <= 0
                 ? "!border-[#636363] !text-[#636363] cursor-not-allowed"
-                : "!border-[#023963] !text-[#023963]"
+                : "!border-[#0078C8] !text-[#0078C8] hover:!border-[#023963] hover:!text-[#023963]"
                 } px-3 border !normal-case !text-[16px] ${invitaionLoading
                   ? "flex items-center justify-center bg-[#023963]"
                   : "!bg-[#FFFFFF]"
-                } !h-[36px] !rounded-md`}
+                } !h-[36px] !rounded-md text-normal text-[16px]`}
             >
               {invitaionLoading ? (
                 <CircularProgress
@@ -938,7 +1026,7 @@ function Page() {
                 setOpenDrawer(true);
                 setEdit(false);
               }}
-              className={`px-5 py-2 !normal-case !text-[16px] !bg-[#0078C8] hover:!bg-[#023963] !text-[#fff] !rounded-md font-normal`}
+              className={`px-5 normal-case text-[16px] bg-[#0078C8] hover:bg-[#023963] !text-[#fff] !rounded-md font-normal h-[36px]`}
             >
               Add Client
             </button>
