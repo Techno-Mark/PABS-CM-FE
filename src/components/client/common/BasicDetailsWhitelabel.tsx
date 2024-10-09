@@ -193,7 +193,7 @@ const BasicDetailsWhitelabel = ({
               teamManager: ResponseData.teamManager,
               teamLeader: ResponseData.teamLeader,
               seniorAccountant: ResponseData.seniorAccountant,
-              pabsGroupEmail: ResponseData.pabsPhone,
+              pabsGroupEmail: ResponseData.pabsGroupEmail,
               pabsPhone: ResponseData.pabsPhone,
             });
           }
