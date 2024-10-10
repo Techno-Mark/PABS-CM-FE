@@ -55,11 +55,9 @@ import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { useStyles } from "@/utils/useStyles";
 // Cookie imports
-import Cookies from "js-cookie";
-import ClientModal from "@/components/client/common/ClientModal";
-import FormIcon from "@/assets/Icons/client/FormIcon";
-import dropdownarrow from "@/assets/Icons/dropdownarrow";
 import DropDownArrow from "@/assets/Icons/dropdownarrow";
+import ClientModal from "@/components/client/common/ClientModal";
+import Cookies from "js-cookie";
 
 function Page() {
   const router = useRouter();
