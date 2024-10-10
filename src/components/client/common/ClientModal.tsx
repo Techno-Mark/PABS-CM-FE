@@ -42,6 +42,9 @@ import {
   toggleFormLockedUrl,
 } from "@/static/apiUrl";
 import Cookies from "js-cookie";
+import { useStyles } from "@/utils/useStyles";
+import LockIcon from "@/assets/Icons/client/forms/LockIcon";
+import UnLockIcon from "@/assets/Icons/client/forms/UnLockIcon";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -106,8 +109,8 @@ function ClientModal({
     clientInfo?.DepartmentId === 3
       ? 31
       : clientInfo?.DepartmentId === 2
-      ? 21
-      : 11;
+        ? 21
+        : 11;
   const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
   const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
   const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
@@ -173,6 +176,7 @@ function ClientModal({
   useEffect(() => {
     getFormDetials();
   }, []);
+  const classes = useStyles();
 
   const handleDownload = () => {
     fetch(`${process.env.APIDEV_URL}/${onboardingDownloadFormUrl}`, {
@@ -256,10 +260,9 @@ function ClientModal({
               <Toolbar>
                 <div className="flex flex-row w-full justify-between items-center mb-3">
                   <div
-                    className={`!text-[#000000] ${
-                      !!isClientLogoDisplay &&
-                      "flex gap-4 justify-center items-center"
-                    }`}
+                    className={`!text-[#000000] flex items-center gap-4 ${!!isClientLogoDisplay &&
+                      "justify-center"
+                      }`}
                   >
                     {!!isClientLogoDisplay && (
                       <span>
@@ -270,48 +273,26 @@ function ClientModal({
                         />
                       </span>
                     )}
-                    <span className="!font-semibold text-[15px]">
+                    <div className="!font-semibold text-[15px]">
                       {clientInfo.SFID} &nbsp;|&nbsp; {clientInfo.clientName}{" "}
                       &nbsp;|&nbsp; {clientInfo.DepartmentType}
-                    </span>
-                  </div>
-                  <div className="relative flex gap-5">
-                    <div className="flex justify-center items-center">
-                      {(loginUserRole == "1" || loginUserRole == "2") && (
-                        <div className="flex items-center">
-                          <div className="relative">
-                            <CustomSwitch
-                              checked={isChecked}
-                              onChange={(e: any) =>
-                                handleToggleFormLocked(e.target.checked)
-                              }
-                            />
-                            <span
-                              className={`absolute ${
-                                isChecked
-                                  ? "left-2.5 text-[11px]"
-                                  : "right-[3px] text-[11px]"
-                              } font-bold top-1/2 transform -translate-y-1/2 text-white`}
-                            >
-                              {isChecked ? "Lock" : "Unlock"}
-                            </span>
-                          </div>
-                        </div>
-                      )}
                     </div>
                     {(formSubmit === 12 ||
                       formSubmit === 21 ||
                       formSubmit === 32) && (
-                      <Tooltip title="Comment" placement="bottom" arrow>
-                        <span
-                          className="flex items-center cursor-pointer"
-                          onClick={() => setOpenCommentModal(true)}
-                        >
-                          <CommentIcon />
-                        </span>
-                      </Tooltip>
-                    )}
-                    <Tooltip title="Download" placement="bottom" arrow>
+                        <Tooltip title="Comment" placement="bottom" arrow>
+                          <span
+                            className="flex items-center cursor-pointer"
+                            onClick={() => setOpenCommentModal(true)}
+                          >
+                            <CommentIcon />
+                          </span>
+                        </Tooltip>
+                      )}
+                    <Tooltip title="Download" placement="bottom" arrow classes={{
+                      tooltip: classes.tooltipStyle,
+                      arrow: classes.arrowStyle,
+                    }}>
                       <span
                         className="flex items-center cursor-pointer"
                         onClick={handleDownload}
@@ -319,7 +300,39 @@ function ClientModal({
                         <DownloadIcon />
                       </span>
                     </Tooltip>
-                    <Tooltip title="Close" placement="bottom" arrow>
+                    <Tooltip title={isChecked ? "Lock" : "Unlock"} placement="bottom" arrow classes={{
+                      tooltip: classes.tooltipStyle,
+                      arrow: classes.arrowStyle,
+                    }}>
+                      <div className="flex justify-center items-center">
+                        {(loginUserRole == "1" || loginUserRole == "2") && (
+                          <div className="relative">
+                            <div className="absolute top-0 left-0 w-full opacity-0">
+                              <CustomSwitch
+                                className="w-full [&>span]:transform:none"
+                                checked={isChecked}
+                                onChange={(e: any) =>
+                                  handleToggleFormLocked(e.target.checked)
+                                }
+                              />
+                            </div>
+                            {/* <span className={`absolute ${isChecked
+                                ? "left-2.5 text-[11px]"
+                                : "right-[3px] text-[11px]"
+                                } font-bold top-1/2 transform -translate-y-1/2 text-white`}>
+                              {isChecked ? "Lock" : "Unlock"}
+                            </span> */}
+                            {isChecked ? <LockIcon /> : <UnLockIcon />}
+                          </div>
+                        )}
+                      </div>
+                    </Tooltip>
+                  </div>
+                  <div className="relative flex gap-5">
+                    <Tooltip title="Close" placement="bottom" arrow classes={{
+                      tooltip: classes.tooltipStyle,
+                      arrow: classes.arrowStyle,
+                    }}>
                       <span
                         className="flex items-center cursor-pointer"
                         onClick={() => setIsOpenModal(false)}
@@ -331,7 +344,7 @@ function ClientModal({
                 </div>
               </Toolbar>
             </AppBar>
-            <ClientSidebar
+            {/* <ClientSidebar
               setWhiteLabelProgressPercentage={(value: number) =>
                 setWhiteLabelProgressPer(value)
               }
@@ -345,7 +358,7 @@ function ClientModal({
               setAutoCareProgressPercentage={(value: number) =>
                 setAutoCareProgressPer(value)
               }
-            />
+            /> */}
             <Box
               component="main"
               sx={{
@@ -359,8 +372,8 @@ function ClientModal({
                 <>
                   {formSubmit === 31 && (
                     <BasicDetailsAutoCare
-                      setAutoCareFormSubmittedStatus={() => {}}
-                      setCheckAllFields={() => {}}
+                      setAutoCareFormSubmittedStatus={() => { }}
+                      setCheckAllFields={() => { }}
                       autoCareProgressPercentage={autoCareProgressPer}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       clientInfo={clientInfo}
@@ -373,7 +386,7 @@ function ClientModal({
                     />
                   )}
                   <ChecklistAutoCare
-                    setAutoCareFormSubmittedStatus={() => {}}
+                    setAutoCareFormSubmittedStatus={() => { }}
                     formSubmitId={formSubmit}
                     checkAllBasicDetails={false}
                     autoCareProgressPercentage={autoCareProgressPer}
@@ -391,7 +404,7 @@ function ClientModal({
                 <>
                   {formSubmit === 21 && (
                     <ChecklistSmb
-                      setSmbFormSubmittedStatus={() => {}}
+                      setSmbFormSubmittedStatus={() => { }}
                       clientInfo={clientInfo}
                       setIsOpenModal={(value: boolean) => setIsOpenModal(value)}
                       setSMBChecklistCount={(value: number) =>
@@ -410,8 +423,8 @@ function ClientModal({
                 <>
                   {formSubmit === 11 && (
                     <BasicDetailsWhitelabel
-                      setWhiteLabelFormSubmittedStatus={() => {}}
-                      setCheckAllWhiteLabelBasicFields={() => {}}
+                      setWhiteLabelFormSubmittedStatus={() => { }}
+                      setCheckAllWhiteLabelBasicFields={() => { }}
                       whiteLabelProgressPercentage={whiteLabelProgressPer}
                       clientInfo={clientInfo}
                       setWhitelabelBasicDetailsFormSubmit={(value: number) =>
@@ -427,8 +440,8 @@ function ClientModal({
                     />
                   )}
                   <ChecklistWhitelabel
-                    setWhiteLabelFormSubmittedStatus={() => {}}
-                    setCheckAllWhiteLabelCheckist={() => {}}
+                    setWhiteLabelFormSubmittedStatus={() => { }}
+                    setCheckAllWhiteLabelCheckist={() => { }}
                     setWhiteLabelFormIsSubmit={(value: boolean) =>
                       setIsFormSubmitWhitelabel(value)
                     }

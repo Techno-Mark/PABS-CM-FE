@@ -106,11 +106,11 @@ const ClientSidebar = ({
           module: "Checklist",
           value: perCountWhiteLabelChecklist || 0,
         },
-        {
-          id: 13,
-          module: "Account Details",
-          value: 0,
-        },
+        // {
+        //   id: 13,
+        //   module: "Account Details",
+        //   value: 0,
+        // },
       ]);
     }
     if (perCountBasicDetails || perCountChecklist) {
@@ -149,23 +149,23 @@ const ClientSidebar = ({
             </ListItemButton>
           </ListItem>
         </List>*/}
-      <div className="mt-8 w-full">
+      <div className="pt-4 w-full flex items-center border-t border-b border-[#D8D8D8]">
         {items.map((data: ClientSidebarItemsType, index: number) => (
           <div
             key={index}
-            className="flex items-center justify-between w-full mb-5"
+            className="flex flex-row-reverse items-center justify-between mb-5 px-5 w-auto border-r border-[#D8D8D8] last:border-r-0 font-medium"
           >
             <span
               className={` ${sidebarModule === data.id && "font-semibold"
-                } mx-2 text-[#333333] text-[14px] text-wrap w-[50%] cursor-default`}
+                } mx-2 text-[#333333] text-[14px] text-wrap cursor-default uppercase font-medium`}
             >
               {data.module}
             </span>
             {data.id !== 13 && (
-              <div className="flex justify-start gap-2 w-[50%]">
-                <div className="relative flex items-start w-[100px] h-4 rounded-full bg-[#F6F6F6]">
+              <div className="flex justify-start gap-2">
+                <div className="relative flex items-start w-[46px] h-[46px] rounded-full bg-white border border-3 border-[rgba(108,108,108,0.3)]">
                   <div
-                    className={`absolute left-0 top-0 h-full ${data.value < 93
+                    className={`absolute left-0 top-0  h-full ${data.value < 93
                       ? "rounded-full"
                       : "rounded-l-full rounded-r-full"
                       }`}
@@ -176,12 +176,11 @@ const ClientSidebar = ({
                       backgroundColor: "#022946",
                     }}
                   ></div>
+                  <span
+                    className={`pt-[2px] z-10 text-[12px] flex justify-center items-center text-[#023963] w-full h-full font-medium`}
+                  >{data.value}%
+                  </span>
                 </div>
-                <span
-                  className={`relative mr-1 pt-[2px] w-[30px] z-10 text-[8px] !justify-center items-center text-[#023963]`}
-                >
-                  {data.value}%
-                </span>
               </div>
             )}
           </div>
