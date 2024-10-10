@@ -818,9 +818,9 @@ const BasicDetailsWhitelabel = ({
               onClick={() => handleSubmit(2)}
               className={`${
                 isFormLocked && (roleId === "3" || roleId === "4")
-                  ? "!border-[#666] !text-[#666]"
-                  : "!border-[#023963] !text-[#022946]"
-              } !bg-[#FFFFFF] !rounded-md text-[14px]`}
+                  ? "border-[#666] text-[#666]"
+                  : "border-[#023963] text-[#022946]"
+              } bg-[#FFFFFF] rounded-md text-[14px]`}
               variant="outlined"
               disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
@@ -833,7 +833,7 @@ const BasicDetailsWhitelabel = ({
                 ? handleSubmitwithOutApi()
                 : handleSubmit(1)
             }
-            className={`!bg-[#0078C8] !text-white !rounded-md`}
+            className={`bg-[#0078C8] text-white rounded-md`}
             variant="contained"
           >
             <span className="uppercase text-[14px] whitespace-nowrap">
