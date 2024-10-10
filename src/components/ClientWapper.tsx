@@ -80,7 +80,7 @@ const ClientWrapper = ({
             sx={{
               flexGrow: 1,
               backgroundColor: "#F9FBFF",
-              width: { sm: `calc(100% - ${drawerWidth}px)` },
+              width: { sm: `100%` },
             }}
           >
             {children}

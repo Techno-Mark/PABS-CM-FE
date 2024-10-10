@@ -39,9 +39,8 @@ function AutoCareAccountDetails({
           const validValue = value.slice(0, 10);
           const errorMessage =
             validValue.length < 10
-              ? `${
-                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
-                } must be exactly ${10} characters`
+              ? `${name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
+              } must be exactly ${10} characters`
               : "";
           setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
             ...prev,
@@ -57,9 +56,8 @@ function AutoCareAccountDetails({
           const validValue = value.replace(/[^0-9]/g, "").slice(0, 10);
           const errorMessage =
             validValue.length < 10
-              ? `${
-                  name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
-                } must be exactly ${10} characters`
+              ? `${name === "ownerPhone" ? "Owner Phone" : "Owner Contact"
+              } must be exactly ${10} characters`
               : "";
 
           setAutoCareAccountDetails((prev: AccountDetailsFormTypes) => ({
@@ -147,7 +145,7 @@ function AutoCareAccountDetails({
       >
         <div className="py-3 flex flex-col gap-4">
           <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
                   Account Name<span className="text-[#DC3545]">*</span>
@@ -178,7 +176,8 @@ function AutoCareAccountDetails({
                 />
               </div>
             </Grid>
-            <Grid item xs={4}>
+
+            <Grid item xs={3}>
               <div className="text-[12px] flex flex-col">
                 <label className="text-[#6E6D7A] text-[12px]">
                   Owner Phone
@@ -192,6 +191,193 @@ function AutoCareAccountDetails({
                   value={autoCareAccountDetails?.ownerPhone}
                   error={!!autoCareAccountDetailsErrors.ownerPhone}
                   helperText={autoCareAccountDetailsErrors.ownerPhone}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col">
+                <label className="text-[#6E6D7A] text-[12px]">Service</label>
+                <TextField
+                  name="service"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Service"
+                  value={autoCareAccountDetails?.service}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    maxLength: 250,
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={3}>
+              <div
+                className={`text-[12px] flex flex-col ${autoCareAccountDetailsErrors.ownerEmail
+                  ? "!mb-2"
+                  : "!mb-[22px]"
+                  }`}
+              >
+                <label className="text-[#6E6D7A] text-[12px]">
+                  Owner Email<span className="text-[#DC3545]">*</span>
+                </label>
+                <TextField
+                  name="ownerEmail"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Owner Email"
+                  value={autoCareAccountDetails?.ownerEmail}
+                  error={!!autoCareAccountDetailsErrors.ownerEmail}
+                  helperText={autoCareAccountDetailsErrors.ownerEmail}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    maxLength: 250,
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col mb-[22px]">
+                <label className="text-[#6E6D7A] text-[12px]">
+                  Business Type
+                </label>
+                <TextField
+                  name="businessType"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Business Type"
+                  value={autoCareAccountDetails?.businessType}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col mb-[22px]">
+                <label className="text-[#6E6D7A] text-[12px]">
+                  No. of Locations<span className="text-[#DC3545]">*</span>
+                </label>
+                <TextField
+                  name="noOfLocations"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter No. of Locations"
+                  value={autoCareAccountDetails?.noOfLocations}
+                  error={!!autoCareAccountDetailsErrors.noOfLocations}
+                  helperText={autoCareAccountDetailsErrors.noOfLocations}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col mb-[22px]">
+                <label className="text-[#6E6D7A] text-[12px]">
+                  Name of Locations<span className="text-[#DC3545]">*</span>
+                </label>
+                <TextField
+                  name="nameOfLocations"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Name of Locations"
+                  value={autoCareAccountDetails?.nameOfLocations}
+                  error={!!autoCareAccountDetailsErrors.nameOfLocations}
+                  helperText={autoCareAccountDetailsErrors.nameOfLocations}
+                  onChange={handleChange}
+                  InputProps={{
+                    classes: {
+                      underline: classes.underline,
+                    },
+                  }}
+                  inputProps={{
+                    className: classes.textSize,
+                  }}
+                  disabled={
+                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
+                    (isFormLocked && (roleId == "3" || roleId == "4"))
+                  }
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={3}>
+              <div className="text-[12px] flex flex-col w-full mb-[22px]">
+                <label className="text-[#6E6D7A] text-[12px]">
+                  Owner Contact<span className="text-[#DC3545]">*</span>
+                </label>
+                <TextField
+                  name="ownerContact"
+                  id="outlined-basic"
+                  variant="standard"
+                  size="small"
+                  placeholder="Please Enter Owner Contact"
+                  value={autoCareAccountDetails?.ownerContact}
+                  error={!!autoCareAccountDetailsErrors.ownerContact}
+                  helperText={autoCareAccountDetailsErrors.ownerContact}
                   onChange={handleChange}
                   InputProps={{
                     classes: {
@@ -232,186 +418,6 @@ function AutoCareAccountDetails({
                   }}
                   inputProps={{
                     maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
-                    (isFormLocked && (roleId == "3" || roleId == "4"))
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div
-                className={`text-[12px] flex flex-col ${
-                  autoCareAccountDetailsErrors.ownerEmail
-                    ? "!mb-2"
-                    : "!mb-[22px] mt-2"
-                }`}
-              >
-                <label className="text-[#6E6D7A] text-[12px]">
-                  Owner Email<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="ownerEmail"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter Owner Email"
-                  value={autoCareAccountDetails?.ownerEmail}
-                  error={!!autoCareAccountDetailsErrors.ownerEmail}
-                  helperText={autoCareAccountDetailsErrors.ownerEmail}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
-                    (isFormLocked && (roleId == "3" || roleId == "4"))
-                  }
-                />
-              </div>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">Service</label>
-                <TextField
-                  name="service"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter Service"
-                  value={autoCareAccountDetails?.service}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    maxLength: 250,
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
-                    (isFormLocked && (roleId == "3" || roleId == "4"))
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  Business Type
-                </label>
-                <TextField
-                  name="businessType"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter Business Type"
-                  value={autoCareAccountDetails?.businessType}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
-                    (isFormLocked && (roleId == "3" || roleId == "4"))
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  No. of Locations<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="noOfLocations"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter No. of Locations"
-                  value={autoCareAccountDetails?.noOfLocations}
-                  error={!!autoCareAccountDetailsErrors.noOfLocations}
-                  helperText={autoCareAccountDetailsErrors.noOfLocations}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
-                    (isFormLocked && (roleId == "3" || roleId == "4"))
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="text-[12px] flex flex-col">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  Name of Locations<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="nameOfLocations"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter Name of Locations"
-                  value={autoCareAccountDetails?.nameOfLocations}
-                  error={!!autoCareAccountDetailsErrors.nameOfLocations}
-                  helperText={autoCareAccountDetailsErrors.nameOfLocations}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
-                    className: classes.textSize,
-                  }}
-                  disabled={
-                    (roleId === "4" && finalCheckAllFieldsAccountDetails) ||
-                    (isFormLocked && (roleId == "3" || roleId == "4"))
-                  }
-                />
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="text-[12px] flex flex-col w-full">
-                <label className="text-[#6E6D7A] text-[12px]">
-                  Owner Contact<span className="text-[#DC3545]">*</span>
-                </label>
-                <TextField
-                  name="ownerContact"
-                  id="outlined-basic"
-                  variant="standard"
-                  size="small"
-                  placeholder="Please Enter Owner Contact"
-                  value={autoCareAccountDetails?.ownerContact}
-                  error={!!autoCareAccountDetailsErrors.ownerContact}
-                  helperText={autoCareAccountDetailsErrors.ownerContact}
-                  onChange={handleChange}
-                  InputProps={{
-                    classes: {
-                      underline: classes.underline,
-                    },
-                  }}
-                  inputProps={{
                     className: classes.textSize,
                   }}
                   disabled={

@@ -248,9 +248,9 @@ function ClientModal({
                 boxShadow: "none !important",
                 height: "50.5px !important",
                 width: {
-                  sm: `calc(100% - 281px)`,
+                  sm: `100%`,
                 },
-                ml: { sm: `65px` },
+                ml: { sm: `35px` },
               }}
             >
               <Toolbar>
