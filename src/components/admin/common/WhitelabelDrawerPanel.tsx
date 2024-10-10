@@ -120,7 +120,7 @@ const WhitelabelDrawerPanel = ({
               setOpenDrawer(false);
               setId();
             }}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !rounded-full !w-[90px] font-semibold text-[14px]`}
+            className={`!border-[#0078C8] !bg-[#FFFFFF] text-[#0078C8] !rounded-md !w-[90px] text-[14px]`}
             variant="outlined"
           >
             Cancel
@@ -128,15 +128,15 @@ const WhitelabelDrawerPanel = ({
           <Button
             onClick={handleSubmit}
             className={`${
-              isSaveEnabled && "!bg-[#023963]"
-            } text-white !rounded-full !w-[71px]`}
+              isSaveEnabled && "!bg-[#0078C8]"
+            } text-white !rounded-md !w-[71px]`}
             variant="contained"
             disabled={!isSaveEnabled}
           >
             {isLoading ? (
               <CircularProgress size={20} sx={{ color: "white !important" }} />
             ) : (
-              <span className="uppercase font-semibold text-[14px]">Save</span>
+              <span className="uppercase text-[14px]">Save</span>
             )}
           </Button>
         </div>
