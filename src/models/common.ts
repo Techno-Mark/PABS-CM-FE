@@ -52,6 +52,8 @@ export interface DrawerPropsType {
   handleSubmit: (e: { preventDefault: () => void }) => void;
   setId: () => void;
   largeDrawer?: boolean;
+  submitButtonText?: string;
+  closeButtonText?: string;
 }
 
 export interface FilterProps {

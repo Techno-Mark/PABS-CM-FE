@@ -38,7 +38,7 @@ import { convertFileToBase64 } from "@/utils/convertFileToBase64";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 // Icons import
 import ImgInfoIcon from "@/assets/Icons/admin/ImgInfoIcon";
-import dropdownarrow from "@/assets/Icons/dropdownarrow";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 const ClientDrawer = ({
   openDrawer,
@@ -84,6 +84,7 @@ const ClientDrawer = ({
     email: initialFieldStringValues,
     file: file,
   });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getById = async () => {
@@ -382,6 +383,8 @@ const ClientDrawer = ({
         }}
         handleSubmit={handleSubmit}
         setId={setClientId}
+        submitButtonText="Add Client"
+        closeButtonText = "Close"
       >
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6C6C6C] text-[12px] font-normal">
@@ -446,7 +449,17 @@ const ClientDrawer = ({
                   : "!text-[14px] font-proximanova"
               }`}
               value={businessType.value}
-              IconComponent={dropdownarrow}
+              onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
+              IconComponent={() => (
+                <DropDownArrow
+                    fillColor="#333"
+                    style={{
+                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                    }}
+                />
+              )}
               error={businessType.error}
               onChange={handleBusinessTypeChange}
             >

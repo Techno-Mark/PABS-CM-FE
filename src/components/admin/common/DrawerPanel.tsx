@@ -69,6 +69,8 @@ const DrawerPanel = ({
   setOpenDrawer,
   handleSubmit,
   setId,
+  submitButtonText = "Save",
+  closeButtonText = "Cancel",
 }: DrawerPropsType) => {
   const classes = useStyles();
   const [closeDrawer, setCloseDrawer] = useState<Boolean>(false);
@@ -128,7 +130,7 @@ const DrawerPanel = ({
             className={`py-1.5 px-5 border-[#0078C8] hover:border-[#023963] !bg-[#FFFFFF] hover:!bg-[#FFFFFF] text-[#0078C8] hover:text-[#023963] rounded h-[36px] font-normal text-[16px] capitalize`}
             variant="outlined"
           >
-            Close
+            {closeButtonText}
           </Button>
           <Button
             onClick={handleSubmit}
@@ -139,7 +141,7 @@ const DrawerPanel = ({
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}} />
             ) : (
-              <span className="font-normal text-[14px] capitalize">Add Client</span>
+              <span className="font-normal text-[14px] capitalize">{submitButtonText}</span>
             )}
           </Button>
         </div>
