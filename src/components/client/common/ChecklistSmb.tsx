@@ -130,168 +130,74 @@ function ChecklistSmb({
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
   const businessTypeId = Cookies.get("businessTypeId");
-
   const [expandedAccordian, setExpandedAccordian] = useState<number>(-1);
-
   const initialSmbPeopleBusinessErrors: smbPeopleBusinessErrors = {};
-  const initialSmbSystemDocumentAccessErrors: smbSystemDocumentAccessErrors =
-    {};
+  const initialSmbSystemDocumentAccessErrors: smbSystemDocumentAccessErrors = {};
   const initialSmbCashBankingAccessErrors: smbCashBankingAccessErrors = {};
-  const initialSmbExistingFinancialsChecklistErrors: smbExistingFinancialsChecklistErrors =
-    {};
+  const initialSmbExistingFinancialsChecklistErrors: smbExistingFinancialsChecklistErrors = {};
   const initialSmbMeetingChecklistErrors: smbMeetingAvailabilityErrors = {};
 
   // phase 1
-  const [smbClientName, setSmbClientName] =
-    useState<ClientNameFormTypes>(initialClientName);
-
-  const [smbTypeOfEntity, setSmbTypeOfEntity] =
-    useState<TypeOfEntityFormTypes>(initialTypeOfEntity);
-
-  const [smbBusinessNature, setSmbBusinessNature] =
-    useState<BusinessNatureFormTypes>(initialBusinessNature);
-
-  const [smbDimensions, setSmbDimensions] =
-    useState<DimensionsFormTypes>(initialDimensions);
-
+  const [smbClientName, setSmbClientName] = useState<ClientNameFormTypes>(initialClientName);
+  const [smbTypeOfEntity, setSmbTypeOfEntity] = useState<TypeOfEntityFormTypes>(initialTypeOfEntity);
+  const [smbBusinessNature, setSmbBusinessNature] = useState<BusinessNatureFormTypes>(initialBusinessNature);
+  const [smbDimensions, setSmbDimensions] = useState<DimensionsFormTypes>(initialDimensions);
   const [smbPoc, setSmbPoc] = useState<PocFormTypes>(initialPoc);
-
   const [smbEmail, setSmbEmail] = useState<EmailFormTypes>(initialEmail);
-
-  const [smbContactNumber, setSmbContactNumber] =
-    useState<ContactNumberFormTypes>(initialContactNumber);
-
-  const [smbAddress, setSmbAddress] =
-    useState<AddressFormTypes>(initialAddress);
-
-  const [smbClientWebsite, setSmbClientWebsite] =
-    useState<ClientWebsiteFormTypes>(initialClientWebsite);
-
-  const [smbDepartment, setSmbDepartment] =
-    useState<DepartmentFormTypes>(initialDepartment);
-
-  const [smbOperationsPoc, setSmbOperationsPoc] =
-    useState<OperationsPocFormTypes>(initialOperationsPoc);
-
-  const [smbOnboardingPoc, setSmbOnboardingPoc] =
-    useState<OnboardingPocFormTypes>(initialOnboardingPoc);
+  const [smbContactNumber, setSmbContactNumber] = useState<ContactNumberFormTypes>(initialContactNumber);
+  const [smbAddress, setSmbAddress] = useState<AddressFormTypes>(initialAddress);
+  const [smbClientWebsite, setSmbClientWebsite] = useState<ClientWebsiteFormTypes>(initialClientWebsite);
+  const [smbDepartment, setSmbDepartment] = useState<DepartmentFormTypes>(initialDepartment);
+  const [smbOperationsPoc, setSmbOperationsPoc] = useState<OperationsPocFormTypes>(initialOperationsPoc);
+  const [smbOnboardingPoc, setSmbOnboardingPoc] = useState<OnboardingPocFormTypes>(initialOnboardingPoc);
 
   // phase 2:
-  const [smbPABSGroupEmail, setSmbPABSGroupEmail] =
-    useState<PABSGroupEmailFormTypes>(initialPABSGroupEmail);
-
-  const [smbAccessAccountingSoftware, setSmbAccessAccountingSoftware] =
-    useState<AccessAccountingSoftwareFormTypes>(
-      initialAccessAccountingSoftware
-    );
-
-  const [smbDropboxSetUp, setSmbDropboxSetUp] =
-    useState<DropboxSetUpFormTypes>(initialDropboxSetUp);
-  const [smbSalesTaxPortalAccess, setSmbSalesTaxPortalAccess] =
-    useState<SalesTaxPortalAccessFormTypes>(initialSalesTaxPortalAccess);
-  const [smbMerchantAccountPortalAccess, setSmbMerchantAccountPortalAccess] =
-    useState<MerchantAccountPortalAccessFormTypes>(
-      initialMerchantAccountPortalAccess
-    );
-  const [smbPayrollServiceAccess, setSmbPayrollServiceAccess] =
-    useState<PayrollServiceAccessFormTypes>(initialPayrollServiceAccess);
-
-  const [smbPayrollFrequency, setSmbPayrollFrequency] =
-    useState<PayrollFrequencyFormTypes>(initialPayrollFrequency);
-  const [smbExpensePaymentPortalAccess, setSmbExpensePaymentPortalAccess] =
-    useState<ExpensePaymentPortalAccessFormTypes>(
-      initialExpensepaymentPortalAccess
-    );
-
-  const [smbModeOfPayment, setSmbModeOfPayment] =
-    useState<ModeOfPaymentFormTypes>(initialModeOfPayment);
-
-  const [smbApBills, setSmbApBills] =
-    useState<ApBillsFormTypes>(initialApBills);
-
-  const [smbPointSalesAccess, setSmbPointSalesAccess] =
-    useState<PointSalesAccessFormTypes>(initialPointSalesAccess);
+  const [smbPABSGroupEmail, setSmbPABSGroupEmail] = useState<PABSGroupEmailFormTypes>(initialPABSGroupEmail);
+  const [smbAccessAccountingSoftware, setSmbAccessAccountingSoftware] = useState<AccessAccountingSoftwareFormTypes>(initialAccessAccountingSoftware);
+  const [smbDropboxSetUp, setSmbDropboxSetUp] = useState<DropboxSetUpFormTypes>(initialDropboxSetUp);
+  const [smbSalesTaxPortalAccess, setSmbSalesTaxPortalAccess] = useState<SalesTaxPortalAccessFormTypes>(initialSalesTaxPortalAccess);
+  const [smbMerchantAccountPortalAccess, setSmbMerchantAccountPortalAccess] = useState<MerchantAccountPortalAccessFormTypes>(initialMerchantAccountPortalAccess);
+  const [smbPayrollServiceAccess, setSmbPayrollServiceAccess] = useState<PayrollServiceAccessFormTypes>(initialPayrollServiceAccess);
+  const [smbPayrollFrequency, setSmbPayrollFrequency] = useState<PayrollFrequencyFormTypes>(initialPayrollFrequency);
+  const [smbExpensePaymentPortalAccess, setSmbExpensePaymentPortalAccess] = useState<ExpensePaymentPortalAccessFormTypes>(initialExpensepaymentPortalAccess);
+  const [smbModeOfPayment, setSmbModeOfPayment] = useState<ModeOfPaymentFormTypes>(initialModeOfPayment);
+  const [smbApBills, setSmbApBills] = useState<ApBillsFormTypes>(initialApBills);
+  const [smbPointSalesAccess, setSmbPointSalesAccess] = useState<PointSalesAccessFormTypes>(initialPointSalesAccess);
 
   //phase 3:
-  const [smbSavingAccount, setSmbSavingAccount] =
-    useState<SavingAccountFormTypes>(initialSavingAccount);
-
-  const [smbAccessSavingAccount, setSmbAccessSavingAccount] =
-    useState<AccessSavingAccountFormTypes>(initialAccessSavingAccount);
-
-  const [smbAddCards, setSmbAddCards] =
-    useState<AddCardsFormTypes>(initialAddCards);
-
-  const [smbAccessCreditCard, setSmbAccessCreditCard] =
-    useState<AccessCreditCardFormTypes>(initialAccessCreditCard);
-
-  const [smbAccessLoanAccount, setSmbAccessLoanAccount] = useState<any>(
-    initialAccessLoanAccount
-  );
-
-  const [smbAccessCreditCardPortal, setSmbAccessCreditCardPortal] =
-    useState<AccessCreditCardPortalFormTypes>(initialAccessCreditCardPortal);
+  const [smbSavingAccount, setSmbSavingAccount] = useState<SavingAccountFormTypes>(initialSavingAccount);
+  const [smbAccessSavingAccount, setSmbAccessSavingAccount] = useState<AccessSavingAccountFormTypes>(initialAccessSavingAccount);
+  const [smbAddCards, setSmbAddCards] = useState<AddCardsFormTypes>(initialAddCards);
+  const [smbAccessCreditCard, setSmbAccessCreditCard] = useState<AccessCreditCardFormTypes>(initialAccessCreditCard);
+  const [smbAccessLoanAccount, setSmbAccessLoanAccount] = useState<any>(initialAccessLoanAccount);
+  const [smbAccessCreditCardPortal, setSmbAccessCreditCardPortal] = useState<AccessCreditCardPortalFormTypes>(initialAccessCreditCardPortal);
 
   //phase 4:
-  const [smbLiveDate, setSmbLiveDate] =
-    useState<LiveDateFormTypes>(initialLiveDate);
-
-  const [smbAccountingMethod, setSmbAccountingMethod] =
-    useState<AccountingMethodFormTypes>(initialAccountingMethod);
-
+  const [smbLiveDate, setSmbLiveDate] = useState<LiveDateFormTypes>(initialLiveDate);
+  const [smbAccountingMethod, setSmbAccountingMethod] = useState<AccountingMethodFormTypes>(initialAccountingMethod);
   const [smbFEIN, setSmbFEIN] = useState<FEINFormTypes>(initialFEIN);
-
-  const [smbFiscalYearEnd, setSmbFiscalYearEnd] =
-    useState<FiscalYearEndFormTypes>(initialFiscalYearEnd);
-
-  const [smbLastClosedMonth, setSmbLastClosedMonth] =
-    useState<LastClosedMonthFormTypes>(initialLastClosedMonth);
-
-  const [smbContactOfCpa, setSmbContactOfCpa] =
-    useState<ContactOfCpaFormTypes>(initialContactOfCpa);
-
-  const [smbTaxReturn, setSmbTaxReturn] =
-    useState<TaxReturnFormTypes>(initialTaxReturn);
-
-  const [smbDistributionList, setSmbDistributionList] =
-    useState<DistributionListFormTypes>(initialDistributionList);
+  const [smbFiscalYearEnd, setSmbFiscalYearEnd] = useState<FiscalYearEndFormTypes>(initialFiscalYearEnd);
+  const [smbLastClosedMonth, setSmbLastClosedMonth] = useState<LastClosedMonthFormTypes>(initialLastClosedMonth);
+  const [smbContactOfCpa, setSmbContactOfCpa] = useState<ContactOfCpaFormTypes>(initialContactOfCpa);
+  const [smbTaxReturn, setSmbTaxReturn] = useState<TaxReturnFormTypes>(initialTaxReturn);
+  const [smbDistributionList, setSmbDistributionList] = useState<DistributionListFormTypes>(initialDistributionList);
 
   //phase 5:
-  const [smbTimeZone, setSmbTimeZone] =
-    useState<TimeZoneFormTypes>(initialTimeZone);
-
-  const [smbConvenient, setSmbConvenient] =
-    useState<ConvenientFormTypes>(initialConvenient);
-
-  const [smbTimeSlot, setSmbTimeSlot] =
-    useState<TimeSlotFormTypes>(initialTimeSlot);
+  const [smbTimeZone, setSmbTimeZone] = useState<TimeZoneFormTypes>(initialTimeZone);
+  const [smbConvenient, setSmbConvenient] = useState<ConvenientFormTypes>(initialConvenient);
+  const [smbTimeSlot, setSmbTimeSlot] = useState<TimeSlotFormTypes>(initialTimeSlot);
 
   // Error state
-  const [smbPeopleBusinessErrors, setSmbPeopleBusinessErrors] =
-    useState<smbPeopleBusinessErrors>(initialSmbPeopleBusinessErrors);
-  const [smbPeopleBusinessHasErrors, setSmbPeopleBusinessHasErrors] =
-    useState<boolean>(false);
-  const [smbSystemDocumentAccessErrors, setSmbSystemDocumentAccessErrors] =
-    useState<smbSystemDocumentAccessErrors>(
-      initialSmbSystemDocumentAccessErrors
-    );
-  const [
-    smbSystemDocumentAccessHasErrors,
-    setSmbSystemDocumentAccessHasErrors,
-  ] = useState<boolean>(false);
-  const [smbCashBankingAccessErrors, setSmbCashBankingAccessErrors] =
-    useState<smbCashBankingAccessErrors>(initialSmbCashBankingAccessErrors);
-  const [smbCashBankingAccessHasErrors, setSmbCashBankingAccessHasErrors] =
-    useState<boolean>(false);
-  const [
-    smbExistingFinancialsChecklistErrors,
-    setSmbExistingFinancialsChecklistErrors,
-  ] = useState<smbExistingFinancialsChecklistErrors>(
-    initialSmbExistingFinancialsChecklistErrors
-  );
+  const [smbPeopleBusinessErrors, setSmbPeopleBusinessErrors] = useState<smbPeopleBusinessErrors>(initialSmbPeopleBusinessErrors);
+  const [smbPeopleBusinessHasErrors, setSmbPeopleBusinessHasErrors] = useState<boolean>(false);
+  const [smbSystemDocumentAccessErrors, setSmbSystemDocumentAccessErrors] = useState<smbSystemDocumentAccessErrors>(initialSmbSystemDocumentAccessErrors);
+  const [smbSystemDocumentAccessHasErrors, setSmbSystemDocumentAccessHasErrors] = useState<boolean>(false);
+  const [smbCashBankingAccessErrors, setSmbCashBankingAccessErrors] = useState<smbCashBankingAccessErrors>(initialSmbCashBankingAccessErrors);
+  const [smbCashBankingAccessHasErrors, setSmbCashBankingAccessHasErrors] = useState<boolean>(false);
+  const [smbExistingFinancialsChecklistErrors, setSmbExistingFinancialsChecklistErrors] = useState<smbExistingFinancialsChecklistErrors>(initialSmbExistingFinancialsChecklistErrors);
   const [
     smbExistingFinancialsChecklistHasErrors,
-    setSmbExistingFinancialsChecklistHasErrors,
+    setSmbExistingFinancialsChecklistHasErrors
   ] = useState<boolean>(false);
   const [smbMeetingChecklistErrors, setSmbMeetingChecklistErrors] =
     useState<smbMeetingAvailabilityErrors>(initialSmbMeetingChecklistErrors);
@@ -683,9 +589,9 @@ function ChecklistSmb({
 
   const handleAccordianChange =
     (arg1: number) =>
-    (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
-      setExpandedAccordian(isExpanded ? arg1 : -1);
-    };
+      (e: ChangeEvent<HTMLInputElement>, isExpanded: boolean) => {
+        setExpandedAccordian(isExpanded ? arg1 : -1);
+      };
 
   const validateSmbPeopleBusiness = () => {
     const newPeopleBuinessErrors: { [key: string]: string } = {};
@@ -1639,41 +1545,35 @@ function ChecklistSmb({
 
   return (
     <>
-      <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
-        }`}
-      >
+      <div className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"}`}>
         <div className={`flex-1 overflow-y-scroll`}>
-          <div className="m-6 flex flex-col gap-6">
-            {updatedPhases.map((phase) => (
-              <ChecklistAccordian
-                switchDisabled={isSubmitedSmbChecklist}
-                key={phase.id}
-                handleSwitchChange={phase.handleSwitchChange}
-                checkStatus={phase.checkStatus}
-                hasError={phase.errorStatus}
-                expandedAccordian={phase.expandedStatus}
-                handleChange={phase.handleAccordianChange}
-                title={`Phase ${phase.phaseNumber}: ${phase.title}`}
-                isFormLocked={isFormLocked ?? false}
-              >
-                {phase.component}
-              </ChecklistAccordian>
-            ))}
+          {updatedPhases.map((phase) => (
+            <ChecklistAccordian
+              switchDisabled={isSubmitedSmbChecklist}
+              key={phase.id}
+              handleSwitchChange={phase.handleSwitchChange}
+              checkStatus={phase.checkStatus}
+              hasError={phase.errorStatus}
+              expandedAccordian={phase.expandedStatus}
+              handleChange={phase.handleAccordianChange}
+              title={`Phase ${phase.phaseNumber}: ${phase.title}`}
+              isFormLocked={isFormLocked ?? false}
+            >
+              {phase.component}
+            </ChecklistAccordian>
+          ))}
 
-            {roleId === "4" &&
-              !peopleBusinessChecked &&
-              !systemDocumentAccessChecked &&
-              !cashBanksLoansChecked &&
-              !conditionExistingFinancialsChecked &&
-              !meetingAvailabilityChecked && (
-                <span className="text-[14px] flex justify-center items-center text-[#333333]">
-                  No details for implementation checklist found for your
-                  account. Please contact PABS team to get support.
-                </span>
-              )}
-          </div>
+          {roleId === "4" &&
+            !peopleBusinessChecked &&
+            !systemDocumentAccessChecked &&
+            !cashBanksLoansChecked &&
+            !conditionExistingFinancialsChecked &&
+            !meetingAvailabilityChecked && (
+              <span className="text-[14px] flex justify-center items-center text-[#333333]">
+                No details for implementation checklist found for your
+                account. Please contact PABS team to get support.
+              </span>
+            )}
         </div>
 
         {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
@@ -1690,11 +1590,10 @@ function ChecklistSmb({
             {(roleId === "4" ? !isSubmitedSmbChecklist : true) && (
               <Button
                 onClick={() => handleSubmit(2)}
-                className={`${
-                  isFormLocked && (roleId === "3" || roleId === "4")
-                    ? "!border-[#666] !text-[#666]"
-                    : "!border-[#023963] !text-[#022946]"
-                } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+                className={`${isFormLocked && (roleId === "3" || roleId === "4")
+                  ? "!border-[#666] !text-[#666]"
+                  : "!border-[#023963] !text-[#022946]"
+                  } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
                 variant="outlined"
                 disabled={isFormLocked && (roleId === "3" || roleId === "4")}
               >
@@ -1704,11 +1603,10 @@ function ChecklistSmb({
             {roleId === "4" && !isSubmitedSmbChecklist && (
               <Button
                 onClick={() => setIsOpenConfirmationSubmit(true)}
-                className={`${
-                  isFormLocked && (roleId === "4" || roleId === "3")
-                    ? "!bg-[#666] !text-white"
-                    : "!bg-[#022946] text-white"
-                }  !rounded-full`}
+                className={`${isFormLocked && (roleId === "4" || roleId === "3")
+                  ? "!bg-[#666] !text-white"
+                  : "!bg-[#022946] text-white"
+                  }  !rounded-full`}
                 variant="contained"
                 disabled={isFormLocked && (roleId === "4" || roleId === "3")}
               >

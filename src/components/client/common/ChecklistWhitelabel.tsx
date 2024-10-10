@@ -1434,7 +1434,7 @@ const ChecklistWhitelabel = ({
         <div
           className={`flex flex-col ${
             roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+          }`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="m-6 flex flex-col gap-6">
