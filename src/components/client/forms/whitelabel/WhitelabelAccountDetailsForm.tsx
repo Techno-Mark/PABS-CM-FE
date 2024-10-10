@@ -219,7 +219,7 @@ const WhitelabelAccountDetailsForm = ({
         switchDisabled={checkAllFieldsWhiteLabelAccountDetailsForm}
         isFormLocked={isFormLocked}
       >
-        <div className="py-3 px-2 flex flex-col gap-4">
+        <div className="py-3 flex flex-col gap-4">
           <Grid container spacing={2}>
             <Grid item xs={8}>
               <div className="text-[12px] flex flex-col">

@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 // MUI import
 import { Button } from "@mui/material";
 // Component import
 import { showToast } from "@/components/ToastContainer";
-import AutoCareLegalStructure from "@/components/client/forms/autocare/AutoCareLegalStructure";
 import AutoCareClientTeam from "@/components/client/forms/autocare/AutoCareClientTeam";
+import AutoCareLegalStructure from "@/components/client/forms/autocare/AutoCareLegalStructure";
 import AutoCarePabsAccountingTeam from "@/components/client/forms/autocare/AutoCarePabsAccountingTeam";
 // Models import
 import {
@@ -42,9 +42,8 @@ import { ToastType } from "@/static/toastType";
 import Cookies from "js-cookie";
 // Utils import
 import AutoCareAccountDetails from "@/components/client/forms/autocare/AutoCareAccountDetails";
+import { validateEmail, validatePhone } from "@/utils/validate";
 import dayjs from "dayjs";
-import { validateEmail, validateNumber, validatePhone } from "@/utils/validate";
-import ClientSidebar from "./ClientSidebar";
 
 function BasicDetailsAutoCare({
   clientInfo,
@@ -57,12 +56,6 @@ function BasicDetailsAutoCare({
 }: AutoCareType) {
   const roleId = Cookies.get("roleId");
   const userId = Cookies.get("userId");
-  const formSubmitId =
-    clientInfo?.DepartmentId === "3"
-      ? 31
-      : clientInfo?.DepartmentId === "2"
-        ? 21
-        : 11;
   const businessTypeId = Cookies.get("businessTypeId");
   const initialAutoCareAccountDetailsErrors: AccountDetailsFormErrors = {};
   const initialAutoCareLegalStructureErrors: LegalStructureFormErrors = {};
@@ -96,18 +89,6 @@ function BasicDetailsAutoCare({
     setIsFormSubmitAutoCareBasicDetails,
   ] = useState<boolean>(false);
   const [isFormLocked, setIsFormLocked] = useState<boolean>(false);
-
-  const [perCountBasicDetails, setPerCountBasicDetails] = useState<number>(0);
-  const [perCountChecklist, setPerCountChecklist] = useState<number>(0);
-  const [perCountSmbChecklist, setPerCountSmbChecklist] = useState<number>(0);
-  const [autoCareProgressPer, setAutoCareProgressPer] = useState<number>(0);
-  const [perCounWhiteLabeltBasicDetails, setPerCountWhiteLabelBasicDetails] =
-    useState<number>(0);
-  const [whiteLabelPerCountChecklist, setWhitelabelPerCountChecklist] =
-    useState<number>(0);
-  const [whiteLabelProgressPer, setWhiteLabelProgressPer] = useState<number>(0);
-  const [formSubmit, setFormSubmit] = useState<number>(formSubmitId);
-
 
   const getAutoCareBasicDetailsList = async () => {
     const callback = (
@@ -624,24 +605,8 @@ function BasicDetailsAutoCare({
     <>
       <div
         className={`flex flex-col ${roleId !== "4" ? "h-[95vh]" : "h-full"
-          } pt-12`}
+          }`}
       >
-        <ClientSidebar
-          setWhiteLabelProgressPercentage={(value: number) =>
-            setWhiteLabelProgressPer(value)
-          }
-          clientInfo={clientInfo}
-          perCountChecklist={perCountChecklist}
-          perCountBasicDetails={perCountBasicDetails}
-          perCountSmbChecklist={perCountSmbChecklist}
-          perCountWhiteLabelBasicDetails={perCounWhiteLabeltBasicDetails}
-          perCountWhiteLabelChecklist={whiteLabelPerCountChecklist}
-          sidebarModule={formSubmit}
-          setAutoCareProgressPercentage={(value: number) =>
-            setAutoCareProgressPer(value)
-          }
-        />
-
         <div className="flex-1 overflow-y-scroll">
           <div className="flex flex-col gap-6 bg-white">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (

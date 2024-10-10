@@ -109,9 +109,10 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
         ml: { sm: openSidebar ? drawerWidth : `65px` },
       }}
     >
-      <Toolbar>
-        <div className="flex flex-row w-full justify-end items-center mb-3">
-          {/* <div className="!text-[#000000]">
+      <div className="bg-white [&>div]:!min-h-auto">
+        <Toolbar>
+          <div className="flex flex-row w-full justify-end items-center">
+            {/* <div className="!text-[#000000]">
             <span className="!font-bold text-[15px]">
               {url.includes("usermanagement")
                 ? "User Management"
@@ -122,53 +123,53 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
                 : " Audit Logs"}
             </span>
           </div> */}
-          <div className="relative flex">
-            <div
-              className="cursor-pointer text-black hover:text-[#0078C8] !text-[14px] font-normal relative flex gap-2.5 items-center"
-              onClick={handleToggle}
-              ref={selectRefNavbar}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <UserIcon />
-              {userName}
-              <div className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
-                <DropDownArrow fillColor={isHovered ? "#0078C8" : "#333333"} />
-              </div>
+            <div className="relative flex">
               <div
-                style={{
-                  boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
-                  width: dropDownRef.current?.clientWidth,
-                  top: 32,
-                  right: -5,
-                }}
-                className={`absolute mt-[5px] bg-[#FFFFFF] ${
-                  isOpen ? "block" : "hidden"
-                }`}
+                className="cursor-pointer text-black hover:text-[#0078C8] !text-[14px] font-normal relative flex gap-2.5 items-center"
+                onClick={handleToggle}
+                ref={selectRefNavbar}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
               >
-                <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
-                  {options.map((option) => (
-                    <li
-                      key={option.id}
-                      className="px-2 py-3 cursor-pointer flex items-center justify-between text-[14px] font-normal"
-                      id={option.id.toString()}
-                      value={option.label}
-                      onClick={handleSubmit}
-                    >
-                      <span className="flex items-center gap-[10px]">
-                        <span>{option.icon}</span>
-                        <span className="truncate w-40 text-black text-sm">
-                          {option.label}
+                <UserIcon />
+                {userName}
+                <div className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                  <DropDownArrow fillColor={isHovered ? "#0078C8" : "#333333"} />
+                </div>
+                <div
+                  style={{
+                    boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
+                    width: dropDownRef.current?.clientWidth,
+                    top: 32,
+                    right: -5,
+                  }}
+                  className={`absolute mt-[5px] bg-[#FFFFFF] ${isOpen ? "block" : "hidden"
+                    }`}
+                >
+                  <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
+                    {options.map((option) => (
+                      <li
+                        key={option.id}
+                        className="px-2 py-3 cursor-pointer flex items-center justify-between text-[14px] font-normal"
+                        id={option.id.toString()}
+                        value={option.label}
+                        onClick={handleSubmit}
+                      >
+                        <span className="flex items-center gap-[10px]">
+                          <span>{option.icon}</span>
+                          <span className="truncate w-40 text-black text-sm">
+                            {option.label}
+                          </span>
                         </span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Toolbar>
+        </Toolbar>
+      </div>
     </AppBar>
   );
 };

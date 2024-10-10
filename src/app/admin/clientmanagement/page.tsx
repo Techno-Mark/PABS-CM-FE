@@ -1,18 +1,16 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 // Components imports
-import Wrapper from "@/components/Wrapper";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
 import ClientFilter from "@/components/admin/modals/ClientFilter";
 import { showToast } from "@/components/ToastContainer";
-import ClientDrawer from "@/components/admin/drawer/ClientDrawer";
+import Wrapper from "@/components/Wrapper";
 // Icons imports
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
-import EditIcon from "@/assets/Icons/admin/EditIcon";
-import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
 import {
   Autocomplete,
@@ -20,22 +18,18 @@ import {
   AvatarGroup,
   Button,
   Checkbox,
-  Chip,
   CircularProgress,
   InputAdornment,
-  ListItem,
   ListItemText,
+  MenuItem,
   Paper,
   Select,
   TablePagination,
   TextField,
-  Tooltip,
-  MenuItem,
+  Tooltip
 } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import { styled } from "@mui/material/styles";
 // static imports
-import { ToastType } from "@/static/toastType";
 import {
   ClientStatusUpdateUrl,
   InvitaionMailClientUrl,
@@ -45,26 +39,25 @@ import {
   getClientListUrl,
   saveAssignee,
 } from "@/static/apiUrl";
+import { ToastType } from "@/static/toastType";
 // Types imports
+import { ClientList, GetClientListResponse } from "@/models/clientManage";
 import {
   BusinessList,
   BusinessListResponse,
   Option,
 } from "@/models/userManage";
-import { ClientList, GetClientListResponse } from "@/models/clientManage";
 // API imports
 import { callAPIwithHeaders } from "@/api/commonFunction";
 // Utlis imports
-import { useStyles } from "@/utils/useStyles";
-import { checkPermission } from "@/utils/permissionCheckFunction";
 import { AlphabetColor, noRecordText } from "@/utils/commonData";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
+import { checkPermission } from "@/utils/permissionCheckFunction";
+import { useStyles } from "@/utils/useStyles";
 // Cookie imports
-import Cookies from "js-cookie";
-import ClientModal from "@/components/client/common/ClientModal";
-import FormIcon from "@/assets/Icons/client/FormIcon";
-import ThreeDot from "@/assets/Icons/threedot";
 import dropdownarrow from "@/assets/Icons/dropdownarrow";
+import ClientModal from "@/components/client/common/ClientModal";
+import Cookies from "js-cookie";
 
 function Page() {
   const router = useRouter();
@@ -139,12 +132,12 @@ function Page() {
             renderOption={(props, option) => {
               const isSelected = tempSelectedValues.includes(option.value);
               return (
-                <Tooltip title={option.email} arrow 
+                <Tooltip title={option.email} arrow
                   classes={{
                     tooltip: classes.tooltipStyle,
                     arrow: classes.arrowStyle,
                   }}
-                placement="right">
+                  placement="right">
                   <li {...props}>
                     <Checkbox
                       checked={isSelected}
@@ -343,7 +336,7 @@ function Page() {
                 width: 'auto',
               },
               ".MuiSvgIcon-root": {
-               display: 'none',
+                display: 'none',
               },
               fontSize: 14,
             }}
@@ -965,7 +958,7 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F6F6F6] items-center px-6">
+      <div className="flex justify-between w-full mt-16 bg-[#F6F6F6] items-center px-6">
         <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
         <div className="flex items-center gap-1 justify-between">
           {checkPermission("Client Management", "view") ? (
@@ -985,11 +978,11 @@ function Page() {
             <div>&nbsp;</div>
           )}
           {checkPermission("Client Management", "view") && (
-            <Tooltip title="Filter" placement="top" arrow 
-            classes={{
-              tooltip: classes.tooltipStyle,
-              arrow: classes.arrowStyle,
-            }}>
+            <Tooltip title="Filter" placement="top" arrow
+              classes={{
+                tooltip: classes.tooltipStyle,
+                arrow: classes.arrowStyle,
+              }}>
               <span
                 className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
                 onClick={() => setOpenFilter(true)}
@@ -1073,7 +1066,7 @@ function Page() {
                 outline: "none",
               },
               [`& .${gridClasses.columnHeaders}`]: {
-                borderTop: "1px solid #6C6C6C", 
+                borderTop: "1px solid #6C6C6C",
                 borderBottom: "2px solid #6C6C6C",
               },
             }}

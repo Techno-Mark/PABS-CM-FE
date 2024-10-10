@@ -307,9 +307,9 @@ function ClientModal({
                       <div className="flex justify-center items-center">
                         {(loginUserRole == "1" || loginUserRole == "2") && (
                           <div className="relative">
-                            <div className="absolute top-0 left-0 w-full opacity-0">
+                            <div className="absolute top-0 left-[-10px] w-full opacity-0">
                               <CustomSwitch
-                                className="w-full [&>span]:transform:none"
+                                className="w-full"
                                 checked={isChecked}
                                 onChange={(e: any) =>
                                   handleToggleFormLocked(e.target.checked)
@@ -368,6 +368,23 @@ function ClientModal({
                 height: "calc(100% - 64px)",
               }}
             >
+              <div className="mt-12">
+                <ClientSidebar
+                  setWhiteLabelProgressPercentage={(value: number) =>
+                    setWhiteLabelProgressPer(value)
+                  }
+                  clientInfo={clientInfo}
+                  perCountChecklist={perCountChecklist}
+                  perCountBasicDetails={perCountBasicDetails}
+                  perCountSmbChecklist={perCountSmbChecklist}
+                  perCountWhiteLabelBasicDetails={perCounWhiteLabeltBasicDetails}
+                  perCountWhiteLabelChecklist={whiteLabelPerCountChecklist}
+                  sidebarModule={formSubmit}
+                  setAutoCareProgressPercentage={(value: number) =>
+                    setAutoCareProgressPer(value)
+                  }
+                />
+              </div>
               {clientInfo.DepartmentId === 3 ? (
                 <>
                   {formSubmit === 31 && (
