@@ -134,9 +134,9 @@ function UserFilter({
       }
       isResetDisabled={!userListParams.saveClicked}
     >
-      <div className="p-5 h-[calc(100%-143px)]">
-        <div className="text-[12px] flex flex-col">
-          <label className="text-[#6E6D7A] text-[12px]">Select Role</label>
+      <div className="p-5 h-[calc(100%-143px)] flex items-center gap-5">
+        <div className="text-[12px] flex flex-col w-[260px]">
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">Select Role</label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
@@ -165,8 +165,8 @@ function UserFilter({
             )}
           />
         </div>
-        <div className="text-[12px] flex flex-col py-5">
-          <label className="text-[#6E6D7A] text-[12px]">Select Status</label>
+        <div className="text-[12px] flex flex-col w-[260px]">
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">Select Status</label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
@@ -195,8 +195,8 @@ function UserFilter({
             )}
           />
         </div>
-        <div className="text-[12px] flex flex-col">
-          <label className="text-[#6E6D7A] text-[12px]">
+        <div className="text-[12px] flex flex-col w-[260px]">
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">
             Select Department Type
           </label>
           <Autocomplete

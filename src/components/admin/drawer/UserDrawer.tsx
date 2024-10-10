@@ -441,7 +441,7 @@ const UserDrawer = ({
         setId={setId}
       >
         <div className="text-[12px] flex flex-col">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Full Name<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -456,6 +456,7 @@ const UserDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
+                input: 'text-[14px] font-normal text-[#333]',
               },
             }}
             inputProps={{
@@ -467,7 +468,7 @@ const UserDrawer = ({
           />
         </div>
         <div className="text-[12px] flex flex-col py-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Email<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -482,6 +483,7 @@ const UserDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
+                input: 'text-[14px] font-normal text-[#333]',
               },
             }}
             inputProps={{
@@ -491,7 +493,7 @@ const UserDrawer = ({
           />
         </div>
         <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Role<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
@@ -525,7 +527,7 @@ const UserDrawer = ({
         </div>
 
         <div className="text-[12px] flex flex-col">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Department Type<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
@@ -630,7 +632,7 @@ const UserDrawer = ({
         </div>
         {canEdit && (
           <div className="text-[12px] flex flex-col pt-5">
-            <label className="text-[#6E6D7A] text-[12px]">
+            <label className="text-[#6C6C6C] text-[12px] font-normal">
               Select Status<span className="text-[#DC3545]">*</span>
             </label>
             <FormControl variant="standard">

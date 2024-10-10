@@ -55,14 +55,17 @@ import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import { checkPermission } from "@/utils/permissionCheckFunction";
 import { useStyles } from "@/utils/useStyles";
 // Cookie imports
-import dropdownarrow from "@/assets/Icons/dropdownarrow";
-import ClientModal from "@/components/client/common/ClientModal";
 import Cookies from "js-cookie";
+import ClientModal from "@/components/client/common/ClientModal";
+import FormIcon from "@/assets/Icons/client/FormIcon";
+import dropdownarrow from "@/assets/Icons/dropdownarrow";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 function Page() {
   const router = useRouter();
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
+  const [open, setOpen] = useState(false);
 
   const AssignUserCell = ({
     params,
@@ -192,6 +195,17 @@ function Page() {
                   style: {
                     fontSize: "14px",
                   },
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
                   startAdornment: (
                     <InputAdornment
                       position="start"
@@ -451,7 +465,17 @@ function Page() {
           }
           displayEmpty
           size="small"
-          IconComponent={dropdownarrow}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          IconComponent={() => (
+            <DropDownArrow
+              fillColor="#333"
+              style={{
+                transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.3s ease",
+              }}
+            />
+          )}
           sx={{
             boxShadow: "none",
             ".MuiOutlinedInput-notchedOutline": { border: 0 },
@@ -960,7 +984,7 @@ function Page() {
     <Wrapper>
       <div className="flex justify-between w-full mt-16 bg-[#F6F6F6] items-center px-6">
         <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
-        <div className="flex items-center gap-1 justify-between">
+        <div className="flex items-center gap-3 justify-end">
           {checkPermission("Client Management", "view") ? (
             <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
               <span className="m-3 flex items-center">
