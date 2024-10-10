@@ -752,7 +752,7 @@ function BasicDetailsAutoCare({
                 ? handleSubmitwithOutApi()
                 : handleSubmit(1)
             }
-            className={`bg-[#0078C8] !text-white !rounded-md hover:bg-[#023963] text-white shadow-none`}
+            className={`bg-[#0078C8] text-white rounded-md`}
             variant="contained"
           >
             <span className="uppercase text-[14px] whitespace-nowrap">

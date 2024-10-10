@@ -807,7 +807,7 @@ const BasicDetailsWhitelabel = ({
           {roleId !== "4" && (
             <Button
               onClick={() => setIsOpenModal(false)}
-              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-md text-[14px]`}
               variant="outlined"
             >
               Cancel
@@ -820,7 +820,7 @@ const BasicDetailsWhitelabel = ({
                 isFormLocked && (roleId === "3" || roleId === "4")
                   ? "!border-[#666] !text-[#666]"
                   : "!border-[#023963] !text-[#022946]"
-              } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+              } !bg-[#FFFFFF] !rounded-md text-[14px]`}
               variant="outlined"
               disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >
@@ -833,10 +833,10 @@ const BasicDetailsWhitelabel = ({
                 ? handleSubmitwithOutApi()
                 : handleSubmit(1)
             }
-            className={`!bg-[#022946] !text-white !rounded-full`}
+            className={`!bg-[#0078C8] !text-white !rounded-md`}
             variant="contained"
           >
-            <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+            <span className="uppercase text-[14px] whitespace-nowrap">
               Next: Check List
             </span>
           </Button>
