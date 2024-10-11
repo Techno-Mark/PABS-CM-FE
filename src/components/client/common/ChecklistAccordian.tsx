@@ -29,7 +29,7 @@ const ChecklistAccordian = ({
     <Accordion
       expanded={expandedAccordian}
       onChange={handleChange}
-      className={`${hasError ? "!border-[#ec2a2a]" : ""} w-full`}
+      className={`shadow-none border-0 before:h-0 ${hasError ? "!border-[#ec2a2a]" : ""} w-full`}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}

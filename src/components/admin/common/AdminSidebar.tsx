@@ -153,7 +153,7 @@ const Sidebar = ({
           <List>
             <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
-                className="py-1 border-b border-[#d3d3d3] mb-3"
+                className="pt-1 border-b border-[#D8D8D8] border-solid h-[57px]"
                 sx={{
                   alignItems: "center",
                   justifyContent: "start",

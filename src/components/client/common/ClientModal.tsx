@@ -280,7 +280,10 @@ function ClientModal({
                     {(formSubmit === 12 ||
                       formSubmit === 21 ||
                       formSubmit === 32) && (
-                        <Tooltip title="Comment" placement="bottom" arrow>
+                        <Tooltip title="Comment" placement="bottom" arrow classes={{
+                          tooltip: classes.tooltipStyle,
+                          arrow: classes.arrowStyle,
+                        }}>
                           <span
                             className="flex items-center cursor-pointer"
                             onClick={() => setOpenCommentModal(true)}

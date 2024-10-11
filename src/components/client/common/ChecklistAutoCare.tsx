@@ -1527,12 +1527,10 @@ function ChecklistAutoCare({
     <>
       {formSubmitId === 32 && (
         <div
-          className={`flex flex-col ${
-            roleId !== "4" ? "h-[75vh]" : "h-full"
-          } pt-12`}
+          className={`flex flex-col ${roleId !== "4" ? "h-[75vh]" : "h-full"}`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
-            <div className="m-6 flex flex-col gap-6">
+            <div className="flex flex-col bg-white">
               {updatedPhases.map((phase) => (
                 <ChecklistAccordian
                   key={phase.id}
@@ -1589,11 +1587,10 @@ function ChecklistAutoCare({
               {(roleId === "4" ? !isFormSubmitAutoCareChecklist : true) && (
                 <Button
                   onClick={() => handleSubmit(2)}
-                  className={`${
-                    isFormLocked && (roleId === "3" || roleId === "4")
+                  className={`${isFormLocked && (roleId === "3" || roleId === "4")
                       ? "!border-[#666] !text-[#666]"
                       : "!border-[#023963] !text-[#022946]"
-                  } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+                    } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
                   variant="outlined"
                   disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
@@ -1603,11 +1600,10 @@ function ChecklistAutoCare({
               {roleId === "4" && !isFormSubmitAutoCareChecklist && (
                 <Button
                   onClick={() => setIsOpenConfirmationSubmit(true)}
-                  className={`${
-                    isFormLocked && (roleId === "4" || roleId === "3")
+                  className={`${isFormLocked && (roleId === "4" || roleId === "3")
                       ? "!bg-[#666] !text-white"
                       : "!bg-[#022946] text-white"
-                  }  !rounded-full`}
+                    }  !rounded-full`}
                   variant="contained"
                   disabled={isFormLocked && (roleId === "4" || roleId === "3")}
                 >

@@ -1437,7 +1437,7 @@ const ChecklistWhitelabel = ({
           }`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
-            <div className="m-6 flex flex-col gap-6">
+            <div className="flex flex-col">
               {updatedPhases.map((phase) => (
                 <ChecklistAccordian
                   key={phase.id}

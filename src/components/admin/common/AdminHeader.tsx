@@ -109,7 +109,7 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
         ml: { sm: openSidebar ? drawerWidth : `65px` },
       }}
     >
-      <div className="bg-white [&>div]:!min-h-auto">
+      <div className="bg-white [&>div]:!min-h-auto border-b border-solid border-[#D8D8D8]">
         <Toolbar>
           <div className="flex flex-row w-full justify-end items-center">
             {/* <div className="!text-[#000000]">

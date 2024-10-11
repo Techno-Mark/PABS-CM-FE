@@ -142,8 +142,7 @@ const ClientSidebar = ({
             className="flex flex-row-reverse items-center justify-between mb-5 px-5 w-auto border-r border-[#D8D8D8] last:border-r-0 font-medium"
           >
             <span
-              className={`${sidebarModule === data.id && "font-semibold text-[#1976d2]"}
-              mx-2 text-[#333333] text-[14px] text-wrap cursor-default uppercase font-medium`}
+              className={`mx-2 text-[#333333] text-[14px] text-wrap cursor-default uppercase font-medium ${sidebarModule === data.id && "font-semibold text-[#0078C8]"}`}
             >
               {data.module}
             </span>
