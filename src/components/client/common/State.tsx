@@ -1,9 +1,10 @@
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 import { showToast } from "@/components/ToastContainer";
 import { getStateUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import { Autocomplete, InputLabel, TextField, Typography } from "@mui/material";
+import { Autocomplete, InputLabel, TextField, Typography, InputAdornment } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const State = ({
@@ -19,6 +20,7 @@ const State = ({
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
   );
+  const [open, setOpen] = useState(false);
 
   const fetchStateOptions = async () => {
     const callback = (
@@ -70,6 +72,13 @@ const State = ({
         value={options.find((option) => option.name === value) || null}
         onChange={handleStateChange}
         disabled={disabled}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={(event, reason) => {
+          if (reason === "toggleInput") {
+            setOpen(false);
+          }
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -84,10 +93,24 @@ const State = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                width: "calc(100% - 52px)",
+                width: "calc(100% - 36px)",
               },
             }}
             placeholder="Please Select State"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <DropDownArrow
+                    style={{
+                      fill: "#333",
+                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  />
+                </InputAdornment>
+              ),
+            }}
           />
         )}
         renderOption={(props, option) => (

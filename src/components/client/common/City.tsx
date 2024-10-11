@@ -1,9 +1,10 @@
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 import { showToast } from "@/components/ToastContainer";
 import { getCityUrl } from "@/static/apiUrl";
 import { ToastType } from "@/static/toastType";
 import { useStyles } from "@/utils/useStyles";
-import { Autocomplete, InputLabel, TextField, Typography } from "@mui/material";
+import { Autocomplete, InputLabel, TextField, Typography, InputAdornment} from "@mui/material";
 import { useEffect, useState } from "react";
 
 const City = ({
@@ -19,6 +20,7 @@ const City = ({
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
   );
+  const [open, setOpen] = useState(false);
 
   const fetchCityOptions = async () => {
     const callback = (
@@ -70,6 +72,12 @@ const City = ({
         value={options.find((option) => option.name === value) || null}
         onChange={handleCityChange}
         disabled={disabled}
+        onOpen={() => setOpen(true)}
+        onClose={(event, reason) => {
+          if (reason === "toggleInput") {
+            setOpen(false);
+          }
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -84,10 +92,24 @@ const City = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                width: "calc(100% - 52px)",
+                width: "calc(100% - 36px)",
               },
             }}
             placeholder="Please Select City"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <DropDownArrow
+                    style={{
+                      fill: "#333",
+                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  />
+                </InputAdornment>
+              ),
+            }}
           />
         )}
         renderOption={(props, option) => (

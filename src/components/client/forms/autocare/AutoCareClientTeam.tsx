@@ -11,6 +11,7 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  InputAdornment,
 } from "@mui/material";
 // Models import
 import {
@@ -33,6 +34,7 @@ import timezone from "dayjs/plugin/timezone";
 import Cookies from "js-cookie";
 import Country from "@/components/client/common/Country";
 import State from "@/components/client/common/State";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -55,6 +57,8 @@ function AutoCareClientTeam({
   const [timezoneOptions, setTimezoneOptions] = useState<
     Array<{ id: number; name: string }>
   >([]);
+
+  const [open, setOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -442,6 +446,15 @@ function AutoCareClientTeam({
                   }
                   return selected;
                 }}
+                IconComponent={() => (
+                  <DropDownArrow
+                    fillColor="#333"
+                    style={{
+                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  />
+                )}
               >
                 <MenuItem value="" disabled>
                   <span>Please Select Time Zone</span>
@@ -482,6 +495,12 @@ function AutoCareClientTeam({
                 }));
               }}
               value={autoCareClientTeam.weeklyCalls}
+              onOpen={() => setOpen(true)}
+              onClose={(event, reason) => {
+                if (reason === "toggleInput") {
+                  setOpen(false);
+                }
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -492,6 +511,20 @@ function AutoCareClientTeam({
                       : ""
                   }
                   error={!!autoCareClientTeamErrors?.weeklyCalls}
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <DropDownArrow
+                          style={{
+                            fill: "#333",
+                            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                            transition: "transform 0.3s ease",
+                          }}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               )}
               disabled={

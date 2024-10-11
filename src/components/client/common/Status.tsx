@@ -13,6 +13,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 const Status = ({ value, onChange, error, helperText, disabled }: any) => {
   const roleId = Cookies.get("roleId");
@@ -20,7 +21,7 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
   );
-
+  const [open, setOpen] = useState(false);
   const fetchCheckListStatusOptions = async () => {
     const callback = (
       ResponseStatus: string,
@@ -71,6 +72,15 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
             className: classes.textSize,
           }}
           className={classes.select}
+          IconComponent={() => (
+            <DropDownArrow
+              fillColor="#333"
+              style={{
+                transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.3s ease",
+              }}
+            />
+          )}
         >
           {options.map((option) => (
             <MenuItem key={option.id} value={option.name}>
