@@ -316,7 +316,7 @@ function Page() {
     {
       field: "SfId",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">SF ID</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">SF ID</span> 
       ),
       flex: 1,
       sortable: false,
