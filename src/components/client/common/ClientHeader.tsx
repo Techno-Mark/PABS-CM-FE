@@ -26,6 +26,7 @@ import CommentIcon from "@/assets/Icons/admin/CommentIcon";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
 import DropDownArrow from "@/assets/Icons/dropdownarrow";
+import { useStyles } from "@/utils/useStyles";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -90,6 +91,7 @@ const ClientHeader = ({
   const handleToggle = () => {
     setOpen(!isOpen);
   };
+  const classes = useStyles();
 
   const handleSubmit = async () => {
     const callback = (ResponseStatus: string, Message: string) => {
@@ -160,7 +162,10 @@ const ClientHeader = ({
           </div> */}
           <div className="relative flex gap-4">
             {(formSubmit === 12 || formSubmit === 21 || formSubmit === 32) && (
-              <Tooltip title="Comment" placement="bottom" arrow>
+              <Tooltip title="Comment" placement="bottom" arrow classes={{
+                tooltip: classes.tooltipStyle,
+                arrow: classes.arrowStyle,
+              }}>
                 <span
                   className="flex items-center cursor-pointer"
                   onClick={() => setOpenCommentModal(true)}
@@ -188,9 +193,8 @@ const ClientHeader = ({
                   top: 32,
                   right: -5,
                 }}
-                className={`absolute mt-[5px] bg-[#FFFFFF] ${
-                  isOpen ? "block" : "hidden"
-                }`}
+                className={`absolute mt-[5px] bg-[#FFFFFF] ${isOpen ? "block" : "hidden"
+                  }`}
               >
                 <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
                   {options.map((option) => (
