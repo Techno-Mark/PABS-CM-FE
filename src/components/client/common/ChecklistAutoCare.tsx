@@ -1528,7 +1528,7 @@ function ChecklistAutoCare({
       {formSubmitId === 32 && (
         <div
           className={`flex flex-col ${
-            roleId !== "4" ? "h-[95vh]" : "h-full"
+            roleId !== "4" ? "h-[75vh]" : "h-full"
           } pt-12`}
         >
           <div className={`flex-1 overflow-y-scroll`}>

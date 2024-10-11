@@ -694,7 +694,7 @@ const BasicDetailsWhitelabel = ({
     <>
       <div
         className={`flex flex-col ${
-          roleId !== "4" ? "h-[95vh]" : "h-full"
+          roleId !== "4" ? "h-[75vh]" : "h-full"
         }`}
       >
         <div className={`flex-1 overflow-y-scroll`}>

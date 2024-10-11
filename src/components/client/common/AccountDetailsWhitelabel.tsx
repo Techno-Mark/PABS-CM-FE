@@ -475,7 +475,7 @@ const AccountDetailsWhitelabel = ({
   return (
     <div
       className={`flex flex-col ${
-        roleId !== "4" ? "h-[95vh]" : "h-full w-[95%]"
+        roleId !== "4" ? "h-[75vh]" : "h-full w-[95%]"
       } pt-12`}
     >
       <div className="flex-1">
