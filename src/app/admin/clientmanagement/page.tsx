@@ -305,7 +305,7 @@ function Page() {
     {
       field: "srNo",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Sr No.</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Sr No.</span>
       ),
       width: 70,
       sortable: false,
@@ -316,7 +316,7 @@ function Page() {
     {
       field: "SfId",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">SF ID</span> 
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">SF ID</span> 
       ),
       flex: 1,
       sortable: false,
@@ -324,7 +324,7 @@ function Page() {
     {
       field: "Clientname",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Client Name</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Client Name</span>
       ),
       flex: 1,
       sortable: false,
@@ -409,7 +409,7 @@ function Page() {
     {
       field: "BusinessType",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Department Type</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Department Type</span>
       ),
       flex: 1,
       sortable: false,
@@ -417,7 +417,7 @@ function Page() {
     {
       field: "CheckListStatus",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Checklist Status</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Checklist Status</span>
       ),
       flex: 1,
       sortable: false,
@@ -431,7 +431,7 @@ function Page() {
     {
       field: "AssignUserId",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase">Assigning User</span>
+        <span className="font-bold text-[14px] uppercase font-proximanova">Assigning User</span>
       ),
       width: 200,
       sortable: false,
@@ -451,7 +451,7 @@ function Page() {
     {
       field: "Status",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Status</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Status</span>
       ),
       flex: 1,
       sortable: false,

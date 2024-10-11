@@ -108,7 +108,7 @@ function Page() {
       <form onSubmit={handleSubmit}>
         <div className="text-[12px] flex flex-col pt-12">
           <label className="text-[#6E6D7A] font-normal text-[12px] tracking-[0.24px]">
-            Email Address<span className="text-[#DC3545]">*</span>
+            Email<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
             id="outlined-basic"

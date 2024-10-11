@@ -30,6 +30,8 @@ import { ToastType } from "@/static/toastType";
 import { loginAPIUrl } from "@/static/apiUrl";
 // Cookie import
 import Cookies from "js-cookie";
+import PasswordIcon from "@/assets/Icons/PasswordIcon";
+import PasswordhideIcon from "@/assets/Icons/PasswordhideIcon";
 
 function Page() {
   const classes = useStyles();
@@ -229,7 +231,7 @@ function Page() {
                       edge="end"
                       tabIndex={-1}
                     >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                      {showPassword ? <PasswordIcon/> : <PasswordhideIcon />}
                     </IconButton>
                   </InputAdornment>
                 }

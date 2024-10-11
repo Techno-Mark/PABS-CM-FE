@@ -51,7 +51,7 @@ function Page() {
     {
       field: "srNo",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Sr No.</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Sr No.</span>
       ),
       width: 100,
       sortable: false,
@@ -62,7 +62,7 @@ function Page() {
     {
       field: "Username",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Full Name</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Full Name</span>
       ),
       flex: 1,
       sortable: false,
@@ -115,7 +115,7 @@ function Page() {
                           setOpenDrawer(true);
                           setEdit(true);
                           setUserId(params.row.UserId);
-                          await getBusinessList(params.row.RoleName);
+                          getBusinessList(params.row.RoleName);
                         }}
                         className="text-[14px] font-normal text-[#333]"
                       >
@@ -148,7 +148,7 @@ function Page() {
     {
       field: "Email",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Email</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Email</span>
       ),
       flex: 1,
       sortable: false,
@@ -157,7 +157,7 @@ function Page() {
     {
       field: "RoleName",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Role</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Role</span>
       ),
       flex: 1,
       sortable: false,
@@ -166,7 +166,7 @@ function Page() {
     {
       field: "Status",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">Status</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Status</span>
       ),
       flex: 1,
       sortable: false,

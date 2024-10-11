@@ -402,7 +402,18 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
+              },
+              sx: {
+                "&::placeholder": {
+                  color: "#6C6C6C",
+                  opacity: 0.5,
+                  fontSize: "14px",
+                },
+                "&.MuiInputBase-input": {
+                  color: "#333333",
+                  fontSize: "14px",
+                  fontWeight: "400", 
+                },
               },
             }}
             inputProps={{

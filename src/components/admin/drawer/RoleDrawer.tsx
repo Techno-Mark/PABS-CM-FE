@@ -334,7 +334,7 @@ const RoleDrawer = ({
         setId={setRoleId}
       >
         <div className="text-[12px] flex flex-col mb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Role Name<span className="text-[#DC3545]">*</span>
           </label>
           <TextField
@@ -349,6 +349,7 @@ const RoleDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
+                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
               },
             }}
             inputProps={{
@@ -357,7 +358,7 @@ const RoleDrawer = ({
           />
         </div>
         <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6E6D7A] text-[12px]">
+          <label className="text-[#6C6C6C] text-[12px] font-normal">
             Status<span className="text-[#DC3545]">*</span>
           </label>
           <FormControl variant="standard">
@@ -366,7 +367,7 @@ const RoleDrawer = ({
               id="demo-simple-select-standard"
               className={`${
                 role.value === -1
-                  ? "!text-[12px] text-[#6E6D7A]"
+                  ? "text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
                   : "!text-[14px]"
               }`}
               value={role.value}
@@ -397,7 +398,7 @@ const RoleDrawer = ({
                   <th
                     key={header}
                     scope="col"
-                    className="px-2 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 tracking-wider"
+                    className="px-1 py-3 bg-gray-50 text-left font-bold text-[14px] text-[#333] uppercase tracking-[0.28px]"
                   >
                     {header}
                   </th>
@@ -410,7 +411,7 @@ const RoleDrawer = ({
                   <td className="whitespace-nowrap w-1/4">
                     <div className="flex items-start">
                       <div className="ml-2">
-                        <div className="text-[13px] font-medium text-gray-900">
+                        <div className="text-[14px] font-normal text-[#333]">
                           {item.moduleName}
                         </div>
                       </div>

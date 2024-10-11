@@ -458,7 +458,7 @@ const UserDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#333]',
+                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
               },
             }}
             inputProps={{

@@ -18,7 +18,7 @@ function AuthWapper({ children }: childPropsType) {
   }, []);
   return (
     <div className="flex justify-center items-center w-full h-[100vh] bg-gradient-to-br from-[#045794] via-[#02243b] to-[#011B2E]">
-      <div className="relative flex w-[100%] h-[100%]">
+      <div className="relative flex w-[100%] h-[100%] overflow-hidden">
         <div className="w-[50%] hidden lg:flex justify-center items-center bg-[#023963]">
           <span className="flex absolute">
             <PABSIcon />
