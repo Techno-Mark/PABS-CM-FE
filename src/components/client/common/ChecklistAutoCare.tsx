@@ -1569,7 +1569,7 @@ function ChecklistAutoCare({
                   ? handleSubmitwithOutApi()
                   : handleSubmit(3)
               }
-              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+              className={`!border-[#0078C8] !text-[#0078C8] !bg-[#FFFFFF] !rounded-md text-[14px]`}
               variant="outlined"
             >
               Back
@@ -1578,7 +1578,7 @@ function ChecklistAutoCare({
               {roleId !== "4" && (
                 <Button
                   onClick={() => setIsOpenModal(false)}
-                  className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+                  className={`!border-[#0078C8] !bg-[#FFFFFF] !text-[#0078C8] !rounded-md text-[14px]`}
                   variant="outlined"
                 >
                   Cancel
@@ -1588,9 +1588,9 @@ function ChecklistAutoCare({
                 <Button
                   onClick={() => handleSubmit(2)}
                   className={`${isFormLocked && (roleId === "3" || roleId === "4")
-                      ? "!border-[#666] !text-[#666]"
-                      : "!border-[#023963] !text-[#022946]"
-                    } !bg-[#FFFFFF] !rounded-full font-semibold text-[14px]`}
+                    ? "border-[#666] bg-[#666]"
+                    : "border-[#0078C8] bg-[#0078C8]"
+                    } text-white rounded-md text-[14px]`}
                   variant="outlined"
                   disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
@@ -1601,8 +1601,8 @@ function ChecklistAutoCare({
                 <Button
                   onClick={() => setIsOpenConfirmationSubmit(true)}
                   className={`${isFormLocked && (roleId === "4" || roleId === "3")
-                      ? "!bg-[#666] !text-white"
-                      : "!bg-[#022946] text-white"
+                    ? "!bg-[#666] !text-white"
+                    : "!bg-[#022946] text-white"
                     }  !rounded-full`}
                   variant="contained"
                   disabled={isFormLocked && (roleId === "4" || roleId === "3")}

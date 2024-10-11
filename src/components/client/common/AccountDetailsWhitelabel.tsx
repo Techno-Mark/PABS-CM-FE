@@ -305,11 +305,10 @@ const AccountDetailsWhitelabel = ({
       renderCell: (params) => {
         return (
           <div
-            className={`flex gap-8 justify-start h-full items-center ${
-              isFormLocked && (roleId === "3" || roleId === "4")
+            className={`flex gap-8 justify-start h-full items-center ${isFormLocked && (roleId === "3" || roleId === "4")
                 ? "pointer-events-none"
                 : ""
-            }`}
+              }`}
           >
             <Tooltip title="Edit" placement="top" arrow>
               <span
@@ -372,8 +371,7 @@ const AccountDetailsWhitelabel = ({
       }
     };
     await callAPIwithHeaders(
-      `${OnboardingFormAccountDetailsList}/${
-        !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      `${OnboardingFormAccountDetailsList}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
       }`,
       "post",
       callback,
@@ -417,8 +415,7 @@ const AccountDetailsWhitelabel = ({
     };
 
     await callAPIwithHeaders(
-      `${OnboardingFormAccountDetailsDelete}/${
-        !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      `${OnboardingFormAccountDetailsDelete}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
       }`,
       "post",
       callback,
@@ -497,11 +494,10 @@ const AccountDetailsWhitelabel = ({
                 onClick={() => {
                   setBulkOpenDrawer(true);
                 }}
-                className={`${
-                  isFormLocked && (roleId === "3" || roleId === "4")
+                className={`${isFormLocked && (roleId === "3" || roleId === "4")
                     ? "!border-[#666] !text-[#666] pointer-events-none"
-                    : "!border-[#023963] !text-[#022946]"
-                } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
+                    : "!border-[#0078C8] !text-[#0078C8]"
+                  } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
               >
                 Bulk Upload
               </button>
@@ -510,11 +506,10 @@ const AccountDetailsWhitelabel = ({
                   setOpenDrawer(true);
                   setEdit(false);
                 }}
-                className={`${
-                  isFormLocked && (roleId === "3" || roleId === "4")
+                className={`${isFormLocked && (roleId === "3" || roleId === "4")
                     ? "!border-[#666] !text-[#666] pointer-events-none"
-                    : "!border-[#023963] !text-[#022946]"
-                } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
+                    : "!border-[#0078C8] !text-[#0078C8]"
+                  } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
               >
                 Add Account Detail
               </button>
@@ -530,9 +525,8 @@ const AccountDetailsWhitelabel = ({
             getRowId={(i: any) => i.id}
             localeText={noRecordText}
             loading={loading}
-            className={`${
-              roleId !== "4" ? "h-[calc(100vh-230px)]" : "h-[calc(100vh-200px)]"
-            }`}
+            className={`${roleId !== "4" ? "h-[calc(100vh-230px)]" : "h-[calc(100vh-200px)]"
+              }`}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
               footer: () => (
@@ -550,13 +544,13 @@ const AccountDetailsWhitelabel = ({
             }}
             sx={{
               [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
               [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
             }}
           />
         </div>
@@ -564,7 +558,7 @@ const AccountDetailsWhitelabel = ({
       <div className="py-3 border-[#D8D8D8] bg-[#ffffff] flex items-center justify-between border-t px-6">
         <Button
           onClick={() => setChecklistFormSubmit(12)}
-          className={`!border-[#022946] !bg-[#FFFFFF] !text-[#022946] !rounded-full font-semibold text-[14px]`}
+          className={`!border-[#0078C8] !bg-[#FFFFFF] !text-[#0078C8] !rounded-md text-[14px]`}
           variant="outlined"
         >
           Back
@@ -572,11 +566,10 @@ const AccountDetailsWhitelabel = ({
         {roleId === "4" && !isFormSubmmitWhitelabel && (
           <Button
             onClick={() => setIsOpenConfirmationSubmit(true)}
-            className={`${
-              isFormLocked && (roleId === "4" || roleId === "3")
+            className={`${isFormLocked && (roleId === "4" || roleId === "3")
                 ? "!bg-[#666] pointer-events-none"
-                : "!bg-[#023963]"
-            } !text-[#fff] !rounded-full font-semibold text-[14px]`}
+                : "!bg-[#0078C8]"
+              } !text-[#fff] !rounded-md text-[14px]`}
             variant="contained"
           >
             Submit
