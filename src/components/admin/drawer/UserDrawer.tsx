@@ -35,6 +35,7 @@ import { showToast } from "@/components/ToastContainer";
 import { callAPIwithHeaders } from "@/api/commonFunction";
 // Cookie import
 import Cookies from "js-cookie";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 const UserDrawer = ({
   openDrawer,
@@ -86,6 +87,7 @@ const UserDrawer = ({
     email: initialFieldStringValues,
     status: initialFieldNumberValues,
   });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getById = async () => {
@@ -456,7 +458,7 @@ const UserDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#333]',
+                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
               },
             }}
             inputProps={{
@@ -502,13 +504,24 @@ const UserDrawer = ({
               id="demo-simple-select-standard"
               className={`${
                 role.value === -1
-                  ? "!text-[12px] text-[#6E6D7A]"
+                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
                   : "!text-[14px]"
               }`}
               value={role.value}
               error={Number(roleId) !== 1 && canEdit ? false : role.error}
               onChange={handleRoleChange}
               disabled={Number(roleId) !== 1 && canEdit ? true : false}
+              onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
+              IconComponent={() => (
+                <DropDownArrow
+                  fillColor="#333"
+                  style={{
+                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.3s ease",
+                  }}
+                />
+              )}
             >
               {roleList.map((role) => (
                 <MenuItem
@@ -536,7 +549,7 @@ const UserDrawer = ({
               id="business-type-select"
               className={`${
                 role.value === -1
-                  ? "!text-[12px] text-[#6E6D7A]"
+                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
                   : "!text-[14px]"
               }`}
               multiple={role.value === 2}
@@ -602,6 +615,17 @@ const UserDrawer = ({
                 }
               }}
               error={businessType.error}
+              onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
+              IconComponent={() => (
+                <DropDownArrow
+                  fillColor="#333"
+                  style={{
+                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.3s ease",
+                  }}
+                />
+              )}
             >
               {businessList.map((type) => (
                 <MenuItem
@@ -641,7 +665,7 @@ const UserDrawer = ({
                 id="demo-simple-select-standard"
                 className={`${
                   status.value === -1
-                    ? "!text-[12px] text-[#6E6D7A]"
+                    ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
                     : "!text-[14px]"
                 }`}
                 disabled={
@@ -652,6 +676,17 @@ const UserDrawer = ({
                 value={status.value}
                 error={status.error}
                 onChange={handleStatusChange}
+                onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
+              IconComponent={() => (
+                <DropDownArrow
+                  fillColor="#333"
+                  style={{
+                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.3s ease",
+                  }}
+                />
+              )}
               >
                 {statusOptionDrawer.map((type) => (
                   <MenuItem

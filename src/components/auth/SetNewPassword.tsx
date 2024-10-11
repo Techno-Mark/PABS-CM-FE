@@ -22,6 +22,8 @@ import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 import { useSearchParams } from "next/navigation";
 import InfoIcon from "@/assets/Icons/InfoIcon";
+import PasswordIcon from "@/assets/Icons/PasswordIcon";
+import PasswordhideIcon from "@/assets/Icons/PasswordhideIcon";
 
 const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
   const getToken = useSearchParams();
@@ -231,7 +233,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
                     edge="end"
                     tabIndex={-1}
                   >
-                    {showNewPassword ? <Visibility /> : <VisibilityOff />}
+                    {showNewPassword ? <PasswordIcon/> : <PasswordhideIcon />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -266,7 +268,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
                     edge="end"
                     tabIndex={-1}
                   >
-                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                    {showConfirmPassword ? <PasswordIcon/> : <PasswordhideIcon />}
                   </IconButton>
                 </InputAdornment>
               }

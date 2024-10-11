@@ -18,6 +18,7 @@ import { ToastType } from "@/static/toastType";
 import Cookies from "js-cookie";
 import { removeCookies } from "@/utils/authFunctions";
 import DropDownArrow from "@/assets/Icons/dropdownarrow";
+import LogoutIcon from "@/assets/Icons/logouticon";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -64,6 +65,7 @@ const Header = ({ openSidebar }: HeaderPropsType) => {
     {
       id: 1,
       label: "Logout",
+      icon: <LogoutIcon/>
     },
   ];
 

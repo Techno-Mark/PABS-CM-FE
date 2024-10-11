@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 // Component import
 import Wrapper from "@/components/Wrapper";
 // MUI import
-import { Switch, TablePagination, Tooltip } from "@mui/material";
+import { Switch, TablePagination, Tooltip, MenuItem,  Select} from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 //Icons import
 import EditIcon from "@/assets/Icons/admin/EditIcon";
@@ -35,7 +35,7 @@ function Page() {
     {
       field: "srNo",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Sr No.</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Sr No.</span>
       ),
       width: 100,
       sortable: false,
@@ -46,15 +46,81 @@ function Page() {
     {
       field: "RoleName",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Role Name</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Role Name</span>
       ),
       flex: 1,
       sortable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            {(checkPermission("Settings", "edit") ||
+              checkPermission("Settings", "delete")) && (
+              <Select
+                value=""
+                displayEmpty
+                size="small"
+                sx={{
+                  boxShadow: "none",
+                  ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                  "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                    border: 0,
+                  },
+                  "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    border: 0,
+                  },
+                  ".MuiSelect-select": {
+                    padding: "0 !important",
+                    width: "auto",
+                  },
+                  ".MuiSvgIcon-root": {
+                    display: "none",
+                  },
+                  fontSize: 14,
+                }}
+                renderValue={() => (
+                  <div>
+                    {params.value}
+                  </div>
+                )}
+              >
+                {/* Edit Menu Item */}
+                {checkPermission("Settings", "edit") && (
+                  <MenuItem
+                    value="edit"
+                    onClick={() => {
+                      setOpenDrawer(true);
+                      setEdit(true);
+                      setRoleId(params.row.RoleId);
+                    }}
+                    className="text-[14px] font-normal text-[#333]"
+                  >
+                    Edit
+                  </MenuItem>
+                )}
+  
+                {/* Delete Menu Item */}
+                {params.row.RoleId !== 1 && checkPermission("Settings", "delete") && (
+                  <MenuItem
+                    value="delete"
+                    onClick={() => {
+                      setOpenDelete(true);
+                      setRoleId(params.row.RoleId);
+                    }}
+                    className="text-[14px] font-normal text-[#333]"
+                  >
+                    Delete
+                  </MenuItem>
+                )}
+              </Select>
+            )}
+          </>
+        );
+      },
     },
     {
       field: "RoleStatus",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Status</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Status</span>
       ),
       flex: 1,
       sortable: false,
@@ -76,58 +142,58 @@ function Page() {
         );
       },
     },
-    {
-      field: "action",
-      renderHeader: () => (
-        <span className="font-semibold text-[13px] flex justify-end items-end">
-          Actions
-        </span>
-      ),
-      sortable: false,
-      width: 120,
-      renderCell: (params) => {
-        return (
-          (checkPermission("Settings", "edit") ||
-            checkPermission("Settings", "delete")) && (
-            <>
-              <div className="flex gap-9 justify-start h-full items-center">
-                {checkPermission("Settings", "edit") && (
-                  <Tooltip title="Edit" placement="top" arrow>
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setOpenDrawer(true);
-                        setEdit(true);
-                        setRoleId(params.row.RoleId);
-                      }}
-                    >
-                      <EditIcon />
-                    </span>
-                  </Tooltip>
-                )}
-                {params.row.RoleId !== 1 && (
-                  <>
-                    {checkPermission("Settings", "delete") && (
-                      <Tooltip title="Delete" placement="top" arrow>
-                        <span
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setOpenDelete(true);
-                            setRoleId(params.row.RoleId);
-                          }}
-                        >
-                          <DeleteIcon />
-                        </span>
-                      </Tooltip>
-                    )}
-                  </>
-                )}
-              </div>
-            </>
-          )
-        );
-      },
-    },
+    // {
+    //   field: "action",
+    //   renderHeader: () => (
+    //     <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">
+    //       Actions
+    //     </span>
+    //   ),
+    //   sortable: false,
+    //   width: 120,
+    //   renderCell: (params) => {
+    //     return (
+    //       (checkPermission("Settings", "edit") ||
+    //         checkPermission("Settings", "delete")) && (
+    //         <>
+    //           <div className="flex gap-9 justify-start h-full items-center">
+    //             {checkPermission("Settings", "edit") && (
+    //               <Tooltip title="Edit" placement="top" arrow>
+    //                 <span
+    //                   className="cursor-pointer"
+    //                   onClick={() => {
+    //                     setOpenDrawer(true);
+    //                     setEdit(true);
+    //                     setRoleId(params.row.RoleId);
+    //                   }}
+    //                 >
+    //                   <EditIcon />
+    //                 </span>
+    //               </Tooltip>
+    //             )}
+    //             {params.row.RoleId !== 1 && (
+    //               <>
+    //                 {checkPermission("Settings", "delete") && (
+    //                   <Tooltip title="Delete" placement="top" arrow>
+    //                     <span
+    //                       className="cursor-pointer"
+    //                       onClick={() => {
+    //                         setOpenDelete(true);
+    //                         setRoleId(params.row.RoleId);
+    //                       }}
+    //                     >
+    //                       <DeleteIcon />
+    //                     </span>
+    //                   </Tooltip>
+    //                 )}
+    //               </>
+    //             )}
+    //           </div>
+    //         </>
+    //       )
+    //     );
+    //   },
+    // },
   ];
 
   const router = useRouter();
@@ -303,11 +369,11 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF] items-center px-6">
+      <div className="flex justify-between w-full mt-16 bg-[#F6F6F6] items-center px-6">
       <h3 className="font-semibold text-base tracking-wide">Settings</h3>  
-        <div className="flex items-center gap-1 justify-between">
+        <div className="flex items-center gap-3 justify-end">
           {checkPermission("Settings", "view") ? (
-            <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
               <span className="m-3 flex items-center">
                 <SearchIcon />
               </span>
@@ -329,7 +395,7 @@ function Page() {
                   setOpenDrawer(true);
                   setEdit(false);
                 }}
-                className={`px-5 py-2 !normal-case !text-[16px] !bg-[#0078C8] !text-[#fff] !rounded-md font-normal`}
+                className={`px-5 normal-case text-[16px] bg-[#0078C8] hover:bg-[#023963] !text-[#fff] !rounded-md font-normal h-[36px]`}
               >
                 Add Role
               </button>
@@ -339,7 +405,7 @@ function Page() {
       </div>
 
       {checkPermission("Settings", "view") && (
-        <div className="w-full h-[78vh] mt-5">
+        <div className="w-full h-[78vh] mt-5 bg-[#FFFFFF]">
           <DataGrid
             disableColumnMenu
             rows={roleData}
@@ -371,6 +437,10 @@ function Page() {
                 {
                   outline: "none",
                 },
+              [`& .${gridClasses.columnHeaders}`]: {
+                borderTop: "1px solid #6C6C6C",
+                borderBottom: "2px solid #6C6C6C",
+              },
             }}
           />
         </div>
