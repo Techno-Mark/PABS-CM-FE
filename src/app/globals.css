@@ -11,13 +11,15 @@
 @tailwind utilities;
 
 
-body{
-  font-family: 'proximanova', sans-serif ;
+body {
+  font-family: 'proximanova', sans-serif;
 }
+
 button {
   font-family: 'proximanova', sans-serif !important;
   box-shadow: none !important;
 }
+
 .MuiInput-root input::placeholder {
   font-size: 12px !important;
 }
@@ -94,6 +96,7 @@ input::-ms-clear {
   from {
     right: -100%;
   }
+
   to {
     right: 0;
   }
@@ -103,6 +106,7 @@ input::-ms-clear {
   from {
     right: 0;
   }
+
   to {
     right: -100%;
   }
@@ -124,9 +128,11 @@ input::-ms-clear {
   color: #dc3545;
   margin-left: 0;
 }
+
 .datepickerError.muiDatepickerCustomizer label {
   border-color: #dc3545;
 }
+
 .muiDatepickerCustomizer.datepickerError fieldset {
   border-color: #dc3545;
 }
@@ -172,6 +178,16 @@ input::-ms-clear {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.MuiInput-root:hover::before,.MuiInput-root:active::before{
-  border-bottom: 2px solid #0078C8 !important;
+
+.MuiInput-root:hover::before,
+.MuiInput-root:active::before {
+  border-color: #0078C8 !important;
+}
+
+.MuiInput-root:focus-within::after {
+  background: #0078C8;
+  width: 100%;
+  height: 2px;
+  border: none;
+  transition: width 0.5s;
 }
