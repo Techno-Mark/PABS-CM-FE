@@ -1581,7 +1581,7 @@ function ChecklistSmb({
             {roleId !== "4" && (
               <Button
                 onClick={() => setIsOpenModal(false)}
-                className={`!border-[#0078C8] !bg-[#FFFFFF] !text-[#022946] !rounded-md text-[14px]`}
+                className={`border-[#022946] bg-white text-[#022946] rounded-md text-[14px]`}
                 variant="outlined"
               >
                 Cancel

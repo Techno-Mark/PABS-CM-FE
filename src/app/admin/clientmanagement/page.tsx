@@ -316,7 +316,7 @@ function Page() {
     {
       field: "SfId",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">SF ID</span> 
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px]">SF ID</span>
       ),
       flex: 1,
       sortable: false,
@@ -486,8 +486,10 @@ function Page() {
             },
             ".MuiSelect-select": {
               padding: 0,
-              width: 50,
+              width: 70,
               marginBottom: 1,
+              display: "flex",
+              alignItems: "center"
             },
             ".MuiSvgIcon-root": {
               top: 0,
@@ -496,8 +498,8 @@ function Page() {
             fontSize: 14,
           }}
         >
-          <MenuItem value="Active">Active</MenuItem>
-          <MenuItem value="Inactive">Inactive</MenuItem>
+          <MenuItem value="Active"><span className="bg-[#0078C8] w-2 h-2 rounded-full mr-2"></span>Active</MenuItem>
+          <MenuItem value="Inactive"><span className="bg-[#DC3545] w-2 h-2 rounded-full mr-2"></span>Inactive</MenuItem>
         </Select>
       ),
     },

@@ -807,7 +807,7 @@ const BasicDetailsWhitelabel = ({
           {roleId !== "4" && (
             <Button
               onClick={() => setIsOpenModal(false)}
-              className={`!border-[#023963] !text-[#022946] !bg-[#FFFFFF] !rounded-md text-[14px]`}
+              className={`!border-[#0078C8] !text-[#0078C8] !bg-[#FFFFFF] !rounded-md text-[14px]`}
               variant="outlined"
             >
               Cancel
@@ -819,7 +819,7 @@ const BasicDetailsWhitelabel = ({
               className={`${
                 isFormLocked && (roleId === "3" || roleId === "4")
                   ? "border-[#666] text-[#666]"
-                  : "border-[#023963] text-[#022946]"
+                  : "border-[#0078C8] text-[#0078C8]"
               } bg-[#FFFFFF] rounded-md text-[14px]`}
               variant="outlined"
               disabled={isFormLocked && (roleId === "3" || roleId === "4")}
