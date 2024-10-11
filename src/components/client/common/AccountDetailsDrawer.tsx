@@ -166,10 +166,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
         }
       };
       await callAPIwithHeaders(
-        `${OnboardingFormAccountDetailsGetById}/${
-          !!clientInfo?.UserId
-            ? parseInt(clientInfo?.UserId)
-            : parseInt(userId!)
+        `${OnboardingFormAccountDetailsGetById}/${!!clientInfo?.UserId
+          ? parseInt(clientInfo?.UserId)
+          : parseInt(userId!)
         }`,
         "post",
         callback,
@@ -219,12 +218,10 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
           return;
       }
     };
-    const save = `${OnboardingFormAccountDetailsSave}/${
-      !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
-    }`;
-    const edit = `${OnboardingFormAccountDetailsEdit}/${
-      !!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
-    }`;
+    const save = `${OnboardingFormAccountDetailsSave}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`;
+    const edit = `${OnboardingFormAccountDetailsEdit}/${!!clientInfo?.UserId ? parseInt(clientInfo?.UserId) : parseInt(userId!)
+      }`;
 
     await callAPIwithHeaders(
       clientID > 0 ? edit : save,
@@ -250,8 +247,7 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
     setIsSaveButtonEnabled(compareValues());
   }, [formValues, compareValues]);
 
-  const handleChange =
-    (field: keyof InitialValues) =>
+  const handleChange = (field: keyof InitialValues) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
 
@@ -538,9 +534,9 @@ const AccountDetailsDrawer: React.FC<AccountDetailsDrawerProps> = ({
                   margin: 0,
                 },
                 "& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button":
-                  {
-                    "-webkit-appearance": "none",
-                  },
+                {
+                  "-webkit-appearance": "none",
+                },
               }}
             />
           </div>
