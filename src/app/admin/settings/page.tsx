@@ -475,6 +475,8 @@ function Page() {
             setSwitchPopup({ isOpen: false, isChecked: null, roleId: 0 })
           }
           setId={() => {}}
+          submitButtonText="Yes"
+          closeButtonText = "No"
         />
       )}
 
