@@ -201,7 +201,7 @@ const SetNewPassword = ({ passwordType, isReset }: AuthType) => {
 
   return (
     <AuthWapper>
-    <div className="mx-auto w-[65%]">
+    <div className="mx-auto w-[62%]">
       <span className="text-[40px] !font-medium">
         {passwordType} Password
       </span>

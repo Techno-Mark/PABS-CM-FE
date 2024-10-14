@@ -174,7 +174,7 @@ function Page() {
 
   return (
     <AuthWapper>
-      <div className="mx-auto w-[65%]">
+      <div className="mx-auto w-[62%]">
         <span className="text-[40px] !font-medium tracking-[0.8px]">Log In</span>
         <form onSubmit={handleSubmit}>
           <div

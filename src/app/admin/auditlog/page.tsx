@@ -32,6 +32,7 @@ import { auditLogListUrl, userListUrl } from "@/static/apiUrl";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
 import dayjs from "dayjs";
 import { moduleList } from "@/static/auditLog";
+import PasswordIcon from "@/assets/Icons/PasswordIcon";
 
 function Page() {
   const router = useRouter();
@@ -162,7 +163,7 @@ function Page() {
     {
       field: "srNo",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Sr No.</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Sr No.</span>
       ),
       width: 100,
       sortable: false,
@@ -177,7 +178,7 @@ function Page() {
     {
       field: "moduleName",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Module</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Module</span>
       ),
       flex: 1,
       sortable: false,
@@ -185,7 +186,7 @@ function Page() {
     {
       field: "performedAction",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Action Taken</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Action Taken</span>
       ),
       flex: 1,
       sortable: false,
@@ -193,7 +194,7 @@ function Page() {
     {
       field: "createdBy",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Username</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Username</span>
       ),
       flex: 1,
       sortable: false,
@@ -201,7 +202,7 @@ function Page() {
     {
       field: "createdDate",
       renderHeader: () => (
-        <span className="font-semibold text-[13px]">Date of Event</span>
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">Date of Event</span>
       ),
       flex: 1,
       sortable: false,
@@ -217,7 +218,9 @@ function Page() {
     },
     {
       field: "action",
-      renderHeader: () => <span> </span>,
+      renderHeader: () => (
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova"><PasswordIcon/></span>
+      ),
       sortable: false,
       width: 120,
       renderCell: (params) => {
@@ -228,7 +231,7 @@ function Page() {
                 className="cursor-pointer"
                 onClick={() => handleViewClick(params.row)}
               >
-                <ViewIcon />
+                <PasswordIcon/>
               </span>
             </Tooltip>
           </div>
@@ -256,10 +259,10 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-12 bg-[#F9FBFF] items-center px-6">
+      <div className="flex justify-between w-full mt-16 bg-[#F6F6F6] items-center px-6">
       <h3 className="font-semibold text-base tracking-wide">Audit Logs</h3>
-      <div className="flex items-center gap-1 justify-between">
-        <div className="w-[50%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+      <div className="flex items-center gap-3 justify-end">
+        <div className="w-[250px] bg-[#FFFFFF] flex h-[36px] rounded-[300px]">
           <span className="m-3 flex items-center">
             <SearchIcon />
           </span>
@@ -283,7 +286,7 @@ function Page() {
       </div>  
       </div>
 
-      <div className="w-full h-[78vh] mt-5">
+      <div className="w-full h-[78vh] mt-5 bg-[#FFFFFF]">
         <DataGrid
           disableColumnMenu
           rows={auditLogData}
@@ -315,6 +318,10 @@ function Page() {
               {
                 outline: "none",
               },
+            [`& .${gridClasses.columnHeaders}`]: {
+              borderTop: "1px solid #6C6C6C",
+              borderBottom: "2px solid #6C6C6C",
+            },  
           }}
         />
       </div>
