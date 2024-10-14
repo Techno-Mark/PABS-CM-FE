@@ -458,7 +458,7 @@ const UserDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
+                input: classes.inputWithPlaceholder,
               },
             }}
             inputProps={{
@@ -485,7 +485,7 @@ const UserDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#333]',
+                input: classes.inputWithPlaceholder,
               },
             }}
             inputProps={{
@@ -505,7 +505,7 @@ const UserDrawer = ({
               className={`${
                 role.value === -1
                   ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px]"
+                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               value={role.value}
               error={Number(roleId) !== 1 && canEdit ? false : role.error}
@@ -550,7 +550,7 @@ const UserDrawer = ({
               className={`${
                 role.value === -1
                   ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px]"
+                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               multiple={role.value === 2}
               value={
@@ -666,7 +666,7 @@ const UserDrawer = ({
                 className={`${
                   status.value === -1
                     ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                    : "!text-[14px]"
+                    : "!text-[14px] font-normal text-[#333333] font-proximanova"
                 }`}
                 disabled={
                   role.value == 2 && Number(roleId) === 2 && canEdit

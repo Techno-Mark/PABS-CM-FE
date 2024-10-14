@@ -394,7 +394,7 @@ const ClientDrawer = ({
             id="outlined-basic"
             variant="standard"
             size="small"
-            placeholder="Please Enter SF ID"
+            placeholder="Please enter SF ID"
             value={sFID.value}
             error={sFID.error}
             helperText={sFID.errorText}
@@ -402,18 +402,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-              },
-              sx: {
-                "&::placeholder": {
-                  color: "#6C6C6C",
-                  opacity: 0.5,
-                  fontSize: "14px",
-                },
-                "&.MuiInputBase-input": {
-                  color: "#333333",
-                  fontSize: "14px",
-                  fontWeight: "400", 
-                },
+                input: classes.inputWithPlaceholder,
               },
             }}
             inputProps={{
@@ -429,7 +418,7 @@ const ClientDrawer = ({
             id="outlined-basic"
             variant="standard"
             size="small"
-            placeholder="Please Enter Client Full Name"
+            placeholder="Please enter client Full Name"
             value={clientFullName.value}
             error={clientFullName.error}
             helperText={clientFullName.errorText}
@@ -437,7 +426,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
+                input: classes.inputWithPlaceholder,
               },
             }}
             inputProps={{
@@ -457,7 +446,7 @@ const ClientDrawer = ({
               className={`${
                 businessType.value === -1
                   ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px] font-proximanova"
+                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               value={businessType.value}
               onOpen={() => setOpen(true)}
@@ -497,7 +486,7 @@ const ClientDrawer = ({
             id="outlined-basic"
             variant="standard"
             size="small"
-            placeholder="Please Enter Email"
+            placeholder="Please enter Email"
             value={email.value}
             error={email.error}
             helperText={email.errorText}
@@ -505,7 +494,7 @@ const ClientDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
+                input: classes.inputWithPlaceholder,
               },
             }}
             inputProps={{
@@ -513,7 +502,7 @@ const ClientDrawer = ({
             }}
           />
         </div>
-        <label className="text-[#333333] text-[12px] flex items-center gap-2 font-normal pb-2">
+        <label className="text-[#333333] text-[14px] flex items-center gap-2 font-normal pb-2">
           Upload Logo
           <Tooltip
             title={

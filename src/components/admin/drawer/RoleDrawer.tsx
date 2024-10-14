@@ -349,7 +349,7 @@ const RoleDrawer = ({
             InputProps={{
               classes: {
                 underline: classes.underline,
-                input: 'text-[14px] font-normal text-[#6C6C6C]/50',
+                input: classes.inputWithPlaceholder,
               },
             }}
             inputProps={{
@@ -367,8 +367,8 @@ const RoleDrawer = ({
               id="demo-simple-select-standard"
               className={`${
                 role.value === -1
-                  ? "text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
-                  : "!text-[14px]"
+                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               value={role.value}
               error={role.error}
