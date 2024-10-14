@@ -199,15 +199,29 @@ input::-ms-clear {
   border-radius: 100px;
   padding: 0;
   margin-left: 20px;
+  border: 1.5px solid #0078C8;
+}
+
+.MuiSwitch-root .MuiSwitch-track {
+  background: #fff;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked~.MuiSwitch-track {
+  background: #0078C8;
+  opacity: 1
 }
 
 .MuiSwitch-root .MuiSwitch-switchBase {
-  padding: 3px 1px;
+  padding: 1px;
 }
 
 .MuiSwitch-root .MuiSwitch-switchBase .MuiSwitch-thumb {
-  width: 16px;
-  height: 16px;
-  background: #fff;
+  width: 17px;
+  height: 17px;
+  background: #0078C8;
   box-shadow: none;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb {
+  background: #fff;
 }
