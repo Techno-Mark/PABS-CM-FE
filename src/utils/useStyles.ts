@@ -78,4 +78,17 @@ export const useStyles = makeStyles({
       boxSizing: "border-box",
     },
   },
+  inputWithPlaceholder: {
+    "&::placeholder": {
+      color: "#6C6C6C",
+      opacity: 0.5,
+      fontSize: "14px",
+      fontWeight: "400",
+    },
+    "&.MuiInputBase-input": {
+      color: "#333333",
+      fontSize: "14px",
+      fontWeight: "400",
+    },
+  },
 });

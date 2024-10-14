@@ -421,12 +421,24 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
-      renderCell: (params) => (
-        <span className="font-normal text-[14px]">
-          {params.value}{" "}
-          {params.row.Progress !== null && `(${params.row.Progress}%)`}
-        </span>
-      ),
+      // renderCell: (params) => (
+      //   <span className="font-normal text-[14px]">
+      //     {params.value}{" "}
+      //     {params.row.Progress !== null && `(${params.row.Progress}%)`}
+      //   </span>
+      // ),
+      renderCell: (params) => {
+        const status = params.value;
+        const dotColor = status === "Completed" ? "bg-[#13AB65]" : "bg-[#DC3545]";    
+        return (
+          <div className="flex items-center">
+            <span className={`min-w-2 w-2 h-2 rounded-full mr-2 ${dotColor}`} />
+            <span className="font-normal text-[14px]">
+              {status} {params.row.Progress !== null && `(${params.row.Progress}%)`}
+            </span>
+          </div>
+        );
+      },
     },
     {
       field: "AssignUserId",
@@ -986,7 +998,7 @@ function Page() {
         <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
         <div className="flex items-center gap-3 justify-end">
           {checkPermission("Client Management", "view") ? (
-            <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <div className="w-[250px] bg-[#FFFFFF] flex h-[36px] rounded-[300px]">
               <span className="m-3 flex items-center">
                 <SearchIcon />
               </span>

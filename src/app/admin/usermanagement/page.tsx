@@ -170,7 +170,23 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
-      renderCell: (params) => renderCellFunction(params.value),
+      // renderCell: (params) => renderCellFunction(params.value),
+      renderCell: (params) => {
+        const isActive = params.value === "Active"; 
+    
+        return (
+          <div className="flex items-center">
+            {/* Dot */}
+            <span
+              className={`w-2 h-2 rounded-full mr-2 ${
+                isActive ? "bg-[#0078C8]" : "bg-[#DC3545]"
+              }`}
+            />
+            {/* Status Text */}
+            <span>{params.value}</span>
+          </div>
+        );
+      },
     },
   ];
 
@@ -468,7 +484,7 @@ function Page() {
         <h3 className="font-semibold text-base tracking-wide">User Management</h3>
         <div className="flex items-center gap-3 justify-end">
           {checkPermission("User Management", "view") ? (
-            <div className="w-[40%] bg-[#FFFFFF] flex h-[36px] border border-[#D8D8D8] rounded-md">
+            <div className="w-[250px] bg-[#FFFFFF] flex h-[36px] rounded-[300px]">
               <span className="m-3 flex items-center">
                 <SearchIcon />
               </span>
