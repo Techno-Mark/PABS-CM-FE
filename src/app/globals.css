@@ -191,3 +191,24 @@ input::-ms-clear {
   border: none;
   transition: width 0.5s;
 }
+
+
+.MuiSwitch-root {
+  width: 40px;
+  height: 21px;
+  border: none;
+  border-radius: 100px;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase {
+  padding: 3px 1px;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase .MuiSwitch-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  box-shadow: none;
+}
