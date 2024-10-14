@@ -14,7 +14,7 @@ import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 import EditIcon from "@/assets/Icons/admin/EditIcon";
 import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 // MUI imports
-import { TablePagination, Tooltip, MenuItem,  Select} from "@mui/material";
+import { TablePagination, Tooltip, MenuItem, Select } from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 // static import
 import { ToastType } from "@/static/toastType";
@@ -67,17 +67,17 @@ function Page() {
       flex: 1,
       sortable: false,
       // renderCell: (params) => renderCellFunction(params.value),
-       renderCell: (params) => {
+      renderCell: (params) => {
         if (
           checkPermission("User Management", "edit") ||
           checkPermission("User Management", "delete")
-        ){
+        ) {
           return (
             <>
               {userId === params.row.UserId ? (
                 ""
               ) : (checkPermission("User Management", "edit") ||
-                  checkPermission("User Management", "delete")) && (
+                checkPermission("User Management", "delete")) && (
                 <div className="flex gap-9 justify-start h-full items-center">
                   <Select
                     value=""
@@ -122,7 +122,7 @@ function Page() {
                         Edit
                       </MenuItem>
                     )}
-          
+
                     {/* Delete Menu Item */}
                     {checkPermission("User Management", "delete") && (
                       <MenuItem
@@ -143,7 +143,7 @@ function Page() {
             </>
           );
         }
-       }
+      }
     },
     {
       field: "Email",
@@ -170,8 +170,13 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
-      renderCell: (params) => renderCellFunction(params.value),
-    },
+      renderCell: (params) => (
+        <span className="flex items-center">
+          <span className={`w-2 h-2 rounded-full mr-2 ${params.value.toLowerCase() === "active" ? "bg-[#0078C8]" : "bg-[#DC3545]"}`}></span>
+          {params.value}
+        </span>
+      ),
+    }
   ];
 
   // if (
@@ -320,7 +325,7 @@ function Page() {
     await callAPIwithHeaders(
       editUserRole === "Admin"
         ? `${businessListUrl}?showAll=1`
-        : 
+        :
         businessListUrl,
       "get",
       callback,
@@ -486,10 +491,10 @@ function Page() {
           )}
           {checkPermission("User Management", "view") && (
             <Tooltip title="Filter" placement="top" arrow
-            classes={{
-              tooltip: classes.tooltipStyle,
-              arrow: classes.arrowStyle,
-            }}>
+              classes={{
+                tooltip: classes.tooltipStyle,
+                arrow: classes.arrowStyle,
+              }}>
               <span
                 className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
                 onClick={() => setOpenFilter(true)}
@@ -509,7 +514,7 @@ function Page() {
               Add User
             </button>
           )}
-        </div>  
+        </div>
       </div>
 
       {checkPermission("User Management", "view") && (
@@ -538,17 +543,17 @@ function Page() {
             }}
             sx={{
               [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
               [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-                {
-                  outline: "none",
-                },
+              {
+                outline: "none",
+              },
               [`& .${gridClasses.columnHeaders}`]: {
-                borderTop: "1px solid #6C6C6C", 
+                borderTop: "1px solid #6C6C6C",
                 borderBottom: "2px solid #6C6C6C",
-              },  
+              },
             }}
           />
         </div>

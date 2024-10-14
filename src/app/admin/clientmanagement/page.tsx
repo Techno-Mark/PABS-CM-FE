@@ -316,7 +316,7 @@ function Page() {
     {
       field: "SfId",
       renderHeader: () => (
-        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">SF ID</span> 
+        <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">SF ID</span>
       ),
       flex: 1,
       sortable: false,
@@ -422,7 +422,8 @@ function Page() {
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <span className="font-normal text-[14px]">
+        <span className="font-normal text-[14px] flex items-center min-w-[148px]">
+          <span className={`!w-2 h-2 rounded-full mr-2 ${params.value.toLowerCase() === "completed" ? "bg-[#13AB65]" : params.value.toLowerCase() === "pending" ? "bg-[#DC3545]" : "bg-[#FFC107]"}`}></span>
           {params.value}{" "}
           {params.row.Progress !== null && `(${params.row.Progress}%)`}
         </span>
