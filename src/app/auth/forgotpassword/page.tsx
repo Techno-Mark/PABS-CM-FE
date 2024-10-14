@@ -95,7 +95,7 @@ function Page() {
 
   return (
     <AuthWapper>
-    <div className="mx-auto w-[65%]">
+    <div className="mx-auto w-[62%]">
       {/* <span
         className="flex items-center w-fit gap-2 text-[14px] font-medium  pt-14 cursor-pointer"
         onClick={() => router.push("/")}
