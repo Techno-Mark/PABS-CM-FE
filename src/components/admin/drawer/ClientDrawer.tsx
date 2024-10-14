@@ -384,7 +384,7 @@ const ClientDrawer = ({
         handleSubmit={handleSubmit}
         setId={setClientId}
         submitButtonText="Add Client"
-        closeButtonText = "Close"
+        closeButtonText="Close"
       >
         <div className="text-[12px] flex flex-col pb-5">
           <label className="text-[#6C6C6C] text-[12px] font-normal">
@@ -443,21 +443,20 @@ const ClientDrawer = ({
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              className={`${
-                businessType.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
-              }`}
+              className={`${businessType.value === -1
+                ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                : "!text-[14px] font-normal text-[#333333] font-proximanova"
+                }`}
               value={businessType.value}
               onOpen={() => setOpen(true)}
               onClose={() => setOpen(false)}
               IconComponent={() => (
                 <DropDownArrow
-                    fillColor="#333"
-                    style={{
-                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                        transition: "transform 0.3s ease",
-                    }}
+                  fillColor="#333"
+                  style={{
+                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.3s ease",
+                  }}
                 />
               )}
               error={businessType.error}
@@ -541,9 +540,8 @@ const ClientDrawer = ({
         )}
         <div className="text-[12px] flex flex-col">
           <div
-            className={`py-1 border-2 border-dotted ${
-              isFileError ? "border-[#DC3545]" : "border-[#D8D8D8]"
-            } bg-[#FFFFFF] rounded-full w-full overflow-hidden flex justify-center items-center`}
+            className={`py-1 border-2 border-dotted ${isFileError ? "border-[#DC3545]" : "border-[#D8D8D8]"
+              } bg-[#FFFFFF] rounded-full w-full overflow-hidden flex justify-center items-center`}
           >
             <Dropzone
               multiple={false}
