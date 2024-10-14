@@ -2,11 +2,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // MUI imports
 import {
-  Chip,
   AppBar as MuiAppBar,
   styled,
   Toolbar,
-  Tooltip,
+  Tooltip
 } from "@mui/material";
 // Static data import
 import { drawerWidth } from "@/static/commonVariables";
@@ -20,13 +19,13 @@ import { signoutAPIUrl } from "@/static/apiUrl";
 import { showToast } from "@/components/ToastContainer";
 import { ToastType } from "@/static/toastType";
 // Cookie import
-import { removeCookies } from "@/utils/authFunctions";
-import Cookies from "js-cookie";
 import CommentIcon from "@/assets/Icons/admin/CommentIcon";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
-import DropDownArrow from "@/assets/Icons/dropdownarrow";
+import { removeCookies } from "@/utils/authFunctions";
 import { useStyles } from "@/utils/useStyles";
+import Cookies from "js-cookie";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",

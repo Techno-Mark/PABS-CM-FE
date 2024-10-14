@@ -29,13 +29,13 @@ const ChecklistAccordian = ({
     <Accordion
       expanded={expandedAccordian}
       onChange={handleChange}
-      className={`shadow-none border-0 before:h-0 ${hasError ? "!border-[#ec2a2a]" : ""} w-full`}
+      className={`shadow-none border-b-0 border-t !my-0 before:h-0 ${hasError ? "!border-[#ec2a2a]" : "border-[#D8D8D8]"} w-full`}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1-content"
         id="panel1-header"
-        className="bg-[#F4FBFF] flex flex-row-reverse [&>div]:!my-0"
+        className="flex flex-row-reverse [&>div]:!my-0 border-t first-child:border-t-0 border-[#D8D8D8] h-[64px] [&.Mui-expanded]:bg-[#F4FBFF]"
       >
         <div className="flex justify-start items-center w-full pl-5">
           <span className="text-[#333333] text-[16px] font-semibold ">
