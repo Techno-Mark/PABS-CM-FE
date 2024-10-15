@@ -20,16 +20,18 @@ import { useEffect, useState } from "react";
 
 const openedMixin = (theme: Theme) => ({
   width: formDrawerWidth,
-  transition: theme.transitions.create("width", {
+  transition: theme.transitions.create("all", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowY: "hidden",
   overflowX: "hidden",
+  left: 'auto',
 });
 
 const closedMixin = (theme: Theme) => ({
-  transition: theme.transitions.create("width", {
+  left: "100%",
+  transition: theme.transitions.create("all", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
@@ -94,9 +96,8 @@ const DrawerPanel = ({
       <MyDrawer
         anchor={"right"}
         classes={{ paper: classes.drawer }}
-        className={`z-0 h-screen overflow-none ${
-          closeDrawer ? "openDrawer" : ""
-        }`}
+        className={`z-0 h-screen overflow-none ${closeDrawer ? "openDrawer" : ""
+          }`}
         variant="permanent"
         open={openDrawer}
       >
@@ -104,12 +105,12 @@ const DrawerPanel = ({
           <span className="font-bold text-[18px]">
             {canEdit ? "Edit" : "Add"} {type}
           </span>
-          <Tooltip title="Close" placement="bottom" 
+          <Tooltip title="Close" placement="bottom"
             classes={{
               tooltip: classes.tooltipStyle,
               arrow: classes.arrowStyle,
             }}
-          arrow>
+            arrow>
             <span
               className="flex items-center cursor-pointer"
               onClick={() => closeDrawerPanel()}
@@ -134,12 +135,12 @@ const DrawerPanel = ({
           </Button>
           <Button
             onClick={handleSubmit}
-            className={`${isSaveEnabled ? '!bg-[#0078C8] hover:!bg-[#023963] !text-[#FFFFFF]' : '!bg-[#D8D8D8] text-[#6C6C6C]' } !rounded h-[36px] py-1.5 px-5 `}
+            className={`${isSaveEnabled ? '!bg-[#0078C8] hover:!bg-[#023963] !text-[#FFFFFF]' : '!bg-[#D8D8D8] text-[#6C6C6C]'} !rounded h-[36px] py-1.5 px-5 `}
             variant="contained"
             disabled={!isSaveEnabled}
           >
             {isLoading ? (
-              <CircularProgress size={20} sx={{color: "white !important"}} />
+              <CircularProgress size={20} sx={{ color: "white !important" }} />
             ) : (
               <span className="font-normal text-[14px] capitalize">{submitButtonText}</span>
             )}
