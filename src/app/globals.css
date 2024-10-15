@@ -212,7 +212,7 @@ input::-ms-clear {
 }
 
 .MuiSwitch-root .MuiSwitch-switchBase {
-  padding: 1px;
+  padding: 2px;
 }
 
 .MuiSwitch-root .MuiSwitch-switchBase .MuiSwitch-thumb {
@@ -220,14 +220,21 @@ input::-ms-clear {
   height: 10px;
   background: #0078C8;
   box-shadow: none;
-  top: 2px;
+  top: 1px;
   position: relative;
   left: 2px;
 }
 
 .MuiSwitch-root .MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb {
   background: #fff;
-  left: -4px;
+  left: -5px;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-disabled,
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-disabled~.MuiSwitch-track {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 
