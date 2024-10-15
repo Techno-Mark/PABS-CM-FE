@@ -78,7 +78,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
       className="flex justify-center outline-none"
     >
       <Box sx={auditLogModalstyle}>
-        <div className="flex flex-col h-full overflow-hidden">
+        <div className="flex flex-col h-full">
           <div className="flex justify-between items-center p-4 mb-4 bg-[#F6F6F6] border-b border-[#D8D8D8]">
             <h2 className="text-2xl font-semibold text-[16px] text-[#333] tracking-[0.32px]">Event Details</h2>
             <span className="cursor-pointer" onClick={handleClose}>
@@ -112,7 +112,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                 <span className="font-normal text-[16px] text-[#333]">{auditDetails.performedAction}</span>
               </div>
             </div>
-            <div style={tableContainerStyle}>
+            <div style={tableContainerStyle} className="scrollbar-custom">
               <table className="min-w-full divide-y divide-[#D8D8D8]">
                 <thead className="border-t border-b border-[#6C6C6C] !bg-[#ffffff]" style={stickyHeaderStyle}>
                   <tr>

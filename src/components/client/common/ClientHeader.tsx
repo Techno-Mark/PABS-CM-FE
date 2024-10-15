@@ -26,6 +26,7 @@ import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
 import { removeCookies } from "@/utils/authFunctions";
 import { useStyles } from "@/utils/useStyles";
 import Cookies from "js-cookie";
+import LogoutIcon from "@/assets/Icons/logouticon";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -84,6 +85,7 @@ const ClientHeader = ({
     {
       id: 1,
       label: "Logout",
+      icon: <LogoutIcon/>
     },
   ];
 
