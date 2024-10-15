@@ -226,6 +226,11 @@ input::-ms-clear {
   background: #fff;
 }
 
+
+.MuiInput-root{
+  font-family: 'proximanova', sans-serif !important;
+}
+
 .scrollbar-custom {
   scrollbar-width: thin;
   scrollbar-color: #D8D8D8  #F6F6F6;

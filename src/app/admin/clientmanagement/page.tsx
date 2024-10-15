@@ -366,7 +366,7 @@ function Page() {
                   setEdit(true);
                   setClientId(params.row.ClientId);
                 }}
-                className="text-[14px] font-normal text-[#333]"
+                className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
               >
                 Edit
               </MenuItem>
@@ -379,7 +379,7 @@ function Page() {
                   setOpenDelete(true);
                   setClientId(params.row.ClientId);
                 }}
-                className="text-[14px] font-normal text-[#333]"
+                className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
               >
                 Delete
               </MenuItem>
@@ -398,7 +398,7 @@ function Page() {
                   IsFormLocked: params.row.IsFormLocked,
                 });
               }}
-              className="text-[14px] font-normal text-[#333]"
+              className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
             >
               Form Type
             </MenuItem>
