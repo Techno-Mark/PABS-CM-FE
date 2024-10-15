@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // MUI imports
-import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import { Autocomplete, Checkbox, TextField , InputAdornment} from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -12,6 +12,7 @@ import Filter from "@/components/admin/common/Filter";
 import { GetUserAllListResponse } from "@/models/auditlog";
 import { useStyles } from "@/utils/useStyles";
 import Calendarcustomicon from "@/assets/Icons/calendarcustomicon";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 function AuditFilter({
   isOpen,
@@ -110,6 +111,12 @@ function AuditFilter({
     return dayjs(date).format("YYYY-MM-DD");
   };
 
+  const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown state
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
   return (
     <Filter
       isLoading={isLoading}
@@ -176,6 +183,8 @@ function AuditFilter({
             options={moduleList}
             value={module}
             onChange={handleModuleChange}
+            onOpen={() => handleDropdownToggle("module")}
+            onClose={() => handleDropdownToggle(null)}
             disableCloseOnSelect
             getOptionLabel={(option) => option.label}
             renderOption={(props, option, { selected }) => (
@@ -189,6 +198,20 @@ function AuditFilter({
                 {...params}
                 variant="standard"
                 placeholder={module.length <= 0 ? "Please Select Module" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "module" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
@@ -201,6 +224,8 @@ function AuditFilter({
             options={userList}
             value={users}
             onChange={handleClientUserChange}
+            onOpen={() => handleDropdownToggle("user")}
+            onClose={() => handleDropdownToggle(null)}
             disableCloseOnSelect
             getOptionLabel={(option: GetUserAllListResponse) => option.UserName}
             renderOption={(props, option, { selected }) => (
@@ -214,6 +239,20 @@ function AuditFilter({
                 {...params}
                 variant="standard"
                 placeholder={users.length <= 0 ? "Please Select Username" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "user" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />

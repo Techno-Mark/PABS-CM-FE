@@ -29,6 +29,7 @@ import { statusOptionDrawer } from "@/static/usermanage";
 import { showToast } from "@/components/ToastContainer";
 import DrawerPanel from "@/components/admin/common/DrawerPanel";
 import ConfirmModal from "@/components/admin/common/ConfirmModal";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 const RoleDrawer = ({
   openDrawer,
@@ -321,6 +322,14 @@ const RoleDrawer = ({
     setIsSaveButtonEnabled(compareValues());
   }, [roleName, role, permission, compareValues]);
 
+
+  const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown state
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
+
   return (
     <>
       <DrawerPanel
@@ -373,7 +382,21 @@ const RoleDrawer = ({
               value={role.value}
               error={role.error}
               onChange={handleRoleChange}
+              onOpen={() => handleDropdownToggle("departmentType")}
+              onClose={() => handleDropdownToggle(null)}
               disabled={roleId === 1}
+              IconComponent={() => (
+                <DropDownArrow
+                  fillColor="#333"
+                  style={{
+                    transform:
+                      openDropdown === "departmentType"
+                        ? "rotate(180deg)"
+                        : "rotate(0deg)",
+                    transition: "transform 0.3s ease",
+                  }}
+                />
+              )}
             >
               {statusOptionDrawer.map((role) => (
                 <MenuItem
