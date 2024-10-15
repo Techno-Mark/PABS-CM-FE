@@ -27,7 +27,7 @@ export const auditLogModalstyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "70vw",
+  width: "840px",
   height: "70vh",
   borderRadius: "5px",
   bgcolor: "background.paper",

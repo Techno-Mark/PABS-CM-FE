@@ -78,59 +78,59 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
       className="flex justify-center outline-none"
     >
       <Box sx={auditLogModalstyle}>
-        <div className="flex flex-col h-full overflow-hidden p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold">Event Details</h2>
+        <div className="flex flex-col h-full">
+          <div className="flex justify-between items-center p-4 mb-4 bg-[#F6F6F6] border-b border-[#D8D8D8]">
+            <h2 className="text-2xl font-semibold text-[16px] text-[#333] tracking-[0.32px]">Event Details</h2>
             <span className="cursor-pointer" onClick={handleClose}>
               <CloseIcon />
             </span>
           </div>
-          <div className="flex flex-col space-y-3 overflow-auto">
+          <div className="flex flex-col space-y-3 overflow-auto p-4">
             <div className="flex space-x-48">
               <div className="flex-1">
-                <span className="font-semibold">Section : </span>
-                <span>{auditDetails.moduleName}</span>
+                <span className="font-semibold text-[16px] text-[#333] tracking-[0.32px]">Section : </span>
+                <span className="font-normal text-[16px] text-[#333]">{auditDetails.moduleName}</span>
               </div>
-              <div className="flex-1 ">
-                <span className="font-semibold">Update Date/Time : </span>
-                <span>{updatedDateTime(auditDetails.createdDate)}</span>
+              <div className="">
+                <span className="font-semibold text-[16px] text-[#333] tracking-[0.32px]">Update Date/Time : </span>
+                <span className="font-normal text-[16px] text-[#333]">{updatedDateTime(auditDetails.createdDate)}</span>
               </div>
             </div>
             <div className="flex space-x-48">
               <div className="flex-1">
-                <span className="font-semibold">Sub Section : </span>
-                <span>{getSubSectionName(auditDetails.tableName)}</span>
+                <span className="font-semibold text-[16px] text-[#333] tracking-[0.32px]">Sub Section : </span>
+                <span className="font-normal text-[16px] text-[#333]">{getSubSectionName(auditDetails.tableName)}</span>
               </div>
-              <div className="flex-1">
-                <span className="font-semibold">Updated by : </span>
-                <span>{auditDetails.createdBy}</span>
+              <div className="">
+                <span className="font-semibold text-[16px] text-[#333] tracking-[0.32px]">Updated by : </span>
+                <span className="font-normal text-[16px] text-[#333]">{auditDetails.createdBy}</span>
               </div>
             </div>
             <div className="flex space-x-48">
               <div className="flex-1">
-                <span className="font-semibold">Action on event : </span>
-                <span>{auditDetails.performedAction}</span>
+                <span className="font-semibold text-[16px] text-[#333] tracking-[0.32px]">Action on event : </span>
+                <span className="font-normal text-[16px] text-[#333]">{auditDetails.performedAction}</span>
               </div>
             </div>
-            <div style={tableContainerStyle}>
-              <table className="min-w-full divide-y divide-[#023963] border border-[#023963]">
-                <thead className="bg-gray-200" style={stickyHeaderStyle}>
+            <div style={tableContainerStyle} className="scrollbar-custom">
+              <table className="min-w-full divide-y divide-[#D8D8D8]">
+                <thead className="border-t border-b border-[#6C6C6C] !bg-[#ffffff]" style={stickyHeaderStyle}>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="px-6 py-3 text-left text-[14px] font-bold uppercase tracking-[0.28px] text-[#333]">
                       Sr No.
                     </th>
-                    <th className="px-14 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="pl-14 py-3 text-left text-[14px] font-bold uppercase tracking-[0.28px] text-[#333]">
                       Field
                     </th>
-                    <th className="px-14 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="pl-14 py-3 text-left text-[14px] font-bold uppercase tracking-[0.28px] text-[#333]">
                       Old Value
                     </th>
-                    <th className="px-14 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#FFF]">
+                    <th className="pl-14 py-3 text-left text-[14px] font-bold uppercase tracking-[0.28px] text-[#333]">
                       New Value
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-[#023963]">
+                <tbody className="bg-white divide-y divide-[#D8D8D8]">
                   {auditDetails.data && auditDetails.data.length > 0 ? (
                     auditDetails.data
                       .filter(
@@ -143,10 +143,10 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                           <td className="px-6 py-4 max-w-xs text-sm">
                             {index + 1}
                           </td>
-                          <td className="px-14 py-4 max-w-xs text-sm">
+                          <td className="pl-14 py-4 max-w-xs text-sm">
                             {formatFieldName(action.fieldName)}
                           </td>
-                          <td className="px-14 py-4 max-w-xs text-sm break-words">
+                          <td className="pl-14 py-4 max-w-xs text-sm break-words">
                             {RenamedDateFields.includes(action.fieldName)
                               ? formatDateTime(action.oldValue)
                               : action.fieldName === "isFormLocked"
@@ -155,7 +155,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
                                 : "Lock"
                               : action.oldValue}
                           </td>
-                          <td className="px-14 py-4 max-w-xs text-sm break-words">
+                          <td className="pl-14 py-4 max-w-xs text-sm break-words">
                             {RenamedDateFields.includes(action.fieldName)
                               ? formatDateTime(action.newValue)
                               : action.fieldName === "isFormLocked"

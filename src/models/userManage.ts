@@ -69,6 +69,8 @@ export interface ConfirmModalProps {
   isLoading?: boolean;
   handleClose: () => void;
   setId?: () => void;
+  submitButtonText?: string;
+  closeButtonText?: string;
 }
 
 export interface BulkModalProps {

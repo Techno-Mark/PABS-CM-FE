@@ -229,3 +229,22 @@ input::-ms-clear {
   background: #fff;
   left: -4px;
 }
+
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: #D8D8D8 #F6F6F6;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #D8D8D8;
+  border-radius: 10px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: #F6F6F6;
+  border-radius: 10px;
+}

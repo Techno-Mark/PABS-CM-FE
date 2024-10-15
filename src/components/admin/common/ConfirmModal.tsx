@@ -25,6 +25,8 @@ function ConfirmModal({
   handleClose,
   handleModalSubmit,
   setId,
+  submitButtonText = "Delete",
+  closeButtonText = "Cancel",
 }: ConfirmModalProps) {
   const classes = useStyles();
   const safeSetUserId = setId || (() => {});
@@ -66,7 +68,7 @@ function ConfirmModal({
             className={`border-[#6C6C6C] bg-[#FFFFFF] text-[#6C6C6C] hover:border-[#023963] hover:text-[#023963] !h-[36px] !rounded font-normal text-[16px] capitalize`}
             variant="outlined"
           >
-            Cancel
+            {closeButtonText}
           </Button>
           <Button
             onClick={handleModalSubmit}
@@ -76,7 +78,7 @@ function ConfirmModal({
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}}/>
             ) : (
-              <span className="capitalize font-normal text-[16px]">Delete</span>
+              <span className="capitalize font-normal text-[16px]">{submitButtonText}</span>
             )}
           </Button>
         </div>
