@@ -424,11 +424,17 @@ const UserDrawer = ({
         value: Array.isArray(prevState.value)
           ? prevState.value
           : prevState.value !== -1
-          ? [prevState.value]
-          : [],
+            ? [prevState.value]
+            : [],
       }));
     }
   }, [role.value]);
+
+  const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown state
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
 
   return (
     <>
@@ -494,165 +500,167 @@ const UserDrawer = ({
             disabled={Number(roleId) !== 1 && canEdit ? true : false}
           />
         </div>
-        <div className="text-[12px] flex flex-col pb-5">
-          <label className="text-[#6C6C6C] text-[12px] font-normal">
-            Role<span className="text-[#DC3545]">*</span>
-          </label>
-          <FormControl variant="standard">
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              className={`${
-                role.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
-              }`}
-              value={role.value}
-              error={Number(roleId) !== 1 && canEdit ? false : role.error}
-              onChange={handleRoleChange}
-              disabled={Number(roleId) !== 1 && canEdit ? true : false}
-              onOpen={() => setOpen(true)}
-              onClose={() => setOpen(false)}
-              IconComponent={() => (
-                <DropDownArrow
-                  fillColor="#333"
-                  style={{
-                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 0.3s ease",
-                  }}
-                />
+        <div>
+          {/* Role Dropdown */}
+          <div className="text-[12px] flex flex-col pb-5">
+            <label className="text-[#6C6C6C] text-[12px] font-normal">
+              Role<span className="text-[#DC3545]">*</span>
+            </label>
+            <FormControl variant="standard">
+              <Select
+                labelId="role-select-label"
+                id="role-select"
+                className={`!text-[14px] font-normal font-proximanova ${role.value === -1
+                  ? "text-[#6C6C6C]/50"
+                  : "text-[#333333]"
+                  }`}
+                value={role.value}
+                error={Number(roleId) !== 1 && canEdit ? false : role.error}
+                onChange={handleRoleChange}
+                disabled={Number(roleId) !== 1 && canEdit ? true : false}
+                onOpen={() => handleDropdownToggle("role")}
+                onClose={() => handleDropdownToggle(null)}
+                IconComponent={() => (
+                  <DropDownArrow
+                    fillColor="#333"
+                    style={{
+                      transform: openDropdown === "role" ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  />
+                )}
+              >
+                {roleList.map((role) => (
+                  <MenuItem
+                    key={role.RoleId}
+                    value={role.RoleId}
+                    disabled={role.RoleId === -1}
+                  >
+                    {role.RoleName}
+                  </MenuItem>
+                ))}
+              </Select>
+              {role.error && (
+                <span className="text-[#d32f2f]">{role.errorText}</span>
               )}
-            >
-              {roleList.map((role) => (
-                <MenuItem
-                  key={role.RoleId}
-                  value={role.RoleId}
-                  disabled={role.RoleId === -1}
-                >
-                  {role.RoleName}
-                </MenuItem>
-              ))}
-            </Select>
-            {role.error && (
-              <span className="text-[#d32f2f]">{role.errorText}</span>
-            )}
-          </FormControl>
-        </div>
+            </FormControl>
+          </div>
 
-        <div className="text-[12px] flex flex-col">
-          <label className="text-[#6C6C6C] text-[12px] font-normal">
-            Department Type<span className="text-[#DC3545]">*</span>
-          </label>
-          <FormControl variant="standard">
-            <Select
-              labelId="business-type-select-label"
-              id="business-type-select"
-              className={`${
-                role.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
-              }`}
-              multiple={role.value === 2}
-              value={
-                Array.isArray(businessType.value)
-                  ? businessType.value
-                  : [businessType.value]
-              }
-              disabled={
-                role.value == 2 && Number(roleId) === 2 && canEdit
-                  ? true
-                  : false
-              }
-              onChange={handleBusinessTypeChange}
-              renderValue={(selected) => {
-                const selectedArray = Array.isArray(selected)
-                  ? selected
-                  : [selected];
-                if (role.value === 2) {
-                  // Multi-select mode
-                  return (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                      {selectedArray.map((value) =>
-                        value !== -1 ? (
-                          <Chip
-                            key={value}
-                            label={
-                              businessList.find((b) => b.BusinessId === value)
-                                ?.BussinessName
-                            }
-                            onDelete={(event) => {
-                              event.stopPropagation();
-                              handleChipDelete(value);
-                            }}
-                            deleteIcon={
-                              <span
-                                style={{ fontSize: "18px" }}
-                                onMouseDown={(event) => {
-                                  event.stopPropagation();
-                                }}
-                                className={`${
-                                  role.value == 2 &&
-                                  Number(roleId) === 2 &&
-                                  canEdit
+          {/* Department Type Dropdown */}
+          <div className="text-[12px] flex flex-col">
+            <label className="text-[#6C6C6C] text-[12px] font-normal">
+              Department Type<span className="text-[#DC3545]">*</span>
+            </label>
+            <FormControl variant="standard">
+              <Select
+                labelId="department-type-select-label"
+                id="department-type-select"
+                className={`!text-[14px] font-normal font-proximanova ${role.value === -1
+                  ? " text-[#6C6C6C]/50"
+                  : "text-[#333333]"
+                  }`}
+                multiple={role.value === 2}
+                value={
+                  Array.isArray(businessType.value)
+                    ? businessType.value
+                    : [businessType.value]
+                }
+                disabled={
+                  role.value == 2 && Number(roleId) === 2 && canEdit
+                    ? true
+                    : false
+                }
+                onChange={handleBusinessTypeChange}
+                onOpen={() => handleDropdownToggle("departmentType")}
+                onClose={() => handleDropdownToggle(null)}
+                renderValue={(selected) => {
+                  const selectedArray = Array.isArray(selected)
+                    ? selected
+                    : [selected];
+                  if (role.value === 2) {
+                    return (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {selectedArray.map((value) =>
+                          value !== -1 ? (
+                            <Chip
+                              key={value}
+                              label={
+                                businessList.find((b) => b.BusinessId === value)
+                                  ?.BussinessName
+                              }
+                              onDelete={(event) => {
+                                event.stopPropagation();
+                                handleChipDelete(value);
+                              }}
+                              deleteIcon={
+                                <span
+                                  style={{ fontSize: "18px" }}
+                                  onMouseDown={(event) => {
+                                    event.stopPropagation();
+                                  }}
+                                  className={`${role.value == 2 &&
+                                    Number(roleId) === 2 &&
+                                    canEdit
                                     ? "hidden"
                                     : ""
-                                }`}
-                              >
-                                &times;
-                              </span>
-                            }
-                          />
-                        ) : null
-                      )}
-                    </Box>
-                  );
-                } else {
-                  // Single-select mode
-                  const selectedBusiness = businessList.find(
-                    (b) => b.BusinessId === Number(selected)
-                  );
-                  return selectedBusiness ? selectedBusiness.BussinessName : "";
-                }
-              }}
-              error={businessType.error}
-              onOpen={() => setOpen(true)}
-              onClose={() => setOpen(false)}
-              IconComponent={() => (
-                <DropDownArrow
-                  fillColor="#333"
-                  style={{
-                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 0.3s ease",
-                  }}
-                />
-              )}
-            >
-              {businessList.map((type) => (
-                <MenuItem
-                  key={type.BusinessId}
-                  value={type.BusinessId}
-                  disabled={
-                    type.BusinessId === -1 ||
-                    type.BussinessName === "Please Select"
+                                    }`}
+                                >
+                                  &times;
+                                </span>
+                              }
+                            />
+                          ) : null
+                        )}
+                      </Box>
+                    );
+                  } else {
+                    const selectedBusiness = businessList.find(
+                      (b) => b.BusinessId === Number(selected)
+                    );
+                    return selectedBusiness
+                      ? selectedBusiness.BussinessName
+                      : "";
                   }
-                  className={classes.checkbox}
-                >
-                  {role.value === 2 && type.BusinessId !== -1 && (
-                    <Checkbox
-                      checked={
-                        Array.isArray(businessType.value) &&
-                        businessType.value.indexOf(type.BusinessId) > -1
-                      }
-                    />
-                  )}
-                  <ListItemText primary={type.BussinessName} className="ml-1" />
-                </MenuItem>
-              ))}
-            </Select>
-            {businessType.error && (
-              <span className="text-[#d32f2f]">{businessType.errorText}</span>
-            )}
-          </FormControl>
+                }}
+                IconComponent={() => (
+                  <DropDownArrow
+                    fillColor="#333"
+                    style={{
+                      transform:
+                        openDropdown === "departmentType"
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  />
+                )}
+              >
+                {businessList.map((type) => (
+                  <MenuItem
+                    key={type.BusinessId}
+                    value={type.BusinessId}
+                    disabled={
+                      type.BusinessId === -1 ||
+                      type.BussinessName === "Please Select"
+                    }
+                  >
+                    {role.value === 2 && type.BusinessId !== -1 && (
+                      <Checkbox
+                        checked={
+                          Array.isArray(businessType.value) &&
+                          businessType.value.indexOf(type.BusinessId) > -1
+                        }
+                      />
+                    )}
+                    <ListItemText primary={type.BussinessName} className="ml-1" />
+                  </MenuItem>
+                ))}
+              </Select>
+              {businessType.error && (
+                <span className="text-[#d32f2f]">{businessType.errorText}</span>
+              )}
+            </FormControl>
+          </div>
         </div>
         {canEdit && (
           <div className="text-[12px] flex flex-col pt-5">
@@ -663,11 +671,10 @@ const UserDrawer = ({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${
-                  status.value === -1
-                    ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                    : "!text-[14px] font-normal text-[#333333] font-proximanova"
-                }`}
+                className={`${status.value === -1
+                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
+                  }`}
                 disabled={
                   role.value == 2 && Number(roleId) === 2 && canEdit
                     ? true
@@ -677,16 +684,16 @@ const UserDrawer = ({
                 error={status.error}
                 onChange={handleStatusChange}
                 onOpen={() => setOpen(true)}
-              onClose={() => setOpen(false)}
-              IconComponent={() => (
-                <DropDownArrow
-                  fillColor="#333"
-                  style={{
-                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 0.3s ease",
-                  }}
-                />
-              )}
+                onClose={() => setOpen(false)}
+                IconComponent={() => (
+                  <DropDownArrow
+                    fillColor="#333"
+                    style={{
+                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  />
+                )}
               >
                 {statusOptionDrawer.map((type) => (
                   <MenuItem

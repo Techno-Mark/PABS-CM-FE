@@ -63,7 +63,13 @@ function Page() {
   const router = useRouter();
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (clientId: any) => {
+    setOpenDropdown((prevId) => (prevId === clientId ? null : clientId));
+  };
 
   const AssignUserCell = ({
     params,
@@ -464,13 +470,13 @@ function Page() {
           }
           displayEmpty
           size="small"
-          onOpen={() => setOpen(true)}
-          onClose={() => setOpen(false)}
+          onOpen={() => handleDropdownToggle(params.row.ClientId)}
+          onClose={() => handleDropdownToggle(null)}
           IconComponent={() => (
             <DropDownArrow
               fillColor="#333"
               style={{
-                transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                transform: openDropdown === params.row.ClientId ? "rotate(180deg)" : "rotate(0deg)",
                 transition: "transform 0.3s ease",
               }}
             />
@@ -481,8 +487,7 @@ function Page() {
             "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
               border: 0,
             },
-            "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-            {
+            "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
               border: 0,
             },
             ".MuiSelect-select": {
@@ -499,8 +504,12 @@ function Page() {
             fontSize: 14,
           }}
         >
-          <MenuItem value="Active"><span className="bg-[#0078C8] w-2 h-2 rounded-full mr-2"></span>Active</MenuItem>
-          <MenuItem value="Inactive"><span className="bg-[#DC3545] w-2 h-2 rounded-full mr-2"></span>Inactive</MenuItem>
+          <MenuItem value="Active">
+            <span className="bg-[#0078C8] w-2 h-2 rounded-full mr-2"></span>Active
+          </MenuItem>
+          <MenuItem value="Inactive">
+            <span className="bg-[#DC3545] w-2 h-2 rounded-full mr-2"></span>Inactive
+          </MenuItem>
         </Select>
       ),
     },
