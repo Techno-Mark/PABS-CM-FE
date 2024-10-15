@@ -79,6 +79,7 @@ const UserDrawer = ({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isInactive, setInactive] = useState<boolean>(false);
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [initialValues, setInitialValues] = useState<UserFormFieldType>({
     fullName: initialFieldStringValues,
@@ -87,7 +88,7 @@ const UserDrawer = ({
     email: initialFieldStringValues,
     status: initialFieldNumberValues,
   });
-  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     const getById = async () => {
@@ -671,10 +672,11 @@ const UserDrawer = ({
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                className={`${status.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
-                  : "!text-[14px] font-normal text-[#333333] font-proximanova"
-                  }`}
+                className={`font-normal font-proximanova ${
+                  status.value === -1
+                    ? "!text-[12px] text-[#6C6C6C]/50 tracking-[0.28px]"
+                    : "!text-[14px] text-[#333333]"
+                }`}
                 disabled={
                   role.value == 2 && Number(roleId) === 2 && canEdit
                     ? true

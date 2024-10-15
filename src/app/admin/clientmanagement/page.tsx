@@ -462,7 +462,9 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
-      renderCell: (params) => (
+      renderCell: (params) => {
+      const [open, setOpen] = React.useState(false);
+      return (
         <Select
           value={params.value}
           onChange={(e) =>
@@ -511,7 +513,7 @@ function Page() {
             <span className="bg-[#DC3545] w-2 h-2 rounded-full mr-2"></span>Inactive
           </MenuItem>
         </Select>
-      ),
+      )},
     },
     // {
     //   field: "actions",
