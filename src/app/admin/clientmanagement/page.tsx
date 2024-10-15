@@ -63,7 +63,6 @@ function Page() {
   const router = useRouter();
   const classes = useStyles();
   const roleId = Cookies.get("roleId");
-  const [open, setOpen] = useState(false);
 
   const AssignUserCell = ({
     params,
@@ -456,7 +455,9 @@ function Page() {
       ),
       flex: 1,
       sortable: false,
-      renderCell: (params) => (
+      renderCell: (params) => {
+      const [open, setOpen] = React.useState(false);
+      return (
         <Select
           value={params.value}
           onChange={(e) =>
@@ -502,7 +503,7 @@ function Page() {
           <MenuItem value="Active"><span className="bg-[#0078C8] w-2 h-2 rounded-full mr-2"></span>Active</MenuItem>
           <MenuItem value="Inactive"><span className="bg-[#DC3545] w-2 h-2 rounded-full mr-2"></span>Inactive</MenuItem>
         </Select>
-      ),
+      )},
     },
     // {
     //   field: "actions",

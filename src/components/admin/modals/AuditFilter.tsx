@@ -11,6 +11,7 @@ import { UserModalProps, Option } from "@/models/userManage";
 import Filter from "@/components/admin/common/Filter";
 import { GetUserAllListResponse } from "@/models/auditlog";
 import { useStyles } from "@/utils/useStyles";
+import Calendarcustomicon from "@/assets/Icons/calendarcustomicon";
 
 function AuditFilter({
   isOpen,
@@ -122,7 +123,7 @@ function AuditFilter({
     >
       <div className="p-5 h-[calc(100%-143px)] flex items-center justify-center flex-wrap gap-5">
         <div className="text-[12px] flex flex-col w-[290px]">
-          <label className="text-[#6E6D7A] text-[12px]">From Date</label>
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">From Date</label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={fromDate ? dayjs(fromDate) : null}
@@ -138,11 +139,14 @@ function AuditFilter({
                   readOnly: true,
                 } as Record<string, any>,
               }}
+              slots={{
+                openPickerIcon: Calendarcustomicon, 
+              }}
             />
           </LocalizationProvider>
         </div>
         <div className="text-[12px] flex flex-col w-[290px]">
-          <label className="text-[#6E6D7A] text-[12px]">To Date</label>
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">To Date</label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={toDate ? dayjs(toDate) : null}
@@ -158,11 +162,14 @@ function AuditFilter({
                   readOnly: true,
                 } as Record<string, any>,
               }}
+              slots={{
+                openPickerIcon: Calendarcustomicon, 
+              }}
             />
           </LocalizationProvider>
         </div>
         <div className="text-[12px] flex flex-col w-[290px]">
-          <label className="text-[#6E6D7A] text-[12px]">Select Module</label>
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">Select Module</label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"
@@ -187,7 +194,7 @@ function AuditFilter({
           />
         </div>
         <div className="text-[12px] flex flex-col w-[290px]">
-          <label className="text-[#6E6D7A] text-[12px]">Select Username</label>
+          <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">Select Username</label>
           <Autocomplete
             multiple
             id="checkboxes-tags-demo"

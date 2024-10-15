@@ -79,6 +79,7 @@ const UserDrawer = ({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isInactive, setInactive] = useState<boolean>(false);
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [initialValues, setInitialValues] = useState<UserFormFieldType>({
     fullName: initialFieldStringValues,
@@ -87,7 +88,7 @@ const UserDrawer = ({
     email: initialFieldStringValues,
     status: initialFieldNumberValues,
   });
-  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     const getById = async () => {
@@ -504,7 +505,7 @@ const UserDrawer = ({
               id="demo-simple-select-standard"
               className={`${
                 role.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                  ? "!text-[12px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
                   : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               value={role.value}
@@ -549,7 +550,7 @@ const UserDrawer = ({
               id="business-type-select"
               className={`${
                 role.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                  ? "!text-[12px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
                   : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               multiple={role.value === 2}
@@ -665,7 +666,7 @@ const UserDrawer = ({
                 id="demo-simple-select-standard"
                 className={`${
                   status.value === -1
-                    ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                    ? "!text-[12px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
                     : "!text-[14px] font-normal text-[#333333] font-proximanova"
                 }`}
                 disabled={

@@ -444,7 +444,7 @@ const ClientDrawer = ({
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               className={`${businessType.value === -1
-                ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                ? "!text-[12px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
                 : "!text-[14px] font-normal text-[#333333] font-proximanova"
                 }`}
               value={businessType.value}

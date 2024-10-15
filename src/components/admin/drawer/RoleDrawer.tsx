@@ -367,7 +367,7 @@ const RoleDrawer = ({
               id="demo-simple-select-standard"
               className={`${
                 role.value === -1
-                  ? "!text-[14px] font-normal text-[#6C6C6C]/50 font-proximanova"
+                  ? "!text-[12px] font-normal text-[#6C6C6C]/50 font-proximanova tracking-[0.28px]"
                   : "!text-[14px] font-normal text-[#333333] font-proximanova"
               }`}
               value={role.value}
@@ -398,7 +398,7 @@ const RoleDrawer = ({
                   <th
                     key={header}
                     scope="col"
-                    className="px-1 py-3 bg-gray-50 text-left font-bold text-[14px] text-[#333] uppercase tracking-[0.28px]"
+                    className="px-1 py-3 bg-gray-50 text-left font-bold text-[13px] text-[#333] uppercase tracking-[0.28px]"
                   >
                     {header}
                   </th>
