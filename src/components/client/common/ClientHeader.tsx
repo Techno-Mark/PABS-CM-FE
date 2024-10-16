@@ -164,12 +164,12 @@ const ClientHeader = ({
               )}
             </span>
           </div> */}
-          {clientLogo && (
-            <>
-              <Image src={"/PABS.svg"} alt={"Logo"} width={94} height={32} />
-            </>
-          )}
           <div className="relative flex gap-4">
+            {clientLogo && (
+              <>
+                <Image src={"/PABS.svg"} alt={"Logo"} width={94} height={32} />
+              </>
+            )}
             {(formSubmit === 12 || formSubmit === 21 || formSubmit === 32) && (
               <Tooltip title="Comment" placement="bottom" arrow classes={{
                 tooltip: classes.tooltipStyle,
@@ -183,47 +183,47 @@ const ClientHeader = ({
                 </span>
               </Tooltip>
             )}
+          </div>
+          <div
+            className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
+            onClick={handleToggle}
+            ref={selectRefNavbar}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <UserIcon />
+            {userName}
+            <div className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+              <DropDownArrow fillColor={isHovered ? "#0078C8" : "#333333"} />
+            </div>
             <div
-              className="cursor-pointer text-black !text-[14px] relative flex gap-2.5 items-center"
-              onClick={handleToggle}
-              ref={selectRefNavbar}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+              style={{
+                boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
+                width: dropDownRef.current?.clientWidth,
+                top: 32,
+                right: -5,
+              }}
+              className={`absolute mt-[5px] bg-[#FFFFFF] ${isOpen ? "block" : "hidden"
+                }`}
             >
-              <UserIcon />
-              {userName}
-              <div className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
-                <DropDownArrow fillColor={isHovered ? "#0078C8" : "#333333"} />
-              </div>
-              <div
-                style={{
-                  boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
-                  width: dropDownRef.current?.clientWidth,
-                  top: 32,
-                  right: -5,
-                }}
-                className={`absolute mt-[5px] bg-[#FFFFFF] ${isOpen ? "block" : "hidden"
-                  }`}
-              >
-                <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
-                  {options.map((option) => (
-                    <li
-                      key={option.id}
-                      className="px-2 py-3 cursor-pointer flex items-center justify-between text-[14px] font-normal"
-                      id={option.id.toString()}
-                      value={option.label}
-                      onClick={handleSubmit}
-                    >
-                      <span className="flex items-center gap-[10px]">
-                        <span>{option.icon}</span>
-                        <span className="truncate w-40 text-black text-sm">
-                          {option.label}
-                        </span>
+              <ul className="m-0 p-0 list-none border-b border-b-[#d8d8d8]">
+                {options.map((option) => (
+                  <li
+                    key={option.id}
+                    className="px-2 py-3 cursor-pointer flex items-center justify-between text-[14px] font-normal"
+                    id={option.id.toString()}
+                    value={option.label}
+                    onClick={handleSubmit}
+                  >
+                    <span className="flex items-center gap-[10px]">
+                      <span>{option.icon}</span>
+                      <span className="truncate w-40 text-black text-sm">
+                        {option.label}
                       </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
