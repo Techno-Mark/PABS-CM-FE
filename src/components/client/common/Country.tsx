@@ -18,7 +18,6 @@ const Country = ({
 }: any) => {
   const classes = useStyles();
   const [options, setOptions] = useState<CountryOption[]>([]);
-  const [open, setOpen] = useState(false);
 
   const fetchCountryOptions = async () => {
     const callback = (
@@ -54,6 +53,14 @@ const Country = ({
     }
   };
 
+
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
+
   return (
     <div className="text-[12px] flex flex-col">
       <InputLabel className="text-[#6E6D7A] text-[12px] pb-[0.5px]">
@@ -66,13 +73,8 @@ const Country = ({
         value={options.find((option) => option.name === value) || null}
         onChange={handleCountryChange}
         disabled={disabled}
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={(event, reason) => {
-          if (reason === "toggleInput") {
-            setOpen(false);
-          }
-        }}
+        onOpen={() => handleDropdownToggle("country")}
+        onClose={() => handleDropdownToggle(null)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -98,7 +100,7 @@ const Country = ({
                   <DropDownArrow
                     style={{
                       fill: "#333",
-                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transform: openDropdown === "country" ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.3s ease",
                     }}
                   />

@@ -20,7 +20,6 @@ const State = ({
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
   );
-  const [open, setOpen] = useState(false);
 
   const fetchStateOptions = async () => {
     const callback = (
@@ -60,6 +59,13 @@ const State = ({
     }
   };
 
+  const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown state
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
+
   return (
     <div className="text-[12px] flex flex-col">
       <InputLabel className="text-[#6E6D7A] text-[12px] pb-[0.5px]">
@@ -72,13 +78,8 @@ const State = ({
         value={options.find((option) => option.name === value) || null}
         onChange={handleStateChange}
         disabled={disabled}
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={(event, reason) => {
-          if (reason === "toggleInput") {
-            setOpen(false);
-          }
-        }}
+        onOpen={() => handleDropdownToggle("state")}
+        onClose={() => handleDropdownToggle(null)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -104,7 +105,7 @@ const State = ({
                   <DropDownArrow
                     style={{
                       fill: "#333",
-                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transform: openDropdown === "state" ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.3s ease",
                     }}
                   />

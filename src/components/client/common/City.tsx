@@ -20,7 +20,6 @@ const City = ({
   const [options, setOptions] = useState<Array<{ id: number; name: string }>>(
     []
   );
-  const [open, setOpen] = useState(false);
 
   const fetchCityOptions = async () => {
     const callback = (
@@ -60,6 +59,13 @@ const City = ({
     }
   };
 
+
+  const [openDropdown, setOpenDropdown] = useState(null); 
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
   return (
     <div className="text-[12px] flex flex-col">
       <InputLabel className="text-[#6E6D7A] text-[12px] pb-[0.5px]">
@@ -72,12 +78,8 @@ const City = ({
         value={options.find((option) => option.name === value) || null}
         onChange={handleCityChange}
         disabled={disabled}
-        onOpen={() => setOpen(true)}
-        onClose={(event, reason) => {
-          if (reason === "toggleInput") {
-            setOpen(false);
-          }
-        }}
+        onOpen={() => handleDropdownToggle("city")}
+        onClose={() => handleDropdownToggle(null)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -103,7 +105,7 @@ const City = ({
                   <DropDownArrow
                     style={{
                       fill: "#333",
-                      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                      transform: openDropdown === "city" ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.3s ease",
                     }}
                   />
