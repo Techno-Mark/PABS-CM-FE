@@ -117,7 +117,7 @@ function Page() {
                           setUserId(params.row.UserId);
                           getBusinessList(params.row.RoleName);
                         }}
-                        className="text-[14px] font-normal text-[#333]"
+                        className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
                       >
                         Edit
                       </MenuItem>
@@ -132,7 +132,7 @@ function Page() {
                           setOpenDelete(true);
                           setUserId(params.row.UserId);
                         }}
-                        className="text-[14px] font-normal text-[#333]"
+                        className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
                       >
                         Delete
                       </MenuItem>

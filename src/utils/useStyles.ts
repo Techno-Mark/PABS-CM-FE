@@ -84,11 +84,14 @@ export const useStyles = makeStyles({
       opacity: 0.5,
       fontSize: "14px",
       fontWeight: "400",
+      letterSpacing: "0.28px",
+      fontFamily: "proximanova",
     },
     "&.MuiInputBase-input": {
       color: "#333333",
       fontSize: "14px",
       fontWeight: "400",
+      fontFamily: "proximanova",
     },
   },
 });
