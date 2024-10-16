@@ -92,7 +92,7 @@ function Page() {
                       setEdit(true);
                       setRoleId(params.row.RoleId);
                     }}
-                    className="text-[14px] font-normal text-[#333]"
+                    className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
                   >
                     Edit
                   </MenuItem>
@@ -106,7 +106,7 @@ function Page() {
                       setOpenDelete(true);
                       setRoleId(params.row.RoleId);
                     }}
-                    className="text-[14px] font-normal text-[#333]"
+                    className="text-[14px] font-normal text-[#333] font-proximanova py-[10px] px-[15px]"
                   >
                     Delete
                   </MenuItem>

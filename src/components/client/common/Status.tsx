@@ -68,6 +68,8 @@ const Status = ({ value, onChange, error, helperText, disabled }: any) => {
           name="Status"
           value={value}
           onChange={handleStatusChange}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
           inputProps={{
             className: classes.textSize,
           }}

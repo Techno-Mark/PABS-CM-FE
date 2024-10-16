@@ -12,6 +12,7 @@ import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 // API import
 // Utils import
 import { noRecordText } from "@/utils/commonData";
+import { useStyles } from "@/utils/useStyles";
 //Icons import
 import FilterIcon from "@/assets/Icons/admin/FilterIcon";
 import ViewIcon from "@/assets/Icons/admin/auditlog/ViewIcon";
@@ -36,6 +37,7 @@ import PasswordIcon from "@/assets/Icons/PasswordIcon";
 
 function Page() {
   const router = useRouter();
+  const classes = useStyles();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openAuditModal, setOpenAuditModal] = useState<boolean>(false);
@@ -226,7 +228,12 @@ function Page() {
       renderCell: (params) => {
         return (
           <div className="flex gap-9 justify-start h-full items-center">
-            <Tooltip title="View" placement="top" arrow>
+            <Tooltip title="View" placement="top" arrow
+            classes={{
+              tooltip: classes.tooltipStyle,
+              arrow: classes.arrowStyle,
+            }}
+            >
               <span
                 className="cursor-pointer"
                 onClick={() => handleViewClick(params.row)}
@@ -275,7 +282,12 @@ function Page() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Tooltip title="Filter" placement="top" arrow>
+        <Tooltip title="Filter" placement="top" arrow
+        classes={{
+          tooltip: classes.tooltipStyle,
+          arrow: classes.arrowStyle,
+        }}
+        >
           <span
             className="w-[38px] h-[36px] flex items-center justify-center cursor-pointer"
             onClick={() => setOpenFilter(true)}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // MUI imports
-import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import { Autocomplete, Checkbox, TextField, InputAdornment} from "@mui/material";
 // Types import
 import {
   BusinessList,
@@ -18,6 +18,7 @@ import { statusOption } from "@/static/usermanage";
 import Filter from "@/components/admin/common/Filter";
 // Utlis import
 import { hasMatchingBooleanValue, hasMatchingValue } from "@/utils/commonFunction";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 function UserFilter({
   isOpen,
@@ -101,6 +102,13 @@ function UserFilter({
     sendFilterData([], [], [], false);
     handleClose();
   };
+  
+  const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown state
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
 
   return (
     <Filter
@@ -144,6 +152,8 @@ function UserFilter({
             value={role}
             disableCloseOnSelect
             onChange={handleRoleChange}
+            onOpen={() => handleDropdownToggle("role")}
+            onClose={() => handleDropdownToggle(null)}
             getOptionLabel={(option) => option.RoleName}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
@@ -161,6 +171,20 @@ function UserFilter({
                 {...params}
                 variant="standard"
                 placeholder={role.length <= 0 ? "Please Select" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "role" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
@@ -173,6 +197,8 @@ function UserFilter({
             options={statusOption}
             value={status}
             onChange={handleStatusChange}
+            onOpen={() => handleDropdownToggle("status")}
+            onClose={() => handleDropdownToggle(null)}
             disableCloseOnSelect
             getOptionLabel={(option) => option.label}
             renderOption={(props, option, { selected }) => (
@@ -191,6 +217,20 @@ function UserFilter({
                 {...params}
                 variant="standard"
                 placeholder={status.length <= 0 ? "Please Select" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "status" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
@@ -205,6 +245,8 @@ function UserFilter({
             options={businessList}
             value={businessType}
             onChange={handleBusinessTypeChange}
+            onOpen={() => handleDropdownToggle("department")}
+            onClose={() => handleDropdownToggle(null)}
             disableCloseOnSelect
             getOptionLabel={(option) => option.BussinessName}
             renderOption={(props, option, { selected }) => (
@@ -223,6 +265,20 @@ function UserFilter({
                 {...params}
                 variant="standard"
                 placeholder={businessType.length <= 0 ? "Please Select" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "department" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />

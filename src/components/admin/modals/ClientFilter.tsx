@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // MUI imports
-import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import { Autocomplete, Checkbox, TextField, InputAdornment } from "@mui/material";
 // Types import
 import { BusinessList, StatusOption, StringOption } from "@/models/userManage";
 import { ClientModalProps } from "@/models/clientManage";
@@ -13,6 +13,7 @@ import { checklistStatusOption, statusOption } from "@/static/usermanage";
 import Filter from "@/components/admin/common/Filter";
 // Utlis imports
 import { hasMatchingBooleanValue, hasMatchingStringValue, hasMatchingValue } from "@/utils/commonFunction";
+import DropDownArrow from "@/assets/Icons/dropdownarrow";
 
 function ClientFilter({
   isOpen,
@@ -99,6 +100,12 @@ function ClientFilter({
     handleClose();
   };
 
+  const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown state
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
   return (
     <Filter
       isLoading={isLoading}
@@ -136,6 +143,8 @@ function ClientFilter({
             options={businessList}
             value={businessType}
             onChange={handleBusinessTypeChange}
+            onOpen={() => handleDropdownToggle("department")}
+            onClose={() => handleDropdownToggle(null)}
             disableCloseOnSelect
             getOptionLabel={(option) => option.BussinessName}
             renderOption={(props, option, { selected }) => (
@@ -154,6 +163,20 @@ function ClientFilter({
                 {...params}
                 variant="standard"
                 placeholder={businessType.length <= 0 ? "Please Select" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "department" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
@@ -166,6 +189,8 @@ function ClientFilter({
             options={statusOption}
             value={status}
             onChange={handleStatusChange}
+            onOpen={() => handleDropdownToggle("Status")}
+            onClose={() => handleDropdownToggle(null)}
             disableCloseOnSelect
             getOptionLabel={(option) => option.label}
             renderOption={(props, option, { selected }) => (
@@ -184,6 +209,20 @@ function ClientFilter({
                 {...params}
                 variant="standard"
                 placeholder={status.length <= 0 ? "Please Select" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "Status" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
@@ -199,6 +238,8 @@ function ClientFilter({
             value={checklistStatus}
             disableCloseOnSelect
             onChange={handleChecklistStatusChange}
+            onOpen={() => handleDropdownToggle("checklist")}
+            onClose={() => handleDropdownToggle(null)}
             getOptionLabel={(option) => option.label}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
@@ -216,6 +257,20 @@ function ClientFilter({
                 {...params}
                 variant="standard"
                 placeholder={checklistStatus.length <= 0 ? "Please Select" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <DropDownArrow
+                        fillColor="#333"
+                        style={{
+                          transform: openDropdown === "checklist" ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
