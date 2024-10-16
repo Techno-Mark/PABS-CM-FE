@@ -60,20 +60,8 @@ const ClientWrapper = ({
           <ClientHeader
             formSubmittedStatus={formSubmittedStatus}
             formSubmit={formSubmit}
-          />
-          <ClientSidebar
-            perCountWhiteLabelBasicDetails={perCountWhiteLabelBasicDetails}
-            perCountWhiteLabelChecklist={perCountWhiteLabelChecklist}
-            perCountBasicDetails={perCountBasicDetails}
-            perCountChecklist={perCountChecklist}
-            perCountSmbChecklist={perCountSmbChecklist}
-            sidebarModule={formSubmit}
-            setAutoCareProgressPercentage={(value: number) =>
-              setAutoCareProgressPercentage(value)
-            }
-            setWhiteLabelProgressPercentage={(value: number) =>
-              setWhiteLabelProgressPercentage(value)
-            }
+            width={'100%'}
+            clientLogo={true}
           />
           <Box
             component="main"
@@ -83,6 +71,22 @@ const ClientWrapper = ({
               width: { sm: `100%` },
             }}
           >
+            <div className="mt-12">
+              <ClientSidebar
+                perCountWhiteLabelBasicDetails={perCountWhiteLabelBasicDetails}
+                perCountWhiteLabelChecklist={perCountWhiteLabelChecklist}
+                perCountBasicDetails={perCountBasicDetails}
+                perCountChecklist={perCountChecklist}
+                perCountSmbChecklist={perCountSmbChecklist}
+                sidebarModule={formSubmit}
+                setAutoCareProgressPercentage={(value: number) =>
+                  setAutoCareProgressPercentage(value)
+                }
+                setWhiteLabelProgressPercentage={(value: number) =>
+                  setWhiteLabelProgressPercentage(value)
+                }
+              />
+            </div>
             {children}
           </Box>
         </Box>

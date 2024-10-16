@@ -21,12 +21,13 @@ import { ToastType } from "@/static/toastType";
 // Cookie import
 import CommentIcon from "@/assets/Icons/admin/CommentIcon";
 import DropDownArrow from "@/assets/Icons/dropdownarrow";
+import LogoutIcon from "@/assets/Icons/logouticon";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
 import { removeCookies } from "@/utils/authFunctions";
 import { useStyles } from "@/utils/useStyles";
 import Cookies from "js-cookie";
-import LogoutIcon from "@/assets/Icons/logouticon";
+import Image from "next/image";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -43,20 +44,22 @@ const AppBar = styled(MuiAppBar, {
 interface HeaderModuleTypes {
   formSubmittedStatus: boolean;
   formSubmit?: number;
+  width?: string;
+  clientLogo?: boolean
 }
 
 const ClientHeader = ({
-  formSubmittedStatus,
+  // formSubmittedStatus,
+  width,
   formSubmit,
+  clientLogo
 }: HeaderModuleTypes) => {
   const router = useRouter();
   const userId = Cookies.get("userId");
   const clientId = Cookies.get("clientId");
-  const clientLogo =
-    typeof window !== "undefined" ? localStorage.getItem("clientLogo") : null;
+  // const businessTypeName = Cookies.get("businessTypeName");
+  // const clientSFId = Cookies.get("clientSFId");
   const userName = Cookies.get("userName");
-  const businessTypeName = Cookies.get("businessTypeName");
-  const clientSFId = Cookies.get("clientSFId");
 
   const [isOpen, setOpen] = useState(false);
   const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
@@ -85,7 +88,7 @@ const ClientHeader = ({
     {
       id: 1,
       label: "Logout",
-      icon: <LogoutIcon/>
+      icon: <LogoutIcon />
     },
   ];
 
@@ -127,13 +130,13 @@ const ClientHeader = ({
         boxShadow: "none !important",
         height: "50.5px !important",
         width: {
-          sm: `calc(100% - 281px)`,
+          sm: `${width ? width : 'calc(100% - 281px)'}`,
         },
         ml: { sm: `65px` },
       }}
     >
       <Toolbar>
-        <div className="flex flex-row w-full justify-end items-center mb-3">
+        <div className={`flex flex-row w-full items-center mb-3 ${clientLogo ? 'justify-between' : 'justify-end'}`}>
           {/* <div
             className={`!text-[#000000] ${
               !!clientLogo && "flex gap-4 justify-center items-center"
@@ -161,6 +164,11 @@ const ClientHeader = ({
               )}
             </span>
           </div> */}
+          {clientLogo && (
+            <>
+              <Image src={"/PABS.svg"} alt={"Logo"} width={94} height={32} />
+            </>
+          )}
           <div className="relative flex gap-4">
             {(formSubmit === 12 || formSubmit === 21 || formSubmit === 32) && (
               <Tooltip title="Comment" placement="bottom" arrow classes={{

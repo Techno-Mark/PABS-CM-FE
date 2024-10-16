@@ -1527,7 +1527,7 @@ function ChecklistAutoCare({
     <>
       {formSubmitId === 32 && (
         <div
-          className={`flex flex-col ${roleId !== "4" ? "h-[75vh]" : "h-full"}`}
+          className={`flex flex-col h-[78vh]`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="flex flex-col bg-white">
@@ -1588,9 +1588,9 @@ function ChecklistAutoCare({
                 <Button
                   onClick={() => handleSubmit(2)}
                   className={`${isFormLocked && (roleId === "3" || roleId === "4")
-                    ? "border-[#666] bg-[#666]"
-                    : "border-[#0078C8] bg-[#0078C8]"
-                    } text-white rounded-md text-[14px]`}
+                    ? "!bg-transparent"
+                    : "border-[#0078C8] bg-[#0078C8] !text-white"
+                    } rounded-md text-[14px]`}
                   variant="outlined"
                   disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
@@ -1600,14 +1600,14 @@ function ChecklistAutoCare({
               {roleId === "4" && !isFormSubmitAutoCareChecklist && (
                 <Button
                   onClick={() => setIsOpenConfirmationSubmit(true)}
-                  className={`${isFormLocked && (roleId === "4" || roleId === "3")
-                    ? "!bg-[#666] !text-white"
-                    : "!bg-[#022946] text-white"
-                    }  !rounded-full`}
+                  className={`rounded-md text-white ${isFormLocked && (roleId === "4" || roleId === "3")
+                    ? "bg-[#666]"
+                    : "bg-[#0078C8]"
+                    }`}
                   variant="contained"
                   disabled={isFormLocked && (roleId === "4" || roleId === "3")}
                 >
-                  <span className="uppercase font-semibold text-[14px] whitespace-nowrap">
+                  <span className="uppercase text-[14px] whitespace-nowrap">
                     Submit
                   </span>
                 </Button>
