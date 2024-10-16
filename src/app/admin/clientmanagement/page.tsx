@@ -463,7 +463,6 @@ function Page() {
       flex: 1,
       sortable: false,
       renderCell: (params) => {
-      const [open, setOpen] = React.useState(false);
       return (
         <Select
           value={params.value}
