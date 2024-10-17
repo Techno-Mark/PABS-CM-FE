@@ -298,7 +298,7 @@ function Page() {
       </div>  
       </div>
 
-      <div className="w-full h-[78vh] bg-[#FFFFFF]">
+      <div className="w-full h-[78vh] bg-[#FFFFFF] [&>div]:border-l-0 [&>div]:rounded-none">
         <DataGrid
           disableColumnMenu
           rows={auditLogData}

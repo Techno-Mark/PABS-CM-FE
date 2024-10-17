@@ -1063,7 +1063,7 @@ function Page() {
       </div>
 
       {checkPermission("Client Management", "view") && (
-        <div className="w-full h-[78vh] bg-[#FFFFFF]">
+        <div className="w-full h-[78vh] bg-[#FFFFFF] [&>div]:border-l-0 [&>div]:rounded-none">
           <DataGrid
             disableRowSelectionOnClick
             disableColumnMenu
