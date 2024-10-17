@@ -1,26 +1,26 @@
 /* eslint-disable react/jsx-key */
-import SearchIcon from "@/assets/Icons/admin/SearchIcon";
-import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
-import { noRecordText } from "@/utils/commonData";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
 import { callAPIwithHeaders } from "@/api/commonFunction";
+import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
+import EditIcon from "@/assets/Icons/admin/EditIcon";
+import SearchIcon from "@/assets/Icons/admin/SearchIcon";
+import BulkImportModel from "@/components/admin/common/BulkImportModel";
+import ConfirmModal from "@/components/admin/common/ConfirmModal";
+import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import AccountDetailsDrawer from "@/components/client/common/AccountDetailsDrawer";
+import { showToast } from "@/components/ToastContainer";
 import {
   OnboardingFormAccountDetailsDelete,
   OnboardingFormAccountDetailsList,
   onboardingSaveFormUrl,
 } from "@/static/apiUrl";
-import { Button, Chip, TablePagination, Tooltip } from "@mui/material";
+import { ToastType } from "@/static/toastType";
+import { noRecordText } from "@/utils/commonData";
 import { CustomLoadingOverlay } from "@/utils/CustomTableLoading";
-import AccountDetailsDrawer from "@/components/client/common/AccountDetailsDrawer";
-import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
-import EditIcon from "@/assets/Icons/admin/EditIcon";
-import ConfirmModal from "@/components/admin/common/ConfirmModal";
-import BulkImportModel from "@/components/admin/common/BulkImportModel";
-import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
+import { Button, Chip, TablePagination, Tooltip } from "@mui/material";
+import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 
 const AccountDetailsWhitelabel = ({
   setChecklistFormSubmit,
@@ -306,8 +306,8 @@ const AccountDetailsWhitelabel = ({
         return (
           <div
             className={`flex gap-8 justify-start h-full items-center ${isFormLocked && (roleId === "3" || roleId === "4")
-                ? "pointer-events-none"
-                : ""
+              ? "pointer-events-none"
+              : ""
               }`}
           >
             <Tooltip title="Edit" placement="top" arrow>
@@ -471,7 +471,7 @@ const AccountDetailsWhitelabel = ({
 
   return (
     <div
-      className={`flex flex-col ${roleId !== "4" ? "h-[75vh]" : "h-full w-[95%]"}`}
+      className={`flex flex-col ${roleId !== "4" ? "h-[78vh]" : "h-full w-[95%]"}`}
     >
       <div className="flex-1">
         <div className="flex justify-between px-4 pt-4 bg-[#F9FBFF]">
@@ -495,8 +495,8 @@ const AccountDetailsWhitelabel = ({
                   setBulkOpenDrawer(true);
                 }}
                 className={`${isFormLocked && (roleId === "3" || roleId === "4")
-                    ? "!border-[#666] !text-[#666] pointer-events-none"
-                    : "!border-[#0078C8] !text-[#0078C8]"
+                  ? "!border-[#666] !text-[#666] pointer-events-none"
+                  : "!border-[#0078C8] !text-[#0078C8]"
                   } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
               >
                 Bulk Upload
@@ -507,8 +507,8 @@ const AccountDetailsWhitelabel = ({
                   setEdit(false);
                 }}
                 className={`${isFormLocked && (roleId === "3" || roleId === "4")
-                    ? "!border-[#666] !text-[#666] pointer-events-none"
-                    : "!border-[#0078C8] !text-[#0078C8]"
+                  ? "!border-[#666] !text-[#666] pointer-events-none"
+                  : "!border-[#0078C8] !text-[#0078C8]"
                   } px-3 border !normal-case !text-[16px] !bg-[#FFFFFF] !h-[36px] !rounded-md`}
               >
                 Add Account Detail
@@ -567,8 +567,8 @@ const AccountDetailsWhitelabel = ({
           <Button
             onClick={() => setIsOpenConfirmationSubmit(true)}
             className={`${isFormLocked && (roleId === "4" || roleId === "3")
-                ? "!bg-[#666] pointer-events-none"
-                : "!bg-[#0078C8]"
+              ? "!bg-[#666] pointer-events-none"
+              : "!bg-[#0078C8]"
               } !text-[#fff] !rounded-md text-[14px]`}
             variant="contained"
           >

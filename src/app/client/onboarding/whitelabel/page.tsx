@@ -7,9 +7,6 @@ import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsW
 import BasicDetailsWhitelabel from "@/components/client/common/BasicDetailsWhitelabel";
 import ChecklistWhitelabel from "@/components/client/common/ChecklistWhitelabel";
 import Cookies from "js-cookie";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
-import { callAPIwithHeaders } from "@/api/commonFunction";
 
 const Page = () => {
   const router = useRouter();
@@ -39,7 +36,7 @@ const Page = () => {
 
   return (
     <ClientWrapper
-      setAutoCareProgressPercentage={() => {}}
+      setAutoCareProgressPercentage={() => { }}
       setWhiteLabelProgressPercentage={(value: number) =>
         setWhiteLabelProgressPercentage(value)
       }
@@ -53,7 +50,7 @@ const Page = () => {
           setWhiteLabelFormSubmittedStatus={(value: boolean) =>
             setWhiteLabelFormSubmittedStatus(value)
           }
-          setIsOpenModal={() => {}}
+          setIsOpenModal={() => { }}
           setCheckAllWhiteLabelBasicFields={(value: boolean) =>
             setCheckAllWhiteLabelBasicDetails(value)
           }
@@ -82,7 +79,7 @@ const Page = () => {
         setWhiteLabelChecklistCount={(value: number) =>
           setWhitelabelPerCountChecklist(value)
         }
-        setIsChecked ={(value: boolean) =>
+        setIsChecked={(value: boolean) =>
           setIsChecked(value)
         }
       />

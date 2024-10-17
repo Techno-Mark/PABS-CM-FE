@@ -1432,9 +1432,7 @@ const ChecklistWhitelabel = ({
     <>
       {formSubmitId === 12 && (
         <div
-          className={`flex flex-col ${
-            roleId !== "4" ? "h-[95vh]" : "h-full"
-          }`}
+          className={`flex flex-col h-[78vh]`}
         >
           <div className={`flex-1 overflow-y-scroll`}>
             <div className="flex flex-col">
@@ -1484,7 +1482,7 @@ const ChecklistWhitelabel = ({
             <div className="flex gap-5">
               {roleId !== "4" && (
                 <Button
-                  onClick={() => {}}
+                  onClick={() => { }}
                   className={`!border-[#0078C8] !bg-[#FFFFFF] !text-[#0078C8] !rounded-md text-[14px]`}
                   variant="outlined"
                 >
@@ -1494,11 +1492,10 @@ const ChecklistWhitelabel = ({
               {(roleId === "4" ? !isSubmitedWhiteLabelChecklist : true) && (
                 <Button
                   onClick={() => handleSubmit(2)}
-                  className={`${
-                    isFormLocked && (roleId === "3" || roleId === "4")
+                  className={`${isFormLocked && (roleId === "3" || roleId === "4")
                       ? "!border-[#666] !text-[#666]"
                       : "!border-[#0078C8] !text-[#0078C8]"
-                  } !bg-[#FFFFFF] !rounded-md text-[14px]`}
+                    } !bg-[#FFFFFF] !rounded-md text-[14px]`}
                   variant="outlined"
                   disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >

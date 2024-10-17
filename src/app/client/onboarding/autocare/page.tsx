@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
 import BasicDetailsAutoCare from "@/components/client/common/BasicDetailsAutoCare";
+import ChecklistAutoCare from "@/components/client/common/ChecklistAutoCare";
 import ClientWrapper from "@/components/ClientWapper";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function Page() {
   const router = useRouter();
@@ -28,7 +28,7 @@ function Page() {
   return (
     <ClientWrapper
       formSubmittedStatus={autoCareFormSubmittedStatus}
-      setWhiteLabelProgressPercentage={() => {}}
+      setWhiteLabelProgressPercentage={() => { }}
       perCountBasicDetails={perCountBasicDetails}
       perCountChecklist={perCountChecklist}
       formSubmit={formSubmit}
@@ -41,7 +41,7 @@ function Page() {
           setAutoCareFormSubmittedStatus={(value: boolean) =>
             setAutoCareFormSubmittedStatus(value)
           }
-          setIsOpenModal={() => {}}
+          setIsOpenModal={() => { }}
           setCheckAllFields={(value: boolean) => setCheckAllBasicDetails(value)}
           autoCareProgressPercentage={autoCareProgressPercentage}
           setBasicDetailsFormSubmit={(value: number) => setFormSubmit(value)}
@@ -54,7 +54,7 @@ function Page() {
         setAutoCareFormSubmittedStatus={(value: boolean) =>
           setAutoCareFormSubmittedStatus(value)
         }
-        setIsOpenModal={() => {}}
+        setIsOpenModal={() => { }}
         formSubmitId={formSubmit}
         checkAllBasicDetails={checkAllBasicDetails}
         autoCareProgressPercentage={autoCareProgressPercentage}
