@@ -176,7 +176,7 @@ const Sidebar = ({
                   href={item.link}
                   passHref
                   key={item.module}
-                  className={`flex w-full items-center p-0 border-l-[4px] border-l-[transparent] ${pathname === item.link
+                  className={`flex w-full items-center p-0 border-l-[4px] border-l-[transparent] hover:!border-l-[#0078C8] hover:!bg-[#F6F6F6] ${pathname === item.link
                     ? "!bg-[#212121] !bg-opacity-10 !border-l-[#0078C8] "
                     : "transparent"
                     }`}

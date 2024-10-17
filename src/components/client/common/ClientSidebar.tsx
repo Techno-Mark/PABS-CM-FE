@@ -142,7 +142,7 @@ const ClientSidebar = ({
             className="flex flex-row-reverse items-center justify-between mb-5 px-5 w-auto border-r border-[#D8D8D8] last:border-r-0 font-medium"
           >
             <span
-              className={`mx-2 text-[#333333] text-[14px] text-wrap cursor-default uppercase font-medium ${sidebarModule === data.id && "font-semibold !text-[#0078C8]"}`}
+              className={`mx-2 text-[#6C6C6C] text-[16px] text-wrap cursor-default uppercase font-medium ${sidebarModule === data.id && "!text-[#0078C8]"}`}
             >
               {data.module}
             </span>
@@ -151,7 +151,7 @@ const ClientSidebar = ({
                 <div className={`relative border border-[3px] rounded-full w-[46px] h-[46px] ${sidebarModule === data.id && "border-[rgba(10,136,227,0.3)]"}`}>
                   <CircularProgress
                     variant="determinate"
-                    className="w-[46px] relative top-[-3px] left-[-3px]"
+                    className="w-[46px] relative top-[-3px] left-[-3px] !text-[#0A88E3]"
                     size={46}
                     thickness={3}
                     value={Math.max(
@@ -160,7 +160,7 @@ const ClientSidebar = ({
                     color={sidebarModule === data.id ? "primary" : "inherit"}
                   />
                   <span
-                    className={`absolute top-0 left-0 z-10 text-[12px] flex justify-center items-center text-[#023963] w-full h-full font-medium`}
+                    className={`absolute top-0 left-0 z-10 text-[12px] flex justify-center items-center text-[#333333] w-full h-full font-medium`}
                   >{data.value}%
                   </span>
                 </div>
