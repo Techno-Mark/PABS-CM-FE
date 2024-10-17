@@ -993,7 +993,7 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-16 bg-[#F6F6F6] items-center px-6">
+      <div className="flex justify-between w-full mt-10 bg-[#F6F6F6] items-center px-6 py-5">
         <h3 className="font-semibold text-base tracking-wide">Client Management</h3>
         <div className="flex items-center gap-3 justify-end">
           {checkPermission("Client Management", "view") ? (
@@ -1063,7 +1063,7 @@ function Page() {
       </div>
 
       {checkPermission("Client Management", "view") && (
-        <div className="w-full h-[78vh] mt-5 bg-[#FFFFFF]">
+        <div className="w-full h-[78vh] bg-[#FFFFFF]">
           <DataGrid
             disableRowSelectionOnClick
             disableColumnMenu

@@ -266,7 +266,7 @@ function Page() {
 
   return (
     <Wrapper>
-      <div className="flex justify-between w-full mt-16 bg-[#F6F6F6] items-center px-6">
+      <div className="flex justify-between w-full mt-10 bg-[#F6F6F6] items-center px-6 py-5">
       <h3 className="font-semibold text-base tracking-wide">Audit Logs</h3>
       <div className="flex items-center gap-3 justify-end">
         <div className="w-[250px] bg-[#FFFFFF] flex h-[36px] rounded-[300px]">
@@ -298,7 +298,7 @@ function Page() {
       </div>  
       </div>
 
-      <div className="w-full h-[78vh] mt-5 bg-[#FFFFFF]">
+      <div className="w-full h-[78vh] bg-[#FFFFFF]">
         <DataGrid
           disableColumnMenu
           rows={auditLogData}
