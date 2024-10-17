@@ -59,7 +59,7 @@ function AutoCareClientTeam({
   >([]);
 
   const [open, setOpen] = useState(false);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -205,6 +205,13 @@ function AutoCareClientTeam({
       }));
     }
   };
+
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName: any) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
 
   return (
     <div className={`${className}`}>
@@ -446,6 +453,8 @@ function AutoCareClientTeam({
                   }
                   return selected;
                 }}
+                onOpen={() => setOpen(true)}
+                onClose={() => setOpen(false)}
                 IconComponent={() => (
                   <DropDownArrow
                     fillColor="#333"
@@ -495,12 +504,8 @@ function AutoCareClientTeam({
                 }));
               }}
               value={autoCareClientTeam.weeklyCalls}
-              onOpen={() => setOpen(true)}
-              onClose={(event, reason) => {
-                if (reason === "toggleInput") {
-                  setOpen(false);
-                }
-              }}
+              onOpen={() => handleDropdownToggle("call")}
+              onClose={() => handleDropdownToggle(null)}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -518,7 +523,7 @@ function AutoCareClientTeam({
                         <DropDownArrow
                           style={{
                             fill: "#333",
-                            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                            transform: openDropdown === "call" ? "rotate(180deg)" : "rotate(0deg)",
                             transition: "transform 0.3s ease",
                           }}
                         />

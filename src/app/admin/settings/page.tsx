@@ -7,8 +7,6 @@ import Wrapper from "@/components/Wrapper";
 import { Switch, TablePagination, Tooltip, MenuItem,  Select} from "@mui/material";
 import { DataGrid, GridColDef, gridClasses } from "@mui/x-data-grid";
 //Icons import
-import EditIcon from "@/assets/Icons/admin/EditIcon";
-import DeleteIcon from "@/assets/Icons/admin/DeleteIcon";
 import SearchIcon from "@/assets/Icons/admin/SearchIcon";
 // static import
 import { ToastType } from "@/static/toastType";
@@ -54,7 +52,7 @@ function Page() {
         return (
           <>
             {(checkPermission("Settings", "edit") ||
-              checkPermission("Settings", "delete")) && (
+              checkPermission("Settings", "delete")) ? (
               <Select
                 value=""
                 displayEmpty
@@ -112,7 +110,7 @@ function Page() {
                   </MenuItem>
                 )}
               </Select>
-            )}
+            ) : <div>{params.value}</div>}
           </>
         );
       },
@@ -142,58 +140,6 @@ function Page() {
         );
       },
     },
-    // {
-    //   field: "action",
-    //   renderHeader: () => (
-    //     <span className="font-bold text-[14px] uppercase tracking-[0.28px] font-proximanova">
-    //       Actions
-    //     </span>
-    //   ),
-    //   sortable: false,
-    //   width: 120,
-    //   renderCell: (params) => {
-    //     return (
-    //       (checkPermission("Settings", "edit") ||
-    //         checkPermission("Settings", "delete")) && (
-    //         <>
-    //           <div className="flex gap-9 justify-start h-full items-center">
-    //             {checkPermission("Settings", "edit") && (
-    //               <Tooltip title="Edit" placement="top" arrow>
-    //                 <span
-    //                   className="cursor-pointer"
-    //                   onClick={() => {
-    //                     setOpenDrawer(true);
-    //                     setEdit(true);
-    //                     setRoleId(params.row.RoleId);
-    //                   }}
-    //                 >
-    //                   <EditIcon />
-    //                 </span>
-    //               </Tooltip>
-    //             )}
-    //             {params.row.RoleId !== 1 && (
-    //               <>
-    //                 {checkPermission("Settings", "delete") && (
-    //                   <Tooltip title="Delete" placement="top" arrow>
-    //                     <span
-    //                       className="cursor-pointer"
-    //                       onClick={() => {
-    //                         setOpenDelete(true);
-    //                         setRoleId(params.row.RoleId);
-    //                       }}
-    //                     >
-    //                       <DeleteIcon />
-    //                     </span>
-    //                   </Tooltip>
-    //                 )}
-    //               </>
-    //             )}
-    //           </div>
-    //         </>
-    //       )
-    //     );
-    //   },
-    // },
   ];
 
   const router = useRouter();
