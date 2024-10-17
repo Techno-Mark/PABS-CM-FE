@@ -8,6 +8,7 @@ export const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   outline: "none",
+  borderRadius: "4.8px",
 };
 
 export const bulkStyle = {
@@ -56,7 +57,7 @@ export const tableContainerStyle = {
 
 export const stickyHeaderStyle = {
   position: 'sticky' as React.CSSProperties['position'],
-  top: 0,
+  top: "1px",
   backgroundColor: '#023963',
   zIndex: 1 ,
 };

@@ -114,7 +114,7 @@ function AuditModal({ isOpen, handleClose, auditDetails }: AuditModalProps) {
             </div>
             <div style={tableContainerStyle} className="scrollbar-custom">
               <table className="min-w-full divide-y divide-[#D8D8D8]">
-                <thead className="border-t border-b border-[#6C6C6C] !bg-[#ffffff]" style={stickyHeaderStyle}>
+                <thead className="outline outline-1 outline-[#6C6C6C] !bg-[#ffffff]" style={stickyHeaderStyle}>
                   <tr>
                     <th className="px-6 py-3 text-left text-[14px] font-bold uppercase tracking-[0.28px] text-[#333]">
                       Sr No.

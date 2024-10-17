@@ -129,7 +129,7 @@ function AuditFilter({
       isResetDisabled={!auditListParams.saveClicked}
     >
       <div className="p-5 h-[calc(100%-143px)] flex items-center justify-center flex-wrap gap-5">
-        <div className="text-[12px] flex flex-col w-[290px]">
+        <div className="text-[12px] flex flex-col w-[48%]">
           <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">From Date</label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -152,7 +152,7 @@ function AuditFilter({
             />
           </LocalizationProvider>
         </div>
-        <div className="text-[12px] flex flex-col w-[290px]">
+        <div className="text-[12px] flex flex-col w-[48%]">
           <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">To Date</label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -175,7 +175,7 @@ function AuditFilter({
             />
           </LocalizationProvider>
         </div>
-        <div className="text-[12px] flex flex-col w-[290px]">
+        <div className="text-[12px] flex flex-col w-[48%]">
           <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">Select Module</label>
           <Autocomplete
             multiple
@@ -216,7 +216,7 @@ function AuditFilter({
             )}
           />
         </div>
-        <div className="text-[12px] flex flex-col w-[290px]">
+        <div className="text-[12px] flex flex-col w-[48%]">
           <label className="text-[#6C6C6C] text-[12px] tracking-[0.24px]">Select Username</label>
           <Autocomplete
             multiple
