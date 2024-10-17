@@ -219,6 +219,7 @@ function ClientModal({
           return;
         case "success":
           showToast(Message, ToastType.Success);
+          setLockThis(!lockThis)
           return;
       }
     };
@@ -325,7 +326,7 @@ function ClientModal({
                                 } font-bold top-1/2 transform -translate-y-1/2 text-white`}>
                               {isChecked ? "Lock" : "Unlock"}
                             </span> */}
-                            <span className="cursor-pointer" onClick={(e: any) => { handleToggleFormLocked(e.target.checked); setLockThis(!lockThis) }}>
+                            <span className="cursor-pointer" onClick={(e: any) => { handleToggleFormLocked(e.target.checked) }}>
                               {lockThis ? <LockIcon /> : <UnLockIcon />}
                             </span>
                           </div>
