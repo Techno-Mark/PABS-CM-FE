@@ -1569,7 +1569,7 @@ function ChecklistAutoCare({
                   ? handleSubmitwithOutApi()
                   : handleSubmit(3)
               }
-              className={`!border-[#0078C8] !text-[#0078C8] !bg-[#FFFFFF] !rounded-md text-[14px]`}
+              className={`!border-[#0078C8] !text-[#0078C8] !bg-[#FFFFFF] !rounded-md text-[14px] h-[36px]`}
               variant="outlined"
             >
               Back
@@ -1578,7 +1578,7 @@ function ChecklistAutoCare({
               {roleId !== "4" && (
                 <Button
                   onClick={() => setIsOpenModal(false)}
-                  className={`!border-[#0078C8] !bg-[#FFFFFF] !text-[#0078C8] !rounded-md text-[14px]`}
+                  className={`!border-[#0078C8] !bg-[#FFFFFF] !text-[#0078C8] !rounded-md text-[14px] h-[36px]`}
                   variant="outlined"
                 >
                   Cancel
@@ -1590,7 +1590,7 @@ function ChecklistAutoCare({
                   className={`${isFormLocked && (roleId === "3" || roleId === "4")
                     ? "!bg-transparent"
                     : "border-[#0078C8] bg-[#0078C8] !text-white"
-                    } rounded-md text-[14px]`}
+                    } rounded-md text-[14px] h-[36px]`}
                   variant="outlined"
                   disabled={isFormLocked && (roleId === "3" || roleId === "4")}
                 >
@@ -1603,7 +1603,7 @@ function ChecklistAutoCare({
                   className={`rounded-md text-white ${isFormLocked && (roleId === "4" || roleId === "3")
                     ? "bg-[#666]"
                     : "bg-[#0078C8]"
-                    }`}
+                    } h-[36px]`}
                   variant="contained"
                   disabled={isFormLocked && (roleId === "4" || roleId === "3")}
                 >

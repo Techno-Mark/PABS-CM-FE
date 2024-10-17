@@ -1581,7 +1581,7 @@ function ChecklistSmb({
             {roleId !== "4" && (
               <Button
                 onClick={() => setIsOpenModal(false)}
-                className={`border-[#022946] bg-white text-[#022946] rounded-md text-[14px]`}
+                className={`border-[#022946] bg-white text-[#022946] rounded-md text-[14px] h-[36px]`}
                 variant="outlined"
               >
                 Cancel
@@ -1593,7 +1593,7 @@ function ChecklistSmb({
                 className={`${isFormLocked && (roleId === "3" || roleId === "4")
                   ? "!border-[#666] !text-[#666]"
                   : "!border-[#0078C8] !text-[#0078C8]"
-                  } !bg-[#FFFFFF] !rounded-md text-[14px]`}
+                  } !bg-[#FFFFFF] !rounded-md text-[14px] h-[36px]`}
                 variant="outlined"
                 disabled={isFormLocked && (roleId === "3" || roleId === "4")}
               >
@@ -1606,7 +1606,7 @@ function ChecklistSmb({
                 className={`${isFormLocked && (roleId === "4" || roleId === "3")
                   ? "!bg-[#666] !text-white"
                   : "!bg-[#0078C8] text-white"
-                  }  !rounded-md`}
+                  }  !rounded-md h-[36px]`}
                 variant="contained"
                 disabled={isFormLocked && (roleId === "4" || roleId === "3")}
               >
