@@ -525,7 +525,7 @@ const AccountDetailsWhitelabel = ({
             getRowId={(i: any) => i.id}
             localeText={noRecordText}
             loading={loading}
-            className={`${roleId !== "4" ? "h-[calc(100vh-230px)]" : "h-[calc(100vh-200px)]"
+            className={`${roleId !== "4" ? "h-[calc(100vh-300px)]" : "h-[calc(100vh-200px)]"
               }`}
             slots={{
               loadingOverlay: CustomLoadingOverlay,
