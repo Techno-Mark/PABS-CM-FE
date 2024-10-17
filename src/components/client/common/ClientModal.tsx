@@ -273,7 +273,7 @@ function ClientModal({
                         />
                       </span>
                     )}
-                    <div className="!font-semibold text-[15px]">
+                    <div className="!font-semibold text-[18px] !text-[#333333]">
                       {clientInfo.SFID} &nbsp;|&nbsp; {clientInfo.clientName}{" "}
                       &nbsp;|&nbsp; {clientInfo.DepartmentType}
                     </div>
