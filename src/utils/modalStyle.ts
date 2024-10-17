@@ -34,7 +34,7 @@ export const auditLogModalstyle = {
   bgcolor: "background.paper",
   boxShadow: 24,
   outline: "none",
-  overFlow: "hidden",
+  overflow: "hidden",
 };
 
 
