@@ -29,6 +29,8 @@ import { showToast } from "@/components/ToastContainer";
 
 import { callAPIwithHeaders } from "@/api/commonFunction";
 import CommentIcon from "@/assets/Icons/admin/CommentIcon";
+import LockIcon from "@/assets/Icons/client/forms/LockIcon";
+import UnLockIcon from "@/assets/Icons/client/forms/UnLockIcon";
 import DrawerOverlay from "@/components/admin/common/DrawerOverlay";
 import CommentDrawer from "@/components/admin/drawer/CommentDrawer";
 import AccountDetailsWhitelabel from "@/components/client/common/AccountDetailsWhitelabel";
@@ -41,10 +43,8 @@ import {
   onboardingListFormUrl,
   toggleFormLockedUrl,
 } from "@/static/apiUrl";
-import Cookies from "js-cookie";
 import { useStyles } from "@/utils/useStyles";
-import LockIcon from "@/assets/Icons/client/forms/LockIcon";
-import UnLockIcon from "@/assets/Icons/client/forms/UnLockIcon";
+import Cookies from "js-cookie";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -127,6 +127,7 @@ function ClientModal({
   const [isClientLogoDisplay, setIsClientLogoDisplay] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
+  const [lockThis, setLockThis] = useState<boolean>(false);
 
   useEffect(() => {
     const getById = async () => {
@@ -302,14 +303,14 @@ function ClientModal({
                         <DownloadIcon />
                       </span>
                     </Tooltip>
-                    <Tooltip title={isChecked ? "Lock" : "Unlock"} placement="bottom" arrow classes={{
+                    <Tooltip title={lockThis ? "Lock" : "Unlock"} placement="bottom" arrow classes={{
                       tooltip: classes.tooltipStyle,
                       arrow: classes.arrowStyle,
                     }}>
                       <div className="flex justify-center items-center">
                         {(loginUserRole == "1" || loginUserRole == "2") && (
                           <div className="relative">
-                            <div className="absolute top-0 left-[-10px] w-full opacity-0">
+                            {/* <div className="absolute top-0 left-[-10px] w-full opacity-0">
                               <CustomSwitch
                                 className="w-full"
                                 checked={isChecked}
@@ -317,14 +318,16 @@ function ClientModal({
                                   handleToggleFormLocked(e.target.checked)
                                 }
                               />
-                            </div>
+                            </div> */}
                             {/* <span className={`absolute ${isChecked
                                 ? "left-2.5 text-[11px]"
                                 : "right-[3px] text-[11px]"
                                 } font-bold top-1/2 transform -translate-y-1/2 text-white`}>
                               {isChecked ? "Lock" : "Unlock"}
                             </span> */}
-                            {isChecked ? <LockIcon /> : <UnLockIcon />}
+                            <span className="cursor-pointer" onClick={(e: any) => { handleToggleFormLocked(e.target.checked); setLockThis(!lockThis) }}>
+                              {lockThis ? <LockIcon /> : <UnLockIcon />}
+                            </span>
                           </div>
                         )}
                       </div>
