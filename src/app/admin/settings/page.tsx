@@ -314,7 +314,7 @@ function Page() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper className="settingModule">
       <div className="flex justify-between w-full mt-10 bg-[#F6F6F6] items-center px-6 py-5">
       <h3 className="font-semibold text-base tracking-wide">Settings</h3>  
         <div className="flex items-center gap-3 justify-end">

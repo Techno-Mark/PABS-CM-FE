@@ -13,9 +13,10 @@ import Cookies from "js-cookie";
 type WrapperPropsType = {
   isScrollable?: boolean;
   children: ReactNode;
+  className?: string
 };
 
-const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
+const Wrapper = ({ isScrollable, children, className }: WrapperPropsType) => {
   const [openSidebar, setOpenSidebar] = useState(true);
   const router = useRouter();
   useEffect(() => {
@@ -26,7 +27,7 @@ const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
   }, []);
   return (
     <>
-      <div className="max-h-screen flex flex-col overflow-hidden">
+      <div className={`max-h-screen flex flex-col overflow-hidden ${className}`}>
         <Box
           sx={{
             height: "100vh",
@@ -39,7 +40,7 @@ const Wrapper = ({ isScrollable, children }: WrapperPropsType) => {
           <Sidebar
             openSidebar={openSidebar}
             setOpenSidebar={setOpenSidebar}
-            onRouteChange={() => {}}
+            onRouteChange={() => { }}
           />
           <Box
             component="main"

@@ -238,7 +238,7 @@ input::-ms-clear {
 }
 
 
-.MuiInput-root{
+.MuiInput-root {
   font-family: 'proximanova', sans-serif !important;
 }
 
@@ -259,4 +259,9 @@ input::-ms-clear {
 .scrollbar-custom::-webkit-scrollbar-track {
   background: #F6F6F6;
   border-radius: 10px;
+}
+
+.settingModule .MuiDrawer-root.MuiDrawer-docked .MuiPaper-root.MuiDrawer-paperAnchorDockedRight {
+  width: 100% !important;
+  max-width: 588px;
 }
