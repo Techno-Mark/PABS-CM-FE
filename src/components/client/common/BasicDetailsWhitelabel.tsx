@@ -1,16 +1,13 @@
 import { Button } from "@mui/material";
-import React, { ChangeEvent, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
 
-import {
-  initialWhitelabelAccountName,
-  initialWhitelabelCpaClientTeam,
-  initialWhitelabelOtherInformation,
-  initialWhitelabelPABSAccountingTeam,
-  validateWhitelabelAccountDetails,
-  validateWhitelabelOtherInformation,
-  whiteLabelAccountDetailsfieldDisplayNames,
-} from "@/static/whitelabel/whitelabelBasicDetails";
+import { callAPIwithHeaders } from "@/api/commonFunction";
+import WhitelabelAccountDetailsForm from "@/components/client/forms/whitelabel/WhitelabelAccountDetailsForm";
+import WhitelabelCpaClientTeamForm from "@/components/client/forms/whitelabel/WhitelabelCpaClientTeamForm";
+import WhitelabelOtherInformationForm from "@/components/client/forms/whitelabel/WhitelabelOtherInformationForm";
+import WhitelabelPabsAccountingTeamForm from "@/components/client/forms/whitelabel/WhitelabelPabsAccountingTeamForm";
+import { showToast } from "@/components/ToastContainer";
 import {
   BasicDetailWhitelabelType,
   SwitchRequestBody,
@@ -25,20 +22,23 @@ import {
   WhitelabelPABSAccountingTeamTypes,
   whitelabelOtherInformationfieldDisplayNames,
 } from "@/models/whitelabelBasicDetails";
-import WhitelabelAccountDetailsForm from "@/components/client/forms/whitelabel/WhitelabelAccountDetailsForm";
-import WhitelabelOtherInformationForm from "@/components/client/forms/whitelabel/WhitelabelOtherInformationForm";
-import WhitelabelCpaClientTeamForm from "@/components/client/forms/whitelabel/WhitelabelCpaClientTeamForm";
-import WhitelabelPabsAccountingTeamForm from "@/components/client/forms/whitelabel/WhitelabelPabsAccountingTeamForm";
+import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
+import { ToastType } from "@/static/toastType";
+import {
+  initialWhitelabelAccountName,
+  initialWhitelabelCpaClientTeam,
+  initialWhitelabelOtherInformation,
+  initialWhitelabelPABSAccountingTeam,
+  validateWhitelabelAccountDetails,
+  validateWhitelabelOtherInformation,
+  whiteLabelAccountDetailsfieldDisplayNames,
+} from "@/static/whitelabel/whitelabelBasicDetails";
 import {
   validateEmail,
   validateNumber,
   validatePhone,
   validateZip,
 } from "@/utils/validate";
-import { onboardingListFormUrl, onboardingSaveFormUrl } from "@/static/apiUrl";
-import { callAPIwithHeaders } from "@/api/commonFunction";
-import { showToast } from "@/components/ToastContainer";
-import { ToastType } from "@/static/toastType";
 import dayjs from "dayjs";
 
 const BasicDetailsWhitelabel = ({
@@ -173,19 +173,19 @@ const BasicDetailsWhitelabel = ({
               cpaArray:
                 ResponseData.pocFieldsDetail.length > 0
                   ? ResponseData.pocFieldsDetail.map(
-                      (pocFieldsDetailItem: WhitelabelCpaClientTeamTypes) => ({
-                        pocName: pocFieldsDetailItem.pocName,
-                        pocEmailId: pocFieldsDetailItem.pocEmailId,
-                        pocContactNo: pocFieldsDetailItem.pocContactNo,
-                      })
-                    )
+                    (pocFieldsDetailItem: WhitelabelCpaClientTeamTypes) => ({
+                      pocName: pocFieldsDetailItem.pocName,
+                      pocEmailId: pocFieldsDetailItem.pocEmailId,
+                      pocContactNo: pocFieldsDetailItem.pocContactNo,
+                    })
+                  )
                   : [
-                      {
-                        pocName: "",
-                        pocEmailId: "",
-                        pocContactNo: "",
-                      },
-                    ],
+                    {
+                      pocName: "",
+                      pocEmailId: "",
+                      pocContactNo: "",
+                    },
+                  ],
             });
             setWhitelabelPABSAccountingTeam({
               implementation: ResponseData.implementation,
@@ -498,13 +498,12 @@ const BasicDetailsWhitelabel = ({
         ["pocName", "pocEmailId", "pocContactNo"].forEach((key) => {
           if (!field[key]) {
             isValid = false;
-            fieldErrors[key] = `${
-              key === "pocName"
+            fieldErrors[key] = `${key === "pocName"
                 ? "POC Name"
                 : key === "pocEmailId"
-                ? "Email"
-                : "Contact No"
-            } is required`;
+                  ? "Email"
+                  : "Contact No"
+              } is required`;
           }
         });
         return fieldErrors;
@@ -693,9 +692,7 @@ const BasicDetailsWhitelabel = ({
   return (
     <>
       <div
-        className={`flex flex-col ${
-          roleId !== "4" ? "h-[75vh]" : "h-full"
-        }`}
+        className={`flex flex-col h-[78vh]`}
       >
         <div className={`flex-1 overflow-y-scroll`}>
           <div className="flex flex-col gap-4 bg-white">
@@ -722,27 +719,27 @@ const BasicDetailsWhitelabel = ({
             {(roleId === "4"
               ? whitelabelOtherInformationCheckStatus
               : true) && (
-              <WhitelabelOtherInformationForm
-                checkAllFieldsWhitelabelOtherInformationForm={
-                  isFormSubmitWhiteLabelBasicDetails
-                }
-                whitelabelOtherInformationCheckStatus={
-                  whitelabelOtherInformationCheckStatus
-                }
-                handleWhitelabelOtherInformationSwitch={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => handleSwitchChange(e, 2)}
-                whitelabelOtherInformation={whitelabelOtherInformation}
-                setWhitelabelOtherInformation={setWhitelabelOtherInformation}
-                whitelabelOtherInformationErrors={
-                  whitelabelOtherInformationErrors
-                }
-                setWhitelabelOtherInformationErrors={
-                  setWhitelabelOtherInformationErrors
-                }
-                isFormLocked={isFormLocked}
-              />
-            )}
+                <WhitelabelOtherInformationForm
+                  checkAllFieldsWhitelabelOtherInformationForm={
+                    isFormSubmitWhiteLabelBasicDetails
+                  }
+                  whitelabelOtherInformationCheckStatus={
+                    whitelabelOtherInformationCheckStatus
+                  }
+                  handleWhitelabelOtherInformationSwitch={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => handleSwitchChange(e, 2)}
+                  whitelabelOtherInformation={whitelabelOtherInformation}
+                  setWhitelabelOtherInformation={setWhitelabelOtherInformation}
+                  whitelabelOtherInformationErrors={
+                    whitelabelOtherInformationErrors
+                  }
+                  setWhitelabelOtherInformationErrors={
+                    setWhitelabelOtherInformationErrors
+                  }
+                  isFormLocked={isFormLocked}
+                />
+              )}
             {(roleId === "4" ? whitelabelCpaClientTeamCheckStatus : true) && (
               <WhitelabelCpaClientTeamForm
                 checkAllFieldsWhitelabelCpaClientTeamForm={
@@ -766,29 +763,29 @@ const BasicDetailsWhitelabel = ({
             {(roleId === "4"
               ? whitelabelPABSAccountingTeamCheckStatus
               : true) && (
-              <WhitelabelPabsAccountingTeamForm
-                checkAllFieldsWhitelabelPabsAccountingTeamForm={
-                  isFormSubmitWhiteLabelBasicDetails
-                }
-                whitelabelPABSAccountingTeamCheckStatus={
-                  whitelabelPABSAccountingTeamCheckStatus
-                }
-                handleWhitelabelPABSAccountingTeamSwitch={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => handleSwitchChange(e, 4)}
-                whitelabelPABSAccountingTeam={whitelabelPABSAccountingTeam}
-                setWhitelabelPABSAccountingTeam={
-                  setWhitelabelPABSAccountingTeam
-                }
-                whitelabelPABSAccountingTeamErrors={
-                  whitelabelPABSAccountingTeamErrors
-                }
-                setWhitelabelPABSAccountingTeamErrors={
-                  setWhitelabelPABSAccountingTeamErrors
-                }
-                isFormLocked={isFormLocked}
-              />
-            )}
+                <WhitelabelPabsAccountingTeamForm
+                  checkAllFieldsWhitelabelPabsAccountingTeamForm={
+                    isFormSubmitWhiteLabelBasicDetails
+                  }
+                  whitelabelPABSAccountingTeamCheckStatus={
+                    whitelabelPABSAccountingTeamCheckStatus
+                  }
+                  handleWhitelabelPABSAccountingTeamSwitch={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => handleSwitchChange(e, 4)}
+                  whitelabelPABSAccountingTeam={whitelabelPABSAccountingTeam}
+                  setWhitelabelPABSAccountingTeam={
+                    setWhitelabelPABSAccountingTeam
+                  }
+                  whitelabelPABSAccountingTeamErrors={
+                    whitelabelPABSAccountingTeamErrors
+                  }
+                  setWhitelabelPABSAccountingTeamErrors={
+                    setWhitelabelPABSAccountingTeamErrors
+                  }
+                  isFormLocked={isFormLocked}
+                />
+              )}
 
             {roleId === "4" &&
               !whitelabelAccountDetailsCheckStatus &&
@@ -816,11 +813,10 @@ const BasicDetailsWhitelabel = ({
           {(roleId === "4" ? !isFormSubmitWhiteLabelBasicDetails : true) && (
             <Button
               onClick={() => handleSubmit(2)}
-              className={`${
-                isFormLocked && (roleId === "3" || roleId === "4")
+              className={`${isFormLocked && (roleId === "3" || roleId === "4")
                   ? "border-[#666] text-[#666]"
                   : "border-[#0078C8] text-[#0078C8]"
-              } bg-[#FFFFFF] rounded-md text-[14px]`}
+                } bg-[#FFFFFF] rounded-md text-[14px]`}
               variant="outlined"
               disabled={isFormLocked && (roleId === "3" || roleId === "4")}
             >

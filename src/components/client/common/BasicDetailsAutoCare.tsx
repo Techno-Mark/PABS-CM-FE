@@ -670,7 +670,6 @@ function BasicDetailsAutoCare({
                 isFormLocked={isFormLocked}
               />
             )}
-
             {roleId === "4" &&
               !accountDetailsCheckStatus &&
               !legalStructureCheckStatus &&
