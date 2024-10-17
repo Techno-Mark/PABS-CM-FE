@@ -413,15 +413,15 @@ const RoleDrawer = ({
             )}
           </FormControl>
         </div>
-        <div className="text-[12px] flex flex-col pb-5 -ml-2">
+        <div className="text-[12px] flex flex-col pb-5">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead>
+            <thead className="border-t border-b border-[#6E6D7A]">
               <tr>
                 {headers.map((header) => (
                   <th
                     key={header}
                     scope="col"
-                    className="px-1 py-3 bg-gray-50 text-left font-bold text-[13px] text-[#333] uppercase tracking-[0.28px]"
+                    className="px-1 py-3 text-left font-bold text-[14px] text-[#333] uppercase tracking-[0.28px]"
                   >
                     {header}
                   </th>
