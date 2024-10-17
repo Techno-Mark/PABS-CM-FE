@@ -80,7 +80,7 @@ function Filter({
             {isLoading ? (
               <CircularProgress size={20} sx={{color: "white !important"}}/>
             ) : (
-              <span className="capitalize font-normal text-[16px] capitalize text-[#6C6C6C]">Save</span>
+              <span className={`capitalize font-normal text-[16px] capitalize ${!isSaveDisabled ? "text-white" : "text-[#6C6C6C]"}`}>Save</span>
             )}
           </Button>
           <Button

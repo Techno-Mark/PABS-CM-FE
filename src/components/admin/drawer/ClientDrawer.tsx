@@ -383,7 +383,7 @@ const ClientDrawer = ({
         }}
         handleSubmit={handleSubmit}
         setId={setClientId}
-        submitButtonText="Add Client"
+        submitButtonText={canEdit ? "Edit Client" : "Add Client"}
         closeButtonText="Close"
       >
         <div className="text-[12px] flex flex-col pb-5">

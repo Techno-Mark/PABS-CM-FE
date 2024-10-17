@@ -723,6 +723,8 @@ const UserDrawer = ({
           handleModalSubmit={handleApplyChange}
           handleClose={() => setInactive(false)}
           setIsOpen={(value) => setInactive(value)}
+          submitButtonText="Inactive"
+          closeButtonText = "Active"
         />
       )}
     </>

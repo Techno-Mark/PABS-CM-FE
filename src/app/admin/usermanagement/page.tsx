@@ -68,6 +68,7 @@ function Page() {
       sortable: false,
       // renderCell: (params) => renderCellFunction(params.value),
       renderCell: (params) => {
+        const userId = Cookies.get("userId");
         if (
           checkPermission("User Management", "edit") ||
           checkPermission("User Management", "delete")
