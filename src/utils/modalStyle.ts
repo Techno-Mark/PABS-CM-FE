@@ -1,3 +1,15 @@
+import { keyframes } from "@emotion/react";
+
+const slideInFromRight = keyframes`
+  from {
+    transform: translate(100%, -50%);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+`;
+
+
 export const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -9,6 +21,7 @@ export const style = {
   boxShadow: 24,
   outline: "none",
   borderRadius: "4.8px",
+  animation: `${slideInFromRight} 0.5s ease-out`,
 };
 
 export const bulkStyle = {
@@ -35,6 +48,7 @@ export const auditLogModalstyle = {
   boxShadow: 24,
   outline: "none",
   overflow: "hidden",
+  animation: `${slideInFromRight} 0.5s ease-out`,
 };
 
 
