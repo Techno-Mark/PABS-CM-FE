@@ -1589,7 +1589,7 @@ function ChecklistAutoCare({
                   onClick={() => handleSubmit(2)}
                   className={`${isFormLocked && (roleId === "3" || roleId === "4")
                     ? "!bg-transparent"
-                    : "border-[#0078C8] bg-[#0078C8] !text-white"
+                    : "border-[#0078C8] !bg-[#0078C8] !text-white"
                     } rounded-md text-[14px] h-[36px]`}
                   variant="outlined"
                   disabled={isFormLocked && (roleId === "3" || roleId === "4")}
