@@ -60,7 +60,7 @@ export const clientModalstyle = {
   width: "98vw",
   height: "95vh",
   borderRadius: "5px",
-  bgcolor: "background.paper",
+  // bgcolor: "background.paper",
   boxShadow: 24,
   outline: "none",
 };
