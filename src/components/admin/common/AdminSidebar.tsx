@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
   styled,
+  Tooltip,
 } from "@mui/material";
 // Types import
 import { SidebarItemsType, SidebarProps } from "@/models/adminSidebar";
@@ -172,54 +173,61 @@ const Sidebar = ({
           {sidebarItems.map((item, index) => (
             <div key={index}>
               <List className="flex items-center w-full my-2 p-0">
-                <Link
-                  href={item.link}
-                  passHref
-                  key={item.module}
-                  className={`flex w-full items-center p-0 border-l-[4px] border-l-[transparent] hover:!border-l-[#0078C8] hover:!bg-[#F6F6F6] ${pathname === item.link
-                    ? "!bg-[#212121] !bg-opacity-10 !border-l-[#0078C8] "
-                    : "transparent"
-                    }`}
-                >
-                  {/* mx-2 w-[90%] */}
-                  <ListItemButton
-                    disableRipple
-                    onClick={() => {
-                      item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
-                    }}
-                    className={`sidebar-custom ${pathname === item.link ? "activeLabel" : "transparent"
-                      }`}
-                    sx={{
-                      height: 40,
-                      justifyContent: openSidebar ? "initial" : "center",
-                      px: 1.5,
-                      py: 2,
-                      "&:hover": {
-                        textDecoration: "none",
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: openSidebar ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
+                <Tooltip title={item.module} placement="right" arrow
+                classes={{
+                tooltip: classes.tooltipStyle,
+                arrow: classes.arrowStyle,
+                }}>  
+                    <Link
+                      href={item.link}
+                      passHref
+                      key={item.module}
+                      className={`flex w-full items-center p-0 border-l-[4px] border-l-[transparent] hover:!border-l-[#0078C8] hover:!bg-[#F6F6F6] ${pathname === item.link
+                        ? "!bg-[#212121] !bg-opacity-10 !border-l-[#0078C8] "
+                        : "transparent"
+                        }`}
                     >
-                      {item.icon}
-                    </ListItemIcon>
+                      {/* mx-2 w-[90%] */}
+                      <ListItemButton
+                        disableRipple
+                        onClick={() => {
+                          item.link === "#" ? setIsopen(!isOpen) : onRouteChange();
+                        }}
+                        className={`sidebar-custom ${pathname === item.link ? "activeLabel" : "transparent"
+                          }`}
+                        sx={{
+                          height: 40,
+                          justifyContent: openSidebar ? "initial" : "center",
+                          px: 1.5,
+                          py: 2,
+                          "&:hover": {
+                            textDecoration: "none",
+                            backgroundColor: "transparent",
+                          },
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: openSidebar ? 3 : 0,
+                            justifyContent: "center",
+                          }}
+                        >
+                          {item.icon}
+                        </ListItemIcon>
 
-                    <ListItemText
-                      classes={{ primary: classes.textSize }}
-                      primary={item.module}
-                      sx={{
-                        opacity: openSidebar ? 1 : 0,
-                        color: pathname === item.link ? "#333333" : "#333333",
-                      }}
-                    />
-                  </ListItemButton>
-                </Link>
+                        <ListItemText
+                          classes={{ primary: classes.textSize }}
+                          primary={item.module}
+                          sx={{
+                            opacity: openSidebar ? 1 : 0,
+                            display: openSidebar ? "flex" : "none",
+                            color: pathname === item.link ? "#333333" : "#333333",
+                          }}
+                        />
+                      </ListItemButton>
+                    </Link>
+                </Tooltip>
               </List>
             </div>
           ))}
