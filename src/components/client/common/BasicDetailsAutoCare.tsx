@@ -603,7 +603,7 @@ function BasicDetailsAutoCare({
 
   return (
     <>
-      <div className={`flex flex-col h-[78vh]`}>
+      <div className={`flex flex-col h-[74vh]`}>
         <div className="flex-1 overflow-y-scroll">
           <div className="flex flex-col gap-2 bg-white pt-4">
             {(roleId === "4" ? accountDetailsCheckStatus : true) && (

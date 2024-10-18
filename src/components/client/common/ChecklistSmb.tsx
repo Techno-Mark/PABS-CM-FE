@@ -1545,7 +1545,7 @@ function ChecklistSmb({
 
   return (
     <>
-      <div className={`flex flex-col h-[78vh]`}>
+      <div className={`flex flex-col h-[74vh]`}>
         <div className={`flex-1 overflow-y-scroll`}>
           {updatedPhases.map((phase) => (
             <ChecklistAccordian
