@@ -724,7 +724,7 @@ const UserDrawer = ({
           handleClose={() => setInactive(false)}
           setIsOpen={(value) => setInactive(value)}
           submitButtonText="Inactive"
-          closeButtonText = "Active"
+          closeButtonText = "Cancel"
         />
       )}
     </>

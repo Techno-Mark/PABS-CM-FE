@@ -191,7 +191,7 @@ const BulkImportModel = ({
       className="h-[100vh] flex justify-center"
     >
       <Box sx={bulkStyle}>
-        <div className="p-5 top-0 flex justify-between">
+        <div className="p-5 top-0 flex justify-between bg-[#F6F6F6]">
           <span className="font-bold text-[18px]"> {title}</span>
           <Tooltip title="Close" placement="bottom" arrow>
             <span
@@ -243,7 +243,7 @@ const BulkImportModel = ({
         <div className="flex py-2 px-4 gap-5 w-full justify-between !items-end right-0 bottom-0">
           <Button
             onClick={() => downloadSampleFile()}
-            className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] !rounded-full !w-fit px-4 font-semibold text-[14px]`}
+            className={`!border-[#0078C8] !bg-[#FFFFFF] hover:!bg-[#FFFFFF] text-[#0078C8] !h-[36px] !rounded !w-fit px-4 font-normal text-[14px]`}
             variant="outlined"
           >
             Sample File
@@ -253,14 +253,14 @@ const BulkImportModel = ({
               onClick={() => {
                 setIsOpen(false);
               }}
-              className={`!border-[#023963] !bg-[#FFFFFF] text-[#023963] !h-[36px] mr-4 !rounded-full !w-fit px-4 font-semibold text-[14px]`}
+              className={`!border-[#0078C8] !bg-[#FFFFFF] hover:!bg-[#FFFFFF] text-[#0078C8] !h-[36px] mr-4 !rounded !w-fit px-4 font-normal text-[14px]`}
               variant="outlined"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
-              className={`!bg-[#023963] text-white !h-[36px] !rounded-full !w-fit px-4`}
+              className={`!bg-[#0078C8] hover:!bg-[#023963] text-white !h-[36px] !rounded !w-fit px-4`}
               variant="contained"
             >
               {isLoading ? (
@@ -269,7 +269,7 @@ const BulkImportModel = ({
                   sx={{ color: "white !important" }}
                 />
               ) : (
-                <span className="uppercase font-semibold text-[14px]">
+                <span className="uppercase font-normal text-[14px]">
                   Import
                 </span>
               )}
