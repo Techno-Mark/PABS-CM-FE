@@ -276,7 +276,7 @@ function ClientModal({
                       </span>
                     )}
                     <div className="text-[18px] text-[#D8D8D8] flex items-center">
-                      <span className="text-[#333] font-semibold mr-5">{clientInfo.SFID}</span> | <span className="text-[#333] font-semibold mx-5">{clientInfo.clientName}</span> | <span className="text-[#333] font-semibold ml-5">{clientInfo.DepartmentType}</span>
+                      <span className="text-[#333] font-semibold mr-5">{clientInfo.SFID}</span> | <span className="text-[#333] font-semibold mx-5">{clientInfo.clientName}</span> | <span className="text-[#333] font-semibold mx-5">{clientInfo.DepartmentType}</span> |
                     </div>
                     {(formSubmit === 12 ||
                       formSubmit === 21 ||
