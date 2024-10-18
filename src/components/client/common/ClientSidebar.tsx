@@ -92,11 +92,11 @@ const ClientSidebar = ({
           module: "Checklist",
           value: perCountWhiteLabelChecklist || 0,
         },
-        // {
-        //   id: 13,
-        //   module: "Account Details",
-        //   value: 0,
-        // },
+        {
+          id: 13,
+          module: "Account Details",
+          value: 0,
+        },
       ]);
     }
     if (perCountBasicDetails || perCountChecklist) {
