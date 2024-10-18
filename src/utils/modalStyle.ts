@@ -63,6 +63,7 @@ export const clientModalstyle = {
   // bgcolor: "background.paper",
   boxShadow: 24,
   outline: "none",
+  animation: `${slideInFromRight} 0.5s ease-out`,
 };
 
 export const tableContainerStyle = {

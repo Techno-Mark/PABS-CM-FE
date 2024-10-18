@@ -17,6 +17,17 @@ import { useStyles } from "@/utils/useStyles";
 // Icons import
 import CloseIcon from "@/assets/Icons/admin/CloseIcon";
 import { useEffect, useState } from "react";
+import { keyframes } from "@emotion/react";
+
+
+const slideInFromRight = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+`;
 
 const openedMixin = (theme: Theme) => ({
   width: formDrawerWidth,
@@ -52,7 +63,10 @@ const MyDrawer = styled(Drawer, {
   boxSizing: "border-box",
   ...(open && {
     ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
+    "& .MuiDrawer-paper": {
+      ...openedMixin(theme),
+      animation: `${slideInFromRight} 0.5s ease-out`,
+    },
   }),
 
   ...(!open && {
