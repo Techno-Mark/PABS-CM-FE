@@ -94,14 +94,14 @@ const State = ({
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                width: "calc(100% - 36px)",
+                zIndex: "1",
               },
             }}
             placeholder="Please Select State"
             InputProps={{
               ...params.InputProps,
               endAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment position="end" style={{ position: 'absolute', zIndex: 0, right: '0' }}>
                   <DropDownArrow
                     style={{
                       fill: "#333",

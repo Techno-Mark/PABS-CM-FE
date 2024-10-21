@@ -174,7 +174,7 @@ function UserFilter({
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position="end" style={{ position: 'relative', zIndex: -1 }}>
                       <DropDownArrow
                         fillColor="#333"
                         style={{
@@ -220,7 +220,7 @@ function UserFilter({
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position="end" style={{ position: 'relative', zIndex: -1 }}>
                       <DropDownArrow
                         fillColor="#333"
                         style={{
@@ -268,7 +268,7 @@ function UserFilter({
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position="end" style={{ position: 'relative', zIndex: -1 }}>
                       <DropDownArrow
                         fillColor="#333"
                         style={{

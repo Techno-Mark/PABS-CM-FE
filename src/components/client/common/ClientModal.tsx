@@ -326,7 +326,7 @@ function ClientModal({
                                 } font-bold top-1/2 transform -translate-y-1/2 text-white`}>
                               {isChecked ? "Lock" : "Unlock"}
                             </span> */}
-                            <span className="cursor-pointer" onClick={(e: any) => { handleToggleFormLocked(e.target.checked) }}>
+                            <span className="cursor-pointer" onClick={(e: any) => { handleToggleFormLocked(lockThis) }}>
                               {lockThis ? <LockIcon /> : <UnLockIcon />}
                             </span>
                           </div>

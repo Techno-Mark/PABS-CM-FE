@@ -527,6 +527,9 @@ const UserDrawer = ({
                     style={{
                       transform: openDropdown === "role" ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.3s ease",
+                      zIndex: "-1",
+                      position: "absolute",
+                      right: "0"
                     }}
                   />
                 )}
@@ -632,6 +635,9 @@ const UserDrawer = ({
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                       transition: "transform 0.3s ease",
+                      zIndex: "-1",
+                      position: "absolute",
+                      right: "0"
                     }}
                   />
                 )}
@@ -693,6 +699,9 @@ const UserDrawer = ({
                     style={{
                       transform: open ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.3s ease",
+                      zIndex: "-1",
+                      position: "absolute",
+                      right: "0"
                     }}
                   />
                 )}

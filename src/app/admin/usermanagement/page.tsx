@@ -103,7 +103,7 @@ function Page() {
                       fontSize: 14,
                     }}
                     renderValue={() => (
-                      <div>
+                      <div className="hover:text-[#0078C8]">
                         {params.value}
                       </div>
                     )}

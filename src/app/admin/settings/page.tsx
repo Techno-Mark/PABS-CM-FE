@@ -76,7 +76,7 @@ function Page() {
                   fontSize: 14,
                 }}
                 renderValue={() => (
-                  <div>
+                  <div className="hover:text-[#0078C8]">
                     {params.value}
                   </div>
                 )}
@@ -110,7 +110,7 @@ function Page() {
                   </MenuItem>
                 )}
               </Select>
-            ) : <div>{params.value}</div>}
+            ) : <div className="hover:text-[#0078C8]">{params.value}</div>}
           </>
         );
       },

@@ -200,14 +200,14 @@ function Page() {
                     fontSize: "14px",
                   },
                   endAdornment: (
-                    <InputAdornment position="end">
-                      <DropDownArrow
-                        fillColor="#333"
-                        style={{
-                          transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                          transition: "transform 0.3s ease",
-                        }}
-                      />
+                    <InputAdornment position="end" style={{ position: 'relative', zIndex: -1 }}>
+                          <DropDownArrow
+                            fillColor="#333"
+                            style={{
+                              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                              transition: "transform 0.3s ease",
+                            }}
+                          />
                     </InputAdornment>
                   ),
                   startAdornment: (
@@ -359,7 +359,7 @@ function Page() {
               fontSize: 14,
             }}
             renderValue={() => (
-              <div>
+              <div className="hover:text-[#0078C8]">
                 {params.value}
               </div>
             )}
@@ -479,6 +479,10 @@ function Page() {
               style={{
                 transform: openDropdown === params.row.ClientId ? "rotate(180deg)" : "rotate(0deg)",
                 transition: "transform 0.3s ease",
+                zIndex: "-1",
+                position: "absolute",
+                right: "0",
+                top: "-2"
               }}
             />
           )}
