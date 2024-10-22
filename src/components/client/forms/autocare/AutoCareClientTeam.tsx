@@ -455,15 +455,25 @@ function AutoCareClientTeam({
                 }}
                 onOpen={() => setOpen(true)}
                 onClose={() => setOpen(false)}
+                style={{ width: '100%', zIndex: 2 }} 
                 IconComponent={() => (
                   <DropDownArrow
                     fillColor="#333"
                     style={{
                       transform: open ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.3s ease",
+                      zIndex: "0",
+                      position: "absolute",
+                      right: "0",
                     }}
                   />
                 )}
+                sx={{       
+                  '& .MuiSelect-select': {
+                    zIndex: 2,           
+                  },
+                }}
+              
               >
                 <MenuItem value="" disabled>
                   <span>Please Select Time Zone</span>
@@ -515,11 +525,18 @@ function AutoCareClientTeam({
                       ? "Please Select Weekly Calls"
                       : ""
                   }
+                  inputProps={{
+                    ...params.inputProps,
+                    style: {
+                      zIndex: "1",
+                      width: "100%",
+                    }
+                  }}
                   error={!!autoCareClientTeamErrors?.weeklyCalls}
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: (
-                      <InputAdornment position="end">
+                      <InputAdornment position="end" style={{ position: 'absolute', zIndex: 0, right: '0' }}>
                         <DropDownArrow
                           style={{
                             fill: "#333",
